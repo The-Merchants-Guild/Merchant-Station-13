@@ -7,4 +7,5 @@
 Connor2910 = Host
 Lunaman223 = Moderator
 SerHackeysack = Moderator
+PurpleDizzy = Moderator
 ELord_exe = Coder

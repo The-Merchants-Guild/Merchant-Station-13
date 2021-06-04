@@ -5,7 +5,7 @@
 #If SQL-based admin loading is enabled, admins listed here will always be loaded first and will override any duplicate entries in the database.
 
 Connor2910 = Host
+SerHackeysack = Game Master
 Lunaman223 = Moderator
-SerHackeysack = Moderator
 PurpleDizzy = Moderator
 ELord_exe = Coder

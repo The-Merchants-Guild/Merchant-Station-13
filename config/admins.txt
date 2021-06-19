@@ -7,6 +7,6 @@
 Connor2910 = Host
 SerHackeysack = Game Master
 PetRock21 = Game Master
-Lunaman223 = Moderator
+Lunaman223 = Game Master
 PurpleDizzy = Moderator
 ELord_exe = Coder

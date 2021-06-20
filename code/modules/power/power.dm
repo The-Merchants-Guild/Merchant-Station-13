@@ -400,6 +400,14 @@
 	var/drained_hp = victim.electrocute_act(shock_damage, source, siemens_coeff) //zzzzzzap!
 	log_combat(source, victim, "electrocuted")
 
+	if(shock_damage > 200)
+		var/distance = round((shock_damage - 100 ) / 100) + rand(0,2)
+		var/turf/target = get_ranged_target_turf(victim, turn(victim.dir, 180),distance)
+		victim.throw_at(target,distance, 4 * distance)
+
+	if(shock_damage > 2000)
+		dyn_explosion(source,rand(10,25),2,2)
+
 	var/drained_energy = drained_hp*20
 
 	if (isarea(power_source))

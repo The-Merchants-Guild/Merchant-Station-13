@@ -56,6 +56,12 @@
 /datum/atom_hud/data/human/fan_hud
 	hud_icons = list(FAN_HUD)
 
+/datum/atom_hud/data/human/polish
+	hud_icons = list(POLISH_HUD)
+
+/datum/atom_hud/data/human/ukrainian
+	hud_icons = list(UKRAINIAN_HUD)
+
 /datum/atom_hud/data/diagnostic
 
 /datum/atom_hud/data/diagnostic/basic
@@ -246,6 +252,24 @@ FAN HUDs! For identifying other fans on-sight.
 			holder.icon_state = "fan_mime_pin"
 		else if(istype(U.attached_accessory, /obj/item/clothing/accessory/fan_clown_pin))
 			holder.icon_state = "fan_clown_pin"
+
+/***********************************************
+NATIONALITY HUDSs! For identifying others of your kin on sight.
+************************************************/
+
+//HOOKS
+
+/mob/living/carbon/human/proc/quirk_hud_become_polish()
+	var/image/holder = hud_list[POLISH_HUD]
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
+	holder.icon_state = "polish"
+
+/mob/living/carbon/human/proc/quirk_hud_become_ukrainian()
+	var/image/holder = hud_list[UKRAINIAN_HUD]
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
+	holder.icon_state = "ukrainian"
 
 /***********************************************
 Security HUDs! Basic mode shows only the job.

@@ -48,6 +48,10 @@
 #define FAN_HUD		"24"
 // for implants to let you see sensor field
 #define SENSOR_HUD		"25"
+//hud images related to quirks
+#define POLISH_HUD		"26"
+//hud images related to quirks
+#define UKRAINIAN_HUD		"27"
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -83,6 +87,9 @@
 #define ANTAG_HUD_GANGSTER		24
 #define ANTAG_HUD_SPACECOP		25
 #define ANTAG_HUD_HERETIC		26
+
+#define QUIRK_HUD_POLISH		27
+#define QUIRK_HUD_UKRAINIAN		28
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

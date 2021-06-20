@@ -13,18 +13,8 @@
 	var/money = 0
 	/// List of typepaths for "/datum/blackmarket_market"s that this uplink can access.
 	var/list/accessible_markets = list(/datum/blackmarket_market/blackmarket,/datum/blackmarket_market/cybernetics)
-
-/obj/item/blackmarket_uplink/Initialize()
-	. = ..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/item/blackmarket_uplink/LateInitialize()
-	. = ..()
-	if(accessible_markets.len)
-		viewing_market = accessible_markets[1]
-		var/list/categories = SSblackmarket.markets[viewing_market].categories
-		if(categories?.len)
-			viewing_category = categories[1]
+	//THIS HAST TO INITIALIZE AFTER BLACKMARKET SUBSYSTEM, this is the easiest way to do so, im sorry.
+	var/setup = FALSE
 
 /obj/item/blackmarket_uplink/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/holochip) || istype(I, /obj/item/stack/spacecash) || istype(I, /obj/item/coin))
@@ -58,6 +48,14 @@
 	to_chat(user, "<span class='notice'>You withdraw [amount_to_remove] credits into a holochip.</span>")
 
 /obj/item/blackmarket_uplink/ui_interact(mob/user, datum/tgui/ui)
+	if(!setup)
+		if(accessible_markets.len)
+			viewing_market = accessible_markets[1]
+			var/list/categories = SSblackmarket.markets[viewing_market].categories
+			if(categories?.len)
+				viewing_category = categories[1]
+		setup = TRUE
+
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BlackMarketUplink", name)

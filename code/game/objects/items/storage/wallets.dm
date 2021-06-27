@@ -8,7 +8,6 @@
 	component_type = /datum/component/storage/concrete/wallet
 
 	var/obj/item/card/id/front_id = null
-	var/obj/item/card/id/cached_front_id = null
 	var/list/combined_access
 	var/cached_flat_icon
 
@@ -43,43 +42,62 @@
 
 /obj/item/storage/wallet/Exited(atom/movable/AM)
 	. = ..()
-	refreshID()
+	refreshID(removed = TRUE)
 
-/obj/item/storage/wallet/proc/refreshID()
+/**
+ * Calculates the new front ID.
+ *
+ * Picks the ID card that has the most combined command or higher tier accesses.
+ * Arguments:
+ * * removed - If this proc was called because a card was removed. There's a chance we don't need to calculate the new front ID if a card was removed.
+ */
+/obj/item/storage/wallet/proc/refreshID(removed = FALSE)
 	LAZYCLEARLIST(combined_access)
-	if(!(front_id in src))
-		front_id = null
-	for(var/obj/item/card/id/I in contents)
-		if(!front_id)
-			front_id = I
+
+	// If the front_id is still in our wallet an we removed a card, we can return early.
+	if((front_id in src) && removed)
+		return
+
+	front_id = null
+	var/winning_tally = 0
+	for(var/card in contents)
+		var/obj/item/card/id/id_card = card
+		if(!istype(id_card))
+			continue
+		var/card_tally = SSid_access.tally_access(id_card, ACCESS_FLAG_COMMAND)
+		if(card_tally > winning_tally)
+			winning_tally = card_tally
+			front_id = id_card //searches for the id that will show on secHUD
 		LAZYINITLIST(combined_access)
-		combined_access |= I.access
+		combined_access |= id_card.access
+
+	// If we didn't pick a front ID - Maybe none of our cards have any command accesses? Just grab the first card (if we even have one).
+	// We could also have no ID card in the wallet at all, which will mean we end up with a null front_id and that's fine too.
+	if(!front_id)
+		front_id = (locate(/obj/item/card/id) in contents)
+
 	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		if(H.wear_id == src)
-			H.sec_hud_set_ID()
-	update_icon()
+		var/mob/living/carbon/human/wearing_human = loc
+		if(wearing_human.wear_id == src)
+			wearing_human.sec_hud_set_ID() //sets the sechud icon
+			front_id = (locate(/obj/item/card/id) in contents) //picks first id in the wallet as the appearance of it
+
 	update_label()
+	update_appearance(UPDATE_ICON)
+	update_slot_icon()
 
 /obj/item/storage/wallet/Entered(atom/movable/AM)
 	. = ..()
-	refreshID()
+	refreshID(removed = FALSE)
 
-/obj/item/storage/wallet/update_icon(list/override_overlays)
-	if(!override_overlays && front_id == cached_front_id) //Icon didn't actually change
-		return
-	cut_overlays()
+/obj/item/storage/wallet/update_overlays()
+	. = ..()
 	cached_flat_icon = null
-	cached_front_id = front_id
-	if(front_id)
-		var/list/add_overlays = list()
-		add_overlays += mutable_appearance(front_id.icon, front_id.icon_state)
-		if(override_overlays)
-			add_overlays += override_overlays
-		else
-			add_overlays += front_id.overlays
-		add_overlays += mutable_appearance(icon, "wallet_overlay")
-		add_overlay(add_overlays)
+	if(!front_id)
+		return
+	. += mutable_appearance(front_id.icon, front_id.icon_state)
+	. += front_id.overlays
+	. += mutable_appearance(icon, "wallet_overlay")
 
 /obj/item/storage/wallet/proc/get_cached_flat_icon()
 	if(!cached_flat_icon)
@@ -102,8 +120,28 @@
 	if(front_id)
 		. += "<span class='notice'>Alt-click to remove the id.</span>"
 
+/obj/item/storage/wallet/get_id_examine_strings(mob/user)
+	. = ..()
+	if(front_id)
+		. += front_id.get_id_examine_strings(user)
+
 /obj/item/storage/wallet/GetID()
 	return front_id
+
+/obj/item/storage/wallet/RemoveID()
+	if(!front_id)
+		return
+	. = front_id
+	front_id.forceMove(get_turf(src))
+
+/obj/item/storage/wallet/InsertID(obj/item/inserting_item)
+	var/obj/item/card/inserting_id = inserting_item.RemoveID()
+	if(!inserting_id)
+		return FALSE
+	attackby(inserting_id)
+	if(inserting_id in contents)
+		return TRUE
+	return FALSE
 
 /obj/item/storage/wallet/GetAccess()
 	if(LAZYLEN(combined_access))

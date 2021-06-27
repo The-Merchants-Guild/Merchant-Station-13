@@ -5,11 +5,10 @@
 /// the parent to the exclusion list in code/__HELPERS/unsorted.dm's
 /// get_random_food proc.
 ////////////////////////////////////////////////////////////////////////////////
-#define STOP_SERVING_BREAKFAST (15 MINUTES)
 
 /obj/item/reagent_containers/food
 	possible_transfer_amounts = list()
-	volume = 50	//Sets the default container amount for all food items.
+	volume = 50 //Sets the default container amount for all food items.
 	reagent_flags = INJECTABLE
 	resistance_flags = FLAMMABLE
 	var/foodtype = NONE
@@ -22,7 +21,7 @@
 		pixel_x = rand(-5, 5)
 		pixel_y = rand(-5, 5)
 
-/obj/item/reagent_containers/food/proc/checkLiked(var/fraction, mob/M)
+/obj/item/reagent_containers/food/proc/checkLiked(fraction, mob/M)
 	if(last_check_time + 50 < world.time)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -46,5 +45,3 @@
 			if((foodtype & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
 				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
 			last_check_time = world.time
-
-#undef STOP_SERVING_BREAKFAST

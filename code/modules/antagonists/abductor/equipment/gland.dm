@@ -4,12 +4,18 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gland"
 	status = ORGAN_ROBOTIC
+	organ_flags = NONE
 	beating = TRUE
 	var/true_name = "baseline placebo referencer"
-	var/cooldown_low = 300
-	var/cooldown_high = 300
-	var/next_activation = 0
-	var/uses // -1 For infinite
+
+	/// The minimum time between activations
+	var/cooldown_low = 30 SECONDS
+	/// The maximum time between activations
+	var/cooldown_high = 30 SECONDS
+	/// The cooldown for activations
+	COOLDOWN_DECLARE(activation_cooldown)
+	/// The number of remaining uses this gland has.
+	var/uses = 0 // -1 For infinite
 	var/human_only = FALSE
 	var/active = FALSE
 
@@ -35,7 +41,7 @@
 
 /obj/item/organ/heart/gland/proc/Start()
 	active = 1
-	next_activation = world.time + rand(cooldown_low,cooldown_high)
+	COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 
 /obj/item/organ/heart/gland/proc/update_gland_hud()
 	if(!owner)
@@ -58,8 +64,9 @@
 	to_chat(owner, "<span class='mind_control'>[command]</span>")
 	active_mind_control = TRUE
 	message_admins("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
+	log_game("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
 	update_gland_hud()
-	var/obj/screen/alert/mind_control/mind_alert = owner.throw_alert("mind_control", /obj/screen/alert/mind_control)
+	var/atom/movable/screen/alert/mind_control/mind_alert = owner.throw_alert("mind_control", /atom/movable/screen/alert/mind_control)
 	mind_alert.command = command
 	addtimer(CALLBACK(src, .proc/clear_mind_control), mind_control_duration)
 	return TRUE
@@ -72,8 +79,8 @@
 	active_mind_control = FALSE
 	return TRUE
 
-/obj/item/organ/heart/gland/Remove(mob/living/carbon/M, special = 0)
-	active = 0
+/obj/item/organ/heart/gland/Remove(mob/living/carbon/M, special = FALSE)
+	active = FALSE
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
@@ -81,7 +88,7 @@
 	clear_mind_control()
 	..()
 
-/obj/item/organ/heart/gland/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/gland/Insert(mob/living/carbon/M, special = FALSE)
 	..()
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
@@ -89,21 +96,21 @@
 	hud.add_to_hud(owner)
 	update_gland_hud()
 
-/obj/item/organ/heart/gland/on_life()
+/obj/item/organ/heart/gland/on_life(delta_time, times_fired)
 	if(!beating)
 		// alien glands are immune to stopping.
 		beating = TRUE
 	if(!active)
 		return
 	if(!ownerCheck())
-		active = 0
+		active = FALSE
 		return
-	if(next_activation <= world.time)
+	if(COOLDOWN_FINISHED(src, activation_cooldown))
 		activate()
 		uses--
-		next_activation  = world.time + rand(cooldown_low,cooldown_high)
+		COOLDOWN_START(src, activation_cooldown, rand(cooldown_low, cooldown_high))
 	if(!uses)
-		active = 0
+		active = FALSE
 
 /obj/item/organ/heart/gland/proc/activate()
 	return

@@ -1,7 +1,7 @@
 /* Code for the Wild West map by Brotemis
  * Contains:
- *		Wish Granter
- *		Meat Grinder
+ * Wish Granter
+ * Meat Grinder
  */
 
 //Areas
@@ -31,7 +31,7 @@
 	requires_power = FALSE
 
 
- ////////// wildwest papers
+///////// wildwest papers
 
 /obj/item/paper/fluff/awaymissions/wildwest/grinder
 	info = "meat grinder requires sacri"
@@ -79,16 +79,16 @@
 		return
 
 	else if(is_special_character(user))
-		to_chat(user, "Even to a heart as dark as yours, you know nothing good will come of this.  Something instinctual makes you pull away.")
+		to_chat(user, "Even to a heart as dark as yours, you know nothing good will come of this. Something instinctual makes you pull away.")
 
 	else if (!insistinga)
-		to_chat(user, "Your first touch makes the Wish Granter stir, listening to you.  Are you really sure you want to do this?")
+		to_chat(user, "Your first touch makes the Wish Granter stir, listening to you. Are you really sure you want to do this?")
 		insistinga++
 
 	else
 		chargesa--
 		insistinga = 0
-		var/wish = input("You want...","Wish") as null|anything in list("Power","Wealth","Immortality","To Kill","Peace")
+		var/wish = input("You want...","Wish") as null|anything in sortList(list("Power","Wealth","Immortality","Peace"))
 		switch(wish)
 			if("Power")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -105,12 +105,7 @@
 			if("Immortality")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.verbs += /mob/living/carbon/proc/immortality
-				user.set_species(/datum/species/shadow)
-			if("To Kill")
-				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
-				to_chat(user, "The Wish Granter punishes you for your wickedness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.mind.add_antag_datum(/datum/antagonist/wishgranter)
+				add_verb(user, /mob/living/carbon/proc/immortality)
 				user.set_species(/datum/species/shadow)
 			if("Peace")
 				to_chat(user, "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
@@ -131,7 +126,15 @@
 	icon_state = "blobpod"
 	var/triggered = 0
 
-/obj/effect/meatgrinder/Crossed(atom/movable/AM)
+/obj/effect/meatgrinder/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, src, loc_connections)
+
+/obj/effect/meatgrinder/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 	Bumped(AM)
 
 /obj/effect/meatgrinder/Bumped(atom/movable/AM)
@@ -150,7 +153,7 @@
 		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
-		explosion(M, 1, 0, 0, 0)
+		explosion(src, devastation_range = 1)
 		qdel(src)
 
 /////For the Wishgranter///////////

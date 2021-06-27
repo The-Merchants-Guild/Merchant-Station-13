@@ -80,7 +80,7 @@
 		if(1000)
 			SpeakPeace(list("The ends exists somewhere beyond meaningful milestones.", "There will be no more messages until then.", "You disgust me."))
 		if(5643)
-			SSmedals.UnlockMedal(MEDAL_TIMEWASTE, user.client)
+			user.client.give_award(/datum/award/achievement/misc/time_waste, user)
 			var/obj/item/reagent_containers/food/drinks/trophy/gold_cup/never_ends = new(get_turf(user))
 			never_ends.name = "Overextending The Joke: First Place"
 			never_ends.desc = "And so we are left alone with our regrets."
@@ -92,7 +92,7 @@
 /obj/structure/speaking_tile/attackby(obj/item/W, mob/user, params)
 	return interact(user)
 
-/obj/structure/speaking_tile/attack_paw(mob/user)
+/obj/structure/speaking_tile/attack_paw(mob/user, list/modifiers)
 	return interact(user)
 
 /obj/structure/speaking_tile/attack_hulk(mob/user)
@@ -107,7 +107,7 @@
 /obj/structure/speaking_tile/attack_slime(mob/user)
 	return interact(user)
 
-/obj/structure/speaking_tile/attack_animal(mob/user)
+/obj/structure/speaking_tile/attack_animal(mob/user, list/modifiers)
 	return interact(user)
 
 /obj/structure/speaking_tile/proc/SpeakPeace(list/statements)
@@ -122,21 +122,28 @@
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "rupee"
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(/datum/material/glass = 500)
+	custom_materials = list(/datum/material/glass = 500)
 
 /obj/item/rupee/Initialize()
 	. = ..()
 	var/newcolor = color2hex(pick(10;"green", 5;"blue", 3;"red", 1;"purple"))
 	add_atom_colour(newcolor, FIXED_COLOUR_PRIORITY)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, src, loc_connections)
 
-/obj/item/rupee/Crossed(mob/M)
-	if(!istype(M))
+/obj/item/rupee/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	if(!ismob(AM))
 		return
-	if(M.put_in_hands(src))
-		if(src != M.get_active_held_item())
-			M.swap_hand()
-		equip_to_best_slot(M)
-	..()
+	INVOKE_ASYNC(src, .proc/put_in_crossers_hands, AM)
+
+/obj/item/rupee/proc/put_in_crossers_hands(mob/crosser)
+	if(crosser.put_in_hands(src))
+		if(src != crosser.get_active_held_item())
+			crosser.swap_hand()
+		equip_to_best_slot(crosser)
 
 /obj/item/rupee/equipped(mob/user, slot)
 	playsound(get_turf(loc), 'sound/misc/server-ready.ogg', 50, TRUE, -1)

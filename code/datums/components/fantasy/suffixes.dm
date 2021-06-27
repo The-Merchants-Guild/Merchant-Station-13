@@ -1,4 +1,5 @@
 /datum/fantasy_affix/cosmetic_suffixes
+	name = "purely cosmetic suffix"
 	placement = AFFIX_SUFFIX
 	alignment = AFFIX_GOOD | AFFIX_EVIL
 
@@ -47,6 +48,7 @@
 
 //////////// Good suffixes
 /datum/fantasy_affix/bane
+	name = "of <mobtype> slaying (random species, carbon or simple animal)"
 	placement = AFFIX_SUFFIX
 	alignment = AFFIX_GOOD
 
@@ -78,6 +80,7 @@
 	return "[newName] of [initial(picked_mobtype.name)] slaying"
 
 /datum/fantasy_affix/summoning
+	name = "of <mobtype> summoning (dangerous, can pick all but megafauna tier stuff)"
 	placement = AFFIX_SUFFIX
 	alignment = AFFIX_GOOD
 	weight = 5
@@ -100,6 +103,8 @@
 		// Some types to remove them and their subtypes
 		possible_mobtypes -= typecacheof(list(
 			/mob/living/carbon/human/species,
+			/mob/living/simple_animal/hostile/syndicate/mecha_pilot,
+			/mob/living/simple_animal/hostile/asteroid/elite,
 			/mob/living/simple_animal/hostile/megafauna,
 			))
 
@@ -113,40 +118,42 @@
 	return "[newName] of [initial(picked_mobtype.name)] summoning"
 
 /datum/fantasy_affix/shrapnel
+	name = "shrapnel"
 	placement = AFFIX_SUFFIX
 	alignment = AFFIX_GOOD
 
-/datum/fantasy_affix/shrapnel/validate(datum/component/fantasy/comp)
-	if(isgun(comp.parent))
+/datum/fantasy_affix/shrapnel/validate(obj/item/attached)
+	if(isgun(attached))
 		return TRUE
 	return FALSE
 
 /datum/fantasy_affix/shrapnel/apply(datum/component/fantasy/comp, newName)
 	. = ..()
 	// higher means more likely
-	var/list/weighted_projectile_types = list(/obj/item/projectile/meteor = 1,
-											  /obj/item/projectile/energy/nuclear_particle = 1,
-											  /obj/item/projectile/beam/pulse = 1,
-											  /obj/item/projectile/bullet/honker = 15,
-											  /obj/item/projectile/temp = 15,
-											  /obj/item/projectile/ion = 15,
-											  /obj/item/projectile/magic/door = 15,
-											  /obj/item/projectile/magic/locker = 15,
-											  /obj/item/projectile/magic/fetch = 15,
-											  /obj/item/projectile/beam/emitter = 15,
-											  /obj/item/projectile/magic/flying = 15,
-											  /obj/item/projectile/energy/net = 15,
-											  /obj/item/projectile/bullet/incendiary/c9mm = 15,
-											  /obj/item/projectile/temp/hot = 15,
-											  /obj/item/projectile/beam/disabler = 15)
+	var/list/weighted_projectile_types = list(/obj/projectile/meteor = 1,
+											  /obj/projectile/energy/nuclear_particle = 1,
+											  /obj/projectile/beam/pulse = 1,
+											  /obj/projectile/bullet/honker = 15,
+											  /obj/projectile/temp = 15,
+											  /obj/projectile/ion = 15,
+											  /obj/projectile/magic/door = 15,
+											  /obj/projectile/magic/locker = 15,
+											  /obj/projectile/magic/fetch = 15,
+											  /obj/projectile/beam/emitter = 15,
+											  /obj/projectile/magic/flying = 15,
+											  /obj/projectile/energy/net = 15,
+											  /obj/projectile/bullet/incendiary/c9mm = 15,
+											  /obj/projectile/temp/hot = 15,
+											  /obj/projectile/beam/disabler = 15)
 
-	var/obj/item/projectile/picked_projectiletype = pickweight(weighted_projectile_types)
+	var/obj/projectile/picked_projectiletype = pickweight(weighted_projectile_types)
 
 	var/obj/item/master = comp.parent
-	comp.appliedComponents += master.AddComponent(/datum/component/shrapnel, picked_projectiletype)
+	comp.appliedComponents += master.AddComponent(/datum/component/mirv, picked_projectiletype)
 	return "[newName] of [initial(picked_projectiletype.name)] shrapnel"
 
 /datum/fantasy_affix/strength
+	name = "of strength (knockback)"
 	placement = AFFIX_SUFFIX
 	alignment = AFFIX_GOOD
 
@@ -159,11 +166,37 @@
 //////////// Bad suffixes
 
 /datum/fantasy_affix/fool
+	name = "of the fool (honking)"
 	placement = AFFIX_SUFFIX
 	alignment = AFFIX_EVIL
 
 /datum/fantasy_affix/fool/apply(datum/component/fantasy/comp, newName)
 	. = ..()
 	var/obj/item/master = comp.parent
-	comp.appliedComponents += master.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1), 50)
+	comp.appliedComponents += master.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20)
 	return "[newName] of the fool"
+
+/datum/fantasy_affix/curse_of_hunger
+	name = "curse of hunger"
+	placement = AFFIX_SUFFIX
+	alignment = AFFIX_EVIL
+
+/datum/fantasy_affix/curse_of_hunger/validate(obj/item/attached)
+	//curse of hunger that attaches onto food has the ability to eat itself. it's hilarious.
+	if(!IS_EDIBLE(attached))
+		return TRUE
+	return TRUE
+
+/datum/fantasy_affix/curse_of_hunger/apply(datum/component/fantasy/comp, newName)
+	. = ..()
+	var/obj/item/master = comp.parent
+	var/filter_color = "#8a0c0ca1" //clarified args
+	var/new_name = pick(", eternally hungry", " of the glutton", " cursed with hunger", ", consumer of all", " of the feast")
+	master.AddElement(/datum/element/curse_announcement, "[master] is cursed with the curse of hunger!", filter_color, new_name, comp)
+	var/add_dropdel = FALSE //clarified boolean
+	comp.appliedComponents += master.AddComponent(/datum/component/curse_of_hunger, add_dropdel)
+	return newName //no spoilers!
+
+/datum/fantasy_affix/curse_of_hunger/remove(datum/component/fantasy/comp)
+	var/obj/item/master = comp.parent
+	master.RemoveElement(/datum/element/curse_announcement) //just in case

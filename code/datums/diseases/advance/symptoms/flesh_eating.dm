@@ -30,19 +30,23 @@ Bonus
 	symptom_delay_max = 60
 	var/bleed = FALSE
 	var/pain = FALSE
-	threshold_desc = "<b>Resistance 7:</b> Host will bleed profusely during necrosis.<br>\
-					  <b>Transmission 8:</b> Causes extreme pain to the host, weakening it."
+	threshold_descs = list(
+		"Resistance 7" = "Host will bleed profusely during necrosis.",
+		"Transmission 8" = "Causes extreme pain to the host, weakening it.",
+	)
 
 /datum/symptom/flesh_eating/Start(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
-	if(A.properties["resistance"] >= 7) //extra bleeding
+	if(A.totalResistance() >= 7) //extra bleeding
 		bleed = TRUE
-	if(A.properties["transmittable"] >= 8) //extra stamina damage
+	if(A.totalTransmittable() >= 8) //extra stamina damage
 		pain = TRUE
 
 /datum/symptom/flesh_eating/Activate(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
@@ -61,7 +65,8 @@ Bonus
 	if(bleed)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			H.bleed_rate += 5 * power
+			var/obj/item/bodypart/random_part = pick(H.bodyparts)
+			random_part.generic_bleedstacks += 5 * power
 	return 1
 
 /*
@@ -96,19 +101,23 @@ Bonus
 	symptom_delay_max = 6
 	var/chems = FALSE
 	var/zombie = FALSE
-	threshold_desc = "<b>Stage Speed 7:</b> Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.<br>\
-					  <b>Stealth 5:</b> The symptom remains hidden until active."
+	threshold_descs = list(
+		"Stage Speed 7" = "Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.",
+		"Stealth 5" = "The symptom remains hidden until active.",
+	)
 
 /datum/symptom/flesh_death/Start(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
-	if(A.properties["stealth"] >= 5)
+	if(A.totalStealth() >= 5)
 		suppress_warning = TRUE
-	if(A.properties["stage_rate"] >= 7) //bleeding and hunger
+	if(A.totalStageSpeed() >= 7) //bleeding and hunger
 		chems = TRUE
 
 /datum/symptom/flesh_death/Activate(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)

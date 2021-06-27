@@ -4,42 +4,18 @@
 	name = "bottle"
 	desc = "A small bottle."
 	icon_state = "bottle"
-	item_state = "atoxinbottle"
+	fill_icon_state = "bottle"
+	inhand_icon_state = "atoxinbottle"
+	worn_icon_state = "bottle"
 	possible_transfer_amounts = list(5,10,15,25,30)
 	volume = 30
-
+	fill_icon_thresholds = list(0, 1, 20, 40, 60, 80, 100)
 
 /obj/item/reagent_containers/glass/bottle/Initialize()
 	. = ..()
 	if(!icon_state)
 		icon_state = "bottle"
-	update_icon()
-
-/obj/item/reagent_containers/glass/bottle/on_reagent_change(changetype)
-	update_icon()
-
-/obj/item/reagent_containers/glass/bottle/update_icon()
-	cut_overlays()
-	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]-10")
-
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(0 to 9)
-				filling.icon_state = "[icon_state]-10"
-			if(10 to 29)
-				filling.icon_state = "[icon_state]25"
-			if(30 to 49)
-				filling.icon_state = "[icon_state]50"
-			if(50 to 69)
-				filling.icon_state = "[icon_state]75"
-			if(70 to INFINITY)
-				filling.icon_state = "[icon_state]100"
-
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(filling)
-	. = ..()
-
+	update_appearance()
 
 /obj/item/reagent_containers/glass/bottle/epinephrine
 	name = "epinephrine bottle"
@@ -81,7 +57,17 @@
 /obj/item/reagent_containers/glass/bottle/multiver
 	name = "multiver bottle"
 	desc = "A small bottle of multiver, which removes toxins and other chemicals from the bloodstream but causes shortness of breath. All effects scale with the amount of reagents in the patient."
-	list_reagents = list(/datum/reagent/medicine/C2/multiver = 30)
+	list_reagents = list(/datum/reagent/medicine/c2/multiver = 30)
+
+/obj/item/reagent_containers/glass/bottle/calomel
+	name = "calomel bottle"
+	desc = "A small bottle of calomel, which quickly purges all chemicals from the patient. Causes toxin damage if the patient is not heavily injured."
+	list_reagents = list(/datum/reagent/medicine/calomel = 30)
+
+/obj/item/reagent_containers/glass/bottle/syriniver
+	name = "syriniver bottle"
+	desc = "A small bottle of syriniver."
+	list_reagents = list(/datum/reagent/medicine/c2/syriniver = 30)
 
 /obj/item/reagent_containers/glass/bottle/mutagen
 	name = "unstable mutagen bottle"
@@ -97,11 +83,6 @@
 	name = "synaptizine bottle"
 	desc = "A small bottle of synaptizine."
 	list_reagents = list(/datum/reagent/medicine/synaptizine = 30)
-
-/obj/item/reagent_containers/glass/bottle/formaldehyde
-	name = "formaldehyde bottle"
-	desc = "A small bottle of formaldehyde."
-	list_reagents = list(/datum/reagent/toxin/formaldehyde = 30)
 
 /obj/item/reagent_containers/glass/bottle/ammonia
 	name = "ammonia bottle"
@@ -168,7 +149,7 @@
 
 /obj/item/reagent_containers/glass/bottle/formaldehyde
 	name = "formaldehyde bottle"
-	desc = "A small bottle. Contains Formaldehyde."
+	desc = "A small bottle. Contains formaldehyde, a chemical that prevents organs from decaying."
 	list_reagents = list(/datum/reagent/toxin/formaldehyde = 30)
 
 /obj/item/reagent_containers/glass/bottle/initropidril
@@ -226,6 +207,31 @@
 	name = "atropine bottle"
 	desc = "A small bottle of atropine."
 	list_reagents = list(/datum/reagent/medicine/atropine = 30)
+
+/obj/item/reagent_containers/glass/bottle/random_buffer
+	name = "Buffer bottle"
+	desc = "A small bottle of chemical buffer."
+
+/obj/item/reagent_containers/glass/bottle/random_buffer/Initialize()
+	. = ..()
+	if(prob(50))
+		name = "Acidic buffer bottle"
+		desc = "A small bottle of acidic buffer."
+		reagents.add_reagent(/datum/reagent/reaction_agent/acidic_buffer, 30)
+	else
+		name = "Basic buffer bottle"
+		desc = "A small bottle of basic buffer."
+		reagents.add_reagent(/datum/reagent/reaction_agent/basic_buffer, 30)
+
+/obj/item/reagent_containers/glass/bottle/acidic_buffer
+	name = "Acidic buffer bottle"
+	desc = "A small bottle of acidic buffer."
+	list_reagents = list(/datum/reagent/reaction_agent/acidic_buffer = 30)
+
+/obj/item/reagent_containers/glass/bottle/basic_buffer
+	name = "Basic buffer bottle"
+	desc = "A small bottle of basic buffer."
+	list_reagents = list(/datum/reagent/reaction_agent/basic_buffer = 30)
 
 /obj/item/reagent_containers/glass/bottle/romerol
 	name = "romerol bottle"
@@ -410,3 +416,7 @@
 /obj/item/reagent_containers/glass/bottle/bromine
 	name = "bromine bottle"
 	list_reagents = list(/datum/reagent/bromine = 30)
+
+/obj/item/reagent_containers/glass/bottle/thermite
+	name = "thermite bottle"
+	list_reagents = list(/datum/reagent/thermite = 30)

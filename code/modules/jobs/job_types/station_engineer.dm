@@ -1,8 +1,6 @@
-/datum/job/engineer
+/datum/job/station_engineer
 	title = "Station Engineer"
-	flag = ENGINEER
 	department_head = list("Chief Engineer")
-	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 5
@@ -12,19 +10,29 @@
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/engineer
+	plasmaman_outfit = /datum/outfit/plasmaman/engineering
 
-	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_ENGINE,
-									ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_ENGINE,
-									ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM)
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_ENG
 
+	liver_traits = list(TRAIT_ENGINEER_METABOLISM)
+
 	display_order = JOB_DISPLAY_ORDER_STATION_ENGINEER
+	bounty_types = CIV_JOB_ENG
+	departments = DEPARTMENT_ENGINEERING
+
+	family_heirlooms = list(/obj/item/clothing/head/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
+
+	mail_goodies = list(
+		/obj/item/storage/box/lights/mixed = 20,
+		/obj/item/lightreplacer = 10,
+		/obj/item/holosign_creator/engineering = 8,
+		/obj/item/clothing/head/hardhat/red/upgraded = 1
+	)
 
 /datum/outfit/job/engineer
 	name = "Station Engineer"
-	jobtype = /datum/job/engineer
+	jobtype = /datum/job/station_engineer
 
 	belt = /obj/item/storage/belt/utility/full/engi
 	l_pocket = /obj/item/pda/engineering
@@ -37,9 +45,13 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering
-	box = /obj/item/storage/box/engineer
-	pda_slot = SLOT_L_STORE
-	backpack_contents = list(/obj/item/modular_computer/tablet/preset/advanced=1)
+	box = /obj/item/storage/box/survival/engineer
+	pda_slot = ITEM_SLOT_LPOCKET
+	backpack_contents = list(/obj/item/modular_computer/tablet/preset/advanced/engineering=1)
+
+	skillchips = list(/obj/item/skillchip/job/engineer)
+
+	id_trim = /datum/id_trim/job/station_engineer
 
 /datum/outfit/job/engineer/gloved
 	name = "Station Engineer (Gloves)"
@@ -51,5 +63,10 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
 	suit_store = /obj/item/tank/internals/oxygen
 	head = null
-	internals_slot = SLOT_S_STORE
+	internals_slot = ITEM_SLOT_SUITSTORE
 
+/datum/outfit/job/engineer/gloved/gunner
+	id_trim = /datum/id_trim/job/station_engineer/gunner
+
+/datum/outfit/job/engineer/gloved/rig/gunner
+	id_trim = /datum/id_trim/job/station_engineer/gunner

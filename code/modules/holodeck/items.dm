@@ -40,14 +40,14 @@
 		return ..()
 	return 0
 
-/obj/item/holo/esword/attack(target as mob, mob/user as mob)
+/obj/item/holo/esword/attack(target, mob/user)
 	..()
 
 /obj/item/holo/esword/Initialize()
 	. = ..()
 	saber_color = pick("red","blue","green","purple")
 
-/obj/item/holo/esword/attack_self(mob/living/user as mob)
+/obj/item/holo/esword/attack_self(mob/living/user)
 	active = !active
 	if (active)
 		force = 30
@@ -55,14 +55,14 @@
 		w_class = WEIGHT_CLASS_BULKY
 		hitsound = 'sound/weapons/blade1.ogg'
 		playsound(user, 'sound/weapons/saberon.ogg', 20, TRUE)
-		to_chat(user, "<span class='warning'>[src] is now active.</span>")
+		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
 		force = 3
 		icon_state = "sword0"
 		w_class = WEIGHT_CLASS_SMALL
 		hitsound = "swing_hit"
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, TRUE)
-		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
+		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	return
 
 //BASKETBALL OBJECTS
@@ -71,14 +71,14 @@
 	name = "basketball"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "basketball"
-	item_state = "basketball"
+	inhand_icon_state = "basketball"
 	desc = "Here's your chance, do your dance at the Space Jam."
 	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
 
 /obj/item/toy/beach_ball/holoball/dodgeball
 	name = "dodgeball"
 	icon_state = "dodgeball"
-	item_state = "dodgeball"
+	inhand_icon_state = "dodgeball"
 	desc = "Used for playing the most violent and degrading of childhood games."
 
 /obj/item/toy/beach_ball/holoball/dodgeball/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -103,16 +103,16 @@
 	anchored = TRUE
 	density = TRUE
 
-/obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/holohoop/attackby(obj/item/W, mob/user, params)
 	if(get_dist(src,user)<2)
 		if(user.transferItemToLoc(W, drop_location()))
 			visible_message("<span class='warning'>[user] dunks [W] into \the [src]!</span>")
 
-/obj/structure/holohoop/attack_hand(mob/user)
+/obj/structure/holohoop/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
-	if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
+	if(user.pulling && isliving(user.pulling))
 		var/mob/living/L = user.pulling
 		if(user.grab_state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
@@ -125,7 +125,7 @@
 		..()
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if (isitem(AM) && !istype(AM,/obj/item/projectile))
+	if (isitem(AM) && !istype(AM,/obj/projectile))
 		if(prob(50))
 			AM.forceMove(get_turf(src))
 			visible_message("<span class='warning'>Swish! [AM] lands in [src].</span>")
@@ -154,24 +154,24 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
-	power_channel = ENVIRON
+	power_channel = AREA_USAGE_ENVIRON
 
-/obj/machinery/readybutton/attack_ai(mob/user as mob)
-	to_chat(user, "The station AI is not to interact with these devices.")
+/obj/machinery/readybutton/attack_ai(mob/user)
+	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices!</span>")
 	return
 
-/obj/machinery/readybutton/attack_paw(mob/user as mob)
+/obj/machinery/readybutton/attack_paw(mob/user, list/modifiers)
 	to_chat(user, "<span class='warning'>You are too primitive to use this device!</span>")
 	return
 
-/obj/machinery/readybutton/attackby(obj/item/W as obj, mob/user as mob, params)
-	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
+/obj/machinery/readybutton/attackby(obj/item/W, mob/user, params)
+	to_chat(user, "<span class='warning'>The device is a solid button, there's nothing you can do with it!</span>")
 
-/obj/machinery/readybutton/attack_hand(mob/user as mob)
+/obj/machinery/readybutton/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
-	if(user.stat || stat & (NOPOWER|BROKEN))
+	if(user.stat || machine_stat & (NOPOWER|BROKEN))
 		to_chat(user, "<span class='warning'>This device is not powered!</span>")
 		return
 
@@ -185,7 +185,7 @@
 
 	ready = !ready
 
-	update_icon()
+	update_appearance()
 
 	var/numbuttons = 0
 	var/numready = 0
@@ -197,11 +197,9 @@
 	if(numbuttons == numready)
 		begin_event()
 
-/obj/machinery/readybutton/update_icon()
-	if(ready)
-		icon_state = "auth_on"
-	else
-		icon_state = "auth_off"
+/obj/machinery/readybutton/update_icon_state()
+	icon_state = "auth_[ready ? "on" : "off"]"
+	return ..()
 
 /obj/machinery/readybutton/proc/begin_event()
 
@@ -212,7 +210,7 @@
 			qdel(W)
 
 	for(var/mob/M in currentarea)
-		to_chat(M, "FIGHT!")
+		to_chat(M, "<span class='userdanger'>FIGHT!</span>")
 
 /obj/machinery/conveyor/holodeck
 
@@ -227,3 +225,11 @@
 /obj/item/paper/fluff/holodeck/disclaimer
 	name = "Holodeck Disclaimer"
 	info = "Bruises sustained in the holodeck can be healed simply by sleeping."
+
+/obj/vehicle/ridden/scooter/skateboard/pro/holodeck
+	name = "holographic skateboard"
+	desc = "A holographic copy of the EightO brand professional skateboard."
+	instability = 6
+
+/obj/vehicle/ridden/scooter/skateboard/pro/holodeck/pick_up_board() //picking up normal skateboards spawned in the holodeck gets rid of the holo flag, now you cant pick them up.
+	return

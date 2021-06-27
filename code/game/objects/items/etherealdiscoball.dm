@@ -25,9 +25,9 @@
 
 /obj/structure/etherealball/Initialize()
 	. = ..()
-	update_icon()
+	update_appearance()
 
-/obj/structure/etherealball/attack_hand(mob/living/carbon/human/user)
+/obj/structure/etherealball/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	. = ..()
 	if(TurnedOn)
 		TurnOff()
@@ -38,12 +38,8 @@
 
 /obj/structure/etherealball/AltClick(mob/living/carbon/human/user)
 	. = ..()
-	if(anchored)
-		to_chat(user, "<span class='notice'>You unlock the disco ball.</span>")
-		anchored = FALSE
-	else
-		to_chat(user, "<span class='notice'>You lock the disco ball.</span>")
-		anchored = TRUE
+	set_anchored(!anchored)
+	to_chat(user, "<span class='notice'>You [anchored ? null : "un"]lock the disco ball.</span>")
 
 /obj/structure/etherealball/proc/TurnOn()
 	TurnedOn = TRUE //Same
@@ -53,7 +49,7 @@
 	TurnedOn = FALSE
 	set_light(0)
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
-	update_icon()
+	update_appearance()
 	if(TimerID)
 		deltimer(TimerID)
 
@@ -62,12 +58,15 @@
 	current_color = random_color()
 	set_light(range, power, current_color)
 	add_atom_colour("#[current_color]", FIXED_COLOUR_PRIORITY)
-	update_icon()
+	update_appearance()
 	TimerID = addtimer(CALLBACK(src, .proc/DiscoFever), 5, TIMER_STOPPABLE)  //Call ourselves every 0.5 seconds to change colors
 
-/obj/structure/etherealball/update_icon()
-	cut_overlays()
+/obj/structure/etherealball/update_icon_state()
 	icon_state = "ethdisco_head_[TurnedOn]"
+	return ..()
+
+/obj/structure/etherealball/update_overlays()
+	. = ..()
 	var/mutable_appearance/base_overlay = mutable_appearance(icon, "ethdisco_base")
 	base_overlay.appearance_flags = RESET_COLOR
-	add_overlay(base_overlay)
+	. += base_overlay

@@ -4,10 +4,12 @@
 	circuit = /obj/item/circuitboard/machine/nanite_chamber
 	icon = 'icons/obj/machines/nanite_chamber.dmi'
 	icon_state = "nanite_chamber"
+	base_icon_state = "nanite_chamber"
 	layer = ABOVE_WINDOW_LAYER
 	use_power = IDLE_POWER_USE
 	anchored = TRUE
 	density = TRUE
+	obj_flags = NO_BUILD // Becomes undense when the door is open
 	idle_power_usage = 50
 	active_power_usage = 300
 
@@ -38,7 +40,7 @@
 	busy = status
 	busy_message = message
 	busy_icon_state = working_icon
-	update_icon()
+	update_appearance()
 
 /obj/machinery/nanite_chamber/proc/set_safety(threshold)
 	if(!occupant)
@@ -51,9 +53,9 @@
 	SEND_SIGNAL(occupant, COMSIG_NANITE_SET_CLOUD, cloud_id)
 
 /obj/machinery/nanite_chamber/proc/inject_nanites()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
-	if((stat & MAINT) || panel_open)
+	if((machine_stat & MAINT) || panel_open)
 		return
 	if(!occupant || busy)
 		return
@@ -77,36 +79,10 @@
 		return
 	occupant.AddComponent(/datum/component/nanites, 100)
 
-/obj/machinery/nanite_chamber/proc/install_program(datum/nanite_program/NP)
-	if(stat & (NOPOWER|BROKEN))
+/obj/machinery/nanite_chamber/proc/remove_nanites(datum/nanite_program/NP)
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
-	if((stat & MAINT) || panel_open)
-		return
-	if(!occupant || busy)
-		return
-
-	var/locked_state = locked
-	locked = TRUE
-
-	//TODO COMPUTERY MACHINE SOUNDS
-	set_busy(TRUE, "Initializing installation protocol...", "[initial(icon_state)]_raising")
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Connecting to nanite framework...", "[initial(icon_state)]_active"),20)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Installing program...", "[initial(icon_state)]_falling"),35)
-	addtimer(CALLBACK(src, .proc/complete_installation, locked_state, NP),55)
-
-/obj/machinery/nanite_chamber/proc/complete_installation(locked_state, datum/nanite_program/NP)
-	//TODO MACHINE DING
-	locked = locked_state
-	set_busy(FALSE)
-	if(!occupant)
-		return
-
-	SEND_SIGNAL(occupant, COMSIG_NANITE_ADD_PROGRAM, NP.copy())
-
-/obj/machinery/nanite_chamber/proc/uninstall_program(datum/nanite_program/NP)
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if((stat & MAINT) || panel_open)
+	if((machine_stat & MAINT) || panel_open)
 		return
 	if(!occupant || busy)
 		return
@@ -114,44 +90,48 @@
 	var/locked_state = locked
 	locked = TRUE
 
-	//TODO COMPUTERY MACHINE SOUNDS
-	set_busy(TRUE, "Initializing uninstallation protocol...", "[initial(icon_state)]_raising")
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Connecting to nanite framework...", "[initial(icon_state)]_active"),20)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Uninstalling program...", "[initial(icon_state)]_falling"),35)
-	addtimer(CALLBACK(src, .proc/complete_uninstallation, locked_state, NP),55)
+	//TODO OMINOUS MACHINE SOUNDS
+	set_busy(TRUE, "Initializing cleanup protocol...", "[initial(icon_state)]_raising")
+	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Analyzing host bio-structure...", "[initial(icon_state)]_active"),20)
+	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Pinging nanites...", "[initial(icon_state)]_active"),40)
+	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Initiating graceful self-destruct sequence...", "[initial(icon_state)]_active"),70)
+	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Removing debris...", "[initial(icon_state)]_falling"),110)
+	addtimer(CALLBACK(src, .proc/complete_removal, locked_state),130)
 
-/obj/machinery/nanite_chamber/proc/complete_uninstallation(locked_state, datum/nanite_program/NP)
+/obj/machinery/nanite_chamber/proc/complete_removal(locked_state)
 	//TODO MACHINE DING
 	locked = locked_state
 	set_busy(FALSE)
 	if(!occupant)
 		return
-	qdel(NP)
+	SEND_SIGNAL(occupant, COMSIG_NANITE_DELETE)
 
-/obj/machinery/nanite_chamber/update_icon()
-	cut_overlays()
-
-	if((stat & MAINT) || panel_open)
-		add_overlay("maint")
-
-	else if(!(stat & (NOPOWER|BROKEN)))
-		if(busy || locked)
-			add_overlay("red")
-			if(locked)
-				add_overlay("bolted")
-		else
-			add_overlay("green")
-
+/obj/machinery/nanite_chamber/update_icon_state()
 	//running and someone in there
 	if(occupant)
-		if(busy)
-			icon_state = busy_icon_state
-		else
-			icon_state = initial(icon_state)+ "_occupied"
+		icon_state = busy ? busy_icon_state : "[base_icon_state]_occupied"
+		return ..()
+	//running
+	icon_state = "[base_icon_state][state_open ? "_open" : null]"
+	return ..()
+
+/obj/machinery/nanite_chamber/update_overlays()
+	. = ..()
+
+	if((machine_stat & MAINT) || panel_open)
+		. += "maint"
 		return
 
-	//running
-	icon_state = initial(icon_state)+ (state_open ? "_open" : "")
+	if(machine_stat & (NOPOWER|BROKEN))
+		return
+
+	if(busy || locked)
+		. += "red"
+		if(locked)
+			. += "bolted"
+		return
+
+	. += "green"
 
 /obj/machinery/nanite_chamber/proc/toggle_open(mob/user)
 	if(panel_open)
@@ -168,7 +148,7 @@
 
 	open_machine()
 
-/obj/machinery/nanite_chamber/container_resist(mob/living/user)
+/obj/machinery/nanite_chamber/container_resist_act(mob/living/user)
 	if(!locked)
 		open_machine()
 		return
@@ -202,7 +182,7 @@
 
 	return TRUE
 
-/obj/machinery/nanite_chamber/relaymove(mob/user as mob)
+/obj/machinery/nanite_chamber/relaymove(mob/living/user, direction)
 	if(user.stat || locked)
 		if(message_cooldown <= world.time)
 			message_cooldown = world.time + 50
@@ -212,7 +192,7 @@
 
 /obj/machinery/nanite_chamber/attackby(obj/item/I, mob/user, params)
 	if(!occupant && default_deconstruction_screwdriver(user, icon_state, icon_state, I))//sent icon_state is irrelevant...
-		update_icon()//..since we're updating the icon here, since the scanner can be unpowered when opened/closed
+		update_appearance()//..since we're updating the icon here, since the scanner can be unpowered when opened/closed
 		return
 
 	if(default_pry_open(I))

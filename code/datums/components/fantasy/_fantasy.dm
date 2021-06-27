@@ -12,6 +12,7 @@
 
 	var/static/list/affixListing
 
+///affixes expects an initialized list
 /datum/component/fantasy/Initialize(quality, list/affixes = list(), canFail=FALSE, announce=FALSE)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -22,7 +23,10 @@
 
 	src.affixes = affixes
 	appliedComponents = list()
-	randomAffixes()
+	if(affixes && affixes.len)
+		setAffixes()
+	else
+		randomAffixes()
 
 /datum/component/fantasy/Destroy()
 	unmodify()
@@ -37,17 +41,16 @@
 /datum/component/fantasy/UnregisterFromParent()
 	unmodify()
 
-/datum/component/fantasy/InheritComponent(datum/component/fantasy/newComp, original, list/arguments)
+/datum/component/fantasy/InheritComponent(datum/component/fantasy/newComp, original, quality, list/affixes, canFail, announce)
 	unmodify()
 	if(newComp)
-		quality += newComp.quality
-		canFail = newComp.canFail
-		announce = newComp.announce
+		src.quality += newComp.quality
+		src.canFail = newComp.canFail
+		src.announce = newComp.announce
 	else
-		arguments.len = 5 // This is done to replicate what happens when an arglist smaller than the necessary arguments is given
-		quality += arguments[1]
-		canFail = arguments[4] || canFail
-		announce = arguments[5] || announce
+		src.quality += quality
+		src.canFail = canFail || src.canFail
+		src.announce = announce || src.announce
 	modify()
 
 /datum/component/fantasy/proc/randomQuality()
@@ -56,6 +59,7 @@
 		quality = -quality
 	return quality
 
+///proc on creation for random affixes
 /datum/component/fantasy/proc/randomAffixes(force)
 	if(!affixListing)
 		affixListing = list()
@@ -73,7 +77,7 @@
 		alignment |= AFFIX_GOOD
 	if(quality <= 0)
 		alignment |= AFFIX_EVIL
-	
+
 	var/usedSlots = NONE
 	for(var/i in 1 to max(1, abs(quality))) // We want at least 1 affix applied
 		var/datum/fantasy_affix/affix = pickweight(affixListing)
@@ -81,17 +85,28 @@
 			continue
 		if(!(affix.alignment & alignment))
 			continue
-		if(!affix.validate(src))
+		if(!affix.validate(parent))
 			continue
 		affixes += affix
 		usedSlots |= affix.placement
 
+///proc on creation for specific affixes given to the fantasy component
+/datum/component/fantasy/proc/setAffixes(force)
+	var/usedSlots = NONE
+	for(var/datum/fantasy_affix/affix in affixes) // We want at least 1 affix applied
+		if((affix.placement & usedSlots) || (!affix.validate(parent)))
+			affixes.Remove(affix) //bad affix (can't be added to this item)
+			continue
+		usedSlots |= affix.placement
+
 /datum/component/fantasy/proc/modify()
 	var/obj/item/master = parent
-	
+
 	master.force = max(0, master.force + quality)
 	master.throwforce = max(0, master.throwforce + quality)
 	master.armor = master.armor?.modifyAllRatings(quality)
+	master.wound_bonus += quality
+	master.bare_wound_bonus += quality
 
 	var/newName = originalName
 	for(var/i in affixes)
@@ -103,7 +118,7 @@
 
 	if(canFail && prob((quality - 9)*10))
 		var/turf/place = get_turf(parent)
-		place.visible_message("<span class='danger'>[parent] <span class='inathneq_large'>violently glows blue</span> for a while, then evaporates.</span>")
+		place.visible_message("<span class='danger'>[parent] <span class='blue'>violently glows blue</span> for a while, then evaporates.</span>")
 		master.burn()
 		return
 	else if(announce)
@@ -123,6 +138,8 @@
 	master.force = max(0, master.force - quality)
 	master.throwforce = max(0, master.throwforce - quality)
 	master.armor = master.armor?.modifyAllRatings(-quality)
+	master.wound_bonus -= quality
+	master.bare_wound_bonus -= quality
 
 	master.name = originalName
 
@@ -135,6 +152,6 @@
 		effect_description = "<span class='heavy_brass'>shimmering golden glow</span>"
 	else
 		span = "<span class='danger'>"
-		effect_description = "<span class='umbra_emphasis'>mottled black glow</span>"
+		effect_description = "<span class='bold'>mottled black glow</span>"
 
 	location.visible_message("[span][originalName] is covered by a [effect_description] and then transforms into [parent]!</span>")

@@ -10,7 +10,8 @@
 	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	attack_verb_continuous = list("bashes", "batters", "bludgeons", "thrashes", "whacks")
+	attack_verb_simple = list("bash", "batter", "bludgeon", "thrash", "whack")
 	resistance_flags = FLAMMABLE
 	max_integrity = 150
 	var/folder_path = /obj/item/folder //this is the path of the folder that gets spawned in New()
@@ -47,3 +48,11 @@
 	new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src)
 	new /obj/item/suppressor/specialoffer(src)
 
+/obj/item/storage/briefcase/syndie_mantis
+	desc = "Fully metallic briefcase. Has A.R.A.S.A.K.A. engraved on the side in Futura font."
+
+/obj/item/storage/briefcase/syndie_mantis/PopulateContents()
+	..()
+	new /obj/item/autosurgeon/organ/syndicate/syndie_mantis(src)
+	new /obj/item/autosurgeon/organ/syndicate/syndie_mantis/l(src)
+	new /obj/item/autosurgeon/organ/cyberlink_syndicate(src)

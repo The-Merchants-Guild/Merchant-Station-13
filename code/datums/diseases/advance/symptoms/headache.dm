@@ -29,24 +29,28 @@ BONUS
 	base_message_chance = 100
 	symptom_delay_min = 15
 	symptom_delay_max = 30
-	threshold_desc = "<b>Stage Speed 6:</b> Headaches will cause severe pain, that weakens the host.<br>\
-					  <b>Stage Speed 9:</b> Headaches become less frequent but far more intense, preventing any action from the host.<br>\
-					  <b>Stealth 4:</b> Reduces headache frequency until later stages."
+	threshold_descs = list(
+		"Stage Speed 6" = "Headaches will cause severe pain, that weakens the host.",
+		"Stage Speed 9" = "Headaches become less frequent but far more intense, preventing any action from the host.",
+		"Stealth 4" = "Reduces headache frequency until later stages.",
+	)
 
 /datum/symptom/headache/Start(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
-	if(A.properties["stealth"] >= 4)
+	if(A.totalStealth() >= 4)
 		base_message_chance = 50
-	if(A.properties["stage_rate"] >= 6) //severe pain
+	if(A.totalStageSpeed() >= 6) //severe pain
 		power = 2
-	if(A.properties["stage_rate"] >= 9) //cluster headaches
+	if(A.totalStageSpeed() >= 9) //cluster headaches
 		symptom_delay_min = 30
 		symptom_delay_max = 60
 		power = 3
 
 /datum/symptom/headache/Activate(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	var/mob/living/M = A.affected_mob
 	if(power < 2)

@@ -16,23 +16,6 @@
 /proc/moth_name()
 	return "[pick(GLOB.moth_first)] [pick(GLOB.moth_last)]"
 
-/proc/church_name()
-	var/static/church_name
-	if (church_name)
-		return church_name
-
-	var/name = ""
-
-	name += pick("Holy", "United", "First", "Second", "Last")
-
-	if (prob(20))
-		name += " Space"
-
-	name += " " + pick("Church", "Cathedral", "Body", "Worshippers", "Movement", "Witnesses")
-	name += " of [religion_name()]"
-
-	return name
-
 GLOBAL_VAR(command_name)
 /proc/command_name()
 	if (GLOB.command_name)
@@ -48,18 +31,6 @@ GLOBAL_VAR(command_name)
 	GLOB.command_name = name
 
 	return name
-
-/proc/religion_name()
-	var/static/religion_name
-	if (religion_name)
-		return religion_name
-
-	var/name = ""
-
-	name += pick("bee", "science", "edu", "captain", "assistant", "monkey", "alien", "space", "unit", "sprocket", "gadget", "bomb", "revolution", "beyond", "station", "goon", "robot", "ivor", "hobnob")
-	name += pick("ism", "ia", "ology", "istism", "ites", "ick", "ian", "ity")
-
-	return capitalize(name)
 
 /proc/station_name()
 	if(!GLOB.station_name)
@@ -96,10 +67,11 @@ GLOBAL_VAR(command_name)
 		name = ""
 
 	// Prefix
-	for(var/holiday_name in SSevents.holidays)
-		if(holiday_name == "Friday the 13th")
-			random = 13
+	var/holiday_name = pick(SSevents.holidays)
+	if(holiday_name)
 		var/datum/holiday/holiday = SSevents.holidays[holiday_name]
+		if(istype(holiday, /datum/holiday/friday_thirteenth))
+			random = 13
 		name = holiday.getStationPrefix()
 		//get normal name
 	if(!name)
@@ -196,7 +168,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 	var/threats = strings(ION_FILE, "ionthreats")
 	var/foods = strings(ION_FILE, "ionfood")
 	var/drinks = strings(ION_FILE, "iondrinks")
-	var/list/locations = GLOB.teleportlocs.len ? GLOB.teleportlocs : drinks //if null, defaults to drinks instead.
+	var/locations = strings(LOCATIONS_FILE, "locations")
 
 	var/list/names = list()
 	for(var/datum/data/record/t in GLOB.data_core.general)//Picks from crew manifest.
@@ -226,10 +198,10 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 								new_name += pick(GLOB.last_names)
 								. += new_name
 					if(2)
-						. += pick(get_all_jobs())//Returns a job.
+						. += pick(SSjob.station_jobs)//Returns a job.
 				safety -= 1
 			if(2)
-				switch(rand(1,3))//Food, drinks, or things. Only selectable once.
+				switch(rand(1,3))//Food, drinks, or places. Only selectable once.
 					if(1)
 						. += lowertext(pick(drinks))
 					if(2)
@@ -252,3 +224,54 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 				. += "."
 			else
 				. += ", "
+
+/proc/odd_organ_name()
+	return "[pick(GLOB.gross_adjectives)], [pick(GLOB.gross_adjectives)] organ"
+
+/**
+ * returns an ic name of the tool needed
+ * Arguments:
+ * * tool_behaviour: the tool described!
+ */
+/proc/tool_behaviour_name(tool_behaviour)
+	switch(tool_behaviour)
+		if(TOOL_CROWBAR)
+			return "a crowbar"
+		if(TOOL_MULTITOOL)
+			return "a multitool"
+		if(TOOL_SCREWDRIVER)
+			return "a screwdriver"
+		if(TOOL_WIRECUTTER)
+			return "a pair of wirecutters"
+		if(TOOL_WRENCH)
+			return "a wrench"
+		if(TOOL_WELDER)
+			return "a welder"
+		if(TOOL_ANALYZER)
+			return "an analyzer tool"
+		if(TOOL_MINING)
+			return "a mining implement"
+		if(TOOL_SHOVEL)
+			return "a digging tool"
+		if(TOOL_RETRACTOR)
+			return "a retractor"
+		if(TOOL_HEMOSTAT)
+			return "something to clamp bleeding"
+		if(TOOL_CAUTERY)
+			return "a cautery"
+		if(TOOL_DRILL)
+			return "a drilling tool"
+		if(TOOL_SCALPEL)
+			return "a fine cutting tool"
+		if(TOOL_SAW)
+			return "a saw"
+		if(TOOL_BONESET)
+			return "a bone setter"
+		if(TOOL_KNIFE)
+			return "a cutting tool"
+		if(TOOL_BLOODFILTER)
+			return "a blood filter"
+		if(TOOL_ROLLINGPIN)
+			return "a rolling pin"
+		else
+			return "something... but the gods didn't set this up right (Please report this bug)"

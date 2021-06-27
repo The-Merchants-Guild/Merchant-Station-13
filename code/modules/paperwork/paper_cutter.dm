@@ -15,7 +15,7 @@
 /obj/item/papercutter/Initialize()
 	. = ..()
 	storedcutter = new /obj/item/hatchet/cutterblade(src)
-	update_icon()
+	update_appearance()
 
 
 /obj/item/papercutter/suicide_act(mob/user)
@@ -26,7 +26,7 @@
 			var/obj/item/bodypart/BP = C.get_bodypart(BODY_ZONE_HEAD)
 			if(BP)
 				BP.drop_limb()
-				playsound(loc, "desceration" ,50, TRUE, -1)
+				playsound(loc, "desecration" ,50, TRUE, -1)
 		return (BRUTELOSS)
 	else
 		user.visible_message("<span class='suicide'>[user] repeatedly bashes [src.name] against [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -34,12 +34,14 @@
 		return (BRUTELOSS)
 
 
-/obj/item/papercutter/update_icon()
-	..()
-	cut_overlays()
+/obj/item/papercutter/update_icon_state()
 	icon_state = (storedcutter ? "[initial(icon_state)]-cutter" : "[initial(icon_state)]")
+	return ..()
+
+/obj/item/papercutter/update_overlays()
+	. =..()
 	if(storedpaper)
-		add_overlay("paper")
+		. += "paper"
 
 
 /obj/item/papercutter/attackby(obj/item/P, mob/user, params)
@@ -49,7 +51,7 @@
 		playsound(loc, "pageturn", 60, TRUE)
 		to_chat(user, "<span class='notice'>You place [P] in [src].</span>")
 		storedpaper = P
-		update_icon()
+		update_appearance()
 		return
 	if(istype(P, /obj/item/hatchet/cutterblade) && !storedcutter)
 		if(!user.transferItemToLoc(P, src))
@@ -57,7 +59,7 @@
 		to_chat(user, "<span class='notice'>You replace [src]'s [P].</span>")
 		P.forceMove(src)
 		storedcutter = P
-		update_icon()
+		update_appearance()
 		return
 	if(P.tool_behaviour == TOOL_SCREWDRIVER && storedcutter)
 		P.play_tool_sound(src)
@@ -66,7 +68,7 @@
 		return
 	..()
 
-/obj/item/papercutter/attack_hand(mob/user)
+/obj/item/papercutter/attack_hand(mob/user, list/modifiers)
 	. = ..()
 	if(.)
 		return
@@ -79,7 +81,7 @@
 		to_chat(user, "<span class='notice'>You remove [src]'s [storedcutter].</span>")
 		user.put_in_hands(storedcutter)
 		storedcutter = null
-		update_icon()
+		update_appearance()
 
 	if(storedpaper)
 		playsound(src.loc, 'sound/weapons/slash.ogg', 50, TRUE)
@@ -88,7 +90,7 @@
 		qdel(storedpaper)
 		new /obj/item/paperslip(get_turf(src))
 		new /obj/item/paperslip(get_turf(src))
-		update_icon()
+		update_appearance()
 
 /obj/item/papercutter/MouseDrop(atom/over_object)
 	. = ..()
@@ -99,8 +101,8 @@
 	if(over_object == M)
 		M.put_in_hands(src)
 
-	else if(istype(over_object, /obj/screen/inventory/hand))
-		var/obj/screen/inventory/hand/H = over_object
+	else if(istype(over_object, /atom/movable/screen/inventory/hand))
+		var/atom/movable/screen/inventory/hand/H = over_object
 		M.putItemFromInventoryInHandIfPossible(src, H.held_index)
 	add_fingerprint(M)
 
@@ -112,10 +114,16 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 
+/obj/item/paperslip/attackby(obj/item/I, mob/living/user, params)
+	if(burn_paper_product_attackby_check(I, user))
+		return
+	return ..()
+
+
 /obj/item/paperslip/Initialize()
 	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 
 /obj/item/hatchet/cutterblade
@@ -123,6 +131,6 @@
 	desc = "The blade of a paper cutter. Most likely removed for polishing or sharpening."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "cutterblade"
-	item_state = "knife"
+	inhand_icon_state = "knife"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'

@@ -27,19 +27,23 @@ Bonus
 	base_message_chance = 50
 	symptom_delay_min = 15
 	symptom_delay_max = 30
-	threshold_desc = "<b>Transmission 6:</b> Also causes druggy vision.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+	threshold_descs = list(
+		"Transmission 6" = "Also causes druggy vision.",
+		"Stealth 4" = "The symptom remains hidden until active.",
+	)
 
 /datum/symptom/dizzy/Start(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
-	if(A.properties["stealth"] >= 4)
+	if(A.totalStealth() >= 4)
 		suppress_warning = TRUE
-	if(A.properties["transmittable"] >= 6) //druggy
+	if(A.totalTransmittable() >= 6) //druggy
 		power = 2
 
 /datum/symptom/dizzy/Activate(datum/disease/advance/A)
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)

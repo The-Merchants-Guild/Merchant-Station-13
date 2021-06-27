@@ -25,6 +25,11 @@
 	spark_system.set_up(4,1,src)
 	spark_system.attach(src)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered
+	)
+	AddElement(/datum/element/connect_loc, src, loc_connections)
+
 	if(!ignore_typecache)
 		ignore_typecache = typecacheof(list(
 			/obj/effect,
@@ -39,7 +44,7 @@
 	. = ..()
 	if(!isliving(user))
 		return
-	if(user.mind && user.mind in immune_minds)
+	if(user.mind && (user.mind in immune_minds))
 		return
 	if(get_dist(user, src) <= 1)
 		. += "<span class='notice'>You reveal [src]!</span>"
@@ -60,7 +65,8 @@
 	else
 		animate(src, alpha = initial(alpha), time = time_between_triggers)
 
-/obj/structure/trap/Crossed(atom/movable/AM)
+/obj/structure/trap/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 	if(last_trigger + time_between_triggers > world.time)
 		return
 	// Don't want the traps triggered by sparks, ghosts or projectiles.
@@ -89,7 +95,7 @@
 	var/stun_time = 100
 
 /obj/structure/trap/stun/trap_effect(mob/living/L)
-	L.electrocute_act(30, src, safety=1) // electrocute act does a message.
+	L.electrocute_act(30, src, flags = SHOCK_NOGLOVES) // electrocute act does a message.
 	L.Paralyze(stun_time)
 
 /obj/structure/trap/stun/hunter
@@ -108,7 +114,7 @@
 	time_between_triggers = 10
 	flare_message = "<span class='warning'>[src] snaps shut!</span>"
 
-/obj/structure/trap/stun/hunter/Crossed(atom/movable/AM)
+/obj/structure/trap/stun/hunter/on_entered(datum/source, atom/movable/AM)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!L.mind?.has_antag_datum(/datum/antagonist/fugitive))
@@ -212,3 +218,16 @@
 /obj/structure/trap/ward/Initialize()
 	. = ..()
 	QDEL_IN(src, time_between_triggers)
+
+/obj/structure/trap/cult
+	name = "unholy trap"
+	desc = "A trap that rings with unholy energy. You think you hear... chittering?"
+	icon_state = "trap-cult"
+
+/obj/structure/trap/cult/trap_effect(mob/living/L)
+	to_chat(L, "<span class='danger'><B>With a crack, the hostile constructs come out of hiding, stunning you!</B></span>")
+	L.electrocute_act(10, src, flags = SHOCK_NOGLOVES) // electrocute act does a message.
+	L.Paralyze(20)
+	new /mob/living/simple_animal/hostile/construct/proteon/hostile(loc)
+	new /mob/living/simple_animal/hostile/construct/proteon/hostile(loc)
+	QDEL_IN(src, 30)

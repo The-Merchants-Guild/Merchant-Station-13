@@ -7,8 +7,6 @@
 	density = TRUE
 	anchored = FALSE
 	use_power = NO_POWER_USE
-	ui_x = 450
-	ui_y = 340
 
 	var/active = FALSE
 	var/power_gen = 5000
@@ -50,16 +48,17 @@
 /obj/machinery/power/port_gen/proc/TogglePower()
 	if(active)
 		active = FALSE
-		update_icon()
+		update_appearance()
 		soundloop.stop()
 	else if(HasFuel())
 		active = TRUE
 		START_PROCESSING(SSmachines, src)
-		update_icon()
+		update_appearance()
 		soundloop.start()
 
-/obj/machinery/power/port_gen/update_icon()
+/obj/machinery/power/port_gen/update_icon_state()
 	icon_state = "[base_icon]_[active]"
+	return ..()
 
 /obj/machinery/power/port_gen/process()
 	if(active)
@@ -172,7 +171,16 @@
 		STOP_PROCESSING(SSmachines, src)
 
 /obj/machinery/power/port_gen/pacman/proc/overheat()
-	explosion(src.loc, 2, 5, 2, -1)
+	explosion(src, devastation_range = 2, heavy_impact_range = 5, light_impact_range = 2, flash_range = -1)
+
+/obj/machinery/power/port_gen/pacman/set_anchored(anchorvalue)
+	. = ..()
+	if(isnull(.))
+		return //no need to process if we didn't change anything.
+	if(anchorvalue)
+		connect_to_network()
+	else
+		disconnect_from_network()
 
 /obj/machinery/power/port_gen/pacman/attackby(obj/item/O, mob/user, params)
 	if(istype(O, sheet_path))
@@ -188,12 +196,10 @@
 	else if(!active)
 		if(O.tool_behaviour == TOOL_WRENCH)
 			if(!anchored && !isinspace())
-				anchored = TRUE
-				connect_to_network()
+				set_anchored(TRUE)
 				to_chat(user, "<span class='notice'>You secure the generator to the floor.</span>")
 			else if(anchored)
-				anchored = FALSE
-				disconnect_from_network()
+				set_anchored(FALSE)
 				to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
 
 			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
@@ -219,14 +225,13 @@
 /obj/machinery/power/port_gen/pacman/attack_ai(mob/user)
 	interact(user)
 
-/obj/machinery/power/port_gen/pacman/attack_paw(mob/user)
+/obj/machinery/power/port_gen/pacman/attack_paw(mob/user, list/modifiers)
 	interact(user)
 
-/obj/machinery/power/port_gen/pacman/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-												datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/port_gen/pacman/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "portable_generator", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "PortableGenerator", name)
 		ui.open()
 
 /obj/machinery/power/port_gen/pacman/ui_data()
@@ -247,7 +252,8 @@
 	. =  data
 
 /obj/machinery/power/port_gen/pacman/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	switch(action)
 		if("toggle_power")
@@ -279,16 +285,4 @@
 	time_per_sheet = 85
 
 /obj/machinery/power/port_gen/pacman/super/overheat()
-	explosion(src.loc, 3, 3, 3, -1)
-
-/obj/machinery/power/port_gen/pacman/mrs
-	name = "\improper M.R.S.P.A.C.M.A.N.-type portable generator"
-	base_icon = "portgen2"
-	icon_state = "portgen2_0"
-	circuit = /obj/item/circuitboard/machine/pacman/mrs
-	sheet_path = /obj/item/stack/sheet/mineral/diamond
-	power_gen = 40000
-	time_per_sheet = 80
-
-/obj/machinery/power/port_gen/pacman/mrs/overheat()
-	explosion(src.loc, 4, 4, 4, -1)
+	explosion(src, devastation_range = 3, heavy_impact_range = 3, light_impact_range = 3, flash_range = -1)

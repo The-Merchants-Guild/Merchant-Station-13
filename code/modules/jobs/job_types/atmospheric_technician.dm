@@ -1,8 +1,6 @@
-/datum/job/atmos
+/datum/job/atmospheric_technician
 	title = "Atmospheric Technician"
-	flag = ATMOSTECH
 	department_head = list("Chief Engineer")
-	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
@@ -12,17 +10,22 @@
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/atmos
+	plasmaman_outfit = /datum/outfit/plasmaman/atmospherics
 
-	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_ENGINE,
-									ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_CONSTRUCTION, ACCESS_MECH_ENGINE, ACCESS_MINERAL_STOREROOM)
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_ENG
+
+	liver_traits = list(TRAIT_ENGINEER_METABOLISM)
+
 	display_order = JOB_DISPLAY_ORDER_ATMOSPHERIC_TECHNICIAN
+	bounty_types = CIV_JOB_ENG
+	departments = DEPARTMENT_ENGINEERING
+
+	family_heirlooms = list(/obj/item/lighter, /obj/item/lighter/greyscale, /obj/item/storage/box/matches)
 
 /datum/outfit/job/atmos
 	name = "Atmospheric Technician"
-	jobtype = /datum/job/atmos
+	jobtype = /datum/job/atmospheric_technician
 
 	belt = /obj/item/storage/belt/utility/atmostech
 	l_pocket = /obj/item/pda/atmos
@@ -33,14 +36,16 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering
-	box = /obj/item/storage/box/engineer
-	pda_slot = SLOT_L_STORE
-	backpack_contents = list(/obj/item/modular_computer/tablet/preset/advanced=1)
+	box = /obj/item/storage/box/survival/engineer
+	pda_slot = ITEM_SLOT_LPOCKET
+	backpack_contents = list(/obj/item/modular_computer/tablet/preset/advanced/atmos=1)
+
+	id_trim = /datum/id_trim/job/atmospheric_technician
 
 /datum/outfit/job/atmos/rig
 	name = "Atmospheric Technician (Hardsuit)"
 
-	mask = /obj/item/clothing/mask/gas
+	mask = /obj/item/clothing/mask/gas/atmos
 	suit = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 	suit_store = /obj/item/tank/internals/oxygen
-	internals_slot = SLOT_S_STORE
+	internals_slot = ITEM_SLOT_SUITSTORE

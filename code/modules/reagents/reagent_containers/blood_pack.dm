@@ -6,40 +6,29 @@
 	volume = 200
 	var/blood_type = null
 	var/unique_blood = null
-	var/labelled = 0
+	var/labelled = FALSE
+	fill_icon_thresholds = list(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
 
 /obj/item/reagent_containers/blood/Initialize()
 	. = ..()
 	if(blood_type != null)
 		reagents.add_reagent(unique_blood ? unique_blood : /datum/reagent/blood, 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
-		update_icon()
+		update_appearance()
 
-/obj/item/reagent_containers/blood/on_reagent_change(changetype)
-	if(reagents)
-		var/datum/reagent/blood/B = reagents.has_reagent(/datum/reagent/blood)
-		if(B && B.data && B.data["blood_type"])
-			blood_type = B.data["blood_type"]
-		else
-			blood_type = null
-	update_pack_name()
-	update_icon()
+/// Handles updating the container when the reagents change.
+/obj/item/reagent_containers/blood/on_reagent_change(datum/reagents/holder, ...)
+	var/datum/reagent/blood/B = holder.has_reagent(/datum/reagent/blood)
+	if(B && B.data && B.data["blood_type"])
+		blood_type = B.data["blood_type"]
+	else
+		blood_type = null
+	return ..()
 
-/obj/item/reagent_containers/blood/proc/update_pack_name()
-	if(!labelled)
-		if(blood_type)
-			name = "blood pack - [blood_type]"
-		else
-			name = "blood pack"
-
-/obj/item/reagent_containers/blood/update_icon()
-	cut_overlays()
-
-	var/v = min(round(reagents.total_volume / volume * 10), 10)
-	if(v > 0)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "bloodpack1")
-		filling.icon_state = "bloodpack[v]"
-		filling.color = mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(filling)
+/obj/item/reagent_containers/blood/update_name(updates)
+	. = ..()
+	if(labelled)
+		return
+	name = "blood_pack[blood_type ? " - [blood_type]" : null]"
 
 /obj/item/reagent_containers/blood/random
 	icon_state = "random_bloodpack"
@@ -49,22 +38,22 @@
 	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-", "L")
 	return ..()
 
-/obj/item/reagent_containers/blood/APlus
+/obj/item/reagent_containers/blood/a_plus
 	blood_type = "A+"
 
-/obj/item/reagent_containers/blood/AMinus
+/obj/item/reagent_containers/blood/a_minus
 	blood_type = "A-"
 
-/obj/item/reagent_containers/blood/BPlus
+/obj/item/reagent_containers/blood/b_plus
 	blood_type = "B+"
 
-/obj/item/reagent_containers/blood/BMinus
+/obj/item/reagent_containers/blood/b_minus
 	blood_type = "B-"
 
-/obj/item/reagent_containers/blood/OPlus
+/obj/item/reagent_containers/blood/o_plus
 	blood_type = "O+"
 
-/obj/item/reagent_containers/blood/OMinus
+/obj/item/reagent_containers/blood/o_minus
 	blood_type = "O-"
 
 /obj/item/reagent_containers/blood/lizard
@@ -88,10 +77,10 @@
 		if(user.get_active_held_item() != I)
 			return
 		if(t)
-			labelled = 1
+			labelled = TRUE
 			name = "blood pack - [t]"
 		else
-			labelled = 0
-			update_pack_name()
+			labelled = FALSE
+			update_name()
 	else
 		return ..()

@@ -36,7 +36,6 @@
 	projectilesound = 'sound/weapons/emitter.ogg'
 	maxHealth = 50
 	health = 50
-	gold_core_spawnable = NO_SPAWN
 	random_color = FALSE
 
 	var/allowed_projectile_types = list(/obj/projectile/magic/change, /obj/projectile/magic/animate, /obj/projectile/magic/resurrection,
@@ -55,7 +54,6 @@
 	color = "#00FFFF"
 	maxHealth = 75
 	health = 75
-	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/hostile/carp/ranged/chaos/Shoot()
 	projectiletype = pick(allowed_projectile_types)

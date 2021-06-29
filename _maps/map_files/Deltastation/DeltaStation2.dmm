@@ -24765,11 +24765,11 @@
 /turf/open/floor/iron/white,
 /area/science/lab)
 "deh" = (
-/obj/machinery/modular_computer/console/preset/civilian{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
+	},
+/obj/machinery/computer/rdconsole{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/science/lab)
@@ -25353,8 +25353,8 @@
 /turf/open/floor/iron,
 /area/science/lab)
 "dgP" = (
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/purple,
+/obj/machinery/modular_computer/console/preset/civilian,
 /turf/open/floor/iron/white,
 /area/science/lab)
 "dgQ" = (

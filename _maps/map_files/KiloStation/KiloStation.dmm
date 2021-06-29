@@ -11445,6 +11445,7 @@
 /obj/effect/landmark/event_spawn,
 /obj/structure/cable,
 /obj/effect/landmark/start/hangover,
+/obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "aMi" = (
@@ -15516,7 +15517,6 @@
 /turf/closed/wall/r_wall/rust,
 /area/science/mixing)
 "aXn" = (
-/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -15524,12 +15524,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/stock_parts/cell/high,
+/obj/machinery/modular_computer/console/preset/civilian,
 /turf/open/floor/iron/dark,
 /area/science/lab)
 "aXo" = (
@@ -17977,7 +17972,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/modular_computer/console/preset/civilian{
+/obj/machinery/computer/rdconsole{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
@@ -34148,6 +34143,7 @@
 /obj/effect/turf_decal/trimline/brown/filled/end{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
 /area/science/research)
 "cmh" = (
@@ -47898,18 +47894,6 @@
 /turf/open/floor/iron/dark,
 /area/security/interrogation)
 "fOh" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-18"
-	},
 /obj/machinery/light_switch/directional/west{
 	pixel_y = -4
 	},
@@ -47919,7 +47903,27 @@
 	pixel_y = 6;
 	req_access_txt = "7"
 	},
-/turf/open/floor/iron/showroomfloor,
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/stock_parts/cell/high{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/iron/dark,
 /area/science/lab)
 "fOi" = (
 /obj/effect/turf_decal/tile/neutral,

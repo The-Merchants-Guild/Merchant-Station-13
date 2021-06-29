@@ -38477,6 +38477,7 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/chair/stool/directional/north,
 /turf/open/floor/iron/white,
 /area/science/lab)
 "kHb" = (
@@ -60850,7 +60851,6 @@
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "tyc" = (
-/obj/machinery/modular_computer/console/preset/civilian,
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 1
 	},
@@ -60860,6 +60860,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/event_spawn,
+/obj/machinery/computer/rdconsole,
 /turf/open/floor/iron,
 /area/science/lab)
 "tyF" = (
@@ -65070,6 +65071,18 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/security/checkpoint/supply)
+"vfN" = (
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/modular_computer/console/preset/civilian{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/science/lab)
 "vfS" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -181191,7 +181204,7 @@ iiA
 bLs
 jrL
 oky
-bWJ
+vfN
 xEz
 xXZ
 seb

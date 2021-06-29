@@ -553,14 +553,14 @@
 	. = ..()
 	if(!.)
 		return
-	our_plant.reagents.flags |= NO_REACT
+	our_plant.reagents?.flags |= NO_REACT
 	RegisterSignal(our_plant, COMSIG_PLANT_ON_SQUASH, .proc/on_squash)
 
 /datum/plant_gene/trait/noreact/proc/on_squash(obj/item/our_plant, atom/target)
 	SIGNAL_HANDLER
 
-	our_plant.reagents.flags &= ~(NO_REACT)
-	our_plant.reagents.handle_reactions()
+	our_plant.reagents?.flags &= ~(NO_REACT)
+	our_plant.reagents?.handle_reactions()
 
 /**
  * A plant trait that causes the plant's capacity to double.

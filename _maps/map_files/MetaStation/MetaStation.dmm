@@ -62121,6 +62121,9 @@
 /area/science/mixing)
 "spA" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/machinery/modular_computer/console/preset/civilian{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/science/lab)
 "spD" = (
@@ -70446,10 +70449,10 @@
 /turf/open/floor/wood,
 /area/maintenance/port/aft)
 "uZe" = (
-/obj/machinery/modular_computer/console/preset/civilian,
 /obj/effect/turf_decal/siding{
 	dir = 1
 	},
+/obj/machinery/computer/rdconsole,
 /turf/open/floor/iron/dark,
 /area/science/lab)
 "uZj" = (

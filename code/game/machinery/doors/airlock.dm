@@ -632,7 +632,7 @@
 		if("closing")
 			update_icon(ALL, AIRLOCK_CLOSING)
 		if("deny")
-			if(!machine_stat)
+			if(!machine_stat && !wires.is_cut(WIRE_IDSCAN))
 				update_icon(ALL, AIRLOCK_DENY)
 				playsound(src,doorDeni,50,FALSE,3)
 				addtimer(CALLBACK(src, /atom/proc/update_icon, ALL, AIRLOCK_CLOSED), AIRLOCK_DENY_ANIMATION_TIME)

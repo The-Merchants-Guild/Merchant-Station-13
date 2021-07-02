@@ -4,7 +4,7 @@
 	if(!I)
 		return
 
-	if(I.tool_behaviour == TOOL_WIRECUTTER || I.tool_behaviour == TOOL_MULTITOOL)
+	if(I.tool_behaviour == TOOL_WIRECUTTER || I.tool_behaviour == TOOL_MULTITOOL || istype(I, /obj/item/stack/cable_coil))
 		return TRUE
 	if(istype(I, /obj/item/assembly))
 		var/obj/item/assembly/A = I
@@ -190,7 +190,9 @@
 	activate_color(get_color_of_wire(wire))
 
 /datum/wires/proc/activate_color(color)
-	assemblies?[color].activate()
+	var/obj/item/assembly/A = get_attached(color)
+	if (istype(A))
+		A.activate()
 	for (var/C in attached_wires?[color])
 		pulse_color(C)
 

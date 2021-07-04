@@ -632,7 +632,7 @@
 		if("closing")
 			update_icon(ALL, AIRLOCK_CLOSING)
 		if("deny")
-			if(!machine_stat)
+			if(!machine_stat && !wires.is_cut(WIRE_IDSCAN))
 				update_icon(ALL, AIRLOCK_DENY)
 				playsound(src,doorDeni,50,FALSE,3)
 				addtimer(CALLBACK(src, /atom/proc/update_icon, ALL, AIRLOCK_CLOSED), AIRLOCK_DENY_ANIMATION_TIME)
@@ -678,6 +678,7 @@
 		. += "<span class='notice'>Ctrl-Shift-click [src] to [ emergency ? "disable" : "enable"] emergency access.</span>"
 
 /obj/machinery/door/airlock/attack_ai(mob/user)
+	wires.activate_wire(WIRE_AI)
 	if(!canAIControl(user))
 		if(canAIHack())
 			hack(user)
@@ -1123,7 +1124,10 @@
 	if( operating || welded || locked || seal )
 		return FALSE
 	if(!forced)
-		if(!hasPower() || wires.is_cut(WIRE_OPEN))
+		if(!hasPower())
+			return FALSE
+		wires.activate_wire(WIRE_OPEN)
+		if (wires.is_cut(WIRE_OPEN))
 			return FALSE
 	if(forced < 2)
 		if(obj_flags & EMAGGED)
@@ -1247,6 +1251,11 @@
 	overlays_file = initial(airlock.overlays_file)
 	assemblytype = initial(airlock.assemblytype)
 	update_appearance()
+
+/obj/machinery/door/airlock/check_access(obj/item/I)
+	if(hasPower())
+		wires.activate_wire(WIRE_IDSCAN)
+	. = ..()
 
 /obj/machinery/door/airlock/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
 	//Airlock is passable if it is open (!density), bot has access, and is not bolted shut or powered off)

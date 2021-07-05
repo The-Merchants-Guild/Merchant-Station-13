@@ -1426,7 +1426,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/disk/nuclear/fake
 	cost = 1
 	surplus = 1
-	surplus_nullcrates = 0
 	illegal_tech = FALSE
 
 /datum/uplink_item/device_tools/frame

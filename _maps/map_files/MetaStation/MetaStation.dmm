@@ -11792,6 +11792,8 @@
 	pixel_x = 32
 	},
 /obj/structure/table,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/clothing/head/welding,
 /turf/open/floor/iron/white,
@@ -25477,6 +25479,8 @@
 /obj/item/stack/ducts/fifty,
 /obj/item/plunger,
 /obj/item/plunger,
+/obj/item/construction/plumbing,
+/obj/item/construction/plumbing,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "fVA" = (
@@ -48746,11 +48750,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/construction/plumbing,
-/obj/item/construction/plumbing,
+/obj/machinery/chem_assembler,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "nTI" = (

@@ -13572,7 +13572,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/machinery/chem_assembler,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "bzW" = (

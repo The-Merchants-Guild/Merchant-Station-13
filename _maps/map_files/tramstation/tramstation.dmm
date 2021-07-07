@@ -35577,6 +35577,13 @@
 /obj/effect/spawner/lootdrop/food_packaging,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
+"jHH" = (
+/obj/effect/turf_decal/trimline/yellow/filled/line{
+	dir = 6
+	},
+/obj/machinery/chem_assembler,
+/turf/open/floor/iron/white,
+/area/medical/chemistry)
 "jIf" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -173008,7 +173015,7 @@ aGx
 nAX
 nUi
 dOv
-rmG
+jHH
 qLi
 qLi
 qLi

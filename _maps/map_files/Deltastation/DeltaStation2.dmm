@@ -30687,14 +30687,16 @@
 /area/science/robotics/lab)
 "dDI" = (
 /obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/clothing/head/welding,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/clothing/head/welding,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "dDJ" = (
@@ -31134,6 +31136,8 @@
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/item/radio/intercom/directional/west,
+/obj/item/construction/plumbing,
+/obj/item/construction/plumbing,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "dES" = (
@@ -79157,13 +79161,9 @@
 /turf/open/floor/iron/white,
 /area/hallway/primary/central/aft)
 "pnH" = (
-/obj/structure/table,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/construction/plumbing,
-/obj/item/construction/plumbing,
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/trimline/yellow/filled/corner,
+/obj/machinery/chem_assembler,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "pnL" = (

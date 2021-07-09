@@ -101065,9 +101065,7 @@
 /obj/item/clothing/under/color/red,
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating,
-/area/maintenance/port/fore{
-	desc = null
-	})
+/area/maintenance/port/fore)
 "uVV" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{

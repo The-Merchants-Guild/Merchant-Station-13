@@ -101066,7 +101066,7 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating,
 /area/maintenance/port/fore{
-	desc = "How did...   What the hell?"
+	desc = null
 	})
 "uVV" = (
 /obj/structure/cable,

@@ -26,11 +26,12 @@
 
 /datum/chem_assembly_parser/proc/reset()
 	state["labels"] = list()
+	state["variables"] = list()
 
 /datum/chem_assembly_parser/proc/parse(text, arguments)
 	reset()
 	var/error
-	text = replacetext(replacetext(text, regex("  +", "g"), " "), regex("^ +| +$|^\\n|\\n$", "gm"), "")
+	text = replacetext(replacetext(text, regex("  +", "g"), " "), regex("(^ +)|( +$)|^(?: *(?:\\n))+", "gm"), "")
 	if (!text)
 		return "Nothing to parse."
 	var/list/lines = splittext(lowertext(text), "\n")
@@ -42,9 +43,18 @@
 		L = splittext(L, ";")[1]
 		if (!length(L))
 			continue
+		// Variable
+		if (L[1] == ".")
+			var/v = splittext(L, " ")
+			if (!v[2])
+				error = "L[line_num]: Invalid variable definition."
+				break
+			state["variables"][copytext(v[1], 2)] = v[2]
+			continue
+		// Label or labeled
 		if (findtext(L, ":"))
 			label = splittext(L, ":")
-			if (length(label) == 2)
+			if (label[2])
 				L = replacetext(label[2], regex("^ +| +$", "gm"), "")
 				label = label[1]
 			else
@@ -58,7 +68,8 @@
 		var/datum/chem_assembly_instruction/inst = new inst_path
 		var/is_args = splittext(copytext(L, length(is) + 1, 0), ",")
 		for (var/I in 1 to length(is_args))
-			is_args[I] = replacetext(is_args[I], regex("^ +| +$", "gm"), "")
+			var/argh = replacetext(is_args[I], regex("^ +| +$", "gm"), "")
+			is_args[I] = state["variables"][argh] ? state["variables"][argh] : argh
 		if (label)
 			state["labels"][label] = inst
 			label = ""

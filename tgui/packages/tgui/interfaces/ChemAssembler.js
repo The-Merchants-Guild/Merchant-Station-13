@@ -61,7 +61,7 @@ export const ChemAssembler = (props, context) => {
               </NoticeBox>
             )}
             <Section>
-              <TextArea fluid width="100%" height={data.error ? "298px" : "327px"} value={program_text}
+              <TextArea fontFamily="monospace" fluid width="100%" height={data.error ? "298px" : "327px"} value={program_text}
                 onChange={(e, value) => act("update_program", {
                   text: value,
                 })} />

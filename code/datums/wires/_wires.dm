@@ -160,13 +160,13 @@
 	cut(get_wire(color))
 
 /datum/wires/proc/cut_wire_connection(from_color, to_color)
-	if (!attached_wires?[from_color])
+	if (!attached_wires[from_color])
 		return
 	if (to_color in attached_wires[from_color])
 		attached_wires[from_color] -= to_color
 
 /datum/wires/proc/connect_wire(from_color, to_color)
-	if (!attached_wires?[from_color])
+	if (!attached_wires[from_color])
 		attached_wires[from_color] = list(to_color)
 		return FALSE
 	if (to_color in attached_wires[from_color])
@@ -193,7 +193,7 @@
 	var/obj/item/assembly/A = get_attached(color)
 	if (istype(A))
 		A.activate()
-	for (var/C in attached_wires?[color])
+	for (var/C in attached_wires[color])
 		pulse_color(C)
 
 /datum/wires/proc/pulse_color(color, mob/living/user)
@@ -320,7 +320,7 @@
 			"wire" = (((reveal_wires || always_reveal_wire(color)) && !is_dud_color(color)) ? get_wire(color) : null),
 			"cut" = is_color_cut(color),
 			"attached" = is_attached(color),
-			"connections" = attached_wires?[color] ? attached_wires[color] : null
+			"connections" = attached_wires[color]
 		)))
 	data["wires"] = payload
 	data["status"] = get_status()

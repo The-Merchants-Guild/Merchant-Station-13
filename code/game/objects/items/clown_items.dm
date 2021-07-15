@@ -214,6 +214,20 @@
 	worn_icon_state = "horn_air"
 	sound_file = 'sound/items/airhorn2.ogg'
 
+/obj/item/bikehorn/airhorn/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(user.zone_selected == BODY_ZONE_HEAD)
+		if (M == user)
+			user.visible_message("<span class='danger'>[user] BWAAAAAAAAAAAAAAAAAAAMPs something from [src].</span>", "<span class='notice'>mmmmyumny airhorn...</span>")
+		else
+			user.visible_message("<span class='danger'>[user] BWAAAAAAAAAAAAAAAAAAAMPs [M] with [src].</span>", "<span class='notice'>You BWAAAAAAAAAAAAAAAAAAAMP [M].</span>")
+		playsound(src, 'sound/items/airhorn2.ogg', 500, TRUE, 5)
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN,  M == usr ? 15 : 5)
+		var/obj/item/organ/ears/E = M.getorganslot(ORGAN_SLOT_EARS)
+		E.deaf += 5
+		M.reagents.add_reagent(/datum/reagent/consumable/ethanol/gargle_blaster, 5)
+		return
+	return ..()
+
 //golden bikehorn
 /obj/item/bikehorn/golden
 	name = "golden bike horn"

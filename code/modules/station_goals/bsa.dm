@@ -26,7 +26,7 @@
 	return FALSE
 
 /obj/machinery/bsa
-	icon = 'icons/obj/machines/particle_accelerator.dmi'
+	icon = 'icons/obj/particle_accelerator.dmi'
 	density = TRUE
 	anchored = TRUE
 
@@ -233,7 +233,7 @@
 	name = "bluespace artillery control"
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
-	icon = 'icons/obj/machines/particle_accelerator.dmi'
+	icon = 'icons/obj/particle_accelerator.dmi'
 	icon_state = "control_boxp"
 
 	var/obj/machinery/bsa/full/cannon

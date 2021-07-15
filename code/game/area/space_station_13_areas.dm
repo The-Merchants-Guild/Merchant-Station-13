@@ -865,6 +865,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "engine_break"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/engineering/secondary_engine
+	name = "Auxiliary Engine Room"
+	icon_state = "engine_aux"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
 /area/engineering/gravity_generator
 	name = "Gravity Generator Room"
 	icon_state = "grav_gen"

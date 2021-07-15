@@ -181,6 +181,31 @@
 	contains = list(/obj/item/storage/box/metalfoam)
 	crate_name = "metal foam grenade crate"
 
+/datum/supply_pack/emergency/syndicate
+	name = "NULL_ENTRY"
+	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE@&!*() "
+	hidden = TRUE
+	cost = CARGO_CRATE_VALUE * 100
+	contains = list()
+	crate_name = "emergency crate"
+	crate_type = /obj/structure/closet/crate/internals
+	var/crate_value = 30
+	dangerous = TRUE
+
+/datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
+	var/list/uplink_items = get_uplink_items(UPLINK_TRAITORS)
+	while(crate_value)
+		var/category = pick(uplink_items)
+		var/item = pick(uplink_items[category])
+		var/datum/uplink_item/I = uplink_items[category][item]
+		if(!I.surplus || prob(100 - I.surplus))
+			continue
+		if(crate_value < I.cost)
+			continue
+		crate_value -= I.cost
+		new I.item(C)
+	return crate_value = 30
+
 /datum/supply_pack/emergency/plasma_spacesuit
 	name = "Plasmaman Space Envirosuits"
 	desc = "Contains two space-worthy envirosuits for Plasmamen. Order now and we'll throw in two free helmets! Requires EVA access to open."
@@ -237,7 +262,7 @@
 
 /datum/supply_pack/emergency/specialops
 	name = "Special Ops Supplies"
-	desc = "(*!&@#SAD ABOUT THAT NULL_ENTRY, HUH OPERATIVE? WELL, THIS LITTLE ORDER CAN STILL HELP YOU OUT IN A PINCH. CONTAINS A BOX OF FIVE EMP GRENADES, THREE SMOKEBOMBS, AN INCENDIARY GRENADE, AND A \"SLEEPY PEN\" FULL OF NICE TOXINS!#@*$"
+	desc = "(*!&@#CAN'T AFFORD THAT NULL_ENTRY, OPERATIVE? WELL, THIS LITTLE ORDER CAN STILL HELP YOU OUT IN A PINCH. CONTAINS A BOX OF FIVE EMP GRENADES, THREE SMOKEBOMBS, AN INCENDIARY GRENADE, AND A \"SLEEPY PEN\" FULL OF NICE TOXINS!#@*$"
 	hidden = TRUE
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/item/storage/box/emps,
@@ -2653,30 +2678,6 @@
 		/obj/item/stock_parts/subspace/ansible
 	)
 	crate_name = "crate"
-
-///Special supply crate that generates random syndicate gear up to a determined TC value
-/datum/supply_pack/misc/syndicate
-	name = "Assorted Syndicate Gear"
-	desc = "Contains a random assortment of syndicate gear."
-	special = TRUE ///Cannot be ordered via cargo
-	contains = list()
-	crate_name = "syndicate gear crate"
-	crate_type = /obj/structure/closet/crate
-	var/crate_value = 30 ///Total TC worth of contained uplink items
-
-///Generate assorted uplink items, taking into account the same surplus modifiers used for surplus crates
-/datum/supply_pack/misc/syndicate/fill(obj/structure/closet/crate/C)
-	var/list/uplink_items = get_uplink_items(UPLINK_TRAITORS)
-	while(crate_value)
-		var/category = pick(uplink_items)
-		var/item = pick(uplink_items[category])
-		var/datum/uplink_item/I = uplink_items[category][item]
-		if(!I.surplus || prob(100 - I.surplus))
-			continue
-		if(crate_value < I.cost)
-			continue
-		crate_value -= I.cost
-		new I.item(C)
 
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////// General Vending Restocks /////////////////////////////

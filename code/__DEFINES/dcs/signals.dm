@@ -1298,3 +1298,9 @@
 #define COMSIG_CIRCUIT_ADD_COMPONENT "circuit_add_component"
 	/// Cancels adding the component to the circuit.
 	#define COMPONENT_CANCEL_ADD_COMPONENT (1<<0)
+
+// extensible machine
+/// Sent when a [/datum/component/extensible_machine] extends a machine.
+#define COMSIG_EXTEND_MACHINE "extend_machine"
+/// Sent when an extension created by [/datum/component/extensible_machine] is destroyed.
+#define COMSIG_EXTENSION_BROKE "extension_broke"

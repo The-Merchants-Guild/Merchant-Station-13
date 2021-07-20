@@ -2,4 +2,4 @@
 
 <h1>Welcome to The Merchan/tg/uild!</h1>
 
-<i>This server is running a /tg/station 13 Git build, ask Mister Bones in the Discord if you have any questions.</i>
+<i>This server is running a /tg/ fork with a lot of additions, ask Mister Bones in the Discord if you have any questions.</i>

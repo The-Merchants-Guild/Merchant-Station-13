@@ -507,8 +507,6 @@
 	duration = 2 SECONDS
 	status_type = STATUS_EFFECT_REPLACE
 
-	var/atom/cached_thrown_object
-
 /datum/status_effect/speed_boost/on_creation(mob/living/new_owner, set_duration)
 	if(isnum(set_duration))
 		duration = set_duration

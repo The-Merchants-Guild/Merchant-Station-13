@@ -65,7 +65,7 @@
 		extensions[CO][2]--
 
 	var/D = get_dir(parent, user)
-	CO = new CO(get_step(parent, D))
+	CO = new CO(get_step(parent, D), parent)
 	CO.dir = REVERSE_DIR(D)
 	extended_objects += CO
 	deployed_directions |= D

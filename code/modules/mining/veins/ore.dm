@@ -3,14 +3,13 @@
 
 /obj/item/raw_ore
 	name = "raw ore"
-	desc = "It just looks like a rock."
+	desc = "It looks like a rock."
 	icon = 'icons/obj/drilling.dmi'
 	icon_state = "rock"
 	inhand_icon_state = "ore"
 
 	var/mat_amount // Amount of material
-	var/recovery_percentage = 25 // How many per cent of material do you get from this?
-	var/process_phase = 0
+	var/process_phase = 0 // Current phase of ore processing
 	var/datum/material/ore_material
 
 /obj/item/raw_ore/Initialize(mapload, mat, mat_amnt)

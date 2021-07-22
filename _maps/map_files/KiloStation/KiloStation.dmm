@@ -89281,6 +89281,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/machinery/chem_assembler,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/chemistry)
 "xUd" = (

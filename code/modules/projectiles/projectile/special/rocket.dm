@@ -70,6 +70,29 @@
 	else
 		explosion(target, light_impact_range = 2, flame_range = 3, flash_range = 4)
 
+/// PM9 solid fuel canister
+/obj/projectile/bullet/a84mm/solidfuel
+	name ="\improper Solid fuel canister"
+	desc = "Flamin' hot!"
+	icon_state = "solidfuel_syndie"
+	damage = 20 //still hurts to get smacked by a flaming canister at high speeds
+	dismemberment = 0
+	embedding = null
+	shrapnel_type = null
+	var/fire_stacks = 6
+
+/obj/projectile/bullet/a84mm/solidfuel/on_hit(atom/target, blocked = 0)
+	if(iscarbon(target))
+		var/mob/living/carbon/M = target
+		M.emote("scream")
+		M.adjust_fire_stacks(fire_stacks)
+		M.IgniteMob()
+		explosion(target, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 0, flame_range = 2)
+	else
+		explosion(target, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, flame_range = 2)
+
+	return BULLET_ACT_HIT
+
 /// Mech BRM-6 missile
 /obj/projectile/bullet/a84mm_br
 	name ="\improper HE missile"

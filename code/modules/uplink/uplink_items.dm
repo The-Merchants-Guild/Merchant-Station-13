@@ -893,6 +893,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_casing/caseless/rocket/hedp
 	cost = 6
 
+/datum/uplink_item/ammo/rocket/solidfuel
+	name = "84mm Solid Fuel Canister"
+	desc = "A solid fuel canister, meant for test firing rocket launchers. \
+	These canisters have been heavily modified to burn anything behind you much, much worse."
+	item = /obj/item/ammo_casing/caseless/rocket/solidfuel
+	cost = 1
+
 /datum/uplink_item/ammo/toydarts
 	name = "Box of Riot Darts"
 	desc = "A box of 40 Donksoft riot darts, for reloading any compatible foam dart magazine. Don't forget to share!"

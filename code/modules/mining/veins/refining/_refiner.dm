@@ -5,6 +5,7 @@
 	icon = 'icons/obj/drilling.dmi'
 	density = TRUE
 	COOLDOWN_DECLARE(processing_cooldown)
+	var/const/processing_max = 5
 	var/list/processing = list()
 	var/list/processed = list()
 	var/list/valid_phases = list()
@@ -12,8 +13,8 @@
 
 /obj/machinery/ore_refiner/ComponentInitialize()
 	AddComponent(/datum/component/extensible_machine, list(
-		/obj/machinery/ore_refiner_input = list(image(icon = 'icons/obj/drilling.dmi', icon_state = "input-icon"), 1),
-		/obj/machinery/ore_refiner_output = list(image(icon = 'icons/obj/drilling.dmi', icon_state = "output-icon"), 1)
+		"Process input" = list(object = /obj/machinery/ore_refiner_input, image = image(icon = 'icons/obj/drilling.dmi', icon_state = "input-icon"), amount = 1),
+		"Process output" = list(object = /obj/machinery/ore_refiner_output, image = image(icon = 'icons/obj/drilling.dmi', icon_state = "output-icon"), amount = 1)
 	), 3 SECONDS, TOOL_CROWBAR)
 	RegisterSignal(src, COMSIG_EXTEND_MACHINE, .proc/handle_extension)
 	RegisterSignal(src, COMSIG_EXTENSION_BROKE, .proc/handle_extension_destruction)
@@ -22,8 +23,10 @@
 	if (!output_turf)
 		return
 	for (var/obj/item/raw_ore/O in processed)
-		O.process_phase++
+		O.icon_state = "[initial(O.ore_material.name)][++O.process_phase]"
+		O.update_appearance()
 		O.forceMove(output_turf)
+		processed -= O
 
 /obj/machinery/ore_refiner/proc/handle_extension(datum/source, obj/extension, mob/user)
 	SIGNAL_HANDLER
@@ -35,9 +38,8 @@
 	if (istype(extension, /obj/machinery/ore_refiner_output))
 		output_turf = null
 
-/obj/machinery/ore_refiner/proc/handle_input(datum/source, obj/item/raw_ore/inp)
-	SIGNAL_HANDLER
-	if (!length(valid_phases))
+/obj/machinery/ore_refiner/proc/handle_input(obj/item/raw_ore/inp)
+	if (!length(valid_phases) || length(processing) >= processing_max)
 		return
 	if (!valid_phases[inp.ore_material] || !(inp.process_phase in valid_phases[inp.ore_material]))
 		playsound(src,'sound/machines/terminal_error.ogg', 50, TRUE)
@@ -61,13 +63,13 @@
 
 /obj/machinery/ore_refiner_input/Initialize(mapload, _parent)
 	. = ..()
-	if (!parent)
+	if (!_parent)
 		return INITIALIZE_HINT_QDEL
 	parent = _parent
-	RegisterSignal(get_turf(src), COMSIG_ATOM_ENTERED, .proc/handle_input)
+	RegisterSignal(get_turf(src), list(COMSIG_ATOM_CREATED, COMSIG_ATOM_ENTERED), .proc/handle_input)
 
-/obj/machinery/ore_refiner_input/proc/handle_input(datum/source, obj/inp)
+/obj/machinery/ore_refiner_input/proc/handle_input(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-	if (!istype(inp, /obj/item/raw_ore))
+	if (!istype(AM, /obj/item/raw_ore))
 		return
-	parent.handle_input(inp)
+	parent.handle_input(AM)

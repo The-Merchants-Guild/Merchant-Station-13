@@ -17,21 +17,31 @@
 		return INITIALIZE_HINT_QDEL
 	ore_material = mat
 	mat_amount = mat_amnt
+	update_appearance()
+	. = ..()
+
+/obj/item/raw_ore/update_overlays()
+	. = ..()
+	if (process_phase != 0)
+		return
 	var/mutable_appearance/MA = mutable_appearance('icons/obj/drilling.dmi', "rock_vein")
 	MA.color = initial(ore_material.greyscale_colors)
-	overlays += MA
+	. += MA
+
+/obj/item/raw_ore/examine(mob/user)
 	. = ..()
+	. += "It seems to contain [initial(ore_material.name)]."
 
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface/ore
 	name = "cracked volcanic floor"
 	var/mat_amount
-	var/list/datum/material/possible_materials = list(
-		/datum/material/iron = 100, /datum/material/gold = 50,
-		/datum/material/silver = 50, /datum/material/titanium = 25,
-		/datum/material/plasma = 25, /datum/material/diamond = 4,
-		/datum/material/bluespace = 2
-	)
 	var/datum/material/ore_material
+	var/list/datum/material/possible_materials = list(
+		/datum/material/iron = 100,  /datum/material/gold = 50,
+		/datum/material/silver = 50, /datum/material/titanium = 25,
+		/datum/material/plasma = 25, /datum/material/uranium = 15,
+		/datum/material/diamond = 4, /datum/material/bluespace = 2
+	)
 
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface/ore/Initialize()
 	. = ..()
@@ -47,9 +57,6 @@
 	. = ..()
 	if (ore_material)
 		. += "It seems to have a vein of [initial(ore_material.name)]."
-
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface/ore/update_overlays()
-	. = ..()
 
 /obj/item/vein_analyser
 	name = "ore vein analyser"

@@ -1,6 +1,6 @@
-/obj/machinery/ore_refiner/grinder
-	name = "ore grinder"
-	desc = "A machine that uses industrial diamond grinding wheels to break down ore."
+/obj/machinery/ore_refiner/crusher
+	name = "ore crusher"
+	desc = "A machine used to break ore to smaller pieces."
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2000
 	valid_phases = list(
@@ -11,11 +11,12 @@
 	var/grinding_delay = 1 SECONDS
 	var/power_per_process = 1000
 
-/obj/machinery/ore_refiner/grinder/Initialize()
+/obj/machinery/ore_refiner/crusher/Initialize()
 	. = ..()
-	overlays += mutable_appearance('icons/obj/drilling.dmi', "grinder")
+	overlays += mutable_appearance('icons/obj/drilling.dmi', "crusher")
 
-/obj/machinery/ore_refiner/grinder/process(delta_time)
+/obj/machinery/ore_refiner/crusher/process(delta_time)
+	. = ..()
 	if (machine_stat & (BROKEN|NOPOWER))
 		return
 	if (!COOLDOWN_FINISHED(src, processing_cooldown))
@@ -23,7 +24,7 @@
 	for (var/obj/item/raw_ore/O in processing)
 		use_power(power_per_process)
 		COOLDOWN_START(src, processing_cooldown, grinding_delay)
+		playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 		processing -= O
 		processed += O
 		break
-	. = ..()

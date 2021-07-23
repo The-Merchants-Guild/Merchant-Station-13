@@ -15,6 +15,14 @@
 	tool_behaviour = tool
 	extension_directions = ext_dirs
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/attacked)
+	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, .proc/parent_removed)
+
+/datum/component/extensible_machine/proc/parent_removed(datum/source, force)
+	SIGNAL_HANDLER
+	if (!length(extended_objects))
+		return
+	for (var/obj/O in extended_objects)
+		qdel(O)
 
 /datum/component/extensible_machine/proc/extension_removed(datum/source, force)
 	SIGNAL_HANDLER
@@ -24,16 +32,17 @@
 	extended_objects -= source
 	var/D = get_dir(parent, source)
 	deployed_directions &= ~D
-	if (isnull(extensions[source.type][2]))
-		return
-	extensions[source.type][2]++
+	for (var/K in extensions)
+		if (extensions[K]["object"] == source.type && !isnull(extensions[K]["amount"]))
+			extensions[source.type]["amount"]++
+			return
 
 /datum/component/extensible_machine/proc/attacked(datum/source, obj/item/I, mob/living/user)
 	SIGNAL_HANDLER
 	if (I.tool_behaviour != tool_behaviour)
 		return
 	var/D = get_dir(parent, user)
-	if ((D & (D - 1)))
+	if ((D & (D - 1))) // only cardinals.
 		return COMPONENT_NO_AFTERATTACK
 	if (!(D & extension_directions) || (D & deployed_directions))
 		return COMPONENT_NO_AFTERATTACK
@@ -44,28 +53,25 @@
 	var/list/choices = list()
 	for (var/K in extensions)
 		var/V = extensions[K]
-		if (!isnull(V[2]) && V[2] <= 0)
+		if (!isnull(V["amount"]) && V["amount"] <= 0)
 			continue
-		var/obj/O = K
-		choices[initial(O.name)] = V[1]
+		choices[K] = V["image"]
 
+	var/D = get_dir(parent, user) // Radial will not go away if you move so.
 	var/choice = show_radial_menu(user, parent, choices, require_near = TRUE)
-	var/obj/CO
-	for (var/K in extensions)
-		var/obj/O = K
-		if (initial(O.name) == choice)
-			CO = K
-			break
+	var/obj/CO = extensions[choice]["object"]
 	if (!CO)
 		return
 	user.visible_message("<span class='notice'>[user] starts extending [parent].</span>", "<span class='notice'>You start extending [parent].</span>")
 	if (!do_after(user, extension_speed, parent))
 		return
-	if (!isnull(extensions[CO][2]))
-		extensions[CO][2]--
+	if (!isnull(extensions[choice]["amount"]))
+		extensions[choice]["amount"]--
 
-	var/D = get_dir(parent, user)
-	CO = new CO(get_step(parent, D), parent)
+	var/argus = list(get_step(parent, D), parent)
+	if (extensions[choice]["arguments"])
+		argus += extensions[choice]["arguments"]
+	CO = new CO(arglist(argus))
 	CO.dir = REVERSE_DIR(D)
 	extended_objects += CO
 	deployed_directions |= D

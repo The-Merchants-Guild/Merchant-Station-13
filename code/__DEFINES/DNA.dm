@@ -158,6 +158,7 @@
 #define ORGAN_SLOT_VOICE "vocal_cords"
 #define ORGAN_SLOT_LINK "cyber_link"
 #define ORGAN_SLOT_ZOMBIE "zombie_infection"
+#define ORGAN_SLOT_BUTT "butt"
 
 /// Xenomorph organ slots
 #define ORGAN_SLOT_XENO_ACIDGLAND "acid_gland"
@@ -196,6 +197,7 @@ GLOBAL_LIST_INIT(organ_process_order, list(
 	ORGAN_SLOT_STOMACH_AID,
 	ORGAN_SLOT_BREATHING_TUBE,
 	ORGAN_SLOT_EARS,
+	ORGAN_SLOT_BUTT,
 	ORGAN_SLOT_EYES,
 	ORGAN_SLOT_LUNGS,
 	ORGAN_SLOT_HEART,

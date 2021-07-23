@@ -248,6 +248,14 @@
 			ears.Insert(src)
 		ears.setOrganDamage(0)
 
+		if(!getorganslot(ORGAN_SLOT_BUTT))
+			if(ishuman(src) || ismonkey(src))
+				var/obj/item/organ/butt/B = new()
+				B.Insert(src)
+			if(isalien(src))
+				var/obj/item/organ/butt/xeno/X = new()
+				X.Insert(src)
+
 ///Organs don't die instantly, and neither should you when you get fucked up
 /obj/item/organ/proc/handle_failing_organs(delta_time)
 	if(owner.stat == DEAD)

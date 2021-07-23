@@ -13,6 +13,15 @@
 	category = list("Bluespace Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/bluebutt
+	name = "Butt Of Holding"
+	desc = "This butt has bluespace properties, letting you store more items in it. Four tiny items, or two small ones, or one normal one can fit."
+	id = "bluebutt"
+	build_type = PROTOLATHE
+	materials = list(MAT_GOLD = 500, MAT_SILVER = 500) //quite cheap, for more convenience
+	build_path = /obj/item/organ/butt/bluebutt
+	category = list("Bluespace Designs")
+
 /datum/design/bag_holding
 	name = "Inert Bag of Holding"
 	desc = "A block of metal ready to be transformed into a bag of holding with a bluespace anomaly core."

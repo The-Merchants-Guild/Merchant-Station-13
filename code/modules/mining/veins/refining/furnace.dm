@@ -6,11 +6,13 @@
 	valid_phases = list(
 		/datum/material/diamond		= list(0),
 		/datum/material/bluespace	= list(1),
+		/datum/material/uranium		= list(2),
 		/datum/material/titanium 	= list(2))
 	var/mat_requirements = list(
 		/datum/material/diamond		= list(40000, 2 SECONDS),
-		/datum/material/bluespace	= list(100, 10 SECONDS),
-		/datum/material/titanium 	= list(1000, 5 SECONDS))
+		/datum/material/bluespace	= list(100,  10 SECONDS),
+		/datum/material/uranium 	= list(2000,  6 SECONDS),
+		/datum/material/titanium 	= list(1000,  5 SECONDS))
 	var/obj/item/raw_ore/processing_ore
 	var/power_per_process = 1000
 	var/heating_delay = 2 SECONDS

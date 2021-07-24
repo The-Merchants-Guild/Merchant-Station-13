@@ -38,8 +38,15 @@
 	if (istype(extension, /obj/machinery/ore_refiner_output))
 		output_turf = null
 
+/obj/machinery/ore_refiner/proc/input_process(obj/item/raw_ore/inp)
+	return TRUE
+
 /obj/machinery/ore_refiner/proc/handle_input(obj/item/raw_ore/inp)
+	if (machine_stat & (BROKEN|NOPOWER))
+		return
 	if (!length(valid_phases) || length(processing) >= processing_max)
+		return
+	if (!input_process(inp))
 		return
 	if (!valid_phases[inp.ore_material] || !(inp.process_phase in valid_phases[inp.ore_material]))
 		playsound(src,'sound/machines/terminal_error.ogg', 50, TRUE)
@@ -53,6 +60,14 @@
 	desc = "A thing"
 	icon_state = "refiner-out"
 	icon = 'icons/obj/drilling.dmi'
+	var/output_type
+
+/obj/machinery/ore_refiner_input/Initialize(mapload, _parent, _output_type)
+	. = ..()
+	if (!_parent)
+		return INITIALIZE_HINT_QDEL
+	parent = _parent
+	output_type = _output_type
 
 /obj/machinery/ore_refiner_input
 	name = "refiner input"

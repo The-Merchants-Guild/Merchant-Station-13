@@ -28,3 +28,16 @@
 		processing -= O
 		processed += O
 		break
+
+/obj/machinery/ore_refiner/crusher/input_process(obj/item/raw_ore/O)
+	var/mat = O.ore_material
+	if (mat == /datum/material/diamond)
+		qdel(O)
+		playsound(src, 'sound/weapons/smash.ogg', 100, TRUE) // ouch
+		take_damage(round(O.mat_amount * 0.01))
+		return FALSE
+	else if (mat == /datum/material/bluespace)
+		qdel(O)
+		playsound(src, "sparks", 100, TRUE)
+		return FALSE
+	return TRUE

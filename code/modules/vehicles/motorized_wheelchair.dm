@@ -11,6 +11,8 @@
 	var/power_usage = 100
 	///whether the panel is open so a user can take out the cell
 	var/panel_open = FALSE
+	///If the wheelchair has spikes installed.
+	var/has_spikes = FALSE
 	///Parts used in building the wheelchair
 	var/list/required_parts = list(
 		/obj/item/stock_parts/manipulator,
@@ -28,7 +30,7 @@
 	refresh_parts()
 
 /obj/vehicle/ridden/wheelchair/motorized/proc/refresh_parts()
-	speed = 1 // Should never be under 1
+	speed = initial(speed) // Should never be under 1
 	for(var/obj/item/stock_parts/manipulator/M in contents)
 		speed += M.rating
 	for(var/obj/item/stock_parts/capacitor/C in contents)
@@ -82,6 +84,18 @@
 		panel_open = !panel_open
 		user.visible_message("<span class='notice'>[user] [panel_open ? "opens" : "closes"] the maintenance panel on [src].</span>", "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance panel.</span>")
 		return
+	if (istype(I, /obj/item/stack/rods) && !has_spikes)
+		var/obj/item/stack/rods/R = I
+		if (R.amount < 15)
+			to_chat(user, "<span class='notice'>You require 15 rods for this.</span>")
+			return
+		if (!do_after(user, 10 SECONDS, src))
+			return
+		if (!R.use(15))
+			to_chat(user, "<span class='notice'>You require 15 rods for this.</span>")
+			return
+		has_spikes = TRUE
+		return
 	if(!panel_open)
 		return ..()
 
@@ -94,6 +108,7 @@
 			to_chat(user, "<span class='notice'>You install the [I].</span>")
 		refresh_parts()
 		return
+
 	if(!istype(I, /obj/item/stock_parts))
 		return ..()
 
@@ -131,6 +146,8 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/examine(mob/user)
 	. = ..()
+	if (has_spikes)
+		. += "It has been rigged with some kind of spiked ram."
 	if((obj_flags & EMAGGED) && panel_open)
 		. += "There is a bomb under the maintenance panel."
 	. += "There is a small screen on it, [(in_range(user, src) || isobserver(user)) ? "[power_cell ? "it reads:" : "but it is dark."]" : "but you can't see it from here."]"
@@ -142,26 +159,42 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/Bump(atom/A)
 	. = ..()
+	if (!isclosedturf(A) && !isliving(A) && !istype(A, /obj/structure/window))
+		return
+	var/mob/living/L = (isliving(A) ? A : null)
 	// Here is the shitty emag functionality.
-	if(obj_flags & EMAGGED && (istype(A, /turf/closed) || isliving(A)))
+	if (obj_flags & EMAGGED)
 		explosion(src, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 2, adminlog = FALSE)
 		visible_message("<span class='boldwarning'>[src] explodes!!</span>")
 		return
-	// If the speed is higher than delay_multiplier throw the person on the wheelchair away
-	if(A.density && speed > delay_multiplier && has_buckled_mobs())
+	if (has_buckled_mobs())
+		if (has_spikes && L)
+			L.emote("scream")
+			if (speed > delay_multiplier)
+				playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
+				L.throw_at(get_ranged_target_turf(L, dir, 1), 2, 3)
+				L.Knockdown(10)
+				L.adjustBruteLoss(15)
+				visible_message("<span class='danger'>[src] runs over [A]!</span>")
+			else
+				L.adjustBruteLoss(8)
+				visible_message("<span class='danger'>[src] hits [A]!</span>")
+			return
+		// If the speed is higher than delay_multiplier throw the person on the wheelchair away
+		if (!(speed > delay_multiplier))
+			return
 		var/mob/living/disabled = buckled_mobs[1]
 		var/atom/throw_target = get_edge_target_turf(disabled, pick(GLOB.cardinals))
 		unbuckle_mob(disabled)
 		disabled.throw_at(throw_target, 2, 3)
 		disabled.Knockdown(100)
 		disabled.adjustStaminaLoss(40)
-		if(isliving(A))
-			var/mob/living/ramtarget = A
-			throw_target = get_edge_target_turf(ramtarget, pick(GLOB.cardinals))
-			ramtarget.throw_at(throw_target, 2, 3)
-			ramtarget.Knockdown(80)
-			ramtarget.adjustStaminaLoss(35)
-			visible_message("<span class='danger'>[src] crashes into [ramtarget], sending [disabled] and [ramtarget] flying!</span>")
+		if (L)
+			throw_target = get_edge_target_turf(L, pick(GLOB.cardinals))
+			L.throw_at(throw_target, 2, 3)
+			L.Knockdown(80)
+			L.adjustStaminaLoss(35)
+			visible_message("<span class='danger'>[src] crashes into [L], sending [disabled] and [L] flying!</span>")
 		else
 			visible_message("<span class='danger'>[src] crashes into [A], sending [disabled] flying!</span>")
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)

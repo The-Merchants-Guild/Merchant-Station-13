@@ -94,6 +94,9 @@
 		if (!R.use(15))
 			to_chat(user, "<span class='notice'>You require 15 rods for this.</span>")
 			return
+		icon_state = "[initial(icon_state)]-spiked"
+		overlay_icon = "[initial(icon_state)]-spiked_overlay"
+		update_appearance()
 		has_spikes = TRUE
 		return
 	if(!panel_open)

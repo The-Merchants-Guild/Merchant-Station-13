@@ -62,11 +62,10 @@
 	icon = 'icons/obj/drilling.dmi'
 	var/output_type
 
-/obj/machinery/ore_refiner_input/Initialize(mapload, _parent, _output_type)
+/obj/machinery/ore_refiner_output/Initialize(mapload, _parent, _output_type)
 	. = ..()
 	if (!_parent)
 		return INITIALIZE_HINT_QDEL
-	parent = _parent
 	output_type = _output_type
 
 /obj/machinery/ore_refiner_input

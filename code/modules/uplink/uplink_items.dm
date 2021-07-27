@@ -2065,3 +2065,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	purchasable_from = UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 
+/datum/uplink_item/badass/execution_sword
+	name = "Executioners Sword"
+	desc = "This modified energy sword has been specially designed to cleanly remove the head of a human \
+			being in one well aimed swipe. It contains a little hacked transmitter that will broadcast the \
+			details of your gruesome execution on the Centcom announcement channel so everyone will know the \
+			name of the filthy pig you are about to slaughter. You may dedicate your executions to whomever you \
+			please by using the device in hand but you may only do so once. Be warned that you must remain still \
+			for a long time to execute a target so be sure to have them restrained and if you should be interrupted \
+			then news of your failure will be broadcast to the station."
+	item = /obj/item/melee/execution_sword
+	cost = 1 //it sucks balls for anything but memeing
+	surplus = 30 //Theres a good chance this will end up in surplus crates, so its a great way to add a little spice to any meme round.

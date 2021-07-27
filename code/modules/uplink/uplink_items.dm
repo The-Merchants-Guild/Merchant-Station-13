@@ -1753,6 +1753,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list("Assistant")
 	surplus = 0
 
+/datum/uplink_item/role_restricted/lawnmower
+	name = "Gas powered lawn mower"
+	desc = "A lawn mower is a machine utilizing one or more revolving blades to cut a grass surface to an even height, or bodies if that's your thing"
+	restricted_roles = list("Botanist")
+	cost = 12 //this actually doesn't do anything special without an emag
+	item = /obj/vehicle/ridden/lawnmower
+
+/datum/uplink_item/role_restricted/gatfruit
+	name = "Syndi Gatfruit"
+	desc = "An extrememly rare plant seed which grows .357 revolvers. Has been modified to mature twice as fast as normal Gatfruit"
+	restricted_roles = list("Botanist")
+	cost = 18 //you already know why
+	item = /obj/item/seeds/gatfruit/syndi
+
 /datum/uplink_item/role_restricted/oldtoolboxclean
 	name = "Ancient Toolbox"
 	desc = "An iconic toolbox design notorious with Assistants everywhere, this design was especially made to become more robust the more telecrystals it has inside it! Tools and insulated gloves included."

@@ -428,6 +428,7 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define BONE_SCAR_FILE "wounds/bone_scar_desc.json"
 #define SCAR_LOC_FILE "wounds/scar_loc.json"
 #define EXODRONE_FILE "exodrone.json"
+#define SOY_FILE "soy_speech.json"
 #define CLOWN_NONSENSE_FILE "clown_nonsense.json"
 
 //Fullscreen overlay resolution in tiles.

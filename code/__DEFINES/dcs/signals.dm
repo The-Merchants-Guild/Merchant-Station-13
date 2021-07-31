@@ -1349,6 +1349,12 @@
 	/// Cancels adding the component to the circuit.
 	#define COMPONENT_CANCEL_ADD_COMPONENT (1<<0)
 
+// extensible machine
+/// Sent when a [/datum/component/extensible_machine] extends a machine.
+#define COMSIG_EXTEND_MACHINE "extend_machine"
+/// Sent when an extension created by [/datum/component/extensible_machine] is destroyed.
+#define COMSIG_EXTENSION_BROKE "extension_broke"
+
 /// Sent when a [/obj/item/circuit_component] is added to a circuit manually, by putting the item inside directly.
 /// Accepts COMPONENT_CANCEL_ADD_COMPONENT.
 #define COMSIG_CIRCUIT_ADD_COMPONENT_MANUALLY "circuit_add_component_manually"
@@ -1409,4 +1415,3 @@
 
 /// Called on the organ when it is removed from someone (mob/living/carbon/old_owner)
 #define COMSIG_ORGAN_REMOVED "comsig_organ_removed"
-

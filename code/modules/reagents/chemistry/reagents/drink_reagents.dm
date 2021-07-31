@@ -242,6 +242,7 @@
 	name = "Soy Milk"
 	description = "An opaque white liquid made from soybeans."
 	color = "#DFDFC7" // rgb: 223, 223, 199
+	overdose_threshold = 30
 	taste_description = "soy milk"
 	glass_icon_state = "glass_white"
 	glass_name = "glass of soy milk"
@@ -253,6 +254,16 @@
 		M.heal_bodypart_damage(1, 0, 0)
 		. = TRUE
 	..()
+
+/datum/reagent/consumable/soymilk/overdose_process(mob/living/M, delta_time, times_fired)
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+	if(ishuman(M))
+		if(DT_PROB(5, delta_time)) //Writing the OD speeches was fun, good times.
+			M.say(pick_list_replacements(SOY_FILE, "soy_speech"), forced = /datum/reagent/consumable/soymilk)
+		if(DT_PROB(3.5, delta_time))
+			M.visible_message("<b>[M]</b>[pick(" looks a bit pale...", "'s eyes lose focus.", " slouches over.", "'s mouth hangs a bit open.")]")
+	..()
+	return
 
 /datum/reagent/consumable/cream
 	name = "Cream"

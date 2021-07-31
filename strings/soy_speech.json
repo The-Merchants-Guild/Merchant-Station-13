@@ -1,0 +1,19 @@
+{
+	"soy_speech": [
+		"Opening those soy bottles is hard, i think my strength is waning...",
+		"Honestly, i think @pick(filth) deserve rights.",
+		"Did you see my profile? I got like 20 thousand likes!",
+		"Did you see the NT announcement where they spoke out about violence against @pick(filth)? I really should support them more!",
+		"I wish we could get rid of security so there wouldn't be any more violence.",
+		"This place needs more exposed brick walls, maybe even a barcade!"
+	],
+
+	"filth": [
+		"silicons",
+		"lizards",
+		"moths",
+		"ethereals",
+		"plasmamen"
+	]
+
+}

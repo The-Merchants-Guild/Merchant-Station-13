@@ -1181,7 +1181,6 @@
 
 /obj/item/hierophant_club/Destroy()
 	. = ..()
-	QDEL_NULL(blink)
 
 /obj/item/hierophant_club/ComponentInitialize()
 	. = ..()

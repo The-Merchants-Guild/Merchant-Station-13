@@ -317,8 +317,7 @@
 	lose_text = "<span class='danger'>Your connection to polish soil weakens.</span>"
 	medical_record_text = "Patient is polish"
 
-/datum/quirk/polish/on_spawn()
-	. = ..()
+/datum/quirk/polish/add_unique()
 	RegisterSignal(quirk_holder, COMSIG_MOB_SAY, .proc/handle_speech)
 	if(!ishuman(quirk_holder))
 		return
@@ -345,8 +344,7 @@
 	lose_text = "<span class='danger'>Your connection to ukrainian soil weakens.</span>"
 	medical_record_text = "Patient is ukrainian"
 
-/datum/quirk/ukrainian/on_spawn()
-	. = ..()
+/datum/quirk/ukrainian/add_unique()
 	RegisterSignal(quirk_holder, COMSIG_MOB_SAY, .proc/handle_speech)
 	if(!ishuman(quirk_holder))
 		return

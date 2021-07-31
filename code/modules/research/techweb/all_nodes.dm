@@ -292,7 +292,7 @@
 		"piercesyringe",
 		"plasmarefiller",
 		"smoke_machine",
->>>>>>> master
+	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	required_experiments = list(/datum/experiment/scanning/points/slime/easy)
 	discount_experiments = list(/datum/experiment/scanning/random/material/meat = 4000) //Big discount to reinforce doing it.

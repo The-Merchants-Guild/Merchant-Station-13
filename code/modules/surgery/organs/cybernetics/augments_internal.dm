@@ -59,11 +59,10 @@
 	if(!owner || . & EMP_PROTECT_SELF)
 		return
 	var/range = severity ? 10 : 5
-	var/atom/A
 	if(active)
 		release_items()
 	for(var/obj/item/stored_item in stored_items)
-		throw_target = pick(oview(range))
+		var/throw_target = pick(oview(range))
 		stored_item.throw_at(throw_target, range, 2)
 		to_chat(owner, span_warning("Your [owner.get_held_index_name(owner.get_held_index_of_item(stored_item))] spasms and throws the [stored_item.name]!"))
 	stored_items = list()

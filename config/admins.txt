@@ -10,4 +10,4 @@ PetRock21 = Game Master
 Lunaman223 = Game Master
 PurpleDizzy = Moderator
 ELord_exe = Coder
-#TheChosenEvilOne = Coder
+TheChosenEvilOne = Coder

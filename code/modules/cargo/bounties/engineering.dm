@@ -45,12 +45,12 @@
 	name = "Contained Tesla Ball"
 	description = "Station 24 is being overrun by hordes of angry Mothpeople. They are requesting the ultimate bug zapper."
 	reward = CARGO_CRATE_VALUE * 375
-	wanted_types = list(/obj/singularity/energy_ball)
+	wanted_types = list(/obj/energy_ball/)
 
 /datum/bounty/item/engineering/energy_ball/applies_to(obj/O)
 	if(!..())
 		return FALSE
-	var/obj/singularity/energy_ball/T = O
+	var/obj/energy_ball/T = O
 	return !T.miniball
 
 /datum/bounty/item/engineering/emitter

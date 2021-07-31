@@ -18631,7 +18631,6 @@
 /obj/effect/turf_decal/trimline/neutral/filled/corner{
 	dir = 8
 	},
-/obj/item/radio/intercom/directional/north,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
 	},
@@ -20514,6 +20513,17 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/commons/toilet/restrooms)
+"eEx" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/machinery/light/directional/north,
+/obj/structure/closet/secure_closet/lethalshots,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "eEK" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/turf_decal/siding,
@@ -23578,7 +23588,6 @@
 	dir = 8
 	},
 /obj/effect/spawner/lootdrop/armory_contraband/metastation,
-/obj/machinery/light/directional/north,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "fzG" = (
@@ -43958,6 +43967,10 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron/dark,
 /area/engineering/storage/tech)
+"myx" = (
+/obj/item/radio/intercom/directional/north,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "myG" = (
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
@@ -107914,7 +107927,7 @@ aaa
 aaa
 aaa
 aeq
-aeq
+myx
 eau
 akE
 alW
@@ -108170,8 +108183,8 @@ lMJ
 aaa
 aaa
 aaa
-aaa
 aeq
+eEx
 fzF
 akF
 alZ

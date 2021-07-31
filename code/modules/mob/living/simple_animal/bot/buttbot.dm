@@ -6,7 +6,6 @@
 	layer = 5.0
 	density = 0
 	anchored = 0
-	flags_1 = HEAR_1
 	health = 25
 	var/xeno = 0 //Do we hiss when buttspeech?
 	var/cooldown = 0
@@ -15,6 +14,7 @@
 
 /mob/living/simple_animal/bot/buttbot/Initialize()
 	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_HEAR, .proc/handle_hearing)
 	if(xeno)
 		icon_state = "buttbot_xeno"
 		speech_list = list("hissing butts", "hiss hiss motherfucker", "nice trophy nerd", "butt", "woop get an alien inspection")
@@ -58,13 +58,13 @@
 		else
 			speak(pick(speech_list))
 
-/mob/living/simple_animal/bot/buttbot/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq)
+/mob/living/simple_animal/bot/buttbot/proc/handle_hearing(datum/source, message, atom/movable/speaker)
+	SIGNAL_HANDLER
 	//Also dont imitate ourselves. Imitate other buttbots though heheh
 	if(speaker != src && prob(40))
 		if(speech_buffer.len >= 20)
 			speech_buffer -= pick(speech_buffer)
-		speech_buffer |= html_decode(raw_message)
-	..()
+		speech_buffer |= html_decode(message)
 
 /proc/buttificate(phrase)
 	var/params = replacetext(phrase, " ", "&")

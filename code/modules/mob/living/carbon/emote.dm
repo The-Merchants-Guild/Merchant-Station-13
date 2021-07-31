@@ -274,6 +274,7 @@
 	muzzle_ignore = TRUE
 	hands_use_check = TRUE
 	emote_type = EMOTE_AUDIBLE
+	audio_cooldown = 5 SECONDS
 	vary = TRUE
 
 /datum/emote/living/carbon/clap/get_sound(mob/living/user)
@@ -354,11 +355,11 @@
 /datum/emote/living/carbon/circle/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
 	if(!length(user.get_empty_held_indexes()))
-		to_chat(user, "<span class='warning'>You don't have any free hands to make a circle with.</span>")
+		to_chat(user, span_warning("You don't have any free hands to make a circle with."))
 		return
 	var/obj/item/circlegame/N = new(user)
 	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You make a circle with your hand.</span>")
+		to_chat(user, span_notice("You make a circle with your hand."))
 
 /datum/emote/living/carbon/slap
 	key = "slap"
@@ -372,10 +373,10 @@
 		return
 	var/obj/item/slapper/N = new(user)
 	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
+		to_chat(user, span_notice("You ready your slapping hand."))
 	else
 		qdel(N)
-		to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
+		to_chat(user, span_warning("You're incapable of slapping in your current state."))
 
 /datum/emote/living/carbon/noogie
 	key = "noogie"
@@ -388,7 +389,8 @@
 		return
 	var/obj/item/noogie/noogie = new(user)
 	if(user.put_in_hands(noogie))
-		to_chat(user, "<span class='notice'>You ready your noogie'ing hand.</span>")
+		to_chat(user, span_notice("You ready your noogie'ing hand."))
 	else
 		qdel(noogie)
-		to_chat(user, "<span class='warning'>You're incapable of noogie'ing in your current state.</span>")
+		to_chat(user, span_warning("You're incapable of noogie'ing in your current state."))
+

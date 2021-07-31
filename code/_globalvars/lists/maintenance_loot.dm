@@ -238,20 +238,37 @@ GLOBAL_LIST_INIT(uncommon_loot, list(//uncommon: useful items
 		/obj/item/food/monkeycube = 1,
 		) = 8,
 
+	list(//music
+		/obj/item/instrument/violin = 5,
+		/obj/item/instrument/banjo = 5,
+		/obj/item/instrument/guitar = 5,
+		/obj/item/instrument/eguitar = 5,
+		/obj/item/instrument/glockenspiel = 5,
+		/obj/item/instrument/accordion = 5,
+		/obj/item/instrument/trumpet = 5,
+		/obj/item/instrument/saxophone = 5,
+		/obj/item/instrument/trombone = 5,
+		/obj/item/instrument/recorder = 5,
+		/obj/item/instrument/harmonica = 5,
+		/obj/item/instrument/bikehorn = 2,
+		/obj/item/instrument/violin/golden = 2,
+		/obj/item/instrument/musicalmoth = 1,
+		) = 2,
+
 	list(//misc cybernetics
-	/obj/item/organ/cyberimp/arm/item_set/toolset = 1,
-	/obj/item/organ/cyberimp/arm/item_set/flash = 1,
-	/obj/item/organ/cyberimp/arm/item_set/surgery = 1,
-	/obj/item/organ/cyberimp/arm/item_set/cook = 1,
-	/obj/item/organ/cyberimp/arm/item_set/janitor = 1,
-	/obj/item/organ/cyberimp/arm/item_set/tablet = 1,
-	/obj/item/organ/cyberimp/arm/item_set/connector = 1,
-	/obj/item/organ/cyberimp/leg/table_glider = 1,
-	/obj/item/organ/cyberimp/leg/shove_resist = 1,
-	/obj/item/organ/cyberimp/leg/chemplant/drugs = 1,
-	/obj/item/organ/cyberimp/cyberlink/nt_low = 1,
-	/obj/item/organ/cyberimp/cyberlink/nt_high = 1,
-	/obj/item/autosurgeon/organ/cyberlink_nt_low = 1,
+		/obj/item/organ/cyberimp/arm/item_set/toolset = 1,
+		/obj/item/organ/cyberimp/arm/item_set/flash = 1,
+		/obj/item/organ/cyberimp/arm/item_set/surgery = 1,
+		/obj/item/organ/cyberimp/arm/item_set/cook = 1,
+		/obj/item/organ/cyberimp/arm/item_set/janitor = 1,
+		/obj/item/organ/cyberimp/arm/item_set/tablet = 1,
+		/obj/item/organ/cyberimp/arm/item_set/connector = 1,
+		/obj/item/organ/cyberimp/leg/table_glider = 1,
+		/obj/item/organ/cyberimp/leg/shove_resist = 1,
+		/obj/item/organ/cyberimp/leg/chemplant/drugs = 1,
+		/obj/item/organ/cyberimp/cyberlink/nt_low = 1,
+		/obj/item/organ/cyberimp/cyberlink/nt_high = 1,
+		/obj/item/autosurgeon/organ/cyberlink_nt_low = 1,
 	) = 10,
 
 	list(//fakeout items, keep this list at low relative weight
@@ -345,7 +362,12 @@ GLOBAL_LIST_INIT(oddity_loot, list(//oddity: strange or crazy items
 		/obj/item/dice/d20/fate/stealth/cursed = 1, //Only rolls 1
 		/obj/item/clothing/shoes/jackboots/fast = 1,
 		/obj/item/clothing/suit/armor/reactive/table = 1,
-		/obj/item/storage/box/donkpockets/donkpocketgondola = 1
+		/obj/item/storage/box/donkpockets/donkpocketgondola = 1,
+		list(//music
+			/obj/item/instrument/saxophone/spectral = 1,
+			/obj/item/instrument/trumpet/spectral = 1,
+			/obj/item/instrument/trombone/spectral = 1,
+			) = 1,
 	))
 
 //Maintenance loot spawner pools
@@ -381,3 +403,6 @@ GLOBAL_LIST_INIT(ratking_coins, list(//Coins: Used by the regal rat mob when spa
 			/obj/item/coin/silver,
 			/obj/item/coin/plastic,
 			/obj/item/coin/titanium))
+
+// List of all maintenance loot spawners, for easy finding at roundstart.
+GLOBAL_LIST_EMPTY(maintenance_loot_spawners)

@@ -1,4 +1,3 @@
-
 /datum/component/extensible_machine
 	var/tool_behaviour
 	var/extension_speed
@@ -7,6 +6,10 @@
 	var/list/extensions
 	var/list/obj/extended_objects = list()
 
+/// Extensible machine, exst is an assoc list with name as the key and an assoc list as the value;
+/// The value assoc list must contain "image" which is shown in the radial menu and "object" which is the /obj created as the extension, it can also contain "amount" which is how many extensions of this type are available and "arguments" which are provided to the objects Initialize proc.
+/// ext_speed is the do_after delay used, and tool is the tool_behaviour you want to use for extending the machine.
+/// ext_dirs is which directions are allowed to be extended from. (does not support diagonals)
 /datum/component/extensible_machine/Initialize(exst, ext_speed, tool, ext_dirs = ALL_CARDINALS)
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE

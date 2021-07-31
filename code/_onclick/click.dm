@@ -196,7 +196,7 @@
  * A backwards depth-limited breadth-first-search to see if the target is
  * logically "in" anything adjacent to us.
  */
-/atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
+/atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE, reach_organs = TRUE)
 	var/list/direct_access = DirectAccess()
 	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
 
@@ -217,9 +217,15 @@
 			if (!target.loc)
 				continue
 
+			if(reach_organs && iscarbon(src))
+				var/mob/living/carbon/carbon_src = src
+				if((target in carbon_src.bodyparts) || (target in carbon_src.internal_organs))
+					return TRUE
+
 			//Storage and things with reachable internal atoms need add to next here. Or return COMPONENT_ALLOW_REACH.
 			if(SEND_SIGNAL(target.loc, COMSIG_ATOM_CANREACH, next) & COMPONENT_ALLOW_REACH)
 				next += target.loc
+
 
 		checking = next
 	return FALSE

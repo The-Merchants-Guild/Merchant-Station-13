@@ -20,7 +20,12 @@
 /datum/atom_hud/data/human/medical
 	hud_icons = list(STATUS_HUD, HEALTH_HUD, NANITE_HUD)
 
-/datum/atom_hud/data/human/medical/basic
+/datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
+	if(check_sensors(H))
+		..()
+
+/datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)
+	check_sensors(H) ? add_to_hud(H) : remove_from_hud(H)
 
 /datum/atom_hud/data/human/medical/basic/proc/check_sensors(mob/living/carbon/human/H)
 	if(!istype(H))
@@ -32,14 +37,13 @@
 		return FALSE
 	return TRUE
 
-/datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
-	if(check_sensors(H))
-		..()
-
-/datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)
-	check_sensors(H) ? add_to_hud(H) : remove_from_hud(H)
-
 /datum/atom_hud/data/human/medical/advanced
+
+/datum/atom_hud/data/human/medical/basic/sensors
+	hud_icons = list(SENSOR_HUD)
+
+/datum/atom_hud/data/human/medical/basic/sensors/update_suit_sensors(mob/living/carbon/H)
+	check_sensors(H) ? add_to_hud(H) : remove_from_hud(H)
 
 /datum/atom_hud/data/human/security
 
@@ -51,6 +55,12 @@
 
 /datum/atom_hud/data/human/fan_hud
 	hud_icons = list(FAN_HUD)
+
+/datum/atom_hud/data/human/polish
+	hud_icons = list(POLISH_HUD)
+
+/datum/atom_hud/data/human/ukrainian
+	hud_icons = list(UKRAINIAN_HUD)
 
 /datum/atom_hud/data/diagnostic
 
@@ -162,7 +172,9 @@ Medical HUD! Basic mode needs suit sensors on.
 //called when a human changes suit sensors
 /mob/living/carbon/proc/update_suit_sensors()
 	var/datum/atom_hud/data/human/medical/basic/B = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
+	var/datum/atom_hud/data/human/medical/basic/sensors/S = GLOB.huds[DATA_HUD_SENSORS]
 	B.update_suit_sensors(src)
+	S.update_suit_sensors(src)
 
 //called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
@@ -187,17 +199,27 @@ Medical HUD! Basic mode needs suit sensors on.
 
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
+	var/image/sensors = hud_list[SENSOR_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	var/virus_threat = check_virus()
 	holder.pixel_y = I.Height() - world.icon_size
+
 	if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
+
 	else if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
+
+		sensors.layer = ABOVE_BYOND_LIGHTING_LAYER
+		sensors.plane = ABOVE_BYOND_LIGHTING_PLANE
+		sensors.icon_state = "sensors"
+
 		if((key || get_ghost(FALSE, TRUE)) && (can_defib() & DEFIB_REVIVABLE_STATES))
 			holder.icon_state = "huddefib"
 		else
 			holder.icon_state = "huddead"
 	else
+
+		sensors.icon_state = null
 		switch(virus_threat)
 			if(DISEASE_SEVERITY_BIOHAZARD)
 				holder.icon_state = "hudill5"
@@ -234,6 +256,24 @@ FAN HUDs! For identifying other fans on-sight.
 			holder.icon_state = "fan_mime_pin"
 		else if(istype(U.attached_accessory, /obj/item/clothing/accessory/fan_clown_pin))
 			holder.icon_state = "fan_clown_pin"
+
+/***********************************************
+NATIONALITY HUDSs! For identifying others of your kin on sight.
+************************************************/
+
+//HOOKS
+
+/mob/living/carbon/human/proc/quirk_hud_become_polish()
+	var/image/holder = hud_list[POLISH_HUD]
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
+	holder.icon_state = "polish"
+
+/mob/living/carbon/human/proc/quirk_hud_become_ukrainian()
+	var/image/holder = hud_list[UKRAINIAN_HUD]
+	var/icon/I = icon(icon, icon_state, dir)
+	holder.pixel_y = I.Height() - world.icon_size
+	holder.icon_state = "ukrainian"
 
 /***********************************************
 Security HUDs! Basic mode shows only the job.

@@ -69,6 +69,15 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/buttshoes
+	name = "butt shoes"
+	result = /obj/item/clothing/shoes/buttshoes
+	reqs = list(/obj/item/organ/butt = 2,
+				/obj/item/clothing/shoes/sneakers = 1)
+	tool_behaviors = list(TOOL_WIRECUTTER)
+	time = 50
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/strobeshield
 	name = "Strobe Shield"
 	result = /obj/item/shield/riot/flash
@@ -1079,15 +1088,6 @@
 		/obj/item/stack/sticky_tape = 1,
 	)
 	result = /obj/item/clothing/gloves/tackler/offbrand
-	category = CAT_CLOTHING
-
-/datum/crafting_recipe/boh
-	name = "Bag of Holding"
-	reqs = list(
-		/obj/item/bag_of_holding_inert = 1,
-		/obj/item/assembly/signaler/anomaly/bluespace = 1,
-	)
-	result = /obj/item/storage/backpack/holding
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/ipickaxe

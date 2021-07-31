@@ -1,3 +1,8 @@
+/mob/living/carbon/human/grabbedby(mob/living/user, supress_message = 0)
+	if (checkbuttinspect(user))
+		return FALSE
+	return ..()
+
 /mob/living/carbon/human/getarmor(def_zone, type)
 	var/armorval = 0
 	var/organnum = 0

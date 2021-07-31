@@ -87,6 +87,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/refund_amount = 0 // specified refund amount in case there needs to be a TC penalty for refunds.
 	var/refundable = FALSE
 	var/surplus = 100 // Chance of being included in the surplus crate.
+	var/surplus_nullcrates //Chance of being included in null crates. null = pull from surplus
 	var/cant_discount = FALSE
 	var/limited_stock = -1 //Setting this above zero limits how many times this item can be bought by the same traitor in a round, -1 is unlimited
 	/// A bitfield to represent what uplinks can purchase this item.
@@ -98,6 +99,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/restricted = FALSE // Adds restrictions for VR/Events
 	var/list/restricted_species //Limits items to a specific species. Hopefully.
 	var/illegal_tech = TRUE // Can this item be deconstructed to unlock certain techweb research nodes?
+
+/datum/uplink_item/New()
+	. = ..()
+	if(isnull(surplus_nullcrates))
+		surplus_nullcrates = surplus
 
 /datum/uplink_item/proc/get_discount()
 	return pick(4;0.75,2;0.5,1;0.25)
@@ -162,6 +168,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A random selection of cybernetic implants. Guaranteed 5 high quality implants. Comes with an autosurgeon."
 	item = /obj/item/storage/box/cyber_implants
 	cost = 40
+	purchasable_from = UPLINK_NUKE_OPS
+
+/datum/uplink_item/bundles_tc/mantis_kit
+	name = "A.R.A.S.A.K.A. Mantis Blades Kit"
+	desc = "Comes with 2 A.R.A.S.A.K.A. Mantis blades and a syndicate cyberlink. All packaged with autosurgeons."
+	item = /obj/item/storage/briefcase/syndie_mantis
+	cost = 20
 	purchasable_from = UPLINK_NUKE_OPS
 
 /datum/uplink_item/bundles_tc/medical
@@ -880,6 +893,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_casing/caseless/rocket/hedp
 	cost = 6
 
+/datum/uplink_item/ammo/rocket/solidfuel
+	name = "84mm Solid Fuel Canister"
+	desc = "A solid fuel canister, meant for test firing rocket launchers. \
+	These canisters have been heavily modified to burn anything behind you much, much worse."
+	item = /obj/item/ammo_casing/caseless/rocket/solidfuel
+	cost = 1
+
 /datum/uplink_item/ammo/toydarts
 	name = "Box of Riot Darts"
 	desc = "A box of 40 Donksoft riot darts, for reloading any compatible foam dart magazine. Don't forget to share!"
@@ -1192,6 +1212,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	purchasable_from = ~UPLINK_NUKE_OPS //clown ops are allowed to buy this kit, since it's basically a costume
 
+/*/datum/uplink_item/stealthy_tools/chameleon_skillchip
+	name = "Chameleon Skillchip"
+	desc = "A highly advanced skillchip that contains data on all available skillchips. \
+			This skillchip only takes up a single skillchip slot in the user's brain. \
+			Comes with a single-use Syndicate autosurgeon for immediate self-application."
+	item = /obj/item/autosurgeon/skillchip/syndicate/chameleon_chip
+	cost = 4
+	purchasable_from = ~UPLINK_NUKE_OPS*/ // it was removed from tg it seems, left here just in cases
+
+/datum/uplink_item/stealthy_tools/cyberlink
+	name = "Cybersun Cybernetics Access System"
+	desc = "Syndicate made cyberlink, allowing you access to implants manufactured by Syndicate corporation's. Doesn't work with NT made implants, due to software diffrences."
+	item = /obj/item/autosurgeon/organ/cyberlink_syndicate
+	cost = 2
+
 /datum/uplink_item/stealthy_tools/chameleon_proj
 	name = "Chameleon Projector"
 	desc = "Projects an image across a user, disguising them as an object scanned with it, as long as they don't \
@@ -1380,7 +1415,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The cryptographic sequencer, electromagnetic card, or emag, is a small card that unlocks hidden functions \
 			in electronic devices, subverts intended functions, and easily breaks security mechanisms. Cannot be used to open airlocks."
 	item = /obj/item/card/emag
-	cost = 4
+	cost = 8
 
 /datum/uplink_item/device_tools/syndie_jaws_of_life
 	name = "Syndicate Jaws of Life"
@@ -1405,6 +1440,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 1
 	illegal_tech = FALSE
+	surplus_nullcrates = 0
 
 /datum/uplink_item/device_tools/frame
 	name = "F.R.A.M.E. PDA Cartridge"
@@ -1724,6 +1760,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list("Assistant")
 	surplus = 0
 
+/datum/uplink_item/role_restricted/lawnmower
+	name = "Gas powered lawn mower"
+	desc = "A lawn mower is a machine utilizing one or more revolving blades to cut a grass surface to an even height, or bodies if that's your thing"
+	restricted_roles = list("Botanist")
+	cost = 12 //this actually doesn't do anything special without an emag
+	item = /obj/vehicle/ridden/lawnmower
+
+/datum/uplink_item/role_restricted/gatfruit
+	name = "Syndi Gatfruit"
+	desc = "An extrememly rare plant seed which grows .357 revolvers. Has been modified to mature twice as fast as normal Gatfruit"
+	restricted_roles = list("Botanist")
+	cost = 18 //you already know why
+	item = /obj/item/seeds/gatfruit/syndi
+
 /datum/uplink_item/role_restricted/oldtoolboxclean
 	name = "Ancient Toolbox"
 	desc = "An iconic toolbox design notorious with Assistants everywhere, this design was especially made to become more robust the more telecrystals it has inside it! Tools and insulated gloves included."
@@ -2036,3 +2086,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	purchasable_from = UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 
+/datum/uplink_item/badass/execution_sword
+	name = "Executioners Sword"
+	desc = "This modified energy sword has been specially designed to cleanly remove the head of a human \
+			being in one well aimed swipe. It contains a little hacked transmitter that will broadcast the \
+			details of your gruesome execution on the Centcom announcement channel so everyone will know the \
+			name of the filthy pig you are about to slaughter. You may dedicate your executions to whomever you \
+			please by using the device in hand but you may only do so once. Be warned that you must remain still \
+			for a long time to execute a target so be sure to have them restrained and if you should be interrupted \
+			then news of your failure will be broadcast to the station."
+	item = /obj/item/melee/execution_sword
+	cost = 1 //it sucks balls for anything but memeing
+	surplus = 30 //Theres a good chance this will end up in surplus crates, so its a great way to add a little spice to any meme round.

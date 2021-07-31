@@ -1382,6 +1382,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	SEND_SIGNAL(M, COMSIG_MOB_ATTACK_HAND, M, H, attacker_style)
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		if(H.checkbuttinspect(M))
+			return FALSE
 		disarm(M, H, attacker_style)
 		return // dont attack after
 	if(M.combat_mode)
@@ -1391,6 +1393,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, mob/living/carbon/human/H)
 	// Allows you to put in item-specific reactions based on species
+	if(H.checkbuttinsert(I, user))
+		return FALSE
 	if(user != H)
 		if(H.check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
 			return FALSE

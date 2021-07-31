@@ -17,6 +17,8 @@
 	custom_price = PAYCHECK_EASY * 0.5
 	sharpness = SHARP_POINTY
 
+	var/syringe_sprite="syringe"
+
 /obj/item/reagent_containers/syringe/Initialize()
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
@@ -147,7 +149,7 @@
 /obj/item/reagent_containers/syringe/update_overlays()
 	. = ..()
 	if(reagents?.total_volume)
-		var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[get_rounded_vol()]")
+		var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "[syringe_sprite][get_rounded_vol()]")
 		filling_overlay.color = mix_color_from_reagents(reagents.reagent_list)
 		. += filling_overlay
 
@@ -226,6 +228,7 @@
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(10, 20, 30, 40, 50, 60)
 	volume = 60
+	syringe_sprite = "bsyringe"
 
 /obj/item/reagent_containers/syringe/piercing
 	name = "piercing syringe"

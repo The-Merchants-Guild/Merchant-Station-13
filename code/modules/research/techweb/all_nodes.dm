@@ -279,6 +279,7 @@
 	description = "Advanced Biotechnology"
 	prereq_ids = list("biotech")
 	design_ids = list(
+		"chem_assembler",
 		"crewpinpointer",
 		"defibrillator_compact",
 		"detective_scanner",
@@ -291,7 +292,7 @@
 		"piercesyringe",
 		"plasmarefiller",
 		"smoke_machine",
-	)
+>>>>>>> master
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	required_experiments = list(/datum/experiment/scanning/points/slime/easy)
 	discount_experiments = list(/datum/experiment/scanning/random/material/meat = 4000) //Big discount to reinforce doing it.
@@ -510,14 +511,17 @@
 	description = "How to get more zap."
 	prereq_ids = list("engineering")
 	design_ids = list(
+		"smes",
+		"super_cell",
 		"hyper_cell",
-		"power_compressor",
+		"super_capacitor",
+		"superpacman",
+		"mrspacman",
 		"power_turbine",
 		"power_turbine_console",
-		"smes",
-		"super_capacitor",
-		"super_cell",
-		"superpacman",
+		"power_compressor",
+		"circulator",
+		"teg",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -575,6 +579,7 @@
 	prereq_ids = list("micro_bluespace", "janitor")
 	design_ids = list(
 		"bag_holding",
+		"bluebutt",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 
@@ -1140,6 +1145,24 @@
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
+/datum/techweb_node/ntlink_low
+	id = "ntlink_low"
+	display_name = "Cybernetic Application"
+	description = "Creation of NT-secure basic cyberlinks for low-grade cybernetic augmentation"
+	prereq_ids = list("adv_biotech","adv_biotech", "datatheory" )
+	design_ids = list("ci-nt_low")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+
+/datum/techweb_node/ntlink_high
+	id = "ntlink_high"
+	display_name = "Advanced Cybernetic Application"
+	description = "Creation of NT-secure advanced cyberlinks for high-grade cybernetic augmentation"
+	prereq_ids = list("ntlink_low", "adv_cyber_implants","high_efficiency")
+	design_ids = list("ci-nt_high")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+
+
+
 ////////////////////////Tools////////////////////////
 
 /datum/techweb_node/basic_mining
@@ -1627,7 +1650,7 @@
 
 /datum/techweb_node/mech_missile_rack
 	id = "mech_missile_rack"
-	display_name = "Exosuit Weapon (BRM-6 Missile Rack)"
+	display_name = "Exosuit Weapon (SRM-8 Missile Rack)"
 	description = "An advanced piece of mech weaponry"
 	prereq_ids = list("explosive_weapons")
 	design_ids = list(
@@ -1867,8 +1890,6 @@
 		"zip_nanites",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 2500)
-	hidden = TRUE
-	experimental = TRUE
 
 ////////////////////////Alien technology////////////////////////
 /datum/techweb_node/alientech //AYYYYYYYYLMAOO tech
@@ -2001,7 +2022,6 @@
 			continue
 		boost_item_paths |= UI.item //allows deconning to unlock.
 
-
 ////////////////////////B.E.P.I.S. Locked Techs////////////////////////
 /datum/techweb_node/light_apps
 	id = "light_apps"
@@ -2093,6 +2113,9 @@
 	hidden = TRUE
 	experimental = TRUE
 
+
+
+
 //Helpers for debugging/balancing the techweb in its entirety!
 /proc/total_techweb_points()
 	var/list/datum/techweb_node/processing = list()
@@ -2115,3 +2138,4 @@
 		var/datum/techweb_node/TN = i
 		TW.add_point_list(TN.research_costs)
 	return TW.printout_points()
+

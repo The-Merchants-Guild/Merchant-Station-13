@@ -307,3 +307,60 @@
 
 /datum/quirk/item_quirk/colorist/add_unique()
 	give_item_to_holder(/obj/item/dyespray, list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK, LOCATION_HANDS = ITEM_SLOT_HANDS))
+
+/datum/quirk/polish
+	name = "Polish"
+	desc = "You are part of polish cosmic diaspora, you love kielbasa and say kurwa instead of fuck, you can also detect other poles."
+	value = 1
+	mob_trait = TRAIT_POLISH
+	gain_text = "<span class='notice'>You feel the polish blood pumping through you.</span>"
+	lose_text = "<span class='danger'>Your connection to polish soil weakens.</span>"
+	medical_record_text = "Patient is polish"
+
+/datum/quirk/polish/on_spawn()
+	. = ..()
+	RegisterSignal(quirk_holder, COMSIG_MOB_SAY, .proc/handle_speech)
+	if(!ishuman(quirk_holder))
+		return
+	var/mob/living/carbon/human/quirky_human = quirk_holder
+	quirky_human.quirk_hud_become_polish()
+	var/datum/atom_hud/data/human/polish/hud = GLOB.huds[QUIRK_HUD_POLISH]
+	hud.add_hud_to(quirky_human)
+
+/datum/quirk/polish/remove()
+	UnregisterSignal(quirk_holder, COMSIG_MOB_SAY)
+	return ..()
+
+/datum/quirk/polish/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
+	speech_args[SPEECH_MESSAGE] = replacetext(speech_args[SPEECH_MESSAGE],"fuck","kurwa")
+
+/datum/quirk/ukrainian
+	name = "Ukrainian"
+	desc = "You are part of ukrainian diaspora, even tough you are far from home you still keep your customs of verbally assaulting passerby's."
+	value = 1
+	mob_trait = TRAIT_UKRAINIAN
+	gain_text = "<span class='notice'>You feel the ukrainian blood pumping through you.</span>"
+	lose_text = "<span class='danger'>Your connection to ukrainian soil weakens.</span>"
+	medical_record_text = "Patient is ukrainian"
+
+/datum/quirk/ukrainian/on_spawn()
+	. = ..()
+	RegisterSignal(quirk_holder, COMSIG_MOB_SAY, .proc/handle_speech)
+	if(!ishuman(quirk_holder))
+		return
+	var/mob/living/carbon/human/quirky_human = quirk_holder
+	quirky_human.quirk_hud_become_ukrainian()
+	var/datum/atom_hud/data/human/ukrainian/hud = GLOB.huds[QUIRK_HUD_UKRAINIAN]
+	hud.add_hud_to(quirky_human)
+
+
+/datum/quirk/ukrainian/remove()
+	UnregisterSignal(quirk_holder, COMSIG_MOB_SAY)
+	return ..()
+
+/datum/quirk/ukrainian/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
+	speech_args[SPEECH_MESSAGE] = replacetext(speech_args[SPEECH_MESSAGE],"fuck","Сука")

@@ -62,13 +62,8 @@
 	cartridge_wording = "rocket"
 	empty_indicator = TRUE
 	tac_reloads = FALSE
-	/// Do we shit flames behind us when we fire?
-	var/backblast = TRUE
+	backblast = TRUE
 
-/obj/item/gun/ballistic/rocketlauncher/Initialize()
-	. = ..()
-	if(backblast)
-		AddElement(/datum/element/backblast)
 
 /obj/item/gun/ballistic/rocketlauncher/unrestricted
 	pin = /obj/item/firing_pin

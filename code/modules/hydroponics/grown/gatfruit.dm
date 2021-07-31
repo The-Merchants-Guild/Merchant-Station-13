@@ -19,6 +19,9 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	reagents_add = list(/datum/reagent/sulfur = 0.1, /datum/reagent/carbon = 0.1, /datum/reagent/nitrogen = 0.07, /datum/reagent/potassium = 0.05)
 
+/obj/item/seeds/gatfruit/syndi
+	maturation = 20
+
 /obj/item/food/grown/shell/gatfruit
 	seed = /obj/item/seeds/gatfruit
 	name = "gatfruit"

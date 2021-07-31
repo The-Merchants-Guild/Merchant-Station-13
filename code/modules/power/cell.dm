@@ -32,6 +32,8 @@
 	var/corrupted = FALSE
 	///how much power is given every tick in a recharger
 	var/chargerate = 100
+	///does it self recharge, over time, or not?
+	var/self_recharge = 0
 	///If true, the cell will state it's maximum charge in it's description
 	var/ratingdesc = TRUE
 	///If it's a grown that acts as a battery, add a wire overlay to it.
@@ -42,6 +44,7 @@
 
 /obj/item/stock_parts/cell/Initialize(mapload, override_maxcharge)
 	. = ..()
+	START_PROCESSING(SSobj, src)
 	create_reagents(5, INJECTABLE | DRAINABLE)
 	if (override_maxcharge)
 		maxcharge = override_maxcharge
@@ -60,6 +63,25 @@
 	SIGNAL_HANDLER
 	UnregisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT, COMSIG_PARENT_QDELETING))
 	return NONE
+
+/obj/item/stock_parts/cell/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, self_recharge))
+			if(var_value)
+				START_PROCESSING(SSobj, src)
+			else
+				STOP_PROCESSING(SSobj, src)
+	. = ..()
+
+/obj/item/stock_parts/cell/process(delta_time)
+	if(self_recharge)
+		give(chargerate * 0.125 * delta_time)
+	else
+		return PROCESS_KILL
 
 /obj/item/stock_parts/cell/update_overlays()
 	. = ..()
@@ -80,6 +102,7 @@
 	if(charge < amount)
 		return FALSE
 	charge = (charge - amount)
+	SEND_SIGNAL(src,COMSIG_CELL_CHANGE_POWER)
 	if(!istype(loc, /obj/machinery/power/apc))
 		SSblackbox.record_feedback("tally", "cell_used", 1, type)
 	return TRUE
@@ -93,6 +116,7 @@
 		amount = maxcharge
 	var/power_used = min(maxcharge-charge,amount)
 	charge += power_used
+	SEND_SIGNAL(src,COMSIG_CELL_CHANGE_POWER)
 	return power_used
 
 /obj/item/stock_parts/cell/examine(mob/user)
@@ -196,7 +220,7 @@
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
 	if(charge >= 1000)
-		return clamp(20 + round(charge/25000), 20, 195) + rand(-5,5)
+		return max(20 + round(charge/25000), 20) + rand(-5,5)
 	else
 		return 0
 
@@ -356,6 +380,18 @@
 	custom_materials = null
 	grown_battery = TRUE //it has the overlays for wires
 	custom_premium_price = PAYCHECK_ASSISTANT
+
+/obj/item/stock_parts/cell/high/slime
+	name = "charged slime core"
+	desc = "A yellow slime core infused with plasma, it crackles with power."
+	icon = 'icons/mob/slimes.dmi'
+	icon_state = "yellow slime extract"
+	custom_materials = null
+	rating = 5 //self-recharge makes these desirable
+	self_recharge = 1 // Infused slime cores self-recharge, over time
+
+/*Hypercharged slime cell - located in /code/modules/research/xenobiology/crossbreeding/_misc.dm
+/obj/item/stock_parts/cell/high/slime/hypercharged */
 
 /obj/item/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"

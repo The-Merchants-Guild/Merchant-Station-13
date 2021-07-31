@@ -181,6 +181,31 @@
 	contains = list(/obj/item/storage/box/metalfoam)
 	crate_name = "metal foam grenade crate"
 
+/datum/supply_pack/emergency/syndicate
+	name = "NULL_ENTRY"
+	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE@&!*() "
+	hidden = TRUE
+	cost = CARGO_CRATE_VALUE * 100
+	contains = list()
+	crate_name = "emergency crate"
+	crate_type = /obj/structure/closet/crate/internals
+	var/crate_value = 30
+	dangerous = TRUE
+
+/datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
+	var/list/uplink_items = get_uplink_items(UPLINK_TRAITORS)
+	while(crate_value)
+		var/category = pick(uplink_items)
+		var/item = pick(uplink_items[category])
+		var/datum/uplink_item/I = uplink_items[category][item]
+		if(!I.surplus || prob(100 - I.surplus))
+			continue
+		if(crate_value < I.cost)
+			continue
+		crate_value -= I.cost
+		new I.item(C)
+	return crate_value = 30
+
 /datum/supply_pack/emergency/plasma_spacesuit
 	name = "Plasmaman Space Envirosuits"
 	desc = "Contains two space-worthy envirosuits for Plasmamen. Order now and we'll throw in two free helmets! Requires EVA access to open."
@@ -237,7 +262,7 @@
 
 /datum/supply_pack/emergency/specialops
 	name = "Special Ops Supplies"
-	desc = "(*!&@#SAD ABOUT THAT NULL_ENTRY, HUH OPERATIVE? WELL, THIS LITTLE ORDER CAN STILL HELP YOU OUT IN A PINCH. CONTAINS A BOX OF FIVE EMP GRENADES, THREE SMOKEBOMBS, AN INCENDIARY GRENADE, AND A \"SLEEPY PEN\" FULL OF NICE TOXINS!#@*$"
+	desc = "(*!&@#CAN'T AFFORD THAT NULL_ENTRY, OPERATIVE? WELL, THIS LITTLE ORDER CAN STILL HELP YOU OUT IN A PINCH. CONTAINS A BOX OF FIVE EMP GRENADES, THREE SMOKEBOMBS, AN INCENDIARY GRENADE, AND A \"SLEEPY PEN\" FULL OF NICE TOXINS!#@*$"
 	hidden = TRUE
 	cost = CARGO_CRATE_VALUE * 4
 	contains = list(/obj/item/storage/box/emps,
@@ -906,6 +931,25 @@
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	dangerous = TRUE
 
+/datum/supply_pack/engine/heavy_emitter
+	name = "Heavy Emitter Crate"
+	desc = "2 weeks ago this bad boy was mounted on the IWS Bashahar over at some backwater Lizard drydock two jumps from Tizira. Now it can power your SM for like... 7500 credits? How's that sound?"
+	cost = 7500
+	access = ACCESS_CE
+	contains = list(/obj/machinery/power/heavy_emitter/centre,
+					/obj/machinery/power/heavy_emitter/arm,
+					/obj/machinery/power/heavy_emitter/arm,
+					/obj/machinery/power/heavy_emitter/arm,
+					/obj/machinery/power/heavy_emitter/arm,
+					/obj/machinery/power/heavy_emitter/interface,
+					/obj/machinery/power/heavy_emitter/vent,
+					/obj/machinery/power/heavy_emitter/vent,
+					/obj/machinery/power/heavy_emitter/cannon)
+	//This is supposed to give you mixed signals
+	crate_name = "IWS Bashahar energy cannon"
+	crate_type = /obj/structure/closet/crate/secure/engineering
+	dangerous = TRUE
+
 /datum/supply_pack/engine/field_gen
 	name = "Field Generator Crate"
 	desc = "Typically the only thing standing between the station and a messy death. Powered by emitters. Contains two field generators."
@@ -916,7 +960,7 @@
 
 /datum/supply_pack/engine/grounding_rods
 	name = "Grounding Rod Crate"
-	desc = "Four grounding rods guaranteed to keep any uppity tesla coil's lightning under control."
+	desc = "Four grounding rods guaranteed to keep any uppity tesla's lightning under control."
 	cost = CARGO_CRATE_VALUE * 8
 	contains = list(/obj/machinery/power/grounding_rod,
 					/obj/machinery/power/grounding_rod,
@@ -924,6 +968,19 @@
 					/obj/machinery/power/grounding_rod)
 	crate_name = "grounding rod crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
+
+/datum/supply_pack/engine/particle_accelerator
+	name = "Particle Accelerator Crate"
+	desc = "A supermassive black hole or hyper-powered teslaball are the perfect way to spice up any party! This \"My First Apocalypse\" kit contains everything you need to build your own Particle Accelerator! Ages 10 and up."
+	cost = CARGO_CRATE_VALUE * 12
+	contains = list(/obj/structure/particle_accelerator/fuel_chamber,
+					/obj/machinery/particle_accelerator/control_box,
+					/obj/structure/particle_accelerator/particle_emitter/center,
+					/obj/structure/particle_accelerator/particle_emitter/left,
+					/obj/structure/particle_accelerator/particle_emitter/right,
+					/obj/structure/particle_accelerator/power_box,
+					/obj/structure/particle_accelerator/end_cap)
+	crate_name = "particle accelerator crate"
 
 /datum/supply_pack/engine/collector
 	name = "Radiation Collector Crate"
@@ -933,6 +990,13 @@
 					/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector)
 	crate_name = "collector crate"
+
+/datum/supply_pack/engine/sing_gen
+	name = "Singularity Generator Crate"
+	desc = "The key to unlocking the power of Lord Singuloth. Particle Accelerator not included."
+	cost = CARGO_CRATE_VALUE * 20
+	contains = list(/obj/machinery/the_singularitygen)
+	crate_name = "singularity generator crate"
 
 /datum/supply_pack/engine/solar
 	name = "Solar Panel Crate"
@@ -977,7 +1041,7 @@
 
 /datum/supply_pack/engine/tesla_coils
 	name = "Tesla Coil Crate"
-	desc = "Whether it's high-voltage executions, creating research points, or just plain old assistant electrofrying: This pack of four Tesla coils can do it all!"
+	desc = "Whether it's high-voltage executions, creating research points, or just plain old power generation: This pack of four Tesla coils can do it all!"
 	cost = CARGO_CRATE_VALUE * 10
 	contains = list(/obj/machinery/power/tesla_coil,
 					/obj/machinery/power/tesla_coil,
@@ -985,6 +1049,13 @@
 					/obj/machinery/power/tesla_coil)
 	crate_name = "tesla coil crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
+
+/datum/supply_pack/engine/tesla_gen
+	name = "Tesla Generator Crate"
+	desc = "The key to unlocking the power of the Tesla energy ball. Particle Accelerator not included."
+	cost = CARGO_CRATE_VALUE * 20
+	contains = list(/obj/machinery/the_singularitygen/tesla)
+	crate_name = "tesla generator crate"
 
 /datum/supply_pack/engine/hypertorus_fusion_reactor
 	name = "HFR Crate"
@@ -2641,30 +2712,6 @@
 		/obj/item/stock_parts/subspace/ansible
 	)
 	crate_name = "crate"
-
-///Special supply crate that generates random syndicate gear up to a determined TC value
-/datum/supply_pack/misc/syndicate
-	name = "Assorted Syndicate Gear"
-	desc = "Contains a random assortment of syndicate gear."
-	special = TRUE ///Cannot be ordered via cargo
-	contains = list()
-	crate_name = "syndicate gear crate"
-	crate_type = /obj/structure/closet/crate
-	var/crate_value = 30 ///Total TC worth of contained uplink items
-
-///Generate assorted uplink items, taking into account the same surplus modifiers used for surplus crates
-/datum/supply_pack/misc/syndicate/fill(obj/structure/closet/crate/C)
-	var/list/uplink_items = get_uplink_items(UPLINK_TRAITORS)
-	while(crate_value)
-		var/category = pick(uplink_items)
-		var/item = pick(uplink_items[category])
-		var/datum/uplink_item/I = uplink_items[category][item]
-		if(!I.surplus || prob(100 - I.surplus))
-			continue
-		if(crate_value < I.cost)
-			continue
-		crate_value -= I.cost
-		new I.item(C)
 
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////// General Vending Restocks /////////////////////////////

@@ -325,3 +325,15 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/proc/walk_in_direction(direction)
 	destination = get_edge_target_turf(src, direction)
 	walk_towards(src, destination, 1)
+
+
+//observe as I now port something stupid from hippie
+/obj/effect/immovablerod/butt
+	name = "enormous ass"
+	desc = "godDAMN that ass is well rounded"
+	icon = 'icons/obj/butts.dmi'
+	icon_state = "butt"
+
+/obj/effect/immovablerod/butt/Initialize()
+	. = ..()
+	SpinAnimation(24,-1)

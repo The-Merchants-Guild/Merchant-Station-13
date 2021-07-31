@@ -624,3 +624,13 @@
 /obj/item/clothing/shoes/gunboots/disabler
 	name = "disaboots"
 	projectile_type = /obj/projectile/beam/disabler
+
+/obj/item/clothing/shoes/buttshoes
+	desc = "Why?"
+	name = "butt shoes"
+	icon_state = "buttshoes"
+	worn_icon_state = "buttshoes"
+
+/obj/item/clothing/shoes/buttshoes/Initialize()
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/fart.ogg'), 50)

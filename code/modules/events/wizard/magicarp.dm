@@ -36,7 +36,6 @@
 	projectilesound = 'sound/weapons/emitter.ogg'
 	maxHealth = 50
 	health = 50
-	gold_core_spawnable = NO_SPAWN
 	random_color = FALSE
 
 	var/allowed_projectile_types = list(/obj/projectile/magic/change, /obj/projectile/magic/animate, /obj/projectile/magic/resurrection,
@@ -53,7 +52,6 @@
 	color = "#00FFFF"
 	maxHealth = 75
 	health = 75
-	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/hostile/carp/ranged/chaos/Shoot()
 	projectiletype = pick(allowed_projectile_types)
@@ -61,10 +59,10 @@
 
 /mob/living/simple_animal/hostile/carp/ranged/xenobiology // these are for the xenobio gold slime pool
 	gold_core_spawnable = HOSTILE_SPAWN
-	allowed_projectile_types = list(/obj/projectile/magic/animate, /obj/projectile/magic/teleport,
+	allowed_projectile_types = list(/obj/projectile/magic/change, /obj/projectile/magic/animate, /obj/projectile/magic/teleport,
 	/obj/projectile/magic/door, /obj/projectile/magic/aoe/fireball, /obj/projectile/magic/spellblade, /obj/projectile/magic/arcane_barrage) //thanks Lett1
 
 /mob/living/simple_animal/hostile/carp/ranged/chaos/xenobiology
 	gold_core_spawnable = HOSTILE_SPAWN
-	allowed_projectile_types = list(/obj/projectile/magic/animate, /obj/projectile/magic/teleport,
+	allowed_projectile_types = list(/obj/projectile/magic/change, /obj/projectile/magic/animate, /obj/projectile/magic/teleport,
 	/obj/projectile/magic/door, /obj/projectile/magic/aoe/fireball, /obj/projectile/magic/spellblade, /obj/projectile/magic/arcane_barrage)

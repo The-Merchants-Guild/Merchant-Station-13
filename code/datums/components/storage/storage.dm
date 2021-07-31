@@ -53,6 +53,7 @@
 	var/screen_pixel_y = 16
 	var/screen_start_x = 4 //These two are where the storage starts being rendered, screen_loc wise.
 	var/screen_start_y = 2
+
 	//End
 
 /datum/component/storage/Initialize(datum/component/storage/concrete/master)
@@ -649,7 +650,7 @@
 		if(!stop_messages)
 			to_chat(M, span_warning("[I] is too big for [host]!"))
 		return FALSE
-	var/datum/component/storage/biggerfish = real_location.loc.GetComponent(/datum/component/storage)
+	var/datum/component/storage/biggerfish = real_location.loc?.GetComponent(/datum/component/storage)
 	if(biggerfish && biggerfish.max_w_class < max_w_class) //return false if we are inside of another container, and that container has a smaller max_w_class than us (like if we're a bag in a box)
 		if(!stop_messages)
 			to_chat(M, span_warning("[I] can't fit in [host] while [real_location.loc] is in the way!"))

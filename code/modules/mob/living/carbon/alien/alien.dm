@@ -45,6 +45,7 @@
 	internal_organs += new /obj/item/organ/eyes/night_vision/alien
 	internal_organs += new /obj/item/organ/liver/alien
 	internal_organs += new /obj/item/organ/ears
+	internal_organs += new /obj/item/organ/butt/xeno //clueless
 	..()
 
 /mob/living/carbon/alien/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) // beepsky won't hunt aliums

@@ -259,6 +259,22 @@
 	..()
 	. = TRUE
 
+/datum/reagent/drug/fartium
+	name = "Fartium"
+	description = "A chemical compound that promotes concentrated production of gas in your groin area."
+	color = "#8A4B08" // rgb: 138, 75, 8
+
+/datum/reagent/drug/fartium/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(prob(7))
+			if(H.getorganslot(ORGAN_SLOT_BUTT))
+				H.emote("fart")
+			else
+				to_chat(H, "<span class='danger'>Your stomach rumbles as pressure builds up inside of you.</span>")
+				H.adjustToxLoss(1*REM)
+	return ..()
+
 /datum/reagent/drug/happiness
 	name = "Happiness"
 	description = "Fills you with ecstasic numbness and causes minor brain damage. Highly addictive. If overdosed causes sudden mood swings."

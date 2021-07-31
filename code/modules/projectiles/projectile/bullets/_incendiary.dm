@@ -35,12 +35,17 @@
 	wound_bonus = 30
 	bare_wound_bonus = 30
 	wound_falloff_tile = -4
-	fire_stacks = 3
+	fire_stacks = 1
 
 	/// Lazy attempt at knockback, any items this plume hits will be knocked back this far. Decrements with each tile passed.
 	var/knockback_range = 7
 	/// A lazylist of all the items we've already knocked back, so we don't do it again
 	var/list/launched_items
+
+/// The main powerhouse of the solid fuel canister
+/obj/projectile/bullet/incendiary/backblast/solidfuel
+	damage = 75
+	fire_stacks = 6
 
 /// we only try to knock back the first 6 items per tile
 #define BACKBLAST_MAX_ITEM_KNOCKBACK 6

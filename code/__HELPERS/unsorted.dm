@@ -434,6 +434,12 @@ Turf and target are separate in case you want to teleport some distance from a t
 		var/atom/A = .[++i]
 		if (!(A.flags_1 & ignore_flag_1))
 			. += A.contents
+	if (istype(src, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = src
+		var/obj/item/organ/butt/B = H.getorgan(/obj/item/organ/butt)
+
+		if (B)
+			. += B.contents
 
 ///identical to getallcontents but returns a list of atoms of the type passed in the argument.
 /atom/proc/get_all_contents_type(type)

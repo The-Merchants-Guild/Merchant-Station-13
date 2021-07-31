@@ -236,7 +236,7 @@
 	display_name = "Advanced Bluespace Storage"
 	description = "With the use of bluespace we can create even more advanced storage devices than we could have ever done"
 	prereq_ids = list("micro_bluespace", "janitor")
-	design_ids = list("bag_holding")
+	design_ids = list("bag_holding","bluebutt")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 
 /datum/techweb_node/practical_bluespace
@@ -873,7 +873,7 @@
 
 /datum/techweb_node/mech_missile_rack
 	id = "mech_missile_rack"
-	display_name = "Exosuit Weapon (BRM-6 Missile Rack)"
+	display_name = "Exosuit Weapon (SRM-8 Missile Rack)"
 	description = "An advanced piece of mech weaponry"
 	prereq_ids = list("explosive_weapons")
 	design_ids = list("mech_missile_rack", "mech_missile_rack_ammo")

@@ -47,6 +47,8 @@
 
 	///Whether the gun will spawn loaded with a magazine
 	var/spawnwithmagazine = TRUE
+	///If the weapon fires flames out of it's back
+	var/backblast = FALSE
 	///Compatible magazines with the gun
 	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
 	///Whether the sprite has a visible magazine or not
@@ -122,6 +124,8 @@
 		bolt_locked = TRUE
 		update_appearance()
 		return
+	if(backblast)
+		AddElement(/datum/element/backblast)
 	if (!magazine)
 		magazine = new mag_type(src)
 	if(bolt_type == BOLT_TYPE_STANDARD)

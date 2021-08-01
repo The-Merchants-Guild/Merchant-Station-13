@@ -13,7 +13,8 @@ GLOBAL_VAR(deathmatch_game)
 		qdel(src)
 		return
 	GLOB.deathmatch_game = src
-	maps = subtypesof(/datum/deathmatch_map)
+	for (var/V in subtypesof(/datum/deathmatch_map))
+		maps[V] = new V
 	loadouts = subtypesof(/datum/deathmatch_loadout)
 
 /datum/deathmatch_controller/proc/create_new_lobby(mob/dead/observer/player)

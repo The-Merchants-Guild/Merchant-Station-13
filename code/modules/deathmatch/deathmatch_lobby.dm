@@ -15,9 +15,9 @@
 		return qdel(src)
 	host = _host
 	var/datum/deathmatch_controller/game = GLOB.deathmatch_game
-	map = pick(game.maps)
-	if (initial(map.allowed_loadouts))
-		var/list/los = initial(map.allowed_loadouts)
+	map = game.maps[pick(game.maps)]
+	if (map.allowed_loadouts)
+		var/list/los = map.allowed_loadouts
 		loadouts = los
 	else
 		loadouts = game.loadouts
@@ -50,7 +50,7 @@
 	.["loadouts"] = list()
 	for (var/datum/deathmatch_loadout/L in loadouts)
 		.["loadouts"][initial(L.name)] = initial(L.desc)
-	.["map"]["name"] = initial(map.name)
-	.["map"]["desc"] = initial(map.desc)
+	.["map"]["name"] = map.name
+	.["map"]["desc"] = map.desc
 	for (var/K in players)
 		.["players"][K] = players[K]

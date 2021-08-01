@@ -1,0 +1,42 @@
+"a" = (/turf/open/space/deathmatch,/area/deathmatch)
+"b" = (/obj/machinery/power/smes/magical{output_level = 200000},/turf/open/floor/plating/airless,/area/deathmatch)
+"c" = (/obj/structure/cable,/obj/structure/grille,/obj/structure/window/reinforced/spawner/north,/obj/structure/window/reinforced/spawner/west,/turf/open/floor/plating,/area/deathmatch)
+"d" = (/obj/structure/cable,/obj/machinery/power/terminal{dir = 1},/turf/open/floor/plating,/area/deathmatch)
+"f" = (/obj/structure/chair/comfy/shuttle{dir = 4},/turf/open/floor/plating/airless,/area/deathmatch)
+"k" = (/obj/structure/cable,/obj/structure/window/reinforced/spawner/north,/obj/structure/grille,/turf/open/floor/plating,/area/deathmatch)
+"l" = (/obj/structure/cable,/obj/structure/grille,/obj/structure/window/reinforced/spawner/north,/turf/open/floor/plating,/area/deathmatch)
+"o" = (/obj/structure/grille,/obj/structure/cable,/obj/structure/window/reinforced/spawner/north,/turf/open/floor/plating,/area/deathmatch)
+"q" = (/obj/structure/grille,/obj/structure/cable,/obj/structure/window/reinforced/spawner/north,/obj/structure/window/reinforced/spawner/east,/turf/open/floor/plating,/area/deathmatch)
+"w" = (/obj/structure/cable,/obj/structure/grille,/obj/structure/window/reinforced/spawner/east,/turf/open/floor/plating,/area/deathmatch)
+"A" = (/turf/open/floor/plating,/area/deathmatch)
+"D" = (/obj/structure/cable,/obj/structure/grille,/obj/structure/window/reinforced/spawner,/turf/open/floor/plating,/area/deathmatch)
+"F" = (/obj/structure/cable,/obj/structure/grille,/obj/structure/window/reinforced/spawner/west,/turf/open/floor/plating,/area/deathmatch)
+"G" = (/obj/structure/cable,/obj/structure/grille,/obj/structure/window/reinforced/spawner/east,/obj/structure/window/reinforced/spawner,/turf/open/floor/plating,/area/deathmatch)
+"I" = (/obj/structure/grille,/obj/structure/cable,/obj/structure/window/reinforced/spawner/east,/turf/open/floor/plating,/area/deathmatch)
+"K" = (/obj/structure/chair/comfy/shuttle{dir = 8},/turf/open/floor/plating/airless,/area/deathmatch)
+"P" = (/obj/effect/deathmatch_spawn,/turf/open/floor/mineral/titanium/blue,/area/deathmatch)
+"Q" = (/obj/effect/deathmatch_spawn,/turf/open/floor/mineral/plastitanium/red,/area/deathmatch)
+"T" = (/turf/open/floor/plating/airless,/area/deathmatch)
+"V" = (/obj/structure/cable,/obj/structure/window/reinforced/spawner/west,/obj/structure/grille,/turf/open/floor/plating,/area/deathmatch)
+"X" = (/obj/structure/cable,/obj/structure/window/reinforced/spawner/west,/obj/structure/window/reinforced/spawner,/obj/structure/grille,/turf/open/floor/plating,/area/deathmatch)
+"Z" = (/obj/structure/cable,/obj/structure/window/reinforced/spawner,/obj/structure/grille,/turf/open/floor/plating,/area/deathmatch)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaa
+aaaaaaaTbTaaaaaaa
+aaaaaaaTdTaaaaaaa
+aafcllllklkooqKaa
+aafFAAAAAAAAAIKaa
+aafFAAAAAAAAAwKaa
+aafFAAAAAAAAAwKaa
+aafFAAAAAAAAAwKaa
+aafFAPAAAAAQAwKaa
+aafFAAAAAAAAAwKaa
+aafFAAAAAAAAAwKaa
+aafFAAAAAAAAAwKaa
+aafVAAAAAAAAAwKaa
+aafXZZDDDDDDDGKaa
+aaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaa
+"}

@@ -10,6 +10,7 @@
 /datum/deathmatch_map/New()
 	. = ..()
 	if (!map_path)
+		CRASH("MISSING MAP PATH!")
 		return qdel(src)
 	template = new(path = map_path)
 /datum/deathmatch_map/ragecage

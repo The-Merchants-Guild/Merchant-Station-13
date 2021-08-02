@@ -91,15 +91,18 @@
 	game.remove_lobby(host)
 
 /datum/deathmatch_lobby/proc/player_died(mob/living/player)
-	if (players.len <= 1)
-		end_game()
-		return
 	for (var/K in players)
 		var/mob/P = players[K]["mob"]
+		to_chat(P.client, span_reallybig("[player.ckey] HAS DIED.<br>[players.len-1] REMAINING."))
+	for (var/K in observers)
+		var/mob/P = observers[K]["mob"]
 		to_chat(P.client, span_reallybig("[player.ckey] HAS DIED.<br>[players.len-1] REMAINING."))
 	players.Remove(player.ckey)
 	observers[player.ckey] = list(mob = player, host = (host == player.ckey))
 	player.dust(TRUE, TRUE, TRUE)
+	if (players.len <= 1)
+		end_game()
+		return
 
 /datum/deathmatch_lobby/proc/add_player(mob/_mob, _loadout, _host = FALSE)
 	players[_mob.ckey] = list(mob = _mob, host = _host, ready = FALSE, loadout = _loadout)

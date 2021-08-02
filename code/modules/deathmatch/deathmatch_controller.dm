@@ -126,7 +126,7 @@ GLOBAL_VAR(deathmatch_game)
 				return
 			if (!lobbies[params["id"]])
 				return
-			lobbies[params["id"]].join()
+			lobbies[params["id"]].join(usr)
 		if ("spectate")
 			if (lobbies[usr.ckey] || !lobbies[params["id"]] || !lobbies[params["id"]].playing)
 				return

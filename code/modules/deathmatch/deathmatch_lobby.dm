@@ -96,7 +96,7 @@
 		return
 	for (var/K in players)
 		var/mob/P = players[K]["mob"]
-		to_chat(P.client, span_reallybig("[K] HAS DIED.<br>[players.len-1] REMAINING."))
+		to_chat(P.client, span_reallybig("[player.ckey] HAS DIED.<br>[players.len-1] REMAINING."))
 	players.Remove(player.ckey)
 	observers[player.ckey] = list(mob = player, host = (host == player.ckey))
 	player.dust(TRUE, TRUE, TRUE)

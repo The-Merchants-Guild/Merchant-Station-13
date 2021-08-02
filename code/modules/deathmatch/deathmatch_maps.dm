@@ -24,3 +24,4 @@
 	min_players = 4
 	max_players = 8
 	allowed_loadouts = list(/datum/deathmatch_loadout/assistant)
+	map_path = "_maps/map_files/DM/maint.dmm"

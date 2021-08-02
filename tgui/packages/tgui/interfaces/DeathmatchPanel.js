@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Table, Button, LabeledList, NoticeBox, Section, Flex } from '../components';
+import { Table, Button, Section, Flex } from '../components';
 import { Window } from '../layouts';
 
 export const DeathmatchPanel = (props, context) => {
@@ -14,7 +14,7 @@ export const DeathmatchPanel = (props, context) => {
           <Table>
             <Table.Row>
               <Table.Cell bold>
-                Name
+                Host
               </Table.Cell>
               <Table.Cell bold>
                 Map
@@ -36,7 +36,7 @@ export const DeathmatchPanel = (props, context) => {
                 </Table.Cell>
                 <Table.Cell>
                   {!lobby.playing && (
-                    <Button disabled={data.hosting} color="good" content="Join" onClick={() => act('join', { "id": lobby.name })} />
+                    <Button disabled={data.hosting && data.playing !== lobby.name} color="good" content="Join" onClick={() => act('join', { "id": lobby.name })} />
                   ) || (
                     <Button disabled={data.hosting} color="good" content="Spectate" onClick={() => act('spectate', { "id": lobby.name })} />
                   )}

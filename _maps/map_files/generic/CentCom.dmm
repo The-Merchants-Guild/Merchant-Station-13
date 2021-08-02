@@ -159,6 +159,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/tdome/arena_source)
+"dO" = (
+/obj/effect/landmark/deathmatch_map_spawn{
+	height = 41;
+	width = 41;
+	x_offset = 20;
+	y_offset = 20
+	},
+/turf/open/space/basic,
+/area/space)
 "dR" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -20497,7 +20506,7 @@ aa
 aa
 aa
 aa
-aa
+dO
 aa
 aa
 aa

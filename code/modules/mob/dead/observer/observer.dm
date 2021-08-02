@@ -908,7 +908,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(src))
 		to_chat(usr, span_warning("You must be a ghost to join mafia!"))
 		return
-	var/datum/deathmatch_controller/game = GLOB.mafia_game
+	var/datum/deathmatch_controller/game = GLOB.deathmatch_game
 	if(!game)
 		game = new
 	game.ui_interact(usr)

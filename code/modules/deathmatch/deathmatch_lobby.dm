@@ -111,7 +111,7 @@
 	if (players[_mob.ckey])
 		CRASH("Tried to add [_mob.ckey] as an observer while being a player.")
 		return
-	observers[_mob.ckey] = list(mob = player, host = FALSE)
+	observers[_mob.ckey] = list(mob = _mob, host = FALSE)
 
 /datum/deathmatch_lobby/proc/add_player(mob/_mob, _loadout, _host = FALSE)
 	players[_mob.ckey] = list(mob = _mob, host = _host, ready = FALSE, loadout = _loadout)

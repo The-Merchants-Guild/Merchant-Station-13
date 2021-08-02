@@ -884,14 +884,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "84mm HE Rocket"
 	desc = "A low-yield anti-personnel HE rocket. Gonna take you out in style!"
 	item = /obj/item/ammo_casing/caseless/rocket
-	cost = 4
+	cost = 2
 
 /datum/uplink_item/ammo/rocket/hedp
 	name = "84mm HEDP Rocket"
 	desc = "A high-yield HEDP rocket; extremely effective against armored targets, as well as surrounding personnel. \
 			Strike fear into the hearts of your enemies."
 	item = /obj/item/ammo_casing/caseless/rocket/hedp
-	cost = 6
+	cost = 3
 
 /datum/uplink_item/ammo/rocket/solidfuel
 	name = "84mm Solid Fuel Canister"

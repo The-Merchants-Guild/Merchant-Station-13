@@ -52,6 +52,9 @@
 		return FALSE
 	for (var/K in players)
 		var/mob/dead/observer/O = players[K]["mob"]
+		if (!O.client)
+			remove_player(K)
+			continue
 		var/S = pick_n_take(spawns)
 		O.forceMove(get_turf(S))
 		qdel(S)
@@ -75,18 +78,18 @@
 /datum/deathmatch_lobby/proc/end_game()
 	if (!location)
 		return
-	var/winner = "no one"
+	var/winner
 	for (var/K in players)
 		if (!winner) // While there should only be a single player remaining, someone might proccall this so.
 			winner = K
 		var/mob/living/L = players[K]["mob"]
-		to_chat(L.client, span_reallybig("THE GAME HAS ENDED.<BR>THE WINNER IS: [winner]."))
+		to_chat(L.client, span_reallybig("THE GAME HAS ENDED.<BR>THE WINNER IS: [winner ? winner : "no one"]."))
 		players[K]["mob"] = null
 		UnregisterSignal(L, COMSIG_LIVING_DEATH)
 		qdel(L)
 	for (var/K in observers)
 		var/mob/observer = observers[K]["mob"]
-		to_chat(observer.client, span_reallybig("THE GAME HAS ENDED.<BR>THE WINNER IS: [winner]."))
+		to_chat(observer.client, span_reallybig("THE GAME HAS ENDED.<BR>THE WINNER IS: [winner ? winner : "no one"]."))
 	game.clear_location(location)
 	game.remove_lobby(host)
 
@@ -98,11 +101,17 @@
 		var/mob/P = observers[K]["mob"]
 		to_chat(P.client, span_reallybig("[player.ckey] HAS DIED.<br>[players.len-1] REMAINING."))
 	players.Remove(player.ckey)
-	observers[player.ckey] = list(mob = player, host = (host == player.ckey))
+	add_observer(player, (host == player.ckey))
 	player.dust(TRUE, TRUE, TRUE)
 	if (players.len <= 1)
 		end_game()
 		return
+
+/datum/deathmatch_lobby/proc/add_observer(mob/_mob, _host = FALSE)
+	if (players[_mob.ckey])
+		CRASH("Tried to add [_mob.ckey] as an observer while being a player.")
+		return
+	observers[_mob.ckey] = list(mob = player, host = FALSE)
 
 /datum/deathmatch_lobby/proc/add_player(mob/_mob, _loadout, _host = FALSE)
 	players[_mob.ckey] = list(mob = _mob, host = _host, ready = FALSE, loadout = _loadout)
@@ -115,7 +124,7 @@
 
 /datum/deathmatch_lobby/proc/join(mob/player)
 	if (players.len >= map.max_players)
-		observers[player.ckey] = list(mob = player, host = FALSE)
+		add_observer(player)
 	else
 		add_player(player, default_loadout)
 	ui_interact(player)
@@ -123,6 +132,8 @@
 /datum/deathmatch_lobby/proc/spectate(mob/player)
 	if (!playing || !location)
 		return
+	if (!observers[player.ckey])
+		add_observer(player)
 	player.forceMove(location.location)
 
 /datum/deathmatch_lobby/proc/change_map(datum/deathmatch_map/_map)
@@ -190,13 +201,14 @@
 			if (playing)
 				return
 			if (host == usr.ckey)
-				if (players.len <= 1 && observers.len <= 1 && players.len != observers.len)
+				var/total_count = players.len + observers.len
+				if (total_count <= 1) // <= just in case.
 					game.remove_lobby(host)
 					ui.close()
 					game.ui_interact(usr)
 					return
 				else
-					if (players[usr.ckey] && players.len == 1)
+					if (players[usr.ckey] && players.len <= 1)
 						for (var/K in observers)
 							host = K
 							observers[K]["host"] = TRUE

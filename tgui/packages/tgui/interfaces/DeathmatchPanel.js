@@ -4,6 +4,7 @@ import { Window } from '../layouts';
 
 export const DeathmatchPanel = (props, context) => {
   const { act, data } = useBackend(context);
+  const playing = data.playing || "";
   return (
     <Window
       title="Deathmatch Lobbies"
@@ -36,9 +37,23 @@ export const DeathmatchPanel = (props, context) => {
                 </Table.Cell>
                 <Table.Cell>
                   {!lobby.playing && (
-                    <Button disabled={data.hosting && data.playing !== lobby.name} color="good" content="Join" onClick={() => act('join', { "id": lobby.name })} />
+                    <Button
+                      disabled={
+                        (data.hosting || playing)
+                        && data.playing !== lobby.name
+                      }
+                      color="good"
+                      content="Join"
+                      onClick={() => act('join', { "id": lobby.name })} />
                   ) || (
-                    <Button disabled={data.hosting} color="good" content="Spectate" onClick={() => act('spectate', { "id": lobby.name })} />
+                    <Button
+                      disabled={
+                        (data.hosting || playing)
+                         && playing !== lobby.name
+                      }
+                      color="good"
+                      content="Spectate"
+                      onClick={() => act('spectate', { "id": lobby.name })} />
                   )}
                 </Table.Cell>
               </Table.Row>

@@ -117,6 +117,7 @@
 
 /datum/deathmatch_lobby/proc/remove_player(ckey)
 	var/list/L = players[ckey]
+	ready_count -= L["ready"]
 	L.Cut()
 	players[ckey] = null
 	players.Remove(ckey)

@@ -31,14 +31,15 @@
 "qK" = (/obj/effect/decal/cleanable/dirt,/obj/item/reagent_containers/pill/maintenance,/turf/open/indestructible,/area/deathmatch)
 "sk" = (/obj/structure/sign/poster/random{pixel_x = 32},/turf/open/indestructible,/area/deathmatch)
 "sl" = (/obj/machinery/door/airlock/public/glass,/obj/effect/mapping_helpers/airlock/abandoned,/turf/open/indestructible,/area/deathmatch)
-"sF" = (/obj/structure/extinguisher_cabinet/directional/east,/turf/open/indestructible,/area/deathmatch)
+"sF" = (/obj/structure/extinguisher_cabinet/directional/east,/obj/structure/closet/firecloset,/obj/effect/turf_decal/delivery,/turf/open/indestructible,/area/deathmatch)
+"sV" = (/obj/structure/closet/emcloset,/obj/effect/turf_decal/delivery,/turf/open/indestructible,/area/deathmatch)
 "sX" = (/obj/structure/rack,/obj/machinery/light/small/directional/north,/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime,/turf/open/indestructible,/area/deathmatch)
 "tT" = (/obj/structure/rack,/obj/item/stack/cable_coil,/obj/item/assembly/igniter,/turf/open/indestructible,/area/deathmatch)
 "vB" = (/obj/machinery/light/small/directional/east,/turf/open/indestructible,/area/deathmatch)
 "wi" = (/obj/structure/table/reinforced/ctf,/obj/item/screwdriver,/turf/open/indestructible,/area/deathmatch)
 "wC" = (/obj/item/weldingtool,/obj/structure/rack,/obj/item/flashlight/flare,/turf/open/indestructible,/area/deathmatch)
 "zd" = (/obj/machinery/vending/medical{desc = "Go on, smash this vending machine. You want free healing right? Do it."},/turf/open/indestructible,/area/deathmatch)
-"zF" = (/obj/item/ammo_casing/shotgun/buckshot,/turf/open/indestructible,/area/deathmatch)
+"zF" = (/obj/item/ammo_casing/shotgun/improvised,/turf/open/indestructible,/area/deathmatch)
 "AG" = (/obj/structure/lattice/catwalk,/obj/item/storage/toolbox/mechanical/old/clean{desc = "An old, blue toolbox, it looks soulful."},/turf/open/space/basic,/area/template_noop)
 "Bs" = (/obj/machinery/light/small/directional/west,/obj/effect/decal/cleanable/dirt,/turf/open/indestructible,/area/deathmatch)
 "BU" = (/obj/item/chainsaw,/turf/open/indestructible,/area/deathmatch)
@@ -53,7 +54,7 @@
 "Fp" = (/obj/structure/rack,/obj/item/reagent_containers/pill/maintenance,/obj/item/spear,/turf/open/indestructible,/area/deathmatch)
 "FH" = (/obj/effect/decal/cleanable/oil/slippery,/turf/open/indestructible,/area/deathmatch)
 "Gi" = (/obj/effect/decal/cleanable/blood/gibs/limb,/turf/open/indestructible,/area/deathmatch)
-"GA" = (/obj/item/stack/medical/mesh{amount = 4},/obj/item/spear,/turf/open/indestructible,/area/deathmatch)
+"GA" = (/obj/item/stack/medical/mesh{amount = 4},/obj/item/spear,/obj/structure/closet/emcloset,/obj/effect/turf_decal/delivery,/turf/open/indestructible,/area/deathmatch)
 "GF" = (/obj/machinery/light/small/directional/west,/turf/open/indestructible,/area/deathmatch)
 "Hd" = (/obj/structure/table/reinforced/ctf,/obj/machinery/light/small/directional/north,/obj/item/soap/nanotrasen,/turf/open/indestructible,/area/deathmatch)
 "Hp" = (/obj/structure/table/reinforced/ctf,/obj/item/reagent_containers/pill/maintenance,/obj/structure/sign/poster/random{pixel_y = 32},/turf/open/indestructible,/area/deathmatch)
@@ -86,6 +87,7 @@
 "Su" = (/obj/effect/decal/cleanable/dirt/dust,/obj/effect/turf_decal/box,/obj/effect/landmark/deathmatch_player_spawn,/turf/open/indestructible,/area/deathmatch)
 "SN" = (/obj/effect/decal/cleanable/blood/tracks,/obj/effect/turf_decal/caution/stand_clear,/turf/open/indestructible,/area/deathmatch)
 "Tu" = (/obj/structure/table/reinforced/ctf,/obj/machinery/light/small/directional/north,/turf/open/indestructible,/area/deathmatch)
+"TB" = (/obj/structure/closet/firecloset,/obj/effect/turf_decal/delivery,/turf/open/indestructible,/area/deathmatch)
 "TP" = (/obj/effect/mapping_helpers/airlock/abandoned,/obj/machinery/door/airlock/public/glass,/turf/open/indestructible,/area/deathmatch)
 "Un" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/blood/tracks{dir = 10},/obj/effect/turf_decal/stripes/corner,/turf/open/indestructible,/area/deathmatch)
 "Vb" = (/obj/effect/decal/cleanable/blood/tracks{dir = 5},/obj/effect/turf_decal/stripes/line,/turf/open/indestructible,/area/deathmatch)
@@ -110,11 +112,11 @@ gagagagaaDnQaDcnsXskaDIjIjIjaDcntTaDvBaDMtcnjXwiaDpZMtcnwCzdmZaDIj
 IjgaIjIjhozFaDcncncnaDgaAGgaaDBscnaDBUBVDtcncnEraDnQmZcnEKnQcnhoIj
 IjgaIjIjhozFaDcnENmZaDIjIjIjaDcnENaDFpaDcnFHcnGiaDcnaDaDaDaDcnhoIj
 IjgaIjIjhozFBVcnmZGAaDIjIjIjaDcnaDaDaDaDaDGFnQcnslcnaDHdHpENjchoIj
-IjHEIjIjhoItlJjcENmZaDIjIjIjaDcnaDBVKtKWaDLaLJNaaDcnmZnQcncncnaDIj
-IjgaIjIjhozFNscncncnaDaDhoaDaDpZaDGFcnmZaDaDmZaDaDcnaDcnaDhoaDaDIj
+IjHEIjIjhoItlJjcENmZaDIjIjIjaDcnaDsVKtKWaDLaLJNaaDcnmZnQcncncnaDIj
+IjgaIjIjhozFNscncncnaDaDhoaDaDpZaDGFcncnaDaDmZaDaDcnaDcnaDhoaDaDIj
 IjgaIjIjhozFaDNOEKNUnQNYOkjccncncncnOmcncncnMtjXcncnaDcnaDIjIjgaIj
 IjgaIjIjhozFaDcnaDOAaDaDaDaDaDcnaDaDaDhohoaDaDjcaDaDaDcnhoIjIjgaIj
-gagagagaaDjcaDcnaDOOaDcnjXjYslnQENaDIjgaIjIjaDjcslORPpcnaDIjIjgaIj
+gagagagaaDjcaDcnaDOOaDTBjXjYslnQENaDIjgaIjIjaDjcslORPpcnaDIjIjgaIj
 IjgaIjIjaDcnaDnQmZEWhocnjcPWaDcncnhogaQrIjIjhocnaDaDaDhoaDgagaQsga
 IjgaIjIjaDskaDcnaDOAhocncnnQQNQQcnhoIjgagagahoqKaDIjIjIjIjIjIjgaIj
 IjgaIjIjaDnQaDihaDOAaDRmEKcnBVSucnaDIjIjgaIjaDcnaDIjIjIjIjIjIjgaIj

@@ -52,7 +52,7 @@
 		return FALSE
 	for (var/K in players)
 		var/mob/dead/observer/O = players[K]["mob"]
-		if (!O.client)
+		if (!O || !O.client)
 			remove_player(K)
 			continue
 		var/S = pick_n_take(spawns)
@@ -61,8 +61,7 @@
 		var/datum/deathmatch_loadout/L = players[K]["loadout"]
 		L = new L // agony
 		var/mob/living/carbon/human/H = O.change_mob_type(/mob/living/carbon/human, delete_old_mob = TRUE)
-		H.equipOutfit(L.outfit, TRUE)
-		H.equip_to_slot(new L.weapon, ITEM_SLOT_HANDS, TRUE, TRUE)
+		L.equip(H)
 		L.special_equip(H)
 		RegisterSignal(H, COMSIG_LIVING_DEATH, .proc/player_died)
 		to_chat(H.client, span_reallybig("GO!"))
@@ -101,7 +100,7 @@
 		var/mob/P = observers[K]["mob"]
 		to_chat(P.client, span_reallybig("[player.ckey] HAS DIED.<br>[players.len-1] REMAINING."))
 	players.Remove(player.ckey)
-	add_observer(player, (host == player.ckey))
+	add_observer(player.ghostize(), (host == player.ckey))
 	player.dust(TRUE, TRUE, TRUE)
 	if (players.len <= 1)
 		end_game()
@@ -123,6 +122,8 @@
 	players.Remove(ckey)
 
 /datum/deathmatch_lobby/proc/join(mob/player)
+	if (playing || !player)
+		return
 	if (players.len >= map.max_players)
 		add_observer(player)
 	else
@@ -130,14 +131,16 @@
 	ui_interact(player)
 
 /datum/deathmatch_lobby/proc/spectate(mob/player)
-	if (!playing || !location)
+	if (!playing || !location || !player)
 		return
 	if (!observers[player.ckey])
 		add_observer(player)
 	player.forceMove(location.location)
 
-/datum/deathmatch_lobby/proc/change_map(datum/deathmatch_map/_map)
-	map = _map
+/datum/deathmatch_lobby/proc/change_map(path)
+	if (!path || !game.maps[path])
+		return
+	map = game.maps[path]
 	// TODO: move extra players to observer when switching map.
 	if (map.allowed_loadouts)
 		var/list/los = map.allowed_loadouts
@@ -210,14 +213,19 @@
 				else
 					if (players[usr.ckey] && players.len <= 1)
 						for (var/K in observers)
+							if (host == K)
+								continue
 							host = K
 							observers[K]["host"] = TRUE
 							break
 					else
 						for (var/K in players)
+							if (host == K)
+								continue
 							host = K
 							players[K]["host"] = TRUE
 							break
+					game.passoff_lobby(usr.ckey, host)
 			remove_player(usr.ckey)
 			ui.close()
 			game.ui_interact(usr)

@@ -3,6 +3,7 @@
 	var/desc = ""
 	var/min_players = 2
 	var/max_players = 2 // TODO: make this automatic.
+	var/datum/species/forced_species
 	var/list/allowed_loadouts = list()
 	var/map_path = ""
 	var/datum/map_template/template
@@ -10,8 +11,7 @@
 /datum/deathmatch_map/New()
 	. = ..()
 	if (!map_path)
-		stack_trace("MISSING MAP PATH!")
-		return qdel(src)
+		return qdel(src) && stack_trace("MISSING MAP PATH!")
 	template = new(path = map_path)
 /datum/deathmatch_map/ragecage
 	name = "Ragecage"
@@ -20,12 +20,12 @@
 	map_path = "_maps/map_files/DM/ragecage.dmm"
 
 /datum/deathmatch_map/maintenance
-	name = "Maintenance"
+	name = "Maint Mania"
 	desc = "WRITE ME"
 	min_players = 4
 	max_players = 8
 	allowed_loadouts = list(/datum/deathmatch_loadout/assistant)
-	map_path = "_maps/map_files/DM/maint.dmm"
+	map_path = "_maps/map_files/DM/Maint_Mania.dmm"
 
 /datum/deathmatch_map/osha_violator
 	name = "OSHA Violator"
@@ -34,3 +34,19 @@
 	max_players = 8
 	allowed_loadouts = list(/datum/deathmatch_loadout/assistant)
 	map_path = "_maps/map_files/DM/OSHA_Violator.dmm"
+
+/datum/deathmatch_map/the_brig
+	name = "The Brig"
+	desc = "WRITE ME"
+	min_players = 4
+	max_players = 12
+	allowed_loadouts = list(/datum/deathmatch_loadout/assistant)
+	map_path = "_maps/map_files/DM/The_Brig.dmm"
+
+/datum/deathmatch_map/shooting_range
+	name = "Shooting Range"
+	desc = "WRITE ME"
+	min_players = 2
+	max_players = 5
+	allowed_loadouts = list(/datum/deathmatch_loadout/gunperative)
+	map_path = "_maps/map_files/DM/shooting_range.dmm"

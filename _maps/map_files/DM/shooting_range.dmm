@@ -1,0 +1,38 @@
+"a" = (/turf/open/space/basic,/area/template_noop)
+"f" = (/obj/machinery/light{dir = 1},/turf/open/floor/wood,/area/deathmatch)
+"g" = (/turf/closed/indestructible/iron,/area/deathmatch)
+"s" = (/obj/effect/landmark/deathmatch_player_spawn,/obj/effect/decal/cleanable/dirt/dust,/turf/open/floor/wood,/area/deathmatch)
+"z" = (/turf/open/floor/wood,/area/deathmatch)
+"B" = (/obj/effect/landmark/deathmatch_player_spawn,/turf/open/floor/wood,/area/deathmatch)
+"C" = (/obj/machinery/light{dir = 8},/obj/effect/decal/cleanable/dirt/dust,/turf/open/floor/wood,/area/deathmatch)
+"K" = (/turf/closed/wall,/area/deathmatch)
+"M" = (/obj/effect/decal/cleanable/dirt/dust,/turf/open/floor/wood,/area/deathmatch)
+"O" = (/obj/structure/barricade/wooden,/turf/open/floor/wood,/area/deathmatch)
+"T" = (/obj/machinery/light{dir = 4},/turf/open/floor/wood,/area/deathmatch)
+"W" = (/obj/machinery/light{dir = 8},/turf/open/floor/wood,/area/deathmatch)
+"X" = (/obj/machinery/light,/turf/open/floor/wood,/area/deathmatch)
+
+(1,1,1) = {"
+aaaaaggggggggggaaaaaaa
+aaaaagzMzfzzzzgaaaaaaa
+aaaaagzzzszOOzgaaaaaaa
+aaaaagzMzMzzzzgaaaaaaa
+ggggggOzOOOMOzgggggggg
+gzzzBzOzMzMMOMfzMOzzzg
+gzzzzzOzMOMMOzzzMzzMzg
+gCMzOOOzzOKKKOzOzMOMMg
+gMOzMzzMzOMzzMzOMzOzBg
+gzOzzzOzzzMMzMzOMzOzTg
+gggggggzMzKMzOMzzzOzOg
+aaaaaagWMOKMzKzMzMzzzg
+aaaaaagzMzKzMKzzzzMzzg
+aaaaaagOMzzzzKzOOzMzzg
+aggggggzzzOOOMzzgggggg
+agzBzzOzzzOMzMOTgaaaaa
+agzzzMMMMzXMMMOMggggga
+agzOzOOOgggggOOMzzzzga
+agzOMMzzgaaagzzzBMMzga
+agzzXzMzgaaagzzOOMzzga
+aggggggggaaagzzzzXMzga
+aaaaaaaaaaaaggggggggga
+"}

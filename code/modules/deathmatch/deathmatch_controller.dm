@@ -100,7 +100,7 @@ GLOBAL_VAR(deathmatch_game)
 		if (user.ckey == ckey)
 			.["hosting"] = TRUE
 		if (L.observers[ckey] || L.players[ckey])
-			.["playing"] = L.host
+			.["playing"] = ckey
 		.["lobbies"] += list(list(
 			name = ckey,
 			players = L.players.len,

@@ -203,6 +203,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 30
 	purchasable_from = UPLINK_NUKE_OPS
 
+/datum/uplink_item/bundles_tc/demolitions
+	name = "Explosives bundle"
+	desc = "For the demolitions expert: Contains a PML-9 Rocket Launcher, a filled Grenadier's Belt and a rocket ammunition box. \
+			Comes with extra havanian cigars, a matchbox, orange shades and a lovely military cap, courtesy of the Third Soviet Union."
+	item = /obj/item/storage/backpack/duffelbag/syndie/demolitions
+	cost = 35
+	purchasable_from = UPLINK_NUKE_OPS
+
 /datum/uplink_item/bundles_tc/contract_kit
 	name = "Contract Kit"
 	desc = "The Syndicate have offered you the chance to become a contractor, take on kidnapping contracts for TC and cash payouts. Upon purchase, \
@@ -899,6 +907,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	These canisters have been heavily modified to burn anything behind you much, much worse."
 	item = /obj/item/ammo_casing/caseless/rocket/solidfuel
 	cost = 1
+
+/datum/uplink_item/ammo/rocket/box
+	name = "84mm Rocket Ammunition Box"
+	desc = "This box of rockets contains six HE rockets, two solid fuel test firing canisters and a single HEDP rocket. \
+			The total price would be 17 TC, so don't ask questions about safety standards, it's a steal!"
+	item = /obj/item/storage/box/syndie_kit/rockets
+	cost = 14
 
 /datum/uplink_item/ammo/toydarts
 	name = "Box of Riot Darts"
@@ -1710,7 +1725,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	uplink_box.name = "Uplink Implant Box"
 	new /obj/item/implanter/uplink(uplink_box, purchaser_uplink.uplink_flag)
 	return uplink_box
-	
+
 
 /datum/uplink_item/implants/xray
 	name = "X-ray Vision Implant"

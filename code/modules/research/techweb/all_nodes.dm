@@ -664,6 +664,7 @@
 		"bci_implanter",
 		"bci_shell",
 		"bot_shell",
+		"mech_shell",
 		"door_shell",
 		"controller_shell",
 		"money_bot_shell",

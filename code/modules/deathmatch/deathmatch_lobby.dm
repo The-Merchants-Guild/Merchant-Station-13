@@ -164,7 +164,10 @@
 					players[K]["host"] = TRUE
 					break
 			game.passoff_lobby(ckey, host)
-	remove_player(ckey)
+	if (players[ckey])
+		remove_player(ckey)
+	else if (observers[ckey])
+		remove_observer(ckey)
 
 /datum/deathmatch_lobby/proc/join(mob/player)
 	if (playing || !player)
@@ -242,6 +245,10 @@
 		.["players"][K]["loadout"] = initial(L.name)
 	.["observers"] = list()
 	for (var/K in observers)
+		var/mob/PM = observers[K]
+		if (!PM || !PM.client)
+			leave(K)
+			continue
 		.["observers"][K] = observers[K]
 
 /datum/deathmatch_lobby/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

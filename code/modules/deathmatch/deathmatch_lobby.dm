@@ -61,6 +61,7 @@
 		var/datum/deathmatch_loadout/L = players[K]["loadout"]
 		L = new L // agony
 		var/mob/living/carbon/human/H = O.change_mob_type(/mob/living/carbon/human, delete_old_mob = TRUE)
+		clean_player(H)
 		L.equip(H)
 		map.map_equip(H)
 		RegisterSignal(H, COMSIG_LIVING_DEATH, .proc/player_died)
@@ -113,6 +114,13 @@
 
 /datum/deathmatch_lobby/proc/add_player(mob/_mob, _loadout, _host = FALSE)
 	players[_mob.ckey] = list(mob = _mob, host = _host, ready = FALSE, loadout = _loadout)
+
+// Players might be stinky, need to make sure they aren't cheating.
+/datum/deathmatch_lobby/proc/clean_player(mob/living/carbon/player)
+	if (player.mind)
+		var/datum/mind/M = player.mind
+		M.set_assigned_role(/datum/job/deathmatch) // this SHOULD prevent players from getting brain traumas and such.
+		M.RemoveAllSpells() // fuck you REALB in particular
 
 /datum/deathmatch_lobby/proc/remove_player(ckey)
 	var/list/L = players[ckey]

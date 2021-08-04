@@ -2130,6 +2130,7 @@
 #include "code\modules\deathmatch\deathmatch_lobby.dm"
 #include "code\modules\deathmatch\deathmatch_mapping.dm"
 #include "code\modules\deathmatch\deathmatch_maps.dm"
+#include "code\modules\deathmatch\deathmatch_misc.dm"
 #include "code\modules\detectivework\detective_work.dm"
 #include "code\modules\detectivework\evidence.dm"
 #include "code\modules\detectivework\footprints_and_rag.dm"

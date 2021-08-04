@@ -14,7 +14,7 @@
 		return qdel(src) && stack_trace("MISSING MAP PATH!")
 	template = new(path = map_path)
 
-/datum/deathmatch_map/proc/map_equip(mob/living/carbon/player)
+/datum/deathmatch_map/proc/map_equip(mob/living/carbon/human/player)
 	SHOULD_CALL_PARENT(TRUE)
 	if (forced_species)
 		player.set_species(forced_species)

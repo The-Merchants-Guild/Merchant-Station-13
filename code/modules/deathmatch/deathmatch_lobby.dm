@@ -62,7 +62,7 @@
 		L = new L // agony
 		var/mob/living/carbon/human/H = O.change_mob_type(/mob/living/carbon/human, delete_old_mob = TRUE)
 		L.equip(H)
-		L.special_equip(H)
+		map.equip(H)
 		RegisterSignal(H, COMSIG_LIVING_DEATH, .proc/player_died)
 		to_chat(H.client, span_reallybig("GO!"))
 		players[K]["mob"] = H

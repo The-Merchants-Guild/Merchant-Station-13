@@ -13,6 +13,12 @@
 	if (!map_path)
 		return qdel(src) && stack_trace("MISSING MAP PATH!")
 	template = new(path = map_path)
+
+/datum/deathmatch_map/map_equip(mob/living/carbon/player)
+	SHOULD_CALL_PARENT(TRUE)
+	if (forced_species)
+		player.set_species(forced_species)
+
 /datum/deathmatch_map/ragecage
 	name = "Ragecage"
 	desc = "Fun for the whole family, the classic ragecage."

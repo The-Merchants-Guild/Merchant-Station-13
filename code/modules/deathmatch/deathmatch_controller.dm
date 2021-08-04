@@ -21,7 +21,10 @@ GLOBAL_VAR(deathmatch_game)
 		map_locations += S.compiled_location
 
 	for (var/M in subtypesof(/datum/deathmatch_map))
-		maps[M] = new M
+		var/datum/deathmatch_map/map = new M
+		if (maps[map.name])
+			stack_trace("Deathmatch maps MUST have different names: [map.name] already defined.")
+		maps[map.name] = map
 	loadouts = subtypesof(/datum/deathmatch_loadout)
 
 /datum/deathmatch_controller/proc/create_new_lobby(mob/host)

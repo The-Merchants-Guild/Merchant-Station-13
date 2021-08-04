@@ -53,7 +53,7 @@
 	equipment = list()
 
 /datum/deathmatch_loadout/gunperative
-	name = "Gunpeartive"
+	name = "Gun-perative"
 	desc = "A syndicate operative with a gun and a knife."
 	default_species = /datum/species/human
 	outfit = /datum/outfit/syndicate_empty
@@ -61,4 +61,14 @@
 		/obj/item/gun/ballistic/automatic/pistol = ITEM_SLOT_HANDS,
 		list(/obj/item/ammo_box/magazine/m9mm = 5) = ITEM_SLOT_BACKPACK,
 		/obj/item/kitchen/knife/combat = ITEM_SLOT_LPOCKET
+	)
+
+/datum/deathmatch_loadout/securing_sec
+	name = "Security Officer"
+	desc = "A security officer."
+	default_species = /datum/species/human
+	outfit = /datum/outfit/job/security
+	equipment = list(
+		/obj/item/gun/energy/disabler = ITEM_SLOT_HANDS,
+		/obj/item/flashlight/seclite = ITEM_SLOT_LPOCKET
 	)

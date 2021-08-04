@@ -110,9 +110,11 @@
 /datum/deathmatch_lobby/proc/add_observer(mob/_mob, _host = FALSE)
 	if (players[_mob.ckey])
 		CRASH("Tried to add [_mob.ckey] as an observer while being a player.")
-	observers[_mob.ckey] = list(mob = _mob, host = FALSE)
+	observers[_mob.ckey] = list(mob = _mob, host = _host)
 
 /datum/deathmatch_lobby/proc/add_player(mob/_mob, _loadout, _host = FALSE)
+	if (observers[_mob.ckey])
+		CRASH("Tried to add [_mob.ckey] as a player while being an observer.")
 	players[_mob.ckey] = list(mob = _mob, host = _host, ready = FALSE, loadout = _loadout)
 
 // Players might be stinky, need to make sure they aren't cheating.
@@ -128,6 +130,36 @@
 	L.Cut()
 	players[ckey] = null
 	players.Remove(ckey)
+
+/datum/deathmatch_lobby/proc/remove_observer(ckey)
+	var/list/L = observers[ckey]
+	L.Cut()
+	observers[ckey] = null
+	observers.Remove(ckey)
+
+/datum/deathmatch_lobby/proc/leave(ckey)
+	if (host == ckey)
+		var/total_count = players.len + observers.len
+		if (total_count <= 1) // <= just in case.
+			game.remove_lobby(host)
+			return
+		else
+			if (players[ckey] && players.len <= 1)
+				for (var/K in observers)
+					if (host == K)
+						continue
+					host = K
+					observers[K]["host"] = TRUE
+					break
+			else
+				for (var/K in players)
+					if (host == K)
+						continue
+					host = K
+					players[K]["host"] = TRUE
+					break
+			game.passoff_lobby(ckey, host)
+	remove_player(ckey)
 
 /datum/deathmatch_lobby/proc/join(mob/player)
 	if (playing || !player)
@@ -145,11 +177,16 @@
 		add_observer(player)
 	player.forceMove(location.location)
 
-/datum/deathmatch_lobby/proc/change_map(path)
-	if (!path || !game.maps[path])
+/datum/deathmatch_lobby/proc/change_map(new_map)
+	if (!new_map || !game.maps[new_map])
 		return
-	map = game.maps[path]
-	// TODO: move extra players to observer when switching map.
+	map = game.maps[new_map]
+	var/max_players = map.max_players
+	for (var/P in players)
+		max_players--
+		if (max_players <= 0)
+			remove_player(P)
+			add_observer(P)
 	if (map.allowed_loadouts)
 		var/list/los = map.allowed_loadouts
 		loadouts = los
@@ -172,15 +209,16 @@
 	. = ..()
 	.["maps"] = list()
 	for (var/P in game.maps)
-		var/datum/deathmatch_map/M = game.maps[P]
-		.["maps"][M.name] = list(desc = M.desc, min_players = M.min_players, max_players = M.max_players)
+		.["maps"] += P
 
 /datum/deathmatch_lobby/ui_data(mob/user)
 	. = ..()
+	.["self"] = user.ckey
+	.["host"] = (user.ckey == host)
 	.["loadouts"] = list()
 	for (var/L in loadouts)
 		var/datum/deathmatch_loadout/DML = L
-		.["loadouts"][L] = list(name = initial(DML.name), desc = initial(DML.desc))
+		.["loadouts"] += initial(DML.name)
 	.["map"] = list()
 	.["map"]["name"] = map.name
 	.["map"]["desc"] = map.desc
@@ -188,10 +226,14 @@
 	.["map"]["max_players"] = map.max_players
 	.["players"] = list()
 	for (var/K in players)
-		.["players"][K] = players[K]
-		var/datum/deathmatch_loadout/L = players[K]["loadout"]
-		.["players"][K]["loadout"] = "[L]"
-		.["players"][K]["self"] = (user.ckey == K)
+		var/list/P = players[K]
+		var/mob/PM = P["mob"]
+		if (!PM || !PM.client)
+			leave(K)
+			continue
+		.["players"][K] = P.Copy()
+		var/datum/deathmatch_loadout/L = P["loadout"]
+		.["players"][K]["loadout"] = initial(L.name)
 	.["observers"] = list()
 	for (var/K in observers)
 		.["observers"][K] = observers[K]
@@ -211,32 +253,35 @@
 		if ("leave_game")
 			if (playing)
 				return
-			if (host == usr.ckey)
-				var/total_count = players.len + observers.len
-				if (total_count <= 1) // <= just in case.
-					game.remove_lobby(host)
-					ui.close()
-					game.ui_interact(usr)
-					return
-				else
-					if (players[usr.ckey] && players.len <= 1)
-						for (var/K in observers)
-							if (host == K)
-								continue
-							host = K
-							observers[K]["host"] = TRUE
-							break
-					else
-						for (var/K in players)
-							if (host == K)
-								continue
-							host = K
-							players[K]["host"] = TRUE
-							break
-					game.passoff_lobby(usr.ckey, host)
-			remove_player(usr.ckey)
+			leave(usr.ckey)
 			ui.close()
 			game.ui_interact(usr)
+		if ("change_map")
+			if (playing || host != usr.ckey)
+				return
+			if (!(params["map"] in game.maps))
+				return
+			change_map(params["map"])
+		if ("change_loadout")
+			if (playing)
+				return
+			if (params["player"] != usr.ckey && host != usr.ckey)
+				return
+			for (var/L in loadouts)
+				var/datum/deathmatch_loadout/DML = L
+				if (params["loadout"] != initial(DML.name))
+					continue
+				players[params["player"]]["loadout"] = DML
+				return
+		if ("observe")
+			if (playing)
+				return
+			if (players[usr.ckey])
+				remove_player(usr.ckey)
+				add_observer(usr, host == usr.ckey)
+			else if (observers[usr.ckey] && players.len < map.max_players)
+				remove_observer(usr.ckey)
+				add_player(usr, default_loadout, host == usr.ckey)
 		if ("ready")
 			players[usr.ckey]["ready"] ^= 1 // Toggle.
 			ready_count += (players[usr.ckey]["ready"] * 2) - 1 // scared?

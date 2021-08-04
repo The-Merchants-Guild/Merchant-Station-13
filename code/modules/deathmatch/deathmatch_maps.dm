@@ -56,3 +56,11 @@
 	max_players = 5
 	allowed_loadouts = list(/datum/deathmatch_loadout/gunperative)
 	map_path = "_maps/map_files/DM/shooting_range.dmm"
+
+/datum/deathmatch_map/securing
+	name = "SecuRing"
+	desc = "WRITE ME"
+	min_players = 2
+	max_players = 4
+	allowed_loadouts = list(/datum/deathmatch_loadout/securing_sec)
+	map_path = "_maps/map_files/DM/SecuRing.dmm"

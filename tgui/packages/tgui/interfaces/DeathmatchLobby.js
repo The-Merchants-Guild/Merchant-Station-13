@@ -31,27 +31,37 @@ export const DeathmatchLobby = (props, context) => {
                 {map((pdata, player) => (
                   <Table.Row className="candystripe">
                     <Table.Cell collapsing>
-                      {!!pdata.host && (
-                        <Icon name="star" />
-                      )} <b>{player}</b>
+                      {!!pdata.host
+                      && (<Icon name="star" />)}
+                      <b>{player}</b>
                     </Table.Cell>
                     <Table.Cell grow>
                       <Dropdown
-                        width={10}
+                        width="100%"
                         nochevron
-                        options={Object.keys(data.loadouts)} />
+                        displayText={pdata.loadout}
+                        disabled={!(data.host || player !== data.self)}
+                        options={data.loadouts}
+                        onSelected={value => act('change_loadout', {
+                          player: player,
+                          loadout: value,
+                        })} />
                     </Table.Cell>
                     <Table.Cell collapsing>
-                      <ButtonCheckbox disabled={!pdata.self} checked={pdata.ready} onClick={() => act('ready')} />
+                      <ButtonCheckbox
+                        disabled={player !== data.self}
+                        checked={pdata.ready}
+                        onClick={() => act('ready')} />
                     </Table.Cell>
                   </Table.Row>
                 ))(data.players)}
                 {map((odata, observer) => (
                   <Table.Row>
                     <Table.Cell collapsing>
-                      {!!odata.host && (
-                        <Icon name="star" />
-                      ) || <Icon name="eye" />} <b>{observer}</b>
+                      {!!odata.host
+                        && (<Icon name="star" />)
+                        || (<Icon name="eye" />)}
+                      <b>{observer}</b>
                     </Table.Cell>
                   </Table.Row>
                 ))(data.observers)}
@@ -61,7 +71,18 @@ export const DeathmatchLobby = (props, context) => {
           <Flex.Item width="210px">
             <Section>
               <Box textAlign="center">
-                <b>{data.map.name}</b>
+                {!!data.host && (
+                  <Dropdown
+                    width="100%"
+                    nochevron
+                    displayText={data.map.name}
+                    options={data.maps}
+                    onSelected={value => act('change_map', {
+                      map: value,
+                    })} />
+                ) || (
+                  <b>{data.map.name}</b>
+                )}
               </Box>
               {data.map.desc}
               <Box textAlign="center">
@@ -76,6 +97,7 @@ export const DeathmatchLobby = (props, context) => {
         </Flex>
         <Button color="good" content="Start Game" onClick={() => act('start_game')} />
         <Button color="bad" content="Leave Game" onClick={() => act('leave_game')} />
+        <Button color="caution" content={data.observers[data.self] ? "Join" : "Observe"} onClick={() => act('observe')} />
       </Window.Content>
     </Window>
   );

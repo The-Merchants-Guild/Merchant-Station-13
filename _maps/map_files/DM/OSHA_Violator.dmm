@@ -129,7 +129,6 @@
 "GP" = (/obj/structure/reflector/single/mapping{dir = 10},/obj/effect/turf_decal/bot/right,/turf/open/indestructible,/area/deathmatch)
 "GT" = (/obj/structure/cable,/obj/item/clothing/suit/hazardvest,/turf/open/indestructible,/area/deathmatch)
 "GV" = (/obj/structure/cable,/turf/closed/indestructible/reinforced,/area/deathmatch)
-"GY" = (/obj/structure/cable,/obj/machinery/power/apc/auto_name/west,/turf/open/indestructible,/area/deathmatch)
 "Hn" = (/obj/structure/table/wood/fancy/black,/obj/item/scalpel/supermatter,/turf/open/indestructible,/area/deathmatch)
 "HL" = (/obj/item/clothing/gloves/color/yellow{desc = "This is it. The only reason of your existence. Grab it, put them on and enjoy your newfound godhood!"},/obj/structure/rack,/turf/open/indestructible,/area/deathmatch)
 "HP" = (/obj/machinery/computer/operating{desc = "You start to get the feeling this is the wrong operating console...."; dir = 1},/turf/open/indestructible,/area/deathmatch)
@@ -198,7 +197,7 @@ jeaitccAcAcAcAcAaEthcAtTcAcAcAcAtUgNkPkPoTublUcAcAgNuvcAkPcAcAlUFVaiaiaigNai
 jeaicAcAuYvDvDvGblvKvTwbwdwywdwywIwKwLxaxgxjxsxFxFwKxNxFxaxYcAyjgNaicAgNgNai
 aiaiaEerysysysysyswKyBxgyRyRyRxgyWwKxaxaxgxjxjyXxFwKxFxYkPyYcAlUgNaicAgNcAai
 aizbcAzjaizlzwzLblgNAaAmAxAFAZoTBfgNkPkPoTlUlUCCCHgNcACICRCIxWlUDsaiDYYWcAai
-aiEbcAcAEccAEmcAEYgNFdoTthFvFMFPGqGsGxGzoTGBlUkBGHgNcACIkPCIGPlUGTGVGYgNhUai
+aiEbcAcAEccAEmcAEYgNFdoTthFvFMFPGqGsGxGzoTGBlUkBGHgNcACIkPCIGPlUGTGVgNgNhUai
 aiHncAcAaiHLHPJsblgNAaAmJFKdKYoTBfgNkPkPoTlUlUGHcAgNcACIkPLKxFxjwKysMpaigNai
 aiaiaEaiaiaiaiaiaiMuMyoTMBMBMBoTMCgNkPkPoTlUlUcAcAgNMPMVkPcAcAlUgNaiNJaigNai
 jeaicAcAcANYPgvGblspPuPxQmPxQmPxQAgNkPkPoTlUlUcAcAgNQGcAorcAcAlUgNQQRjaigNai

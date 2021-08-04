@@ -9,7 +9,6 @@
 	var/playing = FALSE
 	var/ready_count
 	var/list/loadouts
-	var/datum/deathmatch_loadout/default_loadout
 
 /datum/deathmatch_lobby/New(mob/player)
 	. = ..()
@@ -22,8 +21,7 @@
 		loadouts = map.allowed_loadouts
 	else
 		loadouts = game.loadouts
-	default_loadout = loadouts[1]
-	add_player(player, default_loadout, TRUE)
+	add_player(player, loadouts[1], TRUE)
 	ui_interact(player)
 
 /datum/deathmatch_lobby/Destroy(force, ...)
@@ -39,7 +37,6 @@
 	map = null
 	location = null
 	loadouts = null
-	default_loadout = null
 
 /datum/deathmatch_lobby/proc/start_game()
 	location = game.reserve_location(map)
@@ -96,12 +93,20 @@
 /datum/deathmatch_lobby/proc/player_died(mob/living/player)
 	for (var/K in players)
 		var/mob/P = players[K]["mob"]
+		if (!P.client)
+			remove_player(K)
+			continue
 		to_chat(P.client, span_reallybig("[player.ckey] HAS DIED.<br>[players.len-1] REMAINING."))
 	for (var/K in observers)
 		var/mob/P = observers[K]["mob"]
+		if (!P.client)
+			remove_observer(K)
+			continue
 		to_chat(P.client, span_reallybig("[player.ckey] HAS DIED.<br>[players.len-1] REMAINING."))
 	players.Remove(player.ckey)
-	add_observer(player.ghostize(), (host == player.ckey))
+	var/ghost = player.ghostize()
+	if (ghost) // If the player has ghosted already this will not work.
+		add_observer(ghost, (host == player.ckey))
 	player.dust(TRUE, TRUE, TRUE)
 	if (players.len <= 1)
 		end_game()
@@ -167,7 +172,7 @@
 	if (players.len >= map.max_players)
 		add_observer(player)
 	else
-		add_player(player, default_loadout)
+		add_player(player, loadouts[1])
 	ui_interact(player)
 
 /datum/deathmatch_lobby/proc/spectate(mob/player)
@@ -186,15 +191,16 @@
 		max_players--
 		if (max_players <= 0)
 			remove_player(P)
-			add_observer(P)
+			add_observer(P["mob"])
 	if (map.allowed_loadouts)
 		var/list/los = map.allowed_loadouts
 		loadouts = los
 	else
 		loadouts = game.loadouts
 	for (var/K in players)
-		if (!(players[K]["loadout"] in loadouts))
-			players[K]["loadout"] = loadouts[1]
+		if (players[K]["loadout"] in loadouts)
+			continue
+		players[K]["loadout"] = loadouts[1]
 
 /datum/deathmatch_lobby/ui_state(mob/user)
 	return GLOB.observer_state
@@ -281,7 +287,7 @@
 				add_observer(usr, host == usr.ckey)
 			else if (observers[usr.ckey] && players.len < map.max_players)
 				remove_observer(usr.ckey)
-				add_player(usr, default_loadout, host == usr.ckey)
+				add_player(usr, loadouts[1], host == usr.ckey)
 		if ("ready")
 			players[usr.ckey]["ready"] ^= 1 // Toggle.
 			ready_count += (players[usr.ckey]["ready"] * 2) - 1 // scared?

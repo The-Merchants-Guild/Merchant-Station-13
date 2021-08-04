@@ -53,13 +53,26 @@
 	equipment = list()
 
 /datum/deathmatch_loadout/gunperative
-	name = "Gun-perative"
+	name = "Ranged Operative"
 	desc = "A syndicate operative with a gun and a knife."
 	default_species = /datum/species/human
 	outfit = /datum/outfit/syndicate_empty
 	equipment = list(
 		/obj/item/gun/ballistic/automatic/pistol = ITEM_SLOT_HANDS,
 		list(/obj/item/ammo_box/magazine/m9mm = 5) = ITEM_SLOT_BACKPACK,
+		/obj/item/kitchen/knife/combat = ITEM_SLOT_LPOCKET
+	)
+
+/datum/deathmatch_loadout/meleeperative
+	name = "Melee Operative"
+	desc = "A syndicate operative with multiple knives."
+	default_species = /datum/species/human
+	outfit = /datum/outfit/syndicate_empty
+	equipment = list(
+		/obj/item/clothing/suit/armor/vest = ITEM_SLOT_OCLOTHING,
+		/obj/item/clothing/head/helmet = ITEM_SLOT_HEAD,
+		list(/obj/item/kitchen/knife/combat = 6) = ITEM_SLOT_BACKPACK,
+		/obj/item/kitchen/knife/combat = ITEM_SLOT_HANDS,
 		/obj/item/kitchen/knife/combat = ITEM_SLOT_LPOCKET
 	)
 
@@ -70,5 +83,6 @@
 	outfit = /datum/outfit/job/security
 	equipment = list(
 		/obj/item/gun/energy/disabler = ITEM_SLOT_HANDS,
-		/obj/item/flashlight/seclite = ITEM_SLOT_LPOCKET
+		/obj/item/flashlight/seclite = ITEM_SLOT_LPOCKET,
+		/obj/item/kitchen/knife/combat/survival = ITEM_SLOT_RPOCKET
 	)

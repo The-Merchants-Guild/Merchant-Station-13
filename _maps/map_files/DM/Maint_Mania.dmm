@@ -18,7 +18,7 @@
 "jY" = (/obj/item/stack/medical/gauze{amount = 1},/turf/open/indestructible,/area/deathmatch)
 "ka" = (/obj/effect/decal/cleanable/blood/old,/turf/open/indestructible,/area/deathmatch)
 "kp" = (/obj/effect/turf_decal/stripes/corner{dir = 4},/turf/open/indestructible,/area/deathmatch)
-"kx" = (/obj/effect/decal/cleanable/dirt,/obj/effect/turf_decal/stripes/line{dir = 1},/obj/effect/landmark/start/assistant/override,/turf/open/indestructible,/area/deathmatch)
+"kx" = (/obj/effect/decal/cleanable/dirt,/obj/effect/turf_decal/stripes/line{dir = 1},/obj/effect/landmark/deathmatch_player_spawn,/turf/open/indestructible,/area/deathmatch)
 "lA" = (/obj/effect/turf_decal/stripes/corner{dir = 1},/turf/open/indestructible,/area/deathmatch)
 "lJ" = (/obj/item/crowbar,/obj/structure/table/reinforced,/turf/open/indestructible,/area/deathmatch)
 "lN" = (/obj/effect/decal/cleanable/dirt/dust,/obj/effect/turf_decal/caution/stand_clear,/turf/open/indestructible,/area/deathmatch)
@@ -37,7 +37,6 @@
 "tT" = (/obj/structure/rack,/obj/item/stack/cable_coil,/obj/item/assembly/igniter,/turf/open/indestructible,/area/deathmatch)
 "vB" = (/obj/machinery/light/small/directional/east,/turf/open/indestructible,/area/deathmatch)
 "wi" = (/obj/item/screwdriver,/obj/structure/table/reinforced,/turf/open/indestructible,/area/deathmatch)
-"wt" = (/obj/effect/landmark/start/assistant/override,/turf/open/indestructible,/area/deathmatch)
 "wC" = (/obj/item/weldingtool,/obj/structure/rack,/obj/item/flashlight/flare,/turf/open/indestructible,/area/deathmatch)
 "zd" = (/obj/machinery/vending/medical{desc = "Go on, smash this vending machine. You want free healing right? Do it."},/turf/open/indestructible,/area/deathmatch)
 "zF" = (/obj/item/ammo_casing/shotgun/improvised,/turf/open/indestructible,/area/deathmatch)
@@ -45,7 +44,7 @@
 "Bs" = (/obj/machinery/light/small/directional/west,/obj/effect/decal/cleanable/dirt,/turf/open/indestructible,/area/deathmatch)
 "BU" = (/obj/item/chainsaw,/turf/open/indestructible,/area/deathmatch)
 "BV" = (/obj/structure/table/reinforced,/turf/open/indestructible,/area/deathmatch)
-"Dh" = (/obj/structure/cable,/obj/machinery/power/apc/auto_name/east,/turf/open/indestructible,/area/deathmatch)
+"Dh" = (/obj/structure/lattice/catwalk,/obj/effect/mob_spawn/human/engineer/rig,/turf/open/space/basic,/area/template_noop)
 "Dt" = (/obj/effect/decal/cleanable/dirt,/obj/effect/turf_decal/loading_area{dir = 4},/turf/open/indestructible,/area/deathmatch)
 "Er" = (/obj/item/clothing/head/welding,/obj/structure/table/reinforced,/turf/open/indestructible,/area/deathmatch)
 "Ew" = (/obj/effect/decal/cleanable/dirt/dust,/obj/item/reagent_containers/pill/maintenance,/turf/open/indestructible,/area/deathmatch)
@@ -95,8 +94,6 @@
 "Xb" = (/obj/effect/turf_decal/stripes/corner{dir = 8},/turf/open/indestructible,/area/deathmatch)
 "XC" = (/obj/item/assembly/igniter,/turf/open/indestructible,/area/deathmatch)
 "XD" = (/obj/item/holosign_creator/security,/obj/machinery/light/small/directional/south,/turf/open/indestructible,/area/deathmatch)
-"Yd" = (/obj/machinery/power/smes/magical,/turf/open/indestructible,/area/deathmatch)
-"Zu" = (/obj/structure/cable,/obj/machinery/power/terminal{dir = 8},/turf/open/indestructible,/area/deathmatch)
 
 (1,1,1) = {"
 IjIjIjIjIjIjIjIjIjIjIjaDaDaPaDaDaDaPaDaDIjIjIjIjIjIjIjIjIjIjIjIjIj
@@ -109,13 +106,13 @@ IjhNIjIjaDcniCcnhoEwcnjXjYkakpkxlAcncnlJaDIjIjIjgaIjIjgaIjIjIjIjIj
 IjgaIjIjaDlNaDmSaDmSaDaDhoaDaDmZaDaDcnaDaDaDaDaDaDhohoaDIjIjIjIjIj
 IjgaIjIjaDcnaDnQaDMtaDIjIjIjaDcnihcncnnQcncncnnScncnpTaDIjIjIjIjIj
 IjgaIjIjaDpZaDcnaDnQaDIjIjIjaDskaDaDhBaDaDslaDaDaDcnsFaDaDaDaDaDIj
-gagagagaaDnQaDcnsXskaDIjIjIjaDcntTaDvBaDMtcnjXwiaDpZwtcnwCzdmZaDIj
+gagagagaaDnQaDcnsXskaDIjIjIjaDcntTaDvBaDMtcnjXwiaDpZMtcnwCzdmZaDIj
 IjgaIjIjhozFaDcncncnaDgaAGgaaDBscnaDBUBVDtcncnEraDnQmZcnEKnQcnhoIj
 IjgaIjIjhozFaDcnENmZaDIjIjIjaDcnENaDFpaDcnFHcnGiaDcnaDaDaDaDcnhoIj
 IjgaIjIjhozFBVcnmZGAaDIjIjIjaDcnaDaDaDaDaDGFnQcnslcnaDHdHpENjchoIj
 IjHEIjIjhoItlJjcENmZaDIjIjIjaDcnaDsVKtKWaDLaLJNaaDcnmZnQcncncnaDIj
 IjgaIjIjhozFNscncncnaDaDhoaDaDpZaDGFcncnaDaDmZaDaDcnaDcnaDhoaDaDIj
-IjgaIjIjhozFaDNOEKNUnQNYOkjccncncncnOmcncncnwtjXcncnaDcnaDIjIjgaIj
+IjgaIjIjhozFaDNOEKNUnQNYOkjccncncncnOmcncncnMtjXcncnaDcnaDIjIjgaIj
 IjgaIjIjhozFaDcnaDOAaDaDaDaDaDcnaDaDaDhohoaDaDjcaDaDaDcnhoIjIjgaIj
 gagagagaaDjcaDcnaDOOaDTBjXjYslnQENaDIjgaIjIjaDjcslORPpcnaDIjIjgaIj
 IjgaIjIjaDcnaDnQmZEWhocnjcPWaDcncnhogaQrIjIjhocnaDaDaDhoaDgagaQsga
@@ -124,8 +121,8 @@ IjgaIjIjaDnQaDihaDOAaDRmEKcnBVSucnaDIjIjgaIjaDcnaDIjIjIjIjIjIjgaIj
 IjgaIjIjaDmSaDmSaDSNaDaDaDaDaDaDcnaDaDhohoaDaDskaDIjIjIjIjIjIjgaIj
 IjgaIjIjaDcnTucnTPUnVbXbjcjXihcnnQMtmZcnnQXCcnXDaDgagagagagagagaga
 gagagagaaDaDaDaDaDaDhBaDaDaDaDaDaDaDaDhohoaDaDaDaDIjIjIjIjIjIjgaIj
-IjgaIjIjIjIjIjIjaDYdZuDhaDIjIjIjgaIjIjIjIjIjIjgaIjIjIjIjIjIjIjgaIj
-IjIjIjIjIjIjIjIjaDcnEKcnaDIjIjIjgaIjIjIjIjIjIjgaIjIjIjIjIjIjIjgaIj
-IjIjIjIjIjIjIjIjaDaDaDaDaDIjIjgagagagagagagagagagagagagagagagaQsga
+IjgaIjIjIjIjIjIjIjIjgaIjIjIjIjIjgaIjIjIjIjIjIjgaIjIjIjIjIjIjIjgaIj
+IjIjIjIjIjIjIjIjIjIjDhIjIjIjIjIjgaIjIjIjIjIjIjgaIjIjIjIjIjIjIjgaIj
+IjIjIjIjIjIjIjIjIjIjIjIjIjIjIjgagagagagagagagagagagagagagagagaQsga
 IjIjIjIjIjIjIjIjIjIjIjIjIjIjIjIjgaIjIjIjMCIjIjgaIjIjIjIjIjIjIjgaIj
 "}

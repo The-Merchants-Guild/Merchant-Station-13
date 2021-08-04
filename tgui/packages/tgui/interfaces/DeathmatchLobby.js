@@ -40,7 +40,7 @@ export const DeathmatchLobby = (props, context) => {
                         width="100%"
                         nochevron
                         displayText={pdata.loadout}
-                        disabled={!(data.host || player !== data.self)}
+                        disabled={!(data.host || player === data.self)}
                         options={data.loadouts}
                         onSelected={value => act('change_loadout', {
                           player: player,

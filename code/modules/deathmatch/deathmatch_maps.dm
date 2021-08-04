@@ -54,7 +54,10 @@
 	desc = "WRITE ME"
 	min_players = 2
 	max_players = 5
-	allowed_loadouts = list(/datum/deathmatch_loadout/gunperative)
+	allowed_loadouts = list(
+		/datum/deathmatch_loadout/gunperative,
+		/datum/deathmatch_loadout/meleeperative
+	)
 	map_path = "_maps/map_files/DM/shooting_range.dmm"
 
 /datum/deathmatch_map/securing

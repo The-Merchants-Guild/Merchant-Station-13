@@ -480,6 +480,21 @@
 	new /obj/item/reagent_containers/glass/bottle/amanitin(src)
 	new /obj/item/reagent_containers/syringe(src)
 
+/obj/item/storage/box/syndie_kit/rockets
+	name = "rocket box"
+
+/obj/item/storage/box/syndie_kit/rockets/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 9
+
+/obj/item/storage/box/syndie_kit/rockets/PopulateContents()
+	new /obj/item/ammo_casing/caseless/rocket/hedp(src)
+	for(var/i in 1 to 6)
+		new /obj/item/ammo_casing/caseless/rocket(src)
+	for(var/i in 1 to 2)
+		new /obj/item/ammo_casing/caseless/rocket/solidfuel(src)
+
 /obj/item/storage/box/syndie_kit/nuke
 	name = "box"
 

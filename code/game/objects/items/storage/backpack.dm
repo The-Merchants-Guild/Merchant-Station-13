@@ -650,6 +650,18 @@
 	slowdown = 0
 	STR.silent = TRUE
 
+/obj/item/storage/backpack/duffelbag/syndie/demolitions
+	desc = "A large duffel bag containing a PML-9 Rocket Launcher, Grenadier's Belt, extra rockets and a label that reads; \"For you, Capitán!\""
+
+/obj/item/storage/backpack/duffelbag/syndie/demolitions/PopulateContents()
+	new /obj/item/gun/ballistic/rocketlauncher(src)
+	new /obj/item/storage/belt/grenade/full(src)
+	new /obj/item/storage/box/syndie_kit/rockets(src)
+	new /obj/item/clothing/glasses/orange(src)
+	new /obj/item/storage/fancy/cigarettes/cigars/havana(src)
+	new /obj/item/storage/box/matches(src)
+	new /obj/item/clothing/head/hos/syndicate(src)
+
 /obj/item/storage/backpack/duffelbag/clown/syndie/PopulateContents()
 	new /obj/item/pda/clown(src)
 	new /obj/item/clothing/under/rank/civilian/clown(src)

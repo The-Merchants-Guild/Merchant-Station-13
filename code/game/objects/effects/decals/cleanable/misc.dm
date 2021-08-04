@@ -136,6 +136,28 @@
 	icon_state = "vomit_1"
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
 	beauty = -150
+	var/global/list/names
+
+/obj/effect/decal/cleanable/vomit/Initialize()
+	. = ..()
+	if(prob(5))
+		if(!names)
+			var/json_file = file("[global.config.directory]/trashnames.json")
+			names = list()
+			if(!fexists(json_file))
+				return
+			names = json_decode(file2text(json_file))
+		if(names.len)
+			name = pick(names)
+
+/obj/effect/decal/cleanable/vomit/attackby(obj/item/I, mob/user, params)
+	..()
+	if(istype(I, /obj/item/pen))
+		var/t = sanitize_name(stripped_input(usr, "Enter new vomit name", name, "vomit",MAX_NAME_LEN), allow_numbers = TRUE)
+		if(!t || !in_range(src, usr))
+			return
+		name = t
+		return
 
 /obj/effect/decal/cleanable/vomit/attack_hand(mob/user, list/modifiers)
 	. = ..()

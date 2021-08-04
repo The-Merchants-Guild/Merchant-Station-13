@@ -30,6 +30,7 @@
 		COMP_COMPARISON_LESS_THAN,
 		COMP_COMPARISON_GREATER_THAN_OR_EQUAL,
 		COMP_COMPARISON_LESS_THAN_OR_EQUAL,
+		COMP_COMPARISON_CONTAINS,
 	)
 	options = component_options
 
@@ -55,6 +56,10 @@
 			if(current_type != PORT_TYPE_ANY)
 				current_type = PORT_TYPE_ANY
 				comparison_input.set_datatype(PORT_TYPE_ANY)
+		if(COMP_COMPARISON_CONTAINS)
+			if(current_type != PORT_TYPE_STRING)
+				current_type = PORT_TYPE_STRING
+				comparison_input.set_datatype(PORT_TYPE_STRING)
 		else
 			if(current_type != PORT_TYPE_NUMBER)
 				current_type = PORT_TYPE_NUMBER
@@ -73,7 +78,7 @@
 		var/anything = entry[column_name.input_value]
 		if(islist(anything))
 			continue
-		if(current_option != COMP_COMPARISON_EQUAL && current_option != COMP_COMPARISON_NOT_EQUAL && !isnum(anything))
+		if(current_option != COMP_COMPARISON_EQUAL && current_option != COMP_COMPARISON_NOT_EQUAL && current_option != COMP_COMPARISON_CONTAINS && !isnum(anything))
 			continue
 		var/add_to_list = FALSE
 		switch(current_option)
@@ -89,6 +94,8 @@
 				add_to_list = anything < comparison_value
 			if(COMP_COMPARISON_LESS_THAN_OR_EQUAL)
 				add_to_list = anything <= comparison_value
+			if(COMP_COMPARISON_CONTAINS)
+				add_to_list = findtext("[anything]", comparison_value) != 0 // hopefully won't runtime lol
 
 		if(add_to_list)
 			new_list += list(entry)

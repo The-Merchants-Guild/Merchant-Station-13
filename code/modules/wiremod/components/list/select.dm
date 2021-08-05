@@ -95,7 +95,7 @@
 			if(COMP_COMPARISON_LESS_THAN_OR_EQUAL)
 				add_to_list = anything <= comparison_value
 			if(COMP_COMPARISON_CONTAINS)
-				add_to_list = findtext("[anything]", comparison_value) != 0 // hopefully won't runtime lol
+				add_to_list = findtext("[anything]", "[comparison_value]") != 0
 
 		if(add_to_list)
 			new_list += list(entry)

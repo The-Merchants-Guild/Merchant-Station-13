@@ -9,7 +9,7 @@
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	var/datum/port/output/scanned_objects
-	var/scan_range = 7
+	var/scan_range = 5
 	
 /obj/item/circuit_component/computer_vision/populate_options()
 	var/static/component_options = list(COMP_COMPVIS_MOB, COMP_COMPVIS_OBJECT) // gonna implement the second one later

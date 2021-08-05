@@ -44,8 +44,8 @@
 	That's why we are selling these seven armor piercing shotgun slugs, to ensure your safety from whatever the voices told you is coming."
 	item = /obj/item/storage/box/slugs
 
-	price_min = 100
-	price_max = 250
+	price_min = 175
+	price_max = 325
 	stock_min = 2
 	stock_max = 4
 	availability_prob = 40

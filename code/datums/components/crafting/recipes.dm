@@ -520,7 +520,7 @@
 	result = /obj/item/ammo_casing/shotgun/penetrator
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/stack/sheet/mineral/titanium = 1,
-				/obj/item/stack/sheet/mineral/uranium = 1)
+				/obj/item/stack/sheet/iron = 1)
 	tool_behaviors = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY

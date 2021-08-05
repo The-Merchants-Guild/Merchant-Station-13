@@ -48,8 +48,8 @@
 
 // Components
 
-/// The value that is sent whenever a component is simply sending a signal. This can be anything.
-#define COMPONENT_SIGNAL 1
+/// The value that is sent whenever a component is simply sending a signal. This can be anything, and is currently the world time in seconds.
+#define COMPONENT_SIGNAL (world.time / (1 SECONDS))
 
 // Comparison defines
 #define COMP_COMPARISON_EQUAL "="
@@ -60,8 +60,8 @@
 #define COMP_COMPARISON_LESS_THAN_OR_EQUAL "<="
 
 // Delay defines
-/// The value that is sent whenever a component is simply sending a signal. This can be anything, and is currently the seconds since roundstart.
-#define COMPONENT_SIGNAL (world.time / (1 SECONDS))
+/// The minimum delay value that the delay component can have.
+#define COMP_DELAY_MIN_VALUE 0.1
 
 // Logic defines
 #define COMP_LOGIC_AND "AND"

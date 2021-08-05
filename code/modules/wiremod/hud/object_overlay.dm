@@ -22,6 +22,7 @@
 	/// On/Off signals
 	var/datum/port/input/signal_on
 	var/datum/port/input/signal_off
+	var/datum/port/input/signal_rem
 
 	var/obj/item/organ/cyberimp/bci/bci
 	var/list/active_overlays = list()
@@ -100,9 +101,9 @@
 		active_overlays.Remove(target_atom)
 
 	if(COMPONENT_TRIGGERED_BY(signal_rem, port))
-        for(var/atom/target_atom in active_overlays)
-            QDEL_NULL(active_overlays[target_atom])
-            active_overlays.Remove(target_atom)
+		for(var/atom/target_atom2 in active_overlays)
+			QDEL_NULL(active_overlays[target_atom2])
+			active_overlays.Remove(target_atom2)
 
 /obj/item/circuit_component/object_overlay/proc/show_to_owner(atom/target_atom, mob/living/owner)
 	if(LAZYLEN(active_overlays) >= OBJECT_OVERLAY_LIMIT)

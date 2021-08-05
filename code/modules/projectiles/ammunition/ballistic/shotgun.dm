@@ -104,6 +104,14 @@
 	pellets = 10
 	variance = 25
 
+/obj/item/ammo_casing/shotgun/penetrator
+	name = "penetrator shell"
+	desc = "A specialized shotgun shell, capable of piercing a single person. Slightly less damaging than conventional shells however."
+	icon_state = "penshell"
+	projectile_type = /obj/projectile/bullet/pellet/shotgun_penetrator
+	pellets = 6
+	variance = 25
+
 /obj/item/ammo_casing/shotgun/ion
 	name = "ion shell"
 	desc = "An advanced shotgun shell which uses a subspace ansible crystal to produce an effect similar to a standard ion rifle. \
@@ -113,13 +121,37 @@
 	pellets = 4
 	variance = 35
 
-/obj/item/ammo_casing/shotgun/laserslug
-	name = "scatter laser shell"
-	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a scatter laser weapon in a ballistic package."
+/obj/item/ammo_casing/shotgun/laser
+	name = "laser shell"
+	desc = "An advanced shotgun shell that fires a spread of laser beams, for dealing with serious threats."
 	icon_state = "lshell"
-	projectile_type = /obj/projectile/beam/weak
+	projectile_type = /obj/projectile/beam/shotgun
 	pellets = 6
 	variance = 35
+	light_system = MOVABLE_LIGHT //DO NOT FUCK WITH THIS LIGHTING SYSTEM OR ELSE THE SHELLS GET FUCKED AT ROUNDSTART!
+	light_range = 1
+	light_power = 1
+	light_color = COLOR_SOFT_RED
+
+/obj/item/ammo_casing/shotgun/laser/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/overlay_lighting)
+
+/obj/item/ammo_casing/shotgun/disabler
+	name = "disabler shell"
+	desc = "An advanced shotgun shell which fires a spread of disabler beams, for modern-day crowd control."
+	icon_state = "dshell"
+	projectile_type = /obj/projectile/beam/disabler/shotgun
+	pellets = 6
+	variance = 35
+	light_system = MOVABLE_LIGHT //ALSO APPLIES TO THIS, DON'T YOU FUCKING DARE.
+	light_range = 1
+	light_power = 1
+	light_color = LIGHT_COLOR_BLUE
+
+/obj/item/ammo_casing/shotgun/disabler/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/overlay_lighting)
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"

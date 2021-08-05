@@ -38,26 +38,18 @@
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/rubbershot/sec
-	id = "sec_rshot"
+/datum/design/disablershot
+	name = "Disabler Shell"
+	desc = "An advanced shotgun shell which fires a spread of disabler beams, for modern-day crowd control."
+	id = "sec_dslug"
 	build_type = PROTOLATHE | AWAY_LATHE
-	category = list("Ammo")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-
-/datum/design/beanbag_slug/sec
-	id = "sec_beanbag_slug"
-	build_type = PROTOLATHE | AWAY_LATHE
+	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000)
+	build_path = /obj/item/ammo_casing/shotgun/disabler
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/shotgun_dart/sec
 	id = "sec_dart"
-	build_type = PROTOLATHE | AWAY_LATHE
-	category = list("Ammo")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-
-/datum/design/incendiary_slug/sec
-	id = "sec_Islug"
 	build_type = PROTOLATHE | AWAY_LATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

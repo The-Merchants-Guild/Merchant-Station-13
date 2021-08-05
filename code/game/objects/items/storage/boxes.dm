@@ -904,6 +904,26 @@
 	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/buckshot(src)
 
+/obj/item/storage/box/slugs
+	name = "box of shotgun slugs"
+	desc = "A box full of lethal slugs, made for piercing armor."
+	icon_state = "lethalshot_box"
+	illustration = null
+
+/obj/item/storage/box/slugs/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun(src)
+
+/obj/item/storage/box/lasershot
+	name = "box of shotgun laser shots"
+	desc = "A box full of shotgun laser shots, developed for lethal engagements."
+	icon_state = "lethalshot_box"
+	illustration = null
+
+/obj/item/storage/box/lasershot/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/laser(src)
+
 /obj/item/storage/box/beanbag
 	name = "box of beanbags"
 	desc = "A box full of beanbag shells."

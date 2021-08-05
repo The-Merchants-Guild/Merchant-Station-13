@@ -54,8 +54,8 @@
 	else if(isturf(target))
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
-/obj/projectile/beam/weak
-	damage = 15
+/obj/projectile/beam/shotgun
+	damage = 9
 
 /obj/projectile/beam/weak/penetrator
 	armour_penetration = 50
@@ -98,6 +98,9 @@
 	tracer_type = /obj/effect/projectile/tracer/disabler
 	muzzle_type = /obj/effect/projectile/muzzle/disabler
 	impact_type = /obj/effect/projectile/impact/disabler
+
+/obj/projectile/beam/disabler/shotgun
+	damage = 16
 
 /obj/projectile/beam/pulse
 	name = "pulse"

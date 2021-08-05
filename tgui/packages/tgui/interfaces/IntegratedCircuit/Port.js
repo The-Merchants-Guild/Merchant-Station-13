@@ -1,9 +1,10 @@
 import {
   Stack,
   Icon,
-  } from '../../components';
-  import { Component, createRef } from 'inferno';
-  import { DisplayName } from "./DisplayName";
+} from '../../components';
+import { Component, createRef } from 'inferno';
+import { DisplayName } from "./DisplayName";
+
 
 export class Port extends Component {
   constructor() {
@@ -74,36 +75,36 @@ export class Port extends Component {
 
     return (
       <Stack {...rest} justify={isOutput ? 'flex-end' : 'flex-start'}>
-      {!!isOutput && (
+        {!!isOutput && (
+          <Stack.Item>
+            <DisplayName
+              port={port}
+              isOutput={isOutput}
+              componentId={componentId}
+              portIndex={portIndex} />
+          </Stack.Item>
+        )}
         <Stack.Item>
-        <DisplayName
-          port={port}
-          isOutput={isOutput}
-          componentId={componentId}
-          portIndex={portIndex} />
+          <Icon
+            color={port.color || 'blue'}
+            name={'circle'}
+            position="relative"
+            onMouseDown={this.handlePortMouseDown}
+            onContextMenu={this.handlePortRightClick}
+            onMouseUp={this.handlePortMouseUp}
+          >
+            <span ref={this.iconRef} className="ObjectComponent__PortPos" />
+          </Icon>
         </Stack.Item>
-      )}
-      <Stack.Item>
-        <Icon
-        color={port.color || 'blue'}
-        name={'circle'}
-        position="relative"
-        onMouseDown={this.handlePortMouseDown}
-        onContextMenu={this.handlePortRightClick}
-        onMouseUp={this.handlePortMouseUp}
-        >
-        <span ref={this.iconRef} className="ObjectComponent__PortPos" />
-        </Icon>
-      </Stack.Item>
-      {!isOutput && (
-        <Stack.Item>
-        <DisplayName
-          port={port}
-          isOutput={isOutput}
-          componentId={componentId}
-          portIndex={portIndex} />
-        </Stack.Item>
-      )}
+        {!isOutput && (
+          <Stack.Item>
+            <DisplayName
+              port={port}
+              isOutput={isOutput}
+              componentId={componentId}
+              portIndex={portIndex} />
+          </Stack.Item>
+        )}
       </Stack>
     );
   }

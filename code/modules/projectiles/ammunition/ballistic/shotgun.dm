@@ -128,14 +128,6 @@
 	projectile_type = /obj/projectile/beam/shotgun
 	pellets = 6
 	variance = 35
-	light_system = MOVABLE_LIGHT //DO NOT FUCK WITH THIS LIGHTING SYSTEM OR ELSE THE SHELLS GET FUCKED AT ROUNDSTART!
-	light_range = 1
-	light_power = 1
-	light_color = COLOR_SOFT_RED
-
-/obj/item/ammo_casing/shotgun/laser/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting)
 
 /obj/item/ammo_casing/shotgun/disabler
 	name = "disabler shell"
@@ -144,14 +136,6 @@
 	projectile_type = /obj/projectile/beam/disabler/shotgun
 	pellets = 6
 	variance = 35
-	light_system = MOVABLE_LIGHT //ALSO APPLIES TO THIS, DON'T YOU FUCKING DARE.
-	light_range = 1
-	light_power = 1
-	light_color = LIGHT_COLOR_BLUE
-
-/obj/item/ammo_casing/shotgun/disabler/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting)
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"

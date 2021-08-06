@@ -253,7 +253,34 @@
 	name = "Module Component"
 	id = "comp_module"
 	build_path = /obj/item/circuit_component/module
+	
+/datum/design/component/bci
+	category = list("Circuitry", "BCI Components")
 
+/datum/design/component/bci/bci_action
+	name = "BCI Action Component"
+	id = "comp_bci_action"
+	build_path = /obj/item/circuit_component/bci_action
+
+/datum/design/component/bci/object_overlay
+	name = "Object Overlay Component"
+	id = "comp_object_overlay"
+	build_path = /obj/item/circuit_component/object_overlay
+
+/datum/design/component/bci/bar_overlay
+	name = "Bar Overlay Component"
+	id = "comp_bar_overlay"
+	build_path = /obj/item/circuit_component/object_overlay/bar
+
+/datum/design/component/bci/target_intercept
+	name = "BCI Target Interceptor"
+	id = "comp_target_intercept"
+	build_path = /obj/item/circuit_component/target_intercept
+
+/datum/design/component/bci/counter_overlay
+	name = "Counter Overlay Component"
+	id = "comp_counter_overlay"
+	build_path = /obj/item/circuit_component/counter_overlay
 
 /datum/design/compact_remote_shell
 	name = "Compact Remote Shell"
@@ -335,6 +362,18 @@
 		/datum/material/iron = 15000,
 	)
 	build_path = /obj/item/shell/airlock
+	build_type = PROTOLATHE | COMPONENT_PRINTER
+	category = list("Circuitry", "Shells")
+
+/datum/design/mech_shell
+	name = "Mech Interface Assembly"
+	desc = "A shell assembly that can permanently convert any mech into a circuit mech."
+	id = "mech_shell"
+	materials = list(
+		/datum/material/glass = 2000,
+		/datum/material/iron = 6000,
+	)
+	build_path = /obj/item/shell/mech
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	category = list("Circuitry", "Shells")
 

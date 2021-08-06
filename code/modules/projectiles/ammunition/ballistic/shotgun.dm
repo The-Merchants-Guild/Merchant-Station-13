@@ -136,6 +136,7 @@
 	projectile_type = /obj/projectile/beam/disabler/shotgun
 	pellets = 6
 	variance = 35
+	harmful = FALSE
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"

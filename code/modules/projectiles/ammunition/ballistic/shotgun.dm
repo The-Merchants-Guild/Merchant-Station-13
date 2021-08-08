@@ -126,6 +126,7 @@
 	desc = "An advanced shotgun shell that fires a spread of laser beams, for dealing with serious threats."
 	icon_state = "lshell"
 	projectile_type = /obj/projectile/beam/shotgun
+	custom_materials = list(/datum/material/iron=3000, /datum/material/glass=1000)
 	pellets = 6
 	variance = 35
 
@@ -134,6 +135,7 @@
 	desc = "An advanced shotgun shell which fires a spread of disabler beams, for modern-day crowd control."
 	icon_state = "dshell"
 	projectile_type = /obj/projectile/beam/disabler/shotgun
+	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=1000)
 	pellets = 6
 	variance = 35
 	harmful = FALSE

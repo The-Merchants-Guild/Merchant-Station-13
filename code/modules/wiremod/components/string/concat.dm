@@ -38,14 +38,14 @@
 	if(input_port_amount != current_option)
 		
 		if(input_port_amount > current_option)
-			for(var/i in current_option + 1 to input_port_amount)
-				var/datum/port/input/o = input_ports[current_option + 1]
+			while (input_port_amount > current_option)
+				var/o = input_ports[input_port_amount--]
 				remove_input_port(o)
 		
 		if(input_port_amount < current_option)
 			input_ports -= trigger_input
-			for(var/i in input_port_amount + 1 to current_option)
-				add_input_port(ascii2text(text2ascii("A") + (i-1)), PORT_TYPE_STRING)
+			while (current_option > input_port_amount)
+				add_input_port(ascii2text(text2ascii("A") + input_port_amount++), PORT_TYPE_STRING)
 			input_ports += trigger_input //this ensures the Triggered output is always the last one
 
 		input_port_amount = current_option

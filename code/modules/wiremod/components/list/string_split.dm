@@ -48,16 +48,16 @@
 	if(num_current != current_option)
 		
 		if(num_current > current_option)
-			for(var/i in current_option + 1 to num_current)
-				var/datum/port/output/o = outputs[current_option + 1]
+			while (num_current > current_option)
+				var/o = outputs[num_current--]
 				outputs -= o
 				remove_output_port(o)
 		
 		if(num_current < current_option)
 			output_ports -= trigger_output
-			for(var/i in num_current + 1 to current_option)
-				var/new_output = add_output_port("Output [i]", PORT_TYPE_STRING)
-				outputs += new_output
+			while (current_option > num_current)
+				var/o = add_output_port("Output [++num_current]", PORT_TYPE_STRING)
+				outputs += o
 			output_ports += trigger_output //this ensures the Triggered output is always the last one
 
 		num_current = current_option

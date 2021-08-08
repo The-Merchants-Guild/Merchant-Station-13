@@ -93,7 +93,6 @@
 	availability_prob = 25
 
 /datum/blackmarket_item/clothing/insulated_gloves/spawn_item(loc)
-	var/gloves = /obj/item/clothing/gloves/color/yellow
-	if(prob(35)) //Cheap knockoffs, should have seen this coming!
-		gloves = /obj/item/clothing/gloves/color/fyellow
-	return new gloves(loc)
+	if (prob(35)) //Cheap knockoffs, should have seen this coming!
+		return new /obj/item/clothing/gloves/color/fyellow(loc)
+	return ..()

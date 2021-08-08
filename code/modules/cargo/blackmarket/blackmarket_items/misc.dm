@@ -92,7 +92,7 @@
 	availability_prob = 40
 
 /datum/blackmarket_item/misc/toy_esword/spawn_item(loc)
-	var/esword = /obj/item/toy/sword
-	if(prob(1)) //Made in China, OOPS!
-		esword = /obj/item/melee/transforming/energy/sword
-	return new esword(loc)
+	if (prob(1)) //Made in China, OOPS!
+		return new /obj/item/melee/transforming/energy/sword(loc)
+	return ..()
+

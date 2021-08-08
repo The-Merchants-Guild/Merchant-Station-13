@@ -98,7 +98,7 @@
 	stock_max = 2
 	availability_prob = 50
 
-/datum/blackmarket_item/tools/toolbelt
+/datum/blackmarket_item/tool/toolbelt
 	name = "Utility Toolbelt"
 	desc = "An empty utility belt, capable of holding a vast amount of engineering equipment. \
 	The leather is made out of endangered space carp, making it hard to sell legally, but damn if it doesn't look fancy..."
@@ -109,7 +109,7 @@
 	stock_max = 2
 	availability_prob = 35
 
-/datum/blackmarket_item/tools/toolbelt/spawn_item(loc)
+/datum/blackmarket_item/tool/toolbelt/spawn_item(loc)
 	var/obj/I = new /obj/item/storage/belt/utility(loc)
 	I.color = "#5203fc"
 	return I

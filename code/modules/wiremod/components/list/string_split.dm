@@ -31,7 +31,7 @@
 
 	num_current = current_option
 
-	for(var/i = 1, i <= num_current, i++)
+	for(var/i = 1 to num_current)
 		var/new_output = add_output_port("Output [i]", PORT_TYPE_STRING)
 		outputs += new_output
 

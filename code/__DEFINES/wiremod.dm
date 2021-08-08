@@ -48,8 +48,8 @@
 
 // Components
 
-/// The value that is sent whenever a component is simply sending a signal. This can be anything.
-#define COMPONENT_SIGNAL 1
+/// The value that is sent whenever a component is simply sending a signal. This can be anything, and is currently the world time in seconds.
+#define COMPONENT_SIGNAL (world.time / (1 SECONDS))
 
 // Comparison defines
 #define COMP_COMPARISON_EQUAL "="
@@ -58,6 +58,7 @@
 #define COMP_COMPARISON_LESS_THAN "<"
 #define COMP_COMPARISON_GREATER_THAN_OR_EQUAL ">="
 #define COMP_COMPARISON_LESS_THAN_OR_EQUAL "<="
+#define COMP_COMPARISON_CONTAINS "CONTAINS"
 
 // Delay defines
 /// The minimum delay value that the delay component can have.
@@ -79,6 +80,10 @@
 // Text defines
 #define COMP_TEXT_LOWER "To Lower"
 #define COMP_TEXT_UPPER "To Upper"
+
+// Computer Vision component
+#define COMP_COMPVIS_MOB "organism"
+#define COMP_COMPVIS_OBJECT "object"
 
 // Typecheck component
 #define COMP_TYPECHECK_MOB "organism"

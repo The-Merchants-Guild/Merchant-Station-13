@@ -199,6 +199,7 @@
 		"comp_clock",
 		"comp_combiner",
 		"comp_comparison",
+		"comp_comp_vis",
 		"comp_concat",
 		"comp_concat_list",
 		"comp_delay",
@@ -228,8 +229,10 @@
 		"comp_speech",
 		"comp_split",
 		"comp_string_contains",
+		"comp_string_split",
 		"comp_tempsensor",
 		"comp_textcase",
+		"comp_toentity",
 		"comp_tonumber",
 		"comp_tostring",
 		"comp_typecheck",
@@ -659,15 +662,30 @@
 	description = "Grants access to more complicated shell designs."
 	prereq_ids = list("basic_circuitry", "engineering")
 	design_ids = list(
-		"bci_implanter",
-		"bci_shell",
 		"bot_shell",
+		"mech_shell",
 		"door_shell",
 		"controller_shell",
 		"money_bot_shell",
 		"scanner_shell",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/bci_shells
+	id = "bci_shells"
+	display_name = "Brain-Computer Interfaces"
+	description = "Grants access to biocompatable shell designs and components."
+	prereq_ids = list("adv_shells")
+	design_ids = list(
+		"bci_implanter",
+		"bci_shell",
+		"comp_bar_overlay",
+		"comp_bci_action",
+		"comp_target_intercept",
+		"comp_counter_overlay",
+		"comp_object_overlay",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500)
 
 /datum/techweb_node/movable_shells_tech
 	id = "movable_shells"

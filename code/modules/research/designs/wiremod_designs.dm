@@ -213,6 +213,22 @@
 	id = "comp_concat_list"
 	build_path = /obj/item/circuit_component/concat_list
 
+/datum/design/component/computer_vision
+	name = "Computer Vision Component"
+	id = "comp_comp_vis"
+	build_path = /obj/item/circuit_component/computer_vision
+	materials = list(/datum/material/glass = 2000, /datum/material/diamond = 500)
+
+/datum/design/component/string_split
+	name = "String Split Component"
+	id = "comp_string_split"
+	build_path = /obj/item/circuit_component/string_split
+
+/datum/design/component/toentity
+	name = "To Entity Component"
+	id = "comp_toentity"
+	build_path = /obj/item/circuit_component/toentity
+	
 /datum/design/component/select_query
 	name = "Select Query Component"
 	id = "comp_select_query"

@@ -80,7 +80,7 @@
 	stock_max = 1
 	availability_prob = 40
 
-/datum/blackmarket_item/tools/insulated_gloves
+/datum/blackmarket_item/clothing/insulated_gloves
 	name = "2381 Engineering Insulated Insulation Antishock"
 	desc = "All Color (must be yellow) \
 	No Shock Glove Anti Shock Protected \
@@ -92,7 +92,7 @@
 	stock_max = 4
 	availability_prob = 25
 
-/datum/blackmarket_item/tools/insulated_gloves/spawn_item(loc)
+/datum/blackmarket_item/clothing/insulated_gloves/spawn_item(loc)
 	var/gloves = /obj/item/clothing/gloves/color/yellow
 	if(prob(35)) //Cheap knockoffs, should have seen this coming!
 		gloves = /obj/item/clothing/gloves/color/fyellow

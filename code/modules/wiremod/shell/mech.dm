@@ -97,6 +97,7 @@
 	if(istype(shell, /obj/vehicle/sealed/mecha))
 		attached_mech = shell
 		attached_mech.add_occupant(attacker, VEHICLE_CONTROL_EQUIPMENT | VEHICLE_CONTROL_MELEE)
+		attacker.forceMove(attached_mech)
 
 /obj/item/circuit_component/mech_equipment/unregister_shell(atom/movable/shell)
 	attached_mech.remove_occupant(attacker)

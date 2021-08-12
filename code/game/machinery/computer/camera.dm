@@ -59,7 +59,7 @@
 /obj/item/circuit_component/security_console_clickintercept
 	display_name = "Security Console Click Interceptor"
 	display_desc = "Allows the interception of mouse clicks on a camera console. Warning: may break space and time."
-	circuit_flags = CIRCUIT_FLAG_OUTPUT_SIGNAL
+	//circuit_flags = CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The GPS coordinates (no Z)
 	var/datum/port/output/gps_x
@@ -90,12 +90,10 @@
 	if(istype(parent, /obj/machinery/computer/security))
 		attached_console = parent
 		RegisterSignal(attached_console, COMSIG_CIRCUIT_CLICKED, .proc/click_intercept)
-		//RegisterSignal(attached_console, COMSIG_CIRCUIT_MIDDLE_CLICKED, .proc/click_intercept)
 
 /obj/item/circuit_component/security_console_clickintercept/proc/click_intercept(datum/source, mob/user, atom/target, params)
 	SIGNAL_HANDLER
 	var/turf/curr = get_turf(target)
-	//to_chat(livinguser, span_warning("Kek [curr.x], [curr.y], [curr.z]"))
 	gps_x.set_output(curr.x)
 	gps_y.set_output(curr.y)
 	var/list/modifiers = params2list(params)
@@ -106,7 +104,6 @@
 
 /obj/item/circuit_component/security_console_clickintercept/unregister_usb_parent(atom/movable/parent)
 	UnregisterSignal(attached_console, COMSIG_CIRCUIT_CLICKED)
-	//UnregisterSignal(attached_console, COMSIG_CIRCUIT_MIDDLE_CLICKED)
 
 	attached_console = null
 	return ..()
@@ -234,14 +231,13 @@
 
 /obj/machinery/computer/security/proc/on_click_mapobj(mob/user, atom/target, params)
 	SIGNAL_HANDLER
-	var/mob/living/livinguser = user
+	if(user.stat != CONSCIOUS)
+		return
 	if(!isturf(target) && !isturf(target.loc))
 		return
 	if(!vis_obj.Find(target))
 		return
 	SEND_SIGNAL(src, COMSIG_CIRCUIT_CLICKED, user, target, params)
-	//var/turf/curr = get_turf(target)
-	//to_chat(livinguser, span_warning("Kek [curr.x], [curr.y], [curr.z]"))
 
 /obj/machinery/computer/security/ui_close(mob/user)
 	var/user_ref = REF(user)

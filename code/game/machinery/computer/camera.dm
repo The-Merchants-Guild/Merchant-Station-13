@@ -50,6 +50,66 @@
 	cam_background = new
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = FALSE
+	
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/security_console_clickintercept,
+	))
+
+
+/obj/item/circuit_component/security_console_clickintercept
+	display_name = "Security Console Click Interceptor"
+	display_desc = "Allows the interception of mouse clicks on a camera console. Warning: may break space and time."
+	circuit_flags = CIRCUIT_FLAG_OUTPUT_SIGNAL
+
+	/// The GPS coordinates (no Z)
+	var/datum/port/output/gps_x
+	var/datum/port/output/gps_y
+
+	/// Sends a signal on mouse clicks
+	var/datum/port/output/click
+	var/datum/port/output/mclick
+
+	var/obj/machinery/computer/security/attached_console
+
+/obj/item/circuit_component/security_console_clickintercept/Initialize()
+	. = ..()
+	gps_x = add_output_port("GPS X", PORT_TYPE_NUMBER)
+	gps_y = add_output_port("GPS Y", PORT_TYPE_NUMBER)
+	click = add_output_port("Click", PORT_TYPE_SIGNAL)
+	mclick = add_output_port("Alt Click", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/security_console_clickintercept/Destroy()
+	gps_x = null
+	gps_y = null
+	click = null
+	mclick = null
+	return ..()
+
+/obj/item/circuit_component/security_console_clickintercept/register_usb_parent(atom/movable/parent)
+	. = ..()
+	if(istype(parent, /obj/machinery/computer/security))
+		attached_console = parent
+		RegisterSignal(attached_console, COMSIG_CIRCUIT_CLICKED, .proc/click_intercept)
+		//RegisterSignal(attached_console, COMSIG_CIRCUIT_MIDDLE_CLICKED, .proc/click_intercept)
+
+/obj/item/circuit_component/security_console_clickintercept/proc/click_intercept(datum/source, mob/user, atom/target, params)
+	SIGNAL_HANDLER
+	var/turf/curr = get_turf(target)
+	//to_chat(livinguser, span_warning("Kek [curr.x], [curr.y], [curr.z]"))
+	gps_x.set_output(curr.x)
+	gps_y.set_output(curr.y)
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, ALT_CLICK))
+		mclick.set_output(COMPONENT_SIGNAL)
+	else
+		click.set_output(COMPONENT_SIGNAL)
+
+/obj/item/circuit_component/security_console_clickintercept/unregister_usb_parent(atom/movable/parent)
+	UnregisterSignal(attached_console, COMSIG_CIRCUIT_CLICKED)
+	//UnregisterSignal(attached_console, COMSIG_CIRCUIT_MIDDLE_CLICKED)
+
+	attached_console = null
+	return ..()
 
 /obj/machinery/computer/security/Destroy()
 	qdel(cam_screen)
@@ -160,9 +220,6 @@
 	for(var/atom/A in visible_things)
 		vis_obj += visible_things
 
-//	for(var/atom/visible in visible_things)
-//		RegisterSignal(visible, COMSIG_PARENT_ATTACKBY, .proc/dosth)
-
 	for(var/turf/visible_turf in visible_things)
 		visible_turfs += visible_turf
 		vis_obj += visible_turf
@@ -178,12 +235,12 @@
 /obj/machinery/computer/security/proc/on_click_mapobj(mob/user, atom/target, params)
 	SIGNAL_HANDLER
 	var/mob/living/livinguser = user
-	//to_chat(livinguser, span_warning("Trying to click on map obj"))
 	if(!isturf(target) && !isturf(target.loc))
 		return
 	if(!vis_obj.Find(target))
 		return
-	var/turf/curr = get_turf(target)
+	SEND_SIGNAL(src, COMSIG_CIRCUIT_CLICKED, user, target, params)
+	//var/turf/curr = get_turf(target)
 	//to_chat(livinguser, span_warning("Kek [curr.x], [curr.y], [curr.z]"))
 
 /obj/machinery/computer/security/ui_close(mob/user)

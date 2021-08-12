@@ -13,6 +13,7 @@
 	/// The turf where the camera was last updated.
 	var/turf/last_camera_turf
 	var/list/concurrent_users = list()
+	var/list/vis_obj
 
 	// Stuff needed to render the map
 	var/map_name
@@ -75,6 +76,8 @@
 		// an audible terminal_on click.
 		if(is_living)
 			concurrent_users += user_ref
+			RegisterSignal(user, COMSIG_MOB_CLICKON, .proc/on_click_mapobj)
+			RegisterSignal(user, COMSIG_MOB_MIDDLECLICKON, .proc/on_click_mapobj)
 		// Turn on the console
 		if(length(concurrent_users) == 1 && is_living)
 			playsound(src, 'sound/machines/terminal_on.ogg', 25, FALSE)
@@ -153,9 +156,16 @@
 	last_camera_turf = get_turf(cam_location)
 
 	var/list/visible_things = active_camera.isXRay() ? range(active_camera.view_range, cam_location) : view(active_camera.view_range, cam_location)
+	vis_obj = list()
+	for(var/atom/A in visible_things)
+		vis_obj += visible_things
+
+//	for(var/atom/visible in visible_things)
+//		RegisterSignal(visible, COMSIG_PARENT_ATTACKBY, .proc/dosth)
 
 	for(var/turf/visible_turf in visible_things)
 		visible_turfs += visible_turf
+		vis_obj += visible_turf
 
 	var/list/bbox = get_bbox_of_atoms(visible_turfs)
 	var/size_x = bbox[3] - bbox[1] + 1
@@ -165,11 +175,24 @@
 	cam_background.icon_state = "clear"
 	cam_background.fill_rect(1, 1, size_x, size_y)
 
+/obj/machinery/computer/security/proc/on_click_mapobj(mob/user, atom/target, params)
+	SIGNAL_HANDLER
+	var/mob/living/livinguser = user
+	//to_chat(livinguser, span_warning("Trying to click on map obj"))
+	if(!isturf(target) && !isturf(target.loc))
+		return
+	if(!vis_obj.Find(target))
+		return
+	var/turf/curr = get_turf(target)
+	//to_chat(livinguser, span_warning("Kek [curr.x], [curr.y], [curr.z]"))
+
 /obj/machinery/computer/security/ui_close(mob/user)
 	var/user_ref = REF(user)
 	var/is_living = isliving(user)
 	// Living creature or not, we remove you anyway.
 	concurrent_users -= user_ref
+	UnregisterSignal(user, COMSIG_MOB_CLICKON)
+	UnregisterSignal(user, COMSIG_MOB_MIDDLECLICKON)
 	// Unregister map objects
 	user.client.clear_map(map_name)
 	// Turn off the console

@@ -27,10 +27,10 @@
 /obj/item/mecha_ammo/attack_self(mob/user)
 	..()
 	if(rounds)
-		to_chat(user, "<span class='warning'>You cannot flatten the ammo box until it's empty!</span>")
+		to_chat(user, span_warning("You cannot flatten the ammo box until it's empty!"))
 		return
 
-	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	to_chat(user, span_notice("You fold [src] flat."))
 	var/trash = new /obj/item/stack/sheet/iron(user.loc)
 	qdel(src)
 	user.put_in_hands(trash)
@@ -58,29 +58,17 @@
 	name = "machine gun ammo box"
 	desc = "A box of linked ammunition, designed for the Ultra AC 2 exosuit weapon."
 	icon_state = "lmg"
-	rounds = 300
+	rounds = 750
 	ammo_type = "lmg"
 
-/obj/item/mecha_ammo/missiles_br
-	name = "breaching missiles"
-	desc = "A box of large missiles, ready for loading into a BRM-6 exosuit missile rack."
-	icon_state = "missile_br"
-	rounds = 6
-	round_term = "missile"
-	direct_load = TRUE
-	load_audio = 'sound/weapons/gun/general/mag_bullet_insert.ogg'
-	ammo_type = "missiles_br"
-
-/obj/item/mecha_ammo/missiles_he
-	name = "anti-armor missiles"
-	desc = "A box of large missiles, ready for loading into an SRM-8 exosuit missile rack."
-	icon_state = "missile_he"
+/obj/item/mecha_ammo/missiles_kinetic
+	name = "kinetic missiles"
+	desc = "A box of light-explosive kinetic missiles, ready for loading into an SRM-8 exosuit missile rack."
+	icon_state = "missile_kinetic"
 	rounds = 8
 	round_term = "missile"
-	direct_load = TRUE
 	load_audio = 'sound/weapons/gun/general/mag_bullet_insert.ogg'
-	ammo_type = "missiles_he"
-
+	ammo_type = "missiles_kinetic"
 
 /obj/item/mecha_ammo/flashbang
 	name = "launchable flashbangs"

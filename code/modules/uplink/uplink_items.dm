@@ -125,9 +125,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(ishuman(user) && istype(A, /obj/item))
 		var/mob/living/carbon/human/H = user
 		if(H.put_in_hands(A))
-			to_chat(H, "<span class='boldnotice'>[A] materializes into your hands!</span>")
+			to_chat(H, span_boldnotice("[A] materializes into your hands!"))
 			return A
-	to_chat(user, "<span class='boldnotice'>[A] materializes onto the floor!</span>")
+	to_chat(user, span_boldnotice("[A] materializes onto the floor!"))
 	return A
 
 //Discounts (dynamically filled above)
@@ -201,6 +201,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Order NOW and comrade Boris will throw in an extra tracksuit."
 	item = /obj/item/storage/backpack/duffelbag/syndie/firestarter
 	cost = 30
+	purchasable_from = UPLINK_NUKE_OPS
+
+/datum/uplink_item/bundles_tc/demolitions
+	name = "Explosives bundle"
+	desc = "For the demolitions expert: Contains a PML-9 Rocket Launcher, a filled Grenadier's Belt and a rocket ammunition box. \
+			Comes with extra havanian cigars, a matchbox, orange shades and a lovely military cap, courtesy of the Third Soviet Union."
+	item = /obj/item/storage/backpack/duffelbag/syndie/demolitions
+	cost = 35
 	purchasable_from = UPLINK_NUKE_OPS
 
 /datum/uplink_item/bundles_tc/contract_kit
@@ -891,14 +899,28 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "84mm HE Rocket"
 	desc = "A low-yield anti-personnel HE rocket. Gonna take you out in style!"
 	item = /obj/item/ammo_casing/caseless/rocket
-	cost = 4
+	cost = 2
 
 /datum/uplink_item/ammo/rocket/hedp
 	name = "84mm HEDP Rocket"
 	desc = "A high-yield HEDP rocket; extremely effective against armored targets, as well as surrounding personnel. \
 			Strike fear into the hearts of your enemies."
 	item = /obj/item/ammo_casing/caseless/rocket/hedp
-	cost = 6
+	cost = 3
+
+/datum/uplink_item/ammo/rocket/solidfuel
+	name = "84mm Solid Fuel Canister"
+	desc = "A solid fuel canister, meant for test firing rocket launchers. \
+	These canisters have been heavily modified to burn anything behind you much, much worse."
+	item = /obj/item/ammo_casing/caseless/rocket/solidfuel
+	cost = 1
+
+/datum/uplink_item/ammo/rocket/box
+	name = "84mm Rocket Ammunition Box"
+	desc = "This box of rockets contains six HE rockets, two solid fuel test firing canisters and a single HEDP rocket. \
+			The total price would be 17 TC, so don't ask questions about safety standards, it's a steal!"
+	item = /obj/item/storage/box/syndie_kit/rockets
+	cost = 14
 
 /datum/uplink_item/ammo/toydarts
 	name = "Box of Riot Darts"
@@ -1466,7 +1488,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		return
 	U.failsafe_code = U.generate_code()
 	var/code = "[islist(U.failsafe_code) ? english_list(U.failsafe_code) : U.failsafe_code]"
-	to_chat(user, "<span class='warning'>The new failsafe code for this uplink is now : [code].</span>")
+	to_chat(user, span_warning("The new failsafe code for this uplink is now : [code]."))
 	if(user.mind)
 		user.mind.store_memory("Failsafe code for [U.parent] : [code]")
 	return U.parent //For log icon
@@ -1699,11 +1721,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Uplink Implant"
 	desc = "An implant injected into the body, and later activated at the user's will. Has no telecrystals and must be charged by the use of physical telecrystals. \
 			Undetectable (except via surgery), and excellent for escaping confinement."
-	item = /obj/item/storage/box/syndie_kit/imp_uplink
+	item = /obj/item/storage/box/syndie_kit // the actual uplink implant is generated later on in spawn_item
 	cost = UPLINK_IMPLANT_TELECRYSTAL_COST
 	// An empty uplink is kinda useless.
 	surplus = 0
 	restricted = TRUE
+
+/datum/uplink_item/implants/uplink/spawn_item(spawn_path, mob/user, datum/component/uplink/purchaser_uplink)
+	var/obj/item/storage/box/syndie_kit/uplink_box = ..()
+	uplink_box.name = "Uplink Implant Box"
+	new /obj/item/implanter/uplink(uplink_box, purchaser_uplink.uplink_flag)
+	return uplink_box
+
 
 /datum/uplink_item/implants/xray
 	name = "X-ray Vision Implant"
@@ -1737,7 +1766,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	Syndicate brand \"Extra-Bright Lantern™\". Enjoy."
 	cost = 2
 	item = /obj/item/flashlight/lantern/syndicate
-	restricted_species = list("moth")
+	restricted_species = list(SPECIES_MOTH)
 
 // Role-specific items
 /datum/uplink_item/role_restricted
@@ -1752,6 +1781,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	restricted_roles = list("Assistant")
 	surplus = 0
+
+/datum/uplink_item/role_restricted/lawnmower
+	name = "Gas powered lawn mower"
+	desc = "A lawn mower is a machine utilizing one or more revolving blades to cut a grass surface to an even height, or bodies if that's your thing"
+	restricted_roles = list("Botanist")
+	cost = 12 //this actually doesn't do anything special without an emag
+	item = /obj/vehicle/ridden/lawnmower
+
+/datum/uplink_item/role_restricted/gatfruit
+	name = "Syndi Gatfruit"
+	desc = "An extrememly rare plant seed which grows .357 revolvers. Has been modified to mature twice as fast as normal Gatfruit"
+	restricted_roles = list("Botanist")
+	cost = 18 //you already know why
+	item = /obj/item/seeds/gatfruit/syndi
 
 /datum/uplink_item/role_restricted/oldtoolboxclean
 	name = "Ancient Toolbox"
@@ -2065,3 +2108,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	purchasable_from = UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 
+/datum/uplink_item/badass/execution_sword
+	name = "Executioners Sword"
+	desc = "This modified energy sword has been specially designed to cleanly remove the head of a human \
+			being in one well aimed swipe. It contains a little hacked transmitter that will broadcast the \
+			details of your gruesome execution on the Centcom announcement channel so everyone will know the \
+			name of the filthy pig you are about to slaughter. You may dedicate your executions to whomever you \
+			please by using the device in hand but you may only do so once. Be warned that you must remain still \
+			for a long time to execute a target so be sure to have them restrained and if you should be interrupted \
+			then news of your failure will be broadcast to the station."
+	item = /obj/item/melee/execution_sword
+	cost = 1 //it sucks balls for anything but memeing
+	surplus = 30 //Theres a good chance this will end up in surplus crates, so its a great way to add a little spice to any meme round.

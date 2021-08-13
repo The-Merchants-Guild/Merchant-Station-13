@@ -69,6 +69,15 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/buttshoes
+	name = "butt shoes"
+	result = /obj/item/clothing/shoes/buttshoes
+	reqs = list(/obj/item/organ/butt = 2,
+				/obj/item/clothing/shoes/sneakers = 1)
+	tool_behaviors = list(TOOL_WIRECUTTER)
+	time = 50
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/strobeshield
 	name = "Strobe Shield"
 	result = /obj/item/shield/riot/flash
@@ -181,142 +190,6 @@
 	reqs = list(/obj/item/stack/sheet/mineral/wood = 8,
 				/obj/item/stack/sticky_tape = 1)
 	time = 50
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
-/datum/crafting_recipe/advancedegun
-	name = "Advanced Energy Gun"
-	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = /obj/item/gun/energy/e_gun/nuclear
-	reqs = list(/obj/item/gun/energy/e_gun = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/weaponcrafting/gunkit/nuclear = 1)
-	time = 200
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
-/datum/crafting_recipe/advancedegun/New()
-	..()
-	blacklist += subtypesof(/obj/item/gun/energy/e_gun)
-
-/datum/crafting_recipe/tempgun
-	name = "Temperature Gun"
-	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = /obj/item/gun/energy/temperature
-	reqs = list(/obj/item/gun/energy/e_gun = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/weaponcrafting/gunkit/temperature = 1)
-	time = 200
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
-/datum/crafting_recipe/tempgun/New()
-	..()
-	blacklist += subtypesof(/obj/item/gun/energy/e_gun)
-
-/datum/crafting_recipe/beam_rifle
-	name = "Particle Acceleration Rifle"
-	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = /obj/item/gun/energy/beam_rifle
-	reqs = list(/obj/item/gun/energy/e_gun = 1,
-				/obj/item/assembly/signaler/anomaly/flux = 1,
-				/obj/item/assembly/signaler/anomaly/grav = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/weaponcrafting/gunkit/beam_rifle = 1)
-	time = 200
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
-/datum/crafting_recipe/beam_rifle/New()
-	..()
-	blacklist += subtypesof(/obj/item/gun/energy/e_gun)
-
-/datum/crafting_recipe/ebow
-	name = "Energy Crossbow"
-	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = /obj/item/gun/energy/kinetic_accelerator/crossbow/large
-	reqs = list(/obj/item/gun/energy/kinetic_accelerator = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/weaponcrafting/gunkit/ebow = 1,
-				/datum/reagent/uranium/radium = 15)
-	time = 200
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
-/datum/crafting_recipe/ebow/New()
-	..()
-	blacklist += subtypesof(/obj/item/gun/energy/kinetic_accelerator)
-
-/datum/crafting_recipe/xraylaser
-	name = "X-ray Laser Gun"
-	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = /obj/item/gun/energy/xray
-	reqs = list(/obj/item/gun/energy/laser = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/weaponcrafting/gunkit/xray = 1)
-	time = 200
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
-/datum/crafting_recipe/xraylaser/New()
-	..()
-	blacklist += subtypesof(/obj/item/gun/energy/laser)
-
-/datum/crafting_recipe/hellgun
-	name = "Hellfire Laser Gun"
-	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = /obj/item/gun/energy/laser/hellgun
-	reqs = list(/obj/item/gun/energy/laser = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/weaponcrafting/gunkit/hellgun = 1)
-	time = 200
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
-/datum/crafting_recipe/hellgun/New()
-	..()
-	blacklist += subtypesof(/obj/item/gun/energy/laser)
-
-/datum/crafting_recipe/ioncarbine
-	name = "Ion Carbine"
-	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = /obj/item/gun/energy/ionrifle/carbine
-	reqs = list(/obj/item/gun/energy/laser = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/weaponcrafting/gunkit/ion = 1)
-	time = 200
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
-/datum/crafting_recipe/ioncarbine/New()
-	..()
-	blacklist += subtypesof(/obj/item/gun/energy/laser)
-
-/datum/crafting_recipe/decloner
-	name = "Biological Demolecularisor"
-	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = /obj/item/gun/energy/decloner
-	reqs = list(/obj/item/gun/energy/laser = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/weaponcrafting/gunkit/decloner = 1,
-				/datum/reagent/baldium = 30,
-				/datum/reagent/toxin/mutagen = 40)
-	time = 200
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
-/datum/crafting_recipe/decloner/New()
-	..()
-	blacklist += subtypesof(/obj/item/gun/energy/laser)
-
-/datum/crafting_recipe/teslacannon
-	name = "Tesla Cannon"
-	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = /obj/item/gun/energy/tesla_cannon
-	reqs = list(/obj/item/assembly/signaler/anomaly/flux = 1,
-				/obj/item/stack/cable_coil = 5,
-				/obj/item/weaponcrafting/gunkit/tesla = 1)
-	time = 200
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -1001,7 +874,7 @@
 	if(!aicard.AI)
 		return TRUE
 
-	to_chat(user, "<span class='boldwarning'>You can't craft an intelliTater with an AI in the card!</span>")
+	to_chat(user, span_boldwarning("You can't craft an intelliTater with an AI in the card!"))
 	return FALSE
 
 /datum/crafting_recipe/aispook
@@ -1079,15 +952,6 @@
 		/obj/item/stack/sticky_tape = 1,
 	)
 	result = /obj/item/clothing/gloves/tackler/offbrand
-	category = CAT_CLOTHING
-
-/datum/crafting_recipe/boh
-	name = "Bag of Holding"
-	reqs = list(
-		/obj/item/bag_of_holding_inert = 1,
-		/obj/item/assembly/signaler/anomaly/bluespace = 1,
-	)
-	result = /obj/item/storage/backpack/holding
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/ipickaxe
@@ -1288,6 +1152,17 @@
 			/datum/reagent/consumable/ice = 10
 			)
 	category = CAT_CHEMISTRY
+
+/**
+ * Recipe used for upgrading fake N-spect scanners to bananium HONK-spect scanners
+ */
+/datum/crafting_recipe/clown_scanner_upgrade
+	name = "Bananium HONK-spect scanner"
+	result = /obj/item/inspector/clown/bananium
+	reqs = list(/obj/item/inspector/clown = 1, /obj/item/stack/sticky_tape = 3, /obj/item/stack/sheet/mineral/bananium = 5) //the chainsaw of prank tools
+	tool_paths = list(/obj/item/bikehorn)
+	time = 40 SECONDS
+	category = CAT_MISC
 
 #undef CRAFTING_MACHINERY_CONSUME
 #undef CRAFTING_MACHINERY_USE

@@ -78,9 +78,6 @@
 	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
 		return
 	var/list/modifiers = params2list(params)
-	if(LAZYACCESS(modifiers, RIGHT_CLICK))
-		if(RightClickOn(A))
-			return
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 			ShiftMiddleClickOn(A)
@@ -127,9 +124,14 @@
 	var/obj/item/W = get_active_held_item()
 
 	if(W == A)
-		W.attack_self(src, modifiers)
-		update_inv_hands()
-		return
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			W.attack_self_secondary(src, modifiers)
+			update_inv_hands()
+			return
+		else
+			W.attack_self(src, modifiers)
+			update_inv_hands()
+			return
 
 	//These are always reachable.
 	//User itself, current loc, and user inventory
@@ -139,6 +141,7 @@
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
+
 			UnarmedAttack(A, FALSE, modifiers)
 		return
 
@@ -193,7 +196,7 @@
  * A backwards depth-limited breadth-first-search to see if the target is
  * logically "in" anything adjacent to us.
  */
-/atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
+/atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE, reach_organs = TRUE)
 	var/list/direct_access = DirectAccess()
 	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
 
@@ -214,9 +217,15 @@
 			if (!target.loc)
 				continue
 
+			if(reach_organs && iscarbon(src))
+				var/mob/living/carbon/carbon_src = src
+				if((target in carbon_src.bodyparts) || (target in carbon_src.internal_organs))
+					return TRUE
+
 			//Storage and things with reachable internal atoms need add to next here. Or return COMPONENT_ALLOW_REACH.
 			if(SEND_SIGNAL(target.loc, COMSIG_ATOM_CANREACH, next) & COMPONENT_ALLOW_REACH)
 				next += target.loc
+
 
 		checking = next
 	return FALSE
@@ -301,29 +310,6 @@
  * Useful for mobs that have their abilities mapped to right click.
  */
 /mob/proc/ranged_secondary_attack(atom/target, modifiers)
-
-/**
- * Right click
- *
- * Used for right-clicking interactions, in similar fashion of AltClick.
- * Returns [atom/proc/RightClick] on the atom being right-clicked, which checks if the click chain doesn't continue.
- * Arguments:
- * * atom/target - The atom being rightclicked.
- */
-/mob/proc/RightClickOn(atom/target)
-	return target.RightClick(src)
-
-/**
- * Proc used for right-clicking
- *
- * Used for right-click interactions, called by [mob/proc/RightClickOn].
- * Returns TRUE if the click chain should not continue from a right-click.
- * Arguments:
- * * mob/user - The mob right-clicking.
- */
-/atom/proc/RightClick(mob/user)
-	if(SEND_SIGNAL(src, COMSIG_CLICK_RIGHT, user) & COMPONENT_CANCEL_CLICK_RIGHT)
-		return TRUE
 
 /**
  * Middle click

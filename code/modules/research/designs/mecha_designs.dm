@@ -149,6 +149,30 @@
 	category = list("Exosuit Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/board/savannah_ivanov_main
+	name = "\"Savannah-Ivanov\" Central Control module"
+	desc = "Allows for the construction of a \"Savannah-Ivanov\" Central Control module."
+	id = "savannah_ivanov_main"
+	build_path = /obj/item/circuitboard/mecha/savannah_ivanov/main
+	category = list("Exosuit Modules")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/savannah_ivanov_peri
+	name = "\"Savannah-Ivanov\" Peripherals Control module"
+	desc = "Allows for the construction of a \"Savannah-Ivanov\" Peripheral Control module."
+	id = "savannah_ivanov_peri"
+	build_path = /obj/item/circuitboard/mecha/savannah_ivanov/peripherals
+	category = list("Exosuit Modules")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/savannah_ivanov_targ
+	name = "\"Savannah-Ivanov\" Weapons & Targeting Control module"
+	desc = "Allows for the construction of a \"Savannah-Ivanov\" Weapons & Targeting Control module."
+	id = "savannah_ivanov_targ"
+	build_path = /obj/item/circuitboard/mecha/savannah_ivanov/targeting
+	category = list("Exosuit Modules")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 ////////////////////////////////////////
 /////////// Mecha Equpment /////////////
 ////////////////////////////////////////
@@ -267,11 +291,11 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/mech_missile_rack
-	name = "Exosuit Weapon (BRM-6 Missile Rack)"
-	desc = "Allows for the construction of an BRM-6 Breaching Missile Rack."
+	name = "Exosuit Weapon (SRM-8 Missile Rack)"
+	desc = "Allows for the construction of an SRM-8 Missile Rack."
 	id = "mech_missile_rack"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/breaching
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	materials = list(/datum/material/iron=22000,/datum/material/gold=6000,/datum/material/silver=8000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
@@ -281,8 +305,8 @@
 	desc = "Ammunition for the SRM-8 Missile Rack."
 	id = "mech_missile_rack_ammo"
 	build_type = PROTOLATHE | AWAY_LATHE | MECHFAB
-	build_path = /obj/item/mecha_ammo/missiles_br
-	materials = list(/datum/material/iron=8000,/datum/material/gold=500,/datum/material/iron=500)
+	build_path = /obj/item/mecha_ammo/missiles_kinetic
+	materials = list(/datum/material/iron=12000,/datum/material/gold=1000,/datum/material/iron=500)
 	construction_time = 20
 	category = list("Exosuit Ammunition", "Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -430,7 +454,7 @@
 
 /datum/design/mech_lmg
 	name = "Exosuit Weapon (\"Ultra AC 2\" LMG)"
-	desc = "A weapon for combat exosuits. Shoots a rapid, three shot burst."
+	desc = "A weapon for combat exosuits. Shoots an extremely rapid, fifteen shot burst of low-caliber bullets."
 	id = "mech_lmg"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg

@@ -11,6 +11,8 @@
 	var/power_usage = 100
 	///whether the panel is open so a user can take out the cell
 	var/panel_open = FALSE
+	///If the wheelchair has spikes installed.
+	var/has_spikes = FALSE
 	///Parts used in building the wheelchair
 	var/list/required_parts = list(
 		/obj/item/stock_parts/manipulator,
@@ -28,7 +30,7 @@
 	refresh_parts()
 
 /obj/vehicle/ridden/wheelchair/motorized/proc/refresh_parts()
-	speed = 1 // Should never be under 1
+	speed = initial(speed) // Should never be under 1
 	for(var/obj/item/stock_parts/manipulator/M in contents)
 		speed += M.rating
 	for(var/obj/item/stock_parts/capacitor/C in contents)
@@ -39,22 +41,18 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/obj_destruction(damage_flag)
 	var/turf/T = get_turf(src)
-#if MIN_COMPILER_VERSION >= 514
-	#warn Please replace the loop below this warning with an `as anything` loop.
-#endif
-	for(var/wheelchair_content in contents)
-		var/atom/movable/atom_content = wheelchair_content
+	for(var/atom/movable/atom_content as anything in contents)
 		atom_content.forceMove(T)
 	return ..()
 
 /obj/vehicle/ridden/wheelchair/motorized/relaymove(mob/living/user, direction)
 	if(!power_cell)
-		to_chat(user, "<span class='warning'>There seems to be no cell installed in [src].</span>")
+		to_chat(user, span_warning("There seems to be no cell installed in [src]."))
 		canmove = FALSE
 		addtimer(VARSET_CALLBACK(src, canmove, TRUE), 2 SECONDS)
 		return FALSE
 	if(power_cell.charge < power_usage / max(power_efficiency, 1))
-		to_chat(user, "<span class='warning'>The display on [src] blinks 'Out of Power'.</span>")
+		to_chat(user, span_warning("The display on [src] blinks 'Out of Power'."))
 		canmove = FALSE
 		addtimer(VARSET_CALLBACK(src, canmove, TRUE), 2 SECONDS)
 		return FALSE
@@ -62,17 +60,17 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/post_buckle_mob(mob/living/user)
 	. = ..()
-	density = TRUE
+	set_density(TRUE)
 
 /obj/vehicle/ridden/wheelchair/motorized/post_unbuckle_mob()
 	. = ..()
-	density = FALSE
+	set_density(FALSE)
 
 /obj/vehicle/ridden/wheelchair/motorized/attack_hand(mob/living/user, list/modifiers)
 	if(!power_cell || !panel_open)
 		return ..()
 	power_cell.update_appearance()
-	to_chat(user, "<span class='notice'>You remove [power_cell] from [src].</span>")
+	to_chat(user, span_notice("You remove [power_cell] from [src]."))
 	user.put_in_hands(power_cell)
 	power_cell = null
 
@@ -80,20 +78,36 @@
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		I.play_tool_sound(src)
 		panel_open = !panel_open
-		user.visible_message("<span class='notice'>[user] [panel_open ? "opens" : "closes"] the maintenance panel on [src].</span>", "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance panel.</span>")
+		user.visible_message(span_notice("[user] [panel_open ? "opens" : "closes"] the maintenance panel on [src]."), span_notice("You [panel_open ? "open" : "close"] the maintenance panel."))
+		return
+	if (istype(I, /obj/item/stack/rods) && !has_spikes)
+		var/obj/item/stack/rods/R = I
+		if (R.amount < 15)
+			to_chat(user, "<span class='notice'>You require 15 rods for this.</span>")
+			return
+		if (!do_after(user, 10 SECONDS, src))
+			return
+		if (!R.use(15))
+			to_chat(user, "<span class='notice'>You require 15 rods for this.</span>")
+			return
+		icon_state = "[initial(icon_state)]-spiked"
+		overlay_icon = "[initial(icon_state)]-spiked_overlay"
+		update_appearance()
+		has_spikes = TRUE
 		return
 	if(!panel_open)
 		return ..()
 
 	if(istype(I, /obj/item/stock_parts/cell))
 		if(power_cell)
-			to_chat(user, "<span class='warning'>There is a power cell already installed.</span>")
+			to_chat(user, span_warning("There is a power cell already installed."))
 		else
 			I.forceMove(src)
 			power_cell = I
-			to_chat(user, "<span class='notice'>You install the [I].</span>")
+			to_chat(user, span_notice("You install the [I]."))
 		refresh_parts()
 		return
+
 	if(!istype(I, /obj/item/stock_parts))
 		return ..()
 
@@ -108,29 +122,27 @@
 			if(newstockpart.get_part_rating() > oldstockpart.get_part_rating())
 				newstockpart.forceMove(src)
 				user.put_in_hands(oldstockpart)
-				user.visible_message("<span class='notice'>[user] replaces [oldstockpart] with [newstockpart] in [src].</span>", "<span class='notice'>You replace [oldstockpart] with [newstockpart].</span>")
+				user.visible_message(span_notice("[user] replaces [oldstockpart] with [newstockpart] in [src]."), span_notice("You replace [oldstockpart] with [newstockpart]."))
 				break
 	refresh_parts()
 
 /obj/vehicle/ridden/wheelchair/motorized/wrench_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You begin to detach the wheels...</span>")
+	to_chat(user, span_notice("You begin to detach the wheels..."))
 	if(!I.use_tool(src, user, 40, volume=50))
 		return TRUE
-	to_chat(user, "<span class='notice'>You detach the wheels and deconstruct the chair.</span>")
+	to_chat(user, span_notice("You detach the wheels and deconstruct the chair."))
 	new /obj/item/stack/rods(drop_location(), 8)
 	new /obj/item/stack/sheet/iron(drop_location(), 10)
 	var/turf/T = get_turf(src)
-#if MIN_COMPILER_VERSION >= 514
-	#warn Please replace the loop below this warning with an `as anything` loop.
-#endif
-	for(var/wheelchair_content in contents)
-		var/atom/movable/atom_content = wheelchair_content
+	for(var/atom/movable/atom_content as anything in contents)
 		atom_content.forceMove(T)
 	qdel(src)
 	return TRUE
 
 /obj/vehicle/ridden/wheelchair/motorized/examine(mob/user)
 	. = ..()
+	if (has_spikes)
+		. += "It has been rigged with some kind of spiked ram."
 	if((obj_flags & EMAGGED) && panel_open)
 		. += "There is a bomb under the maintenance panel."
 	. += "There is a small screen on it, [(in_range(user, src) || isobserver(user)) ? "[power_cell ? "it reads:" : "but it is dark."]" : "but you can't see it from here."]"
@@ -142,32 +154,48 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/Bump(atom/A)
 	. = ..()
-	// Here is the shitty emag functionality.
-	if(obj_flags & EMAGGED && (istype(A, /turf/closed) || isliving(A)))
-		explosion(src, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 2, adminlog = FALSE)
-		visible_message("<span class='boldwarning'>[src] explodes!!</span>")
+	if (!isclosedturf(A) && !isliving(A) && !istype(A, /obj/structure/window))
 		return
-	// If the speed is higher than delay_multiplier throw the person on the wheelchair away
-	if(A.density && speed > delay_multiplier && has_buckled_mobs())
+	var/mob/living/L = (isliving(A) ? A : null)
+	// Here is the shitty emag functionality.
+	if (obj_flags & EMAGGED)
+		explosion(src, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 2, adminlog = FALSE)
+		visible_message(span_boldwarning("[src] explodes!!"))
+		return
+	if (has_buckled_mobs())
+		if (has_spikes && L)
+			L.emote("scream")
+			if (speed > delay_multiplier)
+				playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
+				L.throw_at(get_ranged_target_turf(L, dir, 1), 2, 3)
+				L.Knockdown(10)
+				L.adjustBruteLoss(15)
+				visible_message("<span class='danger'>[src] runs over [A]!</span>")
+			else
+				L.adjustBruteLoss(8)
+				visible_message("<span class='danger'>[src] hits [A]!</span>")
+			return
+		// If the speed is higher than delay_multiplier throw the person on the wheelchair away
+		if (!(speed > delay_multiplier))
+			return
 		var/mob/living/disabled = buckled_mobs[1]
 		var/atom/throw_target = get_edge_target_turf(disabled, pick(GLOB.cardinals))
 		unbuckle_mob(disabled)
 		disabled.throw_at(throw_target, 2, 3)
 		disabled.Knockdown(100)
 		disabled.adjustStaminaLoss(40)
-		if(isliving(A))
-			var/mob/living/ramtarget = A
-			throw_target = get_edge_target_turf(ramtarget, pick(GLOB.cardinals))
-			ramtarget.throw_at(throw_target, 2, 3)
-			ramtarget.Knockdown(80)
-			ramtarget.adjustStaminaLoss(35)
-			visible_message("<span class='danger'>[src] crashes into [ramtarget], sending [disabled] and [ramtarget] flying!</span>")
+		if (L)
+			throw_target = get_edge_target_turf(L, pick(GLOB.cardinals))
+			L.throw_at(throw_target, 2, 3)
+			L.Knockdown(80)
+			L.adjustStaminaLoss(35)
+			visible_message(span_danger("[src] crashes into [L], sending [disabled] and [L] flying!"))
 		else
-			visible_message("<span class='danger'>[src] crashes into [A], sending [disabled] flying!</span>")
+			visible_message(span_danger("[src] crashes into [A], sending [disabled] flying!"))
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
 
 /obj/vehicle/ridden/wheelchair/motorized/emag_act(mob/user)
 	if((obj_flags & EMAGGED) || !panel_open)
 		return
-	to_chat(user, "<span class='warning'>A bomb appears in [src], what the fuck?</span>")
+	to_chat(user, span_warning("A bomb appears in [src], what the fuck?"))
 	obj_flags |= EMAGGED

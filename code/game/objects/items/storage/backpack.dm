@@ -37,18 +37,6 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_combined_w_class = 12
 
-/obj/item/bag_of_holding_inert
-	name = "inert bag of holding"
-	desc = "What is currently a just an unwieldly block of metal with a slot ready to accept a bluespace anomaly core."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "brokenpack"
-	inhand_icon_state = "brokenpack"
-	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
-	w_class = WEIGHT_CLASS_BULKY
-	resistance_flags = FIRE_PROOF
-	item_flags = NO_MAT_REDEMPTION
-
 /obj/item/storage/backpack/holding
 	name = "bag of holding"
 	desc = "A backpack that opens into a localized pocket of bluespace."
@@ -67,7 +55,7 @@
 	STR.max_combined_w_class = 35
 
 /obj/item/storage/backpack/holding/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is jumping into [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is jumping into [src]! It looks like [user.p_theyre()] trying to commit suicide."))
 	user.dropItemToGround(src, TRUE)
 	user.Stun(100, ignore_canstun = TRUE)
 	sleep(20)
@@ -92,7 +80,7 @@
 	STR.max_combined_w_class = 60
 
 /obj/item/storage/backpack/santabag/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] places [src] over [user.p_their()] head and pulls it tight! It looks like [user.p_they()] [user.p_are()]n't in the Christmas spirit...</span>")
+	user.visible_message(span_suicide("[user] places [src] over [user.p_their()] head and pulls it tight! It looks like [user.p_they()] [user.p_are()]n't in the Christmas spirit..."))
 	return (OXYLOSS)
 
 /obj/item/storage/backpack/santabag/proc/regenerate_presents()
@@ -588,9 +576,9 @@
 	new /obj/item/mecha_ammo/scattershot(src)
 	new /obj/item/mecha_ammo/scattershot(src)
 	new /obj/item/mecha_ammo/scattershot(src)
-	new /obj/item/mecha_ammo/missiles_he(src)
-	new /obj/item/mecha_ammo/missiles_he(src)
-	new /obj/item/mecha_ammo/missiles_he(src)
+	new /obj/item/mecha_ammo/missiles_kinetic(src)
+	new /obj/item/mecha_ammo/missiles_kinetic(src)
+	new /obj/item/mecha_ammo/missiles_kinetic(src)
 
 /obj/item/storage/backpack/duffelbag/syndie/c20rbundle
 	desc = "A large duffel bag containing a C-20r, some magazines, and a cheap looking suppressor."
@@ -661,6 +649,18 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	slowdown = 0
 	STR.silent = TRUE
+
+/obj/item/storage/backpack/duffelbag/syndie/demolitions
+	desc = "A large duffel bag containing a PML-9 Rocket Launcher, Grenadier's Belt, extra rockets and a label that reads; \"For you, Capitán!\""
+
+/obj/item/storage/backpack/duffelbag/syndie/demolitions/PopulateContents()
+	new /obj/item/gun/ballistic/rocketlauncher(src)
+	new /obj/item/storage/belt/grenade/full(src)
+	new /obj/item/storage/box/syndie_kit/rockets(src)
+	new /obj/item/clothing/glasses/orange(src)
+	new /obj/item/storage/fancy/cigarettes/cigars/havana(src)
+	new /obj/item/storage/box/matches(src)
+	new /obj/item/clothing/head/hos/syndicate(src)
 
 /obj/item/storage/backpack/duffelbag/clown/syndie/PopulateContents()
 	new /obj/item/pda/clown(src)

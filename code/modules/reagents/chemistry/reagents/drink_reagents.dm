@@ -188,7 +188,7 @@
 
 /datum/reagent/consumable/superlaughter/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(DT_PROB(16, delta_time))
-		M.visible_message("<span class='danger'>[M] bursts out into a fit of uncontrollable laughter!</span>", "<span class='userdanger'>You burst out in a fit of uncontrollable laughter!</span>")
+		M.visible_message(span_danger("[M] bursts out into a fit of uncontrollable laughter!"), span_userdanger("You burst out in a fit of uncontrollable laughter!"))
 		M.Stun(5)
 		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_superlaughter)
 	..()
@@ -242,6 +242,7 @@
 	name = "Soy Milk"
 	description = "An opaque white liquid made from soybeans."
 	color = "#DFDFC7" // rgb: 223, 223, 199
+	overdose_threshold = 30
 	taste_description = "soy milk"
 	glass_icon_state = "glass_white"
 	glass_name = "glass of soy milk"
@@ -253,6 +254,16 @@
 		M.heal_bodypart_damage(1, 0, 0)
 		. = TRUE
 	..()
+
+/datum/reagent/consumable/soymilk/overdose_process(mob/living/M, delta_time, times_fired)
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+	if(ishuman(M))
+		if(DT_PROB(5, delta_time)) //Writing the OD speeches was fun, good times.
+			M.say(pick_list_replacements(SOY_FILE, "soy_speech"), forced = /datum/reagent/consumable/soymilk)
+		if(DT_PROB(3.5, delta_time))
+			M.visible_message("<b>[M]</b>[pick(" looks a bit pale...", "'s eyes lose focus.", " slouches over.", "'s mouth hangs a bit open.")]")
+	..()
+	return
 
 /datum/reagent/consumable/cream
 	name = "Cream"
@@ -347,7 +358,7 @@
 
 /datum/reagent/consumable/tea/arnold_palmer/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(DT_PROB(2.5, delta_time))
-		to_chat(M, "<span class='notice'>[pick("You remember to square your shoulders.","You remember to keep your head down.","You can't decide between squaring your shoulders and keeping your head down.","You remember to relax.","You think about how someday you'll get two strokes off your golf game.")]</span>")
+		to_chat(M, span_notice("[pick("You remember to square your shoulders.","You remember to keep your head down.","You can't decide between squaring your shoulders and keeping your head down.","You remember to relax.","You think about how someday you'll get two strokes off your golf game.")]"))
 	..()
 	. = TRUE
 
@@ -930,6 +941,7 @@
 	color = "#f7d26a"
 	quality = DRINK_NICE
 	taste_description = "sweet ginger spice"
+	glass_icon_state = "soldry"
 	glass_name = "Sol Dry"
 	glass_desc = "A soothing, mellow drink made from ginger."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
@@ -1026,3 +1038,19 @@
 		M.drowsyness += 1 * REM * delta_time
 	return ..()
 
+/datum/reagent/consumable/mushroom_tea
+	name = "Mushroom Tea"
+	description = "A savoury glass of tea made from polypore mushroom shavings, originally native to Tizira."
+	color = "#674945" // rgb: 16, 16, 0
+	nutriment_factor = 0
+	taste_description = "mushrooms"
+	glass_icon_state = "mushroom_tea_glass"
+	glass_name = "glass of mushroom tea"
+	glass_desc = "Oddly savoury for a drink."
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/reagent/consumable/mushroom_tea/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	if(islizard(M))
+		M.adjustOxyLoss(-0.5 * REM * delta_time, 0)
+	..()
+	. = TRUE

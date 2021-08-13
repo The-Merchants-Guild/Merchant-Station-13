@@ -2,7 +2,7 @@
 	title = "Warden"
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list("Head of Security")
-	faction = "Station"
+	faction = FACTION_STATION
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of security"
@@ -35,6 +35,9 @@
 		/obj/item/storage/box/lethalshot = 5
 	)
 
+	job_flags = JOB_ANNOUNCE_ARRIVAL | JOB_CREW_MANIFEST | JOB_EQUIP_RANK | JOB_CREW_MEMBER | JOB_NEW_PLAYER_JOINABLE
+
+
 /datum/outfit/job/warden
 	name = "Warden"
 	jobtype = /datum/job/warden
@@ -58,5 +61,7 @@
 	box = /obj/item/storage/box/survival/security
 
 	implants = list(/obj/item/implant/mindshield)
+
+	chameleon_extras = /obj/item/gun/ballistic/shotgun/automatic/combat/compact
 
 	id_trim = /datum/id_trim/job/warden

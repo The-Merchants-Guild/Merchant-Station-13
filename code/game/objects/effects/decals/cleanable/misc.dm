@@ -136,6 +136,28 @@
 	icon_state = "vomit_1"
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
 	beauty = -150
+	var/global/list/names
+
+/obj/effect/decal/cleanable/vomit/Initialize()
+	. = ..()
+	if(prob(5))
+		if(!names)
+			var/json_file = file("[global.config.directory]/trashnames.json")
+			names = list()
+			if(!fexists(json_file))
+				return
+			names = json_decode(file2text(json_file))
+		if(names.len)
+			name = pick(names)
+
+/obj/effect/decal/cleanable/vomit/attackby(obj/item/I, mob/user, params)
+	..()
+	if(istype(I, /obj/item/pen))
+		var/t = sanitize_name(stripped_input(usr, "Enter new vomit name", name, "vomit",MAX_NAME_LEN), allow_numbers = TRUE)
+		if(!t || !in_range(src, usr))
+			return
+		name = t
+		return
 
 /obj/effect/decal/cleanable/vomit/attack_hand(mob/user, list/modifiers)
 	. = ..()
@@ -145,7 +167,7 @@
 		var/mob/living/carbon/human/H = user
 		if(isflyperson(H))
 			playsound(get_turf(src), 'sound/items/drink.ogg', 50, TRUE) //slurp
-			H.visible_message("<span class='alert'>[H] extends a small proboscis into the vomit pool, sucking it with a slurping sound.</span>")
+			H.visible_message(span_alert("[H] extends a small proboscis into the vomit pool, sucking it with a slurping sound."))
 			if(reagents)
 				for(var/datum/reagent/R in reagents.reagent_list)
 					if (istype(R, /datum/reagent/consumable))
@@ -257,3 +279,20 @@
 /obj/effect/decal/cleanable/garbage/Initialize()
 	. = ..()
 	AddElement(/datum/element/swabable, CELL_LINE_TABLE_SLUDGE, CELL_VIRUS_TABLE_GENERIC, rand(2,4), 15)
+
+/obj/effect/decal/cleanable/ants
+	name = "space ants"
+	desc = "A small colony of space ants. They're normally used to the vacuum of space, so they can't climb too well."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "spaceants"
+	beauty = -150
+
+/obj/effect/decal/cleanable/ants/Initialize(mapload)
+	. = ..()
+	var/scale = (rand(6, 8) / 10) + (rand(2, 5) / 50)
+	transform = matrix(transform, scale, scale, MATRIX_SCALE)
+	setDir(pick(GLOB.cardinals))
+	reagents.add_reagent(/datum/reagent/ants, rand(2, 5))
+	pixel_x = rand(-5, 5)
+	pixel_y = rand(-5, 5)
+	AddElement(/datum/element/caltrop, min_damage = 0.2, max_damage = 1, flags = (CALTROP_NOCRAWL | CALTROP_NOSTUN | CALTROP_BYPASS_SHOES), soundfile = 'sound/weapons/bite.ogg')

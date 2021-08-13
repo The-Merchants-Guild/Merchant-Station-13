@@ -78,6 +78,7 @@
 	shaded_charge = 0
 	pin = /obj/item/firing_pin/implant/mindshield
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/disabler, /obj/item/ammo_casing/energy/electrode)
+	automatic_charge_overlays = FALSE
 
 ///Laser Cannon
 
@@ -120,6 +121,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	inhand_icon_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
+	pin = null
 	ammo_x_offset = 3
 
 ////////Laser Tag////////////////////

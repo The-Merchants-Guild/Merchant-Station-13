@@ -126,25 +126,19 @@
 	desc = "An advanced shotgun shell that fires a spread of laser beams, for dealing with serious threats."
 	icon_state = "lshell"
 	custom_materials = list(/datum/material/iron=3000, /datum/material/glass=1000)
+	projectile_type = /obj/projectile/beam/shotgun
 	pellets = 6
 	variance = 35
-
-/obj/item/ammo_casing/shotgun/laser/Initialize() //If you leave the projectile_type without this...
-	. = ..() //You WILL experience so much pain...
-	projectile_type = /obj/projectile/beam/shotgun //This is a warning, leave all hope behind if you do this...
 
 /obj/item/ammo_casing/shotgun/disabler
 	name = "disabler shell"
 	desc = "An advanced shotgun shell which fires a spread of disabler beams, for modern-day crowd control."
 	icon_state = "dshell"
 	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=1000)
+	projectile_type = /obj/projectile/beam/disabler/shotgun
 	pellets = 6
 	variance = 35
 	harmful = FALSE
-
-/obj/item/ammo_casing/shotgun/disabler/Initialize() //SAME GOES FOR THIS DONT YOU FUCKING DARE!
-	. = ..()
-	projectile_type = /obj/projectile/beam/disabler/shotgun
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"

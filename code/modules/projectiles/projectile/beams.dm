@@ -56,6 +56,11 @@
 
 /obj/projectile/beam/shotgun
 	damage = 9
+	light_on = FALSE
+
+/obj/projectile/beam/shotgun/fire(angle, atom/direct_target)
+	. = ..()
+	set_light_on(TRUE)
 
 /obj/projectile/beam/weak/penetrator
 	armour_penetration = 50
@@ -101,6 +106,11 @@
 
 /obj/projectile/beam/disabler/shotgun
 	damage = 16
+	light_on = FALSE
+
+/obj/projectile/beam/disabler/shotgun/fire(angle, atom/direct_target)
+	. = ..()
+	set_light_on(TRUE)
 
 /obj/projectile/beam/pulse
 	name = "pulse"

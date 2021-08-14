@@ -60,7 +60,7 @@
 	desc = "For some reason, these fireaxes sell like hotcakes. We don't know why but we sure as hell are cashing in on this!"
 	item = /obj/item/fireaxe
 
-	price_min = 500
+	price_min = 700
 	price_max = 900
 	stock_max = 1
 	availability_prob = 20

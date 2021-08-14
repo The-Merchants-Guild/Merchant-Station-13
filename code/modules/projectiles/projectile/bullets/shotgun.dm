@@ -104,9 +104,9 @@
 	projectile_piercing = PASSMOB
 
 /obj/projectile/bullet/pellet/shotgun_penetrator/on_hit(atom/target)
+	. = ..()
 	if(iscarbon(target))
-		projectile_piercing = ~PASSMOB //The pellets penetrate ONE person!
-	return BULLET_ACT_HIT
+		projectile_piercing = ~PASSMOB // The pellets penetrate ONE person!
 
 /obj/projectile/bullet/pellet/Range()
 	..()

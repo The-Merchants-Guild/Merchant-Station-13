@@ -111,5 +111,5 @@
 
 /datum/blackmarket_item/tool/toolbelt/spawn_item(loc)
 	var/obj/I = new /obj/item/storage/belt/utility(loc)
-	I.color = "#5203fc"
+	I.add_atom_colour("#5203fc", FIXED_COLOUR_PRIORITY)
 	return I

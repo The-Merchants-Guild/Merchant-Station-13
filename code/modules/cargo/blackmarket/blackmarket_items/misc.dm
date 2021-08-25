@@ -76,4 +76,4 @@
 	price_min = 750
 	price_max = 1000
 	stock_max = 2
-	availability_prob = 30
+	availability_prob = 30 

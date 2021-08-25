@@ -96,6 +96,19 @@
 	stamina = 6
 	embedding = null
 
+/obj/projectile/bullet/pellet/shotgun_penetrator
+	name = "penetrator pellet"
+	damage = 8
+	embedding = null
+	armour_penetration = 20 //P E N E T R A T O R
+	projectile_piercing = PASSMOB
+
+/obj/projectile/bullet/pellet/shotgun_penetrator/prehit_pierce(atom/target)
+	. = ..()
+	if (projectile_piercing & target.pass_flags_self & PASSMOB)
+		projectile_piercing = ~PASSMOB // The pellets penetrate ONE person!
+		return PROJECTILE_PIERCE_HIT
+
 /obj/projectile/bullet/pellet/Range()
 	..()
 	if(damage > 0)

@@ -1374,6 +1374,10 @@
 /// Called when the integrated circuit's shell is set.
 #define COMSIG_CIRCUIT_SET_SHELL "circuit_set_shell"
 
+/// Called when a circuit receives a 'click' or 'middle click' event from a shell
+#define COMSIG_CIRCUIT_CLICKED "circuit_clicked"
+#define COMSIG_CIRCUIT_MIDDLE_CLICKED "circuit_middle_clicked"
+
 /// Sent to an atom when a [/obj/item/usb_cable] attempts to connect to something. (/obj/item/usb_cable/usb_cable, /mob/user)
 #define COMSIG_ATOM_USB_CABLE_TRY_ATTACH "usb_cable_try_attach"
 	/// Attaches the USB cable to the atom. If the USB cables moves away, it will disconnect.

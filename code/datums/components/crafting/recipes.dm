@@ -379,12 +379,12 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/laserslug
-	name = "Scatter Laser Shell"
-	result = /obj/item/ammo_casing/shotgun/laserslug
+/datum/crafting_recipe/penetrator
+	name = "Penetrator Shell"
+	result = /obj/item/ammo_casing/shotgun/penetrator
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
-				/obj/item/stock_parts/capacitor/adv = 1,
-				/obj/item/stock_parts/micro_laser/high = 1)
+				/obj/item/stack/sheet/mineral/titanium = 1,
+				/obj/item/stack/sheet/iron = 1)
 	tool_behaviors = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY

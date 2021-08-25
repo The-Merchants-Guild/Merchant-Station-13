@@ -14,6 +14,18 @@
 	/// The result from the output
 	var/datum/port/output/output
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
+	var/current_type
+
+/obj/item/circuit_component/index/populate_options()
+	var/static/component_options = list(
+		PORT_TYPE_ANY,
+		PORT_TYPE_STRING,
+		PORT_TYPE_NUMBER,
+		PORT_TYPE_LIST,
+		PORT_TYPE_ATOM,
+		PORT_TYPE_SIGNAL,
+	)
+	options = component_options
 
 /obj/item/circuit_component/index/Initialize()
 	. = ..()
@@ -30,6 +42,10 @@
 
 /obj/item/circuit_component/index/input_received(datum/port/input/port)
 	. = ..()
+	if(current_type != current_option)
+		current_type = current_option
+		output.set_datatype(current_type)
+
 	if(.)
 		return
 

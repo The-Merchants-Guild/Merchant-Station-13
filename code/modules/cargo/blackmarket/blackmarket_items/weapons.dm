@@ -25,6 +25,31 @@
 	stock_max = 60
 	availability_prob = 40
 
+/datum/blackmarket_item/weapon/shotgun_buck
+	name = "Buckshot Shells"
+	desc = "Made yourself a rickety pipe rifle and feel like your homebrewn ammo just isn't cutting it? \
+	Well, you're in luck! With these seven 12G buckshot shells you're bound to make holes in anything you'd like!"
+	item = /obj/item/storage/box/lethalshot
+
+	price_min = 100
+	price_max = 250
+	stock_min = 2
+	stock_max = 4
+	availability_prob = 40
+
+/datum/blackmarket_item/weapon/shotgun_slug
+	name = "Shotgun Slugs"
+	desc = "Picture the scene: You're running away from a squad of heavily armored government men trying to kill you, \
+	you unload your homemade shells into their faces, but they don't even flinch from it. You know this could be you, right? \
+	That's why we are selling these seven armor piercing shotgun slugs, to ensure your safety from whatever the voices told you is coming."
+	item = /obj/item/storage/box/slugs
+
+	price_min = 175
+	price_max = 325
+	stock_min = 2
+	stock_max = 4
+	availability_prob = 40
+
 /datum/blackmarket_item/weapon/bone_spear
 	name = "Bone Spear"
 	desc = "Authentic tribal spear, made from real bones! A steal at any price, especially if you're a caveman."

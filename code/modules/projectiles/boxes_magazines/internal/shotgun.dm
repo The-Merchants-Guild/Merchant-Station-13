@@ -7,20 +7,20 @@
 
 /obj/item/ammo_box/magazine/internal/shot/tube
 	name = "dual feed shotgun internal tube"
-	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+	ammo_type = /obj/item/ammo_casing/shotgun/disabler
 	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/shot/lethal
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	ammo_type = /obj/item/ammo_casing/shotgun/laser
 
 /obj/item/ammo_box/magazine/internal/shot/com
 	name = "combat shotgun internal magazine"
-	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
+	ammo_type = /obj/item/ammo_casing/shotgun/laser
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/shot/com/compact
 	name = "compact combat shotgun internal magazine"
-	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+	ammo_type = /obj/item/ammo_casing/shotgun/laser
 	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/shot/dual
@@ -29,7 +29,7 @@
 
 /obj/item/ammo_box/magazine/internal/shot/riot
 	name = "riot shotgun internal magazine"
-	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+	ammo_type = /obj/item/ammo_casing/shotgun/disabler
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/shot/bounty

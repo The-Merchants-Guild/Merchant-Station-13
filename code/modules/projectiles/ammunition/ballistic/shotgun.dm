@@ -104,6 +104,14 @@
 	pellets = 10
 	variance = 25
 
+/obj/item/ammo_casing/shotgun/penetrator
+	name = "penetrator shell"
+	desc = "A specialized shotgun shell, capable of piercing a single person. Slightly less damaging than conventional shells however."
+	icon_state = "penshell"
+	projectile_type = /obj/projectile/bullet/pellet/shotgun_penetrator
+	pellets = 6
+	variance = 25
+
 /obj/item/ammo_casing/shotgun/ion
 	name = "ion shell"
 	desc = "An advanced shotgun shell which uses a subspace ansible crystal to produce an effect similar to a standard ion rifle. \
@@ -113,13 +121,24 @@
 	pellets = 4
 	variance = 35
 
-/obj/item/ammo_casing/shotgun/laserslug
-	name = "scatter laser shell"
-	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a scatter laser weapon in a ballistic package."
+/obj/item/ammo_casing/shotgun/laser
+	name = "laser shell"
+	desc = "An advanced shotgun shell that fires a spread of laser beams, for dealing with serious threats."
 	icon_state = "lshell"
-	projectile_type = /obj/projectile/beam/weak
+	custom_materials = list(/datum/material/iron=3000, /datum/material/glass=1000)
+	projectile_type = /obj/projectile/beam/shotgun
 	pellets = 6
 	variance = 35
+
+/obj/item/ammo_casing/shotgun/disabler
+	name = "disabler shell"
+	desc = "An advanced shotgun shell which fires a spread of disabler beams, for modern-day crowd control."
+	icon_state = "dshell"
+	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=1000)
+	projectile_type = /obj/projectile/beam/disabler/shotgun
+	pellets = 6
+	variance = 35
+	harmful = FALSE
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"

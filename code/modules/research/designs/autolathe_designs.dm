@@ -613,22 +613,6 @@
 	category = list("initial", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
-/datum/design/beanbag_slug
-	name = "Beanbag Slug"
-	id = "beanbag_slug"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 2000)
-	build_path = /obj/item/ammo_casing/shotgun/beanbag
-	category = list("initial", "Security")
-
-/datum/design/rubbershot
-	name = "Rubber Shot"
-	id = "rubber_shot"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
-	build_path = /obj/item/ammo_casing/shotgun/rubbershot
-	category = list("initial", "Security")
-
 /datum/design/c38
 	name = "Speed Loader (.38)"
 	id = "c38"
@@ -848,20 +832,28 @@
 	build_path = /obj/item/weaponcrafting/receiver
 	category = list("hacked", "Security")
 
-/datum/design/shotgun_slug
-	name = "Shotgun Slug"
-	id = "shotgun_slug"
+/datum/design/beanbag_slug
+	name = "Beanbag Slug"
+	id = "beanbag_slug"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 4000)
-	build_path = /obj/item/ammo_casing/shotgun
+	materials = list(/datum/material/iron = 2000)
+	build_path = /obj/item/ammo_casing/shotgun/beanbag
 	category = list("hacked", "Security")
 
-/datum/design/buckshot_shell
-	name = "Buckshot Shell"
-	id = "buckshot_shell"
+/datum/design/rubbershot
+	name = "Rubber Shot"
+	id = "rubber_shot"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 4000)
-	build_path = /obj/item/ammo_casing/shotgun/buckshot
+	build_path = /obj/item/ammo_casing/shotgun/rubbershot
+	category = list("hacked", "Security")
+
+/datum/design/shotgun_laser
+	name = "Laser Shell"
+	id = "laser_shell"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000)
+	build_path = /obj/item/ammo_casing/shotgun/laser
 	category = list("hacked", "Security")
 
 /datum/design/shotgun_dart

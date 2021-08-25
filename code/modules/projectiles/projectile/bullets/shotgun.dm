@@ -103,7 +103,7 @@
 	armour_penetration = 20 //P E N E T R A T O R
 	projectile_piercing = PASSMOB
 
-/obj/projectile/bullet/pellet/shotgun_penetrator/on_hit(atom/target)
+/obj/projectile/bullet/pellet/shotgun_penetrator/prehit_pierce(atom/target)
 	. = ..()
 	if (projectile_piercing & target.pass_flags_self & PASSMOB)
 		projectile_piercing = ~PASSMOB // The pellets penetrate ONE person!

@@ -250,16 +250,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<a href='?_src_=prefs;preference=name;task=input'>[real_name]</a><BR>"
 
 			if(!(AGENDER in pref_species.species_traits))
-				var/dispGender
-				if(gender == MALE)
-					dispGender = "Male"
-				else if(gender == FEMALE)
-					dispGender = "Female"
-				else
-					dispGender = "Other"
-				dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[dispGender]</a>"
-				if(gender == PLURAL || gender == NEUTER)
-					dat += "<BR><b>Body Type:</b> <a href='?_src_=prefs;preference=body_type'>[body_type == MALE ? "Male" : "Female"]</a>"
+				dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[gender == MALE ? "Male" : "Female"]</a><BR>"
 
 				if(randomise[RANDOM_BODY] || randomise[RANDOM_BODY_ANTAG]) //doesn't work unless random body
 					dat += "<a href='?_src_=prefs;preference=toggle_random;random_type=[RANDOM_GENDER]'>Always Random Gender: [(randomise[RANDOM_GENDER]) ? "Yes" : "No"]</A>"
@@ -1590,15 +1581,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(unlock_content)
 						toggles ^= MEMBER_PUBLIC
 				if("gender")
-					var/list/friendlyGenders = list("Male" = "male", "Female" = "female", "Other" = "plural")
-					var/pickedGender = input(user, "Choose your gender.", "Character Preference", gender) as null|anything in friendlyGenders
-					if(pickedGender && friendlyGenders[pickedGender] != gender)
-						gender = friendlyGenders[pickedGender]
-						underwear = random_underwear(gender)
-						undershirt = random_undershirt(gender)
-						socks = random_socks()
-						facial_hairstyle = random_facial_hairstyle(gender)
-						hairstyle = random_hairstyle(gender)
+					if(gender == MALE)
+						gender = FEMALE
+					else
+						gender = MALE
 				if("body_type")
 					if(body_type == MALE)
 						body_type = FEMALE

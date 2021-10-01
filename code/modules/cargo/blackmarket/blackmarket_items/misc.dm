@@ -32,6 +32,16 @@
 	stock_max = 6
 	availability_prob = 80
 
+/datum/blackmarket_item/misc/fakelock_painter
+	name = "Fakelock painter"
+	desc = "Somebody wondered if you could make Bugs Bunny real if you strapped a holographic projector to an airlock painter. Turns out you can't, but you can make realistic-looking fake doors."
+	item = /obj/item/airlock_painter/fakelock_painter
+
+	price_min = 90
+	price_max = 180
+	stock_max = 3
+	availability_prob = 90
+
 /datum/blackmarket_item/misc/shoulder_holster
 	name = "Shoulder holster"
 	desc = "Yeehaw, hardboiled friends! This holster is the first step in your dream of becoming a detective and being allowed to shoot real guns!"

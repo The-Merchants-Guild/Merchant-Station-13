@@ -2,8 +2,8 @@
 	name = "fakelock painter"
 	desc = "An advanced autopainter preprogrammed with several paintjobs for airlocks. It has a holographic field applicator, allowing it to work on walls and windows."
 	icon = 'icons/obj/objects.dmi'
-	icon_state = "paint sprayer"
-	inhand_icon_state = "paint sprayer"
+	icon_state = "fake paint sprayer"
+	inhand_icon_state = "fake paint sprayer"
 	worn_icon_state = "painter"
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -44,6 +44,9 @@
 			target.add_overlay(list("fill_closed"))
 		else
 			target.add_overlay(list("closed"))
+			if(current_paintjob == "Public")
+				//target.overlays_file = 'icons/obj/doors/airlocks/station2/overlays.dmi'
+				target.add_overlay(list(get_airlock_overlay("glass_closed", 'icons/obj/doors/airlocks/station2/overlays.dmi', em_block = TRUE)))
 		//RegisterSignal(target, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/procoverlays)
 		//target.overlays_file = initial(airlock.overlays_file)
 		//target.assemblytype = initial(airlock.assemblytype)

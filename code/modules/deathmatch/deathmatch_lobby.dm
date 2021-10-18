@@ -13,7 +13,7 @@
 /datum/deathmatch_lobby/New(mob/player)
 	. = ..()
 	if (!player)
-		STACK_TRACE("Attempted to create a deathmatch lobby without a host.")
+		stack_trace("Attempted to create a deathmatch lobby without a host.")
 		return qdel(src)
 	host = player.ckey
 	game = GLOB.deathmatch_game

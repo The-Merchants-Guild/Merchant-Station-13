@@ -27,10 +27,7 @@
 	desc = "best trophy ever"
 	icon_state = "xenobutt"
 	inhand_icon_state = "xenobutt"
-
-/obj/item/organ/butt/xeno/ComponentInitialize()
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/butt/xeno
-	. = ..()
 
 /obj/item/organ/butt/bluebutt // bluespace butts, science
 	name = "butt of holding"
@@ -38,10 +35,7 @@
 	icon_state = "bluebutt"
 	inhand_icon_state = "bluebutt"
 	status = ORGAN_ROBOTIC
-
-/obj/item/organ/butt/bluebutt/ComponentInitialize()
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/butt/bluebutt
-	. = ..()
 
 /obj/item/organ/butt/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
 	. = ..()

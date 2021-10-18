@@ -6,7 +6,7 @@
 	attack_effect = ATTACK_EFFECT_BITE
 	attack_sound = 'sound/weapons/bite.ogg'
 	miss_sound = 'sound/weapons/bite.ogg'
-	mutant_organs = list(/obj/item/organ/tail/monkey)
+	mutant_organs = list(/obj/item/organ/tail/monkey, /obj/item/organ/butt)
 	mutant_bodyparts = list("tail_monkey" = "Monkey")
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	meat = /obj/item/food/meat/slab/monkey

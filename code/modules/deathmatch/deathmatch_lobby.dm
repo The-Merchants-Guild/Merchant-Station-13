@@ -13,10 +13,12 @@
 /datum/deathmatch_lobby/New(mob/player)
 	. = ..()
 	if (!player)
+		STACK_TRACE("Attempted to create a deathmatch lobby without a host.")
 		return qdel(src)
 	host = player.ckey
 	game = GLOB.deathmatch_game
 	map = game.maps[pick(game.maps)]
+	log_game("[host] created a deathmatch lobby.")
 	if (map.allowed_loadouts)
 		loadouts = map.allowed_loadouts
 	else
@@ -28,12 +30,12 @@
 	. = ..()
 	for (var/K in players)
 		var/datum/tgui/ui = SStgui.get_open_ui(players[K]["mob"], src)
-		ui?.close()
+		if (ui) ui.close()
 		remove_player(K)
 	players = null
 	for (var/K in observers)
 		var/datum/tgui/ui = SStgui.get_open_ui(observers[K]["mob"], src)
-		ui?.close()
+		if (ui) ui.close()
 		observers.Remove(K)
 	observers = null
 	map = null
@@ -43,40 +45,48 @@
 /datum/deathmatch_lobby/proc/start_game()
 	location = game.reserve_location(map)
 	if (!location)
+		to_chat(get_mob_by_ckey(host), span_warning("Couldn't reserve a map location (all locations used?), try again later."))
 		return FALSE
 	var/list/spawns = game.load_location(location)
 	if (!spawns)
+		stack_trace("Failed to get spawns when loading deathmatch map [map.name] for lobby [host].")
 		game.clear_location(location)
 		location = null
 		return FALSE
 	for (var/K in players)
 		var/mob/dead/observer/O = players[K]["mob"]
 		if (!O || !O.client)
+			log_game("Removed player [K] from deathmatch lobby [host], as they couldn't be found.")
 			remove_player(K)
 			continue
+		// pick spawn and remove it.
 		var/S = pick_n_take(spawns)
 		O.forceMove(get_turf(S))
 		qdel(S)
+		// equip player
 		var/datum/deathmatch_loadout/L = players[K]["loadout"]
 		L = new L // agony
 		var/mob/living/carbon/human/H = O.change_mob_type(/mob/living/carbon/human, delete_old_mob = TRUE)
 		clean_player(H)
 		L.equip(H)
 		map.map_equip(H)
+		// register death handling.
 		RegisterSignal(H, COMSIG_LIVING_DEATH, .proc/player_died)
 		to_chat(H.client, span_reallybig("GO!"))
 		players[K]["mob"] = H
+	// Remove rest of spawns.
 	for (var/S in spawns)
 		qdel(S)
 	for (var/K in observers)
 		var/mob/M = observers[K]["mob"]
 		M.forceMove(location.location)
 	playing = TRUE
+	log_game("Deathmatch game [host] started.")
 	return TRUE
 
 /datum/deathmatch_lobby/proc/end_game()
 	if (!location)
-		return
+		CRASH("Location of deathmatch game [host] deleted during game.")
 	var/winner
 	for (var/K in players)
 		if (!winner) // While there should only be a single player remaining, someone might proccall this so.
@@ -91,6 +101,7 @@
 		to_chat(observer.client, span_reallybig("THE GAME HAS ENDED.<BR>THE WINNER IS: [winner ? winner : "no one"]."))
 	game.clear_location(location)
 	game.remove_lobby(host)
+	log_game("Deathmatch game [host] ended.")
 
 /datum/deathmatch_lobby/proc/player_died(mob/living/player)
 	for (var/K in players)

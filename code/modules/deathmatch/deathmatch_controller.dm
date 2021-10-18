@@ -13,7 +13,7 @@ GLOBAL_VAR(deathmatch_game)
 	. = ..()
 	if (GLOB.deathmatch_game)
 		qdel(src)
-		return
+		CRASH("A deathmatch controller already exists.")
 	GLOB.deathmatch_game = src
 	for (var/obj/effect/landmark/deathmatch_map_spawn/S in GLOB.landmarks_list)
 		if (!S.compiled_location)
@@ -72,16 +72,22 @@ GLOBAL_VAR(deathmatch_game)
 
 /datum/deathmatch_controller/proc/clear_location(datum/deathmatch_map_loc/location)
 	var/z = location.location.z
+	// Get bottom corner
 	var/bX = location.location.x - location.x_offset
 	var/bY = location.location.y - location.y_offset
+	// Get top corner
 	var/tX = location.width + (location.location.x - location.x_offset)
 	var/tY = location.height + (location.location.y - location.y_offset)
+	// Get space area instance
 	var/area/space = GLOB.areas_by_type[/area/space]
+	// Locate bottom and top corners
 	var/bT = locate(bX, bY, z)
 	var/tT = locate(tX, tY, z)
+	// Clear area between bottom and top corners
 	for (var/turf/T in block(bT, tT))
 		space.contents += T // Changes the area.
 		T.empty(flags = CHANGETURF_FORCEOP)
+	// Free the map location
 	used_locations -= location
 	map_locations += location
 
@@ -130,6 +136,7 @@ GLOBAL_VAR(deathmatch_game)
 				return
 			if (!lobbies[params["id"]])
 				return
+			log_game("[usr.ckey] joined deathmatch lobby [params["id"]] as a player.")
 			lobbies[params["id"]].join(usr)
 		if ("spectate")
 			if (lobbies[usr.ckey] || !lobbies[params["id"]])
@@ -139,6 +146,7 @@ GLOBAL_VAR(deathmatch_game)
 				lobbies[params["id"]].ui_interact(usr)
 			else
 				lobbies[params["id"]].spectate()
+			log_game("[usr.ckey] joined deathmatch lobby [params["id"]] as an observer.")
 		if ("admin")
 			if (!check_rights(R_ADMIN))
 				message_admins("[usr.key] has attempted to use admin functions in the deathmatch panel!")

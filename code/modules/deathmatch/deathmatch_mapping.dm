@@ -9,7 +9,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 /turf/open/indestructible/deathmatch
-	name = "Space"
+	name = "Deathmatch border"
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
 	blocks_air = TRUE

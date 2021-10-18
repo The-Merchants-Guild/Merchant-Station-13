@@ -329,7 +329,7 @@
 						remove_observer(uckey)
 						add_player(umob, loadouts[1], host == uckey)
 		if ("admin") // Admin functions
-			if (!check_rights(R_ADMIN)))
+			if (!check_rights(R_ADMIN))
 				message_admins("[usr.key] has attempted to use admin functions in a deathmatch lobby!")
 				log_admin("[key_name(usr)] tried to use the deathmatch lobby admin functions without authorization.")
 				return

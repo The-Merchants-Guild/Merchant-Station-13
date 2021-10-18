@@ -78,7 +78,7 @@
 	name = "Capture-The-Flag"
 	icon_state = "ctf"
 
-/atom/movable/screen/ghost/ctf/Click()
+/atom/movable/screen/ghost/ctf/Click() // Yes, this is ugly, but I don't really care.
 	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
 		if(activated_id != "centcom")
 			continue

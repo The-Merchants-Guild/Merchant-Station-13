@@ -63,6 +63,9 @@
 		/obj/item/kitchen/knife/combat = ITEM_SLOT_LPOCKET
 	)
 
+/datum/deathmatch_loadout/gunperative/pre_equip(mob/living/carbon/human/player)
+	player.equip_to_slot(new /obj/item/clothing/gloves/combat, ITEM_SLOT_GLOVES)
+
 /datum/deathmatch_loadout/meleeperative
 	name = "Melee Operative"
 	desc = "A syndicate operative with multiple knives."

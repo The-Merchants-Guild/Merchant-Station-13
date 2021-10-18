@@ -52,14 +52,17 @@ export const DeathmatchPanel = (props, context) => {
                 </Table.Cell>
                 <Table.Cell>
                   {!lobby.playing && (
-                    <Button
-                      disabled={
-                        (data.hosting || playing)
-                        && data.playing !== lobby.name
-                      }
-                      color="good"
-                      content={data.playing === lobby.name ? "View" : "Join"}
-                      onClick={() => act('join', { "id": lobby.name })} />
+                    <>
+                      <Button
+                        disabled={
+                          (data.hosting || playing)
+                        && playing !== lobby.name
+                        }
+                        color="good"
+                        content={playing === lobby.name ? "View" : "Join"}
+                        onClick={() => act('join', { "id": lobby.name })} />
+                      <Button color="caution" icon="eye" onClick={() => act('spectate', { "id": lobby.name })} />
+                    </>
                   ) || (
                     <Button
                       disabled={

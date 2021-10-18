@@ -41,7 +41,7 @@
 	if (!config.LoadConfig(filename, error_if_missing))
 		qdel(config)
 		config = new /datum/map_config  // Fall back to Box
-	if (delete_after)
+	if (delete_after && !IsAdminAdvancedProcCall())
 		fdel(filename)
 	return config
 

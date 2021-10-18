@@ -25,6 +25,41 @@
 	stock_max = 60
 	availability_prob = 40
 
+/datum/blackmarket_item/weapon/shotgun_buck
+	name = "Buckshot Shells"
+	desc = "Made yourself a rickety pipe rifle and feel like your homebrewn ammo just isn't cutting it? \
+	Well, you're in luck! With these seven 12G buckshot shells you're bound to make holes in anything you'd like!"
+	item = /obj/item/storage/box/lethalshot
+
+	price_min = 100
+	price_max = 250
+	stock_min = 2
+	stock_max = 4
+	availability_prob = 40
+
+/datum/blackmarket_item/weapon/shotgun_slug
+	name = "Shotgun Slugs"
+	desc = "Picture the scene: You're running away from a squad of heavily armored government men trying to kill you, \
+	you unload your homemade shells into their faces, but they don't even flinch from it. You know this could be you, right? \
+	That's why we are selling these seven armor piercing shotgun slugs, to ensure your safety from whatever the voices told you is coming."
+	item = /obj/item/storage/box/slugs
+
+	price_min = 175
+	price_max = 325
+	stock_min = 2
+	stock_max = 4
+	availability_prob = 40
+
+/datum/blackmarket_item/weapon/pipegun
+	name = "Pipe Gun"
+	desc = "Homemade from scraps our gunsmith had lying around. The gun works, just don't expect it to last long."
+	item = /obj/item/gun/ballistic/rifle/boltaction/pipegun
+
+	price_min = 800
+	price_max = 1200
+	stock_max = 1
+	availability_prob = 15
+
 /datum/blackmarket_item/weapon/bone_spear
 	name = "Bone Spear"
 	desc = "Authentic tribal spear, made from real bones! A steal at any price, especially if you're a caveman."
@@ -45,6 +80,16 @@
 	stock_max = 1
 	availability_prob = 35
 
+/datum/blackmarket_item/weapon/fireaxe
+	name = "Fire Axe"
+	desc = "For some reason, these fireaxes sell like hotcakes. We don't know why but we sure as hell are cashing in on this!"
+	item = /obj/item/fireaxe
+
+	price_min = 700
+	price_max = 900
+	stock_max = 1
+	availability_prob = 20
+
 /datum/blackmarket_item/weapon/switchblade
 	name = "Switchblade"
 	desc = "Tunnel Snakes rule!"
@@ -64,3 +109,25 @@
 	price_max = 400
 	stock_max = 2
 	availability_prob = 50
+
+/datum/blackmarket_item/weapon/frag_grenade
+	name = "Fragmentation Grenade"
+	desc = "A classic frag grenade. Pull pin, count to three, don't count to two, ESPECIALLY DO NOT COUNT TO FOUR, throw and take cover!"
+	item = /obj/item/grenade/frag
+
+	price_min = 400
+	price_max = 800
+	stock_max = 2
+	availability_prob = 15
+
+/datum/blackmarket_item/weapon/gluon_grenade
+	name = "Gluon Grenade"
+	desc = "A highly advanced grenade, capable of irradiating and freezing everything it hits. \
+	It also makes everyone it hits extremely tired, allowing for easy cleanup! \
+	As for how we got this highly advanced grenade, you don't have to know. No refunds."
+	item = /obj/item/grenade/gluon
+
+	price_min = 600
+	price_max = 1200
+	stock_max = 2
+	availability_prob = 5

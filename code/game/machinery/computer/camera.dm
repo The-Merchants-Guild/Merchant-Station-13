@@ -13,6 +13,7 @@
 	/// The turf where the camera was last updated.
 	var/turf/last_camera_turf
 	var/list/concurrent_users = list()
+	var/list/vis_obj
 
 	// Stuff needed to render the map
 	var/map_name
@@ -49,6 +50,63 @@
 	cam_background = new
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = FALSE
+	
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/security_console_clickintercept,
+	))
+
+
+/obj/item/circuit_component/security_console_clickintercept
+	display_name = "Security Console Click Interceptor"
+	display_desc = "Allows the interception of mouse clicks on a camera console. Warning: may break space and time."
+	//circuit_flags = CIRCUIT_FLAG_OUTPUT_SIGNAL
+
+	/// The GPS coordinates (no Z)
+	var/datum/port/output/gps_x
+	var/datum/port/output/gps_y
+
+	/// Sends a signal on mouse clicks
+	var/datum/port/output/click
+	var/datum/port/output/mclick
+
+	var/obj/machinery/computer/security/attached_console
+
+/obj/item/circuit_component/security_console_clickintercept/Initialize()
+	. = ..()
+	gps_x = add_output_port("GPS X", PORT_TYPE_NUMBER)
+	gps_y = add_output_port("GPS Y", PORT_TYPE_NUMBER)
+	click = add_output_port("Click", PORT_TYPE_SIGNAL)
+	mclick = add_output_port("Alt Click", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/security_console_clickintercept/Destroy()
+	gps_x = null
+	gps_y = null
+	click = null
+	mclick = null
+	return ..()
+
+/obj/item/circuit_component/security_console_clickintercept/register_usb_parent(atom/movable/parent)
+	. = ..()
+	if(istype(parent, /obj/machinery/computer/security))
+		attached_console = parent
+		RegisterSignal(attached_console, COMSIG_CIRCUIT_CLICKED, .proc/click_intercept)
+
+/obj/item/circuit_component/security_console_clickintercept/proc/click_intercept(datum/source, mob/user, atom/target, params)
+	SIGNAL_HANDLER
+	var/turf/curr = get_turf(target)
+	gps_x.set_output(curr.x)
+	gps_y.set_output(curr.y)
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, ALT_CLICK))
+		mclick.set_output(COMPONENT_SIGNAL)
+	else
+		click.set_output(COMPONENT_SIGNAL)
+
+/obj/item/circuit_component/security_console_clickintercept/unregister_usb_parent(atom/movable/parent)
+	UnregisterSignal(attached_console, COMSIG_CIRCUIT_CLICKED)
+
+	attached_console = null
+	return ..()
 
 /obj/machinery/computer/security/Destroy()
 	qdel(cam_screen)
@@ -75,6 +133,8 @@
 		// an audible terminal_on click.
 		if(is_living)
 			concurrent_users += user_ref
+			RegisterSignal(user, COMSIG_MOB_CLICKON, .proc/on_click_mapobj)
+			RegisterSignal(user, COMSIG_MOB_MIDDLECLICKON, .proc/on_click_mapobj)
 		// Turn on the console
 		if(length(concurrent_users) == 1 && is_living)
 			playsound(src, 'sound/machines/terminal_on.ogg', 25, FALSE)
@@ -153,9 +213,13 @@
 	last_camera_turf = get_turf(cam_location)
 
 	var/list/visible_things = active_camera.isXRay() ? range(active_camera.view_range, cam_location) : view(active_camera.view_range, cam_location)
+	vis_obj = list()
+	for(var/atom/A in visible_things)
+		vis_obj += visible_things
 
 	for(var/turf/visible_turf in visible_things)
 		visible_turfs += visible_turf
+		vis_obj += visible_turf
 
 	var/list/bbox = get_bbox_of_atoms(visible_turfs)
 	var/size_x = bbox[3] - bbox[1] + 1
@@ -165,11 +229,23 @@
 	cam_background.icon_state = "clear"
 	cam_background.fill_rect(1, 1, size_x, size_y)
 
+/obj/machinery/computer/security/proc/on_click_mapobj(mob/user, atom/target, params)
+	SIGNAL_HANDLER
+	if(user.stat != CONSCIOUS)
+		return
+	if(!isturf(target) && !isturf(target.loc))
+		return
+	if(!vis_obj.Find(target))
+		return
+	SEND_SIGNAL(src, COMSIG_CIRCUIT_CLICKED, user, target, params)
+
 /obj/machinery/computer/security/ui_close(mob/user)
 	var/user_ref = REF(user)
 	var/is_living = isliving(user)
 	// Living creature or not, we remove you anyway.
 	concurrent_users -= user_ref
+	UnregisterSignal(user, COMSIG_MOB_CLICKON)
+	UnregisterSignal(user, COMSIG_MOB_MIDDLECLICKON)
 	// Unregister map objects
 	user.client.clear_map(map_name)
 	// Turn off the console

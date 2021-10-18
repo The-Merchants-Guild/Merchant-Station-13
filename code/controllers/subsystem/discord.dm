@@ -52,6 +52,13 @@ SUBSYSTEM_DEF(discord)
 	/// Is TGS enabled (If not we won't fire because otherwise this is useless)
 	var/enabled = FALSE
 
+/datum/controller/subsystem/discord/vv_edit_var(var_name, var_value)
+	// if an admin calls write_notify_file notify file gets deleted
+	// and the variable could be set to any arbitrary file.
+	if(var_name == NAMEOF(src, notify_file))
+		return FALSE
+	return ..()
+
 /datum/controller/subsystem/discord/Initialize(start_timeofday)
 	common_words = world.file2list("strings/1000_most_common.txt")
 	reverify_cache = list()

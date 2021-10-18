@@ -18,6 +18,7 @@ export const DeathmatchLobby = (props, context) => {
             <Section height="99%">
               <Table>
                 <Table.Row>
+                  <Table.Cell collapsing />
                   <Table.Cell collapsing>
                     Name
                   </Table.Cell>
@@ -33,7 +34,21 @@ export const DeathmatchLobby = (props, context) => {
                     <Table.Cell collapsing>
                       {!!pdata.host
                       && (<Icon name="star" />)}
-                      <b>{player}</b>
+                    </Table.Cell>
+                    <Table.Cell collapsing>
+                      {!((data.host && !pdata.host) || data.admin)
+                      && (<b>{player}</b>) || (
+                        <Dropdown
+                          width="100%"
+                          nochevron
+                          sameline
+                          displayText={player}
+                          options={["Kick", "Transfer host", "Toggle observe"]}
+                          onSelected={value => act('host', {
+                            id: player,
+                            func: value,
+                          })} />
+                      )}
                     </Table.Cell>
                     <Table.Cell grow>
                       <Dropdown
@@ -61,7 +76,24 @@ export const DeathmatchLobby = (props, context) => {
                       {!!odata.host
                         && (<Icon name="star" />)
                         || (<Icon name="eye" />)}
-                      <b>{observer}</b>
+                    </Table.Cell>
+                    <Table.Cell collapsing>
+                      {!((data.host && !odata.host) || data.admin)
+                      && (<b>{observer}</b>) || (
+                        <Dropdown
+                          width="100%"
+                          nochevron
+                          sameline
+                          displayText={observer}
+                          options={["Kick", "Transfer host", "Toggle observe"]}
+                          onSelected={value => act('host', {
+                            id: observer,
+                            func: value,
+                          })} />
+                      )}
+                    </Table.Cell>
+                    <Table.Cell grow>
+                      Observing
                     </Table.Cell>
                   </Table.Row>
                 ))(data.observers)}
@@ -98,6 +130,8 @@ export const DeathmatchLobby = (props, context) => {
         <Button color="good" content="Start Game" onClick={() => act('start_game')} />
         <Button color="bad" content="Leave Game" onClick={() => act('leave_game')} />
         <Button color="caution" content={data.observers[data.self] ? "Join" : "Observe"} onClick={() => act('observe')} />
+        {!!data.admin
+          && (<Button icon="exclamation" color="caution" content="Force Start" onClick={() => act('admin', { func: "Force start" })} />)}
       </Window.Content>
     </Window>
   );

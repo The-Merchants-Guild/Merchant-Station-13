@@ -27,11 +27,13 @@
 /datum/deathmatch_lobby/Destroy(force, ...)
 	. = ..()
 	for (var/K in players)
+		var/datum/tgui/ui = SStgui.get_open_ui(players[K]["mob"], src)
+		ui?.close()
 		remove_player(K)
 	players = null
 	for (var/K in observers)
-		var/list/L = observers[K]
-		L.Cut()
+		var/datum/tgui/ui = SStgui.get_open_ui(observers[K]["mob"], src)
+		ui?.close()
 		observers.Remove(K)
 	observers = null
 	map = null
@@ -224,6 +226,7 @@
 	. = ..()
 	.["self"] = user.ckey
 	.["host"] = (user.ckey == host)
+	.["admin"] = check_rights_for(user.client, R_ADMIN)
 	.["loadouts"] = list()
 	for (var/L in loadouts)
 		var/datum/deathmatch_loadout/DML = L
@@ -245,7 +248,8 @@
 		.["players"][K]["loadout"] = initial(L.name)
 	.["observers"] = list()
 	for (var/K in observers)
-		var/mob/PM = observers[K]
+		var/list/P = observers[K]
+		var/mob/PM = P["mob"]
 		if (!PM || !PM.client)
 			leave(K)
 			continue
@@ -300,3 +304,38 @@
 			ready_count += (players[usr.ckey]["ready"] * 2) - 1 // scared?
 			if (ready_count >= players.len && players.len >= map.min_players)
 				start_game()
+		if ("host") // Host functions
+			if (playing || (usr.ckey != host || !check_rights(R_ADMIN)))
+				return
+			var/uckey = params["id"]
+			switch (params["func"])
+				if ("Kick")
+					leave(uckey)
+					var/umob = get_mob_by_ckey(uckey)
+					var/datum/tgui/uui = SStgui.get_open_ui(umob, src)
+					uui?.close()
+					game.ui_interact(umob)
+				if ("Transfer host")
+					if (host == uckey)
+						return
+					game.passoff_lobby(host, uckey)
+					host = uckey
+				if ("Toggle observe")
+					var/umob = get_mob_by_ckey(uckey)
+					if (players[uckey])
+						remove_player(uckey)
+						add_observer(umob, host == uckey)
+					else if (observers[uckey] && players.len < map.max_players)
+						remove_observer(uckey)
+						add_player(umob, loadouts[1], host == uckey)
+		if ("admin") // Admin functions
+			if (!check_rights(R_ADMIN)))
+				message_admins("[usr.key] has attempted to use admin functions in a deathmatch lobby!")
+				log_admin("[key_name(usr)] tried to use the deathmatch lobby admin functions without authorization.")
+				return
+			switch (params["func"])
+				if ("Force start")
+					log_admin("[key_name(usr)] force started deathmatch lobby [host].")
+					start_game()
+
+

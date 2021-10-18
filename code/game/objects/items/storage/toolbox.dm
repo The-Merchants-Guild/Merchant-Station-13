@@ -90,9 +90,7 @@
 
 /obj/item/storage/toolbox/mechanical/old/empty
 	name = "toolbox"
-	icon_state = "toolbox_blue_old"
-	has_latches = FALSE
-	has_soul = TRUE
+	icon_state = "oldtoolboxclean"
 
 /obj/item/storage/toolbox/mechanical/old/empty/PopulateContents()
 	return
@@ -107,7 +105,6 @@
 	name = "toolbox"
 	desc = "An old, blue toolbox, it looks robust."
 	icon_state = "oldtoolboxclean"
-	inhand_icon_state = "toolbox_blue"
 	has_latches = FALSE
 	force = 19
 	throwforce = 22

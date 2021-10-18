@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Table, Button, Section, Flex } from '../components';
+import { Table, Button, Section, Flex, NoticeBox, Dropdown } from '../components';
 import { Window } from '../layouts';
 
 export const DeathmatchPanel = (props, context) => {
@@ -11,7 +11,10 @@ export const DeathmatchPanel = (props, context) => {
       width={360}
       height={600}>
       <Window.Content>
-        <Section height="530px">
+        <NoticeBox danger>
+          If you play you will NOT be REVIVABLE!
+        </NoticeBox>
+        <Section height="500px">
           <Table>
             <Table.Row>
               <Table.Cell bold>
@@ -27,7 +30,19 @@ export const DeathmatchPanel = (props, context) => {
             {data.lobbies.map(lobby => (
               <Table.Row key={lobby.name}>
                 <Table.Cell>
-                  {lobby.name}
+                  {!data.admin && (
+                    lobby.name
+                  ) || (
+                    <Dropdown
+                      width="100%"
+                      nochevron
+                      displayText={lobby.name}
+                      options={["Close", "View"]}
+                      onSelected={value => act('admin', {
+                        id: lobby.name,
+                        func: value,
+                      })} />
+                  )}
                 </Table.Cell>
                 <Table.Cell>
                   {lobby.map}
@@ -43,7 +58,7 @@ export const DeathmatchPanel = (props, context) => {
                         && data.playing !== lobby.name
                       }
                       color="good"
-                      content="Join"
+                      content={data.playing === lobby.name ? "View" : "Join"}
                       onClick={() => act('join', { "id": lobby.name })} />
                   ) || (
                     <Button

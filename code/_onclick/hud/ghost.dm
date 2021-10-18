@@ -76,10 +76,14 @@
 
 /atom/movable/screen/ghost/ctf
 	name = "Capture-The-Flag"
-	icon_state = "mafia"
+	icon_state = "ctf"
 
 /atom/movable/screen/ghost/ctf/Click()
-	toggle_id_ctf(usr, "centcom")
+	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+		if(activated_id != "centcom")
+			continue
+		CTF.attack_ghost()
+		return
 
 /datum/hud/ghost/New(mob/owner)
 	..()

@@ -98,6 +98,7 @@ GLOBAL_VAR(deathmatch_game)
 	. = ..()
 	.["lobbies"] = list()
 	.["hosting"] = FALSE
+	.["admin"] = check_rights_for(user.client, R_ADMIN)
 	for (var/ckey in lobbies)
 		var/datum/deathmatch_lobby/L = lobbies[ckey]
 		if (user.ckey == ckey)
@@ -134,3 +135,15 @@ GLOBAL_VAR(deathmatch_game)
 			if (lobbies[usr.ckey] || !lobbies[params["id"]] || !lobbies[params["id"]].playing)
 				return
 			lobbies[params["id"]].spectate()
+		if ("admin")
+			if (!check_rights(R_ADMIN))
+				message_admins("[usr.key] has attempted to use admin functions in the deathmatch panel!")
+				log_admin("[key_name(usr)] tried to use the deathmatch panel admin functions without authorization.")
+				return
+			var/lobby = params["id"]
+			switch (params["func"])
+				if ("Close")
+					remove_lobby(lobby)
+					log_admin("[key_name(usr)] removed deathmatch lobby [lobby].")
+				if ("View")
+					lobbies[lobby].ui_interact(usr)

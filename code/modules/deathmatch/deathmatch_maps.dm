@@ -27,7 +27,7 @@
 
 /datum/deathmatch_map/maintenance
 	name = "Maint Mania"
-	desc = "WRITE ME"
+	desc = "Dark maintenance tunnels, floor pills, improvised weaponry and a bloody beatdown. Welcome to assistant utopia."
 	min_players = 4
 	max_players = 8
 	allowed_loadouts = list(/datum/deathmatch_loadout/assistant)
@@ -35,7 +35,7 @@
 
 /datum/deathmatch_map/osha_violator
 	name = "OSHA Violator"
-	desc = "WRITE ME"
+	desc = "What would Engineering be without an overly complicated engine, with conveyor belts, emitters and shield generators sprinkled about? That's right, not Engineering."
 	min_players = 2
 	max_players = 8
 	allowed_loadouts = list(/datum/deathmatch_loadout/assistant)
@@ -43,7 +43,7 @@
 
 /datum/deathmatch_map/the_brig
 	name = "The Brig"
-	desc = "WRITE ME"
+	desc = "A recreation of MetaStation Brig."
 	min_players = 4
 	max_players = 12
 	allowed_loadouts = list(/datum/deathmatch_loadout/assistant)
@@ -51,7 +51,7 @@
 
 /datum/deathmatch_map/shooting_range
 	name = "Shooting Range"
-	desc = "WRITE ME"
+	desc = "A simple room with a bunch of wooden barricades."
 	min_players = 2
 	max_players = 5
 	allowed_loadouts = list(
@@ -62,7 +62,7 @@
 
 /datum/deathmatch_map/securing
 	name = "SecuRing"
-	desc = "WRITE ME"
+	desc = "Presenting the Security Ring, ever wanted to shoot people with disablers? Well now you can."
 	min_players = 2
 	max_players = 4
 	allowed_loadouts = list(/datum/deathmatch_loadout/securing_sec)

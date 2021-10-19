@@ -1,7 +1,5 @@
-#define AMOUNT_MEAN 1000
-#define AMOUNT_STD 200
-
-GLOBAL_LIST_EMPTY(drill_list)
+// Single plate
+#define STANDARD_ORE_SIZE 2000
 
 /obj/machinery/ore_drill
 	name = "ore drill"
@@ -18,13 +16,13 @@ GLOBAL_LIST_EMPTY(drill_list)
 	var/mining_power_use = 20000 // 20 kW
 	var/mining_delay = 5 SECONDS
 	COOLDOWN_DECLARE(mining_cooldown)
-	var/turf/open/floor/plating/asteroid/basalt/lava_land_surface/ore/ore
+	var/datum/ore_vein/vein
 
 /obj/machinery/ore_drill/Initialize()
 	. = ..()
-	if (!istype(loc, /turf/open/floor/plating/asteroid/basalt/lava_land_surface/ore))
+	if (!SSmining.vein_grids["[z]"])
 		return
-	ore = loc
+	vein = SSmining.vein_grids["[z]"][round(x * SSmining.gwm_x) + 1][round(y * SSmining.gwm_y) + 1]
 
 /obj/machinery/ore_drill/ComponentInitialize()
 	AddComponent(/datum/component/extensible_machine, list(
@@ -34,12 +32,12 @@ GLOBAL_LIST_EMPTY(drill_list)
 	RegisterSignal(src, COMSIG_EXTEND_MACHINE, .proc/handle_extension)
 
 /obj/machinery/ore_drill/Destroy()
-	GLOB.drill_list -= src
+	SSmining.drills -= src
 	qdel(power_panel)
 	power_panel = null
 	qdel(output_panel)
 	output_panel = null
-	ore = null
+	vein = null
 	. = ..()
 
 /obj/machinery/ore_drill/proc/handle_extension(datum/source, obj/extension, mob/user)
@@ -61,14 +59,14 @@ GLOBAL_LIST_EMPTY(drill_list)
 		power_panel.update_appearance()
 		return
 	mining = TRUE
-	GLOB.drill_list += src
+	SSmining.drills += src
 	begin_processing()
 
 /obj/machinery/ore_drill/proc/stop_mining()
 	if (!mining)
 		return
 	output_panel.send_packet()
-	GLOB.drill_list -= src
+	SSmining.drills -= src
 	end_processing()
 
 /obj/machinery/ore_drill/attack_hand(mob/living/user, list/modifiers)
@@ -77,7 +75,7 @@ GLOBAL_LIST_EMPTY(drill_list)
 		start_mining()
 
 /obj/machinery/ore_drill/process(delta_time)
-	if (!ore || ore.mat_amount <= 0)
+	if (!vein)
 		return stop_mining()
 	power_panel.update_appearance()
 	if (power_panel.surplus() < mining_power_use)
@@ -87,10 +85,9 @@ GLOBAL_LIST_EMPTY(drill_list)
 		return
 	COOLDOWN_START(src, mining_cooldown, mining_delay)
 	playsound(src, 'sound/weapons/drill.ogg', 100, TRUE, 5) // loud fucker.
-	var/amount = min(gaussian(AMOUNT_MEAN, AMOUNT_STD), ore.mat_amount)
-	var/mat = ore.ore_material
-	var/obj/item/raw_ore/O = new (output_panel, mat, amount)
-	ore.mat_amount -= amount
+	var/amount = STANDARD_ORE_SIZE * vein.yield
+	var/obj/item/raw_ore/O = new (output_panel, vein.material, amount)
+	vein.lower_yield(amount)
 	output_panel.output_ore(O)
 
 /obj/machinery/power/ore_drill_power_module
@@ -152,15 +149,14 @@ GLOBAL_LIST_EMPTY(drill_list)
 	anchored = FALSE
 
 /obj/machinery/ore_drill_box/crowbar_act(mob/living/user, obj/item/tool)
-	if (!istype(loc, /turf/open/floor/plating/asteroid/basalt/lava_land_surface/ore))
-		to_chat(user, "<span class='warning'>Can't unpack the [src] here!</span>")
+	if (!SSmining.vein_grids["[z]"])
+		to_chat(user, span_warning("It wouldn't be wise to unpack the [src] here."))
 		return
-	user.visible_message("<span class='notice'>[user] starts unpacking [src].</span>", "<span class='notice'>You start unpacking [src].</span>")
+	user.visible_message(span_notice("[user] starts unpacking [src]."), span_notice("You start unpacking [src]."))
 	if (do_after(user, 5 SECONDS, src))
 		var/D = new /obj/machinery/ore_drill(get_turf(src))
-		user.visible_message("<span class='notice'>[user] unpacks the [D].</span>", "<span class='notice'>You unpack the [D].</span>")
+		user.visible_message(span_notice("[user] unpacks the [D]."), span_notice("You unpack the [D]."))
 		qdel(src)
 		return TRUE
 
-#undef AMOUNT_MEAN
-#undef AMOUNT_STD
+#undef STANDARD_ORE_SIZE

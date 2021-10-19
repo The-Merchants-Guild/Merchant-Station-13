@@ -54,7 +54,6 @@
 		break
 
 /obj/machinery/ore_refiner/chemical_separator/handle_extension(datum/source, obj/extension, mob/user)
-	SIGNAL_HANDLER
 	if (istype(extension, /obj/machinery/ore_refiner_output))
 		var/obj/machinery/ore_refiner_output/O = extension
 		if (O.output_type == "liquid")

@@ -53,12 +53,13 @@
 		processed += O
 		break
 
-/obj/machinery/ore_refiner/chemical_separator(datum/source, obj/extension, mob/user)
+/obj/machinery/ore_refiner/chemical_separator/handle_extension(datum/source, obj/extension, mob/user)
 	SIGNAL_HANDLER
 	if (istype(extension, /obj/machinery/ore_refiner_output))
-		if (extension.output_type == "liquid")
-			liquid_output = get_turf(extension)
-		else if (extension.output_type == "solid")
-			solid_output = get_turf(extension)
+		var/obj/machinery/ore_refiner_output/O = extension
+		if (O.output_type == "liquid")
+			liquid_output = get_turf(O)
+		else if (O.output_type == "solid")
+			solid_output = get_turf(O)
 		else
 			qdel(extension) // wha

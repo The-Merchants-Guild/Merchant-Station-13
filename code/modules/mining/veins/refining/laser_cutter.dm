@@ -11,7 +11,7 @@
 	var/max_cooled = 10
 	var/cooling_rate = 0.5
 	var/heat_per_process = 5
-	var/heat = 0
+	var/heat = 0 // magic heat value, doesn't really mean anything.
 	var/power_per_process = 10000
 
 /obj/machinery/ore_refiner/laser_cutter/Initialize()
@@ -26,7 +26,7 @@
 	. = ..()
 	if (reagents.has_reagent(/datum/reagent/water))
 		var/heat_cooled = clamp(reagents.get_reagent_amount(/datum/reagent/water) * cooling_rate, heat, max_cooled)
-		reagents.remove(/datum/reagent/water, heat_cooled / cooling_rate)
+		reagents.remove_reagent(/datum/reagent/water, heat_cooled / cooling_rate)
 		heat -= heat_cooled
 	if (heat >= dangerous_heat)
 		var/turf/T = get_turf(src)

@@ -7,20 +7,25 @@
 		/datum/material/plasma		= list(0),
 		/datum/material/titanium 	= list(2))
 	var/mat_requirements = list(
-		/datum/material/plasma		= list(4000, 2 SECONDS),
-		/datum/material/titanium 	= list(1000, 5 SECONDS))
+		/datum/material/plasma		= 4000,
+		/datum/material/titanium 	= 1000)
 	var/datum/material/contaminant
 	var/power_per_heat = 100
 	var/heat = 0
 
 /obj/machinery/ore_refiner/distiller/input_process(obj/item/raw_ore/inp)
-	return inp.ore_material == contaminant
+	if (inp.ore_material != contaminant)
+		playsound(src,'sound/machines/terminal_error.ogg', 50, TRUE)
+		return FALSE
+	if (!contaminant)
+		contaminant = inp.ore_material
+	return TRUE
 
 /obj/machinery/ore_refiner/distiller/process(delta_time)
 	. = ..()
 	if (machine_stat & (BROKEN|NOPOWER))
 		return
-	if (contaminant && mat_requirements[contaminant][1] > heat)
+	if (contaminant && mat_requirements[contaminant] > heat)
 		use_power(power_per_heat)
 		heat++
 		return

@@ -1,25 +1,19 @@
 /obj/machinery/ore_refiner/furnace
-	name = "ore heater"
+	name = "industrial furnace"
 	desc = "A machine used to heat or melt ores."
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4000
 	valid_phases = list(
 		/datum/material/diamond		= list(0),
 		/datum/material/bluespace	= list(1),
-		/datum/material/uranium		= list(2),
-		/datum/material/titanium 	= list(2))
+		/datum/material/uranium		= list(2))
 	var/mat_requirements = list(
 		/datum/material/diamond		= list(40000, 2 SECONDS),
 		/datum/material/bluespace	= list(100,  10 SECONDS),
-		/datum/material/uranium 	= list(2000,  6 SECONDS),
-		/datum/material/titanium 	= list(1000,  5 SECONDS))
+		/datum/material/uranium 	= list(2000,  6 SECONDS))
 	var/obj/item/raw_ore/processing_ore
 	var/power_per_process = 1000
 	var/heating_delay = 2 SECONDS
-
-/obj/machinery/ore_refiner/crusher/Initialize()
-	. = ..()
-	overlays += mutable_appearance('icons/obj/drilling.dmi', "furnace")
 
 /obj/machinery/ore_refiner/furnace/proc/ore_processed()
 	processing -= processing_ore

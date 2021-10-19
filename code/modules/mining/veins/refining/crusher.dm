@@ -7,6 +7,7 @@
 		/datum/material/iron		= list(0),
 		/datum/material/gold 		= list(0),
 		/datum/material/silver 		= list(0),
+		/datum/material/uranium		= list(0),
 		/datum/material/titanium	= list(0, 3))
 	var/grinding_delay = 1 SECONDS
 	var/power_per_process = 1000

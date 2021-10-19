@@ -271,7 +271,7 @@ SUBSYSTEM_DEF(explosions)
 		cap_multiplier = 1
 
 	// This can't go wrong, right? ~TCEO
-#define LOG_CAP(r, c, m) r>c*m?log(r+10)*c:r
+#define LOG_CAP(r, c, m) (r>c*m ? log(r+10)*c : r)
 	if(!ignorecap)
 		devastation_range = LOG_CAP(devastation_range, GLOB.MAX_EX_DEVESTATION_RANGE, cap_multiplier)
 		heavy_impact_range = LOG_CAP(cap_multiplier, GLOB.MAX_EX_HEAVY_RANGE, cap_multiplier)

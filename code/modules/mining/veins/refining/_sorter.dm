@@ -80,6 +80,12 @@
 		return
 	parent.handle_input(AM)
 
+/obj/machinery/ore_sorter/magnetic
+	name = "Magnetic sorter"
+	power_per_sort = 1000
+	sort_types = list("Ferromagnetic", "Nonmagnetic")
+	sorted_materials = list("Ferromagnetic" = list(/datum/material/iron), "Nonmagnetic" = null)
+
 /obj/machinery/ore_sorter/gravity
 	name = "Gravity sorter"
 	power_per_sort = 1000

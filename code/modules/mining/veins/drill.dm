@@ -10,6 +10,7 @@
 	density = TRUE
 	processing_flags = START_PROCESSING_MANUALLY
 
+	var/static/drill_id = 1
 	var/mining
 	var/obj/machinery/power/ore_drill_power_module/power_panel
 	var/obj/machinery/ore_drill_output_module/output_panel
@@ -23,6 +24,7 @@
 	if (!SSmining.vein_grids["[z]"])
 		return
 	vein = SSmining.vein_grids["[z]"][round(x * SSmining.gwm_x) + 1][round(y * SSmining.gwm_y) + 1]
+	AddComponent(/datum/component/gps, "DRILL[drill_id++]")
 
 /obj/machinery/ore_drill/ComponentInitialize()
 	AddComponent(/datum/component/extensible_machine, list(

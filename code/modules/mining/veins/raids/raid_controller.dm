@@ -1,4 +1,3 @@
 /datum/raid_controller
-	var/active_drills
-	var/raiding
+	var/raid_in_process = FALSE
 // Yeeeeee.

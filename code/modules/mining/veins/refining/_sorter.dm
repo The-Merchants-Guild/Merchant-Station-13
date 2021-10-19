@@ -102,4 +102,4 @@
 	name = "X-ray sorter"
 	power_per_sort = 10000
 	sort_types = list("Teleporting", "X-ray", "Unsorted")
-	sorted_materials = list("Teleporting" = list(/datum/material/bluespace), "X-ray" = list(/datum/material/bluespace), "Unsorted" = null)
+	sorted_materials = list("Teleporting" = list(/datum/material/bluespace), "X-ray" = list(/datum/material/diamond), "Unsorted" = null)

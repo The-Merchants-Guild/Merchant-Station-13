@@ -34,7 +34,7 @@
 	RegisterSignal(src, COMSIG_EXTEND_MACHINE, .proc/handle_extension)
 
 /obj/machinery/ore_drill/Destroy()
-	SSmining.drills -= src
+	stop_mining()
 	qdel(power_panel)
 	power_panel = null
 	qdel(output_panel)
@@ -62,6 +62,7 @@
 		return
 	mining = TRUE
 	SSmining.drills += src
+	vein.active_drill_count++
 	begin_processing()
 
 /obj/machinery/ore_drill/proc/stop_mining()
@@ -69,6 +70,7 @@
 		return
 	output_panel.send_packet()
 	SSmining.drills -= src
+	vein.active_drill_count--
 	end_processing()
 
 /obj/machinery/ore_drill/attack_hand(mob/living/user, list/modifiers)
@@ -87,7 +89,7 @@
 		return
 	COOLDOWN_START(src, mining_cooldown, mining_delay)
 	playsound(src, 'sound/weapons/drill.ogg', 100, TRUE, 5) // loud fucker.
-	var/amount = STANDARD_ORE_SIZE * vein.yield
+	var/amount = STANDARD_ORE_SIZE * vein.get_drilling_efficiency()
 	var/obj/item/raw_ore/O = new (output_panel, vein.material, amount)
 	vein.lower_yield(amount)
 	output_panel.output_ore(O)

@@ -17,14 +17,14 @@ SUBSYSTEM_DEF(mining)
 
 	var/const/repeats = 2
 	var/list/datum/material/types = list(
-		/datum/material/iron = list(0.7, 0.4),
-		/datum/material/plasma = list(0.8, 0.4),
-		/datum/material/silver = list(0.6, 0.3),
-		/datum/material/gold = list(0.5, 0.3),
-		/datum/material/titanium = list(0.4, 0.3),
-		/datum/material/uranium = list(0.4, 0.3),
-		/datum/material/diamond = list(0.3, 0.2),
-		/datum/material/bluespace = list(0.2, 0.1)
+		/datum/material/iron = list(0.7, 0.2),
+		/datum/material/plasma = list(0.8, 0.2),
+		/datum/material/silver = list(0.6, 0.1),
+		/datum/material/gold = list(0.5, 0.1),
+		/datum/material/titanium = list(0.4, 0.1),
+		/datum/material/uranium = list(0.4, 0.05),
+		/datum/material/diamond = list(0.3, 0.05),
+		/datum/material/bluespace = list(0.2, 0.025)
 	)
 	var/datum/ore_vein/veins = list()
 
@@ -58,9 +58,6 @@ SUBSYSTEM_DEF(mining)
 		current_vein = CreateVein(STARTING_MATERIAL)
 		curr_grid[STARTING_POINT_X][STARTING_POINT_Y] = current_vein
 		while (TRUE)
-			if (!processing.len)
-				break
-
 			for (var/list/loc in processing.Copy())
 				for (var/x in -1 to 1)
 					for (var/y in -1 to 1)

@@ -2580,6 +2580,7 @@
 #include "code\modules\mining\lavaland\necropolis_chests.dm"
 #include "code\modules\mining\lavaland\ruins\gym.dm"
 #include "code\modules\mining\veins\drill.dm"
+#include "code\modules\mining\veins\flatpack.dm"
 #include "code\modules\mining\veins\material_storage.dm"
 #include "code\modules\mining\veins\ore.dm"
 #include "code\modules\mining\veins\tools.dm"

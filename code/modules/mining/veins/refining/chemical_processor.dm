@@ -1,6 +1,7 @@
 /obj/machinery/ore_refiner/chemical_processor
 	name = "chemical processor"
 	desc = "A machine for doing various chemical actions to ore."
+	icon_state = "choom"
 	valid_phases = list(
 		/datum/material/gold 		= list(1),
 		/datum/material/silver 		= list(1, 3),

@@ -1,6 +1,7 @@
 /obj/machinery/ore_refiner/laser_cutter
 	name = "laser cutter"
 	desc = "A machine used to cut material."
+	icon_state = "laser0"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 1000
 	valid_phases = list(

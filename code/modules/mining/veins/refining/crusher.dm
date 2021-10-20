@@ -12,10 +12,6 @@
 	var/grinding_delay = 1 SECONDS
 	var/power_per_process = 1000
 
-/obj/machinery/ore_refiner/crusher/Initialize()
-	. = ..()
-	overlays += mutable_appearance('icons/obj/drilling.dmi', "crusher")
-
 /obj/machinery/ore_refiner/crusher/process(delta_time)
 	. = ..()
 	if (machine_stat & (BROKEN|NOPOWER))

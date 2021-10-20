@@ -1,6 +1,7 @@
 /obj/machinery/ore_refiner/furnace
 	name = "industrial furnace"
 	desc = "A machine used to heat or melt ores."
+	icon_state = "furnace0"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4000
 	valid_phases = list(

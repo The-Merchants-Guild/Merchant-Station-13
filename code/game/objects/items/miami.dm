@@ -232,10 +232,7 @@
 	M.Turn(Get_Angle(local_wearer,someone_else))
 	var/scaling_factor = (32 - clamp(get_dist(local_wearer,someone_else),0,32) )/32//same as /32
 	M.Scale(scaling_factor,scaling_factor)
-	//blood_tracker.pixel_x = 240 - (64*scaling_factor)*0.5
-	//blood_tracker.pixel_y = 240 - (64*scaling_factor)*0.5
 	blood_tracker.transform = M
-	//animate(blood_tracker,transform = turn(matrix(), Get_Angle(local_wearer,someone_else)), time = 1, flags = ANIMATION_END_NOW)
 
 /obj/item/clothing/mask/gas/miami/predator/proc/update_tracking_self_moved(mob/living/carbon/human/our_guy)
 	for(var/person in blood_tracker_dictionary)
@@ -244,10 +241,7 @@
 		M.Turn(Get_Angle(local_wearer,person))
 		var/scaling_factor = (32 - clamp(get_dist(local_wearer,person),0,32) )/32 //same as /32
 		M.Scale(scaling_factor,scaling_factor)
-		//blood_tracker.pixel_x = 240 - (64*scaling_factor)*0.5
-		//blood_tracker.pixel_y = 240 - (64*scaling_factor)*0.5
 		blood_tracker.transform = M
-		//animate(blood_tracker,transform = turn(matrix(), Get_Angle(our_guy,person)), time = 1, flags = ANIMATION_END_NOW)
 
 /obj/item/clothing/mask/gas/miami/butcher
 	name = "The Butcher"

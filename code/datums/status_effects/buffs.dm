@@ -541,7 +541,6 @@
 	cached_game_plane_master_controller = owner.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 
 	cached_game_plane_master_controller.add_filter("miami_blur",2,angular_blur_filter(0,0,0.25))
-	//cached_game_plane_master_controller.add_filter("miami_greyscale",2,color_matrix_filter(rgb(77,77,77), rgb(150,150,150), rgb(28,28,28), rgb(0,0,0)))
 
 /datum/status_effect/miami/tick()
 	. = ..()

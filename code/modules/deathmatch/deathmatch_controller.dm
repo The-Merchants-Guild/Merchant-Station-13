@@ -1,6 +1,8 @@
 GLOBAL_VAR(deathmatch_game)
 
 /datum/deathmatch_controller
+	var/datum/map_generator/massdelete/map_remover = new
+
 	var/list/map_locations = list()
 	var/list/used_locations = list()
 	var/list/datum/deathmatch_lobby/lobbies = list()
@@ -81,12 +83,9 @@ GLOBAL_VAR(deathmatch_game)
 	// Get space area instance
 	var/area/space = GLOB.areas_by_type[/area/space]
 	// Locate bottom and top corners
-	var/bT = locate(bX, bY, z)
-	var/tT = locate(tX, tY, z)
+	map_remover.defineRegion(locate(bX, bY, z), locate(tX, tY, z), TRUE)
 	// Clear area between bottom and top corners
-	for (var/turf/T in block(bT, tT))
-		space.contents += T // Changes the area.
-		T.empty(flags = CHANGETURF_FORCEOP)
+	map_remover.generate()
 	// Free the map location
 	used_locations -= location
 	map_locations += location

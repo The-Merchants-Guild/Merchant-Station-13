@@ -80,8 +80,6 @@ GLOBAL_VAR(deathmatch_game)
 	// Get top corner
 	var/tX = location.width + (location.location.x - location.x_offset)
 	var/tY = location.height + (location.location.y - location.y_offset)
-	// Get space area instance
-	var/area/space = GLOB.areas_by_type[/area/space]
 	// Locate bottom and top corners
 	map_remover.defineRegion(locate(bX, bY, z), locate(tX, tY, z), TRUE)
 	// Clear area between bottom and top corners

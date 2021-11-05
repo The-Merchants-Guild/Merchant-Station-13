@@ -270,12 +270,15 @@ SUBSYSTEM_DEF(explosions)
 	if (isnull(cap_multiplier))
 		cap_multiplier = 1
 
+	// This can't go wrong, right? ~TCEO
+#define LOG_CAP(r, c, m) (r>c*m ? round(r**(1/3)+c) : r)
 	if(!ignorecap)
-		devastation_range = min(GLOB.MAX_EX_DEVESTATION_RANGE * cap_multiplier, devastation_range)
-		heavy_impact_range = min(GLOB.MAX_EX_HEAVY_RANGE * cap_multiplier, heavy_impact_range)
-		light_impact_range = min(GLOB.MAX_EX_LIGHT_RANGE * cap_multiplier, light_impact_range)
-		flash_range = min(GLOB.MAX_EX_FLASH_RANGE * cap_multiplier, flash_range)
-		flame_range = min(GLOB.MAX_EX_FLAME_RANGE * cap_multiplier, flame_range)
+		devastation_range = LOG_CAP(devastation_range, GLOB.MAX_EX_DEVESTATION_RANGE, cap_multiplier)
+		heavy_impact_range = LOG_CAP(cap_multiplier, GLOB.MAX_EX_HEAVY_RANGE, cap_multiplier)
+		light_impact_range = LOG_CAP(light_impact_range, GLOB.MAX_EX_LIGHT_RANGE, cap_multiplier)
+		flash_range = LOG_CAP(flash_range, GLOB.MAX_EX_FLASH_RANGE, cap_multiplier)
+		flame_range = LOG_CAP(flame_range, GLOB.MAX_EX_FLAME_RANGE, cap_multiplier)
+#undef LOG_CAP
 
 	var/max_range = max(devastation_range, heavy_impact_range, light_impact_range, flame_range)
 	var/started_at = REALTIMEOFDAY

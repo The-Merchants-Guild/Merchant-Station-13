@@ -3,8 +3,8 @@
 	desc = "Chemist-in-a-Box"
 	density = TRUE
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "dispenser"
-	base_icon_state = "dispenser"
+	icon_state = "assembler"
+	base_icon_state = "assembler"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON
@@ -132,9 +132,26 @@
 	var/R = current.execute(src, delta_time)
 	if (R == CHEM_INST_FAIL)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-		current = null
+		stop()
 	else if (R == CHEM_INST_SUCCESS)
-		current = current.next
+		if (!current.next)
+			stop()
+		else
+			current = current.next
+
+/obj/machinery/chem_assembler/proc/start()
+	if (current)
+		return
+	current = program
+	flick("assembler-start", src)
+	icon_state = "assembler-running"
+
+/obj/machinery/chem_assembler/proc/stop()
+	if (!current)
+		return
+	current = null
+	flick("assembler-stop", src)
+	icon_state = "assembler"
 
 /obj/machinery/chem_assembler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -180,19 +197,20 @@
 				playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE)
 			else
 				program = ret
-				current = null
+				stop()
 				playsound(src, 'sound/machines/synth_yes.ogg', 50, TRUE)
 		if ("clear_program")
 			. = TRUE
 			error = program_text = ""
-			program = current = null
+			stop()
+			program = null
 			playsound(src, 'sound/machines/twobeep.ogg', 50, TRUE)
 		if ("run")
 			if (current)
-				current = null
+				stop()
 				return TRUE
 			if (!program)
 				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 				return
-			current = program
+			start()
 			playsound(src, 'sound/machines/ping.ogg', 50, TRUE)

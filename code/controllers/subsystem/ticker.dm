@@ -69,6 +69,7 @@ SUBSYSTEM_DEF(ticker)
 		"oxm"  = TRUE,
 		"wav"  = TRUE,
 		"ogg"  = TRUE,
+		"mp3"  = TRUE,
 		"raw"  = TRUE,
 		"wma"  = TRUE,
 		"aiff" = TRUE

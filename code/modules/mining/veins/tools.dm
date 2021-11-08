@@ -123,3 +123,22 @@
 	else
 		return
 	to_chat(source, span_notice("You set the direction to [dir2text(set_direction)]."))
+
+/////////////////////////
+// MASSIVE GUIDE BOOK  //
+/////////////////////////
+/obj/item/book/manual/vein_drilling
+	name = "Drilling and how to not cry in a corner."
+	icon_state ="book"
+	author = ""
+	title = "Drilling and how to not cry in a corner."
+	dat = {"<html>
+				<head>
+					<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+				</head>
+				<body>
+					<h3>Drilling</h3>
+
+				</body>
+				</html>
+			"}

@@ -477,15 +477,15 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Ritual of Dimensional Rending: Calls forth the avatar of Nar'Sie upon the station.
 /obj/effect/rune/narsie
 	cultist_name = "Nar'Sie"
-	cultist_desc = "tears apart dimensional barriers, calling forth the Geometer. Requires 9 invokers."
+	cultist_desc = "tears apart dimensional barriers, calling forth the Geometer. Requires 4 invokers."
 	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
-	req_cultists = 9
+	req_cultists = 4
 	icon = 'icons/effects/96x96.dmi'
 	color = RUNE_COLOR_DARKRED
 	icon_state = "rune_large"
 	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
 	pixel_y = -32
-	scribe_delay = 500 //how long the rune takes to create
+	scribe_delay = 750 //how long the rune takes to create
 	scribe_damage = 40.1 //how much damage you take doing it
 	log_when_erased = TRUE
 	erase_time = 5 SECONDS
@@ -649,9 +649,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Rite of Joined Souls: Summons a single cultist.
 /obj/effect/rune/summon
 	cultist_name = "Summon Cultist"
-	cultist_desc = "summons a single cultist to the rune. Requires 2 invokers."
+	cultist_desc = "summons a single cultist to the rune."
 	invocation = "N'ath reth sh'yro eth d'rekkathnor!"
-	req_cultists = 2
+	req_cultists = 1
 	invoke_damage = 10
 	icon_state = "3"
 	color = RUNE_COLOR_SUMMON
@@ -700,12 +700,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Rite of Boiling Blood: Deals extremely high amounts of damage to non-cultists nearby
 /obj/effect/rune/blood_boil
 	cultist_name = "Boil Blood"
-	cultist_desc = "boils the blood of non-believers who can see the rune, rapidly dealing extreme amounts of damage. Requires 3 invokers."
+	cultist_desc = "boils the blood of non-believers who can see the rune, rapidly dealing extreme amounts of damage. Requires 2 invokers."
 	invocation = "Dedo ol'btoh!"
 	icon_state = "4"
 	color = RUNE_COLOR_BURNTORANGE
 	light_color = LIGHT_COLOR_LAVA
-	req_cultists = 3
+	req_cultists = 2
 	invoke_damage = 10
 	construct_invoke = FALSE
 	var/tick_damage = 25
@@ -893,7 +893,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	pixel_x = -32
 	pixel_y = -32
 	color = RUNE_COLOR_DARKRED
-	req_cultists = 3
+	req_cultists = 2
 	scribe_delay = 100
 
 /obj/effect/rune/apocalypse/invoke(list/invokers)

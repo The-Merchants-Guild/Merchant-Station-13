@@ -794,15 +794,15 @@
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
 	if(IS_CULTIST(user))
 		var/static/list/spells = list(
-			"Bloody Halberd (" + BLOOD_HALBERD_COST + ")" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "occultpoleaxe0"),
-			"Bloody Barrage (" + BLOOD_BARRAGE_COST + ")" = image(icon = 'icons/obj/guns/ballistic.dmi', icon_state = "arcane_barrage"),
-			"Bloody Beam (" + BLOOD_BEAM_COST + ")" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "disintegrate")
+			"Bloody Halberd ( [BLOOD_HALBERD_COST] )" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "occultpoleaxe0"),
+			"Bloody Barrage ( [BLOOD_BARRAGE_COST] )" = image(icon = 'icons/obj/guns/ballistic.dmi', icon_state = "arcane_barrage"),
+			"Bloody Beam ( [BLOOD_BEAM_COST] )" = image(icon = 'icons/obj/items_and_weapons.dmi', icon_state = "disintegrate")
 			)
 		var/choice = show_radial_menu(user, src, spells, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE)
 		if(!check_menu(user))
 			to_chat(user, span_cultitalic("You decide against conducting a greater blood rite."))
 			return
-		if(choice == "Bloody Halberd (" + BLOOD_HALBERD_COST + ")")
+		if(choice == "Bloody Halberd ( [BLOOD_HALBERD_COST] )")
 			if(uses < BLOOD_HALBERD_COST)
 				to_chat(user, span_cultitalic("You need [BLOOD_HALBERD_COST] charges to perform this rite."))
 			else
@@ -818,7 +818,7 @@
 				else
 					user.visible_message(span_warning("A [rite.name] appears at [user]'s feet!"), \
 						span_cultitalic("A [rite.name] materializes at your feet."))
-		if(choice == "Bloody Barrage (" + BLOOD_BARRAGE_COST + ")")
+		if(choice == "Bloody Barrage ( [BLOOD_BARRAGE_COST] )")
 			if(uses < BLOOD_BARRAGE_COST)
 				to_chat(user, span_cultitalic("You need [BLOOD_BARRAGE_COST] charges to perform this rite."))
 			else
@@ -830,7 +830,7 @@
 				else
 					to_chat(user, span_cultitalic("You need a free hand for this rite!"))
 					qdel(rite)
-		if(choice == "Bloody Beam (" + BLOOD_BEAM_COST + ")")
+		if(choice == "Bloody Beam ( [BLOOD_BEAM_COST] )")
 			if(uses < BLOOD_BEAM_COST)
 				to_chat(user, span_cultitalic("You need [BLOOD_BEAM_COST] charges to perform this rite."))
 			else

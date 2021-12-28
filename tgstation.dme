@@ -2582,6 +2582,7 @@
 #include "code\modules\mining\veins\drill.dm"
 #include "code\modules\mining\veins\flatpack.dm"
 #include "code\modules\mining\veins\material_storage.dm"
+#include "code\modules\mining\veins\microwave_transmission.dm"
 #include "code\modules\mining\veins\ore.dm"
 #include "code\modules\mining\veins\tools.dm"
 #include "code\modules\mining\veins\vein.dm"

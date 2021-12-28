@@ -47,15 +47,13 @@ GLOBAL_LIST_EMPTY(microwave_receievers)
 	coolant_output.airs[1].merge(removed)
 
 /obj/machinery/microwave_transmission/proc/change_heat(energy)
-	var/energy = MACHINE_HEAT_CAPACITY * temperature
-	energy += energy
-	temperature = energy / MACHINE_HEAT_CAPACITY
+	var/E = MACHINE_HEAT_CAPACITY * temperature
+	E += energy
+	temperature = E / MACHINE_HEAT_CAPACITY
 
 /obj/machinery/microwave_transmission/transmitter
 	name = "Microwave power transmitter"
 	desc = "It is a machine with a hollow metallic cylinder protruding from the top of it."
-
-	var/running = FALSE
 	var/obj/effect/abstract/microwave_target/target
 	var/power_transfer = 1000000 // watt seconds
 
@@ -63,17 +61,27 @@ GLOBAL_LIST_EMPTY(microwave_receievers)
 	. = ..()
 	target = new(loc)
 
+/obj/machinery/microwave_transmission/transmitter/attack_hand(mob/living/user, list/modifiers)
+	. = ..()
+	var/T = input(user, "Choose a target.", "Target Selection") as null|anything in GLOB.microwave_receievers
+	if (T)
+		change_target(T)
+		START_PROCESSING(SSmachines, src)
+
 /obj/machinery/microwave_transmission/transmitter/process(delta_time)
 	. = ..()
-	if (running && powerbox)
-		transmit()
+	if (powerbox)
+		transmit(delta_time)
 
-/obj/machinery/microwave_transmission/transmitter/proc/transmit()
+/obj/machinery/microwave_transmission/transmitter/proc/change_target(new_target)
+	target.forceMove(get_turf(new_target))
+
+/obj/machinery/microwave_transmission/transmitter/proc/transmit(delta_time)
 	var/power = min(powerbox.delayed_surplus(), power_transfer) * delta_time
 	if (!power)
 		return
 	var/loss = power * energy_loss
-	powerbox.add_delayedload(power - loss)
+	powerbox.add_load(power - loss)
 	change_heat(loss)
 
 /obj/machinery/microwave_transmission/receiver
@@ -81,17 +89,20 @@ GLOBAL_LIST_EMPTY(microwave_receievers)
 	desc = "It is a machine with some kind of focusing mirror on top of it."
 
 /obj/machinery/microwave_transmission/receiver/proc/receieve(power)
-	var/power = min(powerbox.delayed_surplus(), power_transfer) * delta_time
 	if (!power)
 		return
+	if (!powerbox)
+		change_heat(power)
+		return
 	var/loss = power * energy_loss
-	powerbox.add_delayedload(power - loss)
+	powerbox.add_avail(power - loss)
+	change_heat(loss)
 
-/obj/machinery/microwave_transmission/Initialize()
+/obj/machinery/microwave_transmission/receiver/Initialize()
 	. = ..()
 	GLOB.microwave_receievers += src
 
-/obj/machinery/microwave_transmission/Destroy()
+/obj/machinery/microwave_transmission/receiver/Destroy()
 	. = ..()
 	GLOB.microwave_receievers -= src
 

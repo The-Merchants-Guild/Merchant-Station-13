@@ -37,7 +37,7 @@
 	deployed_directions &= ~D
 	for (var/K in extensions)
 		if (extensions[K]["object"] == source.type && !isnull(extensions[K]["amount"]))
-			extensions[source.type]["amount"]++
+			extensions[K]["amount"]++
 			return
 
 /datum/component/extensible_machine/proc/attacked(datum/source, obj/item/I, mob/living/user)
@@ -62,6 +62,9 @@
 
 	var/D = get_dir(parent, user) // Radial will not go away if you move so.
 	var/choice = show_radial_menu(user, parent, choices, require_near = TRUE)
+	if (!choice)
+		return
+
 	var/obj/CO = extensions[choice]["object"]
 	if (!CO)
 		return
@@ -75,7 +78,7 @@
 	if (extensions[choice]["arguments"])
 		argus += extensions[choice]["arguments"]
 	CO = new CO(arglist(argus))
-	CO.dir = REVERSE_DIR(D)
+	CO.setDir(REVERSE_DIR(D))
 	extended_objects += CO
 	deployed_directions |= D
 	RegisterSignal(CO, COMSIG_PARENT_PREQDELETED, .proc/extension_removed)

@@ -101,6 +101,10 @@
 	density = TRUE
 	var/obj/machinery/ore_drill/parent
 
+/obj/machinery/power/ore_drill_power_module/Initialize()
+	. = ..()
+	connect_to_network()
+
 /obj/machinery/power/ore_drill_power_module/examine(mob/user)
 	. = ..()
 	if (!powernet)

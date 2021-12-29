@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(microwave_receievers)
 
 // kg * J/(kg*K) | mass * specific heat
-#define MACHINE_HEAT_CAPACITY 1000 * 502.416
+#define MACHINE_HEAT_CAPACITY (1000 * 502.416)
 // This is just a random number
 #define HEAT_TRANSFER_COEFFICIENT 0.87
 // litres
@@ -10,6 +10,8 @@ GLOBAL_LIST_EMPTY(microwave_receievers)
 /obj/machinery/microwave_transmission
 	name = "wzhzhzh"
 	desc = "wzhzhzh"
+	icon = 'icons/obj/drilling.dmi'
+	density = TRUE
 	var/energy_loss = 0.1 // energy loss
 	var/temperature = T0C // in Kelvin
 	var/obj/machinery/power/powerbox
@@ -19,19 +21,28 @@ GLOBAL_LIST_EMPTY(microwave_receievers)
 /obj/machinery/microwave_transmission/ComponentInitialize()
 	AddComponent(/datum/component/extensible_machine, list(
 		"Power" = list(object = /obj/machinery/power/microwave_powerbox, image = image(icon = 'icons/obj/drilling.dmi', icon_state = "power-icon"), amount = 1),
-		"Coolant In" = list(object = /obj/machinery/atmospherics/components/unary/microwave_input, image = image(icon = 'icons/obj/drilling.dmi', icon_state = "output-icon"), amount = 1),
-		"Coolant Out" = list(object = /obj/machinery/atmospherics/components/unary/microwave_output, image = image(icon = 'icons/obj/drilling.dmi', icon_state = "output-icon"), amount = 1)
-	), 3 SECONDS, TOOL_CROWBAR, EAST|WEST)
+		"Coolant In" = list(object = /obj/machinery/atmospherics/components/unary/microwave/input, image = image(icon = 'icons/obj/drilling.dmi', icon_state = "output-icon"), amount = 1),
+		"Coolant Out" = list(object = /obj/machinery/atmospherics/components/unary/microwave/output, image = image(icon = 'icons/obj/drilling.dmi', icon_state = "output-icon"), amount = 1)
+	), 3 SECONDS, TOOL_CROWBAR)
 	RegisterSignal(src, COMSIG_EXTEND_MACHINE, .proc/handle_extension)
+
+/obj/machinery/microwave_transmission/process(delta_time)
+	coolant_process()
 
 /obj/machinery/microwave_transmission/proc/handle_extension(datum/source, obj/extension, mob/user)
 	switch (extension.type)
 		if (/obj/machinery/power/microwave_powerbox)
 			powerbox = extension
-		if (/obj/machinery/atmospherics/components/unary/microwave_input)
-			coolant_input = extension
-		if (/obj/machinery/atmospherics/components/unary/microwave_output)
-			coolant_output = extension
+		// Atmos components sure have nice and short paths.
+		if (/obj/machinery/atmospherics/components/unary/microwave/input, /obj/machinery/atmospherics/components/unary/microwave/output)
+			var/obj/machinery/atmospherics/components/unary/microwave/M = extension
+			// Epic atmospherics code moment.
+			M.SetInitDirections()
+			M.update_icon()
+			if (M.type == /obj/machinery/atmospherics/components/unary/microwave/input)
+				coolant_input = extension
+			else
+				coolant_output = extension
 
 /obj/machinery/microwave_transmission/proc/coolant_process()
 	if (!coolant_input || !coolant_output)
@@ -47,26 +58,29 @@ GLOBAL_LIST_EMPTY(microwave_receievers)
 	coolant_output.airs[1].merge(removed)
 
 /obj/machinery/microwave_transmission/proc/change_heat(energy)
-	var/E = MACHINE_HEAT_CAPACITY * temperature
-	E += energy
-	temperature = E / MACHINE_HEAT_CAPACITY
+	temperature += energy / MACHINE_HEAT_CAPACITY
 
 /obj/machinery/microwave_transmission/transmitter
 	name = "Microwave power transmitter"
 	desc = "It is a machine with a hollow metallic cylinder protruding from the top of it."
+	icon_state = "transmitter"
 	var/obj/effect/abstract/microwave_target/target
-	var/power_transfer = 1000000 // watt seconds
+	var/power_transfer = 10000000 // watt seconds
 
 /obj/machinery/microwave_transmission/transmitter/Initialize()
 	. = ..()
 	target = new(loc)
+	vis_contents += target
+
+/obj/machinery/microwave_transmission/transmitter/Destroy()
+	. = ..()
+	qdel(target)
 
 /obj/machinery/microwave_transmission/transmitter/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
 	var/T = input(user, "Choose a target.", "Target Selection") as null|anything in GLOB.microwave_receievers
 	if (T)
 		change_target(T)
-		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/microwave_transmission/transmitter/process(delta_time)
 	. = ..()
@@ -77,16 +91,18 @@ GLOBAL_LIST_EMPTY(microwave_receievers)
 	target.forceMove(get_turf(new_target))
 
 /obj/machinery/microwave_transmission/transmitter/proc/transmit(delta_time)
-	var/power = min(powerbox.delayed_surplus(), power_transfer) * delta_time
+	var/power = min(powerbox.surplus(), power_transfer * delta_time)
 	if (!power)
 		return
 	var/loss = power * energy_loss
 	powerbox.add_load(power - loss)
+	target.bwwwwwmmmm(power - loss)
 	change_heat(loss)
 
 /obj/machinery/microwave_transmission/receiver
 	name = "Microwave power receiever"
-	desc = "It is a machine with some kind of focusing mirror on top of it."
+	desc = "It is a machine with some kind of dish on top of it."
+	icon_state = "receiver"
 
 /obj/machinery/microwave_transmission/receiver/proc/receieve(power)
 	if (!power)
@@ -108,13 +124,14 @@ GLOBAL_LIST_EMPTY(microwave_receievers)
 
 /obj/effect/abstract/microwave_target
 	icon = 'icons/effects/microwave_beam.dmi'
-	icon_state = "beam"
-	pixel_y = 480
+	icon_state = "laser"
+	layer = ABOVE_ALL_MOB_LAYER
+	plane = ABOVE_LIGHTING_PLANE
+	pixel_y = 16
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	var/last_time = 0
+	alpha = 127
 
 /obj/effect/abstract/microwave_target/proc/bwwwwwmmmm(power)
-	last_time = world.time
 	var/obj/machinery/microwave_transmission/receiver/R = locate(/obj/machinery/microwave_transmission/receiver) in loc
 	if (R)
 		R.receieve(power)
@@ -122,20 +139,30 @@ GLOBAL_LIST_EMPTY(microwave_receievers)
 	var/turf/open/T = get_turf(src)
 	if (!istype(T))
 		return
-	T.air.temperature += power
-
-/obj/effect/abstract/microwave_target/process(delta_time)
-	. = ..()
-	alpha = 255 - (255 * ((world.time - last_time) / 3 SECONDS))
+	T.air.temperature += power / T.air.heat_capacity()
+	T.air_update_turf()
 
 /obj/machinery/power/microwave_powerbox
 	name = "Powerbox"
+	icon = 'icons/obj/drilling.dmi'
+	icon_state = "direction_pointer"
 
-/obj/machinery/atmospherics/components/unary/microwave_input
+/obj/machinery/power/microwave_powerbox/Initialize()
+	. = ..()
+	connect_to_network()
+
+/obj/machinery/atmospherics/components/unary/microwave/SetInitDirections()
+	initialize_directions = REVERSE_DIR(dir)
+
+/obj/machinery/atmospherics/components/unary/microwave/input
 	name = "Coolant input"
+	icon = 'icons/obj/drilling.dmi'
+	icon_state = "direction_pointer"
 
-/obj/machinery/atmospherics/components/unary/microwave_output
+/obj/machinery/atmospherics/components/unary/microwave/output
 	name = "Coolant output"
+	icon = 'icons/obj/drilling.dmi'
+	icon_state = "direction_pointer"
 
 #undef MACHINE_HEAT_CAPACITY
 #undef HEAT_TRANSFER_COEFFICIENT

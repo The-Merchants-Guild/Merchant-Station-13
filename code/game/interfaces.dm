@@ -9,29 +9,17 @@ GLOBAL_LIST_EMPTY(interface_contracts)
 	stack_trace("Attempting to destroy an interface type")
 	return ..()
 
-//Definition of the interface, You shouldn't make children of interfaces because things WILL break
-#define INTERFACE_DEF(X) 													\
-/interface/##X; 															\
-																			\
-/datum/interface_contract_proc_holder/proc/interface_procs_##X(){  	\
-	return typesof(/interface/##X/proc);									\
-}
 
-/datum/interface_contract_proc_holder
 
 //The interface contract, something that holds all the relevant data to actually checking if a given type contains given procs
 /datum/interface_contract
 	var/interface/contractor = null
-	var/contracted_type = null
-	var/type_id
-	var/interface_id
+	var/datum/contracted_type = null
 
-/datum/interface_contract/New(_interface_id, _type_id, interface/_contractor, datum/_contracted_type)
+/datum/interface_contract/New(datum/_contracted_type, interface/_contractor)
 	. = ..()
 	contractor = _contractor
 	contracted_type = _contracted_type
-	interface_id = _interface_id
-	type_id = _type_id
 	GLOB.interface_contracts += src
 
 /datum/interface_contract/Destroy(force, ...)
@@ -40,25 +28,18 @@ GLOBAL_LIST_EMPTY(interface_contracts)
 	return ..()
 
 /proc/check_implementations()
-	var/datum/interface_contract_proc_holder/holder = new()
-
+	var/failed = FALSE
 	for(var/datum/interface_contract/contract as anything in GLOB.interface_contracts)
-		var/list/procs = call(holder,"interface_procs_[contract.interface_id]")()
-
-		for(var/object as anything in procs)
-			var/list/object_procs = call(holder,"object_procs_[contract.type_id][contract.interface_id]")()
-
-			//ok now we can actually do the checking
-			if(__check_implementation(__sanitize_list(procs,"[contract.contractor]"), __sanitize_list(object_procs,"[contract.contracted_type]")))
-				continue
-
-			stack_trace("INTERFACE CONTRACT BREACHED! [contract.contracted_type] doesn't implement all of [contract.contractor] procs!")
-			return 1
-
+		var/list/i_procs = __sanitize_list(typesof("[contract.contractor]/proc"))
+		var/list/o_procs = __sanitize_list(typesof("[contract.contracted_type]/proc"))
+		if((i_procs & o_procs).len != i_procs.len)
+			stack_trace("INTERFACE CONTRACT BREACHED AT [contract.contracted_type]! DOESNT IMPLEMENT [contract.contractor] PROCS!")
+			for(var/missing in i_procs - o_procs)
+				stack_trace("CRITICAL ERROR! MISSING [missing] IMPLEMENTATION ON [contract.contracted_type]")
+			failed = TRUE
 	//lets free up the memory since this happens only on init
 	QDEL_LIST(GLOB.interface_contracts)
-	QDEL_NULL(holder)
-	return 0
+	return failed
 
 /proc/__sanitize_list(list/items)
 	var/list/sanitized_procs = list()
@@ -68,31 +49,26 @@ GLOBAL_LIST_EMPTY(interface_contracts)
 		sanitized_procs += sanitized_text
 	return sanitized_procs
 
-/proc/__check_implementation(list/interface_procs,list/object_procs)
-	var/list/missing_procs = list()
-	for(var/interface_proc in interface_procs)
-		var/found = FALSE
-		for(var/object_proc in object_procs)
-			if(interface_proc == object_proc)
-				found = TRUE
-		if(!found)
-			missing_procs += interface_proc
-	return (missing_procs.len == 0)
+///IMPLEMENTS MACRO, id must be unique and cannot be the same as interface or type, type is the path that implements the interface, and interface is the actual interface (just the name), may not work directly on /datum type, so dont try that (variable redefiniton bullshittery)
+#define IMPLEMENTS(__parent,__type,__interface) GLOBAL_DATUM_INIT(##__interface##__type,/datum/interface_contract,new /datum/interface_contract(##__parent/##__type,/interface/##__interface)); \
+##__parent/##__type/implementation = TRUE;																																					\
+##__parent/##__type/var/___implements_##__interface = TRUE;
 
+#define DEF_INTERFACE(__name) /interface/##__name
 
-///IMPLEMENTS MACRO, id must be unique and cannot be the same as interface or type, type is the path that implements the interface, and interface is the actual interface (just the name)
-#define IMPLEMENTS(id,type,xinterface) 																					\
-GLOBAL_DATUM_INIT(__##id_##xinterface,/datum/interface_contract,new(#xinterface,#id,/interface/##xinterface,##type)); 	\
-/datum/interface_contract_proc_holder/proc/object_procs_##id##xinterface(){  											\
-	return typesof(##type/proc);																						\
-}
+#define DEF_INTERFACE_PROC(__interface_type, __name) /interface/##__interface_type/proc/##__name(){return}
 
+#define IS_IMPLEMENTATION(__object)  ##__object.implementation
 
-INTERFACE_DEF(test_interface)
+#define TOTEXT(x) #x
 
-/interface/test_interface/proc/foo()
-	return
+#define IS_IMPLEMENTATION_OF(__object, __interface) !isnull(__object.vars[TOTEXT(___implements_##__interface)])
 
+DEF_INTERFACE(test_interface)
+
+DEF_INTERFACE_PROC(test_interface,foo)
+
+IMPLEMENTS(/datum,interface_test,test_interface)
 /datum/interface_test
 
 /datum/interface_test/proc/bar()
@@ -100,8 +76,6 @@ INTERFACE_DEF(test_interface)
 
 /datum/interface_test/proc/foo()
 	return 1
-
-IMPLEMENTS(interface_test,/datum/interface_test,test_interface)
 
 
 

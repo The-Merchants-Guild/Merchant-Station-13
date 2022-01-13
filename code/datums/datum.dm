@@ -51,6 +51,9 @@
 	*/
 	var/list/cooldowns
 
+	///false if this datum doesnt implement any interfaces
+	var/implementation = FALSE
+
 #ifdef REFERENCE_TRACKING
 	var/running_find_references
 	var/last_find_references = 0

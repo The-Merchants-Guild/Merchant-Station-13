@@ -35,6 +35,12 @@ GLOBAL_VAR(restart_counter)
 
 	make_datum_references_lists() //initialises global lists for referencing frequently used datums (so that we only ever do it once)
 
+	//if something doesn't implement some interface we **cannot** allow it to go past this stage, as we cannot guarantee full interface implementations
+	if(check_implementations())
+		log_world(span_boldannounce("CRITICAL ERROR: Failed to confim integrity of all implementation contracts!"))
+		shutdown()
+	log_world(span_boldannounce("Successfully confirmed integrity of all implementation contracts"))
+
 	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = GLOB.world_econ_log = GLOB.world_shuttle_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
 
 	GLOB.revdata = new

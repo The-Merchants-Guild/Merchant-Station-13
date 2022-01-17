@@ -6,7 +6,6 @@
 	inhand_icon_state = "ore"
 
 	var/mat_amount // Amount of material
-	var/process_phase = 0 // Current phase of ore processing
 	var/datum/material/ore_material
 
 /obj/item/raw_ore/Initialize(mapload, mat, mat_amnt)
@@ -19,8 +18,6 @@
 
 /obj/item/raw_ore/update_overlays()
 	. = ..()
-	if (process_phase != 0)
-		return
 	var/mutable_appearance/MA = mutable_appearance('icons/obj/drilling.dmi', "rock_vein")
 	MA.color = initial(ore_material.greyscale_colors)
 	. += MA

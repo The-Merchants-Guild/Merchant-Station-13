@@ -43,10 +43,10 @@ GLOBAL_LIST_EMPTY(microwave_receievers)
 		change_heat(-125604) // 0.5 degrees, copy pasting probably not the best idea but.
 		return
 	var/dT = (air.temperature - temperature) * HEAT_TRANSFER_COEFFICIENT
-	if ((air.temperature + dt) >= TCMB)
-		air.temperature += dt
-	if ((temperature - dt) >= TCMB)
-		temperature -= dt
+	if ((air.temperature + dT) >= TCMB)
+		air.temperature += dT
+	if ((temperature - dT) >= TCMB)
+		temperature -= dT
 
 /obj/machinery/microwave_transmission/proc/change_heat(energy)
 	energy /= MACHINE_HEAT_CAPACITY

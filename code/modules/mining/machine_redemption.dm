@@ -141,10 +141,6 @@
 	if(istype(target, /obj/structure/ore_box))
 		var/obj/structure/ore_box/box = target
 		process_ores(box.contents)
-	else if(istype(target, /obj/structure/material_storage))
-		var/obj/structure/material_storage/MS = target
-		for (var/M in MS.contained_materials)
-			MS.contained_materials[M] -= materials.mat_container.insert_amount_mat(MS.contained_materials[M], M)
 	else if(istype(target, /obj/item/stack/ore))
 		var/obj/item/stack/ore/O = target
 		smelt_ore(O)

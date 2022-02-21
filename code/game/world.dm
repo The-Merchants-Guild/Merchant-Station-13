@@ -297,11 +297,11 @@ GLOBAL_VAR(restart_counter)
 		hostedby = CONFIG_GET(string/hostedby)
 
 	s += "<b>[station_name()]</b>";
-	s += " ["
+	s += " \["
 	s += "<a href=\"https://hackmd.io/79ogwXLUS2-A_xnzUmCH9g?view\">" //Change this to wherever you want the hub to link to.
 	s += "Rules"  //Replace this with something else. Or ever better, delete it and uncomment the game version.
 	s += "</a>"
-	s += "]"
+	s += "\]"
 
 	var/players = GLOB.clients.len
 

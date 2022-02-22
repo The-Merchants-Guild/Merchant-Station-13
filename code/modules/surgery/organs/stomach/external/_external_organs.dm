@@ -90,11 +90,12 @@
 	overlay_list += appearance
 
 /obj/item/organ/external/proc/set_sprite(sprite_name)
-	sprite_datum = get_sprite_datum(sprite_name)
+	if(!sprite_datum)
+		sprite_datum = get_sprite_datum(sprite_name)
 	cache_key = generate_icon_cache()
 
 ///Generate a unique key based on our sprites. So that if we've aleady drawn these sprites, they can be found in the cache and wont have to be drawn again (blessing and curse)
-/obj/item/organ/external/proc/generate_icon_cache()
+/obj/item/organ/external/proc/generate_icon_cache()	
 	return "[sprite_datum.icon_state]_[preference]"
 
 /**This exists so sprite accessories can still be per-layer without having to include that layer's

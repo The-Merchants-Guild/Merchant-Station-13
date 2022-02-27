@@ -15,14 +15,7 @@
     /// the actual slot used is dynamic
     slot = ORGAN_SLOT_ITUMOR1
     zone = BODY_ZONE_CHEST
-
-/datum/sprite_accessory/tumor
-    icon = 'icons/mob/genetics/tumors.dmi'
-    locked = TRUE
-    icon_state = "head"
-    
-/datum/sprite_accessory/tumor/head
-    icon_state = "head"
+    var/tumor_size = 0.0
 
 /obj/item/organ/external/tumor
     name = "tumor"
@@ -34,6 +27,7 @@
     zone = BODY_ZONE_CHEST
     sprite_datum = new /datum/sprite_accessory/tumor/head
     layers = EXTERNAL_BEHIND | EXTERNAL_FRONT
+    var/tumor_size = 0.0
 
 /obj/item/organ/external/tumor/head
     sprite_datum = new /datum/sprite_accessory/tumor/head
@@ -41,3 +35,11 @@
 /obj/item/organ/external/tumor/Initialize(...)
     . = ..()
     AddComponent(/datum/component/gene_editable)
+
+/datum/sprite_accessory/tumor
+    icon = 'icons/mob/genetics/tumors.dmi'
+    locked = TRUE
+    icon_state = "head"
+    
+/datum/sprite_accessory/tumor/head
+    icon_state = "head"

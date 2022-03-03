@@ -11,7 +11,9 @@
     organ.applyOrganDamage(-1)
 
 /datum/gene_frame/protein/organ_healing/tumor_create_act(organ_slot)
-    return new /obj/item/organ/external/tumor/head
+    var/obj/item/organ/external/O = new /obj/item/organ/external/tumor/head
+    O.slot = organ_slot
+    return O
 
 /datum/gene_frame/conditional/meth
     name = "alphamethyletium"

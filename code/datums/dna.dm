@@ -11,7 +11,7 @@
 	///Stores the hashed values of the person's non-human features
 	var/unique_features
 	var/real_name //Stores the real name of the person who originally got this dna datum. Used primarely for changelings,
-	var/genes = list()
+	var/list/genes = list()
 	// mutations will get changed with the new genes (see above)
 	var/list/mutations = list()   //All mutations are from now on here
 	var/list/temporary_mutations = list() //Temporary changes to the UE

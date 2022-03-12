@@ -333,6 +333,15 @@
 					/obj/item/gun/energy/disabler)
 	crate_name = "disabler crate"
 
+/datum/supply_pack/security/taser
+	name = "Taser Crate"
+	desc = "Three old-fashioned taser weapons. Requires Security access to open."
+	cost = CARGO_CRATE_VALUE * 5
+	contains = list(/obj/item/gun/energy/taser,
+					/obj/item/gun/energy/taser,
+					/obj/item/gun/energy/taser)
+	crate_name = "taser crate"
+
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
 	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."

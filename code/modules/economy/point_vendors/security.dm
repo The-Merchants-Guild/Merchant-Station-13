@@ -8,7 +8,7 @@
 
 	equipment_list = list(
 		/obj/item/restraints/handcuffs = list("Handcuffs", 50, 350, 8, 1 MINUTES),
-		/obj/item/restraints/handcuffs/cable/zipties = list("Zipties", 50, 350, 10, 1 MINUTES),
+		/obj/item/restraints/handcuffs/cable/zipties = list("Zipties", 40, 300, 10, 1 MINUTES),
 		/obj/item/grenade/flashbang = list("Flashbang", 100, 750, 4, 4 MINUTES),
 		/obj/item/assembly/flash/handheld = list("Flash", 100, 750, 5, 4 MINUTES),
 		/obj/item/food/donut = list("Donut", 25, 200, 12, 30 SECONDS),

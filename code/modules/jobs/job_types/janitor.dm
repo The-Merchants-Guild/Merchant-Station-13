@@ -36,8 +36,6 @@
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
 	backpack_contents = list(/obj/item/modular_computer/tablet/preset/advanced=1)
 
-	id_trim = /datum/id_trim/job/janitor
-
 /datum/outfit/job/janitor/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	if(GARBAGEDAY in SSevents.holidays)

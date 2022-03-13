@@ -33,8 +33,6 @@
 	/obj/item/ammo_box/c45 = 2,
 	/obj/item/storage/box/survival/security)
 
-	id_trim = /datum/id_trim/space_police
-
 /datum/outfit/families_police/beatcop/armored
 	name = "Families: Armored Beat Cop"
 	suit = /obj/item/clothing/suit/armor/vest/blueshirt

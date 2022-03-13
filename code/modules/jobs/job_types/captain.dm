@@ -67,7 +67,6 @@
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/captain)
 
-	id_trim = /datum/id_trim/job/captain
 	var/special_charter
 
 /datum/outfit/job/captain/pre_equip(mob/living/carbon/human/H, visualsOnly)

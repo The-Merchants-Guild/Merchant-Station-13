@@ -597,7 +597,6 @@
 	r_pocket = /obj/item/gun/ballistic/automatic/pistol
 	id = /obj/item/card/id/advanced/chameleon
 	implants = list(/obj/item/implant/exile)
-	id_trim = /datum/id_trim/chameleon/operative
 
 /obj/effect/mob_spawn/human/syndicatesoldier/coldres/alive/female
 	mob_gender = FEMALE

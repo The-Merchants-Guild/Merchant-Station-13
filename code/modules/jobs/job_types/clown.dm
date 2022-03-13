@@ -65,8 +65,6 @@
 
 	chameleon_extras = /obj/item/stamp/clown
 
-	id_trim = /datum/id_trim/job/clown
-
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_BANANIUM_SHIPMENTS))

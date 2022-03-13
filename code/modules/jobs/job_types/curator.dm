@@ -41,8 +41,6 @@
 		/obj/item/barcodescanner = 1
 	)
 
-	id_trim = /datum/id_trim/job/curator
-
 /datum/outfit/job/curator/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 

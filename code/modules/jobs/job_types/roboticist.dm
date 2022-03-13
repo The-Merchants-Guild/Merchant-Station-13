@@ -52,5 +52,3 @@
 	pda_slot = ITEM_SLOT_LPOCKET
 
 	skillchips = list(/obj/item/skillchip/job/roboticist)
-
-	id_trim = /datum/id_trim/job/roboticist

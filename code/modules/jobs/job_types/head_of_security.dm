@@ -65,8 +65,6 @@
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun/hos, /obj/item/stamp/hos)
 
-	id_trim = /datum/id_trim/job/head_of_security
-
 /datum/outfit/job/hos/hardsuit
 	name = "Head of Security (Hardsuit)"
 

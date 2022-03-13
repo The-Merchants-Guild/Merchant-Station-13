@@ -2,7 +2,6 @@
 	name = "Special Ops Officer"
 
 	id = /obj/item/card/id/advanced/centcom
-	id_trim = /datum/id_trim/centcom/specops_officer
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/officer
 	back = /obj/item/storage/backpack/satchel/leather
@@ -117,7 +116,6 @@
 	name = "Space Pirate"
 
 	id = /obj/item/card/id/advanced
-	id_trim = /datum/id_trim/pirate
 	uniform = /obj/item/clothing/under/costume/pirate
 	suit = /obj/item/clothing/suit/pirate/armored
 	ears = /obj/item/radio/headset/syndicate
@@ -142,7 +140,6 @@
 /datum/outfit/pirate/captain
 	name = "Space Pirate Captain"
 
-	id_trim = /datum/id_trim/pirate/captain
 	head = /obj/item/clothing/head/pirate/armored
 
 /datum/outfit/pirate/space
@@ -162,7 +159,6 @@
 	name = "Silver Scale Member"
 
 	id = /obj/item/card/id/advanced/silver
-	id_trim = /datum/id_trim/pirate/silverscale
 	uniform = /obj/item/clothing/under/suit/charcoal
 	suit = /obj/item/clothing/suit/armor/vest/alt
 	glasses = /obj/item/clothing/glasses/monocle
@@ -173,7 +169,6 @@
 /datum/outfit/pirate/silverscale/captain
 	name = "Silver Scale Captain"
 
-	id_trim = /datum/id_trim/pirate/captain/silverscale
 	head = /obj/item/clothing/head/crown
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
 	l_pocket = /obj/item/lighter
@@ -182,7 +177,6 @@
 	name = "Tunnel Clown"
 
 	id = /obj/item/card/id/advanced/gold
-	id_trim = /datum/id_trim/tunnel_clown
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	ears = /obj/item/radio/headset
@@ -229,7 +223,6 @@
 	name = "Assassin"
 
 	id = /obj/item/card/id/advanced/chameleon/black
-	id_trim = /datum/id_trim/reaper_assassin
 	uniform = /obj/item/clothing/under/suit/black
 	belt = /obj/item/pda/heads
 	ears = /obj/item/radio/headset
@@ -271,7 +264,6 @@
 	name = "CentCom Commander"
 
 	id = /obj/item/card/id/advanced/centcom
-	id_trim = /datum/id_trim/centcom/commander
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	back = /obj/item/storage/backpack/satchel/leather
@@ -351,7 +343,6 @@
 	name = "Soviet Admiral"
 
 	id = /obj/item/card/id/advanced/centcom
-	id_trim = /datum/id_trim/centcom/admiral
 	uniform = /obj/item/clothing/under/costume/soviet
 	suit = /obj/item/clothing/suit/pirate/captain
 	back = /obj/item/storage/backpack/satchel/leather
@@ -377,7 +368,6 @@
 	name = "Mobster"
 
 	id = /obj/item/card/id/advanced
-	id_trim = /datum/id_trim/mobster
 	uniform = /obj/item/clothing/under/suit/black_really
 	ears = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses

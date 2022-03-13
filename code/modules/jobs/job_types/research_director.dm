@@ -65,8 +65,6 @@
 
 	chameleon_extras = /obj/item/stamp/rd
 
-	id_trim = /datum/id_trim/job/research_director
-
 /datum/outfit/job/rd/rig
 	name = "Research Director (Hardsuit)"
 

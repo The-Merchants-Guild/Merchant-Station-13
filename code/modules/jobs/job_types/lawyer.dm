@@ -40,8 +40,6 @@
 
 	chameleon_extras = /obj/item/stamp/law
 
-	id_trim = /datum/id_trim/job/lawyer
-
 /datum/outfit/job/lawyer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return ..()

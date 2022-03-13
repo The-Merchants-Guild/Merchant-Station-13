@@ -25,7 +25,6 @@
 	head = /obj/item/clothing/head/helmet/swat
 	back = /obj/item/storage/backpack
 	id = /obj/item/card/id/advanced/chameleon
-	id_trim = /datum/id_trim/chameleon/operative
 
 /obj/effect/mob_spawn/human/corpse/syndicatecommando
 	name = "Syndicate Commando"
@@ -44,7 +43,6 @@
 	back = /obj/item/tank/jetpack/oxygen
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	id = /obj/item/card/id/advanced/chameleon
-	id_trim = /datum/id_trim/chameleon/operative
 
 
 /obj/effect/mob_spawn/human/corpse/syndicatestormtrooper
@@ -63,7 +61,6 @@
 	mask = /obj/item/clothing/mask/gas/syndicate
 	back = /obj/item/tank/jetpack/oxygen/harness
 	id = /obj/item/card/id/advanced/chameleon
-	id_trim = /datum/id_trim/chameleon/operative
 
 /obj/effect/mob_spawn/human/clown/corpse
 	roundstart = FALSE
@@ -181,7 +178,6 @@
 	head = /obj/item/clothing/head/helmet/swat/nanotrasen
 	back = /obj/item/storage/backpack/security
 	id = /obj/item/card/id/advanced/centcom
-	id_trim = /datum/id_trim/centcom/corpse/private_security/tradepost_officer
 
 /obj/effect/mob_spawn/human/corpse/nanotrasenassaultsoldier
 	name = "Nanotrasen Private Security Officer"
@@ -200,7 +196,6 @@
 	head = /obj/item/clothing/head/helmet/swat/nanotrasen
 	back = /obj/item/storage/backpack/security
 	id = /obj/item/card/id/advanced/centcom
-	id_trim = /datum/id_trim/centcom/corpse/assault
 
 /obj/effect/mob_spawn/human/corpse/cat_butcher
 	name = "The Cat Surgeon"
@@ -219,7 +214,6 @@
 	back = /obj/item/storage/backpack/satchel/med
 	id = /obj/item/card/id/advanced
 	glasses = /obj/item/clothing/glasses/hud/health
-	id_trim = /datum/id_trim/away/cat_surgeon
 
 /obj/effect/mob_spawn/human/corpse/bee_terrorist
 	name = "BLF Operative"

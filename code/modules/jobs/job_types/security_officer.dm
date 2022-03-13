@@ -73,28 +73,23 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 
 	var/ears = null
 	var/accessory = null
-	var/list/dep_trim = null
 	var/destination = null
 
 	switch(department)
 		if(SEC_DEPT_SUPPLY)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/supply
-			dep_trim = /datum/id_trim/job/security_officer/supply
 			destination = /area/security/checkpoint/supply
 			accessory = /obj/item/clothing/accessory/armband/cargo
 		if(SEC_DEPT_ENGINEERING)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/engi
-			dep_trim = /datum/id_trim/job/security_officer/engineering
 			destination = /area/security/checkpoint/engineering
 			accessory = /obj/item/clothing/accessory/armband/engine
 		if(SEC_DEPT_MEDICAL)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/med
-			dep_trim = /datum/id_trim/job/security_officer/medical
 			destination = /area/security/checkpoint/medical
 			accessory =  /obj/item/clothing/accessory/armband/medblue
 		if(SEC_DEPT_SCIENCE)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/sci
-			dep_trim = /datum/id_trim/job/security_officer/science
 			destination = /area/security/checkpoint/science
 			accessory = /obj/item/clothing/accessory/armband/science
 
@@ -106,12 +101,6 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 		if(spawning.ears)
 			qdel(spawning.ears)
 		spawning.equip_to_slot_or_del(new ears(spawning),ITEM_SLOT_EARS)
-
-	// If there's a departmental sec trim to apply to the card, overwrite.
-	if(dep_trim)
-		var/obj/item/card/id/worn_id = spawning.wear_id
-		SSid_access.apply_trim_to_card(worn_id, dep_trim)
-		spawning.sec_hud_set_ID()
 
 	var/spawn_point = pick(LAZYACCESS(GLOB.department_security_spawns, department))
 
@@ -212,8 +201,6 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 
 	chameleon_extras = list(/obj/item/gun/energy/disabler, /obj/item/clothing/glasses/hud/security/sunglasses, /obj/item/clothing/head/helmet)
 	//The helmet is necessary because /obj/item/clothing/head/helmet/sec is overwritten in the chameleon list by the standard helmet, which has the same name and icon state
-
-	id_trim = /datum/id_trim/job/security_officer
 
 /obj/item/radio/headset/headset_sec/alt/department/Initialize()
 	. = ..()

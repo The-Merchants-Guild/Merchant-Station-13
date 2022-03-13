@@ -137,7 +137,6 @@
 	r_pocket = /obj/item/gun/ballistic/automatic/pistol
 	id = /obj/item/card/id/advanced/chameleon
 	implants = list(/obj/item/implant/weapons_auth)
-	id_trim = /datum/id_trim/chameleon/operative
 
 /datum/outfit/lavaland_syndicate/post_equip(mob/living/carbon/human/H)
 	H.faction |= ROLE_SYNDICATE

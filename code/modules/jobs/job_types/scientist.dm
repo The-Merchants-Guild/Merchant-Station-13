@@ -45,8 +45,6 @@
 	duffelbag = /obj/item/storage/backpack/duffelbag/toxins
 	backpack_contents = list(/obj/item/modular_computer/tablet/preset/science=1)
 
-	id_trim = /datum/id_trim/job/scientist
-
 /datum/outfit/job/scientist/pre_equip(mob/living/carbon/human/H)
 	..()
 	if(prob(0.4))

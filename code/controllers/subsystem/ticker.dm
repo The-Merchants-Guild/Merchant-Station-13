@@ -228,17 +228,11 @@ SUBSYSTEM_DEF(ticker)
 
 	CHECK_TICK
 
-	// There may be various config settings that have been set or modified by this point.
-	// This is the point of no return before spawning in new players, let's run over the
-	// job trim singletons and update them based on any config settings.
-	SSid_access.refresh_job_trim_singletons()
-
-	CHECK_TICK
-
 	if(!CONFIG_GET(flag/ooc_during_round))
 		toggle_ooc(FALSE) // Turn it off
 
 	CHECK_TICK
+
 	GLOB.start_landmarks_list = shuffle(GLOB.start_landmarks_list) //Shuffle the order of spawn points so they dont always predictably spawn bottom-up and right-to-left
 	create_characters() //Create player characters
 	collect_minds()
@@ -353,19 +347,6 @@ SUBSYSTEM_DEF(ticker)
 		shuffle(GLOB.available_depts),
 	)
 
-	var/captainless = TRUE
-
-	// Find a suitable player to hold captaincy.
-	for(var/mob/dead/new_player/new_player_mob as anything in GLOB.new_player_list)
-		if(is_banned_from(new_player_mob.ckey, list("Captain")))
-			CHECK_TICK
-			continue
-		if(!ishuman(new_player_mob.new_character))
-			continue
-		var/mob/living/carbon/human/new_player_human = new_player_mob.new_character
-		if(!new_player_human.mind || is_unassigned_job(new_player_human.mind.assigned_role))
-			continue
-
 	for(var/mob/dead/new_player/new_player_mob as anything in GLOB.new_player_list)
 		if(QDELETED(new_player_mob) || !isliving(new_player_mob.new_character))
 			CHECK_TICK
@@ -383,14 +364,6 @@ SUBSYSTEM_DEF(ticker)
 				new_player_mob.client.prefs.hardcore_random_setup(new_player_living)
 			SSquirks.AssignQuirks(new_player_living, new_player_mob.client)
 		CHECK_TICK
-
-	if(captainless)
-		for(var/mob/dead/new_player/new_player_mob as anything in GLOB.new_player_list)
-			var/mob/living/carbon/human/new_player_human = new_player_mob.new_character
-			if(new_player_human)
-				to_chat(new_player_mob, span_notice("Captainship not forced on anyone."))
-			CHECK_TICK
-
 
 /datum/controller/subsystem/ticker/proc/decide_security_officer_departments(
 	list/new_players,

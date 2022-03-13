@@ -46,7 +46,6 @@
 
 	chameleon_extras = /obj/item/gun/energy/kinetic_accelerator
 
-	id_trim = /datum/id_trim/job/shaft_miner
 
 /datum/outfit/job/miner/equipped
 	name = "Shaft Miner (Equipment)"

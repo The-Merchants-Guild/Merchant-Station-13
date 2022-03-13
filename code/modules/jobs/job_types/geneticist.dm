@@ -44,4 +44,3 @@
 	satchel = /obj/item/storage/backpack/satchel/gen
 	duffelbag = /obj/item/storage/backpack/duffelbag/genetics
 
-	id_trim = /datum/id_trim/job/geneticist

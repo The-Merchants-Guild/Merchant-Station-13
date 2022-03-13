@@ -44,5 +44,3 @@
 	backpack = /obj/item/storage/backpack/botany
 	satchel = /obj/item/storage/backpack/satchel/hyd
 	duffelbag = /obj/item/storage/backpack/duffelbag/hydroponics
-
-	id_trim = /datum/id_trim/job/botanist

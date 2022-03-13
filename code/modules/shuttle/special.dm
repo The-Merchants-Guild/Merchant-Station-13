@@ -165,9 +165,6 @@
 	// Simple bot ID card that can hold all accesses. Someone turn access into a component at some point, please.
 	access_card = new /obj/item/card/id/advanced/simple_bot(src)
 
-	var/datum/id_trim/job/cap_trim = SSid_access.trim_singletons_by_path[/datum/id_trim/job/captain]
-	access_card.add_access(cap_trim.access + cap_trim.wildcard_access + list(ACCESS_CENT_BAR))
-
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	become_area_sensitive(ROUNDSTART_TRAIT)
 	RegisterSignal(src, COMSIG_ENTER_AREA, .proc/check_barstaff_godmode)

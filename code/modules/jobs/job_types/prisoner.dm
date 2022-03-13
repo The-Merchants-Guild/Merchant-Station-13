@@ -32,5 +32,3 @@
 	id = /obj/item/card/id/advanced/prisoner
 	ears = null
 	belt = null
-
-	id_trim = /datum/id_trim/job/prisoner

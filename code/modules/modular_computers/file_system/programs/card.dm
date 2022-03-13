@@ -39,35 +39,6 @@
 	if(!id_card)
 		return
 
-	region_access.Cut()
-	valid_access.Cut()
-	job_templates.Cut()
-
-	// If the program isn't locked to a specific department or is_centcom and we have ACCESS_CHANGE_IDS in our auth card, we're not minor.
-	if((!target_dept || is_centcom) && (ACCESS_CHANGE_IDS in id_card.access))
-		minor = FALSE
-		authenticated_user = "[id_card.name]"
-		job_templates = is_centcom ? SSid_access.centcom_job_templates.Copy() : SSid_access.station_job_templates.Copy()
-		valid_access = is_centcom ? SSid_access.get_region_access_list(list(REGION_CENTCOM)) : SSid_access.get_region_access_list(list(REGION_ALL_STATION))
-		update_static_data(user)
-		return TRUE
-
-	// Otherwise, we're minor and now we have to build a list of restricted departments we can change access for.
-	var/list/managers = SSid_access.sub_department_managers_tgui
-	for(var/access_as_text in managers)
-		var/list/info = managers[access_as_text]
-		var/access = text2num(access_as_text)
-		if((access in id_card.access) && ((target_dept in info["regions"]) || !target_dept))
-			region_access |= info["regions"]
-			job_templates |= info["templates"]
-
-	if(length(region_access))
-		minor = TRUE
-		valid_access |= SSid_access.get_region_access_list(region_access)
-		authenticated_user = "[id_card.name] \[LIMITED ACCESS\]"
-		update_static_data(user)
-		return TRUE
-
 	return FALSE
 
 /datum/computer_file/program/card_mod/ui_act(action, params)
@@ -117,11 +88,6 @@
 						<u>Access:</u><br>
 						"}
 
-			var/list/known_access_rights = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
-			for(var/A in target_id_card.access)
-				if(A in known_access_rights)
-					contents += "  [SSid_access.get_access_desc(A)]"
-
 			if(!printer.print_text(contents,"access report"))
 				to_chat(usr, span_notice("Hardware error: Printer was unable to print the file. It may be out of paper."))
 				return TRUE
@@ -155,14 +121,6 @@
 		if("PRG_terminate")
 			if(!computer || !authenticated_user)
 				return TRUE
-			if(minor)
-				if(!(target_id_card.trim?.type in job_templates))
-					to_chat(usr, span_notice("Software error: You do not have the necessary permissions to demote this card."))
-					return TRUE
-
-			// Set the new assignment then remove the trim.
-			target_id_card.assignment = is_centcom ? "Fired" : "Demoted"
-			SSid_access.remove_trim_from_card(target_id_card)
 
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -258,14 +216,6 @@
 			if(!template_name)
 				return TRUE
 
-			for(var/trim_path in job_templates)
-				var/datum/id_trim/trim = SSid_access.trim_singletons_by_path[trim_path]
-				if(trim.assignment != template_name)
-					continue
-
-				SSid_access.add_trim_access_to_card(target_id_card, trim_path)
-				return TRUE
-
 			stack_trace("[key_name(usr)] ([usr]) attempted to apply invalid template \[[template_name]\] to [target_id_card]")
 
 			return TRUE
@@ -275,23 +225,6 @@
 	data["station_name"] = station_name()
 	data["centcom_access"] = is_centcom
 	data["minor"] = target_dept || minor ? TRUE : FALSE
-
-	var/list/regions = list()
-	var/list/tgui_region_data = SSid_access.all_region_access_tgui
-	if(is_centcom)
-		regions += tgui_region_data[REGION_CENTCOM]
-	else
-		for(var/region in SSid_access.station_regions)
-			if((minor || target_dept) && !(region in region_access))
-				continue
-			regions += tgui_region_data[region]
-
-	data["regions"] = regions
-
-
-	data["accessFlags"] = SSid_access.flags_by_access
-	data["wildcardFlags"] = SSid_access.wildcard_flags_by_wildcard
-	data["accessFlagNames"] = SSid_access.access_flag_string_by_flag
 	data["showBasic"] = TRUE
 	data["templates"] = job_templates
 
@@ -332,17 +265,6 @@
 		data["id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
 		data["id_owner"] = id_card.registered_name ? id_card.registered_name : "-----"
 		data["access_on_card"] = id_card.access
-		data["wildcardSlots"] = id_card.wildcard_slots
 		data["id_age"] = id_card.registered_age
-
-		if(id_card.trim)
-			var/datum/id_trim/card_trim = id_card.trim
-			data["hasTrim"] = TRUE
-			data["trimAssignment"] = card_trim.assignment ? card_trim.assignment : ""
-			data["trimAccess"] = card_trim.access ? card_trim.access : list()
-		else
-			data["hasTrim"] = FALSE
-			data["trimAssignment"] = ""
-			data["trimAccess"] = list()
 
 	return data

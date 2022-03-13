@@ -443,7 +443,6 @@
 	back = /obj/item/storage/backpack
 	implants = list(/obj/item/implant/weapons_auth)
 	id = /obj/item/card/id/advanced/chameleon
-	id_trim = /datum/id_trim/chameleon/operative
 
 /datum/outfit/syndicate_empty/post_equip(mob/living/carbon/human/H)
 	H.faction |= ROLE_SYNDICATE
@@ -496,7 +495,6 @@
 	head = /obj/item/clothing/head/hos/syndicate
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
-	id_trim = /datum/id_trim/battlecruiser/captain
 
 //Ancient cryogenic sleepers. Players become NT crewmen from a hundred year old space station, now on the verge of collapse.
 /obj/effect/mob_spawn/human/oldsec
@@ -775,7 +773,6 @@
 	H.dna.add_mutation(STONER)
 
 /datum/outfit/beachbum/lifeguard
-	id_trim = /datum/id_trim/lifeguard
 
 /obj/effect/mob_spawn/human/bartender/alive
 	death = FALSE
@@ -796,7 +793,6 @@
 	suit = /obj/item/clothing/suit/armor/vest
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id/advanced
-	id_trim = /datum/id_trim/space_bartender
 
 /datum/outfit/spacebartender/post_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()

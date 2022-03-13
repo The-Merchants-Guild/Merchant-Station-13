@@ -396,7 +396,6 @@
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id/advanced/centcom
-	id_trim = /datum/id_trim/centcom/corpse/bridge_officer
 
 /obj/effect/mob_spawn/human/commander
 	name = "Commander"
@@ -414,7 +413,6 @@
 	shoes = /obj/item/clothing/shoes/combat/swat
 	r_pocket = /obj/item/lighter
 	id = /obj/item/card/id/advanced/centcom
-	id_trim = /datum/id_trim/centcom/corpse/commander
 
 /obj/effect/mob_spawn/human/nanotrasensoldier
 	name = "\improper Nanotrasen Private Security Officer"
@@ -430,7 +428,6 @@
 	head = /obj/item/clothing/head/helmet/swat/nanotrasen
 	back = /obj/item/storage/backpack/security
 	id = /obj/item/card/id/advanced
-	id_trim = /datum/id_trim/centcom/corpse/private_security
 
 /obj/effect/mob_spawn/human/intern //this is specifically the comms intern from the event
 	name = "CentCom Intern"

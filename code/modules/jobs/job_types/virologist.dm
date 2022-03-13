@@ -50,5 +50,3 @@
 	satchel = /obj/item/storage/backpack/satchel/vir
 	duffelbag = /obj/item/storage/backpack/duffelbag/virology
 	box = /obj/item/storage/box/survival/medical
-
-	id_trim = /datum/id_trim/job/virologist

@@ -55,17 +55,11 @@
 	LAZYCLEARLIST(combined_access)
 
 	front_id = null
-	var/winning_tally = 0
 	for(var/obj/item/card/id/id_card in contents)
 		// Certain IDs can forcibly jump to the front so they can disguise other cards in wallets. Chameleon/Agent ID cards are an example of this.
 		if(HAS_TRAIT(id_card, TRAIT_MAGNETIC_ID_CARD))
 			front_id = id_card
 			break
-
-		var/card_tally = SSid_access.tally_access(id_card, ACCESS_FLAG_COMMAND)
-		if(card_tally > winning_tally)
-			winning_tally = card_tally
-			front_id = id_card //searches for the id that will show on secHUD
 		LAZYINITLIST(combined_access)
 		combined_access |= id_card.access
 

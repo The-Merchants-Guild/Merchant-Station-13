@@ -69,8 +69,6 @@
 
 	skillchips = list(/obj/item/skillchip/job/engineer)
 
-	id_trim = /datum/id_trim/job/chief_engineer
-
 /datum/outfit/job/ce/rig
 	name = "Chief Engineer (Hardsuit)"
 

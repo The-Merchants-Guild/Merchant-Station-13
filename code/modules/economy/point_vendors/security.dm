@@ -1,11 +1,11 @@
 /obj/machinery/point_vendor/security
 	name = "\improper SecTech"
 	desc = "A vendor for security equipment."
-	icon = 'icons/obj/vending.dmi'
 	icon_state = "sec"
 	icon_deny = "sec-deny"
 	light_mask = "sec-light-mask"
 	department = ACCOUNT_SEC
+
 	equipment_list = list(
 		/obj/item/restraints/handcuffs = list("Handcuffs", 50, 350, 8, 1 MINUTES),
 		/obj/item/restraints/handcuffs/cable/zipties = list("Zipties", 50, 350, 10, 1 MINUTES),

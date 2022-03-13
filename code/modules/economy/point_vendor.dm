@@ -46,7 +46,7 @@
 	for (var/p in replenishing)
 		for (var/t in replenishing[p])
 			if (world.time < t)
-				continue
+				break // no need to check the rest if the first hasn't passed.
 			replenishing[p] -= t
 			equipment_list[p][4]++
 

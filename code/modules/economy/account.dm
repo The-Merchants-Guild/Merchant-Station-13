@@ -88,6 +88,8 @@
 	var/money_to_transfer = round(account_job.paycheck * payday_modifier * amt_of_paychecks)
 	if (job_points[account_job.paycheck_department] != null)
 		job_points[account_job.paycheck_department] += money_to_transfer
+		money_to_transfer /= 2
+
 	if(free)
 		adjust_money(money_to_transfer)
 		SSblackbox.record_feedback("amount", "free_income", money_to_transfer)

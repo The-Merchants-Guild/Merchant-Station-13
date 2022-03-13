@@ -10,7 +10,7 @@ export const PointVendor = (props, context) => {
   ];
   return (
     <Window
-      width={425}
+      width={500}
       height={600}>
       <Window.Content scrollable>
         <Section title="User">
@@ -37,6 +37,8 @@ export const PointVendor = (props, context) => {
                 <Table.Row key={product.name}>
                   <Table.Cell>
                     <b>{data.amounts[product.path]}</b>
+                  </Table.Cell>
+                  <Table.Cell>
                     <span
                       className={classes(['vending32x32', product.icon])}
                       style={{
@@ -47,7 +49,7 @@ export const PointVendor = (props, context) => {
                   <Table.Cell>
                     <Button
                       style={{
-                        'min-width': '80px',
+                        'min-width': '100%',
                         'text-align': 'center',
                       }}
                       disabled={!data.user
@@ -62,7 +64,7 @@ export const PointVendor = (props, context) => {
                   <Table.Cell>
                     <Button
                       style={{
-                        'min-width': '80px',
+                        'min-width': '100%',
                         'text-align': 'center',
                       }}
                       disabled={!data.user

@@ -3,6 +3,14 @@
 /datum/bank_account
 	var/account_holder = "Rusty Venture"
 	var/account_balance = 0
+	var/job_points = list(
+		ACCOUNT_ENG = 0,
+		ACCOUNT_SCI = 0,
+		ACCOUNT_MED = 0,
+		ACCOUNT_SRV = 0,
+		ACCOUNT_CAR = 0,
+		ACCOUNT_SEC = 0
+	)
 	var/payday_modifier
 	var/datum/job/account_job
 	var/list/bank_cards = list()
@@ -54,17 +62,14 @@
 /datum/bank_account/proc/dumpeet()
 	being_dumped = TRUE
 
-/datum/bank_account/proc/_adjust_money(amt)
-	account_balance += amt
-	if(account_balance < 0)
-		account_balance = 0
-
 /datum/bank_account/proc/has_money(amt)
 	return account_balance >= amt
 
 /datum/bank_account/proc/adjust_money(amt)
 	if((amt < 0 && has_money(-amt)) || amt > 0)
-		_adjust_money(amt)
+		account_balance += amt
+		if(account_balance < 0)
+			account_balance = 0
 		return TRUE
 	return FALSE
 
@@ -81,6 +86,8 @@
 	if(!account_job)
 		return
 	var/money_to_transfer = round(account_job.paycheck * payday_modifier * amt_of_paychecks)
+	if (job_points[account_job.paycheck_department] != null)
+		job_points[account_job.paycheck_department] += money_to_transfer
 	if(free)
 		adjust_money(money_to_transfer)
 		SSblackbox.record_feedback("amount", "free_income", money_to_transfer)

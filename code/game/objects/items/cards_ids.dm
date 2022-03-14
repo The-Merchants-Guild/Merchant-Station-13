@@ -356,7 +356,7 @@
 
 /obj/item/card/id/examine_more(mob/user)
 	var/list/msg = list(span_notice("<i>You examine [src] closer, and note the following...</i>"))
-
+	msg += "The card has an access tier of [access_tier]."
 	if(registered_age)
 		msg += "The card indicates that the holder is [registered_age] years old. [(registered_age < AGE_MINOR) ? "There's a holographic stripe that reads <b>[span_danger("'MINOR: DO NOT SERVE ALCOHOL OR TOBACCO'")]</b> along the bottom of the card." : ""]"
 	if(mining_points)
@@ -403,17 +403,28 @@
 /// Updates the name based on the card's vars and state.
 /obj/item/card/id/proc/update_label()
 	var/name_string = registered_name ? "[registered_name]'s ID Card" : initial(name)
-	var/assignment_string
+	name = "[name_string] ([assignment])"
 
-	if(is_intern)
-		if(assignment)
-			assignment_string = (assignment in SSjob.head_of_staff_jobs) ? " ([assignment]-in-Training)" : " (Intern [assignment])"
-		else
-			assignment_string = " (Intern)"
-	else
-		assignment_string = " ([assignment])"
+/obj/item/card/id/tier0
+	access_tier = 0
 
-	name = "[name_string][assignment_string]"
+/obj/item/card/id/tier1
+	access_tier = 1
+
+/obj/item/card/id/tier2
+	access_tier = 2
+
+/obj/item/card/id/tier3
+	access_tier = 3
+
+/obj/item/card/id/tier4
+	access_tier = 4
+
+/obj/item/card/id/tier5
+	access_tier = 5
+
+/obj/item/card/id/tier6
+	access_tier = 6
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
@@ -485,218 +496,110 @@
 /obj/item/card/id/departmental_budget/AltClick(mob/living/user)
 	registered_account.bank_card_talk(span_warning("Withdrawing is not compatible with this card design."), TRUE) //prevents the vault bank machine being useless and putting money from the budget to your card to go over personal crates
 
-/obj/item/card/id/advanced
-	name = "identification card"
-	desc = "A card used to provide ID and determine access across the station. Has an integrated digital display and advanced microchips."
-	icon_state = "card_grey"
-	worn_icon_state = "card_grey"
-
-	/// An overlay icon state for when the card is assigned to a name. Usually manifests itself as a little scribble to the right of the job icon.
-	var/assigned_icon_state = "assigned"
-
-	/// If this is set, will manually override the icon file for the trim. Intended for admins to VV edit and chameleon ID cards.
-	var/trim_icon_override
-	/// If this is set, will manually override the icon state for the trim. Intended for admins to VV edit and chameleon ID cards.
-	var/trim_state_override
-	/// If this is set, will manually override the trim's assignmment for SecHUDs. Intended for admins to VV edit and chameleon ID cards.
-	var/trim_assignment_override
-
-/obj/item/card/id/advanced/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_ITEM_EQUIPPED, .proc/update_intern_status)
-	RegisterSignal(src, COMSIG_ITEM_DROPPED, .proc/remove_intern_status)
-
-/obj/item/card/id/advanced/Destroy()
-	UnregisterSignal(src, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
-
-	return ..()
-
-/obj/item/card/id/advanced/proc/update_intern_status(datum/source, mob/user)
-	SIGNAL_HANDLER
-
-	if(!user?.client)
-		return
-	if(!CONFIG_GET(flag/use_exp_tracking))
-		return
-	if(!CONFIG_GET(flag/use_low_living_hour_intern))
-		return
-	if(!SSdbcore.Connect())
-		return
-
-	var/intern_threshold = (CONFIG_GET(number/use_low_living_hour_intern_hours) * 60) || (CONFIG_GET(number/use_exp_restrictions_heads_hours) * 60) || INTERN_THRESHOLD_FALLBACK_HOURS * 60
-	var/playtime = user.client.get_exp_living(pure_numeric = TRUE)
-
-	if((intern_threshold >= playtime) && (user.mind?.assigned_role.title in SSjob.station_jobs))
-		is_intern = TRUE
-		update_label()
-		return
-
-	if(!is_intern)
-		return
-
-	is_intern = FALSE
-	update_label()
-
-/obj/item/card/id/advanced/proc/remove_intern_status(datum/source, mob/user)
-	SIGNAL_HANDLER
-
-	if(!is_intern)
-		return
-
-	is_intern = FALSE
-	update_label()
-
-/obj/item/card/id/advanced/proc/on_holding_card_slot_moved(obj/item/computer_hardware/card_slot/source, atom/old_loc, dir, forced)
-	SIGNAL_HANDLER
-	if(istype(old_loc, /obj/item/modular_computer/tablet))
-		UnregisterSignal(old_loc, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
-
-	if(istype(source.loc, /obj/item/modular_computer/tablet))
-		RegisterSignal(source.loc, COMSIG_ITEM_EQUIPPED, .proc/update_intern_status)
-		RegisterSignal(source.loc, COMSIG_ITEM_DROPPED, .proc/remove_intern_status)
-
-/obj/item/card/id/advanced/Moved(atom/OldLoc, Dir)
-	. = ..()
-
-	if(istype(OldLoc, /obj/item/pda) || istype(OldLoc, /obj/item/storage/wallet))
-		UnregisterSignal(OldLoc, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
-
-	if(istype(OldLoc, /obj/item/computer_hardware/card_slot))
-		var/obj/item/computer_hardware/card_slot/slot = OldLoc
-
-		UnregisterSignal(OldLoc, COMSIG_MOVABLE_MOVED)
-
-		if(istype(slot.holder, /obj/item/modular_computer/tablet))
-			var/obj/item/modular_computer/tablet/slot_holder = slot.holder
-			UnregisterSignal(slot_holder, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
-
-	if(istype(loc, /obj/item/pda) || istype(OldLoc, /obj/item/storage/wallet))
-		RegisterSignal(loc, COMSIG_ITEM_EQUIPPED, .proc/update_intern_status)
-		RegisterSignal(loc, COMSIG_ITEM_DROPPED, .proc/remove_intern_status)
-
-	if(istype(loc, /obj/item/computer_hardware/card_slot))
-		var/obj/item/computer_hardware/card_slot/slot = loc
-
-		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, .proc/on_holding_card_slot_moved)
-
-		if(istype(slot.holder, /obj/item/modular_computer/tablet))
-			var/obj/item/modular_computer/tablet/slot_holder = slot.holder
-			RegisterSignal(slot_holder, COMSIG_ITEM_EQUIPPED, .proc/update_intern_status)
-			RegisterSignal(slot_holder, COMSIG_ITEM_DROPPED, .proc/remove_intern_status)
-
-/obj/item/card/id/advanced/update_overlays()
-	. = ..()
-
-	if(registered_name && registered_name != "Captain")
-		. += mutable_appearance(icon, assigned_icon_state)
-
-/obj/item/card/id/advanced/silver
+/obj/item/card/id/silver
 	name = "silver identification card"
 	desc = "A silver card which shows honour and dedication."
 	icon_state = "card_silver"
 	worn_icon_state = "card_silver"
 	inhand_icon_state = "silver_id"
 
-/obj/item/card/id/advanced/silver/reaper
+/obj/item/card/id/silver/reaper
 	name = "Thirteen's ID Card (Reaper)"
 	registered_name = "Thirteen"
 
-/obj/item/card/id/advanced/gold
+/obj/item/card/id/gold
 	name = "gold identification card"
 	desc = "A golden card which shows power and might."
 	icon_state = "card_gold"
 	worn_icon_state = "card_gold"
 	inhand_icon_state = "gold_id"
 
-/obj/item/card/id/advanced/gold/captains_spare
+/obj/item/card/id/gold/captains_spare
 	name = "captain's spare ID"
 	desc = "The spare ID of the High Lord himself."
 	registered_name = "Captain"
 	registered_age = null
 
-/obj/item/card/id/advanced/gold/captains_spare/update_label() //so it doesn't change to Captain's ID card (Captain) on a sneeze
+/obj/item/card/id/gold/captains_spare/update_label() //so it doesn't change to Captain's ID card (Captain) on a sneeze
 	if(registered_name == "Captain")
 		name = "[initial(name)][(!assignment || assignment == "Captain") ? "" : " ([assignment])"]"
 		update_appearance(UPDATE_ICON)
 	else
 		..()
 
-/obj/item/card/id/advanced/centcom
+/obj/item/card/id/centcom
 	name = "\improper CentCom ID"
 	desc = "An ID straight from Central Command."
 	icon_state = "card_centcom"
 	worn_icon_state = "card_centcom"
-	assigned_icon_state = "assigned_centcom"
 	registered_name = "Central Command"
 	registered_age = null
 
-/obj/item/card/id/advanced/centcom/ert
+/obj/item/card/id/centcom/ert
 	name = "\improper CentCom ID"
 	desc = "An ERT ID card."
 	registered_age = null
 	registered_name = "Emergency Response Intern"
 
-/obj/item/card/id/advanced/centcom/ert
+/obj/item/card/id/centcom/ert
 	registered_name = "Emergency Response Team Commander"
 
-/obj/item/card/id/advanced/centcom/ert/security
+/obj/item/card/id/centcom/ert/security
 	registered_name = "Security Response Officer"
 
-/obj/item/card/id/advanced/centcom/ert/engineer
+/obj/item/card/id/centcom/ert/engineer
 	registered_name = "Engineering Response Officer"
 
-/obj/item/card/id/advanced/centcom/ert/medical
+/obj/item/card/id/centcom/ert/medical
 	registered_name = "Medical Response Officer"
 
-/obj/item/card/id/advanced/centcom/ert/chaplain
+/obj/item/card/id/centcom/ert/chaplain
 	registered_name = "Religious Response Officer"
 
-/obj/item/card/id/advanced/centcom/ert/janitor
+/obj/item/card/id/centcom/ert/janitor
 	registered_name = "Janitorial Response Officer"
 
-/obj/item/card/id/advanced/centcom/ert/clown
+/obj/item/card/id/centcom/ert/clown
 	registered_name = "Entertainment Response Officer"
 
-/obj/item/card/id/advanced/black
+/obj/item/card/id/black
 	name = "black identification card"
 	desc = "This card is telling you one thing and one thing alone. The person holding this card is an utter badass."
 	icon_state = "card_black"
 	worn_icon_state = "card_black"
-	assigned_icon_state = "assigned_syndicate"
 
-/obj/item/card/id/advanced/black/deathsquad
+/obj/item/card/id/black/deathsquad
 	name = "\improper Death Squad ID"
 	desc = "A Death Squad ID card."
 	registered_name = "Death Commando"
 
-/obj/item/card/id/advanced/black/syndicate_command
+/obj/item/card/id/black/syndicate_command
 	name = "syndicate ID card"
 	desc = "An ID straight from the Syndicate."
 	registered_name = "Syndicate"
 	registered_age = null
 
-/obj/item/card/id/advanced/black/syndicate_command/crew_id
+/obj/item/card/id/black/syndicate_command/crew_id
 	name = "syndicate ID card"
 	desc = "An ID straight from the Syndicate."
 	registered_name = "Syndicate"
 
-/obj/item/card/id/advanced/black/syndicate_command/captain_id
+/obj/item/card/id/black/syndicate_command/captain_id
 	name = "syndicate captain ID card"
 	desc = "An ID straight from the Syndicate."
 	registered_name = "Syndicate"
 
-/obj/item/card/id/advanced/debug
+/obj/item/card/id/debug
 	name = "\improper Debug ID"
 	desc = "A debug ID card. Has ALL the all access, you really shouldn't have this."
 	icon_state = "card_centcom"
 	worn_icon_state = "card_centcom"
-	assigned_icon_state = "assigned_centcom"
 
-/obj/item/card/id/advanced/debug/Initialize()
+/obj/item/card/id/debug/Initialize()
 	. = ..()
 	registered_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
 
-/obj/item/card/id/advanced/prisoner
+/obj/item/card/id/prisoner
 	name = "prisoner ID card"
 	desc = "You are a number, you are not a free man."
 	icon_state = "card_prisoner"
@@ -712,49 +615,48 @@
 	/// Number of gulag points earned.
 	var/points = 0
 
-/obj/item/card/id/advanced/prisoner/attack_self(mob/user)
+/obj/item/card/id/prisoner/attack_self(mob/user)
 	to_chat(usr, span_notice("You have accumulated [points] out of the [goal] points you need for freedom."))
 
-/obj/item/card/id/advanced/prisoner/one
+/obj/item/card/id/prisoner/one
 	name = "Prisoner #13-001"
 	registered_name = "Prisoner #13-001"
 
-/obj/item/card/id/advanced/prisoner/two
+/obj/item/card/id/prisoner/two
 	name = "Prisoner #13-002"
 	registered_name = "Prisoner #13-002"
 
-/obj/item/card/id/advanced/prisoner/three
+/obj/item/card/id/prisoner/three
 	name = "Prisoner #13-003"
 	registered_name = "Prisoner #13-003"
 
-/obj/item/card/id/advanced/prisoner/four
+/obj/item/card/id/prisoner/four
 	name = "Prisoner #13-004"
 	registered_name = "Prisoner #13-004"
 
-/obj/item/card/id/advanced/prisoner/five
+/obj/item/card/id/prisoner/five
 	name = "Prisoner #13-005"
 	registered_name = "Prisoner #13-005"
 
-/obj/item/card/id/advanced/prisoner/six
+/obj/item/card/id/prisoner/six
 	name = "Prisoner #13-006"
 	registered_name = "Prisoner #13-006"
 
-/obj/item/card/id/advanced/prisoner/seven
+/obj/item/card/id/prisoner/seven
 	name = "Prisoner #13-007"
 	registered_name = "Prisoner #13-007"
 
-/obj/item/card/id/advanced/mining
+/obj/item/card/id/mining
 	name = "mining ID"
 
-/obj/item/card/id/advanced/highlander
+/obj/item/card/id/highlander
 	name = "highlander ID"
 	registered_name = "Highlander"
 	desc = "There can be only one!"
 	icon_state = "card_black"
 	worn_icon_state = "card_black"
-	assigned_icon_state = "assigned_syndicate"
 
-/obj/item/card/id/advanced/chameleon
+/obj/item/card/id/chameleon
 	name = "agent card"
 	desc = "A highly advanced chameleon ID card. Touch this card on another ID card or player to choose which accesses to copy. Has special magnetic properties which force it to the front of wallets."
 
@@ -765,19 +667,19 @@
 	/// Weak ref to the ID card we're currently attempting to steal access from.
 	var/datum/weakref/theft_target
 
-/obj/item/card/id/advanced/chameleon/Initialize()
+/obj/item/card/id/chameleon/Initialize()
 	. = ..()
 
 	var/datum/action/item_action/chameleon/change/id/chameleon_card_action = new(src)
-	chameleon_card_action.chameleon_type = /obj/item/card/id/advanced
+	chameleon_card_action.chameleon_type = /obj/item/card/id
 	chameleon_card_action.chameleon_name = "ID Card"
 	chameleon_card_action.initialize_disguises()
 
-/obj/item/card/id/advanced/chameleon/Destroy()
+/obj/item/card/id/chameleon/Destroy()
 	theft_target = null
 	. = ..()
 
-/obj/item/card/id/advanced/chameleon/afterattack(atom/target, mob/user, proximity)
+/obj/item/card/id/chameleon/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 
@@ -788,7 +690,7 @@
 
 	return ..()
 
-/obj/item/card/id/advanced/chameleon/pre_attack_secondary(atom/target, mob/living/user, params)
+/obj/item/card/id/chameleon/pre_attack_secondary(atom/target, mob/living/user, params)
 	// If we're attacking a human, we want it to be covert. We're not ATTACKING them, we're trying
 	// to sneakily steal their accesses by swiping our agent ID card near them. As a result, we
 	// return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN to cancel any part of the following the attack chain.
@@ -837,14 +739,14 @@
 
 	return ..()
 
-/obj/item/card/id/advanced/chameleon/ui_host(mob/user)
+/obj/item/card/id/chameleon/ui_host(mob/user)
 	// Hook our UI to the theft target ID card for UI state checks.
 	return theft_target?.resolve()
 
-/obj/item/card/id/advanced/chameleon/ui_state(mob/user)
+/obj/item/card/id/chameleon/ui_state(mob/user)
 	return GLOB.always_state
 
-/obj/item/card/id/advanced/chameleon/ui_status(mob/user)
+/obj/item/card/id/chameleon/ui_status(mob/user)
 	var/target = theft_target?.resolve()
 
 	if(!target)
@@ -864,7 +766,7 @@
 
 	return status
 
-/obj/item/card/id/advanced/chameleon/attack_self(mob/user)
+/obj/item/card/id/chameleon/attack_self(mob/user)
 	if(isliving(user) && user.mind)
 		var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
 		if(user.incapacitated())
@@ -928,17 +830,16 @@
 	return ..()
 
 /// A special variant of the classic chameleon ID card which accepts all access.
-/obj/item/card/id/advanced/chameleon/black
+/obj/item/card/id/chameleon/black
 	icon_state = "card_black"
 	worn_icon_state = "card_black"
-	assigned_icon_state = "assigned_syndicate"
 
-/obj/item/card/id/advanced/engioutpost
+/obj/item/card/id/engioutpost
 	registered_name = "George 'Plastic' Miller"
 	desc = "A card used to provide ID and determine access across the station. There's blood dripping from the corner. Ew."
 	registered_age = 47
 
-/obj/item/card/id/advanced/simple_bot
+/obj/item/card/id/simple_bot
 	name = "simple bot ID card"
 	desc = "An internal ID card used by the station's non-sentient bots. You should report this to a coder if you're holding it."
 

@@ -163,7 +163,7 @@
 /mob/living/simple_animal/hostile/alien/maid/barmaid/Initialize()
 	. = ..()
 	// Simple bot ID card that can hold all accesses. Someone turn access into a component at some point, please.
-	access_card = new /obj/item/card/id/advanced/simple_bot(src)
+	access_card = new /obj/item/card/id/simple_bot(src)
 
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	become_area_sensitive(ROUNDSTART_TRAIT)

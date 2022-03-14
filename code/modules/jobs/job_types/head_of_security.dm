@@ -42,7 +42,7 @@
 	name = "Head of Security"
 	jobtype = /datum/job/head_of_security
 
-	id = /obj/item/card/id/advanced/silver
+	id = /obj/item/card/id/silver
 	belt = /obj/item/pda/heads/hos
 	ears = /obj/item/radio/headset/heads/hos/alt
 	uniform = /obj/item/clothing/under/rank/security/head_of_security

@@ -47,7 +47,7 @@
 	name = "Chief Medical Officer"
 	jobtype = /datum/job/chief_medical_officer
 
-	id = /obj/item/card/id/advanced/silver
+	id = /obj/item/card/id/silver
 	belt = /obj/item/pda/heads/cmo
 	l_pocket = /obj/item/pinpointer/crew
 	ears = /obj/item/radio/headset/heads/cmo

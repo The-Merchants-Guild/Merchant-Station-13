@@ -267,7 +267,7 @@
 
 /datum/action/item_action/chameleon/change/id/update_item(obj/item/picked_item)
 	..()
-	var/obj/item/card/id/advanced/chameleon/agent_card = target
+	var/obj/item/card/id/chameleon/agent_card = target
 	if(istype(agent_card))
 		var/obj/item/card/id/copied_card = picked_item
 
@@ -281,16 +281,13 @@
 			agent_card.registered_name = initial(copied_card.registered_name)
 
 		agent_card.icon_state = initial(copied_card.icon_state)
-		if(ispath(copied_card, /obj/item/card/id/advanced))
-			var/obj/item/card/id/advanced/copied_advanced_card = copied_card
-			agent_card.assigned_icon_state = initial(copied_advanced_card.assigned_icon_state)
 
 		agent_card.update_label()
 		agent_card.update_icon()
 
 /datum/action/item_action/chameleon/change/id/apply_job_data(datum/job/job_datum)
 	..()
-	var/obj/item/card/id/advanced/chameleon/agent_card = target
+	var/obj/item/card/id/chameleon/agent_card = target
 	if(istype(agent_card) && istype(job_datum))
 		agent_card.forged = TRUE
 
@@ -306,10 +303,6 @@
 
 		agent_card.assignment = job_datum.title
 		agent_card.icon_state = initial(copied_card.icon_state)
-		if(ispath(copied_card, /obj/item/card/id/advanced))
-			var/obj/item/card/id/advanced/copied_advanced_card = copied_card
-			agent_card.assigned_icon_state = initial(copied_advanced_card.assigned_icon_state)
-
 		agent_card.update_label()
 		agent_card.update_icon()
 

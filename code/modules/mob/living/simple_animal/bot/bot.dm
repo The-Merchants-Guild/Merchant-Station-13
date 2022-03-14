@@ -153,7 +153,7 @@
 	. = ..()
 	GLOB.bots_list += src
 	// Give bots a fancy new ID card that can hold any access.
-	access_card = new /obj/item/card/id/advanced/simple_bot(src)
+	access_card = new /obj/item/card/id/simple_bot(src)
 	// This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.set_access(list(ACCESS_ROBOTICS))
 	set_custom_texts()
@@ -559,7 +559,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	bot_reset() //Reset a bot before setting it to call mode.
 
 	//For giving the bot temporary all-access. This method is bad and makes me feel bad. Refactoring access to a component is for another PR.
-	var/obj/item/card/id/all_access = new /obj/item/card/id/advanced/gold/captains_spare()
+	var/obj/item/card/id/all_access = new /obj/item/card/id/gold/captains_spare()
 	set_path(get_path_to(src, waypoint, 200, id=all_access))
 	qdel(all_access)
 	calling_ai = caller //Link the AI to the bot!

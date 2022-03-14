@@ -1,7 +1,7 @@
 /datum/outfit/centcom/spec_ops
 	name = "Special Ops Officer"
 
-	id = /obj/item/card/id/advanced/centcom
+	id = /obj/item/card/id/centcom
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/officer
 	back = /obj/item/storage/backpack/satchel/leather
@@ -115,7 +115,7 @@
 /datum/outfit/pirate
 	name = "Space Pirate"
 
-	id = /obj/item/card/id/advanced
+	id = /obj/item/card/id
 	uniform = /obj/item/clothing/under/costume/pirate
 	suit = /obj/item/clothing/suit/pirate/armored
 	ears = /obj/item/radio/headset/syndicate
@@ -158,7 +158,7 @@
 /datum/outfit/pirate/silverscale
 	name = "Silver Scale Member"
 
-	id = /obj/item/card/id/advanced/silver
+	id = /obj/item/card/id/silver
 	uniform = /obj/item/clothing/under/suit/charcoal
 	suit = /obj/item/clothing/suit/armor/vest/alt
 	glasses = /obj/item/clothing/glasses/monocle
@@ -176,7 +176,7 @@
 /datum/outfit/tunnel_clown
 	name = "Tunnel Clown"
 
-	id = /obj/item/card/id/advanced/gold
+	id = /obj/item/card/id/gold
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	ears = /obj/item/radio/headset
@@ -222,7 +222,7 @@
 /datum/outfit/assassin
 	name = "Assassin"
 
-	id = /obj/item/card/id/advanced/chameleon/black
+	id = /obj/item/card/id/chameleon/black
 	uniform = /obj/item/clothing/under/suit/black
 	belt = /obj/item/pda/heads
 	ears = /obj/item/radio/headset
@@ -263,7 +263,7 @@
 /datum/outfit/centcom/commander
 	name = "CentCom Commander"
 
-	id = /obj/item/card/id/advanced/centcom
+	id = /obj/item/card/id/centcom
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	back = /obj/item/storage/backpack/satchel/leather
@@ -342,7 +342,7 @@
 /datum/outfit/centcom/soviet
 	name = "Soviet Admiral"
 
-	id = /obj/item/card/id/advanced/centcom
+	id = /obj/item/card/id/centcom
 	uniform = /obj/item/clothing/under/costume/soviet
 	suit = /obj/item/clothing/suit/pirate/captain
 	back = /obj/item/storage/backpack/satchel/leather
@@ -367,7 +367,7 @@
 /datum/outfit/mobster
 	name = "Mobster"
 
-	id = /obj/item/card/id/advanced
+	id = /obj/item/card/id
 	uniform = /obj/item/clothing/under/suit/black_really
 	ears = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -398,7 +398,7 @@
 /datum/outfit/debug //Debug objs plus hardsuit
 	name = "Debug outfit"
 
-	id = /obj/item/card/id/advanced/debug
+	id = /obj/item/card/id/debug
 	uniform = /obj/item/clothing/under/misc/patriotsuit
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite/debug
 	suit_store = /obj/item/tank/internals/oxygen
@@ -430,7 +430,7 @@
 /datum/outfit/admin //for admeem shenanigans and testing things that arent related to equipment, not a subtype of debug just in case debug changes things
 	name = "Admin outfit"
 
-	id = /obj/item/card/id/advanced/debug
+	id = /obj/item/card/id/debug
 	uniform = /obj/item/clothing/under/misc/patriotsuit
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite/admin
 	suit_store = /obj/item/tank/internals/oxygen

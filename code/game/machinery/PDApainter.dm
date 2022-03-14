@@ -114,7 +114,7 @@
 		return
 
 	// Chameleon checks first so they can exit the logic early if they're detected.
-	if(istype(O, /obj/item/card/id/advanced/chameleon))
+	if(istype(O, /obj/item/card/id/chameleon))
 		to_chat(user, span_warning("The machine rejects your [O]. This ID card does not appear to be compatible with the PDA Painter."))
 		return
 

@@ -8,7 +8,7 @@
 	ears = /obj/item/radio/headset/syndicate/alt
 	l_pocket = /obj/item/pinpointer/nuke/syndicate
 	r_pocket = /obj/item/bikehorn
-	id = /obj/item/card/id/advanced/chameleon
+	id = /obj/item/card/id/chameleon
 	backpack_contents = list(/obj/item/storage/box/survival/syndie=1,\
 		/obj/item/kitchen/knife/combat/survival,
 		/obj/item/dnainjector/clumsymut, //in case you want to be clumsy for the memes

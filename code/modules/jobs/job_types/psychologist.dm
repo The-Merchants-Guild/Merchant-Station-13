@@ -36,7 +36,7 @@
 	ears = /obj/item/radio/headset/headset_srvmed
 	uniform = /obj/item/clothing/under/suit/black
 	shoes = /obj/item/clothing/shoes/laceup
-	id = /obj/item/card/id/advanced
+	id = /obj/item/card/id
 	belt = /obj/item/pda/medical
 	pda_slot = ITEM_SLOT_BELT
 	l_hand = /obj/item/clipboard

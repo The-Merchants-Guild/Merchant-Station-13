@@ -9,7 +9,7 @@
 	name = "Traitors"
 	persistent = TRUE
 	antag_flag = ROLE_TRAITOR
-	antag_datum = /datum/antagonist/traitor/
+	antag_datum = /datum/antagonist/traitor
 	minimum_required_age = 0
 	protected_roles = list("Prisoner","Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 	restricted_roles = list("AI", "Cyborg")
@@ -37,8 +37,7 @@
 		autotraitor_cooldown--
 	else
 		autotraitor_cooldown = 450 // 15 minutes
-		message_admins("Checking if we can turn someone into a traitor.")
-		log_game("DYNAMIC: Checking if we can turn someone into a traitor.")
+		mode.dlog("Checking if we can turn someone into a traitor.")
 		mode.picking_specific_rule(/datum/dynamic_ruleset/midround/autotraitor)
 
 //////////////////////////////////////////////

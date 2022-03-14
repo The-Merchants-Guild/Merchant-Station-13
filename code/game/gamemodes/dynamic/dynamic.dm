@@ -389,49 +389,57 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /// Picks a random roundstart rule from the list given as an argument and executes it.
 /datum/game_mode/dynamic/proc/picking_roundstart_rule(list/drafted_rules = list(), forced = FALSE)
 	var/datum/dynamic_ruleset/roundstart/starting_rule = pickweight(drafted_rules)
-	if(!starting_rule)
+	if (!starting_rule)
 		log_game("DYNAMIC: Couldn't pick a starting ruleset. No rulesets available")
 		return FALSE
 
-	if(!forced)
-		if(only_ruleset_executed)
-			log_game("DYNAMIC: Picking [starting_rule.name] failed due to only_ruleset_executed.")
-			return FALSE
-		// Check if a blocking ruleset has been executed.
-		else if(check_blocking(starting_rule.blocking_rules, executed_rules))	// Should already be filtered out, but making sure. Check filtering at end of proc if reported.
-			drafted_rules -= starting_rule
-			if(drafted_rules.len <= 0)
-				log_game("DYNAMIC: Picking [starting_rule.name] failed due to blocking_rules and no more rulesets available. Report this.")
+	starting_rule.trim_candidates()
+	if (!forced)
+		var/recheck = TRUE // I would have used a goto here, but dreamchecker doesn't like that.
+		while (recheck)
+			recheck = FALSE
+			if (only_ruleset_executed)
+				log_game("DYNAMIC: Picking [starting_rule.name] failed due to only_ruleset_executed.")
 				return FALSE
-			starting_rule = pickweight(drafted_rules)
-		// Check if the ruleset is highlander and if a highlander ruleset has been executed
-		else if(starting_rule.flags & HIGHLANDER_RULESET)	// Should already be filtered out, but making sure. Check filtering at end of proc if reported.
-			if(threat_level > GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
-				if(highlander_executed)
-					drafted_rules -= starting_rule
-					if(drafted_rules.len <= 0)
-						log_game("DYNAMIC: Picking [starting_rule.name] failed due to no highlander stacking and no more rulesets available. Report this.")
-						return FALSE
-					starting_rule = pickweight(drafted_rules)
-		// With low pop and high threat there might be rulesets that get executed with no valid candidates.
-		else if(!starting_rule.ready())	// Should already be filtered out, but making sure. Check filtering at end of proc if reported.
-			drafted_rules -= starting_rule
-			if(drafted_rules.len <= 0)
-				log_game("DYNAMIC: Picking [starting_rule.name] failed because there were not enough candidates and no more rulesets available. Report this.")
-				return FALSE
-			starting_rule = pickweight(drafted_rules)
+			// Check if a blocking ruleset has been executed.
+			else if (check_blocking(starting_rule.blocking_rules, executed_rules))	// Should already be filtered out, but making sure. Check filtering at end of proc if reported.
+				drafted_rules -= starting_rule
+				if (drafted_rules.len <= 0)
+					log_game("DYNAMIC: Picking [starting_rule.name] failed due to blocking_rules and no more rulesets available.")
+					return FALSE
+				starting_rule = pickweight(drafted_rules)
+				starting_rule.trim_candidates()
+				recheck = TRUE
+			// Check if the ruleset is highlander and if a highlander ruleset has been executed
+			else if (starting_rule.flags & HIGHLANDER_RULESET)	// Should already be filtered out, but making sure. Check filtering at end of proc if reported.
+				if (threat_level > GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
+					if (highlander_executed)
+						drafted_rules -= starting_rule
+						if (drafted_rules.len <= 0)
+							log_game("DYNAMIC: Picking [starting_rule.name] failed due to no highlander stacking and no more rulesets available.")
+							return FALSE
+						starting_rule = pickweight(drafted_rules)
+						starting_rule.trim_candidates()
+						recheck = TRUE
+			// With low pop and high threat there might be rulesets that get executed with no valid candidates.
+			else if (!starting_rule.ready())	// Should already be filtered out, but making sure. Check filtering at end of proc if reported.
+				drafted_rules -= starting_rule
+				if (drafted_rules.len <= 0)
+					log_game("DYNAMIC: Picking [starting_rule.name] failed because there were not enough candidates and no more rulesets available.")
+					return FALSE
+				starting_rule = pickweight(drafted_rules)
+				starting_rule.trim_candidates()
+				recheck = TRUE
 
 	log_game("DYNAMIC: Picked a ruleset: [starting_rule.name]")
 
 	roundstart_rules -= starting_rule
 	drafted_rules -= starting_rule
 
-	starting_rule.trim_candidates()
-
 	var/added_threat = starting_rule.scale_up(extra_rulesets_amount, threat)
 	if(starting_rule.pre_execute())
 		spend_threat(starting_rule.cost + added_threat)
-		threat_log += "[worldtime2text()]: Roundstart [starting_rule.name] spent [starting_rule.cost + added_threat]. [starting_rule.scaling_cost ? "Scaled up[starting_rule.scaled_times]/3 times." : ""]"
+		threat_log += "[worldtime2text()]: Roundstart [starting_rule.name] spent [starting_rule.cost + added_threat]. [starting_rule.scaling_cost ? "Scaled up [starting_rule.scaled_times]/3 times." : ""]"
 		if(starting_rule.flags & HIGHLANDER_RULESET)
 			highlander_executed = TRUE
 		else if(starting_rule.flags & ONLY_RULESET)

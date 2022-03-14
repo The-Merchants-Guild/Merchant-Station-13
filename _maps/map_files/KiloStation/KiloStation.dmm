@@ -50918,7 +50918,7 @@
 /obj/item/melee/chainofcommand,
 /obj/item/toy/figure/captain,
 /obj/structure/table/wood,
-/obj/item/card/id/advanced/gold/captains_spare,
+/obj/item/card/id/tier5/gold/captains_spare,
 /turf/open/floor/carpet/royalblue,
 /area/command/heads_quarters/captain)
 "hBo" = (

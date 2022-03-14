@@ -699,16 +699,7 @@ SUBSYSTEM_DEF(job)
 
 	centcom_jobs = list("Central Command","VIP Guest","Custodian","Thunderdome Overseer","CentCom Official","Medical Officer","Research Officer", \
 		"Special Ops Officer","Admiral","CentCom Commander","CentCom Bartender","Private Security Force")
-
-	// Force-give their ID card bridge access.
-	//var/obj/item/id_slot = new_captain.get_item_by_slot(ITEM_SLOT_ID)
-	//if(id_slot)
-		//var/obj/item/card/id/id_card = id_slot.GetID()
-		//if(!(ACCESS_HEADS in id_card.access))
-			//id_card.add_wildcards(list(ACCESS_HEADS), mode=FORCE_ADD_ALL)
-
-	//assigned_captain = TRUE
-
+		
 /// Blindly assigns the required roles to every player in the dynamic_forced_occupations list.
 /datum/controller/subsystem/job/proc/assign_priority_positions()
 	for(var/mob/new_player in dynamic_forced_occupations)

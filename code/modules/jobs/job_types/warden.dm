@@ -41,6 +41,7 @@
 /datum/outfit/job/warden
 	name = "Warden"
 	jobtype = /datum/job/warden
+	card_access = /datum/card_access/job/security/warden
 
 	belt = /obj/item/pda/warden
 	ears = /obj/item/radio/headset/headset_sec/alt

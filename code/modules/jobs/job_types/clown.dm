@@ -41,6 +41,7 @@
 /datum/outfit/job/clown
 	name = "Clown"
 	jobtype = /datum/job/clown
+	card_access = /datum/card_access/job/clown
 
 	belt = /obj/item/pda/clown
 	ears = /obj/item/radio/headset/headset_srv

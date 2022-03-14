@@ -179,6 +179,7 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 /datum/outfit/job/security
 	name = "Security Officer"
 	jobtype = /datum/job/security_officer
+	card_access = /datum/card_access/job/security/officer
 
 	belt = /obj/item/pda/security
 	ears = /obj/item/radio/headset/headset_sec/alt
@@ -209,17 +210,22 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 	recalculateChannels()
 
 /obj/item/radio/headset/headset_sec/alt/department/engi
+	card_access = /datum/card_access/job/security/officer/engineering
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_eng
 
 /obj/item/radio/headset/headset_sec/alt/department/supply
+	card_access = /datum/card_access/job/security/officer/supply
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_cargo
+
 /obj/item/radio/headset/headset_sec/alt/department/med
+	card_access = /datum/card_access/job/security/officer/medical
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_med
 
 /obj/item/radio/headset/headset_sec/alt/department/sci
+	card_access = /datum/card_access/job/security/officer/science
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_sci
 

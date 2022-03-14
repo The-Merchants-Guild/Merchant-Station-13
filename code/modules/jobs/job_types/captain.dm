@@ -44,6 +44,7 @@
 /datum/outfit/job/captain
 	name = "Captain"
 	jobtype = /datum/job/captain
+	card_access = /datum/card_access/job/captain
 
 	id = /obj/item/card/id/gold
 	belt = /obj/item/pda/captain

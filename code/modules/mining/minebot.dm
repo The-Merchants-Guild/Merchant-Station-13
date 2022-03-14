@@ -58,7 +58,7 @@
 	var/obj/item/implant/radio/mining/imp = new(src)
 	imp.implant(src)
 
-	access_card = new /obj/item/card/id/gold(src)
+	access_card = new /obj/item/card/id/tier5/gold(src)
 
 	SetCollectBehavior()
 

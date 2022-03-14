@@ -30,6 +30,7 @@
 /datum/outfit/job/janitor
 	name = "Janitor"
 	jobtype = /datum/job/janitor
+	card_access = /datum/card_access/job/janitor
 
 	belt = /obj/item/pda/janitor
 	ears = /obj/item/radio/headset/headset_srv

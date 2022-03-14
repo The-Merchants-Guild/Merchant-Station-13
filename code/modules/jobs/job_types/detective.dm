@@ -42,6 +42,7 @@
 /datum/outfit/job/detective
 	name = "Detective"
 	jobtype = /datum/job/detective
+	card_access = /datum/card_access/job/security/detective
 
 	belt = /obj/item/pda/detective
 	ears = /obj/item/radio/headset/headset_sec/alt

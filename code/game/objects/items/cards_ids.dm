@@ -521,20 +521,20 @@
 	name = "Thirteen's ID Card (Reaper)"
 	registered_name = "Thirteen"
 
-/obj/item/card/id/gold
+/obj/item/card/id/tier5/gold
 	name = "gold identification card"
 	desc = "A golden card which shows power and might."
 	icon_state = "card_gold"
 	worn_icon_state = "card_gold"
 	inhand_icon_state = "gold_id"
 
-/obj/item/card/id/gold/captains_spare
+/obj/item/card/id/tier5/gold/captains_spare
 	name = "captain's spare ID"
 	desc = "The spare ID of the High Lord himself."
 	registered_name = "Captain"
 	registered_age = null
 
-/obj/item/card/id/gold/captains_spare/update_label() //so it doesn't change to Captain's ID card (Captain) on a sneeze
+/obj/item/card/id/tier5/gold/captains_spare/update_label() //so it doesn't change to Captain's ID card (Captain) on a sneeze
 	if(registered_name == "Captain")
 		name = "[initial(name)][(!assignment || assignment == "Captain") ? "" : " ([assignment])"]"
 		update_appearance(UPDATE_ICON)

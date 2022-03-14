@@ -46,6 +46,7 @@
 /datum/outfit/job/cmo
 	name = "Chief Medical Officer"
 	jobtype = /datum/job/chief_medical_officer
+	card_access = /datum/card_access/job/chief_medical_officer
 
 	id = /obj/item/card/id/silver
 	belt = /obj/item/pda/heads/cmo

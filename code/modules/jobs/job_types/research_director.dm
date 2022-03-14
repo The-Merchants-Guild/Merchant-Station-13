@@ -46,6 +46,7 @@
 /datum/outfit/job/rd
 	name = "Research Director"
 	jobtype = /datum/job/research_director
+	card_access = /datum/card_access/job/research_director
 
 	id = /obj/item/card/id/silver
 	belt = /obj/item/pda/heads/rd

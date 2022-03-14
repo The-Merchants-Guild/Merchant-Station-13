@@ -32,6 +32,7 @@
 /datum/outfit/job/psychologist
 	name = "Psychologist"
 	jobtype = /datum/job/psychologist
+	card_access = /datum/card_access/job/psychologist
 
 	ears = /obj/item/radio/headset/headset_srvmed
 	uniform = /obj/item/clothing/under/suit/black

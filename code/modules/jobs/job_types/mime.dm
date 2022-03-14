@@ -41,6 +41,7 @@
 /datum/outfit/job/mime
 	name = "Mime"
 	jobtype = /datum/job/mime
+	card_access = /datum/card_access/job/mime
 
 	belt = /obj/item/pda/mime
 	ears = /obj/item/radio/headset/headset_srv

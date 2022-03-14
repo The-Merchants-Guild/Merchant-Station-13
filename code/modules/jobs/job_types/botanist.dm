@@ -33,6 +33,7 @@
 /datum/outfit/job/botanist
 	name = "Botanist"
 	jobtype = /datum/job/botanist
+	card_access = /datum/card_access/job/botanist
 
 	belt = /obj/item/pda/botanist
 	ears = /obj/item/radio/headset/headset_srv

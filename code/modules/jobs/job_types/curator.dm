@@ -26,6 +26,7 @@
 /datum/outfit/job/curator
 	name = "Curator"
 	jobtype = /datum/job/curator
+	card_access = /datum/card_access/job/curator
 
 	shoes = /obj/item/clothing/shoes/laceup
 	belt = /obj/item/pda/curator

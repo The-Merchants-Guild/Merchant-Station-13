@@ -37,6 +37,7 @@
 /datum/outfit/job/doctor
 	name = "Medical Doctor"
 	jobtype = /datum/job/doctor
+	card_access = /datum/card_access/job/medical_doctor
 
 	belt = /obj/item/pda/medical
 	ears = /obj/item/radio/headset/headset_med

@@ -25,6 +25,7 @@
 /datum/outfit/job/miner
 	name = "Shaft Miner"
 	jobtype = /datum/job/shaft_miner
+	card_access = /datum/card_access/job/shaft_miner
 
 	belt = /obj/item/pda/shaftminer
 	ears = /obj/item/radio/headset/headset_cargo/mining

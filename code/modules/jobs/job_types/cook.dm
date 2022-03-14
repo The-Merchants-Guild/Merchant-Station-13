@@ -71,6 +71,8 @@
 /datum/outfit/job/cook
 	name = "Cook"
 	jobtype = /datum/job/cook
+	card_access = /datum/card_access/job/cook
+
 	belt = /obj/item/pda/cook
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chef

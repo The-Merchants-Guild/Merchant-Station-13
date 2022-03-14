@@ -33,6 +33,7 @@
 /datum/outfit/job/scientist
 	name = "Scientist"
 	jobtype = /datum/job/scientist
+	card_access = /datum/card_access/job/scientist
 
 	belt = /obj/item/pda/toxins
 	ears = /obj/item/radio/headset/headset_sci

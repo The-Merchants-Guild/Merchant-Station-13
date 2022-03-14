@@ -64061,6 +64061,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/item/card/id/advanced/gold/captains_spare,
 /turf/open/floor/carpet,
 /area/command/heads_quarters/captain)
 "lxf" = (
@@ -65003,23 +65004,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/grimy,
 /area/service/chapel/main)
-"lLY" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/item/storage/secure/safe/caps_spare{
-	pixel_x = -27;
-	pixel_y = 32
-	},
-/turf/open/floor/iron/dark,
-/area/command/bridge)
 "lLZ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible{
 	dir = 8
@@ -150629,7 +150613,7 @@ aaa
 khQ
 nTB
 nmR
-lLY
+wQK
 nzz
 oOD
 gdT

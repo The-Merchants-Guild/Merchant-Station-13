@@ -25378,10 +25378,6 @@
 "fMy" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
-/obj/item/storage/secure/safe/caps_spare{
-	pixel_x = 37;
-	pixel_y = 32
-	},
 /turf/open/floor/iron,
 /area/command/bridge)
 "fMz" = (
@@ -57269,6 +57265,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/stamp/captain,
+/obj/item/card/id/advanced/gold/captains_spare,
 /turf/open/floor/wood,
 /area/command/heads_quarters/captain)
 "xHo" = (

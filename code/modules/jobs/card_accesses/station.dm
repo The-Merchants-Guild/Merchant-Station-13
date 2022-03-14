@@ -42,11 +42,7 @@
 	assignment = "Captain"
 
 /datum/card_access/job/captain/get_access()
-	return (SSid_access.get_tier_access_list(ACCESS_TIER_1) +
-		SSid_access.get_tier_access_list(ACCESS_TIER_2) +
-		SSid_access.get_tier_access_list(ACCESS_TIER_3) +
-		SSid_access.get_tier_access_list(ACCESS_TIER_4) +
-		SSid_access.get_tier_access_list(ACCESS_TIER_5))
+	return (SSid_access.get_tier_access_list(ACCESS_TIER_1) + SSid_access.get_tier_access_list(ACCESS_TIER_2) + SSid_access.get_tier_access_list(ACCESS_TIER_3) + SSid_access.get_tier_access_list(ACCESS_TIER_4) +	SSid_access.get_tier_access_list(ACCESS_TIER_5))
 
 /datum/card_access/job/cargo_technician
 	assignment = "Cargo Technician"

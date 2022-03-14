@@ -46,7 +46,7 @@
 	jobtype = /datum/job/captain
 	card_access = /datum/card_access/job/captain
 
-	id = /obj/item/card/id/gold
+	id = /obj/item/card/id/tier5/gold
 	belt = /obj/item/pda/captain
 	glasses = /obj/item/clothing/glasses/sunglasses
 	ears = /obj/item/radio/headset/heads/captain/alt

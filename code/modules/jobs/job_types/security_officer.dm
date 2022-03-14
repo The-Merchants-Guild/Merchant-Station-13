@@ -73,22 +73,27 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 
 	var/ears = null
 	var/accessory = null
+	var/dept_access = null
 	var/destination = null
 
 	switch(department)
 		if(SEC_DEPT_SUPPLY)
+			dept_access = /datum/card_access/job/security/officer/supply
 			ears = /obj/item/radio/headset/headset_sec/alt/department/supply
 			destination = /area/security/checkpoint/supply
 			accessory = /obj/item/clothing/accessory/armband/cargo
 		if(SEC_DEPT_ENGINEERING)
+			dept_access = /datum/card_access/job/security/officer/engineering
 			ears = /obj/item/radio/headset/headset_sec/alt/department/engi
 			destination = /area/security/checkpoint/engineering
 			accessory = /obj/item/clothing/accessory/armband/engine
 		if(SEC_DEPT_MEDICAL)
+			dept_access = /datum/card_access/job/security/officer/medical
 			ears = /obj/item/radio/headset/headset_sec/alt/department/med
 			destination = /area/security/checkpoint/medical
 			accessory =  /obj/item/clothing/accessory/armband/medblue
 		if(SEC_DEPT_SCIENCE)
+			dept_access = /datum/card_access/job/security/officer/science
 			ears = /obj/item/radio/headset/headset_sec/alt/department/sci
 			destination = /area/security/checkpoint/science
 			accessory = /obj/item/clothing/accessory/armband/science
@@ -101,6 +106,11 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 		if(spawning.ears)
 			qdel(spawning.ears)
 		spawning.equip_to_slot_or_del(new ears(spawning),ITEM_SLOT_EARS)
+
+	if(dept_access)
+		var/obj/item/card/id/worn_id = spawning.wear_id
+		SSid_access.apply_card_access(worn_id, dept_access)
+		spawning.sec_hud_set_ID()
 
 	var/spawn_point = pick(LAZYACCESS(GLOB.department_security_spawns, department))
 
@@ -210,22 +220,18 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 	recalculateChannels()
 
 /obj/item/radio/headset/headset_sec/alt/department/engi
-	card_access = /datum/card_access/job/security/officer/engineering
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_eng
 
 /obj/item/radio/headset/headset_sec/alt/department/supply
-	card_access = /datum/card_access/job/security/officer/supply
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_cargo
 
 /obj/item/radio/headset/headset_sec/alt/department/med
-	card_access = /datum/card_access/job/security/officer/medical
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_med
 
 /obj/item/radio/headset/headset_sec/alt/department/sci
-	card_access = /datum/card_access/job/security/officer/science
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_sci
 

@@ -176,7 +176,7 @@
 /datum/outfit/tunnel_clown
 	name = "Tunnel Clown"
 
-	id = /obj/item/card/id/gold
+	id = /obj/item/card/id/tier5/gold
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	ears = /obj/item/radio/headset

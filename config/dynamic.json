@@ -2,15 +2,9 @@
 	"Dynamic": {},
 	"Roundstart": {
 		"Traitors": {
-<<<<<<< HEAD
-			"cost": 8,
-			"scaling_cost": 9,
-			"weight": 0,
-=======
 			"cost": 10,
 			"scaling_cost": 10,
 			"weight": 5,
->>>>>>> parent of de442458ba (Dynamic 2021 (#56221))
 			"required_candidates": 1,
 			"minimum_required_age": 0,
 			"requirements": [
@@ -47,44 +41,8 @@
 			],
 			"restricted_roles": [
 				"Cyborg"
-<<<<<<< HEAD
-			]
-		},
-
-		"Blood Brothers": {
-			"weight": 0
-		},
-
-		"Changelings": {
-			"weight": 0
-		},
-
-		"Heretics": {
-			"weight": 0
-		},
-
-		"Wizard": {
-			"weight": 0
-		},
-
-		"Blood Cult": {
-			"weight": 0
-		},
-
-		"Nuclear Emergency": {
-			"weight": 0
-		},
-
-		"Revolution": {
-			"weight": 0
-		},
-
-		"Families": {
-			"weight": 0
-=======
 			],
 			"autotraitor_cooldown": 450
->>>>>>> parent of de442458ba (Dynamic 2021 (#56221))
 		}
 	},
 

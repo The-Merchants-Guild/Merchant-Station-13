@@ -700,7 +700,6 @@ SUBSYSTEM_DEF(job)
 	centcom_jobs = list("Central Command","VIP Guest","Custodian","Thunderdome Overseer","CentCom Official","Medical Officer","Research Officer", \
 		"Special Ops Officer","Admiral","CentCom Commander","CentCom Bartender","Private Security Force")
 		
-/// Blindly assigns the required roles to every player in the dynamic_forced_occupations list.
 /datum/controller/subsystem/job/proc/assign_priority_positions()
 	for(var/mob/new_player in dynamic_forced_occupations)
 		AssignRole(new_player, GetJob(dynamic_forced_occupations[new_player]))

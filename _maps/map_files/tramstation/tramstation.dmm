@@ -59290,6 +59290,7 @@
 	name = "Captain's Desk";
 	req_access_txt = "20"
 	},
+/obj/item/card/id/advanced/gold/captains_spare,
 /turf/open/floor/wood,
 /area/command/heads_quarters/captain/private)
 "sXa" = (
@@ -64302,10 +64303,6 @@
 /obj/machinery/computer/atmos_alert,
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 1
-	},
-/obj/item/storage/secure/safe/caps_spare{
-	pixel_x = 6;
-	pixel_y = 27
 	},
 /turf/open/floor/iron/dark,
 /area/command/bridge)

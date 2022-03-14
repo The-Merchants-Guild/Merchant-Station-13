@@ -355,8 +355,6 @@ SUBSYSTEM_DEF(ticker)
 
 	var/captainless = TRUE
 
-	//var/highest_rank = length(SSjob.chain_of_command) + 1
-
 	// Find a suitable player to hold captaincy.
 	for(var/mob/dead/new_player/new_player_mob as anything in GLOB.new_player_list)
 		if(is_banned_from(new_player_mob.ckey, list("Captain")))

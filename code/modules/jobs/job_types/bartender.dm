@@ -31,6 +31,8 @@
 /datum/outfit/job/bartender
 	name = "Bartender"
 	jobtype = /datum/job/bartender
+	card_access = /datum/card_access/job/bartender
+
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	belt = /obj/item/pda/bar
 	ears = /obj/item/radio/headset/headset_srv

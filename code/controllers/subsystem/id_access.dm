@@ -12,14 +12,7 @@ SUBSYSTEM_DEF(id_access)
 	var/list/accesses_by_tier = list()
 	/// Dictionary of access names. Keys are access levels. Values are their associated names.
 	var/list/desc_by_access = list()
-	/// Helper list containing all trim paths that can be used as job templates. Intended to be used alongside logic for ACCESS_CHANGE_IDS. Grab templates from sub_department_managers_tgui for Head of Staff restrictions.
-	var/list/station_job_templates = list()
-	/// Helper list containing all trim paths that can be used as Centcom templates.
-	var/list/centcom_job_templates = list()
-	/// Helper list containing all PDA paths that can be painted by station machines. Intended to be used alongside logic for ACCESS_CHANGE_IDS. Grab templates from sub_department_managers_tgui for Head of Staff restrictions.
-	var/list/station_pda_templates = list()
-	/// Helper list containing all station regions.
-	var/list/station_regions = list()
+	var/list/card_access_instances = list()
 
 /datum/controller/subsystem/id_access/Initialize(timeofday)
 	setup_access_tiers()
@@ -29,6 +22,15 @@ SUBSYSTEM_DEF(id_access)
 
 /// Build access flag lists.
 /datum/controller/subsystem/id_access/proc/setup_access_tiers()
+	accesses_by_tier["[ACCESS_TIER_1]"] = TIER_1_ACCESS
+	accesses_by_tier["[ACCESS_TIER_2]"] = TIER_2_ACCESS
+	accesses_by_tier["[ACCESS_TIER_3]"] = TIER_3_ACCESS
+	accesses_by_tier["[ACCESS_TIER_4]"] = TIER_4_ACCESS
+	accesses_by_tier["[ACCESS_TIER_5]"] = TIER_5_ACCESS
+	accesses_by_tier["[ACCESS_TIER_6]"] = TIER_6_ACCESS
+	for (var/t in accesses_by_tier)
+		for (var/a in accesses_by_tier[t])
+			tiers_by_access["[a]"] = t
 
 /// Setup dictionary that converts access levels to text descriptions.
 /datum/controller/subsystem/id_access/proc/setup_access_descriptions()
@@ -156,3 +158,21 @@ SUBSYSTEM_DEF(id_access)
 			tally++
 
 	return tally
+
+/datum/controller/subsystem/id_access/proc/apply_card_access(obj/item/card/id/id, card_access, force = FALSE)
+	var/datum/card_access/C = card_access_instances[card_access]
+	if (!C)
+		C = card_access_instances[card_access] = new card_access
+	var/list/chip_access = list()
+	id.assignment = C.assignment
+	for (var/tier in C.access) // TODO: access chips
+		if (id.access_tier < text2num(tier))
+			if (force)
+				chip_access.Add(C.access[tier])
+			continue
+		id.access.Add(C.access[tier])
+
+	if (chip_access.len)
+		var/obj/item/card_access_chip/roundstart/AA = new(id)
+		AA.access = chip_access
+		id.apply_access_chip(AA)

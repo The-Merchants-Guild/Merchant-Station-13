@@ -29,6 +29,7 @@
 /datum/outfit/job/atmos
 	name = "Atmospheric Technician"
 	jobtype = /datum/job/atmospheric_technician
+	card_access = /datum/card_access/job/atmospheric_technician
 
 	belt = /obj/item/storage/belt/utility/atmostech
 	l_pocket = /obj/item/pda/atmos

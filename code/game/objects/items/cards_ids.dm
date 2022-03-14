@@ -103,11 +103,17 @@
 	/// Highest allowed access tier for this card.
 	var/access_tier = 0
 
+	/// How many additional access chips can this ID card have?
+	var/chip_slots = 2
+
+	/// List of installed additional access chips.
+	var/list/chips = list()
+
 	/// Access levels held by this card.
 	var/list/access = list()
 
-	/// Boolean value. If TRUE, the [Intern] tag gets prepended to this ID card when the label is updated.
-	var/is_intern = FALSE
+	/// Access levels that shouldn't be modifyable normally.
+	var/list/additional_access = list()
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
@@ -215,8 +221,16 @@
 		if (money_added)
 			to_chat(user, span_notice("You stuff the contents into the card! They disappear in a puff of bluespace smoke, adding [money_added] worth of credits to the linked account."))
 		return
+	else if (istype(W, /obj/item/card_access_chip))
+		apply_access_chip(W)
+		return
 	else
 		return ..()
+
+/obj/item/card/id/proc/apply_access_chip(obj/item/card_access_chip/C)
+	C.apply_access(src)
+	C.forceMove(src)
+	chips += C
 
 /**
  * Insert credits or coins into the ID card and add their value to the associated bank account.
@@ -382,7 +396,7 @@
 	return msg
 
 /obj/item/card/id/GetAccess()
-	return access
+	return access + additional_access
 
 /obj/item/card/id/GetID()
 	return src

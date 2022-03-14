@@ -47,8 +47,6 @@
 	. = ..()
 
 	if(!target_dept)
-		pda_types = SSid_access.station_pda_templates.Copy()
-		card_trims = SSid_access.station_job_templates.Copy()
 		return
 
 /obj/machinery/pdapainter/Destroy()

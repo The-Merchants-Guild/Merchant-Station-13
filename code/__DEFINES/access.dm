@@ -1,3 +1,12 @@
+// Don't use tier 0 for anything, thank you.
+#define ACCESS_TIER_0 0
+#define ACCESS_TIER_1 1
+#define ACCESS_TIER_2 2
+#define ACCESS_TIER_3 3
+#define ACCESS_TIER_4 4
+#define ACCESS_TIER_5 5
+#define ACCESS_TIER_6 6
+
 // Security equipment, security records, gulag item storage, secbots
 #define ACCESS_SECURITY 1
 /// Brig cells+timers, permabrig, gulag+gulag shuttle, prisoner management console
@@ -151,8 +160,106 @@
 	user.investigate_log("([key_name(user)]) [change_description] to an ID card [(id_card.registered_name) ? "belonging to [id_card.registered_name]." : "with no registered name."]", INVESTIGATE_ACCESSCHANGES); \
 	user.log_message("[change_description] to an ID card [(id_card.registered_name) ? "belonging to [id_card.registered_name]." : "with no registered name."]", LOG_GAME); \
 
-#define TIER_1_ACCESS list(\
-\
+#define TIER_1_ACCESS list(		\
+	ACCESS_AUX_BASE, 			\
+	ACCESS_BAR, 				\
+	ACCESS_CARGO, 				\
+	ACCESS_CHAPEL_OFFICE, 		\
+	ACCESS_CONSTRUCTION, 		\
+	ACCESS_COURT, 				\
+	ACCESS_ENGINE, 				\
+	ACCESS_HYDROPONICS, 		\
+	ACCESS_JANITOR, 			\
+	ACCESS_KITCHEN, 			\
+	ACCESS_LIBRARY, 			\
+	ACCESS_MAILSORTING, 		\
+	ACCESS_MAINT_TUNNELS, 		\
+	ACCESS_MEDICAL, 			\
+	ACCESS_PSYCHOLOGY, 			\
+	ACCESS_RESEARCH, 			\
+	ACCESS_THEATRE 				\
+)
+
+#define TIER_2_ACCESS list(		\
+	ACCESS_ATMOSPHERICS,		\
+	ACCESS_BRIG,				\
+	ACCESS_CHEMISTRY,			\
+	ACCESS_CREMATORIUM,			\
+	ACCESS_ENGINE_EQUIP,		\
+	ACCESS_EXTERNAL_AIRLOCKS,	\
+	ACCESS_FORENSICS_LOCKERS,	\
+	ACCESS_GENETICS,			\
+	ACCESS_LAWYER,				\
+	ACCESS_MINERAL_STOREROOM,	\
+	ACCESS_MINING,				\
+	ACCESS_MINING_STATION,		\
+	ACCESS_MORGUE,				\
+	ACCESS_PHARMACY,			\
+	ACCESS_RND,					\
+	ACCESS_ROBOTICS,			\
+	ACCESS_SECURITY,			\
+	ACCESS_SEC_DOORS,			\
+	ACCESS_SURGERY,				\
+	ACCESS_TECH_STORAGE,		\
+	ACCESS_TOXINS,				\
+	ACCESS_TOXINS_STORAGE		\
+)
+
+#define TIER_3_ACCESS list(		\
+	ACCESS_ARMORY,				\
+	ACCESS_EVA,					\
+	ACCESS_GATEWAY,				\
+	ACCESS_QM,					\
+	ACCESS_TCOMSAT,				\
+	ACCESS_TELEPORTER,			\
+	ACCESS_VIROLOGY,			\
+	ACCESS_WEAPONS,				\
+	ACCESS_XENOBIOLOGY			\
+)
+
+#define TIER_4_ACCESS list(		\
+	ACCESS_ALL_PERSONAL_LOCKERS,\
+	ACCESS_CE,					\
+	ACCESS_CMO,					\
+	ACCESS_HEADS,				\
+	ACCESS_HOP,					\
+	ACCESS_HOS,					\
+	ACCESS_KEYCARD_AUTH,		\
+	ACCESS_MINISAT,				\
+	ACCESS_NETWORK,				\
+	ACCESS_RD,					\
+	ACCESS_RC_ANNOUNCE,			\
+	ACCESS_VAULT				\
+)
+
+#define TIER_5_ACCESS list(		\
+	ACCESS_AI_UPLOAD,			\
+	ACCESS_CAPTAIN,				\
+	ACCESS_CHANGE_IDS			\
+)
+
+#define TIER_6_ACCESS list(		\
+	ACCESS_AWAY_ENGINE,			\
+	ACCESS_AWAY_GENERAL,		\
+	ACCESS_AWAY_GENERIC1,		\
+	ACCESS_AWAY_GENERIC2,		\
+	ACCESS_AWAY_GENERIC3,		\
+	ACCESS_AWAY_GENERIC4,		\
+	ACCESS_AWAY_MAINT,			\
+	ACCESS_AWAY_MED,			\
+	ACCESS_AWAY_SEC,			\
+	ACCESS_BLOODCULT,			\
+	ACCESS_CENT_BAR,			\
+	ACCESS_CENT_CAPTAIN,		\
+	ACCESS_CENT_GENERAL,		\
+	ACCESS_CENT_LIVING,			\
+	ACCESS_CENT_MEDICAL,		\
+	ACCESS_CENT_SPECOPS,		\
+	ACCESS_CENT_STORAGE,		\
+	ACCESS_CENT_TELEPORTER,		\
+	ACCESS_CENT_THUNDER,		\
+	ACCESS_SYNDICATE,			\
+	ACCESS_SYNDICATE_LEADER		\
 )
 
 /// Departmental/general/common area accesses. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_COMMON)

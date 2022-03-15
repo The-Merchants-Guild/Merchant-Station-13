@@ -97,6 +97,16 @@
 	message = "raises a hand."
 	hands_use_check = TRUE
 
+/datum/emote/living/carbon/human/rub
+	key = "rub"
+	key_third_person = "rubs"
+	message = "rubs hands."
+	hands_use_check = TRUE
+	emote_type = EMOTE_AUDIBLE
+	sound = "sound/effects/handrub.ogg"
+	cooldown = 1.2 SECONDS
+	audio_cooldown = 1.2 SECONDS
+
 /datum/emote/living/carbon/human/salute
 	key = "salute"
 	key_third_person = "salutes"

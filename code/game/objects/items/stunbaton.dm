@@ -239,7 +239,7 @@
 	L.Jitter(20)
 	L.set_confusion(max(confusion_amt, L.get_confusion()))
 	L.stuttering = max(8, L.stuttering)
-	L.apply_damage(stamina_loss_amt, STAMINA, BODY_ZONE_CHEST)
+	L.Stun(50)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK)
 	addtimer(CALLBACK(src, .proc/apply_stun_effect_end, L), apply_stun_delay)

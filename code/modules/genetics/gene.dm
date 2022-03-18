@@ -39,6 +39,7 @@
 /datum/gene_frame/protein
     frame_type = "protein"
     var/applied = FALSE
+    expr_strength = 1.0
 
 // maybe this should be handled on the gene side directly - can't decide today, will decide tomorrow
 /datum/gene_frame/protein/proc/tumor_create_act(organ_slot)
@@ -58,7 +59,7 @@
     return
 
 // called on_life
-/datum/gene_frame/protein/proc/life_act(obj/item/organ/organ)
+/datum/gene_frame/protein/proc/life_act(obj/item/organ/organ, strength)
     return
 
 /datum/gene_frame/conditional
@@ -70,7 +71,7 @@
     return FALSE
 
 /datum/gene_frame/conditional/proc/conditional_strength(obj/item/organ/organ)
-    return 0.0
+    return 1.0
 
 /datum/gene_frame/conditional/proc/apply_act(obj/item/organ/organ)
     return
@@ -125,22 +126,28 @@
         if(slot_strength < 0) continue
 
         if(!organ && slot_strength * growth_factor * G.epigenetic_strength > TUMOR_CREATE_THRSH)
-            var/obj/item/organ/new_organ = G.protein_frames[0].tumor_create_act(T)
+            var/obj/item/organ/new_organ = G.protein_frames[1].tumor_create_act(T)
             new_organ.Insert(src)
             organ = new_organ
+        
+        if(!organ)
+            continue
 
         // calculate conditionals
-        var/cond_strength = -0.001 //eps fuck you
+        var/cond_strength = -0.00001 //eps fuck you
         for(var/datum/gene_frame/conditional/C in G.conditional_frames)
             if(C.binary_condition(organ))
                 cond_strength += C.conditional_strength(organ)
+        if(len(G.conditional_frames) == 0)
+            cond_strength = 1.0
 
         if(cond_strength < 0)
             continue
         
         for(var/datum/gene_frame/protein/P in G.protein_frames)
-            if(slot_strength * growth_factor * G.epigenetic_strength * slot_strength > GENE_APPLY_THRSH)
+            if(slot_strength * growth_factor * G.epigenetic_strength * P.expr_strength > GENE_APPLY_THRSH)
                 P.apply_act(organ)
                 P.applied = TRUE
             if(P.applied)
                 P.growth_act(organ)
+            P.life_act(organ, G.epigenetic_strength * slot_strength)

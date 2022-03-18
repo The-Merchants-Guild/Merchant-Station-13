@@ -1276,6 +1276,6 @@
 	SIGNAL_HANDLER
 	AddComponent(/datum/component/rot, 6 MINUTES, 10 MINUTES, 1)
 
-/mob/living/carbon/handle_mutations_and_radiation(delta_time, times_fired)
-	. = ..()
-	process_gene_effects(delta_time, times_fired)
+// /mob/living/carbon/handle_mutations_and_radiation(delta_time, times_fired)
+// 	..()
+//	process_genes(delta_time, times_fired)

@@ -57253,7 +57253,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/stamp/captain,
-/obj/item/card/id/tier5/gold/captains_spare,
+/obj/item/card/id/tier5/captains_spare,
 /turf/open/floor/wood,
 /area/command/heads_quarters/captain)
 "xHo" = (

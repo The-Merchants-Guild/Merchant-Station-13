@@ -177,7 +177,12 @@
 	ACCESS_MEDICAL, 			\
 	ACCESS_PSYCHOLOGY, 			\
 	ACCESS_RESEARCH, 			\
-	ACCESS_THEATRE 				\
+	ACCESS_THEATRE, 			\
+	ACCESS_MECH_MINING,			\
+	ACCESS_MECH_MEDICAL,		\
+	ACCESS_MECH_SECURITY,		\
+	ACCESS_MECH_SCIENCE,		\
+	ACCESS_MECH_ENGINE			\
 )
 
 #define TIER_2_ACCESS list(		\
@@ -262,90 +267,6 @@
 	ACCESS_SYNDICATE_LEADER		\
 )
 
-/// Departmental/general/common area accesses. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_COMMON)
-#define COMMON_ACCESS list( \
-	ACCESS_MECH_MINING, \
-	ACCESS_MECH_MEDICAL, \
-	ACCESS_MECH_SECURITY, \
-	ACCESS_MECH_SCIENCE, \
-	ACCESS_MECH_ENGINE, \
-	ACCESS_AUX_BASE, \
-	ACCESS_PSYCHOLOGY, \
-	ACCESS_PHARMACY, \
-	ACCESS_NETWORK, \
-	ACCESS_WEAPONS, \
-	ACCESS_MINERAL_STOREROOM, \
-	ACCESS_SEC_DOORS, \
-	ACCESS_XENOBIOLOGY, \
-	ACCESS_MINING_STATION, \
-	ACCESS_MAILSORTING, \
-	ACCESS_MINING, \
-	ACCESS_RESEARCH, \
-	ACCESS_THEATRE, \
-	ACCESS_SURGERY, \
-	ACCESS_COURT, \
-	ACCESS_QM, \
-	ACCESS_VIROLOGY, \
-	ACCESS_LAWYER, \
-	ACCESS_LIBRARY, \
-	ACCESS_HYDROPONICS, \
-	ACCESS_CHEMISTRY, \
-	ACCESS_CONSTRUCTION, \
-	ACCESS_CARGO, \
-	ACCESS_ROBOTICS, \
-	ACCESS_KITCHEN, \
-	ACCESS_CREMATORIUM, \
-	ACCESS_JANITOR, \
-	ACCESS_BAR, \
-	ACCESS_CHAPEL_OFFICE, \
-	ACCESS_EXTERNAL_AIRLOCKS, \
-	ACCESS_MAINT_TUNNELS, \
-	ACCESS_ENGINE_EQUIP, \
-	ACCESS_ENGINE, \
-	ACCESS_GENETICS, \
-	ACCESS_RND, \
-	ACCESS_MORGUE, \
-	ACCESS_MEDICAL, \
-	ACCESS_FORENSICS_LOCKERS, \
-	ACCESS_BRIG, \
-	ACCESS_SECURITY, \
-)
-
-/// Command staff/secure accesses, think bridge/armoury, AI upload, notably access to modify ID cards themselves. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_COMMAND)
-#define COMMAND_ACCESS list( \
-	ACCESS_TOXINS_STORAGE, \
-	ACCESS_MINISAT, \
-	ACCESS_TCOMSAT, \
-	ACCESS_KEYCARD_AUTH, \
-	ACCESS_RC_ANNOUNCE, \
-	ACCESS_VAULT, \
-	ACCESS_ATMOSPHERICS, \
-	ACCESS_TECH_STORAGE, \
-	ACCESS_HEADS, \
-	ACCESS_TELEPORTER, \
-	ACCESS_ARMORY, \
-	ACCESS_AI_UPLOAD, \
-	ACCESS_CHANGE_IDS, \
-	ACCESS_TOXINS, \
-	ACCESS_EVA, \
-	ACCESS_GATEWAY, \
-	ACCESS_ALL_PERSONAL_LOCKERS, \
-)
-
-/// Private head of staff offices, usually only granted to most cards by trimming. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_PRV_COMMAND)
-#define PRIVATE_COMMAND_ACCESS list( \
-	ACCESS_HOS, \
-	ACCESS_HOP, \
-	ACCESS_CE, \
-	ACCESS_CMO, \
-	ACCESS_RD, \
-)
-
-/// Captains private rooms. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_CAPTAIN)
-#define CAPTAIN_ACCESS list( \
-	ACCESS_CAPTAIN, \
-)
-/// Centcom area stuff. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_CENTCOM)
 #define CENTCOM_ACCESS list( \
 	ACCESS_CENT_BAR, \
 	ACCESS_CENT_CAPTAIN, \
@@ -358,13 +279,11 @@
 	ACCESS_CENT_GENERAL, \
 )
 
-/// Syndicate areas off station. Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_SYNDICATE)
 #define SYNDICATE_ACCESS list( \
 	ACCESS_SYNDICATE_LEADER, \
 	ACCESS_SYNDICATE, \
 )
 
-/// Away missions/gateway/space ruins.  Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_AWAY)
 #define AWAY_ACCESS list( \
 	ACCESS_AWAY_GENERAL, \
 	ACCESS_AWAY_MAINT, \
@@ -377,19 +296,10 @@
 	ACCESS_AWAY_GENERIC4, \
 )
 
-/// Weird internal Cult access that prevents non-cult from using their doors.  Do not use direct, access via SSid_access.get_flag_access_list(ACCESS_FLAG_SPECIAL)
-#define CULT_ACCESS list( \
-	ACCESS_BLOODCULT, \
-)
-
-/// Name for the Global region.
-#define REGION_ALL_GLOBAL "All"
-/// Used to seed the accesses_by_region list in SSid_access. A list of every single access in the game.
-#define REGION_ACCESS_ALL_GLOBAL REGION_ACCESS_ALL_STATION + CENTCOM_ACCESS + SYNDICATE_ACCESS + AWAY_ACCESS + CULT_ACCESS
-/// Name for the Station All Access region.
-#define REGION_ALL_STATION "Station"
-/// Used to seed the accesses_by_region list in SSid_access. A list of all station accesses.
-#define REGION_ACCESS_ALL_STATION COMMON_ACCESS + COMMAND_ACCESS + PRIVATE_COMMAND_ACCESS + CAPTAIN_ACCESS
+/// List of every single access in the game.
+#define REGION_ACCESS_ALL_GLOBAL TIER_1_ACCESS + TIER_2_ACCESS + TIER_3_ACCESS + TIER_4_ACCESS + TIER_5_ACCESS + TIER_6_ACCESS
+/// A list of all station accesses.
+#define REGION_ACCESS_ALL_STATION TIER_1_ACCESS + TIER_2_ACCESS + TIER_3_ACCESS + TIER_4_ACCESS + TIER_5_ACCESS
 /// Name for the General region.
 #define REGION_GENERAL "General"
 /// Used to seed the accesses_by_region list in SSid_access. A list of general service accesses that are overseen by the HoP.
@@ -558,3 +468,9 @@
 #define FORCE_ADD_ALL 2
 /// Used in ID card access adding procs. Will stack trace on fail.
 #define ERROR_ON_FAIL 3
+
+/*
+ * card access defines
+ */
+
+#define CARD_ACCESS_ASSIGNABLE (1 << 0)

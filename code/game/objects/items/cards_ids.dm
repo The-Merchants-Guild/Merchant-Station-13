@@ -70,9 +70,8 @@
  * ID CARDS
  */
 
-/// "Retro" ID card that renders itself as the icon state with no overlays.
 /obj/item/card/id
-	name = "retro identification card"
+	name = "identification card"
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "card_grey"
 	worn_icon_state = "card_retro"
@@ -112,7 +111,7 @@
 	/// Access levels held by this card.
 	var/list/access = list()
 
-	/// Access levels that shouldn't be modifyable normally.
+	/// Access levels that shouldn't be modifiable normally.
 	var/list/additional_access = list()
 
 /obj/item/card/id/Initialize(mapload)
@@ -157,6 +156,9 @@
  * * add_accesses - List of accesses to check.
  */
 /obj/item/card/id/proc/add_access(list/add_accesses)
+	for (var/a in add_accesses)
+		if (text2num(SSid_access.get_access_tier(a)) > access_tier)
+			return FALSE
 	access |= add_accesses
 	return TRUE
 
@@ -395,6 +397,7 @@
 
 	return msg
 
+//XXX: Cache the result if this somehow ends up being too slow, var/list/cached_access or something like that.
 /obj/item/card/id/GetAccess()
 	return access + additional_access
 
@@ -420,21 +423,35 @@
 	name = "[name_string] ([assignment])"
 
 /obj/item/card/id/tier0
+	icon = 'icons/obj/new_id.dmi'
+	icon_state = "tier0"
 	access_tier = 0
 
 /obj/item/card/id/tier1
+	icon = 'icons/obj/new_id.dmi'
+	icon_state = "tier1"
 	access_tier = 1
 
 /obj/item/card/id/tier2
+	icon = 'icons/obj/new_id.dmi'
+	icon_state = "tier2"
 	access_tier = 2
 
 /obj/item/card/id/tier3
+	icon = 'icons/obj/new_id.dmi'
+	icon_state = "tier3"
 	access_tier = 3
 
 /obj/item/card/id/tier4
+	icon = 'icons/obj/new_id.dmi'
+	icon_state = "tier4"
 	access_tier = 4
 
 /obj/item/card/id/tier5
+	icon = 'icons/obj/new_id.dmi'
+	icon_state = "tier5"
+	name = "gold identification card"
+	desc = "A golden card which shows power and might."
 	access_tier = 5
 
 /obj/item/card/id/tier6
@@ -510,31 +527,24 @@
 /obj/item/card/id/departmental_budget/AltClick(mob/living/user)
 	registered_account.bank_card_talk(span_warning("Withdrawing is not compatible with this card design."), TRUE) //prevents the vault bank machine being useless and putting money from the budget to your card to go over personal crates
 
-/obj/item/card/id/silver
-	name = "silver identification card"
-	desc = "A silver card which shows honour and dedication."
+/obj/item/card/id/silver/reaper
+	name = "Thirteen's ID Card (Reaper)"
+	registered_name = "Thirteen"
 	icon_state = "card_silver"
 	worn_icon_state = "card_silver"
 	inhand_icon_state = "silver_id"
 
-/obj/item/card/id/silver/reaper
-	name = "Thirteen's ID Card (Reaper)"
-	registered_name = "Thirteen"
-
-/obj/item/card/id/tier5/gold
-	name = "gold identification card"
-	desc = "A golden card which shows power and might."
-	icon_state = "card_gold"
-	worn_icon_state = "card_gold"
-	inhand_icon_state = "gold_id"
-
-/obj/item/card/id/tier5/gold/captains_spare
+/obj/item/card/id/tier5/captains_spare
 	name = "captain's spare ID"
 	desc = "The spare ID of the High Lord himself."
 	registered_name = "Captain"
 	registered_age = null
 
-/obj/item/card/id/tier5/gold/captains_spare/update_label() //so it doesn't change to Captain's ID card (Captain) on a sneeze
+/obj/item/card/id/tier5/captains_spare/Initialize(mapload)
+	. = ..()
+	SSid_access.apply_card_access(src, /datum/card_access/job/captain, force = TRUE)
+
+/obj/item/card/id/tier5/captains_spare/update_label() //so it doesn't change to Captain's ID card (Captain) on a sneeze
 	if(registered_name == "Captain")
 		name = "[initial(name)][(!assignment || assignment == "Captain") ? "" : " ([assignment])"]"
 		update_appearance(UPDATE_ICON)

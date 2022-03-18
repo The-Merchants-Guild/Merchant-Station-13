@@ -51,7 +51,7 @@
 	jobtype = /datum/job/chief_engineer
 	card_access = /datum/card_access/job/chief_engineer
 
-	id = /obj/item/card/id/silver
+	id = /obj/item/card/id/tier4
 	belt = /obj/item/storage/belt/utility/chief/full
 	l_pocket = /obj/item/pda/heads/ce
 	ears = /obj/item/radio/headset/heads/ce

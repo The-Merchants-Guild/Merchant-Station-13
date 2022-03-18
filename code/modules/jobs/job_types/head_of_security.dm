@@ -43,7 +43,7 @@
 	jobtype = /datum/job/head_of_security
 	card_access = /datum/card_access/job/security/head_of_security
 
-	id = /obj/item/card/id/silver
+	id = /obj/item/card/id/tier4
 	belt = /obj/item/pda/heads/hos
 	ears = /obj/item/radio/headset/heads/hos/alt
 	uniform = /obj/item/clothing/under/rank/security/head_of_security

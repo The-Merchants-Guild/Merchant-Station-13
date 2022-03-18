@@ -63,12 +63,6 @@
 
 	ntnet_send(data)
 
-/obj/item/door_remote/omni
-	name = "omni door remote"
-	desc = "This control wand can access any door on the station."
-	icon_state = "gangtool-yellow"
-	region_access = REGION_ALL_STATION
-
 /obj/item/door_remote/captain
 	name = "command door remote"
 	icon_state = "gangtool-yellow"

@@ -11,9 +11,10 @@
 	var/rewritable = FALSE
 	var/list/access = list()
 
-/obj/item/card_access_chip/proc/apply_access(obj/item/card/id)
-	// do something, idk
+/obj/item/card_access_chip/proc/apply_access(obj/item/card/id/id)
+	id.additional_access |= access
 
 /obj/item/card_access_chip/roundstart
 	name = "heck"
 	access_tier = 5
+	rewritable = FALSE // In case someone decides to change the base.

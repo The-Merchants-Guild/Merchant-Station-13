@@ -48,7 +48,7 @@
 	jobtype = /datum/job/chief_medical_officer
 	card_access = /datum/card_access/job/chief_medical_officer
 
-	id = /obj/item/card/id/silver
+	id = /obj/item/card/id/tier4
 	belt = /obj/item/pda/heads/cmo
 	l_pocket = /obj/item/pinpointer/crew
 	ears = /obj/item/radio/headset/heads/cmo

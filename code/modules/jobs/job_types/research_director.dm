@@ -48,7 +48,7 @@
 	jobtype = /datum/job/research_director
 	card_access = /datum/card_access/job/research_director
 
-	id = /obj/item/card/id/silver
+	id = /obj/item/card/id/tier4
 	belt = /obj/item/pda/heads/rd
 	ears = /obj/item/radio/headset/heads/rd
 	uniform = /obj/item/clothing/under/rank/rnd/research_director

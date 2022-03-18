@@ -538,7 +538,7 @@
 
 /obj/item/storage/box/ids/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/card/id(src)
+		new /obj/item/card/id/tier2(src)
 
 //Some spare PDAs in a box
 /obj/item/storage/box/pdas
@@ -565,7 +565,7 @@
 
 /obj/item/storage/box/silver_ids/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/card/id/silver(src)
+		new /obj/item/card/id/tier3(src)
 
 /obj/item/storage/box/prisoner
 	name = "box of prisoner IDs"

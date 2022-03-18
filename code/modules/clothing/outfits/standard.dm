@@ -158,7 +158,7 @@
 /datum/outfit/pirate/silverscale
 	name = "Silver Scale Member"
 
-	id = /obj/item/card/id/silver
+	id = /obj/item/card/id/tier0
 	uniform = /obj/item/clothing/under/suit/charcoal
 	suit = /obj/item/clothing/suit/armor/vest/alt
 	glasses = /obj/item/clothing/glasses/monocle
@@ -176,7 +176,7 @@
 /datum/outfit/tunnel_clown
 	name = "Tunnel Clown"
 
-	id = /obj/item/card/id/tier5/gold
+	id = /obj/item/card/id/tier5
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	ears = /obj/item/radio/headset

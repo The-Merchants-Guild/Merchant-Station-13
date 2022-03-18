@@ -37,6 +37,7 @@
 /datum/outfit/job/virologist
 	name = "Virologist"
 	jobtype = /datum/job/virologist
+	id = /obj/item/card/id/tier3
 	card_access = /datum/card_access/job/virologist
 
 	belt = /obj/item/pda/viro

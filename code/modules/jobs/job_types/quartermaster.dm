@@ -30,6 +30,7 @@
 /datum/outfit/job/quartermaster
 	name = "Quartermaster"
 	jobtype = /datum/job/quartermaster
+	id = /obj/item/card/id/tier3
 	card_access = /datum/card_access/job/quartermaster
 
 	belt = /obj/item/pda/quartermaster

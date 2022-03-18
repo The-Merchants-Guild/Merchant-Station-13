@@ -1,9 +1,8 @@
-#define CARD_ACCESS_ASSIGNABLE (1 << 0)
-
 /datum/card_access
-	var/assignment = "Unassigned"
+	var/assignment = ""
 	var/flags = NONE
-	var/list/access
+	// list/list lol
+	var/list/list/access
 
 /datum/card_access/New()
 	access = list(
@@ -15,7 +14,7 @@
 		"[ACCESS_TIER_6]" = list()
 	)
 	for (var/a in get_access())
-		access[SSid_access.get_access_tier(a)] += a
+		access[SSid_access.get_access_tier(a)].Add(a)
 
 /datum/card_access/proc/get_access()
 	return list()

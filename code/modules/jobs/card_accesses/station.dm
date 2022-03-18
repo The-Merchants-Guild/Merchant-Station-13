@@ -18,9 +18,9 @@
 	assignment = "Assistant"
 
 /datum/card_access/job/assistant/get_access()
-	if (CONFIG_GET(flag/assistants_have_maint_access))
-		return list(ACCESS_MAINT_TUNNELS)
 	. = ..()
+	if (CONFIG_GET(flag/assistants_have_maint_access))
+		. |= ACCESS_MAINT_TUNNELS
 
 /datum/card_access/job/atmospheric_technician
 	assignment = "Atmospheric Technician"
@@ -42,7 +42,12 @@
 	assignment = "Captain"
 
 /datum/card_access/job/captain/get_access()
-	return (SSid_access.get_tier_access_list(ACCESS_TIER_1) + SSid_access.get_tier_access_list(ACCESS_TIER_2) + SSid_access.get_tier_access_list(ACCESS_TIER_3) + SSid_access.get_tier_access_list(ACCESS_TIER_4) +	SSid_access.get_tier_access_list(ACCESS_TIER_5))
+	. = ..()
+	. += SSid_access.get_tier_access_list(ACCESS_TIER_1)
+	. += SSid_access.get_tier_access_list(ACCESS_TIER_2)
+	. += SSid_access.get_tier_access_list(ACCESS_TIER_3)
+	. += SSid_access.get_tier_access_list(ACCESS_TIER_4)
+	. += SSid_access.get_tier_access_list(ACCESS_TIER_5)
 
 /datum/card_access/job/cargo_technician
 	assignment = "Cargo Technician"
@@ -181,18 +186,22 @@
 
 /datum/card_access/job/security/officer/supply
 	assignment = "Security Officer (Cargo)"
+	flags = NONE
 	department_access = list(ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_CARGO, ACCESS_AUX_BASE)
 
 /datum/card_access/job/security/officer/engineering
 	assignment = "Security Officer (Engineering)"
+	flags = NONE
 	department_access = list(ACCESS_CONSTRUCTION, ACCESS_ENGINE, ACCESS_ATMOSPHERICS, ACCESS_AUX_BASE)
 
 /datum/card_access/job/security/officer/medical
 	assignment = "Security Officer (Medical)"
+	flags = NONE
 	department_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY)
 
 /datum/card_access/job/security/officer/science
 	assignment = "Security Officer (Science)"
+	flags = NONE
 	department_access = list(ACCESS_RESEARCH, ACCESS_RND, ACCESS_AUX_BASE)
 
 /datum/card_access/job/shaft_miner

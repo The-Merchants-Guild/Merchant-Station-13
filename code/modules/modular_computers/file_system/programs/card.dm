@@ -10,20 +10,10 @@
 	tgui_id = "NtosCard"
 	program_icon = "id-card"
 
-	/// If TRUE, this program only modifies Centcom accesses.
-	var/is_centcom = FALSE
 	/// If TRUE, this program is authenticated with limited departmental access.
 	var/minor = FALSE
 	/// The name/assignment combo of the ID card used to authenticate.
 	var/authenticated_user
-	/// The regions this program has access to based on the authenticated ID.
-	var/list/region_access = list()
-	/// The list of accesses this program is verified to change based on the authenticated ID. Used for state checking against player input.
-	var/list/valid_access = list()
-	/// List of job templates that can be applied to ID cards from this program.
-	var/list/job_templates = list()
-	/// Which departments this program has access to. See region defines.
-	var/target_dept
 
 /**
  * Authenticates the program based on the specific ID card.
@@ -36,10 +26,10 @@
  * * id_card - The ID card to attempt to authenticate under.
  */
 /datum/computer_file/program/card_mod/proc/authenticate(mob/user, obj/item/card/id/id_card)
-	if(!id_card)
-		return
+	if (!id_card || !(ACCESS_CHANGE_IDS in id_card.GetAccess()))
+		return FALSE
 
-	return FALSE
+	return TRUE
 
 /datum/computer_file/program/card_mod/ui_act(action, params)
 	. = ..()
@@ -68,6 +58,7 @@
 				return TRUE
 			if(authenticate(user, user_id_card))
 				playsound(computer, 'sound/machines/terminal_on.ogg', 50, FALSE)
+				authenticated_user = user_id_card.name
 				return TRUE
 		// Log out.
 		if("PRG_logout")
@@ -186,24 +177,17 @@
 				return TRUE
 			playsound(computer, "terminal_type", 50, FALSE)
 			var/access_type = params["access_target"]
-			var/try_wildcard = params["access_wildcard"]
-			if(!(access_type in valid_access))
-				stack_trace("[key_name(usr)] ([usr]) attempted to add invalid access \[[access_type]\] to [target_id_card]")
-				return TRUE
 
 			if(access_type in target_id_card.access)
 				target_id_card.remove_access(list(access_type))
-				LOG_ID_ACCESS_CHANGE(user, target_id_card, "removed [SSid_access.get_access_desc(access_type)]")
+				LOG_ID_ACCESS_CHANGE(user, target_id_card, "removed [SSid_access.get_access_name(access_type)]")
 				return TRUE
 
-			if(!target_id_card.add_access(list(access_type), try_wildcard))
+			if(!target_id_card.add_access(list(access_type)))
 				to_chat(usr, span_notice("ID error: ID card rejected your attempted access modification."))
-				LOG_ID_ACCESS_CHANGE(user, target_id_card, "failed to add [SSid_access.get_access_desc(access_type)][try_wildcard ? " with wildcard [try_wildcard]" : ""]")
+				LOG_ID_ACCESS_CHANGE(user, target_id_card, "failed to add [SSid_access.get_access_name(access_type)]")
 				return TRUE
-
-			if(access_type in ACCESS_ALERT_ADMINS)
-				message_admins("[ADMIN_LOOKUPFLW(user)] just added [SSid_access.get_access_desc(access_type)] to an ID card [ADMIN_VV(target_id_card)] [(target_id_card.registered_name) ? "belonging to [target_id_card.registered_name]." : "with no registered name."]")
-			LOG_ID_ACCESS_CHANGE(user, target_id_card, "added [SSid_access.get_access_desc(access_type)]")
+			LOG_ID_ACCESS_CHANGE(user, target_id_card, "added [SSid_access.get_access_name(access_type)]")
 			return TRUE
 		// Apply template to ID card.
 		if("PRG_template")
@@ -211,22 +195,24 @@
 				return TRUE
 
 			playsound(computer, "terminal_type", 50, FALSE)
-			var/template_name = params["name"]
+			var/template_path = params["path"]
 
-			if(!template_name)
+			if(!template_path)
 				return TRUE
 
-			stack_trace("[key_name(usr)] ([usr]) attempted to apply invalid template \[[template_name]\] to [target_id_card]")
-
+			SSid_access.apply_card_access(target_id_card, text2path(template_path))
 			return TRUE
 
 /datum/computer_file/program/card_mod/ui_static_data(mob/user)
 	var/list/data = list()
 	data["station_name"] = station_name()
-	data["centcom_access"] = is_centcom
-	data["minor"] = target_dept || minor ? TRUE : FALSE
-	data["showBasic"] = TRUE
-	data["templates"] = job_templates
+	data["minor"] = minor ? TRUE : FALSE
+	data["templates"] = list()
+	for (var/datum/card_access/A in SSid_access.card_access_assignable)
+		data["templates"][A.assignment] = A.type
+	data["regions"] = SSid_access.accesses_by_region
+	data["access_names"] = SSid_access.name_by_access
+	data["access_tiers"] = SSid_access.tiers_by_access
 
 	return data
 
@@ -265,6 +251,8 @@
 		data["id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
 		data["id_owner"] = id_card.registered_name ? id_card.registered_name : "-----"
 		data["access_on_card"] = id_card.access
+		data["access_on_chip"] = id_card.additional_access
 		data["id_age"] = id_card.registered_age
+		data["id_tier"] = id_card.access_tier
 
 	return data

@@ -27,7 +27,7 @@
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL
 
 	mail_goodies = list(
-		/obj/item/card/id/silver = 10,
+		/obj/item/card/id/tier3 = 10,
 		/obj/item/stack/sheet/bone = 5
 	)
 
@@ -47,7 +47,7 @@
 	jobtype = /datum/job/head_of_personnel
 	card_access = /datum/card_access/job/head_of_personnel
 
-	id = /obj/item/card/id/silver
+	id = /obj/item/card/id/tier4
 	belt = /obj/item/pda/heads/hop
 	ears = /obj/item/radio/headset/heads/hop
 	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel

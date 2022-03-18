@@ -56,7 +56,7 @@
 	weight = 3
 	cost = 18
 	requirements = list(101,101,80,70,60,60,50,50,40,40)
-	antag_cap = 1
+	antag_cap = list(1,1,1,1,1,1,1,1,1,1)
 	flags = HIGHLANDER_RULESET
 
 /datum/dynamic_ruleset/roundstart/malf_ai/ready(forced)
@@ -92,7 +92,7 @@
 /datum/dynamic_ruleset/roundstart/traitorbro
 	name = "Blood Brothers"
 	antag_flag = ROLE_BROTHER
-	antag_datum = /datum/antagonist/brother/
+	antag_datum = /datum/antagonist/brother
 	protected_roles = list("Prisoner","Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 	restricted_roles = list("Cyborg", "AI")
 	required_candidates = 2

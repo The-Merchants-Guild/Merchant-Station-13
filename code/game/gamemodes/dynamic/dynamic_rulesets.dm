@@ -100,7 +100,7 @@
 /// If your rule has extra checks, such as counting security officers, do that in ready() instead
 /datum/dynamic_ruleset/proc/acceptable(population = 0, threat_level = 0)
 	pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : mode.pop_per_requirement
-	if(antag_cap.len && requirements.len != antag_cap.len)
+	if (antag_cap.len && requirements.len != antag_cap.len)
 		message_admins("DYNAMIC: requirements and antag_cap lists have different lengths in ruleset [name]. Likely config issue, report this.")
 		log_game("DYNAMIC: requirements and antag_cap lists have different lengths in ruleset [name]. Likely config issue, report this.")
 	indice_pop = min(requirements.len,round(population/pop_per_requirement)+1)

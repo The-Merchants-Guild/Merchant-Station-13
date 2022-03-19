@@ -10,6 +10,7 @@
 
 	var/datum/port/output/scanned_objects
 	var/scan_range = 5
+	var/mob/M = new
 	
 /obj/item/circuit_component/computer_vision/populate_options()
 	var/static/component_options = list(COMP_COMPVIS_MOB, COMP_COMPVIS_OBJECT) // gonna implement the second one later
@@ -54,7 +55,7 @@
 				continue
 			var/list/entry = list()
 			entry["entity"] = A
-			entry["name"] = A.get_examine_name(src)
+			entry["name"] = A.get_examine_name(M)
 			entry["range"] = get_dist(current_turf, A)
 			new_table += list(entry)
 

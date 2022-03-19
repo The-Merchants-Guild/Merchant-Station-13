@@ -48,5 +48,14 @@
 			else
 				entry["species"] = human.dna.species.name
 			new_table += list(entry)
+	else
+		for(var/atom/A in view(scan_range - 2, current_turf))
+			if(A.invisibility > SEE_INVISIBLE_LIVING)
+				continue
+			var/list/entry = list()
+			entry["entity"] = A
+			entry["name"] = A.get_examine_name(src)
+			entry["range"] = get_dist(current_turf, A)
+			new_table += list(entry)
 
 	scanned_objects.set_output(new_table)

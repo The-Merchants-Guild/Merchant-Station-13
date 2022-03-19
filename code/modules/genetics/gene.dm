@@ -15,7 +15,7 @@
     var/name = "gene"
     var/desc = ""
     // different from epigenetic strength, which determines how much growth factor increases the expression strength, while this one determines effect strength (if at all)
-    var/expr_strength = 0.0 
+    var/expr_strength = 1.0 
 
 /datum/gene/proc/tumor_create_act(organ_slot)
     return new /obj/item/organ/external/tumor/head
@@ -25,8 +25,9 @@
     var/name = "gene_frame"
     var/desc = ""
     var/list/composed_gene_frames
-    var/parent_gene
+    var/parent_gene // not yet set
     var/min_expression = DEFAULT_GENE_STRENGTH
+    var/epigenetic_strength = 1.0
 
 /datum/gene_frame/proc/can_compose_with(datum/gene_frame/C)
     return FALSE
@@ -39,7 +40,6 @@
 /datum/gene_frame/protein
     frame_type = "protein"
     var/applied = FALSE
-    expr_strength = 1.0
 
 // maybe this should be handled on the gene side directly - can't decide today, will decide tomorrow
 /datum/gene_frame/protein/proc/tumor_create_act(organ_slot)
@@ -138,14 +138,15 @@
         for(var/datum/gene_frame/conditional/C in G.conditional_frames)
             if(C.binary_condition(organ))
                 cond_strength += C.conditional_strength(organ)
-        if(len(G.conditional_frames) == 0)
+        if(G.conditional_frames.len == 0)
             cond_strength = 1.0
+        else cond_strength /= G.conditional_frames.len
 
         if(cond_strength < 0)
             continue
         
         for(var/datum/gene_frame/protein/P in G.protein_frames)
-            if(slot_strength * growth_factor * G.epigenetic_strength * P.expr_strength > GENE_APPLY_THRSH)
+            if(slot_strength * growth_factor * G.epigenetic_strength * P.epigenetic_strength > GENE_APPLY_THRSH)
                 P.apply_act(organ)
                 P.applied = TRUE
             if(P.applied)

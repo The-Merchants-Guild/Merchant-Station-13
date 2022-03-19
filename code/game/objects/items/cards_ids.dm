@@ -224,7 +224,16 @@
 			to_chat(user, span_notice("You stuff the contents into the card! They disappear in a puff of bluespace smoke, adding [money_added] worth of credits to the linked account."))
 		return
 	else if (istype(W, /obj/item/card_access_chip))
-		apply_access_chip(W)
+		if (chips.len >= chip_slots)
+			to_chat(user, span_notice("There is not enough space to install this."))
+		else
+			to_chat(user, span_notice("You slot the [W] into the ID card."))
+			apply_access_chip(W)
+		return
+	else if (W.tool_behaviour == TOOL_SCREWDRIVER && chips.len)
+		var/chip = chips[chips.len]
+		to_chat(user, span_notice("You remove [chip] from the card."))
+		remove_access_chip(chip) // remove last in list
 		return
 	else
 		return ..()
@@ -233,6 +242,11 @@
 	C.apply_access(src)
 	C.forceMove(src)
 	chips += C
+
+/obj/item/card/id/proc/remove_access_chip(obj/item/card_access_chip/C)
+	C.remove_access(src)
+	C.forceMove(get_turf(src))
+	chips -= C
 
 /**
  * Insert credits or coins into the ID card and add their value to the associated bank account.
@@ -368,6 +382,8 @@
 	. = ..()
 	if(registered_account)
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of [registered_account.account_balance] cr."
+	if (chips.len)
+		. += "There [chips.len == 1 ? "is an AA-chip" : "are [chips.len] AA-chips"] installed."
 	. += span_notice("<i>There's more information below, you can look again to take a closer look...</i>")
 
 /obj/item/card/id/examine_more(mob/user)

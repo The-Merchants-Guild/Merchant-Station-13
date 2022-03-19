@@ -193,6 +193,6 @@ SUBSYSTEM_DEF(id_access)
 		id.access.Add(C.access[tier])
 
 	if (chip_access.len)
-		var/obj/item/card_access_chip/roundstart/AA = new(id)
+		var/obj/item/card_access_chip/roundstart/AA = new(id, C.assignment)
 		AA.access = chip_access
 		id.apply_access_chip(AA)

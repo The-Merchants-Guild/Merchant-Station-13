@@ -242,7 +242,6 @@
 				food_flags = food_flags,\
 				foodtypes = foodtypes,\
 				volume = max_volume,\
-				eat_time = eat_time,\
 				tastes = tastes,\
 				eatverbs = eatverbs,\
 				bite_consumption = bite_consumption,\

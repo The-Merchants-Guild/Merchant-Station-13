@@ -119,5 +119,3 @@
 	w_class = WEIGHT_CLASS_SMALL
 	venue_value = FOOD_PRICE_CHEAP
 
-/obj/item/food/hotdog/debug
-	eat_time = 0

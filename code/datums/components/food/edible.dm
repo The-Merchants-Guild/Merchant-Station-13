@@ -22,8 +22,6 @@ Behavior that's still missing from this component that original food items had t
 	var/food_flags = NONE
 	///Bitfield of the types of this food
 	var/foodtypes = NONE
-	///Amount of seconds it takes to eat this food
-	var/eat_time = 0
 	///Defines how much it lowers someones satiety (Need to eat, essentialy)
 	var/junkiness = 0
 	///Message to send when eating
@@ -50,7 +48,6 @@ Behavior that's still missing from this component that original food items had t
 	food_flags = NONE,
 	foodtypes = NONE,
 	volume = 50,
-	eat_time = 0,
 	list/tastes,
 	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 	bite_consumption = 2,
@@ -91,7 +88,6 @@ Behavior that's still missing from this component that original food items had t
 	src.bite_consumption = bite_consumption
 	src.food_flags = food_flags
 	src.foodtypes = foodtypes
-	src.eat_time = eat_time
 	src.eatverbs = string_list(eatverbs)
 	src.junkiness = junkiness
 	src.after_eat = after_eat
@@ -119,7 +115,6 @@ Behavior that's still missing from this component that original food items had t
 	food_flags = NONE,
 	foodtypes = NONE,
 	volume = 50,
-	eat_time = 0,
 	list/tastes,
 	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 	bite_consumption = 2,
@@ -133,7 +128,6 @@ Behavior that's still missing from this component that original food items had t
 	src.bite_consumption = bite_consumption
 	src.food_flags = food_flags
 	src.foodtypes = foodtypes
-	src.eat_time = eat_time
 	src.eatverbs = eatverbs
 	src.junkiness = junkiness
 	src.after_eat = after_eat
@@ -270,7 +264,7 @@ Behavior that's still missing from this component that original food items had t
 	. = COMPONENT_CANCEL_ATTACK_CHAIN //Point of no return I suppose
 
 	if(eater == feeder)//If you're eating it yourself.
-		if(eat_time && !do_mob(feeder, eater, eat_time, timed_action_flags = food_flags & FOOD_FINGER_FOOD ? IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE : NONE)) //Gotta pass the minimal eat time
+		if(!do_mob(feeder, eater, timed_action_flags = food_flags & FOOD_FINGER_FOOD ? IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE : NONE)) //Gotta pass the minimal eat time
 			return
 		if(IsFoodGone(owner, feeder))
 			return
@@ -311,7 +305,7 @@ Behavior that's still missing from this component that original food items had t
 	TakeBite(eater, feeder)
 
 	//If we're not force-feeding and there's an eat delay, try take another bite
-	if(eater == feeder && eat_time)
+	if(eater == feeder)
 		INVOKE_ASYNC(src, .proc/TryToEat, eater, feeder)
 
 

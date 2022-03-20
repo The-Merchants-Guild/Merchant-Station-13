@@ -219,7 +219,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			agent card, specialised contractor baton, and three randomly selected low cost items. Can include otherwise unobtainable items."
 	item = /obj/item/storage/box/syndicate/contract_kit
 	cost = 20
-	player_minimum = 20
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/bundles_tc/bundle_a
@@ -244,7 +243,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Blood, heat and dust. The wind howls, the russians are no more, but the ones that inherited wealth from them still stand tall. Prove yourself Operative, and make sure you don't go completely mad."
 	item = /obj/item/storage/backpack/satchel/miami/prefilled
 	cost = 20
-	player_minimum = 25
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/bundles_tc/surplus
@@ -253,7 +251,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			but you never know. Contents are sorted to always be worth 50 TC."
 	item = /obj/structure/closet/crate
 	cost = 20
-	player_minimum = 25
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	var/starting_crate_value = 50
 /datum/uplink_item/bundles_tc/surplus/super
@@ -621,7 +618,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat \
 			and gain the ability to swat bullets from the air, but you will also refuse to use dishonorable ranged weaponry."
 	item = /obj/item/book/granter/martial/carp
-	player_minimum = 25
 	cost = 13
 	surplus = 0
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
@@ -635,7 +631,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	slur as if inebriated. It can produce an infinite number \
 	of bolts, but takes time to automatically recharge after each shot."
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
-	player_minimum = 25
 	cost = 10
 	surplus = 50
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
@@ -1298,7 +1293,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 2
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
-	player_minimum = 20
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	item = /obj/item/clothing/shoes/chameleon/noslip
@@ -1543,7 +1537,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			load on the grid, causing a station-wide blackout. The sink is large and cannot be stored in most \
 			traditional bags and boxes. Caution: Will explode if the powernet contains sufficient amounts of energy."
 	item = /obj/item/powersink
-	player_minimum = 25
 	cost = 11
 
 /datum/uplink_item/device_tools/rad_laser

@@ -39,7 +39,6 @@
 	processing_flags = START_PROCESSING_ON_INIT
 	var/list/ores = list(/datum/material/iron = 600, /datum/material/plasma = 400,  /datum/material/silver = 400, /datum/material/gold = 250, /datum/material/titanium = 250, /datum/material/uranium = 250, /datum/material/bananium = 90, /datum/material/diamond = 90, /datum/material/bluespace = 90)
 	var/datum/component/remote_materials/materials
-	var/debugging = 0
 
 /obj/machinery/mineral/bluespace_miner/Initialize(mapload)
 	. = ..()
@@ -75,6 +74,4 @@
 		return
 	var/datum/material/ore = pick(ores)
 	materials.mat_container.insert_amount_mat(ores[ore], ore)
-	if(debugging == 1)
-		materials.mat_container.insert_amount_mat(10000,/datum/material/iron)
 

@@ -713,3 +713,77 @@
 	armour_penetration = 50
 	attack_verb_continuous = list("smacks", "strikes", "cracks", "beats")
 	attack_verb_simple = list("smack", "strike", "crack", "beat")
+
+/obj/item/melee/baton/stungun
+	name = "stungun"
+	desc = "A powerful, self-charging electric stun gun, courtesy of Nanotrasen's self-defense implements."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "stungun"
+	inhand_icon_state = "stungun"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	w_class = WEIGHT_CLASS_SMALL
+	force = 0
+	attack_cooldown = 0 //"Lol" said the scorpion "Lmao"
+	throwforce = 5
+	throw_stun_chance = 20
+	attack_verb_simple = list("poked")
+	attack_verb_continuous = list("poked")
+	var/selfcharge = 1
+	cell_hit_cost = 100
+	var/charge_sections = 3
+	var/shaded_charge = 1
+	var/charge_tick = 0
+	var/charge_delay = 10
+	preload_cell_type = /obj/item/stock_parts/cell/potato
+
+/obj/item/melee/baton/stungun/Initialize()
+	. = ..()
+	if(selfcharge)
+		START_PROCESSING(SSobj, src)
+	update_icon()
+
+/obj/item/melee/baton/stungun/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/screwdriver))
+		to_chat(user, "<span class='warning'>That would void the warranty.</span>")
+		return
+
+/obj/item/melee/baton/stungun/update_icon()
+	..()
+	var/ratio = CEILING(clamp(cell.charge / cell.maxcharge, 0, 1) * charge_sections, 1)
+	cut_overlays()
+	var/iconState = "[initial(name)]_charge"
+	var/itemState = null
+	if(!initial(inhand_icon_state))
+		itemState = icon_state
+	if(cell.charge < cell_hit_cost)
+		add_overlay("[initial(name)]_empty")
+	else
+		if(!shaded_charge)
+			var/mutable_appearance/charge_overlay = mutable_appearance(icon, iconState)
+			for(var/i = ratio, i >= 1, i--)
+				add_overlay(charge_overlay)
+		else
+			add_overlay("[initial(name)]_charge[ratio]")
+	if(itemState)
+		itemState += "[ratio]"
+		inhand_icon_state = itemState
+
+/obj/item/melee/baton/stungun/process()
+	..()
+	if(selfcharge)
+		charge_tick++
+		if(charge_tick < charge_delay)
+			return
+		charge_tick = 0
+		if(!cell)
+			return
+		cell.give(100)
+		if(cell && cell.charge < 300)
+			playsound(src, 'sound/misc/charge.ogg', 35, FALSE, pressure_affected = FALSE)
+			update_icon()
+
+/obj/item/melee/baton/stungun/baton_effect()
+	..()
+	playsound(loc, 'sound/weapons/stungun.ogg', 75, 1, -1)
+	update_icon()

@@ -18173,7 +18173,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/restaurant_portal/restaurant,
 /turf/open/floor/iron/dark,
 /area/service/bar/atrium)
 "cqC" = (
@@ -48964,20 +48963,6 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/wood,
 /area/service/library)
-"hzj" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/machinery/restaurant_portal/bar,
-/turf/open/floor/iron/dark,
-/area/service/bar/atrium)
 "hzs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -77054,7 +77039,6 @@
 /obj/item/reagent_containers/glass/bowl,
 /obj/effect/turf_decal/bot,
 /obj/item/food/dough,
-/obj/item/holosign_creator/robot_seat/restaurant,
 /turf/open/floor/iron,
 /area/service/kitchen)
 "oJG" = (
@@ -97908,7 +97892,6 @@
 /obj/machinery/status_display/evac/directional/north,
 /obj/item/clipboard,
 /obj/item/toy/figure/bartender,
-/obj/item/holosign_creator/robot_seat/bar,
 /turf/open/floor/iron/dark,
 /area/service/bar)
 "udg" = (
@@ -149304,7 +149287,7 @@ aXI
 aXI
 aXI
 wTb
-hzj
+cqu
 mHf
 qJk
 mHf

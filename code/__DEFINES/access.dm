@@ -267,39 +267,14 @@
 	ACCESS_SYNDICATE_LEADER		\
 )
 
-#define CENTCOM_ACCESS list( \
-	ACCESS_CENT_BAR, \
-	ACCESS_CENT_CAPTAIN, \
-	ACCESS_CENT_TELEPORTER, \
-	ACCESS_CENT_STORAGE, \
-	ACCESS_CENT_LIVING, \
-	ACCESS_CENT_MEDICAL, \
-	ACCESS_CENT_SPECOPS, \
-	ACCESS_CENT_THUNDER, \
-	ACCESS_CENT_GENERAL, \
-)
-
-#define SYNDICATE_ACCESS list( \
-	ACCESS_SYNDICATE_LEADER, \
-	ACCESS_SYNDICATE, \
-)
-
-#define AWAY_ACCESS list( \
-	ACCESS_AWAY_GENERAL, \
-	ACCESS_AWAY_MAINT, \
-	ACCESS_AWAY_MED, \
-	ACCESS_AWAY_SEC, \
-	ACCESS_AWAY_ENGINE, \
-	ACCESS_AWAY_GENERIC1, \
-	ACCESS_AWAY_GENERIC2, \
-	ACCESS_AWAY_GENERIC3, \
-	ACCESS_AWAY_GENERIC4, \
-)
-
-/// List of every single access in the game.
-#define REGION_ACCESS_ALL_GLOBAL TIER_1_ACCESS + TIER_2_ACCESS + TIER_3_ACCESS + TIER_4_ACCESS + TIER_5_ACCESS + TIER_6_ACCESS
+/// Name for the Station region.
+#define REGION_STATION "Station"
 /// A list of all station accesses.
-#define REGION_ACCESS_ALL_STATION TIER_1_ACCESS + TIER_2_ACCESS + TIER_3_ACCESS + TIER_4_ACCESS + TIER_5_ACCESS
+#define REGION_ACCESS_STATION TIER_1_ACCESS + TIER_2_ACCESS + TIER_3_ACCESS + TIER_4_ACCESS + TIER_5_ACCESS
+/// Name for the Global region.
+#define REGION_GLOBAL "Global"
+/// A list of all accesses.
+#define REGION_ACCESS_GLOBAL REGION_ACCESS_STATION + TIER_6_ACCESS
 /// Name for the General region.
 #define REGION_GENERAL "General"
 /// Used to seed the accesses_by_region list in SSid_access. A list of general service accesses that are overseen by the HoP.
@@ -407,8 +382,40 @@
 )
 /// Name for the Centcom region.
 #define REGION_CENTCOM "Central Command"
-/// Used to seed the accesses_by_region list in SSid_access. A list of all CENTCOM_ACCESS regional accesses.
-#define REGION_ACCESS_CENTCOM CENTCOM_ACCESS
+/// Used to seed the accesses_by_region list in SSid_access. A list of all central command regional accesses.
+#define REGION_ACCESS_CENTCOM list( \
+	ACCESS_CENT_BAR, \
+	ACCESS_CENT_CAPTAIN, \
+	ACCESS_CENT_TELEPORTER, \
+	ACCESS_CENT_STORAGE, \
+	ACCESS_CENT_LIVING, \
+	ACCESS_CENT_MEDICAL, \
+	ACCESS_CENT_SPECOPS, \
+	ACCESS_CENT_THUNDER, \
+	ACCESS_CENT_GENERAL, \
+)
+/// Name for the syndicate region.
+#define REGION_SYNDICATE "Syndicate"
+/// Used to seed the accesses_by_region list in SSid_access. A list of all syndicate regional accesses.
+#define REGION_ACCESS_SYNDICATE  list( \
+	ACCESS_SYNDICATE_LEADER, \
+	ACCESS_SYNDICATE, \
+)
+
+/// Name for the away region.
+#define REGION_AWAY "Away"
+/// Used to seed the accesses_by_region list in SSid_access. A list of all away regional accesses.
+#define REGION_ACCESS_AWAY list( \
+	ACCESS_AWAY_GENERAL, \
+	ACCESS_AWAY_MAINT, \
+	ACCESS_AWAY_MED, \
+	ACCESS_AWAY_SEC, \
+	ACCESS_AWAY_ENGINE, \
+	ACCESS_AWAY_GENERIC1, \
+	ACCESS_AWAY_GENERIC2, \
+	ACCESS_AWAY_GENERIC3, \
+	ACCESS_AWAY_GENERIC4, \
+)
 
 /**
  * A list of PDA paths that can be painted as well as the regional heads which should be able to paint them.
@@ -448,26 +455,6 @@
 	/obj/item/pda/chemist = list(REGION_MEDBAY), \
 	/obj/item/pda/geneticist = list(REGION_RESEARCH), \
 )
-
-/// All regions that make up the station area. Helper define to quickly designate a region as part of the station or not. Access via SSid_access.station_regions.
-#define REGION_AREA_STATION list( \
-	REGION_GENERAL, \
-	REGION_SECURITY, \
-	REGION_MEDBAY, \
-	REGION_RESEARCH, \
-	REGION_ENGINEERING, \
-	REGION_SUPPLY, \
-	REGION_COMMAND, \
-)
-
-/// Used in ID card access adding procs. Will try to add all accesses and utilises free wildcards, skipping over any accesses it can't add.
-#define TRY_ADD_ALL 0
-/// Used in ID card access adding procs. Will try to add all accesses and does not utilise wildcards, skipping anything requiring a wildcard.
-#define TRY_ADD_ALL_NO_WILDCARD 1
-/// Used in ID card access adding procs. Will forcefully add all accesses.
-#define FORCE_ADD_ALL 2
-/// Used in ID card access adding procs. Will stack trace on fail.
-#define ERROR_ON_FAIL 3
 
 /*
  * card access defines

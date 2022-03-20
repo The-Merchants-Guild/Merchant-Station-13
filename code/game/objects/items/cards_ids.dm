@@ -85,6 +85,9 @@
 	/// Cached icon that has been built for this card. Intended for use in chat.
 	var/icon/cached_flat_icon
 
+	// Card access
+	var/datum/card_access/card_access
+
 	/// How many magical mining Disney Dollars this card has for spending at the mining equipment vendors.
 	var/mining_points = 0
 	/// The name registered on the card (for example: Dr Bryan See)
@@ -116,6 +119,8 @@
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
+	if (card_access)
+		SSid_access.apply_card_access(src, card_access, force = TRUE)
 
 	update_label()
 	update_icon()
@@ -555,10 +560,7 @@
 	desc = "The spare ID of the High Lord himself."
 	registered_name = "Captain"
 	registered_age = null
-
-/obj/item/card/id/tier5/captains_spare/Initialize(mapload)
-	. = ..()
-	SSid_access.apply_card_access(src, /datum/card_access/job/captain, force = TRUE)
+	card_access = /datum/card_access/job/captain
 
 /obj/item/card/id/tier5/captains_spare/update_label() //so it doesn't change to Captain's ID card (Captain) on a sneeze
 	if(registered_name == "Captain")
@@ -578,29 +580,6 @@
 /obj/item/card/id/centcom/ert
 	name = "\improper CentCom ID"
 	desc = "An ERT ID card."
-	registered_age = null
-	registered_name = "Emergency Response Intern"
-
-/obj/item/card/id/centcom/ert
-	registered_name = "Emergency Response Team Commander"
-
-/obj/item/card/id/centcom/ert/security
-	registered_name = "Security Response Officer"
-
-/obj/item/card/id/centcom/ert/engineer
-	registered_name = "Engineering Response Officer"
-
-/obj/item/card/id/centcom/ert/medical
-	registered_name = "Medical Response Officer"
-
-/obj/item/card/id/centcom/ert/chaplain
-	registered_name = "Religious Response Officer"
-
-/obj/item/card/id/centcom/ert/janitor
-	registered_name = "Janitorial Response Officer"
-
-/obj/item/card/id/centcom/ert/clown
-	registered_name = "Entertainment Response Officer"
 
 /obj/item/card/id/black
 	name = "black identification card"
@@ -634,6 +613,8 @@
 	desc = "A debug ID card. Has ALL the all access, you really shouldn't have this."
 	icon_state = "card_centcom"
 	worn_icon_state = "card_centcom"
+	card_access = /datum/card_access/admin
+	access_tier = 6
 
 /obj/item/card/id/debug/Initialize()
 	. = ..()
@@ -695,10 +676,12 @@
 	desc = "There can be only one!"
 	icon_state = "card_black"
 	worn_icon_state = "card_black"
+	card_access = /datum/card_access/highlander
 
 /obj/item/card/id/chameleon
 	name = "agent card"
 	desc = "A highly advanced chameleon ID card. Touch this card on another ID card or human to choose which accesses to copy. Has special magnetic properties which force it to the front of wallets."
+	card_access = /datum/card_access/chameleon
 	/// Have we set a custom name and job assignment, or will we use what we're given when we chameleon change?
 	var/forged = FALSE
 

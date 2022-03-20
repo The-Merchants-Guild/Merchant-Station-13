@@ -41,6 +41,10 @@ SUBSYSTEM_DEF(id_access)
 	accesses_by_region[REGION_ENGINEERING] = REGION_ACCESS_ENGINEERING
 	accesses_by_region[REGION_SUPPLY] = REGION_ACCESS_SUPPLY
 	accesses_by_region[REGION_COMMAND] = REGION_ACCESS_COMMAND
+	accesses_by_region[REGION_CENTCOM] = REGION_ACCESS_CENTCOM
+	accesses_by_region[REGION_SYNDICATE] = REGION_SYNDICATE
+	accesses_by_region[REGION_STATION] = REGION_ACCESS_STATION
+	accesses_by_region[REGION_GLOBAL] = REGION_ACCESS_GLOBAL
 
 /// Build access flag lists.
 /datum/controller/subsystem/id_access/proc/setup_access_tiers()
@@ -181,13 +185,13 @@ SUBSYSTEM_DEF(id_access)
 
 	return tally
 
-/datum/controller/subsystem/id_access/proc/apply_card_access(obj/item/card/id/id, card_access, force = FALSE)
+/datum/controller/subsystem/id_access/proc/apply_card_access(obj/item/card/id/id, card_access, chip = FALSE, force = FALSE)
 	var/datum/card_access/C = card_access_instances[card_access]
 	var/list/chip_access = list()
 	id.assignment = C.assignment
 	for (var/tier in C.access)
-		if (id.access_tier < text2num(tier))
-			if (force)
+		if (!force && id.access_tier < text2num(tier))
+			if (chip)
 				chip_access.Add(C.access[tier])
 			continue
 		id.access.Add(C.access[tier])

@@ -1,5 +1,6 @@
 /datum/outfit/syndicate/clownop
 	name = "Clown Operative - Basic"
+	card_access = /datum/card_access/chameleon/operative/clown
 	uniform = /obj/item/clothing/under/syndicate
 	shoes = /obj/item/clothing/shoes/clown_shoes/combat
 	mask = /obj/item/clothing/mask/gas/clown_hat
@@ -23,5 +24,6 @@
 
 /datum/outfit/syndicate/clownop/leader
 	name = "Clown Operative Leader - Basic"
+	card_access = /datum/card_access/chameleon/operative/clown_leader
 	gloves = /obj/item/clothing/gloves/krav_maga/combatglovesplus
 	command_radio = TRUE

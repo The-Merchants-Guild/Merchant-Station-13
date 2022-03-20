@@ -43,11 +43,7 @@
 
 /datum/card_access/job/captain/get_access()
 	. = ..()
-	. += SSid_access.get_tier_access_list(ACCESS_TIER_1)
-	. += SSid_access.get_tier_access_list(ACCESS_TIER_2)
-	. += SSid_access.get_tier_access_list(ACCESS_TIER_3)
-	. += SSid_access.get_tier_access_list(ACCESS_TIER_4)
-	. += SSid_access.get_tier_access_list(ACCESS_TIER_5)
+	. += SSid_access.accesses_by_region[REGION_STATION]
 
 /datum/card_access/job/cargo_technician
 	assignment = "Cargo Technician"

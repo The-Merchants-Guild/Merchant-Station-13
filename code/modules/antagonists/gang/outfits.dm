@@ -10,6 +10,7 @@
 
 /datum/outfit/families_police/beatcop
 	name = "Families: Beat Cop"
+	card_access = /datum/card_access/space_police
 
 	uniform = /obj/item/clothing/under/rank/security/officer/beatcop
 	back = /obj/item/storage/backpack/duffelbag/cops

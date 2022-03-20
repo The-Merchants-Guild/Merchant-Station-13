@@ -591,6 +591,7 @@
 
 /datum/outfit/snowsyndie
 	name = "Syndicate Snow Operative"
+	card_access = /datum/card_access/chameleon/operative
 	uniform = /obj/item/clothing/under/syndicate/coldres
 	shoes = /obj/item/clothing/shoes/combat/coldres
 	ears = /obj/item/radio/headset/syndicate/alt

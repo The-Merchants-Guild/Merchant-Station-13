@@ -109,7 +109,7 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 
 	if(dept_access)
 		var/obj/item/card/id/worn_id = spawning.wear_id
-		SSid_access.apply_card_access(worn_id, dept_access)
+		SSid_access.apply_card_access(worn_id, dept_access, chip = TRUE)
 		spawning.sec_hud_set_ID()
 
 	var/spawn_point = pick(LAZYACCESS(GLOB.department_security_spawns, department))

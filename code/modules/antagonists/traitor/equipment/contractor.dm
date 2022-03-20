@@ -180,6 +180,7 @@
 
 /datum/outfit/contractor_partner
 	name = "Contractor Support Unit"
+	card_access = /datum/card_access/chameleon/operative
 
 	uniform = /obj/item/clothing/under/chameleon
 	suit = /obj/item/clothing/suit/chameleon

@@ -1,5 +1,6 @@
 /datum/outfit/syndicate
 	name = "Syndicate Operative - Basic"
+	card_access = /datum/card_access/chameleon/operative
 
 	uniform = /obj/item/clothing/under/syndicate
 	shoes = /obj/item/clothing/shoes/combat
@@ -20,6 +21,7 @@
 
 /datum/outfit/syndicate/leader
 	name = "Syndicate Leader - Basic"
+	card_access = /datum/card_access/chameleon/operative/nuke_leader
 	gloves = /obj/item/clothing/gloves/krav_maga/combatglovesplus
 	command_radio = TRUE
 

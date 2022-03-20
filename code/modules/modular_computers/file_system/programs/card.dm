@@ -10,6 +10,7 @@
 	tgui_id = "NtosCard"
 	program_icon = "id-card"
 
+	var/usable_regions = list(REGION_GENERAL,REGION_SECURITY, REGION_MEDBAY, REGION_RESEARCH, REGION_ENGINEERING, REGION_SUPPLY, REGION_COMMAND)
 	/// If TRUE, this program is authenticated with limited departmental access.
 	var/minor = FALSE
 	/// The name/assignment combo of the ID card used to authenticate.
@@ -210,7 +211,9 @@
 	data["templates"] = list()
 	for (var/datum/card_access/A in SSid_access.card_access_assignable)
 		data["templates"][A.assignment] = A.type
-	data["regions"] = SSid_access.accesses_by_region
+	data["regions"] = list()
+	for (var/r in usable_regions)
+		data["regions"][r] = SSid_access.accesses_by_region[r]
 	data["access_names"] = SSid_access.name_by_access
 	data["access_tiers"] = SSid_access.tiers_by_access
 

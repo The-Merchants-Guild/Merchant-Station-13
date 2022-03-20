@@ -187,7 +187,7 @@
 	if(id)
 		H.equip_to_slot_or_del(new id(H),ITEM_SLOT_ID, TRUE)
 		if (card_access && ispath(id, /obj/item/card/id))
-			SSid_access.apply_card_access(H.wear_id, card_access, force = TRUE)
+			SSid_access.apply_card_access(H.wear_id, card_access, chip = TRUE)
 	if(suit_store)
 		H.equip_to_slot_or_del(new suit_store(H),ITEM_SLOT_SUITSTORE, TRUE)
 

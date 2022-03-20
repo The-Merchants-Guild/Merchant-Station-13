@@ -45,15 +45,6 @@
 	inhand_icon_state = ascended ? "toolbox_gold" : "artistic_toolbox"
 	return ..()
 
-/obj/item/his_grace/update_overlays()
-	. = ..()
-	if(ascended)
-		. += "triple_latch"
-	else if(awakened)
-		. += "single_latch_open"
-	else
-		. += "single_latch"
-
 /obj/item/his_grace/attack_self(mob/living/user)
 	if(!awakened)
 		INVOKE_ASYNC(src, .proc/awaken, user)

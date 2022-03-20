@@ -543,7 +543,7 @@
 /obj/item/card/id/departmental_budget/AltClick(mob/living/user)
 	registered_account.bank_card_talk(span_warning("Withdrawing is not compatible with this card design."), TRUE) //prevents the vault bank machine being useless and putting money from the budget to your card to go over personal crates
 
-/obj/item/card/id/silver/reaper
+/obj/item/card/id/reaper
 	name = "Thirteen's ID Card (Reaper)"
 	registered_name = "Thirteen"
 	icon_state = "card_silver"
@@ -698,14 +698,9 @@
 
 /obj/item/card/id/chameleon
 	name = "agent card"
-	desc = "A highly advanced chameleon ID card. Touch this card on another ID card or player to choose which accesses to copy. Has special magnetic properties which force it to the front of wallets."
-
+	desc = "A highly advanced chameleon ID card. Touch this card on another ID card or human to choose which accesses to copy. Has special magnetic properties which force it to the front of wallets."
 	/// Have we set a custom name and job assignment, or will we use what we're given when we chameleon change?
 	var/forged = FALSE
-	/// Anti-metagaming protections. If TRUE, anyone can change the ID card's details. If FALSE, only syndicate agents can.
-	var/anyone = FALSE
-	/// Weak ref to the ID card we're currently attempting to steal access from.
-	var/datum/weakref/theft_target
 
 /obj/item/card/id/chameleon/Initialize()
 	. = ..()
@@ -715,17 +710,13 @@
 	chameleon_card_action.chameleon_name = "ID Card"
 	chameleon_card_action.initialize_disguises()
 
-/obj/item/card/id/chameleon/Destroy()
-	theft_target = null
-	. = ..()
-
 /obj/item/card/id/chameleon/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 
 	if(istype(target, /obj/item/card/id))
-		theft_target = WEAKREF(target)
-		ui_interact(user)
+		var/obj/item/card/id/id = target
+		access |= id.GetAccess()
 		return
 
 	return ..()
@@ -749,10 +740,9 @@
 			to_chat(user, "<span class='notice'>The scan failed to locate any ID cards.</span>")
 			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-		var/selected_id = pick(target_id_cards)
+		var/obj/item/card/id/selected_id = pick(target_id_cards)
 		to_chat(user, "<span class='notice'>You successfully sync your [src] with \the [selected_id].</span>")
-		theft_target = WEAKREF(selected_id)
-		ui_interact(user)
+		access |= selected_id.GetAccess()
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	if(istype(target, /obj/item))
@@ -762,49 +752,16 @@
 
 		var/list/target_id_cards = target_item.get_all_contents_type(/obj/item/card/id)
 
-		var/target_item_id = target_item.GetID()
-
-		if(target_item_id)
-			target_id_cards |= target_item_id
-
 		if(!length(target_id_cards))
 			to_chat(user, "<span class='notice'>The scan failed to locate any ID cards.</span>")
 			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-		var/selected_id = pick(target_id_cards)
+		var/obj/item/card/id/selected_id = pick(target_id_cards)
 		to_chat(user, "<span class='notice'>You successfully sync your [src] with \the [selected_id].</span>")
-		theft_target = WEAKREF(selected_id)
-		ui_interact(user)
+		access |= selected_id.GetAccess()
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	return ..()
-
-/obj/item/card/id/chameleon/ui_host(mob/user)
-	// Hook our UI to the theft target ID card for UI state checks.
-	return theft_target?.resolve()
-
-/obj/item/card/id/chameleon/ui_state(mob/user)
-	return GLOB.always_state
-
-/obj/item/card/id/chameleon/ui_status(mob/user)
-	var/target = theft_target?.resolve()
-
-	if(!target)
-		return UI_CLOSE
-
-	var/status = min(
-		ui_status_user_strictly_adjacent(user, target),
-		ui_status_user_is_advanced_tool_user(user),
-		max(
-			ui_status_user_is_conscious_and_lying_down(user),
-			ui_status_user_is_abled(user, target),
-		),
-	)
-
-	if(status < UI_INTERACTIVE)
-		return UI_CLOSE
-
-	return status
 
 /obj/item/card/id/chameleon/attack_self(mob/user)
 	if(isliving(user) && user.mind)
@@ -869,7 +826,6 @@
 			return
 	return ..()
 
-/// A special variant of the classic chameleon ID card which accepts all access.
 /obj/item/card/id/chameleon/black
 	icon_state = "card_black"
 	worn_icon_state = "card_black"

@@ -16,7 +16,7 @@
 
 /datum/card_access/battlecruiser/captain
 	assignment = "Syndicate Battlecruiser Captain"
-	access = SYNDICATE_ACCESS
+	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
 
 /datum/card_access/chameleon
 	assignment = "Unknown"

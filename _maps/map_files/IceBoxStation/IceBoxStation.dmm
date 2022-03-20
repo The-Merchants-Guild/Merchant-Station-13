@@ -25378,10 +25378,6 @@
 "fMy" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
-/obj/item/storage/secure/safe/caps_spare{
-	pixel_x = 37;
-	pixel_y = 32
-	},
 /turf/open/floor/iron,
 /area/command/bridge)
 "fMz" = (
@@ -40476,7 +40472,6 @@
 /turf/open/floor/iron,
 /area/commons/dorms)
 "opx" = (
-/obj/machinery/restaurant_portal/restaurant,
 /turf/open/floor/iron/white/corner{
 	dir = 1
 	},
@@ -48146,7 +48141,6 @@
 /obj/structure/closet/secure_closet/bar{
 	req_access_txt = "25"
 	},
-/obj/item/holosign_creator/robot_seat/bar,
 /turf/open/floor/wood,
 /area/service/bar)
 "sBn" = (
@@ -48863,7 +48857,6 @@
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/donkpockets,
 /obj/item/reagent_containers/glass/beaker,
-/obj/item/holosign_creator/robot_seat/restaurant,
 /turf/open/floor/iron/cafeteria,
 /area/service/kitchen)
 "sWz" = (
@@ -57065,14 +57058,6 @@
 	},
 /turf/open/floor/iron,
 /area/cargo/miningdock)
-"xzy" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/machinery/restaurant_portal/bar,
-/turf/open/floor/iron,
-/area/service/bar)
 "xzA" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -57269,6 +57254,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/stamp/captain,
+/obj/item/card/id/advanced/gold/captains_spare,
 /turf/open/floor/wood,
 /area/command/heads_quarters/captain)
 "xHo" = (
@@ -93710,7 +93696,7 @@ oHj
 dSU
 crr
 iHa
-xzy
+dLp
 xvD
 hYS
 wwm

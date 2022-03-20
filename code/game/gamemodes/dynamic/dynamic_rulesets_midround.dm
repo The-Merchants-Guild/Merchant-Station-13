@@ -101,19 +101,17 @@
 	if (possible_volunteers.len <= 0) // This shouldn't happen, as ready() should return FALSE if there is not a single valid candidate
 		message_admins("Possible volunteers was 0. This shouldn't appear, because of ready(), unless you forced it!")
 		return
-	message_admins("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
-	log_game("DYNAMIC: Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
+	mode.dlog("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 
 	candidates = pollGhostCandidates("The mode is looking for volunteers to become [antag_flag] for [name]", antag_flag, antag_flag_override ? antag_flag_override : antag_flag, poll_time = 300)
 
 	if(!candidates || candidates.len <= 0)
-		mode.dynamic_log("The ruleset [name] received no applications.")
+		mode.dlog("The ruleset [name] received no applications.")
 		mode.executed_rules -= src
 		attempt_replacement()
 		return
 
-	message_admins("[candidates.len] players volunteered for the ruleset [name].")
-	log_game("DYNAMIC: [candidates.len] players volunteered for [name].")
+	mode.dlog("[candidates.len] players volunteered for the ruleset [name].")
 	review_applications()
 
 /// Here is where you can check if your ghost applicants are valid for the ruleset.
@@ -192,6 +190,7 @@
 	cost = 10
 	requirements = list(50,40,30,20,10,10,10,10,10,10)
 	repeatable = TRUE
+	flags = TRAITOR_RULESET
 
 	/// Whether or not this instance of sleeper agent should be randomly acceptable.
 	/// If TRUE, then this has a threat level% chance to succeed.
@@ -201,18 +200,10 @@
 	var/player_count = GLOB.alive_player_list.len
 	var/antag_count = GLOB.current_living_antags.len
 	var/max_traitors = round(player_count / 10) + 1
-
-	// adding traitors if the antag population is getting low
-	var/too_little_antags = antag_count < max_traitors
-	if (!too_little_antags)
-		log_game("DYNAMIC: Too many living antags compared to living players ([antag_count] living antags, [player_count] living players, [max_traitors] max traitors)")
+	if ((antag_count < max_traitors) && prob(mode.threat_level))//adding traitors if the antag population is getting low
+		return ..()
+	else
 		return FALSE
-
-	if (has_failure_chance && !prob(mode.threat_level))
-		log_game("DYNAMIC: Random chance to roll autotraitor failed, it was a [mode.threat_level]% chance.")
-		return FALSE
-
-	return ..()
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()
 	..()
@@ -255,10 +246,10 @@
 	weight = 1
 	cost = 25
 	requirements = list(101,101,101,101,101,80,50,30,10,10)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGHLANDER_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/families)
 	minimum_players = 36
-	antag_cap = 6
+	antag_cap = list(6,6,6,6,6,6,6,6,6,6)
 	/// A reference to the handler that is used to run pre_execute(), execute(), etc..
 	var/datum/gang_handler/handler
 
@@ -407,7 +398,7 @@
 	requirements = list(90,90,90,80,60,40,30,20,10,10)
 	var/list/operative_cap = list(2,2,3,3,4,5,5,5,5,5)
 	var/datum/team/nuclear/nuke_team
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGHLANDER_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/nuclear/acceptable(population=0, threat=0)
 	if (locate(/datum/dynamic_ruleset/roundstart/nuclear) in mode.executed_rules)

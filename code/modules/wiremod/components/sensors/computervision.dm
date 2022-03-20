@@ -10,7 +10,7 @@
 
 	var/datum/port/output/scanned_objects
 	var/scan_range = 5
-	var/mob/M = new
+	var/object_scan_range = 3
 	
 /obj/item/circuit_component/computer_vision/populate_options()
 	var/static/component_options = list(COMP_COMPVIS_MOB, COMP_COMPVIS_OBJECT) // gonna implement the second one later
@@ -50,7 +50,7 @@
 				entry["species"] = human.dna.species.name
 			new_table += list(entry)
 	else
-		for(var/atom/A in view(scan_range - 2, current_turf))
+		for(var/atom/A in view(object_scan_range, current_turf))
 			if(A.invisibility > SEE_INVISIBLE_LIVING)
 				continue
 			var/list/entry = list()

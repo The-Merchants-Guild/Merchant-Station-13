@@ -55,7 +55,7 @@
 				continue
 			var/list/entry = list()
 			entry["entity"] = A
-			entry["name"] = A.get_examine_name(M)
+			entry["name"] = A.name
 			entry["range"] = get_dist(current_turf, A)
 			new_table += list(entry)
 

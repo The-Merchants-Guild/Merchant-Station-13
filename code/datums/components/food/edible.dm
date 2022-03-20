@@ -23,7 +23,7 @@ Behavior that's still missing from this component that original food items had t
 	///Bitfield of the types of this food
 	var/foodtypes = NONE
 	///Amount of seconds it takes to eat this food
-	var/eat_time = 30
+	var/eat_time = 0
 	///Defines how much it lowers someones satiety (Need to eat, essentialy)
 	var/junkiness = 0
 	///Message to send when eating
@@ -50,7 +50,7 @@ Behavior that's still missing from this component that original food items had t
 	food_flags = NONE,
 	foodtypes = NONE,
 	volume = 50,
-	eat_time = 10,
+	eat_time = 0,
 	list/tastes,
 	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 	bite_consumption = 2,
@@ -119,7 +119,7 @@ Behavior that's still missing from this component that original food items had t
 	food_flags = NONE,
 	foodtypes = NONE,
 	volume = 50,
-	eat_time = 10,
+	eat_time = 0,
 	list/tastes,
 	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 	bite_consumption = 2,

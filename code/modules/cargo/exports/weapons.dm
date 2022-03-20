@@ -31,6 +31,11 @@
 	unit_name = "disabler"
 	export_types = list(/obj/item/gun/energy/disabler)
 
+/datum/export/weapon/taser
+	cost = CARGO_CRATE_VALUE * 0.5
+	unit_name = "taser"
+	export_types = list(/obj/item/gun/energy/taser)
+
 /datum/export/weapon/energy_gun
 	cost = CARGO_CRATE_VALUE * 1.5
 	unit_name = "energy gun"

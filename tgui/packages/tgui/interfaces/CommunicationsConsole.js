@@ -690,9 +690,6 @@ export const CommunicationsConsole = (props, context) => {
     emagged,
     hasConnection,
     page,
-    canRequestSafeCode,
-    safeCodeDeliveryWait,
-    safeCodeDeliveryArea,
   } = data;
 
   return (
@@ -713,21 +710,6 @@ export const CommunicationsConsole = (props, context) => {
             />
           </Section>
         )}
-
-        {(!!canRequestSafeCode && (
-          <Section title="Emergency Safe Code">
-            <Button
-              icon="key"
-              content="Request Safe Code"
-              color="good"
-              onClick={() => act("requestSafeCodes")} />
-          </Section>
-        )) || (!!safeCodeDeliveryWait && (
-          <Section title="Emergency Safe Code Delivery">
-            {`Drop pod to ${safeCodeDeliveryArea} in \
-            ${Math.round(safeCodeDeliveryWait/10)}s`}
-          </Section>
-        ))}
 
         {!!authenticated && (
           page === STATE_BUYING_SHUTTLE && <PageBuyingShuttle />

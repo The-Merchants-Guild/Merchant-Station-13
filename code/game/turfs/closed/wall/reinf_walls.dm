@@ -51,8 +51,6 @@
 		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		to_chat(user, span_warning("This wall is far too strong for you to destroy."))
 
-/turf/closed/wall/r_wall/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 41)
-	return ..()
 
 /turf/closed/wall/r_wall/try_decon(obj/item/W, mob/user, turf/T)
 	//DECONSTRUCTION

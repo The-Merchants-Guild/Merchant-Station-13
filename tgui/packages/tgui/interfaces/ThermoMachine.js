@@ -67,7 +67,6 @@ export const ThermoMachine = (props, context) => {
               onClick={() => act('power')} />
           )}>
           <LabeledList>
-            {cooling_enviroment_reservoir}
             <LabeledList.Item label="Target Temperature">
               <NumberInput
                 animated

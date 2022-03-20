@@ -750,6 +750,8 @@
 
 /obj/item/melee/baton/stungun/update_icon()
 	..()
+	if(!cell)
+		return
 	var/ratio = CEILING(clamp(cell.charge / cell.maxcharge, 0, 1) * charge_sections, 1)
 	cut_overlays()
 	var/iconState = "[initial(name)]_charge"
@@ -782,6 +784,8 @@
 		if(cell && cell.charge < 300)
 			playsound(src, 'sound/misc/charge.ogg', 35, FALSE, pressure_affected = FALSE)
 			update_icon()
+	else
+		return PROCESS_KILL
 
 /obj/item/melee/baton/stungun/baton_effect()
 	..()

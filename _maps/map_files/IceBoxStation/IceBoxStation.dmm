@@ -41732,6 +41732,14 @@
 	dir = 4
 	},
 /area/science/misc_lab)
+"pbA" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/atm,
+/turf/open/floor/iron,
+/area/commons/fitness)
 "pbB" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
@@ -94191,7 +94199,7 @@ boP
 boP
 boP
 baY
-jWz
+pbA
 jWz
 hDQ
 jWz

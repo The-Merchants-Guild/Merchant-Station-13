@@ -2293,6 +2293,7 @@
 #include "code\modules\genetics\gene.dm"
 #include "code\modules\genetics\gene_machinery.dm"
 #include "code\modules\genetics\tumor.dm"
+#include "code\modules\genetics\genes\gene_effects.dm"
 #include "code\modules\genetics\genes\genes.dm"
 #include "code\modules\genetics\genes\test_genes.dm"
 #include "code\modules\holiday\easter.dm"

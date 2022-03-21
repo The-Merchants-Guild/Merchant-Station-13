@@ -33,6 +33,10 @@
     layers = EXTERNAL_BEHIND | EXTERNAL_FRONT
     var/tumor_size = 0.0
 
+///obj/item/organ/external/tumor/setDir(newdir)
+//    . = ..()
+//    dir = (newdir & 3 ^ 3) | (newdir & 12 ^ 12)
+
 /obj/item/organ/external/tumor/proc/growth_act(growth_amount)
     tumor_size += growth_amount
     owner.adjust_nutrition(-tumor_size * TUMOR_NUTRITION_FACTOR)

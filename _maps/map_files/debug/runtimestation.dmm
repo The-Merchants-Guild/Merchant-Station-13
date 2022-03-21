@@ -2007,6 +2007,12 @@
 /obj/item/paper/guides/jobs/security/labor_camp,
 /turf/open/floor/iron,
 /area/security/brig)
+"gO" = (
+/obj/structure/lattice,
+/obj/structure/cable,
+/obj/machinery/power/smes/magical,
+/turf/open/space,
+/area/space/nearstation)
 "gY" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -2032,6 +2038,10 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/science)
+"jr" = (
+/obj/machinery/light/no_nightlight/directional/west,
+/turf/open/floor/iron,
+/area/science/genetics)
 "jE" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
 	dir = 8
@@ -2099,6 +2109,11 @@
 	},
 /turf/open/floor/iron,
 /area/commons/storage/primary)
+"nu" = (
+/obj/machinery/light/directional/north,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "ny" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
@@ -2124,7 +2139,7 @@
 "pA" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden,
 /turf/closed/wall/r_wall,
-/area/science)
+/area/science/genetics)
 "pI" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -2192,6 +2207,17 @@
 	},
 /turf/open/floor/engine,
 /area/hallway/secondary/entry)
+"ug" = (
+/obj/structure/table/reinforced,
+/obj/item/test_gene_injector,
+/turf/open/floor/iron,
+/area/science/genetics)
+"ul" = (
+/mob/living/carbon/human/species,
+/obj/machinery/door/window,
+/obj/structure/window/plasma/spawner/west,
+/turf/open/floor/iron,
+/area/science/genetics)
 "un" = (
 /obj/machinery/light/directional/west,
 /obj/effect/turf_decal/stripes/line{
@@ -2273,6 +2299,16 @@
 "wU" = (
 /turf/closed/wall/r_wall,
 /area/science/nanite)
+"xj" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/science/genetics)
+"yj" = (
+/obj/machinery/admin_gene_machine{
+	color = "#00FF00"
+	},
+/turf/open/floor/iron,
+/area/science/genetics)
 "yK" = (
 /obj/structure/fans/tiny/invisible,
 /obj/effect/turf_decal/stripes/line{
@@ -2285,6 +2321,10 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/engineering/atmos)
+"zD" = (
+/obj/machinery/light/no_nightlight/directional/east,
+/turf/open/floor/iron,
+/area/science/genetics)
 "AE" = (
 /obj/item/disk/tech_disk/debug,
 /turf/open/floor/iron/dark,
@@ -2318,6 +2358,11 @@
 /obj/structure/closet/syndicate/resources/everything,
 /turf/open/floor/iron,
 /area/science)
+"CC" = (
+/obj/structure/lattice,
+/obj/structure/cable,
+/turf/open/space,
+/area/space/nearstation)
 "CQ" = (
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/stripes/line{
@@ -2341,6 +2386,29 @@
 /mob/living/carbon/human,
 /turf/open/floor/iron/dark,
 /area/science/nanite)
+"Dg" = (
+/obj/machinery/door/airlock/science/glass,
+/turf/open/floor/iron,
+/area/science/genetics)
+"Do" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/pill_bottle/mutadone{
+	pixel_x = -5;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/syringe/contraband/methamphetamine{
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/syringe/contraband/methamphetamine{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/syringe/contraband/methamphetamine,
+/turf/open/floor/iron,
+/area/science/genetics)
+"DC" = (
+/obj/machinery/chem_dispenser/mutagen,
+/turf/open/floor/iron,
+/area/science/genetics)
 "DW" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -2414,6 +2482,9 @@
 	},
 /turf/open/floor/iron,
 /area/cargo/miningoffice)
+"Jo" = (
+/turf/closed/wall/r_wall,
+/area/science/genetics)
 "JF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -2439,6 +2510,10 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/plating,
 /area/engineering/atmos)
+"KN" = (
+/obj/structure/cable,
+/turf/closed/wall/r_wall,
+/area/science/genetics)
 "Ly" = (
 /obj/machinery/chem_dispenser/chem_synthesizer,
 /turf/open/floor/iron/dark,
@@ -2451,6 +2526,11 @@
 	},
 /turf/open/floor/plating,
 /area/science/nanite)
+"LT" = (
+/mob/living/carbon/human/species,
+/obj/machinery/door/window,
+/turf/open/floor/iron,
+/area/science/genetics)
 "LW" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
@@ -2459,6 +2539,11 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"MC" = (
+/obj/machinery/power/apc/auto_name/south,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/science/genetics)
 "ME" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2536,6 +2621,11 @@
 	},
 /turf/open/floor/iron/white/corner,
 /area/medical/medbay)
+"SJ" = (
+/obj/machinery/airalarm/directional/south,
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/turf/open/floor/iron,
+/area/science/genetics)
 "Td" = (
 /obj/machinery/light/directional/east,
 /obj/effect/turf_decal/stripes/line{
@@ -2555,6 +2645,15 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/construction)
+"Ub" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/beaker/large,
+/turf/open/floor/iron,
+/area/science/genetics)
+"Ud" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/iron,
+/area/science/genetics)
 "Ut" = (
 /obj/structure/closet/secure_closet/medical3{
 	locked = 0
@@ -2671,6 +2770,9 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/science)
+"YU" = (
+/turf/open/floor/iron,
+/area/science/genetics)
 "ZD" = (
 /obj/machinery/suit_storage_unit/ce,
 /turf/open/floor/iron,
@@ -4905,12 +5007,12 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-dY
+Ud
+YU
+jr
+YU
+Do
+xj
 gE
 gu
 LW
@@ -4997,12 +5099,12 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-dY
+Ud
+DC
+YU
+YU
+Ub
+xj
 gq
 ei
 LW
@@ -5089,12 +5191,12 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-dY
+Ud
+yj
+YU
+YU
+ug
+xj
 eh
 gu
 LW
@@ -5181,12 +5283,12 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-dY
+Jo
+YU
+YU
+YU
+YU
+Dg
 eh
 gu
 LW
@@ -5273,13 +5375,13 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-dY
-ej
+Ud
+ul
+YU
+YU
+MC
+KN
+nu
 gu
 LW
 lc
@@ -5365,12 +5467,12 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-dY
+Ud
+LT
+YU
+YU
+YU
+xj
 eh
 gu
 LW
@@ -5454,16 +5556,16 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
 eb
 aa
 aa
-dY
-eh
+Ud
+LT
+zD
+YU
+SJ
+pA
+eL
 gu
 LW
 lc
@@ -5546,13 +5648,13 @@ aa
 aa
 ag
 ag
-bw
 di
+bw
 bw
 ag
-bw
-di
-bw
+ag
+ag
+ag
 ag
 ag
 eh
@@ -5639,10 +5741,10 @@ aa
 ag
 dR
 aD
-aD
 bC
 de
 gJ
+aD
 aD
 aD
 dR
@@ -6108,7 +6210,7 @@ bt
 bt
 bt
 AP
-pA
+bA
 kQ
 ES
 rL
@@ -6929,8 +7031,8 @@ ac
 ab
 ab
 ao
-ab
-ab
+CC
+gO
 ac
 bv
 bK

@@ -18,23 +18,14 @@
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
 	material_flags = MATERIAL_COLOR
-	var/latches = "single_latch"
-	var/has_latches = FALSE
 	wound_bonus = 5
 
 /obj/item/storage/toolbox/Initialize()
 	. = ..()
-	if(has_latches)
-		if(prob(10))
-			latches = "double_latch"
-			if(prob(1))
-				latches = "triple_latch"
 	update_appearance()
 
 /obj/item/storage/toolbox/update_overlays()
 	. = ..()
-	if(has_latches)
-		. += latches
 
 
 /obj/item/storage/toolbox/suicide_act(mob/user)
@@ -63,7 +54,6 @@
 /obj/item/storage/toolbox/emergency/old
 	name = "rusty red toolbox"
 	icon_state = "toolbox_red_old"
-	has_latches = FALSE
 	material_flags = NONE
 
 /obj/item/storage/toolbox/mechanical
@@ -85,7 +75,6 @@
 /obj/item/storage/toolbox/mechanical/old
 	name = "rusty blue toolbox"
 	icon_state = "toolbox_blue_old"
-	has_latches = FALSE
 	has_soul = TRUE
 
 /obj/item/storage/toolbox/mechanical/old/empty
@@ -105,7 +94,6 @@
 	name = "toolbox"
 	desc = "An old, blue toolbox, it looks robust."
 	icon_state = "oldtoolboxclean"
-	has_latches = FALSE
 	force = 19
 	throwforce = 22
 
@@ -254,7 +242,6 @@
 	force = 15
 	throwforce = 18
 	w_class = WEIGHT_CLASS_NORMAL
-	has_latches = FALSE
 
 /obj/item/storage/toolbox/infiltrator/ComponentInitialize()
 	. = ..()

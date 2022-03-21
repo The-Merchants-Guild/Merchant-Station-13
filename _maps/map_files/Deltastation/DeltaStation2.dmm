@@ -4373,6 +4373,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/south,
+/obj/machinery/atm,
 /turf/open/floor/iron/dark,
 /area/commons/locker)
 "aEH" = (

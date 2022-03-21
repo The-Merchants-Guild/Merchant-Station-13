@@ -24604,8 +24604,8 @@
 /turf/open/floor/iron/white,
 /area/security/prison)
 "fPT" = (
-/obj/machinery/vending/engivend,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/point_vendor/engineering,
 /turf/open/floor/iron,
 /area/engineering/main)
 "fQj" = (
@@ -32900,7 +32900,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 1
 	},
-/obj/machinery/vending/drugs,
+/obj/machinery/point_vendor/drug,
 /turf/open/floor/iron/dark,
 /area/medical/medbay/central)
 "iNa" = (
@@ -38484,8 +38484,8 @@
 /turf/open/floor/iron,
 /area/engineering/break_room)
 "kHW" = (
-/obj/machinery/vending/medical,
 /obj/machinery/light/directional/south,
+/obj/machinery/point_vendor/medical,
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "kHZ" = (
@@ -56641,7 +56641,6 @@
 /turf/open/floor/wood,
 /area/service/bar)
 "qFR" = (
-/obj/machinery/vending/security,
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -56652,6 +56651,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/machinery/point_vendor/security,
 /turf/open/floor/iron/dark,
 /area/security/office)
 "qFW" = (

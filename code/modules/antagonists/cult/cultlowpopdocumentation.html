@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;modules&#x2F;antagonists&#x2F;cult&#x2F;cultlowpopdocumentation.md - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+</header>
+<main>
+<h1>code/modules/antagonists/cult/cultlowpopdocumentation.md 
+            <a href="https://github.com/The-Merchants-Guild/Merchant-Station-13/blob/dc5d384de4b7564dd7df4692eef7ae863a14f47b/code/modules/antagonists/cult/cultlowpopdocumentation.md">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;antagonists&#x2F;cult&#x2F;cultlowpopdocumentation.md"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><td colspan="2"><h2 id="low-pop-cultist-documentation-by-fantii644">Low Pop Cultist Documentation by Fantii644</h2>
+<p>[Changes have been made to the Cultist gamemode in order to fit it into our current Low Pop Format. Should we ever gain a lot more of users, it'll be important to rebalance it back to normal, this documentation is made to explain each change in detail for other coders.]</p>
+<ul>
+<li><strong>code/__DEFINES/cult.dm</strong></li>
+</ul>
+<p>[Line 13 : MAX_BLOODCHARGE]
+It refers to the number of spells one Cultist can have on themselves thank to the spell rune, it is normally <strong>4</strong> but I lowered it down to <strong>3</strong></p>
+<p>[Line 18 : CULT_ASCENDENT]
+Originally <strong>0.4</strong>, it means the ration of cultist per total crewmembers needed (here, 40%) in order to activate the event where all Cultists get the red halo, I lowered it to <strong>0.3</strong> so that the normal crew can notice cult sooner and take action instead of being wiped too soon</p>
+<p>[Line 22 : IRON_TO_CONSTRUCT_SHELL_CONVERSION]
+Number of Iron needed to craft Shell Conversion, originally <strong>50</strong>, I figured it would be better to lower it to <strong>25</strong> since in Low Pop, you get less materials unless you go on your way for it.</p>
+<ul>
+<li><strong>code/modules/antagonists/cult/blood_magic.dm</strong></li>
+</ul>
+<p>[Line 446 : L.Paralyze]
+It's the number of seconds the Stun spell will paralyse someone, originally <strong>16</strong>, I found it to be an absurd number. Making it <strong>6</strong> instead will still give a good chance to cuff the victim</p>
+<p>[Line 453 : C.silent]
+Now it's the number of seconds the Stun spell will mute someone, originally <strong>6</strong>, I lowered it to <strong>3</strong>. However keep in mind that you need to <strong>DOUBLE</strong> that number for the real amount of seconds someone gets muted, meaning that right now it mutes you for 6 seconds, enough for a cultist to remove your headset</p>
+<p>[Line 533 : C.silent]
+Same as above, but it now affects the Shackle spell. Muting duration lowered from <strong>5</strong> to <strong>2</strong>. (Meaning 4 seconds total, remember, it's doubled)</p>
+<p>[Line 780 : temp] 
+Now we're into the Blood Rites spell, I turned the temp value from <strong>30</strong> to <strong>60</strong> in order to double the amount of blood acquired. In low pop we'd hardly get a lot of blood spilled</p>
+<p>[Line 782 : temp]
+Now it gets a bit funky, but the formula shown alters the amount of blood collected, I lowered the divider <strong>800</strong> to <strong>400</strong> in order to double the blood taken in a same fashion as Line 780</p>
+<p>[Lines 797 to 844]
+This one is a bit special, while not a mechanical change per-se, it's big enough that I should note what I did.
+Basically instead of writing the cost down on the uses of Blood Rites (Example : &quot;Blood Beam (500)&quot;) I put in the defines stated in (code/<strong>DEFINES/cult.dm</strong>), that way, if we were to change the defines for adjustment, it'll make the final result more clean and making more edits will not be needed. The rest of the lines are removing the backspaces.</p>
+<ul>
+<li><strong>code/modules/antagonists/cult/runes.dm</strong></li>
+</ul>
+<p>[Lines 480 and 482 : cultist_desc and req_cultists]
+The Final Rune needed to win the game, I changed the number of cultists needed to activate it from <strong>9</strong> to <strong>4</strong> (In exchange, I put in a nerf to that rune that will be explained in the later lines), and changing the description in the process</p>
+<p>[Line 488 : scribe_delay]
+Here comes the nerf to the Final Rune, now it takes <strong>50%</strong> more time to create the rune so that the cultists cannot speedrun a victory without being noticed (unless they really go out on their way)</p>
+<p>[Lines 652 and 654 : cultist_desc and req_cultists]
+Like the previous rune, I lowered this one rune (Summon Cultist) from needing <strong>2</strong> Cultists to only <strong>1</strong>. Description also changed accordingly. All the runes that requires more than 1 Cultist to operate aside from the Conversion rune will be changed that way.</p>
+<p>[Lines 703 and 708 : cultist_desc and req_cultists]
+As above, this rune is Boil Blood. Amount of Cultists needed to activate it lowered from <strong>3</strong> to <strong>2</strong>. Description also changed accordingly.</p>
+<p>[Line 896 : req_cultists]
+As above, this rune is Apocalypse. Amount of Cultists needed to activate it lowered from <strong>3</strong> to <strong>2</strong>. The description didn't need any change as it doesn't mention the amount of Cultists needed</p></td></tr></table></main>
+<footer>
+    tgstation.dme
+    <a href="https://github.com/The-Merchants-Guild/Merchant-Station-13/tree/dc5d384de4b7564dd7df4692eef7ae863a14f47b">dc5d384</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.0</a></footer>
+</body>
+</html>

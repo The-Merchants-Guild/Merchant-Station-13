@@ -43,3 +43,10 @@
 /datum/card_access/tunnel_clown/get_access()
 	. = ..()
 	. += SSid_access.accesses_by_region[REGION_STATION]
+
+/datum/card_access/space_police
+	assignment = "Space Police"
+
+/datum/card_access/space_police/get_access()
+	. = ..()
+	. += SSid_access.accesses_by_region[REGION_STATION]

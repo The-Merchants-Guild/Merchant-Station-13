@@ -14252,7 +14252,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 1
 	},
-/obj/machinery/vending/drugs,
+/obj/machinery/point_vendor/drug,
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "bDX" = (
@@ -14289,9 +14289,6 @@
 /turf/open/floor/iron/white,
 /area/medical/cryo)
 "bEh" = (
-/obj/machinery/vending/medical{
-	pixel_x = -2
-	},
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -14302,6 +14299,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/machinery/point_vendor/medical,
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "bEi" = (
@@ -23930,8 +23928,8 @@
 /turf/open/floor/iron/freezer,
 /area/commons/toilet/locker)
 "ePV" = (
-/obj/machinery/vending/engivend,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden,
+/obj/machinery/point_vendor/engineering,
 /turf/open/floor/iron,
 /area/engineering/main)
 "eQR" = (
@@ -56627,7 +56625,7 @@
 /turf/closed/wall/r_wall,
 /area/ai_monitored/command/nuke_storage)
 "xpW" = (
-/obj/machinery/vending/security,
+/obj/machinery/point_vendor/security,
 /turf/open/floor/iron/showroomfloor,
 /area/security/office)
 "xqa" = (

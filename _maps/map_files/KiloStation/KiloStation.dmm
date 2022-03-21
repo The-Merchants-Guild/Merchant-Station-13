@@ -12998,7 +12998,6 @@
 /turf/open/floor/iron/showroomfloor,
 /area/security/checkpoint/science/research)
 "aQH" = (
-/obj/machinery/vending/medical,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -13006,6 +13005,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/machinery/point_vendor/medical,
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "aQJ" = (
@@ -37762,7 +37762,6 @@
 /turf/open/floor/iron/showroomfloor,
 /area/ai_monitored/security/armory)
 "czw" = (
-/obj/machinery/vending/security,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -37771,6 +37770,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/cable,
+/obj/machinery/point_vendor/security,
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "czx" = (
@@ -58352,7 +58352,7 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/drugs,
+/obj/machinery/point_vendor/drug,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/exam_room)
 "kDn" = (
@@ -72076,7 +72076,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/machinery/vending/drugs,
+/obj/machinery/point_vendor/drug,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/surgery)
 "qBh" = (
@@ -78008,7 +78008,6 @@
 /turf/open/floor/iron,
 /area/engineering/break_room)
 "tkH" = (
-/obj/machinery/vending/engivend,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -78017,6 +78016,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/firealarm/directional/east,
+/obj/machinery/point_vendor/engineering,
 /turf/open/floor/iron/dark,
 /area/engineering/main)
 "tkL" = (

@@ -26,12 +26,12 @@
 /obj/item/electronics/airlock/ui_static_data(mob/user)
 	var/list/data = list()
 
-	var/list/regions = list()
-	var/list/tgui_region_data = SSid_access.all_region_access_tgui
-	for(var/region in SSid_access.station_regions)
-		regions += tgui_region_data[region]
+	// var/list/regions = list()
+	// var/list/tgui_region_data = SSid_access.all_region_access_tgui
+	// for(var/region in SSid_access.station_regions)
+	// 	regions += tgui_region_data[region]
 
-	data["regions"] = regions
+	// data["regions"] = regions
 	return data
 
 /obj/item/electronics/airlock/ui_data()
@@ -52,7 +52,7 @@
 			one_access = 0
 			. = TRUE
 		if("grant_all")
-			accesses = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
+			//accesses = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 			. = TRUE
 		if("one_access")
 			one_access = !one_access
@@ -67,18 +67,6 @@
 		if("direc_set")
 			var/unres_direction = text2num(params["unres_direction"])
 			unres_sides ^= unres_direction //XOR, toggles only the bit that was clicked
-			. = TRUE
-		if("grant_region")
-			var/region = params["region"]
-			if(isnull(region))
-				return
-			accesses |= SSid_access.get_region_access_list(list(region))
-			. = TRUE
-		if("deny_region")
-			var/region = params["region"]
-			if(isnull(region))
-				return
-			accesses -= SSid_access.get_region_access_list(list(region))
 			. = TRUE
 
 /obj/item/electronics/airlock/ui_host()

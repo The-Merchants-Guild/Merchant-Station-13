@@ -47,21 +47,7 @@
 	. = ..()
 
 	if(!target_dept)
-		pda_types = SSid_access.station_pda_templates.Copy()
-		card_trims = SSid_access.station_job_templates.Copy()
 		return
-
-	// Cache the manager list, then check through each manager.
-	// If we get a region match, add their trim templates and PDA paths to our lists.
-	var/list/manager_cache = SSid_access.sub_department_managers_tgui
-	for(var/access_txt in manager_cache)
-		var/list/manager_info = manager_cache[access_txt]
-		var/list/manager_regions = manager_info["regions"]
-		if(target_dept in manager_regions)
-			var/list/pda_list = manager_info["pdas"]
-			var/list/trim_list = manager_info["templates"]
-			pda_types |= pda_list
-			card_trims |= trim_list
 
 /obj/machinery/pdapainter/Destroy()
 	QDEL_NULL(stored_pda)
@@ -126,7 +112,7 @@
 		return
 
 	// Chameleon checks first so they can exit the logic early if they're detected.
-	if(istype(O, /obj/item/card/id/advanced/chameleon))
+	if(istype(O, /obj/item/card/id/chameleon))
 		to_chat(user, span_warning("The machine rejects your [O]. This ID card does not appear to be compatible with the PDA Painter."))
 		return
 
@@ -327,21 +313,6 @@
 				stored_pda.icon = initial(pda_path.icon)
 			stored_pda.icon_state = initial(pda_path.icon_state)
 			stored_pda.desc = initial(pda_path.desc)
-
-			return TRUE
-		if("trim_card")
-			if((machine_stat & BROKEN) || !stored_id_card)
-				return TRUE
-
-			var/selection = params["selection"]
-			for(var/path in card_trims)
-				if(!(card_trims[path] == selection))
-					continue
-
-				if(SSid_access.apply_trim_to_card(stored_id_card, path, copy_access = FALSE))
-					return TRUE
-
-				to_chat(usr, span_warning("The trim you selected could not be added to \the [stored_id_card]. You will need a rarer ID card to imprint that trim data."))
 
 			return TRUE
 		if("reset_card")

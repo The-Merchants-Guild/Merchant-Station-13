@@ -115,43 +115,42 @@
 	if (.)
 		return
 
-	switch (action)
-		if ("purchase")
-			var/obj/item/card/id/I
-			if (isliving(usr))
-				var/mob/living/L = usr
-				I = L.get_idcard(TRUE)
-			if (!istype(I))
-				to_chat(usr, span_alert("Error: An ID is required!"))
+	if (action == "purchase")
+		var/obj/item/card/id/I
+		if (isliving(usr))
+			var/mob/living/L = usr
+			I = L.get_idcard(TRUE)
+		if (!istype(I))
+			to_chat(usr, span_alert("Error: An ID is required!"))
+			flick(icon_deny, src)
+			return
+		var/item = text2path(params["path"])
+		if (!item || !(equipment_list[item]))
+			to_chat(usr, span_alert("Error: Invalid choice!"))
+			flick(icon_deny, src)
+			return
+		if (equipment_list[item][4] <= 0)
+			to_chat(usr, span_alert("Error: Out of stock!"))
+			flick(icon_deny, src)
+			return
+		if (params["type"] == "points")
+			if (equipment_list[item][2] > I.registered_account.job_points[department])
+				to_chat(usr, span_alert("Error: Insufficient points for [equipment_list[item][1]] on [I]!"))
 				flick(icon_deny, src)
 				return
-			var/item = text2path(params["path"])
-			if (!item || !(equipment_list[item]))
-				to_chat(usr, span_alert("Error: Invalid choice!"))
+			I.registered_account.job_points[department] -= equipment_list[item][2]
+			dispense(item)
+			SSblackbox.record_feedback("nested tally", "[department]_equipment_bought_points", 1, list("[type]", "[item]"))
+			. = TRUE
+		else
+			if (!I.registered_account.has_money(equipment_list[item][3]))
+				to_chat(usr, span_alert("Error: Insufficient credits for [equipment_list[item][1]] on [I]!"))
 				flick(icon_deny, src)
 				return
-			if (equipment_list[item][4] <= 0)
-				to_chat(usr, span_alert("Error: Out of stock!"))
-				flick(icon_deny, src)
-				return
-			if (params["type"] == "points")
-				if (equipment_list[item][2] > I.registered_account.job_points[department])
-					to_chat(usr, span_alert("Error: Insufficient points for [equipment_list[item][1]] on [I]!"))
-					flick(icon_deny, src)
-					return
-				I.registered_account.job_points[department] -= equipment_list[item][2]
-				dispense(item)
-				SSblackbox.record_feedback("nested tally", "[department]_equipment_bought_points", 1, list("[type]", "[item]"))
-				. = TRUE
-			else
-				if (!I.registered_account.has_money(equipment_list[item][3]))
-					to_chat(usr, span_alert("Error: Insufficient credits for [equipment_list[item][1]] on [I]!"))
-					flick(icon_deny, src)
-					return
-				I.registered_account.adjust_money(-equipment_list[item][3])
-				dispense(item)
-				SSblackbox.record_feedback("nested tally", "[department]_equipment_bought_credits", 1, list("[type]", "[item]"))
-				. = TRUE
+			I.registered_account.adjust_money(-equipment_list[item][3])
+			dispense(item)
+			SSblackbox.record_feedback("nested tally", "[department]_equipment_bought_credits", 1, list("[type]", "[item]"))
+			. = TRUE
 
 /obj/machinery/point_vendor/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))

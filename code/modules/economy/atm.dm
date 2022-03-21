@@ -48,15 +48,14 @@
 	if (!C)
 		return
 
-	switch (action)
-		if ("convert")
-			var/S = params["selected"]
-			var/datum/bank_account/acc = C.registered_account
-			if (!acc.job_points[S])
-				return
-			var/P = params["amount"]
-			if (acc.job_points[S] < P)
-				return
-			var/R = conversion_rates[S]
-			acc.adjust_money(P * R)
-			acc.job_points[S] -= P
+	if (action == "convert")
+		var/S = params["selected"]
+		var/datum/bank_account/acc = C.registered_account
+		if (!acc.job_points[S])
+			return
+		var/P = params["amount"]
+		if (acc.job_points[S] < P)
+			return
+		var/R = conversion_rates[S]
+		acc.adjust_money(P * R)
+		acc.job_points[S] -= P

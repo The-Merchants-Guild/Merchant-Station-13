@@ -12,6 +12,12 @@
 	muzzle_type = /obj/effect/projectile/muzzle/stun
 	impact_type = /obj/effect/projectile/impact/stun
 
+/obj/projectile/energy/electrode/taser // Special stats for the taser itself 
+	damage = 20
+	damage_type = STAMINA
+	knockdown = 1
+	range = 5
+
 /obj/projectile/energy/electrode/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!

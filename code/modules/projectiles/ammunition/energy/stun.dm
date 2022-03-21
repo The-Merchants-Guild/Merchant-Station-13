@@ -5,6 +5,10 @@
 	e_cost = 200
 	harmful = FALSE
 
+/obj/item/ammo_casing/energy/electrode/taser // Specific munition type created for the taser in order to not impede on other weapons
+	projectile_type = /obj/projectile/energy/electrode/taser
+	e_cost = 250
+
 /obj/item/ammo_casing/energy/electrode/spec
 	e_cost = 100
 

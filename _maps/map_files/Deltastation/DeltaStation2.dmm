@@ -27304,7 +27304,6 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "dnC" = (
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -27315,8 +27314,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/iron/dark,
-/area/medical/surgery)
+/obj/machinery/dna_scannernew,
+/turf/open/floor/iron/white,
+/area/medical/cloning)
 "dnD" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -27342,12 +27342,13 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/iron/dark,
-/area/medical/surgery)
+/obj/machinery/clonepod,
+/turf/open/floor/iron/white,
+/area/medical/cloning)
 "dnF" = (
 /obj/structure/sign/departments/medbay/alt,
 /turf/closed/wall,
-/area/medical/surgery)
+/area/medical/cloning)
 "dnG" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/neutral{
@@ -27681,11 +27682,10 @@
 /area/medical/medbay/central)
 "dpA" = (
 /obj/effect/turf_decal/tile/blue,
-/obj/structure/extinguisher_cabinet/directional/east,
+/obj/structure/cable,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "dpB" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -27696,9 +27696,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/firealarm/directional/west,
-/turf/open/floor/iron/dark,
-/area/medical/surgery)
+/obj/structure/cable,
+/turf/open/floor/iron/white,
+/area/medical/cloning)
 "dpC" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical{
@@ -27711,7 +27711,7 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/medical/surgery)
+/area/medical/cloning)
 "dpD" = (
 /obj/structure/chair,
 /obj/machinery/light/directional/east,
@@ -28008,16 +28008,8 @@
 /turf/open/floor/iron,
 /area/medical/medbay/central)
 "drn" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical{
-	name = "Surgery Observation"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/medical/surgery)
+/turf/open/floor/iron/white,
+/area/medical/cloning)
 "dro" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -28380,32 +28372,25 @@
 /turf/closed/wall,
 /area/medical/surgery)
 "dsJ" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
 /obj/machinery/firealarm/directional/west,
-/turf/open/floor/iron/white,
+/turf/closed/wall,
 /area/medical/surgery)
 "dsK" = (
-/obj/effect/turf_decal/tile/blue{
+/obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/blue{
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /turf/open/floor/iron/white,
-/area/medical/surgery)
+/area/medical/cloning)
 "dsL" = (
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
-/obj/machinery/iv_drip,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
 /obj/machinery/newscaster/directional/east,
-/turf/open/floor/iron/white,
+/turf/closed/wall,
 /area/medical/surgery)
 "dsN" = (
 /obj/item/clothing/gloves/color/latex,
@@ -55836,6 +55821,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 8
 	},
+/obj/machinery/door/airlock/medical{
+	name = "Cloning";
+	req_access_txt = "45"
+	},
 /turf/open/floor/iron,
 /area/medical/surgery/room_b)
 "jrh" = (
@@ -59896,6 +59885,20 @@
 /obj/machinery/recharger,
 /turf/open/floor/wood,
 /area/command/heads_quarters/captain)
+"kul" = (
+/obj/machinery/door/airlock/medical{
+	name = "Cloning"
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/medical/cloning)
 "kup" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -60107,6 +60110,11 @@
 /obj/machinery/holopad,
 /turf/open/floor/carpet,
 /area/command/bridge)
+"kxO" = (
+/obj/structure/table/greyscale,
+/obj/item/storage/pill_bottle/mutadone,
+/turf/open/floor/iron/white,
+/area/medical/cloning)
 "kxR" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -78747,8 +78755,10 @@
 	dir = 8
 	},
 /obj/machinery/status_display/evac/directional/north,
-/turf/open/floor/iron/dark,
-/area/medical/surgery)
+/obj/machinery/computer/cloning,
+/obj/structure/cable,
+/turf/open/floor/iron/white,
+/area/medical/cloning)
 "pgZ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -104993,6 +105003,9 @@
 	},
 /turf/open/floor/iron,
 /area/cargo/miningoffice)
+"vZm" = (
+/turf/closed/wall,
+/area/medical/cloning)
 "vZt" = (
 /obj/machinery/rnd/production/protolathe/department/engineering,
 /obj/effect/turf_decal/bot,
@@ -159645,10 +159658,10 @@ eFD
 kzm
 diM
 mWI
-dma
-dma
-dma
-dma
+vZm
+vZm
+kul
+vZm
 dma
 dro
 xQh
@@ -159902,10 +159915,10 @@ riX
 cPv
 diJ
 iPh
-dma
+vZm
 dnC
 dpB
-dmd
+drn
 dsJ
 dtN
 jkz
@@ -160159,11 +160172,11 @@ ovU
 cPv
 diM
 mWI
-dma
+vZm
 pgz
-dnD
+dpB
 drn
-dsK
+dma
 dtO
 qzt
 dxj
@@ -160416,10 +160429,10 @@ ovU
 cPv
 diz
 mWI
-dma
+vZm
 dnE
-dnD
-dmd
+dsK
+kxO
 dsL
 dtP
 cxF
@@ -160673,7 +160686,7 @@ sBQ
 cPv
 diL
 esn
-dma
+vZm
 dnF
 dpC
 dnF

@@ -392,3 +392,9 @@
 /obj/effect/hallucination/simple/securitron/Destroy()
 	STOP_PROCESSING(SSfastprocess,src)
 	return ..()
+
+/datum/brain_trauma/special/phychotic_brawling/bath_salts
+	clonable = FALSE
+
+/datum/brain_trauma/special/beepsky
+	clonable = FALSE

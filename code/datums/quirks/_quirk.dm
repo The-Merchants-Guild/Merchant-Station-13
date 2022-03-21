@@ -210,3 +210,6 @@
 	for(var/datum/quirk/quirk as anything in quirks)
 		quirk.remove_from_current_holder(quirk_transfer = TRUE)
 		quirk.add_to_holder(to_mob, quirk_transfer = TRUE)
+
+/datum/quirk/proc/clone_data()
+/datum/quirk/proc/on_clone(data)

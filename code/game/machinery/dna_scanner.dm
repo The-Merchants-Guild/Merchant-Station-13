@@ -181,3 +181,7 @@
 /obj/item/disk/data/examine(mob/user)
 	. = ..()
 	. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
+
+/obj/item/disk/data
+	name = "Cloning Data Disk"	//keeps name consistent with description from techweb medical_designs.dm
+	var/list/fields = list()

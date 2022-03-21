@@ -13011,7 +13011,7 @@
 "aQJ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/medical/surgery)
+/area/medical/cloning)
 "aQK" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
@@ -13023,9 +13023,6 @@
 /obj/structure/cable,
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/fore)
-"aQL" = (
-/turf/closed/wall/rust,
-/area/medical/surgery)
 "aQM" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
@@ -13064,10 +13061,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/computer/operating,
 /obj/effect/turf_decal/bot,
+/obj/machinery/clonepod,
 /turf/open/floor/iron/dark,
-/area/medical/surgery)
+/area/medical/cloning)
 "aQT" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -14936,7 +14933,7 @@
 /area/maintenance/central)
 "aVC" = (
 /turf/closed/wall,
-/area/medical/surgery)
+/area/medical/cloning)
 "aVD" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/l3closet/virology,
@@ -14975,8 +14972,9 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
+/obj/item/storage/pill_bottle/mutadone,
 /turf/open/floor/iron/showroomfloor,
-/area/medical/surgery)
+/area/medical/cloning)
 "aVQ" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
@@ -16184,7 +16182,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/showroomfloor,
-/area/medical/surgery)
+/area/medical/cloning)
 "aZv" = (
 /turf/closed/wall,
 /area/science/genetics)
@@ -16209,7 +16207,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/showroomfloor,
-/area/medical/surgery)
+/area/medical/cloning)
 "aZy" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
@@ -16291,11 +16289,11 @@
 	},
 /obj/structure/cable,
 /obj/machinery/door/airlock/medical{
-	name = "Operating Theater A";
+	name = "Cloning";
 	req_access_txt = "45"
 	},
 /turf/open/floor/iron/dark,
-/area/medical/surgery)
+/area/medical/cloning)
 "aZL" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
@@ -49560,11 +49558,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/item/storage/backpack/duffelbag/med/surgery,
 /obj/effect/turf_decal/bot,
+/obj/machinery/dna_scannernew,
 /turf/open/floor/iron/dark,
-/area/medical/surgery)
+/area/medical/cloning)
 "gUU" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
@@ -57629,7 +57626,7 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/showroomfloor,
-/area/medical/surgery)
+/area/medical/cloning)
 "kqL" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -62808,7 +62805,7 @@
 /obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable,
 /turf/open/floor/iron/showroomfloor,
-/area/medical/surgery)
+/area/medical/cloning)
 "mCa" = (
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
@@ -68955,7 +68952,7 @@
 	},
 /obj/structure/mirror/directional/west,
 /turf/open/floor/iron/showroomfloor,
-/area/medical/surgery)
+/area/medical/cloning)
 "pmd" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 8
@@ -71902,7 +71899,7 @@
 /obj/structure/closet/crate/freezer/blood,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/showroomfloor,
-/area/medical/surgery)
+/area/medical/cloning)
 "qvM" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -72079,7 +72076,7 @@
 	},
 /obj/machinery/vending/drugs,
 /turf/open/floor/iron/showroomfloor,
-/area/medical/surgery)
+/area/medical/cloning)
 "qBh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/rebels_unite{
@@ -76041,10 +76038,10 @@
 	departmentType = 1;
 	name = "Medbay Requests Console"
 	},
-/obj/structure/table/optable,
 /obj/effect/turf_decal/bot,
+/obj/machinery/computer/cloning,
 /turf/open/floor/iron/dark,
-/area/medical/surgery)
+/area/medical/cloning)
 "snB" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -78982,7 +78979,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/showroomfloor,
-/area/medical/surgery)
+/area/medical/cloning)
 "tEb" = (
 /turf/closed/wall/r_wall,
 /area/command/heads_quarters/captain)
@@ -108492,7 +108489,7 @@ aSO
 pLk
 aVC
 aVC
-aQL
+aVC
 aVC
 aVC
 wYL
@@ -109265,7 +109262,7 @@ aQJ
 aQQ
 aZx
 qvG
-aQL
+aVC
 wzL
 bgI
 oBp
@@ -109776,7 +109773,7 @@ aHG
 aIh
 aTz
 qAZ
-aQL
+aVC
 aZK
 aQJ
 aVC

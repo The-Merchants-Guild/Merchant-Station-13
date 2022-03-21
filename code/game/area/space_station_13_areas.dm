@@ -1076,6 +1076,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Medical Cold Room"
 	icon_state = "kitchen_cold"
 
+/area/medical/cloning
+	name = "Cloning Room"
+	icon_state = "cloning"
+
 /area/medical/patients_rooms
 	name = "Patients' Rooms"
 	icon_state = "patients"

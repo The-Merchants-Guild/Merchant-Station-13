@@ -213,3 +213,7 @@
 /datum/brain_trauma/mild/phobia/guns
 	phobia_type = "guns"
 	random_gain = FALSE
+
+/datum/brain_trauma/mild/phobia/on_clone()
+	if(clonable)
+		return new type(phobia_type)

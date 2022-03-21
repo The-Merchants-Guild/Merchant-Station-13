@@ -549,3 +549,11 @@
 /obj/item/circuitboard/computer/exodrone_console
 	name = "Exploration odrone control console (Computer Board)"
 	build_path = /obj/machinery/computer/exodrone_control_console
+
+/obj/item/circuitboard/computer/cloning
+	name = "Cloning (Computer Board)"
+	build_path = /obj/machinery/computer/cloning
+
+/obj/item/circuitboard/computer/prototype_cloning
+	name = "Prototype Cloning (Computer Board)"
+	build_path = /obj/machinery/computer/prototype_cloning

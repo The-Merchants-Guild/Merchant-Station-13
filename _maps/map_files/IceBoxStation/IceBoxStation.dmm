@@ -11780,7 +11780,7 @@
 	name = "Surgery Shutter"
 	},
 /turf/open/floor/plating,
-/area/medical/surgery/room_b)
+/area/medical/cloning)
 "bqK" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Teleporter Maintenance";
@@ -11929,7 +11929,7 @@
 /obj/effect/landmark/start/medical_doctor,
 /obj/structure/cable,
 /turf/open/floor/iron/white,
-/area/medical/surgery)
+/area/medical/cloning)
 "brf" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -11964,7 +11964,7 @@
 "brp" = (
 /obj/machinery/smartfridge/organ,
 /turf/closed/wall,
-/area/medical/surgery/room_b)
+/area/medical/cloning)
 "brs" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastright{
@@ -20928,12 +20928,12 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/structure/table/optable,
 /obj/machinery/light/directional/north,
 /obj/machinery/newscaster/directional/north,
 /obj/structure/cable,
+/obj/machinery/computer/cloning,
 /turf/open/floor/iron/white,
-/area/medical/surgery)
+/area/medical/cloning)
 "cYY" = (
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
@@ -22419,9 +22419,9 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/north,
-/obj/machinery/computer/operating,
+/obj/machinery/dna_scannernew,
 /turf/open/floor/iron/white,
-/area/medical/surgery)
+/area/medical/cloning)
 "dVr" = (
 /obj/machinery/power/apc/auto_name/west,
 /obj/machinery/newscaster/directional/north,
@@ -24420,7 +24420,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/machinery/iv_drip,
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/camera{
 	c_tag = "Surgery A";
@@ -24431,8 +24430,10 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 5
 	},
+/obj/structure/table/rolling,
+/obj/item/storage/pill_bottle/mutadone,
 /turf/open/floor/iron/white,
-/area/medical/surgery)
+/area/medical/cloning)
 "fgz" = (
 /obj/machinery/light/directional/west,
 /obj/effect/turf_decal/stripes/corner{
@@ -25911,7 +25912,7 @@
 	name = "Surgery Shutter Control"
 	},
 /turf/open/floor/iron/white,
-/area/medical/surgery)
+/area/medical/cloning)
 "fXx" = (
 /obj/machinery/igniter/incinerator_toxmix,
 /obj/effect/decal/cleanable/dirt,
@@ -26050,7 +26051,7 @@
 /area/commons/toilet/locker)
 "gbO" = (
 /turf/closed/wall,
-/area/medical/surgery)
+/area/medical/cloning)
 "gbZ" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 8
@@ -30947,7 +30948,7 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/white,
-/area/medical/surgery)
+/area/medical/cloning)
 "iYj" = (
 /obj/machinery/light/small/directional/north,
 /obj/structure/chair/stool/directional/north,
@@ -36886,12 +36887,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/structure/table/glass,
-/obj/item/storage/backpack/duffelbag/med/surgery,
 /obj/machinery/vending/wallmed/directional/west,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2,
 /turf/open/floor/iron/white,
-/area/medical/surgery)
+/area/medical/cloning)
 "mnr" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -38250,7 +38249,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
-/area/medical/surgery)
+/area/medical/cloning)
 "mZc" = (
 /obj/structure/cable,
 /turf/open/floor/engine,
@@ -55447,11 +55446,11 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/medical2,
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable,
+/obj/machinery/clonepod,
 /turf/open/floor/iron/white,
-/area/medical/surgery)
+/area/medical/cloning)
 "wIi" = (
 /obj/effect/spawner/lootdrop/gross_decal_spawner,
 /turf/open/floor/plating{
@@ -57930,7 +57929,7 @@
 	dir = 10
 	},
 /turf/open/floor/iron/white,
-/area/medical/surgery)
+/area/medical/cloning)
 "yaX" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -98863,11 +98862,11 @@ bkd
 bkd
 bkd
 tjz
-bpJ
+gbO
 bqF
 bqF
 brp
-bpJ
+gbO
 wdf
 bvr
 bsN

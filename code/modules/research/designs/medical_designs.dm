@@ -22,6 +22,10 @@
 	category = list("Control Interfaces", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/dna_disk
+	name = "Cloning Data Disk"
+	desc = "Produce additional disks for storing genetic and clone data."
+
 /datum/design/posibrain
 	name = "Positronic Brain"
 	desc = "The latest in Artificial Intelligences."

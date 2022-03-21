@@ -20,6 +20,7 @@
 #define POLL_IGNORE_SPLITPERSONALITY "split_personality"
 #define POLL_IGNORE_CONTRACTOR_SUPPORT "contractor_support"
 #define POLL_IGNORE_ACADEMY_WIZARD "academy_wizard"
+#define POLL_IGNORE_DEFECTIVECLONE "defective_clone"
 
 
 GLOBAL_LIST_INIT(poll_ignore_desc, list(

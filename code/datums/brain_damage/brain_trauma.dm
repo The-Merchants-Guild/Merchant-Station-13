@@ -57,3 +57,10 @@
 	SIGNAL_HANDLER
 
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
+
+/datum/brain_trauma
+	var/clonable = TRUE
+
+/datum/brain_trauma/proc/on_clone()
+	if(clonable)
+		return new type

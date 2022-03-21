@@ -197,3 +197,6 @@
 #define AIRALARM_BUILD_NO_WIRES 1
 /// Air alarm has all components but isn't completed
 #define AIRALARM_BUILD_COMPLETE 2
+
+#define CLONING_SUCCESS (1<<0)
+#define CLONING_DELETE_RECORD (1<<1)

@@ -29,6 +29,7 @@
 	new /obj/item/storage/photo_album/rd(src)
 	new /obj/item/storage/box/skillchips/science(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/science/rd(src)
+	new /obj/item/holotool(src)
 
 
 /obj/structure/closet/secure_closet/cytology

@@ -4,7 +4,6 @@
 	max_volume = 80
 	tastes = list("bread" = 10)
 	foodtypes = GRAIN
-	eat_time = 3 SECONDS
 
 /obj/item/food/bread/Initialize()
 	. = ..()
@@ -15,8 +14,6 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	slot_flags = ITEM_SLOT_HEAD
 	foodtypes = GRAIN
-	food_flags = FOOD_FINGER_FOOD
-	eat_time = 0.5 SECONDS
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/breadslice/Initialize()
@@ -254,7 +251,6 @@
 			food_flags = food_flags,\
 			foodtypes = foodtypes,\
 			volume = max_volume,\
-			eat_time = eat_time,\
 			tastes = tastes,\
 			eatverbs = eatverbs,\
 			bite_consumption = bite_consumption,\

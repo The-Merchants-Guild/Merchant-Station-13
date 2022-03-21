@@ -53,7 +53,6 @@
 	food_reagents = list(/datum/reagent/water = 1, /datum/reagent/consumable/nutriment/vitamin = 0.2, /datum/reagent/consumable/nutriment = 1)
 	tastes = list("watermelon" = 1)
 	foodtypes = FRUIT
-	food_flags = FOOD_FINGER_FOOD
 	juice_results = list(/datum/reagent/consumable/watermelonjuice = 5)
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -64,7 +63,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2)
 	tastes = list("candy corn" = 1)
 	foodtypes = JUNKFOOD | SUGAR
-	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/food/candy_corn/prison
@@ -82,7 +80,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/coco = 2)
 	tastes = list("chocolate" = 1)
 	foodtypes = JUNKFOOD | SUGAR
-	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/food/hugemushroomslice
@@ -137,7 +134,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	tastes = list("potato" = 3, "valids" = 1)
 	foodtypes = FRIED | VEGETABLES
-	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/tatortot/Initialize()
@@ -241,7 +237,6 @@
 	bite_consumption = 1
 	food_reagents = list(/datum/reagent/toxin/minttoxin = 2)
 	foodtypes = TOXIC | SUGAR
-	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/food/spidereggs
@@ -270,7 +265,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 2, /datum/reagent/toxin = 1, /datum/reagent/iron = 10, /datum/reagent/consumable/sugar = 5, /datum/reagent/medicine/omnizine = 2) //lollipop, but vitamins = toxins
 	tastes = list("cobwebs" = 1, "sugar" = 2)
 	foodtypes = JUNKFOOD | SUGAR
-	food_flags = FOOD_FINGER_FOOD
 	slot_flags = ITEM_SLOT_MASK
 
 /obj/item/food/spiderlollipop/Initialize()
@@ -284,7 +278,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/coco = 1, /datum/reagent/consumable/sugar = 1)
 	tastes = list("chocolate" = 1)
 	foodtypes = JUNKFOOD | SUGAR
-	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/fudgedice
@@ -295,7 +288,6 @@
 	trash_type = /obj/item/dice/fudge
 	tastes = list("fudge" = 1)
 	foodtypes = JUNKFOOD | SUGAR
-	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/chocoorange
@@ -305,7 +297,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 1)
 	tastes = list("chocolate" = 3, "oranges" = 1)
 	foodtypes = JUNKFOOD | SUGAR
-	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/eggplantparm
@@ -366,7 +357,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/honey = 5)
 	tastes = list("oats" = 3, "nuts" = 2, "honey" = 1)
 	foodtypes = GRAIN | SUGAR
-	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/powercrepe
@@ -396,7 +386,6 @@
 	var/headcolor = rgb(0, 0, 0)
 	tastes = list("candy" = 1)
 	foodtypes = JUNKFOOD | SUGAR
-	food_flags = FOOD_FINGER_FOOD
 	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
 
@@ -428,7 +417,6 @@
 	color = "#E48AB5" // craftable custom gums someday?
 	food_reagents = list(/datum/reagent/consumable/sugar = 5)
 	tastes = list("candy" = 1)
-	food_flags = FOOD_FINGER_FOOD
 	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
 
@@ -471,7 +459,6 @@
 				food_flags = food_flags,\
 				foodtypes = foodtypes,\
 				volume = max_volume,\
-				eat_time = eat_time,\
 				tastes = tastes,\
 				eatverbs = eatverbs,\
 				bite_consumption = bite_consumption,\
@@ -502,7 +489,6 @@
 	food_reagents = list(/datum/reagent/consumable/sugar = 5, /datum/reagent/medicine/sal_acid = 2, /datum/reagent/medicine/oxandrolone = 2) //Kek
 	tastes = list("candy")
 	foodtypes = JUNKFOOD
-	food_flags = FOOD_FINGER_FOOD
 	slot_flags = ITEM_SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
 
@@ -553,7 +539,6 @@
 	desc = "delicious, golden, fatty goodness on a stick."
 	icon_state = "butteronastick"
 	trash_type = /obj/item/stack/rods
-	food_flags = FOOD_FINGER_FOOD
 
 /obj/item/food/onionrings
 	name = "onion rings"
@@ -581,7 +566,6 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/consumable/coco = 1)
 	tastes = list("chocolate" = 1)
 	foodtypes = JUNKFOOD | SUGAR
-	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/food/canned
@@ -685,7 +669,6 @@
 				food_flags = food_flags,\
 				foodtypes = foodtypes,\
 				volume = max_volume,\
-				eat_time = eat_time,\
 				tastes = tastes,\
 				eatverbs = eatverbs,\
 				bite_consumption = bite_consumption,\
@@ -703,5 +686,4 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1, /datum/reagent/consumable/sugar = 5, /datum/reagent/ants = 3)
 	tastes = list("candy" = 1, "insects" = 1)
 	foodtypes = JUNKFOOD | SUGAR | GROSS
-	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_TINY

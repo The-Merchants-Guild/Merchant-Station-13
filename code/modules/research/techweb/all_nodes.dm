@@ -271,7 +271,6 @@
 		"soda_dispenser",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-	required_experiments = list(/datum/experiment/scanning/points/slime/calibration)
 
 /datum/techweb_node/adv_biotech
 	id = "adv_biotech"
@@ -294,7 +293,6 @@
 		"smoke_machine",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
-	required_experiments = list(/datum/experiment/scanning/points/slime/easy)
 	discount_experiments = list(/datum/experiment/scanning/random/material/meat = 4000) //Big discount to reinforce doing it.
 
 /datum/techweb_node/xenoorgan_biotech
@@ -1313,7 +1311,6 @@
 		"tele_shield",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
-	required_experiments = list(/datum/experiment/explosion/calibration)
 
 /datum/techweb_node/adv_weaponry
 	id = "adv_weaponry"
@@ -1324,7 +1321,6 @@
 		"pin_loyalty",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
-	required_experiments = list(/datum/experiment/explosion/medium)
 
 /datum/techweb_node/electric_weapons
 	id = "electronic_weapons"
@@ -1379,7 +1375,6 @@
 		"pyro_Grenade",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-	required_experiments = list(/datum/experiment/explosion/maxcap)
 
 /datum/techweb_node/ballistic_weapons
 	id = "ballistic_weapons"
@@ -1973,7 +1968,6 @@
 	)
 
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-	required_experiments = list(/datum/experiment/scanning/points/slime/hard)
 	hidden = TRUE
 
 /datum/techweb_node/alien_engi

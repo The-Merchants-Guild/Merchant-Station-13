@@ -179,6 +179,7 @@
 	var/neck = -1
 	var/backpack_contents = -1
 	var/suit_store = -1
+	var/datum/card_access/card_access = null
 
 	var/hairstyle
 	var/facial_hairstyle

@@ -443,6 +443,7 @@
 	back = /obj/item/storage/backpack
 	implants = list(/obj/item/implant/weapons_auth)
 	id = /obj/item/card/id/chameleon
+	card_access = /datum/card_access/chameleon/operative
 
 /datum/outfit/syndicate_empty/post_equip(mob/living/carbon/human/H)
 	H.faction |= ROLE_SYNDICATE
@@ -495,6 +496,7 @@
 	head = /obj/item/clothing/head/hos/syndicate
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
+	card_access = /datum/card_access/battlecruiser/captain
 
 //Ancient cryogenic sleepers. Players become NT crewmen from a hundred year old space station, now on the verge of collapse.
 /obj/effect/mob_spawn/human/oldsec
@@ -515,6 +517,7 @@
 	uniform = /obj/item/clothing/under/rank/security/officer
 	shoes = /obj/item/clothing/shoes/jackboots
 	id = /obj/item/card/id/away/old/sec
+	card_access = /datum/card_access/away/old/sec
 	r_pocket = /obj/item/restraints/handcuffs
 	l_pocket = /obj/item/assembly/flash/handheld
 	spawner_job_path = /datum/job/ancient_crew
@@ -541,6 +544,7 @@
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	shoes = /obj/item/clothing/shoes/workboots
 	id = /obj/item/card/id/away/old/eng
+	card_access = /datum/card_access/away/old/eng
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
 	l_pocket = /obj/item/tank/internals/emergency_oxygen
 	spawner_job_path = /datum/job/ancient_crew
@@ -567,6 +571,7 @@
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
 	shoes = /obj/item/clothing/shoes/laceup
 	id = /obj/item/card/id/away/old/sci
+	card_access = /datum/card_access/away/old/sci
 	l_pocket = /obj/item/stack/medical/bruise_pack
 	spawner_job_path = /datum/job/ancient_crew
 
@@ -720,7 +725,8 @@
 	l_pocket = /obj/item/gun/ballistic/automatic/pistol
 	r_pocket = /obj/item/kitchen/knife/combat/survival
 	belt = /obj/item/storage/belt/military/assault
-	id = /obj/item/card/id/black/syndicate_command/crew_id
+	id = /obj/item/card/id/black/syndicate_command
+	card_access = /datum/card_access/syndicom/crew
 	implants = list(/obj/item/implant/weapons_auth)
 
 /datum/outfit/syndicatespace/syndicaptain
@@ -734,7 +740,8 @@
 	back = /obj/item/storage/backpack
 	r_pocket = /obj/item/kitchen/knife/combat/survival
 	belt = /obj/item/storage/belt/military/assault
-	id = /obj/item/card/id/black/syndicate_command/captain_id
+	id = /obj/item/card/id/black/syndicate_command
+	card_access = /datum/card_access/syndicom/captain
 	implants = list(/obj/item/implant/weapons_auth)
 	backpack_contents = list(/obj/item/documents/syndicate/red, /obj/item/paper/fluff/ruins/forgottenship/password, /obj/item/gun/ballistic/automatic/pistol/aps)
 
@@ -773,6 +780,7 @@
 	H.dna.add_mutation(STONER)
 
 /datum/outfit/beachbum/lifeguard
+	card_access = /datum/card_access/lifeguard
 
 /obj/effect/mob_spawn/human/bartender/alive
 	death = FALSE
@@ -793,6 +801,7 @@
 	suit = /obj/item/clothing/suit/armor/vest
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id
+	card_access = /datum/card_access/job/bartender
 
 /datum/outfit/spacebartender/post_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()

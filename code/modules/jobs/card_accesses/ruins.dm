@@ -8,16 +8,16 @@
 	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT, ACCESS_AWAY_SEC)
 
 /datum/card_access/away/old/sec
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_SEC)
 	assignment = "Charlie Station Security Officer"
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_SEC)
 
 /datum/card_access/away/old/sci
-	access = list(ACCESS_AWAY_GENERAL)
 	assignment = "Charlie Station Scientist"
+	access = list(ACCESS_AWAY_GENERAL)
 
 /datum/card_access/away/old/eng
-	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINE)
 	assignment = "Charlie Station Engineer"
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINE)
 
 /datum/card_access/away/old/apc
 	access = list(ACCESS_ENGINE_EQUIP)

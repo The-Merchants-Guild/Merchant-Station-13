@@ -46,8 +46,6 @@
 	canSmoothWith = list(SMOOTH_GROUP_DIAMOND_WALLS)
 	custom_materials = list(/datum/material/diamond = 4000)
 
-/turf/closed/wall/mineral/diamond/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 41)
-	return ..()
 
 /turf/closed/wall/mineral/bananium
 	name = "bananium wall"
@@ -111,8 +109,6 @@
 	radiate()
 	..()
 
-/turf/closed/wall/mineral/uranium/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 41)
-	return ..()
 
 /turf/closed/wall/mineral/plasma
 	name = "plasma wall"
@@ -180,8 +176,6 @@
 			return
 	return ..()
 
-/turf/closed/wall/mineral/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 0)
-	return ..() //No recoil damage, wood is weak
 
 /turf/closed/wall/mineral/wood/nonmetal
 	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
@@ -217,8 +211,6 @@
 	bullet_bounce_sound = null
 	custom_materials = list(/datum/material/snow = 4000)
 
-/turf/closed/wall/mineral/snow/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 0)
-	return ..() //No recoil damage, snow is weak
 
 /turf/closed/wall/mineral/abductor
 	name = "alien wall"
@@ -352,8 +344,6 @@
 	bombcore.detonate()
 	return ..()
 
-/turf/closed/wall/mineral/plastitanium/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 41)
-	return ..()
 
 //have to copypaste this code
 /turf/closed/wall/mineral/plastitanium/interior/copyTurf(turf/T)

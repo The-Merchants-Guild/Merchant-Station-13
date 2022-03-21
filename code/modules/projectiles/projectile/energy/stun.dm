@@ -3,11 +3,13 @@
 	icon_state = "spark"
 	color = "#FFFF00"
 	nodamage = FALSE
-	paralyze = 100
+	damage = 20
+	damage_type = STAMINA
+	knockdown = 1
 	stutter = 5
 	jitter = 20
 	hitsound = 'sound/weapons/taserhit.ogg'
-	range = 7
+	range = 5
 	tracer_type = /obj/effect/projectile/tracer/stun
 	muzzle_type = /obj/effect/projectile/muzzle/stun
 	impact_type = /obj/effect/projectile/impact/stun

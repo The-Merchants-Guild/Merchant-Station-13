@@ -151,8 +151,8 @@
 /datum/chemical_reaction/reagent_explosion/gunpowder_explosion
 	required_reagents = list(/datum/reagent/gunpowder = 1)
 	required_temp = 474
-	strengthdiv = 10
-	modifier = 5
+	strengthdiv = 8
+	modifier = 2
 	mix_message = "<span class='boldannounce'>Sparks start flying around the gunpowder!</span>"
 
 /datum/chemical_reaction/reagent_explosion/gunpowder_explosion/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
@@ -218,8 +218,8 @@
 /datum/chemical_reaction/reagent_explosion/methsplosion
 	required_temp = 380 //slightly above the meth mix time.
 	required_reagents = list(/datum/reagent/drug/methamphetamine = 1)
-	strengthdiv = 12
-	modifier = 5
+	strengthdiv = 8
+	modifier = 2
 	mob_react = FALSE
 
 /datum/chemical_reaction/reagent_explosion/methsplosion/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)

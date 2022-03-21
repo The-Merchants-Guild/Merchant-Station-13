@@ -436,7 +436,7 @@
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/storage/box/survival/engineer = 1,
 )
-	belt = /obj/item/melee/classic_baton/telescopic
+	belt = /obj/item/melee/baton/stungun
 	l_pocket = /obj/item/assembly/flash
 	r_pocket = /obj/item/storage/wallet
 

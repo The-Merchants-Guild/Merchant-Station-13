@@ -50139,6 +50139,7 @@
 	dir = 1;
 	name = "recreation camera"
 	},
+/obj/machinery/atm,
 /turf/open/floor/iron,
 /area/commons/fitness/recreation)
 "hgh" = (

@@ -48129,6 +48129,10 @@
 "nMe" = (
 /turf/closed/wall,
 /area/medical/surgery/room_b)
+"nMi" = (
+/obj/machinery/atm,
+/turf/open/floor/wood,
+/area/service/bar)
 "nMp" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
@@ -115159,7 +115163,7 @@ aFH
 bjp
 tFU
 hkR
-otW
+nMi
 kLo
 pTE
 rNI

@@ -630,6 +630,16 @@
 		/obj/item/stock_parts/scanning_module = 1
 	)
 
+/obj/item/circuitboard/machine/atm
+	name = "Automatic Teller Machine (Machine Board)"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
+	build_path = /obj/machinery/atm
+	req_components = list(
+		/obj/item/stock_parts/card_reader = 1,
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stack/sheet/glass = 1
+	)
+
 //Medical
 /obj/item/circuitboard/machine/chem_assembler
 	name = "Chem Assembler (Machine Board)"

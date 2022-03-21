@@ -4,6 +4,7 @@
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "atm"
 	density = TRUE
+	circuit = /obj/item/circuitboard/machine/atm
 	var/static/list/conversion_rates = list(
 		ACCOUNT_ENG = 2,
 		ACCOUNT_SCI = 2,

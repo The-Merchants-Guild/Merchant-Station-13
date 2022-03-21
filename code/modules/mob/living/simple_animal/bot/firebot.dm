@@ -22,6 +22,7 @@
 	window_id = "autoextinguisher"
 	window_name = "Mobile Fire Extinguisher v1.0"
 	path_image_color = "#FFA500"
+	card_access = /datum/card_access/job/station_engineer
 
 	var/atom/target_fire
 	var/atom/old_target_fire

@@ -154,8 +154,10 @@
 	GLOB.bots_list += src
 	// Give bots a fancy new ID card that can hold any access.
 	access_card = new /obj/item/card/id/simple_bot(src)
+	SSid_access.apply_card_access(access_card, card_access, force = TRUE)
 	// This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.set_access(list(ACCESS_ROBOTICS))
+	prev_access = access_card.GetAccess()
 	set_custom_texts()
 	Radio = new/obj/item/radio(src)
 	if(radio_key)

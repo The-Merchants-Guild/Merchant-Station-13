@@ -37,6 +37,7 @@
 	var/id
 
 	path_image_color = "#7F5200"
+	card_access = /datum/card_access/job/cargo_technician
 
 	var/base_icon = "mulebot" /// icon_state to use in update_icon_state
 	var/atom/movable/load /// what we're transporting

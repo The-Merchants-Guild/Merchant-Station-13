@@ -17,6 +17,7 @@
 	window_name = "Automatic Station Cleaner v1.4"
 	pass_flags = PASSMOB | PASSFLAPS
 	path_image_color = "#993299"
+	card_access = /datum/card_access/job/janitor
 
 	var/blood = 1
 	var/trash = 0

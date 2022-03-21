@@ -501,6 +501,7 @@ GLOBAL_VAR_INIT(hhMysteryRoomNumber, rand(1, 999999))
 
 /datum/outfit/doctorhilbert
 	id = /obj/item/card/id/tier0
+	card_access = /datum/card_access/away/hilbert
 	uniform = /obj/item/clothing/under/rank/rnd/research_director/doctor_hilbert
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	back = /obj/item/storage/backpack/satchel/leather

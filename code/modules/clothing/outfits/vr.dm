@@ -1,5 +1,6 @@
 /datum/outfit/vr
 	name = "Basic VR"
+	card_access = /datum/card_access/vr
 
 	id = /obj/item/card/id
 	uniform = /obj/item/clothing/under/color/random
@@ -11,6 +12,7 @@
 
 /datum/outfit/vr/syndicate
 	name = "Syndicate VR Operative - Basic"
+	card_access = /datum/card_access/vr/operative
 
 	id = /obj/item/card/id/chameleon/black
 	uniform = /obj/item/clothing/under/syndicate

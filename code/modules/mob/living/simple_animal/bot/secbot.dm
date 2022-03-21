@@ -20,6 +20,7 @@
 	allow_pai = 0
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	path_image_color = "#FF0000"
+	card_access = /datum/card_access/job/security/detective
 
 	combat_mode = TRUE
 

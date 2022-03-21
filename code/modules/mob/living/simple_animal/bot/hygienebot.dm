@@ -20,6 +20,7 @@
 	path_image_color = "#993299"
 	allow_pai = FALSE
 	layer = ABOVE_MOB_LAYER
+	card_access = /datum/card_access/job/janitor
 
 	///The human target the bot is trying to wash.
 	var/mob/living/carbon/human/target

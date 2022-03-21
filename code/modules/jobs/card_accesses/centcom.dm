@@ -73,7 +73,7 @@
 	access = list(ACCESS_CENT_GENERAL)
 	assignment = "Emergency Response Team Intern"
 
-/datum/card_access/centcom/ert/New()
+/datum/card_access/centcom/ert/get_access()
 	. = ..()
 	. |= (SSid_access.accesses_by_region[REGION_STATION] - ACCESS_CHANGE_IDS)
 

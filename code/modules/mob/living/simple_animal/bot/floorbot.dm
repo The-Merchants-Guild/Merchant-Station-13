@@ -16,6 +16,7 @@
 	window_id = "autofloor"
 	window_name = "Automatic Station Floor Repairer v1.1"
 	path_image_color = "#FFA500"
+	card_access = /datum/card_access/job/station_engineer
 
 	var/process_type //Determines what to do when process_scan() receives a target. See process_scan() for details.
 	var/targetdirection

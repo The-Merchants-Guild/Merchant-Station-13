@@ -1,5 +1,6 @@
 /datum/outfit/centcom/spec_ops
 	name = "Special Ops Officer"
+	card_access = /datum/card_access/centcom/specops_officer
 
 	id = /obj/item/card/id/centcom
 	uniform = /obj/item/clothing/under/syndicate
@@ -114,8 +115,9 @@
 
 /datum/outfit/pirate
 	name = "Space Pirate"
+	card_access = /datum/card_access/pirate
 
-	id = /obj/item/card/id
+	id = /obj/item/card/id/tier0
 	uniform = /obj/item/clothing/under/costume/pirate
 	suit = /obj/item/clothing/suit/pirate/armored
 	ears = /obj/item/radio/headset/syndicate
@@ -139,6 +141,7 @@
 
 /datum/outfit/pirate/captain
 	name = "Space Pirate Captain"
+	card_access = /datum/card_access/pirate/captain
 
 	head = /obj/item/clothing/head/pirate/armored
 
@@ -157,6 +160,7 @@
 
 /datum/outfit/pirate/silverscale
 	name = "Silver Scale Member"
+	card_access = /datum/card_access/pirate/silverscale
 
 	id = /obj/item/card/id/tier0
 	uniform = /obj/item/clothing/under/suit/charcoal
@@ -168,6 +172,7 @@
 
 /datum/outfit/pirate/silverscale/captain
 	name = "Silver Scale Captain"
+	card_access = /datum/card_access/pirate/captain/silverscale
 
 	head = /obj/item/clothing/head/crown
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
@@ -175,6 +180,7 @@
 
 /datum/outfit/tunnel_clown
 	name = "Tunnel Clown"
+	card_access = /datum/card_access/tunnel_clown
 
 	id = /obj/item/card/id/tier5
 	uniform = /obj/item/clothing/under/rank/civilian/clown
@@ -221,6 +227,7 @@
 
 /datum/outfit/assassin
 	name = "Assassin"
+	card_access = /datum/card_access/reaper_assassin
 
 	id = /obj/item/card/id/chameleon/black
 	uniform = /obj/item/clothing/under/suit/black
@@ -262,6 +269,7 @@
 
 /datum/outfit/centcom/commander
 	name = "CentCom Commander"
+	card_access = /datum/card_access/centcom/commander
 
 	id = /obj/item/card/id/centcom
 	uniform = /obj/item/clothing/under/rank/centcom/commander
@@ -341,6 +349,7 @@
 
 /datum/outfit/centcom/soviet
 	name = "Soviet Admiral"
+	card_access = /datum/card_access/centcom/admiral
 
 	id = /obj/item/card/id/centcom
 	uniform = /obj/item/clothing/under/costume/soviet
@@ -366,6 +375,7 @@
 
 /datum/outfit/mobster
 	name = "Mobster"
+	card_access = /datum/card_access/mobster
 
 	id = /obj/item/card/id
 	uniform = /obj/item/clothing/under/suit/black_really

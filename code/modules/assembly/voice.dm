@@ -63,7 +63,7 @@
 			say("Your voice pattern is saved.", message_language)
 		if(VOICE_SENSOR_MODE)
 			if(length(raw_message))
-				addtimer(CALLBACK(src, .proc/pulse, 0), 10)
+				addtimer(CALLBACK(src, .proc/pulse), 1 SECONDS)
 
 /obj/item/assembly/voice/proc/check_activation(atom/movable/speaker, raw_message)
 	if (recorded == "")

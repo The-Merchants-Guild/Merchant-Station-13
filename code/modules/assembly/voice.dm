@@ -34,8 +34,6 @@
 
 /obj/item/assembly/voice/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
-	if(message_mods[WHISPER_MODE]) //Too quiet lad
-		return
 	if(speaker == src)
 		return
 
@@ -47,7 +45,7 @@
 		record_speech(speaker, raw_message, message_language)
 	else
 		if(check_activation(speaker, raw_message))
-			send_pulse()
+			addtimer(CALLBACK(src, .proc/pulse), 1 SECONDS)
 
 /obj/item/assembly/voice/proc/record_speech(atom/movable/speaker, raw_message, datum/language/message_language)
 	switch(mode)
@@ -65,7 +63,7 @@
 			say("Your voice pattern is saved.", message_language)
 		if(VOICE_SENSOR_MODE)
 			if(length(raw_message))
-				send_pulse()
+				addtimer(CALLBACK(src, .proc/pulse), 1 SECONDS)
 
 /obj/item/assembly/voice/proc/check_activation(atom/movable/speaker, raw_message)
 	if (recorded == "")
@@ -86,11 +84,6 @@
 				return TRUE
 
 	return FALSE
-
-/obj/item/assembly/voice/proc/send_pulse()
-	visible_message("clicks", visible_message_flags = EMOTE_MESSAGE)
-	playsound(src, 'sound/effects/whirthunk.ogg', 30)
-	addtimer(CALLBACK(src, .proc/pulse), 2 SECONDS)
 
 /obj/item/assembly/voice/multitool_act(mob/living/user, obj/item/I)
 	..()

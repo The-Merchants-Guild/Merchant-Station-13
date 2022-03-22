@@ -45,7 +45,7 @@
 		record_speech(speaker, raw_message, message_language)
 	else
 		if(check_activation(speaker, raw_message))
-			addtimer(CALLBACK(src, .proc/pulse, 0), 10)
+			addtimer(CALLBACK(src, .proc/pulse), 1 SECONDS)
 
 /obj/item/assembly/voice/proc/record_speech(atom/movable/speaker, raw_message, datum/language/message_language)
 	switch(mode)

@@ -13057,10 +13057,6 @@
 /turf/closed/wall/rust,
 /area/medical/surgery/room_b)
 "aQQ" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/clonepod,
 /turf/open/floor/iron/dark,
@@ -49553,11 +49549,7 @@
 /turf/open/floor/plating,
 /area/security/prison)
 "gUM" = (
-/obj/effect/turf_decal/tile/neutral,
 /obj/machinery/newscaster/directional/west,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/dna_scannernew,
 /turf/open/floor/iron/dark,
@@ -76029,10 +76021,6 @@
 /turf/open/floor/iron/showroomfloor,
 /area/command/heads_quarters/rd)
 "sns" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/machinery/requests_console/directional/north{
 	department = "Medbay";
 	departmentType = 1;

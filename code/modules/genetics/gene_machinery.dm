@@ -36,9 +36,6 @@
     proteins += list(T.name = T)
   data["protein_genes"] = available_proteins
 
-  SEND_TEXT(world.log, available_conditionals.len)
-  SEND_TEXT(world.log, GLOB.all_conditional_genes.len)
-
   var/list/crt_targets = list()
   var/list/crt_conds = list()
   var/list/crt_prot = list()

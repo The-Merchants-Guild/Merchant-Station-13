@@ -43,63 +43,18 @@
 	text_lose_indication = "<span class='notice'>You can no longer see the heat rising off of your skin...</span>"
 	time_coeff = 2
 	instability = 25
-	synchronizer_coeff = 1
-	power_coeff = 1
-	energy_coeff = 1
-	power = /obj/effect/proc_holder/spell/self/thermal_vision_activate
+	var/visionflag = TRAIT_THERMAL_VISION
 
-
-/datum/mutation/human/thermal/modify()
-	if(!power)
-		return FALSE
-	var/obj/effect/proc_holder/spell/self/thermal_vision_activate/modified_power = power
-	modified_power.eye_damage = 10 * GET_MUTATION_SYNCHRONIZER(src)
-	modified_power.thermal_duration = 10 * GET_MUTATION_POWER(src)
-	modified_power.charge_max = (25 * GET_MUTATION_ENERGY(src)) SECONDS
-
-
-/obj/effect/proc_holder/spell/self/thermal_vision_activate
-	name = "Activate Thermal Vision"
-	desc = "You can see thermal signatures, at the cost of your eyesight."
-	charge_max = 25 SECONDS
-	var/eye_damage = 10
-	var/thermal_duration = 10
-	clothes_req = FALSE
-	action_icon = 'icons/mob/actions/actions_changeling.dmi'
-	action_icon_state = "augmented_eyesight"
-
-/obj/effect/proc_holder/spell/self/thermal_vision_activate/cast(list/targets, mob/user = usr)
-	. = ..()
-
-	if(HAS_TRAIT(user,TRAIT_THERMAL_VISION))
+/datum/mutation/human/thermal/on_acquiring(mob/living/carbon/human/owner)
+	if(..())
 		return
-
-	ADD_TRAIT(user, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
-	user.update_sight()
-	to_chat(user, text("You focus your eyes intensely, as your vision becomes filled with heat signatures."))
-
-	addtimer(CALLBACK(src, .proc/thermal_vision_deactivate), thermal_duration SECONDS)
-
-/obj/effect/proc_holder/spell/self/thermal_vision_activate/proc/thermal_vision_deactivate(mob/user = usr)
-
-
-	if(!HAS_TRAIT_FROM(user,TRAIT_THERMAL_VISION, GENETIC_MUTATION))
-		return
-
-	REMOVE_TRAIT(user, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
-	user.update_sight()
-	to_chat(user, text("You blink a few times, your vision returning to normal as a dull pain settles in your eyes."))
-
-	var/mob/living/carbon/user_mob = user
-	if(!istype(user_mob))
-		return
-
-	user_mob.adjustOrganLoss(ORGAN_SLOT_EYES, eye_damage)
+	ADD_TRAIT(owner, visionflag, GENETIC_MUTATION)
+	owner.update_sight()
 
 /datum/mutation/human/thermal/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
-	REMOVE_TRAIT(owner, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
+	REMOVE_TRAIT(owner, visionflag, GENETIC_MUTATION)
 	owner.update_sight()
 
 ///X-ray Vision lets you see through walls.

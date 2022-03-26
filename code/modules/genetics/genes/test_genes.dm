@@ -52,12 +52,13 @@
     var/list/fields
     var/list/add_mutations = list()
     var/list/remove_mutations = list()
+    var/gene = new /datum/gene/test_gene
 
     var/used = 0
 
 /obj/item/test_gene_injector/proc/inject(mob/living/carbon/M, mob/user)
     if(M.has_dna() && !HAS_TRAIT(M, TRAIT_GENELESS) && !HAS_TRAIT(M, TRAIT_BADDNA))
-        M.dna.genes += new /datum/gene/test_gene
+        M.dna.genes += gene
         return TRUE
     return FALSE
 

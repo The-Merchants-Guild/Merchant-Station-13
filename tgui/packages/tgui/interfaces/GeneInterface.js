@@ -163,6 +163,9 @@ export const GeneInterface = (props, context) => {
             <Stack.Item width="33%">
               <CurrentProtSection/>
             </Stack.Item>
+            <Button
+              content={"Print  "}
+              onClick={() => act("print")} />
           </Stack>
         </Stack>
       </Window.Content>

@@ -64,4 +64,8 @@
     current_gene.conditional_frames += list(conditionals[action])
   else if(action in proteins)
     current_gene.protein_frames += list(proteins[action])
+  else if(action == "print")
+    var/obj/item/test_gene_injector/O = new /obj/item/test_gene_injector
+    O.gene = current_gene
+    current_gene = new
   update_icon()

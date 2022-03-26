@@ -15,16 +15,16 @@
 	return
 
 /client/verb/forum()
-	set name = "forum"
-	set desc = "Visit the forum."
+	set name = "discord"
+	set desc = "Join the Discord."
 	set hidden = TRUE
-	var/forumurl = CONFIG_GET(string/forumurl)
-	if(forumurl)
-		if(tgui_alert(src, "This will open the forum in your browser. Are you sure?",, list("Yes","No"))!="Yes")
+	var/forumurl = CONFIG_GET(string/discordurl)
+	if(discordurl)
+		if(tgui_alert(src, "This will open the invite link in your browser. Are you sure?",, list("Yes","No"))!="Yes")
 			return
-		src << link(forumurl)
+		src << link(discordurl)
 	else
-		to_chat(src, span_danger("The forum URL is not set in the server configuration."))
+		to_chat(src, span_danger("The Discord link is not set in the server configuration."))
 	return
 
 /client/verb/rules()

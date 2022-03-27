@@ -18,9 +18,9 @@
 		ADD_TRAIT(user, hud_trait, GLASSES_TRAIT)
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user)
-	..()
+	. = ..()
 	if(!istype(user) || user.glasses != src)
-		return
+		return FALSE
 	if(hud_type)
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		H.remove_hud_from(user)
@@ -108,34 +108,33 @@
 		return FALSE
 	RegisterSignal(user, COMSIG_MOB_MIDDLECLICKON, .proc/create_ping)
 
+/obj/item/clothing/glasses/hud/security/dropped(mob/living/carbon/human/user)
+	. = ..()
+	if (!.)
+		return FALSE
+	UnregisterSignal(user, COMSIG_MOB_MIDDLECLICKON)
+
 /obj/item/clothing/glasses/hud/security/proc/create_ping(datum/source, atom/A, params)
 	var/list/modifiers = params2list(params)
 	var/mob/living/L = source
-	if(L.stat != CONSCIOUS)
-		return
-	if (!LAZYACCESS(modifiers, ALT_CLICK) && !LAZYACCESS(modifiers, CTRL_CLICK))
+	if (L.stat != CONSCIOUS || (!LAZYACCESS(modifiers, ALT_CLICK) && !LAZYACCESS(modifiers, CTRL_CLICK)))
 		return
 	var/image/holder = L.hud_list[SEC_PING]
 	// not ideal, but it works.
 	addtimer(CALLBACK(src, .proc/remove_ping, holder), 10 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	var/mutable_appearance/MA = new /mutable_appearance()
+	MA.icon = 'icons/effects/effects.dmi'
+	MA.layer = ABOVE_OPEN_TURF_LAYER
+	MA.plane = 0
 	if (LAZYACCESS(modifiers, ALT_CLICK))
-		var/mutable_appearance/MA = new /mutable_appearance()
-		MA.icon = 'icons/effects/effects.dmi'
 		MA.icon_state = "squestion"
-		MA.layer = ABOVE_OPEN_TURF_LAYER
-		MA.plane = 0
 		holder.appearance = MA
 		holder.loc = get_turf(A)
-		return COMSIG_MOB_CANCEL_CLICKON
-	else if (LAZYACCESS(modifiers, CTRL_CLICK))
-		var/mutable_appearance/MA = new /mutable_appearance()
-		MA.icon = 'icons/effects/effects.dmi'
+	else // else if would be slower here, CTRL_CLICK below.
 		MA.icon_state = "salert"
-		MA.layer = ABOVE_OPEN_TURF_LAYER
-		MA.plane = 0
 		holder.appearance = MA
 		holder.loc = get_turf(A)
-		return COMSIG_MOB_CANCEL_CLICKON
+	return COMSIG_MOB_CANCEL_CLICKON
 
 /obj/item/clothing/glasses/hud/security/proc/remove_ping(image/holder)
 	holder.loc = null

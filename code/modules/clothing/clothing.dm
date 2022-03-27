@@ -241,9 +241,9 @@
 	return ..()
 
 /obj/item/clothing/dropped(mob/user)
-	..()
+	. = ..()
 	if(!istype(user))
-		return
+		return FALSE
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	for(var/trait in clothing_traits)
 		REMOVE_TRAIT(user, trait, "[CLOTHING_TRAIT] [REF(src)]")

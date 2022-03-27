@@ -143,6 +143,7 @@
 /datum/emote/living/carbon/human/superfart
 	key = "superfart"
 	key_third_person = "superfarts"
+	stat_allowed = HARD_CRIT
 
 /datum/emote/living/carbon/human/superfart/run_emote(mob/living/carbon/human/user, params)
 	. = ..()

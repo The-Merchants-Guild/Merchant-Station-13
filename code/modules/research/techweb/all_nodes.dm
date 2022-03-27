@@ -9,8 +9,8 @@
 	description = "NT default research technologies."
 	// Default research tech, prevents bricking
 	design_ids = list(
-        "airlock_board",
-        "apc_control",
+		"airlock_board",
+		"apc_control",
 		"basic_capacitor",
 		"basic_cell",
 		"basic_matter_bin",
@@ -30,8 +30,8 @@
 		"doppler_array",
 		"experi_scanner",
 		"experimentor",
-        "firealarm_electronics",
-        "firelock_board",
+		"firealarm_electronics",
+		"firelock_board",
 		"handlabel",
 		"mechfab",
 		"micro_mani",
@@ -45,7 +45,7 @@
 		"plastic_spoon",
 		"plastitanium",
 		"plastitaniumglass",
-        "power_control",
+		"power_control",
 		"rdconsole",
 		"rdserver",
 		"rdservercontrol",

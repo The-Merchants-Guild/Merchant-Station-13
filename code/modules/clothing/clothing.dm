@@ -258,7 +258,7 @@
 /obj/item/clothing/equipped(mob/user, slot)
 	. = ..()
 	if (!istype(user))
-		return
+		return FALSE
 	if(slot_flags & slot) //Was equipped to a valid slot for this item?
 		if(iscarbon(user) && LAZYLEN(zones_disabled))
 			RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/bristle, override = TRUE)

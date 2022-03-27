@@ -1,6 +1,6 @@
 /obj/item/card_access_chip
 	name = "\improper AA-chip"
-	desc = "Additional Access chip, used to add higher tier access to lower tier cards."
+	desc = "Additional Access chip, used to add access to ID cards."
 	icon = 'icons/obj/new_id.dmi'
 	icon_state = "aa-chip-temp-codersprite-help" // TODO: get proper sprite
 
@@ -27,3 +27,8 @@
 	. = ..()
 	assignment = _assignment
 	name = "[_assignment] AA-chip"
+
+/obj/item/card_access_chip/mining
+	name = "mining access chip"
+	rewritable = FALSE // In case someone decides to change the base.
+	access = list(ACCESS_MAILSORTING, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_MINING, ACCESS_MINING_STATION)

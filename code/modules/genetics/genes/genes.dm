@@ -14,6 +14,7 @@ GLOBAL_LIST_EMPTY_TYPED(all_protein_genes, /datum/gene_frame/protein)
 
 /datum/gene_frame/conditional/chem
     var/chem = /datum/reagent/consumable/ethanol
+    name = "chemical awaiter"
     desc = "Causes DNA to produce proteins that bind to and detect a chemical before activating further protein creation."
 
 /datum/gene_frame/conditional/chem/binary_condition(obj/item/organ/organ)
@@ -29,6 +30,7 @@ GLOBAL_LIST_EMPTY_TYPED(all_protein_genes, /datum/gene_frame/protein)
 
 /datum/gene_frame/protein/chem
     //var/datum/reagent/chem = /datum/reagent/consumable/ethanol
+    name = "enzymitic producer"
     var/chem = "ethanol"
     var/conversion_rate = 0.1
     desc = "Creates enzymes that create a certain chemical"
@@ -43,6 +45,7 @@ GLOBAL_LIST_EMPTY_TYPED(all_protein_genes, /datum/gene_frame/protein)
 /datum/gene_frame/protein/chem_transfer
     var/chem = "ethanol"
     var/conversion_rate = 0.1
+    name = "chem transfer"
     desc = "Creates thin sections of proteins that allow passage of a protein"
 
 /datum/gene_frame/protein/chem_transfer/life_act(obj/item/organ/organ, strength)

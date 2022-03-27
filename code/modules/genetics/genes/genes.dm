@@ -80,7 +80,7 @@ GLOBAL_LIST_EMPTY_TYPED(all_protein_genes, /datum/gene_frame/protein)
     for(var/T in subtypesof(/datum/gene_frame/conditional))
         GLOB.all_conditional_genes += list(new T)
     
-    for(var/type in subtypesof(/datum/reagents))
+    for(var/type in subtypesof(/datum/reagent))
         var/datum/gene_frame/conditional/chem/G = new
 
         G.chem = type
@@ -94,7 +94,7 @@ GLOBAL_LIST_EMPTY_TYPED(all_protein_genes, /datum/gene_frame/protein)
     for(var/T in subtypesof(/datum/gene_frame/protein))
         GLOB.all_protein_genes += list(new T)
         
-    for(var/type in subtypesof(/datum/reagents))
+    for(var/type in subtypesof(/datum/reagent))
         var/datum/gene_frame/protein/chem/G = new
 
         //G.chem = type
@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY_TYPED(all_protein_genes, /datum/gene_frame/protein)
         del R
         GLOB.all_protein_genes += list(G)
         
-    for(var/type in subtypesof(/datum/reagents))
+    for(var/type in subtypesof(/datum/reagent))
         var/datum/gene_frame/protein/chem_transfer/G = new
 
         //G.chem = type

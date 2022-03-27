@@ -27,7 +27,7 @@
 	if (obj_flags & EMAGGED)
 		playsound(get_turf(src), "explosion", 200, TRUE, 12, 0.9) // when I say loud it means LOUD (normal explosion volume is 100, this is 200)
 	else
-		playsound(get_turf(src), prob(3) ? 'sound/weapons/effects/bang.ogg' : 'sound/weapons/flashbang.ogg', 100, TRUE, 8, 0.9)
+		playsound(get_turf(src), 'sound/weapons/effects/bang.ogg', 100, TRUE, 8, 0.9)
 
 	for(var/mob/living/M in get_hearers_in_view(bang_range, get_turf(src)))
 		bang(get_turf(M), M)

@@ -1,7 +1,7 @@
 /obj/item/assembly/bang
 	name = "BANG"
 	desc = "A small electronic device able to emit a loud sound."
-	icon_state = "igniter"
+	icon_state = "bang"
 	custom_materials = list(/datum/material/iron=500, /datum/material/glass=50)
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 	pickup_sound =  'sound/items/handling/component_pickup.ogg'
@@ -9,7 +9,7 @@
 	var/bang_range = 2
 
 /obj/item/assembly/bang/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] is trying to ignite [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] is trying to BANG [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(get_turf(src), 'sound/weapons/flashbang.ogg', 100, TRUE, 8, 0.9)
 	return BRUTELOSS
 

@@ -170,8 +170,8 @@
 	category = list("initial","Tools")
 
 /datum/design/apc_board
-	name = "APC Module"
-	id = "power control"
+	name = "APC Electronics"
+	id = "power_control"
 	build_type = AUTOLATHE | PROTOLATHE | AWAY_LATHE
 	materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
 	build_path = /obj/item/electronics/apc
@@ -188,7 +188,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/firelock_board
-	name = "Firelock Circuitry"
+	name = "Firelock Electronics"
 	id = "firelock_board"
 	build_type = AUTOLATHE | PROTOLATHE | AWAY_LATHE
 	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)

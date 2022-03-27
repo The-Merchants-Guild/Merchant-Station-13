@@ -302,7 +302,7 @@
 
 
 /obj/item/electronics/firelock
-	name = "firelock circuitry"
+	name = "firelock electronics"
 	desc = "A circuit board used in construction of firelocks."
 	icon_state = "mainboard"
 

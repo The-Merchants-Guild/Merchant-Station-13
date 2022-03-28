@@ -20405,7 +20405,9 @@
 "eCg" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	name = "Abandoned Party Room"
+	},
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -35409,9 +35411,9 @@
 /area/maintenance/starboard/aft)
 "jIt" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters{
 	id = "maintlobbyshutter";
-	name = "maints shutters"
+	name = "Abandoned Breakroom Shutter"
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -45568,7 +45570,9 @@
 "nbb" = (
 /obj/structure/cable,
 /obj/structure/cable,
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	name = "Abandoned Party Room"
+	},
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/medical/abandoned)

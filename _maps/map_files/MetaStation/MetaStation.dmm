@@ -15614,8 +15614,8 @@
 	dir = 8
 	},
 /obj/machinery/light/small/directional/east{
-	light_power = 0.10;
-	nightshift_light_power = 0.05;
+	light_power = 0.4;
+	nightshift_light_power = 0.4;
 	light_color = "#FFDDCC";
 	bulb_power = 0.1
 	},
@@ -24120,8 +24120,9 @@
 /turf/open/floor/iron/dark,
 /area/commons/locker)
 "fHk" = (
-/obj/structure/cable,
-/turf/closed/wall,
+/obj/structure/bed/dogbed,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
 /area/maintenance/aft)
 "fHp" = (
 /obj/effect/turf_decal/tile/blue{
@@ -28184,6 +28185,11 @@
 	pixel_x = 11;
 	list_reagents = list(/datum/reagent/drug/space_drugs = 10, /datum/reagent/drug/krokodil = 5)
 	},
+/obj/effect/decal/cleanable/wrapping,
+/obj/item/paper/crumpled/fluff/poem{
+	pixel_x = -4;
+	pixel_y = -6
+	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "hiA" = (
@@ -29475,9 +29481,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/aisat/exterior)
 "hGv" = (
-/obj/structure/bed/dogbed,
 /obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "hGA" = (
@@ -35406,8 +35410,8 @@
 "jIt" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "chapel_shutters_space";
-	name = "chapel shutters"
+	id = "maintlobbyshutter";
+	name = "maints shutters"
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -40301,6 +40305,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/machinery/button/door/directional/east{
+	id = "maintlobbyshutter";
+	name = "Maints Shutter Control"
+	},
 /turf/open/floor/iron/dark,
 /area/maintenance/aft)
 "loL" = (
@@ -41052,16 +41060,6 @@
 "lAu" = (
 /turf/open/space/basic,
 /area/space/nearstation)
-"lAx" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable,
-/obj/structure/disposalpipe/junction{
-	dir = 2
-	},
-/turf/open/floor/iron/white,
-/area/medical/medbay/central)
 "lAF" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/wood,
@@ -52102,11 +52100,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/port)
-"pbP" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/abandoned,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "pbV" = (
 /obj/structure/closet/crate/coffin,
 /turf/open/floor/plating,
@@ -61968,6 +61961,10 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
+/obj/machinery/button/door/directional/east{
+	id = "maintlobbyshutter";
+	name = "Maints Shutter Control"
+	},
 /turf/open/floor/iron/kitchen_coldroom,
 /area/medical/coldroom)
 "spr" = (
@@ -64453,10 +64450,6 @@
 	},
 /turf/open/floor/plating,
 /area/cargo/qm)
-"tfh" = (
-/obj/structure/extinguisher_cabinet/directional/east,
-/turf/open/floor/iron/white,
-/area/medical/medbay/central)
 "tfi" = (
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/engine,
@@ -75767,18 +75760,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron/dark,
 /area/security/office)
-"wMP" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/blue/filled/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
-	dir = 9
-	},
-/turf/open/floor/iron/white,
-/area/medical/medbay/central)
 "wMR" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -103065,8 +103046,8 @@ vaD
 ttL
 oVc
 xJY
-wMP
 boO
+jNL
 jNL
 jNL
 diR
@@ -103322,9 +103303,9 @@ vaR
 vaR
 apb
 xzK
-lAx
 pNj
 jBh
+tMB
 tMB
 tMB
 fwa
@@ -103579,11 +103560,11 @@ cca
 cca
 bBn
 wEy
-tfh
 tay
-pbP
+bTs
+bTs
 qlk
-fHk
+bTs
 aQv
 pfR
 wRK
@@ -103837,7 +103818,7 @@ lfR
 dKD
 wEy
 tay
-bTs
+fHk
 jNL
 dBB
 jNL

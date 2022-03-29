@@ -20,7 +20,6 @@
 		"bucket",
 		"c-reader",
 		"circuit_imprinter",
-		"circuit_imprinter_offstation",
 		"conveyor_belt",
 		"conveyor_switch",
 		"design_disk",

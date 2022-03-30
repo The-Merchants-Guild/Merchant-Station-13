@@ -34,10 +34,6 @@
 	///This only works on pipes, because they have 1000 subtypes wich need to be visible and invisible under tiles, so we track this here
 	var/hide = TRUE
 
-	///Identifiers for the iconset, the path where the image will be taken from
-	var/static/list/iconsetids = list()
-	///The unique identifier created from the iconsetids, the parameters are then used to define the pipe image (icon, icon_state, color, direction, piping_layer)
-	var/static/list/pipeimages = list()
 	///The image of the pipe/device used for ventcrawling
 	var/image/pipe_vision_img = null
 

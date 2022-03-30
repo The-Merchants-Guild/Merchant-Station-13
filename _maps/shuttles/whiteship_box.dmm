@@ -1259,7 +1259,7 @@
 	pixel_x = 6
 	},
 /obj/item/gps{
-	gpstag = NTREC1
+	gpstag = "Medical Excursion Ship"
 	},
 /turf/open/floor/iron,
 /area/shuttle/abandoned/bridge)

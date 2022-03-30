@@ -119,7 +119,7 @@
 /obj/structure/window/reinforced,
 /obj/structure/table/glass,
 /obj/item/gps{
-	gpstag = Alien Signal;
+	gpstag = "Unidentified Spaceborne Signal";
 	pixel_x = -8;
 	pixel_y = 8
 	},

@@ -322,7 +322,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/directional/north,
 /obj/item/gps{
-	gpstag = NTCONST1;
+	gpstag = "Civillian Mining Ship";
 	pixel_x = -1;
 	pixel_y = 2
 	},

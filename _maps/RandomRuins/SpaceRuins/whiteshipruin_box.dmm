@@ -29,9 +29,7 @@
 /area/ruin/space/has_grav/whiteship/box)
 "gK" = (
 /obj/structure/table,
-/obj/item/gps{
-	gpstag = Medical Transport
-	},
+/obj/item/gps/spaceruin,
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/space/has_grav/whiteship/box)
 "gO" = (

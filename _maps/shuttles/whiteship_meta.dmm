@@ -1651,7 +1651,7 @@
 	pixel_x = -12
 	},
 /obj/item/gps{
-	gpstag = NTREC1;
+	gpstag = Cargo Ship #753-25b;
 	pixel_x = 6;
 	pixel_y = 10
 	},

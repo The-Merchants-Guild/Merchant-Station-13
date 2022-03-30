@@ -537,7 +537,7 @@
 	dir = 4
 	},
 /obj/item/gps{
-	gpstag = White Ship
+	gpstag = "DISTRESS: WH173-5H1P"
 	},
 /turf/open/floor/iron/airless,
 /area/shuttle/abandoned)

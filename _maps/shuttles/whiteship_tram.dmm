@@ -1094,7 +1094,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/gps{
-	gpstag = "Cargo Freighter #194-62d;
+	gpstag = "Cargo Freighter #194-62d";
 	pixel_y = 2
 	},
 /turf/open/floor/mineral/titanium/tiled/blue,

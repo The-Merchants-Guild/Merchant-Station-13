@@ -90,9 +90,39 @@ GLOBAL_LIST_INIT(atmos_components, typecacheof(list(/obj/machinery/atmospherics)
 	icon = 'icons/obj/atmospherics/pipes/simple.dmi'
 	icon_state = "pipe11-3"
 
+/obj/machinery/atmospherics/pipe/smart/simple/LateInitialize()
+	. = ..()
+	if(initialize_directions == 0 || initialize_directions == ALL_CARDINALS)
+		// this shit is jank anyways so have a janky fix
+		var/w = 0
+		var/e = 0
+		var/n = 0
+		var/s = 0
+		if(dir & WEST)
+			w = 1
+		if(dir & EAST)
+			e = 1
+		if(dir & NORTH)
+			n = 1
+		if(dir & SOUTH)
+			s = 1
+		if((w || e) && (n || s))
+			initialize_directions = dir
+		else if(w || e)
+			initialize_directions = EAST | WEST
+		else initialize_directions = NORTH | SOUTH
+		update_pipe_icon()
+
 /obj/machinery/atmospherics/pipe/smart/manifold
 	icon = 'icons/obj/atmospherics/pipes/manifold.dmi'
 	icon_state = "manifold-3"
+
+/obj/machinery/atmospherics/pipe/smart/manifold/LateInitialize()
+	. = ..()
+	if(initialize_directions == 0 || initialize_directions == ALL_CARDINALS)
+		// this shit is jank anyways so have a janky fix
+		initialize_directions = ALL_CARDINALS ^ dir
+		update_pipe_icon()
 
 /obj/machinery/atmospherics/pipe/smart/manifold4w
 	icon = 'icons/obj/atmospherics/pipes/manifold.dmi'

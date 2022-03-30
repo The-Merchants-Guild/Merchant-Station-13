@@ -272,7 +272,7 @@ GLOBAL_LIST_INIT(transit_tube_recipes, list(
 	if(!istype(target, /obj/machinery/atmospherics))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	if(target.pipe_color && target.piping_layer)
-		paint_color = GLOB.pipe_color_name[target.pipe_color]
+		paint_color = GLOB.pipe_paint_colors[target.pipe_color]
 		piping_layer = target.piping_layer
 		to_chat(user, span_notice("You change [src] to [paint_color] color and layer [piping_layer] pipes."))
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN

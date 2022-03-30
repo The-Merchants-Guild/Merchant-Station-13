@@ -70,9 +70,11 @@
 		if(HAS_TRAIT(L, TRAIT_VENTCRAWLER_NUDE) || HAS_TRAIT(L, TRAIT_VENTCRAWLER_ALWAYS))
 			. += span_notice("Alt-click to crawl through it.")
 
-/obj/machinery/atmospherics/New(loc, process = TRUE, setdir)
+/obj/machinery/atmospherics/New(loc, process = TRUE, setdir, _hide)
 	if(!isnull(setdir))
 		setDir(setdir)
+	if(!isnull(_hide))
+		hide = _hide
 	if(pipe_flags & PIPING_CARDINAL_AUTONORMALIZE)
 		normalize_cardinal_directions()
 	nodes = new(device_type)
@@ -383,33 +385,24 @@
 	..()
 
 /**
- * Getter for pipe underlay
+ * Getter for piping layer shifted, pipe colored overlays
  *
  * Creates the image for the pipe underlay that all components use, called by get_pipe_underlay() in components_base.dm
  * Arguments:
- * * iconset - path of the iconstate we are using (ex: 'icons/obj/atmospherics/components/thermomachine.dmi')
+ * * iconfile  - path of the iconstate we are using (ex: 'icons/obj/atmospherics/components/thermomachine.dmi')
  * * iconstate - the image we are using inside the file
  * * direction - the direction of our device
- * * col - the color (in hex value, like #559900) that the pipe should have
+ * * color - the color (in hex value, like #559900) that the pipe should have
  * * piping_layer - the piping_layer the device is in, used inside PIPING_LAYER_SHIFT
  * * trinary - if TRUE we also use PIPING_FORWARD_SHIFT on layer 1 and 5 for trinary devices (filters and mixers)
  */
-/obj/machinery/atmospherics/proc/getpipeimage(iconset, iconstate, direction, col=rgb(255,255,255), piping_layer=3, trinary = FALSE)
-
-	//Add identifiers for the iconset
-	if(iconsetids[iconset] == null)
-		iconsetids[iconset] = num2text(iconsetids.len + 1)
-
-	//Generate a unique identifier for this image combination
-	var/identifier = iconsetids[iconset] + "_[iconstate]_[direction]_[col]_[piping_layer]"
-
-	if((!(. = pipeimages[identifier])))
-		var/image/pipe_overlay
-		pipe_overlay = . = pipeimages[identifier] = image(iconset, iconstate, dir = direction)
-		pipe_overlay.color = col
-		PIPING_LAYER_SHIFT(pipe_overlay, piping_layer)
-		if(trinary == TRUE && (piping_layer == 1 || piping_layer == 5))
-			PIPING_FORWARD_SHIFT(pipe_overlay, piping_layer, 2)
+/obj/machinery/atmospherics/proc/getpipeimage(iconfile, iconstate, direction, color = COLOR_VERY_LIGHT_GRAY, piping_layer = 3, trinary = FALSE)
+	var/image/pipe_overlay = image(iconfile, iconstate, dir = direction)
+	pipe_overlay.color = color
+	PIPING_LAYER_SHIFT(pipe_overlay, piping_layer)
+	if(trinary == TRUE && (piping_layer == 1 || piping_layer == 5))
+		PIPING_FORWARD_SHIFT(pipe_overlay, piping_layer, 2)
+	return pipe_overlay
 
 /obj/machinery/atmospherics/on_construction(obj_color, set_layer)
 	if(can_unwrench)

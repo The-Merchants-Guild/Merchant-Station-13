@@ -32,7 +32,7 @@
 /obj/machinery/atmospherics/components/Initialize()
 	. = ..()
 
-	if(hide)
+	if (hide)
 		RegisterSignal(src, COMSIG_OBJ_HIDE, .proc/hide_pipe)
 
 // Iconnery

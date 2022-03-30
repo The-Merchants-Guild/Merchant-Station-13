@@ -393,74 +393,65 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 
 /obj/effect/mapping_helpers/simple_pipes
 	name = "Simple Pipes"
-	late = TRUE
 	icon_state = "pipe-3"
 	var/piping_layer = 3
 	var/pipe_color = ""
-	var/connection_num = 0
 	var/hide = FALSE
 
-/obj/effect/mapping_helpers/simple_pipes/LateInitialize()
-	var/list/connections = list( dir2text(NORTH)  = FALSE, dir2text(SOUTH) = FALSE , dir2text(EAST) = FALSE , dir2text(WEST) = FALSE)
-	var/list/valid_connectors = typecacheof(/obj/machinery/atmospherics)
-	for(var/direction in connections)
-		var/turf/T = get_step(src,  text2dir(direction))
-		for(var/machine_type_owo in T.contents)
-			if(istype(machine_type_owo,type))
-				var/obj/effect/mapping_helpers/simple_pipes/found = machine_type_owo
-				if(found.piping_layer != piping_layer)
-					continue
-				connections[direction] = TRUE
-				connection_num++
-				break
-			if(!is_type_in_typecache(machine_type_owo,valid_connectors))
+	var/straight = FALSE
+	// pipe direction
+	var/p_dir = 0
+
+/obj/effect/mapping_helpers/simple_pipes/Initialize()
+	. = ..()
+	var/taken_dirs = 0
+	// get_turf in case something puts us inside something.
+	for (var/obj/effect/mapping_helpers/simple_pipes/P in get_turf(src))
+		if (P != src && P.piping_layer == piping_layer)
+			straight = TRUE
+			P.straight = TRUE
+	for (var/d in GLOB.cardinals)
+		var/rd = turn(d, 180)
+		var/turf/T = get_step(loc, d)
+		for (var/obj/effect/mapping_helpers/simple_pipes/P in T)
+			if (P.piping_layer != piping_layer)
 				continue
-			var/obj/machinery/atmospherics/machine = machine_type_owo
-
-			if(machine.piping_layer != piping_layer)
+			if (P.pipe_color && P.pipe_color != pipe_color)
+				taken_dirs |= d
 				continue
-
-			if(angle2dir(dir2angle(text2dir(direction))+180) & machine.initialize_directions)
-				connections[direction] = TRUE
-				connection_num++
-				break
-
-	switch(connection_num)
-		if(1)
-			for(var/direction in connections)
-				if(connections[direction] != TRUE)
-					continue
-				spawn_pipe(direction,/obj/machinery/atmospherics/pipe/simple)
-		if(2)
-			for(var/direction in connections)
-				if(connections[direction] != TRUE)
-					continue
-				//Detects straight pipes connected from east to west , north to south etc.
-				if(connections[dir2text(angle2dir(dir2angle(text2dir(direction))+180))] == TRUE)
-					spawn_pipe(direction,/obj/machinery/atmospherics/pipe/simple)
-					break
-
-				for(var/direction2 in connections - direction)
-					if(connections[direction2] != TRUE)
-						continue
-					spawn_pipe(dir2text(text2dir(direction)+text2dir(direction2)),/obj/machinery/atmospherics/pipe/simple)
-		if(3)
-			for(var/direction in connections)
-				if(connections[direction] == FALSE)
-					spawn_pipe(direction,/obj/machinery/atmospherics/pipe/manifold)
-		if(4)
-			spawn_pipe(dir2text(NORTH),/obj/machinery/atmospherics/pipe/manifold4w)
-
-	qdel(src)
+			P.p_dir |= rd
+			p_dir |= d
+		for (var/obj/machinery/atmospherics/A in T)
+			if (!(A.initialize_directions & rd) || A.piping_layer != piping_layer)
+				continue
+			if (istype(A, /obj/machinery/atmospherics/pipe))
+				if (A.pipe_color && A.pipe_color != pipe_color)
+					continue // don't connect to wrong colours
+			else if (straight)
+				continue // we don't *really* care about components when in straight mode.
+			p_dir |= d
+	if (straight && !p_dir) // okay, we didn't find pipes, lets just take the first direction that should be free.
+		p_dir = taken_dirs & 3 ? EAST : NORTH
+	if (p_dir == 0xF)
+		spawn_pipe(/obj/machinery/atmospherics/pipe/manifold4w)
+	//in binary: (p_dir & 0b0011 > 0b0001 && p_dir & 0b1100) || (p_dir & 0b0011 && p_dir & 0b1100 > 0b0100)
+	else if (((p_dir & 0x3) == 0x3 && p_dir & 0xC) || (p_dir & 0x3 && (p_dir & 0xC) == 0xC))
+		spawn_pipe(/obj/machinery/atmospherics/pipe/manifold, p_dir ^ 0xF)
+	else if (p_dir)
+		if ((p_dir & 0x3) == 0x3 || (p_dir & 0xC) == 0xC)
+			spawn_pipe(/obj/machinery/atmospherics/pipe/simple, (p_dir & 0x3) ? NORTH : EAST)
+		else // bent pipe
+			spawn_pipe(/obj/machinery/atmospherics/pipe/simple, p_dir)
 
 //spawn pipe
-/obj/effect/mapping_helpers/simple_pipes/proc/spawn_pipe(direction,type )
-	var/obj/machinery/atmospherics/pipe/pipe = new type(get_turf(src),TRUE,text2dir(direction))
-	pipe.hide = hide
+/obj/effect/mapping_helpers/simple_pipes/proc/spawn_pipe(type, direction = SOUTH)
+	var/obj/machinery/atmospherics/pipe/pipe = new type(get_turf(src), TRUE, direction, hide)
 	pipe.piping_layer = piping_layer
-	pipe.update_layer()
 	pipe.paint(pipe_color)
-
+	pipe.update_appearance()
+	// HACK: if a meter is initialized before this helper the meter won't connect properly, this fixes that.
+	var/obj/machinery/meter/M = locate(/obj/machinery/meter) in get_turf(src)
+	M?.reattach_to_layer()
 
 //This helper applies traits to things on the map directly.
 /obj/effect/mapping_helpers/trait_injector

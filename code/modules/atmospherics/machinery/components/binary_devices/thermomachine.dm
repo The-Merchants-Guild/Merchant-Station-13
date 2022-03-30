@@ -109,13 +109,12 @@
 
 /obj/machinery/atmospherics/components/unary/thermomachine/update_overlays()
 	. = ..()
-	. += getpipeimage(icon, "pipe", dir, COLOR_LIME, piping_layer)
-	. += getpipeimage(icon, "pipe", turn(dir, 180), COLOR_MOSTLY_PURE_RED, piping_layer)
-	if(skipping_work && on)
-		var/mutable_appearance/skipping = mutable_appearance(icon, "blinking")
-		. += skipping
+	if(!initial(icon))
+		return
+	var/mutable_appearance/thermo_overlay = new(initial(icon))
+	. += getpipeimage(thermo_overlay, "pipe", dir, COLOR_LIME, piping_layer)
 
-/obj/machinery/atmospherics/components/binary/thermomachine/examine(mob/user)
+/obj/machinery/atmospherics/components/unary/thermomachine/examine(mob/user)
 	. = ..()
 	. += span_notice("With the panel open:")
 	. += span_notice("-use a wrench with left-click to rotate [src] and right-click to unanchor it.")
@@ -271,7 +270,7 @@
 	if(panel_open && item.tool_behaviour == TOOL_MULTITOOL)
 		color_index = (color_index >= GLOB.pipe_paint_colors.len) ? (color_index = 1) : (color_index = 1 + color_index)
 		pipe_color = GLOB.pipe_paint_colors[GLOB.pipe_paint_colors[color_index]]
-		visible_message("<span class='notice'>You set [src] pipe color to [GLOB.pipe_color_name[pipe_color]].")
+		visible_message("<span class='notice'>You set [src] pipe color to [GLOB.pipe_paint_colors[pipe_color]].")
 		update_appearance()
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 	return SECONDARY_ATTACK_CONTINUE_CHAIN

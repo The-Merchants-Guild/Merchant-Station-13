@@ -62,22 +62,6 @@
 	},
 /turf/open/floor/iron,
 /area/ctf)
-"bs" = (
-/obj/structure/chair/stool/bar{
-	item_chair = null;
-	resistance_flags = 64
-	},
-/turf/open/floor/wood,
-/area/ctf)
-"bA" = (
-/obj/effect/decal/cleanable/oil,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
-	dir = 4;
-	mouse_opacity = 0;
-	resistance_flags = 64
-	},
-/turf/open/floor/iron/dark,
-/area/ctf)
 "bF" = (
 /obj/structure/rack{
 	resistance_flags = 64
@@ -90,6 +74,14 @@
 "bH" = (
 /obj/effect/turf_decal/siding/yellow/corner,
 /turf/open/floor/iron/dark,
+/area/ctf)
+"bO" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/structure/chair/stool/bar{
+	item_chair = null;
+	resistance_flags = 64
+	},
+/turf/open/floor/wood,
 /area/ctf)
 "bR" = (
 /obj/effect/turf_decal/trimline/blue/line{
@@ -259,6 +251,13 @@
 	},
 /turf/open/floor/iron,
 /area/ctf)
+"fJ" = (
+/obj/structure/chair/stool/bar{
+	item_chair = null;
+	resistance_flags = 64
+	},
+/turf/open/floor/wood,
+/area/ctf)
 "fO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/trimline/red/line,
@@ -364,6 +363,15 @@
 	dir = 10
 	},
 /turf/open/floor/iron,
+/area/ctf)
+"hq" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 4;
+	mouse_opacity = 0;
+	resistance_flags = 64
+	},
+/obj/effect/turf_decal/siding/white/corner,
+/turf/open/floor/iron/dark,
 /area/ctf)
 "hy" = (
 /obj/structure/rack{
@@ -524,14 +532,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ctf)
-"jD" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
-	dir = 4;
-	mouse_opacity = 0;
-	resistance_flags = 64
-	},
-/turf/open/floor/iron/dark,
-/area/ctf)
 "jH" = (
 /obj/effect/turf_decal/trimline/red/line,
 /obj/structure/fluff/bus/dense{
@@ -589,6 +589,18 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ctf)
+"kx" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar,
+/obj/structure/chair/stool/bar{
+	item_chair = null;
+	resistance_flags = 64
+	},
+/turf/open/floor/iron,
+/area/ctf)
 "kO" = (
 /obj/machinery/door/airlock/command{
 	resistance_flags = 64
@@ -619,6 +631,17 @@
 	resistance_flags = 64
 	},
 /turf/open/floor/plating,
+/area/ctf)
+"ll" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 4;
+	mouse_opacity = 0;
+	resistance_flags = 64
+	},
+/turf/open/floor/iron/dark,
 /area/ctf)
 "lv" = (
 /obj/effect/turf_decal/siding/yellow,
@@ -860,6 +883,7 @@
 "ql" = (
 /turf/open/floor/wood,
 /area/ctf)
+<<<<<<< HEAD
 "qJ" = (
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/structure/chair/stool/bar{
@@ -869,6 +893,8 @@
 	},
 /turf/open/floor/wood,
 /area/ctf)
+=======
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 "qT" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
@@ -897,18 +923,6 @@
 	},
 /turf/open/floor/iron,
 /area/ctf)
-"rG" = (
-/obj/effect/turf_decal/siding/white/corner{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/shreds,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
-	dir = 4;
-	mouse_opacity = 0;
-	resistance_flags = 64
-	},
-/turf/open/floor/iron/dark,
-/area/ctf)
 "rO" = (
 /obj/effect/turf_decal/siding/yellow,
 /obj/effect/decal/cleanable/shreds,
@@ -933,6 +947,14 @@
 	pixel_x = 32
 	},
 /turf/open/floor/plating,
+/area/ctf)
+"rT" = (
+/obj/structure/chair{
+	dir = 4;
+	item_chair = null;
+	resistance_flags = 64
+	},
+/turf/open/floor/plating/grass,
 /area/ctf)
 "rZ" = (
 /obj/effect/turf_decal/tile/blue{
@@ -968,14 +990,6 @@
 /turf/open/floor/iron/dark/corner{
 	dir = 4
 	},
-/area/ctf)
-"sM" = (
-/obj/structure/chair{
-	dir = 8;
-	item_chair = null;
-	resistance_flags = 64
-	},
-/turf/open/floor/plating/grass,
 /area/ctf)
 "sZ" = (
 /obj/effect/turf_decal/tile/bar{
@@ -1192,6 +1206,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ctf)
+"xh" = (
+/obj/effect/decal/cleanable/oil,
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 4;
+	mouse_opacity = 0;
+	resistance_flags = 64
+	},
+/turf/open/floor/iron/dark,
+/area/ctf)
 "xk" = (
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
@@ -1229,16 +1252,6 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/ctf)
-"xD" = (
-/obj/effect/decal/cleanable/oil,
-/obj/structure/barricade/security/ctf,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
-	dir = 4;
-	mouse_opacity = 0;
-	resistance_flags = 64
-	},
-/turf/open/floor/iron/dark,
 /area/ctf)
 "xK" = (
 /obj/effect/turf_decal/stripes/white/line,
@@ -1462,6 +1475,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ctf)
+"BL" = (
+/obj/structure/chair{
+	dir = 8;
+	item_chair = null;
+	resistance_flags = 64
+	},
+/turf/open/floor/plating/grass,
+/area/ctf)
 "BO" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 1
@@ -1522,11 +1543,9 @@
 	},
 /turf/open/floor/iron,
 /area/ctf)
-"Cg" = (
-/obj/effect/turf_decal/siding/yellow{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
+"Cq" = (
+/obj/structure/barricade/security/ctf,
+/obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4;
 	mouse_opacity = 0;
 	resistance_flags = 64
@@ -1609,6 +1628,7 @@
 /obj/structure/barricade/security/ctf,
 /turf/open/floor/iron/dark,
 /area/ctf)
+<<<<<<< HEAD
 "Dm" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/tile/bar{
@@ -1617,8 +1637,17 @@
 /obj/effect/turf_decal/tile/bar,
 /obj/structure/chair/stool/bar{
 	dir = 1
+=======
+"Dx" = (
+/obj/effect/decal/cleanable/oil,
+/obj/structure/barricade/security/ctf,
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 4;
+	mouse_opacity = 0;
+	resistance_flags = 64
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/dark,
 /area/ctf)
 "DE" = (
 /obj/effect/turf_decal/tile/bar{
@@ -1773,14 +1802,6 @@
 /obj/effect/turf_decal/trimline/blue/line,
 /obj/effect/decal/cleanable/plastic,
 /turf/open/floor/iron,
-/area/ctf)
-"GP" = (
-/obj/structure/chair{
-	dir = 4;
-	item_chair = null;
-	resistance_flags = 64
-	},
-/turf/open/floor/plating/grass,
 /area/ctf)
 "GT" = (
 /obj/machinery/door/airlock{
@@ -2137,6 +2158,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ctf)
+"NH" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 4;
+	mouse_opacity = 0;
+	resistance_flags = 64
+	},
+/turf/open/floor/iron/dark,
+/area/ctf)
 "NS" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -2232,6 +2261,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ctf)
+"Pt" = (
+/obj/structure/barricade/sandbags{
+	resistance_flags = 64
+	},
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 4;
+	mouse_opacity = 0;
+	resistance_flags = 64
+	},
+/turf/open/floor/iron/dark,
+/area/ctf)
 "PX" = (
 /obj/structure/fluff/bus/dense{
 	icon_state = "hoodtop";
@@ -2276,6 +2316,18 @@
 	},
 /turf/open/floor/iron,
 /area/ctf)
+"QQ" = (
+/obj/effect/turf_decal/siding/white/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/shreds,
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 4;
+	mouse_opacity = 0;
+	resistance_flags = 64
+	},
+/turf/open/floor/iron/dark,
+/area/ctf)
 "QW" = (
 /obj/effect/turf_decal/trimline/blue/line,
 /obj/effect/turf_decal/tile/blue,
@@ -2309,15 +2361,6 @@
 	resistance_flags = 64
 	},
 /turf/open/floor/plating/grass,
-/area/ctf)
-"RD" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
-	dir = 4;
-	mouse_opacity = 0;
-	resistance_flags = 64
-	},
-/obj/effect/turf_decal/siding/white/corner,
-/turf/open/floor/iron/dark,
 /area/ctf)
 "RN" = (
 /obj/effect/turf_decal/trimline/red/line{
@@ -2478,15 +2521,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/ctf)
-"Vi" = (
-/obj/structure/barricade/security/ctf,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
-	dir = 4;
-	mouse_opacity = 0;
-	resistance_flags = 64
-	},
-/turf/open/floor/iron/dark,
 /area/ctf)
 "Vu" = (
 /obj/effect/turf_decal/siding/white/corner{
@@ -2731,17 +2765,6 @@
 	},
 /turf/open/floor/iron,
 /area/ctf)
-"ZM" = (
-/obj/structure/barricade/sandbags{
-	resistance_flags = 64
-	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
-	dir = 4;
-	mouse_opacity = 0;
-	resistance_flags = 64
-	},
-/turf/open/floor/iron/dark,
-/area/ctf)
 "ZN" = (
 /obj/structure/trap/ctf/blue,
 /turf/open/floor/iron/dark,
@@ -2977,7 +3000,7 @@ OO
 Vu
 bH
 yR
-rG
+QQ
 oO
 mB
 TD
@@ -3015,7 +3038,7 @@ xe
 Xj
 lv
 Pi
-jD
+NH
 YE
 Ad
 TD
@@ -3050,7 +3073,7 @@ td
 mB
 TD
 xe
-jD
+NH
 lv
 Pi
 Xj
@@ -3088,7 +3111,7 @@ td
 mB
 TD
 xe
-xD
+Dx
 OP
 Fr
 UG
@@ -3129,7 +3152,7 @@ jC
 Xj
 lv
 Pi
-jD
+NH
 De
 mB
 GJ
@@ -3167,7 +3190,7 @@ jC
 Xj
 lv
 Pi
-jD
+NH
 De
 mB
 TD
@@ -3202,7 +3225,7 @@ BH
 Ad
 TD
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -3240,7 +3263,7 @@ td
 iZ
 TD
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -3281,7 +3304,7 @@ jC
 Xj
 rO
 Pi
-jD
+NH
 De
 zN
 TD
@@ -3319,7 +3342,7 @@ jC
 Xj
 lv
 Pi
-jD
+NH
 De
 Ad
 TD
@@ -3354,7 +3377,7 @@ Lr
 Ad
 TD
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -3392,7 +3415,7 @@ td
 Ad
 TD
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -3433,7 +3456,7 @@ Dg
 GA
 lv
 Pi
-ZM
+Pt
 Tb
 iZ
 xq
@@ -3471,7 +3494,7 @@ jC
 JY
 lv
 Pi
-jD
+NH
 YD
 Ad
 xq
@@ -3506,7 +3529,7 @@ Lr
 Ad
 TD
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -3544,7 +3567,7 @@ Lr
 Ad
 xq
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -3585,7 +3608,7 @@ jC
 Xj
 lv
 Pi
-jD
+NH
 De
 Ad
 TD
@@ -3623,7 +3646,7 @@ jC
 Xj
 lv
 Pi
-bA
+xh
 De
 Ad
 It
@@ -3658,7 +3681,7 @@ td
 mB
 TD
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -3688,15 +3711,21 @@ xs
 td
 Bh
 ql
+<<<<<<< HEAD
 go
 ql
 go
+=======
+fJ
+ql
+fJ
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 QC
 td
 mB
 TD
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -3737,14 +3766,14 @@ jC
 GA
 OP
 Fr
-ZM
+Pt
 De
 Ad
 jS
 RB
 Kd
 mj
-GP
+rT
 Kd
 mj
 TD
@@ -3763,9 +3792,15 @@ El
 BH
 Lr
 Ug
+<<<<<<< HEAD
 hU
 ql
 hU
+=======
+fJ
+ql
+fJ
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 ql
 QC
 oq
@@ -3775,7 +3810,7 @@ jC
 Xj
 lv
 Pi
-jD
+NH
 De
 Ad
 jS
@@ -3810,7 +3845,7 @@ td
 JO
 TD
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -3820,7 +3855,7 @@ zA
 RB
 Kd
 mj
-sM
+BL
 mj
 Kd
 TD
@@ -3840,15 +3875,21 @@ BH
 Lr
 Ug
 ql
+<<<<<<< HEAD
 go
 ql
 go
+=======
+fJ
+ql
+fJ
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 QC
 Lr
 Ad
 lW
 nQ
-Cg
+ll
 hF
 Pi
 Xj
@@ -3889,7 +3930,7 @@ aq
 CB
 Hg
 Pi
-jD
+NH
 vb
 nO
 jS
@@ -3915,9 +3956,15 @@ BH
 El
 td
 mP
+<<<<<<< HEAD
 hU
 ql
 hU
+=======
+fJ
+ql
+fJ
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 ql
 QC
 td
@@ -3927,7 +3974,7 @@ dC
 gZ
 LK
 Pi
-jD
+NH
 vb
 nO
 jS
@@ -4041,7 +4088,7 @@ JM
 gZ
 OU
 Pi
-jD
+NH
 vb
 Ao
 zA
@@ -4079,7 +4126,7 @@ CC
 Rj
 OU
 Pi
-jD
+NH
 vb
 Kh
 jS
@@ -4183,9 +4230,13 @@ td
 Ek
 dO
 sZ
-Dm
+kx
 ql
+<<<<<<< HEAD
 go
+=======
+fJ
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 td
 qT
 yX
@@ -4193,7 +4244,7 @@ eC
 kR
 Ok
 Pi
-jD
+NH
 vb
 ru
 jS
@@ -4221,7 +4272,7 @@ td
 vX
 dO
 RU
-Dm
+kx
 Ie
 iv
 Lr
@@ -4231,7 +4282,7 @@ PX
 af
 GI
 Pi
-jD
+NH
 vb
 ru
 Oc
@@ -4259,14 +4310,14 @@ Lr
 Ux
 dO
 sZ
-Dm
+kx
 ql
 EJ
 Lr
 ru
 da
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -4297,14 +4348,14 @@ Lr
 nT
 dO
 bd
-Dm
+kx
 ql
-qJ
+bO
 td
 ru
 da
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -4314,7 +4365,7 @@ zA
 RB
 Ga
 mj
-GP
+rT
 mj
 Ga
 da
@@ -4335,7 +4386,7 @@ Lr
 nT
 dO
 sZ
-Dm
+kx
 ql
 en
 VD
@@ -4345,7 +4396,7 @@ jC
 Xj
 lv
 Pi
-jD
+NH
 KV
 Kh
 zA
@@ -4383,14 +4434,14 @@ jC
 GA
 OP
 Fr
-ZM
+Pt
 De
 Kh
 zA
 RB
 Ga
 mj
-sM
+BL
 Ga
 mj
 da
@@ -4418,7 +4469,7 @@ Pb
 Kh
 da
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -4450,13 +4501,13 @@ Bx
 KN
 ql
 ql
-bs
+fJ
 RX
 td
 Kh
 da
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -4497,7 +4548,7 @@ jC
 Xj
 lv
 Pi
-jD
+NH
 De
 Kh
 da
@@ -4535,7 +4586,7 @@ jC
 Qw
 lv
 Pi
-jD
+NH
 De
 vS
 da
@@ -4570,7 +4621,7 @@ Lr
 vS
 Jc
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -4608,7 +4659,7 @@ Lr
 vS
 da
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -4649,7 +4700,7 @@ jC
 Xj
 lv
 Pi
-jD
+NH
 De
 vS
 da
@@ -4687,7 +4738,7 @@ Dg
 GA
 lv
 Pi
-ZM
+Pt
 Tb
 WS
 da
@@ -4722,7 +4773,7 @@ td
 vS
 da
 jC
-jD
+NH
 lv
 Pi
 JY
@@ -4760,7 +4811,7 @@ Lr
 vS
 da
 jC
-jD
+NH
 rO
 Pi
 Xj
@@ -4801,7 +4852,7 @@ jC
 Xj
 lv
 Pi
-jD
+NH
 De
 Kh
 da
@@ -4839,7 +4890,7 @@ jC
 Xj
 lv
 Pi
-jD
+NH
 De
 Kh
 da
@@ -4874,7 +4925,7 @@ td
 ZO
 da
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -4912,7 +4963,7 @@ BH
 Kh
 da
 jC
-jD
+NH
 lv
 Pi
 Xj
@@ -4953,7 +5004,7 @@ jC
 Xj
 lv
 Pi
-jD
+NH
 De
 Kh
 BC
@@ -4991,7 +5042,7 @@ jC
 Xj
 lv
 Pi
-jD
+NH
 De
 Kh
 Lz
@@ -5026,7 +5077,7 @@ td
 Kh
 BC
 xe
-Vi
+Cq
 yp
 Fr
 UG
@@ -5064,7 +5115,7 @@ td
 Kh
 BC
 xe
-jD
+NH
 lv
 Pi
 Xj
@@ -5105,7 +5156,7 @@ xe
 Xj
 lv
 Pi
-jD
+NH
 YE
 Kh
 da
@@ -5143,7 +5194,7 @@ pp
 zB
 lv
 Pi
-RD
+hq
 ez
 Kh
 da

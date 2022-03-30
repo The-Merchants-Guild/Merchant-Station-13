@@ -59,13 +59,21 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "ap" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 10
 	},
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "aq" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 6
 	},
 /turf/open/floor/iron/freezer,
@@ -105,11 +113,19 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "ay" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "az" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/turf/open/floor/iron/freezer,
+/area/ruin/space/has_grav/deepstorage/kitchen)
+"az" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "aA" = (
@@ -236,11 +252,19 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "aM" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "aN" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/turf/closed/wall/mineral/iron,
+/area/ruin/space/has_grav/deepstorage/kitchen)
+"aN" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/machinery/door/airlock{
 	name = "Freezer"
 	},
@@ -356,7 +380,11 @@
 /obj/item/reagent_containers/food/condiment/soysauce{
 	pixel_x = 4
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 6
 	},
 /obj/machinery/firealarm/directional/north,
@@ -368,7 +396,11 @@
 /obj/machinery/airalarm/away{
 	pixel_y = 23
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/open/floor/iron/cafeteria,
@@ -380,14 +412,22 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 9
 	},
 /obj/item/kitchen/knife,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bb" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bc" = (
@@ -410,14 +450,22 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "bf" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "bg" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
@@ -428,14 +476,22 @@
 /obj/structure/table,
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/storage/bag/plants,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "bi" = (
 /obj/machinery/vending/hydronutrients,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/north,
@@ -445,21 +501,33 @@
 /obj/machinery/vending/hydroseeds{
 	slogan_delay = 700
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "bk" = (
 /obj/machinery/hydroponics/constructable,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/open/floor/light,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "bl" = (
 /obj/machinery/hydroponics/constructable,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 10
 	},
 /obj/machinery/light/directional/north,
@@ -473,28 +541,44 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "bn" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "bo" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "bp" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "bq" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -518,7 +602,11 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bt" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/open/floor/iron/cafeteria,
@@ -533,7 +621,11 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bw" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/open/floor/iron/cafeteria,
@@ -551,7 +643,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "bz" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
@@ -577,13 +673,21 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "bE" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "bF" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
@@ -605,26 +709,42 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bJ" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/structure/cable,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bK" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 6
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bL" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bM" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 9
 	},
 /obj/structure/cable,
@@ -734,7 +854,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "bW" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "bX" = (
@@ -742,12 +866,20 @@
 	name = "General Storage";
 	req_access_txt = "200"
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "bY" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
 	name = "Kitchen"
@@ -756,7 +888,11 @@
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bZ" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/machinery/smartfridge,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/kitchen)
@@ -787,7 +923,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "ch" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/machinery/airalarm/away{
 	dir = 8;
 	pixel_x = 24
@@ -795,6 +935,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
+"ci" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/deepstorage)
 "cj" = (
 /obj/structure/noticeboard/directional/north,
 /obj/item/paper/fluff/ruins/deepstorage/water_concern,
@@ -822,7 +967,11 @@
 "cl" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/light/directional/north,
@@ -837,7 +986,11 @@
 /obj/machinery/airalarm/away{
 	pixel_y = 23
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/bar,
@@ -847,10 +1000,17 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "cn" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
@@ -860,7 +1020,11 @@
 /area/ruin/space/has_grav/deepstorage)
 "co" = (
 /obj/structure/closet/crate/bin,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/bar,
@@ -891,7 +1055,11 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage)
 "ct" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -899,15 +1067,24 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "cu" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "cv" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
@@ -916,7 +1093,11 @@
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "cw" = (
 /obj/structure/table,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/light/directional/south,
@@ -929,14 +1110,22 @@
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "cx" = (
 /obj/machinery/seed_extractor,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "cy" = (
 /obj/machinery/biogenerator,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/item/reagent_containers/glass/beaker/large,
@@ -944,14 +1133,22 @@
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "cz" = (
 /obj/machinery/hydroponics/constructable,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/open/floor/light,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "cA" = (
 /obj/machinery/hydroponics/constructable,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 9
 	},
 /turf/open/floor/light,
@@ -987,7 +1184,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "cC" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -999,7 +1200,11 @@
 	name = "Provisions Storage";
 	req_access_txt = "200"
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1007,22 +1212,37 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "cE" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "cF" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "cG" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1057,7 +1277,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "cK" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
@@ -1066,7 +1290,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "cL" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/machinery/vending/coffee,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -1085,7 +1313,11 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage)
 "cO" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = 11
@@ -1094,7 +1326,11 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage)
 "cP" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -1109,6 +1345,12 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
+"cR" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/spawner/randomarcade,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/deepstorage)
 "cS" = (
 /obj/structure/chair/stool/directional/east,
 /obj/effect/decal/cleanable/dirt,
@@ -1135,7 +1377,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "cV" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/bar,
@@ -1146,7 +1392,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "cW" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/machinery/vending/cigarette,
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/turf_decal/tile/bar,
@@ -1167,7 +1417,11 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage)
 "cZ" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage)
 "da" = (
@@ -1207,28 +1461,45 @@
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage/armory)
 "df" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "dg" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "dh" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/effect/spawner/randomarcade{
 	dir = 4
 	},
+=======
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
+/obj/effect/spawner/randomarcade,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "di" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/structure/chair/stool/directional/east,
@@ -1236,8 +1507,13 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dj" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1245,21 +1521,33 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dk" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dp" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dq" = (
 /obj/machinery/door/airlock{
 	name = "Showers"
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /turf/open/floor/iron/freezer,
 /area/ruin/space/has_grav/deepstorage)
 "dt" = (
@@ -1368,13 +1656,21 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "dz" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 6
 	},
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage/storage)
 "dA" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 9
 	},
 /turf/closed/wall/mineral/iron,
@@ -1383,54 +1679,99 @@
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage/dorm)
 "dC" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/light/directional/west,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/obj/machinery/light{
+	dir = 8
+	},
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dD" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dF" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dG" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dH" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dI" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/light/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
+"dJ" = (
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/deepstorage)
 "dK" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/deepstorage)
+"dL" = (
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dM" = (
@@ -1438,20 +1779,32 @@
 	name = "Secure Storage";
 	req_access_txt = "200"
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/deepstorage/armory)
 "dN" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/deepstorage/armory)
 "dO" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 9
 	},
 /turf/open/floor/iron/dark,
@@ -1471,8 +1824,16 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/deepstorage/armory)
+"dQ" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/closed/wall/mineral/iron,
+/area/ruin/space/has_grav/deepstorage/dorm)
 "dR" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1480,7 +1841,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/dorm)
 "dS" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
@@ -1492,7 +1857,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/dorm)
 "dU" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1500,7 +1869,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dV" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/power/apc/away{
@@ -1513,14 +1886,22 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dW" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "dY" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1528,10 +1909,20 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "eb" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/deepstorage)
+"ed" = (
+/obj/machinery/atmospherics/pipe/manifold4w/supplymain/hidden,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -1541,14 +1932,22 @@
 	name = "Secure Storage";
 	req_access_txt = "200"
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/deepstorage/armory)
 "ef" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 10
 	},
 /obj/structure/cable,
@@ -1581,20 +1980,32 @@
 /area/ruin/space/has_grav/deepstorage/dorm)
 "ek" = (
 /obj/structure/bed,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/item/bedsheet,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/deepstorage/dorm)
 "el" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage/dorm)
 "em" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -1610,7 +2021,11 @@
 /obj/machinery/door/poddoor{
 	id = "bunkerinterior"
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -1631,24 +2046,43 @@
 	name = "Airlock Control";
 	req_access_txt = "200"
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "es" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "et" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/light/directional/west,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/closed/wall/mineral/iron,
+/area/ruin/space/has_grav/deepstorage/airlock)
+"et" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/light{
+	dir = 8
+	},
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "ev" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 5
 	},
 /turf/open/floor/iron/dark,
@@ -1692,7 +2126,11 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/deepstorage/dorm)
 "eA" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -1701,6 +2139,7 @@
 /obj/machinery/door/airlock{
 	name = "Personal Dorm"
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
 	},
@@ -1709,6 +2148,16 @@
 /area/ruin/space/has_grav/deepstorage/dorm)
 "eC" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/wood,
+/area/ruin/space/has_grav/deepstorage/dorm)
+"eC" = (
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1725,8 +2174,15 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage)
 "eF" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/light/small/directional/west,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/obj/machinery/light/small{
+	dir = 8
+	},
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1734,7 +2190,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "eG" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden{
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
 	dir = 6
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -1744,7 +2200,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "eH" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden{
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
 	dir = 4
 	},
 /turf/closed/wall/mineral/iron,
@@ -1778,29 +2234,53 @@
 	pixel_y = 8;
 	req_access_txt = "200"
 	},
+<<<<<<< HEAD
+=======
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
+	dir = 4
+	},
+/obj/machinery/computer/security/telescreen{
+	dir = 1;
+	name = "Bunker Entrance monitor";
+	network = list("bunker1");
+	pixel_y = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "eJ" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden{
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
 	dir = 4
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "eK" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden{
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
 	dir = 4
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/firealarm/directional/north,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "eL" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/orange/hidden{
+/obj/machinery/atmospherics/pipe/simple/orange/hidden{
 	dir = 10
 	},
 /obj/machinery/power/apc/away{
@@ -1859,8 +2339,15 @@
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/deepstorage/armory)
 "eQ" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/light/directional/east,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/obj/machinery/light{
+	dir = 4
+	},
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -1896,7 +2383,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "eW" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
@@ -1916,6 +2407,12 @@
 	name = "Atmospherics and Power Storage";
 	req_access_txt = "200"
 	},
+<<<<<<< HEAD
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "eZ" = (
@@ -1925,22 +2422,27 @@
 	name = "Atmospherics and Power Storage";
 	req_access_txt = "200"
 	},
+<<<<<<< HEAD
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/obj/effect/decal/cleanable/dirt,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "fa" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible{
+/obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 6
 	},
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage/armory)
 "fb" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible{
+/obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage/armory)
 "fc" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible{
+/obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
 /turf/closed/wall/mineral/iron,
@@ -1953,8 +2455,16 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/deepstorage/power)
 "fe" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/structure/extinguisher_cabinet/directional/east,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/obj/structure/extinguisher_cabinet{
+	dir = 4;
+	pixel_x = 24
+	},
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -1988,18 +2498,24 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "fl" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "fm" = (
+<<<<<<< HEAD
+=======
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 8
+	},
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/visible,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "fn" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
+/obj/machinery/atmospherics/pipe/simple/green/visible,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
@@ -2024,7 +2540,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage)
 "fr" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden{
+/obj/machinery/atmospherics/pipe/simple/yellow/hidden{
 	dir = 5
 	},
 /obj/machinery/light/small/directional/east,
@@ -2032,8 +2548,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
+"fs" = (
+/obj/machinery/atmospherics/pipe/simple/yellow/hidden{
+	dir = 4
+	},
+/turf/closed/wall/mineral/iron,
+/area/ruin/space/has_grav/deepstorage/airlock)
 "ft" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden{
+/obj/machinery/atmospherics/pipe/simple/yellow/hidden{
 	dir = 4
 	},
 /obj/machinery/airalarm/away{
@@ -2044,7 +2566,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "fu" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden{
+/obj/machinery/atmospherics/pipe/simple/yellow/hidden{
 	dir = 4
 	},
 /obj/machinery/light/directional/south,
@@ -2069,7 +2591,7 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "fx" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/machinery/power/apc/away{
 	dir = 8;
 	name = "Power and Atmospherics APC";
@@ -2088,7 +2610,12 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "fz" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/pink/visible{
+=======
+/obj/machinery/atmospherics/pipe/simple/green/visible,
+/obj/machinery/atmospherics/pipe/simple/supplymain/visible{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2096,14 +2623,14 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "fA" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/visible{
+/obj/machinery/atmospherics/pipe/simple/supplymain/visible{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "fB" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/visible{
+/obj/machinery/atmospherics/pipe/simple/supplymain/visible{
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
@@ -2122,7 +2649,11 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/deepstorage/power)
 "fE" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 4;
 	name = "Dormitory APC";
@@ -2136,7 +2667,11 @@
 /obj/machinery/door/poddoor{
 	id = "bunkerexterior"
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -2150,12 +2685,12 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "fH" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/visible,
+/obj/machinery/atmospherics/pipe/simple/supplymain/visible,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "fI" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible,
+/obj/machinery/atmospherics/pipe/simple/green/visible,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
@@ -2187,12 +2722,21 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/deepstorage/power)
 "fN" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage/dorm)
 "fO" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
+/turf/closed/wall/mineral/iron,
+/area/ruin/space/has_grav/deepstorage/dorm)
+"fO" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2214,7 +2758,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "fR" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/light/small/directional/north,
@@ -2228,7 +2776,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "fS" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 9
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -2261,14 +2813,14 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "fW" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
 "fX" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
 	},
 /obj/structure/sign/warning/electricshock{
@@ -2278,7 +2830,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
 "fY" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -2288,7 +2840,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
 "fZ" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2303,14 +2855,14 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "gb" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible{
+/obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "gc" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible{
+/obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
@@ -2328,13 +2880,21 @@
 /obj/machinery/door/airlock{
 	name = "Personal Dorm"
 	},
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/deepstorage/dorm)
 "gf" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2362,7 +2922,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
 "gj" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
@@ -2411,7 +2971,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
 "gu" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/pink/visible{
+/obj/machinery/atmospherics/pipe/simple/supplymain/visible{
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2459,7 +3019,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage)
 "gA" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2564,7 +3124,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
 "gT" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 5
 	},
 /obj/machinery/autolathe,
@@ -2575,14 +3135,14 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "gU" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/power)
 "gV" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 9
 	},
 /obj/structure/table,
@@ -2645,7 +3205,11 @@
 /area/ruin/space/has_grav/deepstorage/crusher)
 "hf" = (
 /obj/machinery/hydroponics/constructable,
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/airalarm/away{
@@ -2654,7 +3218,11 @@
 /turf/open/floor/light,
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "hg" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/north,
@@ -2662,7 +3230,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "hh" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -2671,7 +3243,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "hi" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -2682,7 +3258,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "hj" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
+=======
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/east,
@@ -2691,14 +3271,26 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/dorm)
 "hk" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
 "hl" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
 /obj/machinery/firealarm/directional/west,
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -24
+	},
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -2719,7 +3311,11 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage)
 "ho" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/layer_manifold/scrubbers/hidden{
+=======
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 	dir = 4
 	},
 /turf/closed/wall/mineral/iron,
@@ -2727,7 +3323,7 @@
 "hq" = (
 /obj/machinery/door/firedoor,
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/green/visible{
+/obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -2771,6 +3367,12 @@
 /obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/deepstorage/armory)
+"qh" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/deepstorage)
 "rz" = (
 /obj/machinery/conveyor{
 	dir = 6;
@@ -2789,12 +3391,6 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/crusher)
-"EP" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/yellow/hidden{
-	dir = 4
-	},
-/turf/closed/wall/mineral/iron,
-/area/ruin/space/has_grav/deepstorage/airlock)
 "Ik" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2803,7 +3399,11 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/power)
 "Rs" = (
+<<<<<<< HEAD
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+=======
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+>>>>>>> parent of 3e8407c471 (Smart Pipes(reborn) (#58038))
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/deepstorage/airlock)
@@ -3561,13 +4161,13 @@ cD
 hU
 dg
 dz
-fN
+dQ
 el
 eB
-fN
+dQ
 el
 eB
-fN
+dQ
 fN
 ge
 dB
@@ -3608,9 +4208,9 @@ aT
 bo
 bE
 bW
-dH
+ci
 cE
-dh
+cR
 dh
 dA
 dR
@@ -3714,7 +4314,7 @@ bG
 hU
 cj
 cG
-cF
+qh
 dj
 dC
 cF
@@ -3923,7 +4523,7 @@ bY
 cn
 cK
 cV
-cF
+qh
 dG
 dW
 ep
@@ -3975,14 +4575,14 @@ bZ
 co
 cL
 cW
-dH
+ci
 dH
 hi
 eq
 eH
 eT
 eT
-EP
+fs
 eq
 fU
 fT
@@ -4132,7 +4732,7 @@ cr
 cN
 cY
 dp
-dH
+dJ
 cE
 es
 eK
@@ -4288,7 +4888,7 @@ ct
 cP
 cP
 cP
-cP
+dL
 cE
 et
 cP
@@ -4334,14 +4934,14 @@ aC
 aP
 bf
 bz
-cF
+qh
 bz
 cu
 bz
 bz
 bz
 cu
-cF
+ed
 bz
 bz
 eZ

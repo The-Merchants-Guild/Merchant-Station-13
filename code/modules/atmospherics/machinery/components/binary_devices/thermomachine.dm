@@ -109,12 +109,13 @@
 
 /obj/machinery/atmospherics/components/unary/thermomachine/update_overlays()
 	. = ..()
-	if(!initial(icon))
-		return
-	var/mutable_appearance/thermo_overlay = new(initial(icon))
-	. += getpipeimage(thermo_overlay, "pipe", dir, COLOR_LIME, piping_layer)
+	. += getpipeimage(icon, "pipe", dir, COLOR_LIME, piping_layer)
+	. += getpipeimage(icon, "pipe", turn(dir, 180), COLOR_MOSTLY_PURE_RED, piping_layer)
+	if(skipping_work && on)
+		var/mutable_appearance/skipping = mutable_appearance(icon, "blinking")
+		. += skipping
 
-/obj/machinery/atmospherics/components/unary/thermomachine/examine(mob/user)
+/obj/machinery/atmospherics/components/binary/thermomachine/examine(mob/user)
 	. = ..()
 	. += span_notice("With the panel open:")
 	. += span_notice("-use a wrench with left-click to rotate [src] and right-click to unanchor it.")

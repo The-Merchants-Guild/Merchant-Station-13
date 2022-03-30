@@ -1015,7 +1015,7 @@
 /obj/machinery/light/small/directional/east,
 /obj/machinery/recharger,
 /obj/item/gps{
-	gpstag = BSE Singularity;
+	gpstag = "BSE Singularity";
 	pixel_x = -12;
 	pixel_y = 4
 	},

@@ -653,7 +653,9 @@
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/derelictoutpost)
 "bY" = (
-/obj/item/gps/spaceruin,
+/obj/item/gps{
+	gpstag = Distress Signal
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/derelictoutpost/powerstorage)
 "ca" = (
@@ -1221,6 +1223,7 @@
 "dE" = (
 /obj/structure/alien/weeds/creature,
 /obj/structure/alien/weeds/creature,
+/obj/item/ammo_box/magazine/m45,
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav/derelictoutpost)
 "dF" = (

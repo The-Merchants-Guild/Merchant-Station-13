@@ -468,7 +468,7 @@
 /turf/open/floor/iron/airless,
 /area/shuttle/abandoned)
 "bs" = (
-/obj/machinery/computer/shuttle/white_ship/bridge{
+/obj/machinery/computer/shuttle/white_ship{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -525,6 +525,21 @@
 /obj/item/clothing/head/helmet/space/eva,
 /obj/item/clothing/mask/breath,
 /turf/open/floor/plating/airless,
+/area/shuttle/abandoned)
+"Kq" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/item/gps{
+	gpstag = White Ship
+	},
+/turf/open/floor/iron/airless,
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
@@ -744,7 +759,7 @@ ag
 ab
 bc
 bn
-bo
+Kq
 bq
 "}
 (12,1,1) = {"

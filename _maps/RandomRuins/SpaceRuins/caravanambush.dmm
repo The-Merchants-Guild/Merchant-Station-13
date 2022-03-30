@@ -911,7 +911,9 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/secure/weapon,
-/obj/item/gun/energy/disabler,
+/obj/item/ammo_box/magazine/m9mm_aps/hp,
+/obj/item/ammo_box/magazine/m9mm_aps/hp,
+/obj/item/gun/ballistic/automatic/pistol/aps,
 /turf/open/floor/iron/dark/airless,
 /area/shuttle/caravan/freighter2)
 "iX" = (
@@ -919,6 +921,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/weapon,
+/obj/item/storage/box/slugs,
+/obj/item/gun/ballistic/shotgun/sc_pump,
 /turf/open/floor/iron/dark/airless,
 /area/shuttle/caravan/freighter2)
 "iY" = (

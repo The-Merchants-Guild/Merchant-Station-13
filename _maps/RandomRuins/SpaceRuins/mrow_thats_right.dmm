@@ -332,7 +332,9 @@
 "bb" = (
 /obj/machinery/light/directional/east,
 /obj/structure/closet/cabinet,
-/obj/item/gps/spaceruin,
+/obj/item/gps{
+	gpstag = Kitty
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/cat_man)
 "bc" = (

@@ -1093,6 +1093,10 @@
 "cU" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/gps{
+	gpstag = Freight Ship;
+	pixel_y = 2
+	},
 /turf/open/floor/mineral/titanium/tiled/blue,
 /area/shuttle/abandoned/bridge)
 "cV" = (
@@ -1326,10 +1330,10 @@
 /turf/open/floor/mineral/titanium/tiled/blue,
 /area/shuttle/abandoned/bridge)
 "dv" = (
-/obj/machinery/computer/shuttle/white_ship/bridge{
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/shuttle/white_ship{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/titanium/tiled/blue,
 /area/shuttle/abandoned/bridge)
 "dw" = (

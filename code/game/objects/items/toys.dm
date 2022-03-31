@@ -667,7 +667,8 @@
 		skeleton.\nNot suitable for infants or assistants under 36 months \
 		of age."
 	icon_state = "skeletonprize"
-	attack_verb = list("boned", "dunked on", "worked down to the bone")
+	attack_verb_simple = list("boned", "dunked on", "worked down to the bone")
+	attack_verb_continuous = list("boned", "dunked on", "worked down to the bone")
 	chattering = TRUE
 
 	var/list/regular_messages = list(
@@ -723,7 +724,6 @@
 
 	toy_talk(user, "RATTLE ME BONES")
 
-	user.Stun(5)
 	sleep(20)
 	return OXYLOSS
 

@@ -1,4 +1,10 @@
 #define CONFUSION_STACK_MAX_MULTIPLIER 2
+/// No deviation at all. Flashed from the front or front-left/front-right. Alternatively, flashed in direct view.
+#define DEVIATION_NONE 0
+/// Partial deviation. Flashed from the side. Alternatively, flashed out the corner of your eyes.
+#define DEVIATION_PARTIAL 1
+/// Full deviation. Flashed from directly behind or behind-left/behind-rack. Not flashed at all.
+#define DEVIATION_FULL 2
 
 /obj/item/assembly/flash
 	name = "flash"
@@ -407,3 +413,7 @@
 		M.drowsyness += min(M.drowsyness + 4, 20)
 		M.apply_status_effect(STATUS_EFFECT_PACIFY, 40)
 
+#undef CONFUSION_STACK_MAX_MULTIPLIER
+#undef DEVIATION_NONE
+#undef DEVIATION_PARTIAL
+#undef DEVIATION_FULL

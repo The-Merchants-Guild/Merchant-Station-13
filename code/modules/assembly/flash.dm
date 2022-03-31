@@ -335,7 +335,3 @@
 		M.drowsyness += min(M.drowsyness + 4, 20)
 		M.apply_status_effect(STATUS_EFFECT_PACIFY, 40)
 
-#undef CONFUSION_STACK_MAX_MULTIPLIER
-#undef DEVIATION_NONE
-#undef DEVIATION_PARTIAL
-#undef DEVIATION_FULL

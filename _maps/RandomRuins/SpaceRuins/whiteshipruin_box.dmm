@@ -141,8 +141,7 @@
 /area/ruin/space/has_grav/whiteship/box)
 "sX" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/eva,
-/obj/item/clothing/head/helmet/space/eva,
+/obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/breath,
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/space/has_grav/whiteship/box)

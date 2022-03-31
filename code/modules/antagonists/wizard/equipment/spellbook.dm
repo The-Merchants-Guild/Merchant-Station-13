@@ -576,7 +576,7 @@
 /datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
 	log_spellbook("[key_name(user)] cast [src] for [cost] points")
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
-	rightandwrong(SUMMON_GUNS, user, 10)
+	rightandwrong(SUMMON_GUNS, user, 25)
 	times++
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
 	to_chat(user, span_notice("You have cast summon guns!"))
@@ -598,7 +598,7 @@
 /datum/spellbook_entry/summon/magic/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
 	log_spellbook("[key_name(user)] cast [src] for [cost] points")
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
-	rightandwrong(SUMMON_MAGIC, user, 10)
+	rightandwrong(SUMMON_MAGIC, user, 25)
 	times++
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
 	to_chat(user, span_notice("You have cast summon magic!"))

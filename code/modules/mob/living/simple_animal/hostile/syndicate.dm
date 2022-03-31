@@ -78,7 +78,9 @@
 	melee_damage_upper = 15
 	icon_state = "syndicate_knife"
 	icon_living = "syndicate_knife"
-	loot = list(/obj/effect/gibspawner/human)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatestormtrooper,
+				/obj/item/melee/transforming/energy/sword/saber/red,
+				/obj/item/shield/energy)
 	attack_verb_continuous = "slashes"
 	attack_verb_simple = "slash"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -177,7 +179,9 @@
 	icon_living = "syndicate_pistol"
 	casingtype = /obj/item/ammo_casing/c9mm
 	projectilesound = 'sound/weapons/gun/pistol/shot.ogg'
-	loot = list(/obj/effect/gibspawner/human)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatestormtrooper,
+				/obj/item/gun/ballistic/shotgun/bulldog/unrestricted,
+				/obj/item/shield/energy)
 	dodging = FALSE
 	rapid_melee = 1
 

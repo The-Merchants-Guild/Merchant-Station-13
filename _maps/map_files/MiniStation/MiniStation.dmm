@@ -558,7 +558,6 @@
 	dir = 1;
 	id = "portaftsolars"
 	},
-/obj/machinery/airalarm/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 1
 	},
@@ -2430,10 +2429,12 @@
 /turf/open/floor/iron/white,
 /area/science/xenobiology)
 "jd" = (
-/obj/structure/closet/wardrobe/curator,
-/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/machinery/airalarm/directional/north,
 /obj/machinery/firealarm/directional/west,
+/obj/structure/table/reinforced,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/item/storage/photo_album/library,
+/obj/item/camera,
 /turf/open/floor/engine/cult,
 /area/service/library)
 "je" = (
@@ -3440,7 +3441,6 @@
 	id = "portaftsolars"
 	},
 /obj/structure/cable,
-/obj/machinery/airalarm/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 1
 	},
@@ -8263,7 +8263,6 @@
 "GO" = (
 /obj/machinery/power/smes,
 /obj/structure/cable,
-/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
 	},
@@ -9512,7 +9511,6 @@
 "Mu" = (
 /obj/machinery/power/smes,
 /obj/structure/cable,
-/obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
@@ -11570,7 +11568,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 1
 	},
-/obj/machinery/airalarm/directional/south,
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "UN" = (
@@ -11616,7 +11613,6 @@
 /area/commons/storage/primary)
 "US" = (
 /obj/machinery/power/smes,
-/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
 	},
@@ -11671,7 +11667,6 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "Vc" = (
-/obj/machinery/airalarm/directional/north,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
@@ -11814,7 +11809,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
 	},
-/obj/machinery/firealarm/directional/south,
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)

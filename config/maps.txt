@@ -49,7 +49,6 @@ endmap
 map ministation
 	minplayers 0
 	votable
-	maxplayers 25
 endmap
 
 map multiz_debug

@@ -255,7 +255,7 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	poison_per_bite = 3
-	gold_core_spawnable = NO_SPAWN
+	gold_core_spawnable = FRIENDLY_SPAWN
 	menu_description = "Royal spider variant specializing in reproduction and leadership, but has very low amount of health and deals low damage. Toxin injection of 3u per bite."
 	///If the spider is trying to cocoon something, what that something is.
 	var/atom/movable/cocoon_target

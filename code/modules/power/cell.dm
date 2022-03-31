@@ -83,6 +83,25 @@
 	else
 		return PROCESS_KILL
 
+/obj/item/stock_parts/cell/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, self_recharge))
+			if(var_value)
+				START_PROCESSING(SSobj, src)
+			else
+				STOP_PROCESSING(SSobj, src)
+	. = ..()
+
+/obj/item/stock_parts/cell/process(delta_time)
+	if(self_recharge)
+		give(chargerate * 0.125 * delta_time)
+	else
+		return PROCESS_KILL
+
 /obj/item/stock_parts/cell/update_overlays()
 	. = ..()
 	if(grown_battery)
@@ -380,6 +399,18 @@
 	custom_materials = null
 	grown_battery = TRUE //it has the overlays for wires
 	custom_premium_price = PAYCHECK_ASSISTANT
+
+/obj/item/stock_parts/cell/high/slime
+	name = "charged slime core"
+	desc = "A yellow slime core infused with plasma, it crackles with power."
+	icon = 'icons/mob/slimes.dmi'
+	icon_state = "yellow slime extract"
+	custom_materials = null
+	rating = 5 //self-recharge makes these desirable
+	self_recharge = 1 // Infused slime cores self-recharge, over time
+
+/*Hypercharged slime cell - located in /code/modules/research/xenobiology/crossbreeding/_misc.dm
+/obj/item/stock_parts/cell/high/slime/hypercharged */
 
 /obj/item/stock_parts/cell/high/slime
 	name = "charged slime core"

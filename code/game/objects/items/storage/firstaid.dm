@@ -255,8 +255,6 @@
 	desc = "An advanced kit to help deal with advanced wounds."
 	icon_state = "radfirstaid"
 	inhand_icon_state = "firstaid-rad"
-	custom_premium_price = PAYCHECK_HARD * 6
-	damagetype_healed = "all"
 
 /obj/item/storage/firstaid/PopulateContents()
 	if(empty)
@@ -272,7 +270,6 @@
 	name = "combat medical kit"
 	desc = "I hope you've got insurance."
 	icon_state = "bezerk"
-	damagetype_healed = "all"
 
 /obj/item/storage/firstaid/tactical/ComponentInitialize()
 	. = ..()

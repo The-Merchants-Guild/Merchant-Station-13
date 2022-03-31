@@ -51,8 +51,8 @@
 	var/heal_amount = 2.5
 	/// Start healing when they have this much damage in a category
 	var/heal_threshold = 10
-	/// What damage type does this bot support. Because the default is brute, if the medkit is brute-oriented there is a slight bonus to healing. set to "all" for it to heal any of the 4 base damage types
-	var/damagetype_healer = BRUTE
+	/// What damage type does this bot support. FUCK FUCK FUCK YOU
+	var/damagetype_healer = ALL
 	/// If active, the bot will transmit a critical patient alert to MedHUD users.
 	var/declare_crit = TRUE
 	/// Prevents spam of critical patient alerts.
@@ -77,14 +77,12 @@
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
 	skin = "bezerk"
-	damagetype_healer = "all"
 	heal_amount = 10
 
 /mob/living/simple_animal/bot/medbot/derelict
 	name = "\improper Old Medibot"
 	desc = "Looks like it hasn't been modified since the late 2080s."
 	skin = "bezerk"
-	damagetype_healer = "all"
 	heal_threshold = 0
 	declare_crit = 0
 	heal_amount = 5

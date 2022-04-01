@@ -671,7 +671,7 @@
 	attack_verb_continuous = list("boned", "dunked on", "worked down to the bone")
 	chattering = TRUE
 
-	var/list/regular_messages = list(
+	messages = list(
 		"Why was the skeleton such a bad liar? \
 		Because you can see right through him!",
 		"When does a skeleton laugh? When something tickles his funny bone!",

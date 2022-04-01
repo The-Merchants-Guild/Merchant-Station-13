@@ -211,6 +211,7 @@
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	icon_state = "cleaner"
+	volume = 200
 	list_reagents = list(/datum/reagent/space_cleaner = 100)
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = list(2,5)

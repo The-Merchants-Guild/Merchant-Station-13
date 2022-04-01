@@ -51,8 +51,6 @@
 	var/heal_amount = 2.5
 	/// Start healing when they have this much damage in a category
 	var/heal_threshold = 10
-	/// What damage type does this bot support. FUCK FUCK FUCK YOU
-	var/damagetype_healer = ALL
 	/// If active, the bot will transmit a critical patient alert to MedHUD users.
 	var/declare_crit = TRUE
 	/// Prevents spam of critical patient alerts.
@@ -111,8 +109,6 @@
 	skin = new_skin
 	update_appearance()
 	linked_techweb = SSresearch.science_tech
-	if(damagetype_healer == "all")
-		return
 
 	AddComponent(/datum/component/tippable, \
 		tip_time = 3 SECONDS, \
@@ -471,9 +467,7 @@
 	if(C.getToxLoss() > heal_threshold)
 		treat_me_for += TOX
 
-	if(damagetype_healer in treat_me_for)
-		return TRUE
-	if(damagetype_healer == "all" && treat_me_for.len)
+	if(treat_me_for.len)
 		return TRUE
 
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
@@ -530,11 +524,9 @@
 			potential_methods += TOX
 
 		for(var/i in potential_methods)
-			if(i != damagetype_healer)
-				continue
 			treatment_method = i
 
-		if(damagetype_healer == "all" && potential_methods.len)
+		if(potential_methods.len)
 			treatment_method = pick(potential_methods)
 
 		if(!treatment_method && emagged != 2) //If they don't need any of that they're probably cured!
@@ -554,8 +546,7 @@
 			if(do_mob(src, patient, 20)) //Slightly faster than default tend wounds, but does less HPS
 				if((get_dist(src, patient) <= 1) && (on) && assess_patient(patient))
 					var/healies = heal_amount
-					var/obj/item/storage/firstaid/FA = firstaid
-					if(treatment_method == BRUTE && initial(FA.damagetype_healed) == BRUTE) //specialized brute gets a bit of bonus, as a snack.
+					if(treatment_method == BRUTE) //specialized brute gets a bit of bonus, as a snack.
 						healies *= 1.1
 					if(emagged == 2)
 						patient.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)

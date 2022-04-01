@@ -727,8 +727,6 @@
 	sleep(20)
 	return OXYLOSS
 
-/obj/item/toy/talking/skeleton/generate_messages()
-	return list(pick(regular_messages))
 
 /obj/item/toy/talking/skeleton/toy_talk(user, message)
 	phomeme = pick("sans", "papyrus")

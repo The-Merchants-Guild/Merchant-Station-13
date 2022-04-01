@@ -510,7 +510,7 @@ GLOBAL_LIST_INIT(orion_events, generate_orion_events())
 	mask = /obj/item/clothing/mask/gas
 	head = /obj/item/clothing/head/helmet/swat
 	back = /obj/item/storage/backpack
-	id = /obj/item/card/id/
+	id = /obj/item/card/id/chameleon
 	card_access = /datum/card_access/syndicom
 
 /obj/item/orion_ship

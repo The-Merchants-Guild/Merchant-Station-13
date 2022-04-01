@@ -13,6 +13,7 @@
 	name = "inconspicious box"
 	desc = "It's so normal that you didn't notice it before."
 	icon_state = "agentbox"
+	max_integrity = 30
 	move_speed_multiplier = 0.5
 	enable_door_overlay = FALSE
 

@@ -17,7 +17,6 @@
 	throw_speed = 3
 	throw_range = 7
 	var/empty = FALSE
-	var/damagetype_healed //defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
 
 /obj/item/storage/firstaid/regular
 	icon_state = "firstaid"
@@ -155,7 +154,6 @@
 	desc = "A specialized medical kit for when the toxins lab <i>-spontaneously-</i> burns down."
 	icon_state = "ointment"
 	inhand_icon_state = "firstaid-ointment"
-	damagetype_healed = BURN
 
 /obj/item/storage/firstaid/fire/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins rubbing \the [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to start a fire!"))
@@ -180,7 +178,6 @@
 	desc = "Used to treat toxic blood content and radiation poisoning."
 	icon_state = "antitoxin"
 	inhand_icon_state = "firstaid-toxin"
-	damagetype_healed = TOX
 
 /obj/item/storage/firstaid/toxin/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins licking the lead paint off \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -205,7 +202,6 @@
 	desc = "A box full of oxygen goodies."
 	icon_state = "o2"
 	inhand_icon_state = "firstaid-o2"
-	damagetype_healed = OXY
 
 /obj/item/storage/firstaid/o2/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins hitting [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -230,7 +226,6 @@
 	desc = "A first aid kit for when you get toolboxed."
 	icon_state = "brute"
 	inhand_icon_state = "firstaid-brute"
-	damagetype_healed = BRUTE
 
 /obj/item/storage/firstaid/brute/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins beating [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))

@@ -3781,12 +3781,6 @@
 /obj/item/screwdriver,
 /turf/open/floor/plating/snowed/icemoon,
 /area/icemoon/underground/explored)
-"BH" = (
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
-/turf/closed/wall/r_wall,
-/area/science/xenobiology)
 "BJ" = (
 /turf/open/floor/iron/dark,
 /area/mine/storage)
@@ -3909,10 +3903,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/mine/laborcamp)
-"CQ" = (
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "CT" = (
 /obj/structure/stairs/south,
 /turf/open/floor/iron,
@@ -5065,10 +5055,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/xenobiology)
-"MM" = (
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
-/turf/closed/wall,
-/area/maintenance/aft)
 "MQ" = (
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/plating/asteroid/snow/icemoon,
@@ -5630,7 +5616,6 @@
 /turf/open/floor/iron,
 /area/cargo/warehouse)
 "Sd" = (
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
 /turf/closed/mineral/random/snow,
 /area/icemoon/underground/unexplored/rivers)
 "Sg" = (
@@ -51558,7 +51543,7 @@ MA
 jq
 zv
 Qv
-BH
+Qv
 Qv
 Wb
 Wb
@@ -52072,7 +52057,7 @@ pG
 Qv
 Qv
 Qv
-MM
+hM
 Qv
 Qv
 Qv
@@ -52329,7 +52314,7 @@ Xp
 Xp
 Fa
 Fa
-CQ
+Fa
 Fa
 Fa
 Fa

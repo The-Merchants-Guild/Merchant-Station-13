@@ -12,10 +12,10 @@
 		var/list/geodata = json_decode(html_decode(file2text(page_content)))
 		return geodata["countryCode"]
 
-var/list/countries = icon_states('icons/flags.dmi') //BLYAAAAAAAAAAAAAAT
+GLOBAL_LIST_INIT(countries,icon_states('icons/flags.dmi'))  //BLYAAAAAAAAAAAAAAT
 
 /proc/country2chaticon(country_code)
-	if(countries.Find(country_code))
+	if(GLOB.countries.Find(country_code))
 		return "[icon2html('icons/flags.dmi', world, country_code)]"
 	else
 		return "[icon2html('icons/flags.dmi', world, "unknown")]"

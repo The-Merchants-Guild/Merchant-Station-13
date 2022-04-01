@@ -250,7 +250,6 @@
 	desc = "An advanced kit to help deal with advanced wounds."
 	icon_state = "radfirstaid"
 	inhand_icon_state = "firstaid-rad"
-	custom_premium_price = PAYCHECK_HARD * 6
 
 /obj/item/storage/firstaid/PopulateContents()
 	if(empty)

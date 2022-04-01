@@ -412,6 +412,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 			straight = TRUE
 			P.straight = TRUE
 			top_colour = P.pipe_color
+	for (var/obj/machinery/atmospherics/P in get_turf(src))
+		if (P.piping_layer != piping_layer)
+			continue
+		taken_dirs |= P.initialize_directions
 	for (var/d in GLOB.cardinals)
 		var/rd = turn(d, 180)
 		var/turf/T = get_step(loc, d)
@@ -429,15 +433,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 			// layer manifolds are considered components in this case.
 			if (istype(A, /obj/machinery/atmospherics/pipe) && !istype(A, /obj/machinery/atmospherics/pipe/layer_manifold))
 				if (A.pipe_color && A.pipe_color != pipe_color)
-					continue // don't connect to wrong colours
+					taken_dirs |= d // don't connect to wrong colours
+					continue
 			else if (straight) // We don't really care about components in straight mode
 				continue
 			p_dir |= d
-	if (straight)
-		if (!p_dir) // okay, we didn't find pipes, lets just take the first direction that should be free.
-			p_dir = taken_dirs & 3 ? EAST : NORTH
-		else
-			p_dir &= ~taken_dirs
+	p_dir &= ~taken_dirs
+	if (straight && !p_dir)
+		p_dir = taken_dirs & 3 ? EAST : NORTH
 	if (p_dir == 0xF)
 		spawn_pipe(/obj/machinery/atmospherics/pipe/manifold4w)
 	//in binary: (p_dir & 0b0011 > 0b0001 && p_dir & 0b1100) || (p_dir & 0b0011 && p_dir & 0b1100 > 0b0100)

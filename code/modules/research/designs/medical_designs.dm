@@ -120,16 +120,6 @@
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
-/datum/design/noreactsyringe
-	name = "Cryo Syringe"
-	desc = "An advanced syringe that stops reagents inside from reacting. It can hold up to 20 units."
-	id = "noreactsyringe"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/glass = 2000, /datum/material/gold = 1000)
-	build_path = /obj/item/reagent_containers/syringe/noreact
-	category = list("Medical Designs")
-	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
-
 /datum/design/bluespacebodybag
 	name = "Bluespace Body Bag"
 	desc = "A bluespace body bag, powered by experimental bluespace technology. It can hold loads of bodies and the largest of creatures."

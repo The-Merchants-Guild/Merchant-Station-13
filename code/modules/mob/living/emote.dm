@@ -338,6 +338,7 @@
 	anchored = 1
 	pixel_x = -16
 	pixel_y = -16
+	layer = 5.0
 
 
 /datum/emote/living/smug/run_emote(mob/living/carbon/user, params)

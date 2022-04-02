@@ -3,6 +3,13 @@
 	select_name = "stun"
 	fire_sound = 'sound/weapons/taser.ogg'
 	e_cost = 250
+	harmful = TRUE
+
+/obj/item/ammo_casing/energy/electrode/stun
+	projectile_type = /obj/projectile/energy/electrode/stun
+	select_name = "stun"
+	fire_sound = 'sound/weapons/taser.ogg'
+	e_cost = 250
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/electrode/spec

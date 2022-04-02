@@ -8,5 +8,11 @@
         "ferry": "ferry_fancy",
         "cargo": "cargo_mini",
         "whiteship": "whiteship_meta"
-    }
+    },
+	"job_changes": {
+		"atmospheric_technician": {
+			"total_positions": 0,
+			"spawn_positions": 0
+		}
+	}
 }

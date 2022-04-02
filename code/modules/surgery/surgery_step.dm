@@ -13,7 +13,7 @@
 /datum/surgery_step/proc/try_op(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	var/success = FALSE
 	if(user == target)
-		time = time*3
+		time *= 3
 	if(accept_hand)
 		if(!tool)
 			success = TRUE
@@ -83,9 +83,9 @@
 	var/modded_time = time * speed_mod
 
 	if(user == target)
-		fail_prob = min(max(0, modded_time - time),99)
+		fail_prob = max(5, min(max(0, modded_time - (time * SURGERY_SLOWDOWN_CAP_MULTIPLIER)),99))
 	else
-		fail_prob = max(5, min(max(0, modded_time - (time * SURGERY_SLOWDOWN_CAP_MULTIPLIER)),99))//if modded_time > time * modifier, then fail_prob = modded_time - time*modifier. starts at 0, caps at 99
+		fail_prob = min(max(0, modded_time - (time * SURGERY_SLOWDOWN_CAP_MULTIPLIER)),99)//if modded_time > time * modifier, then fail_prob = modded_time - time*modifier. starts at 0, caps at 99
 	modded_time = min(modded_time, time * SURGERY_SLOWDOWN_CAP_MULTIPLIER)//also if that, then cap modded_time at time*modifier
 
 	if(iscyborg(user))//any immunities to surgery slowdown should go in this check.

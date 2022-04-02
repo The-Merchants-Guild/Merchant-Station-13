@@ -626,6 +626,14 @@
 	category = list("Medical Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/board/bluespace_miner
+	name = "Machine Design (Bluespace Miner)"
+	desc = "The circuit board for a bluespace mining unit."
+	id = "bluemining"
+	build_path = /obj/item/circuitboard/machine/bluespace_miner
+	category = list("Bluespace Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/board/spaceship_navigation_beacon
 	name = "Machine Design (Bluespace Navigation Gigabeacon)"
 	desc = "The circuit board for a Bluespace Navigation Gigabeacon."

@@ -919,3 +919,15 @@
 	for(var/i in rand(1, created_volume) to created_volume)
 		new /mob/living/simple_animal/ant(location)
 	..()
+
+/datum/chemical_reaction/kevlar
+	required_reagents = list(/datum/reagent/pentaerythritol = 2 , /datum/reagent/acetaldehyde = 2, /datum/reagent/fluorine = 1 ,/datum/reagent/carbon = 10)
+	required_temp = 574
+	reaction_flags = REACTION_INSTANT
+	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_CHEMICAL
+
+/datum/chemical_reaction/kevlar/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /obj/item/stack/sheet/kevlar(location)
+

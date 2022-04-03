@@ -360,7 +360,6 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	new/datum/stack_recipe("durathread beanie", /obj/item/clothing/head/beanie/durathread, 2, time = 40), \
 	new/datum/stack_recipe("durathread bandana", /obj/item/clothing/mask/bandana/durathread, 1, time = 25), \
 	))
-
 /obj/item/stack/sheet/durathread
 	name = "durathread"
 	desc = "A fabric sown from incredibly durable threads, known for its usefulness in armor production."
@@ -377,6 +376,25 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 /obj/item/stack/sheet/durathread/get_main_recipes()
 	. = ..()
 	. += GLOB.durathread_recipes
+
+GLOBAL_LIST_INIT(kevlar_recipes, list ( \
+	new/datum/stack_recipe("kevlar vest", /obj/item/clothing/suit/armor/vest/kevlar, 8, time = 40),
+	new/datum/stack_recipe("kevlar cowl", /obj/item/clothing/head/kevlar, 4, time = 40), \
+	))
+
+/obj/item/stack/sheet/kevlar
+	name = "kevlar"
+	desc = "A tough, durable material, used in armor production."
+	singular_name = "kevlar sheet"
+	icon_state = "kevlar"
+	inhand_icon_state = "sheet-cloth"
+	resistance_flags = FLAMMABLE | ACID_PROOF
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
+
+/obj/item/stack/sheet/kevlar/get_main_recipes()
+	. = ..()
+	. += GLOB.kevlar_recipes
 
 /obj/item/stack/sheet/cotton
 	name = "raw cotton bundle"

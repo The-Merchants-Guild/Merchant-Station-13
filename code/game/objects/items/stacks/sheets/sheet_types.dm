@@ -389,6 +389,7 @@ GLOBAL_LIST_INIT(kevlar_recipes, list ( \
 	icon_state = "kevlar"
 	inhand_icon_state = "sheet-cloth"
 	resistance_flags = FLAMMABLE | ACID_PROOF
+	merge_type = /obj/item/stack/sheet/kevlar
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound = 'sound/items/handling/cloth_pickup.ogg'
 

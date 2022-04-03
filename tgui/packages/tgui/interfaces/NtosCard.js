@@ -22,8 +22,6 @@ export const NtosCardContent = (props, context) => {
     has_id,
     have_id_slot,
     regions = [],
-    access_names = [],
-    access_tiers = [],
   } = data;
 
   const { templates } = data || {};
@@ -112,14 +110,14 @@ export const NtosCardContent = (props, context) => {
                     </Tabs>
                   </Stack.Item>
                   <Stack.Item width="100%">
-                    {regions[selectedRegion].map(k => {
+                    {regions[selectedRegion].map(access => {
                       return (
                         <Button
-                          key={k}
-                          disabled={access_tiers[k.toString()] > id_tier}
-                          content={access_names[k]}
-                          selected={access_on_card.includes(k)}
-                          onClick={() => act('PRG_access', { access_target: k })} />
+                          key={access.id}
+                          disabled={access.tier > id_tier}
+                          content={access.name}
+                          selected={access_on_card.includes(access.id)}
+                          onClick={() => act('PRG_access', { access_target: access.id })} />
                       );
                     })}
                   </Stack.Item>

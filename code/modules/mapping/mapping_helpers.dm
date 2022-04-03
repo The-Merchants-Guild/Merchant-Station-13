@@ -443,12 +443,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		p_dir = taken_dirs & 3 ? EAST : NORTH
 	if (p_dir == 0xF)
 		spawn_pipe(/obj/machinery/atmospherics/pipe/manifold4w)
-	//in binary: (p_dir & 0b0011 > 0b0001 && p_dir & 0b1100) || (p_dir & 0b0011 && p_dir & 0b1100 > 0b0100)
-	else if (((p_dir & 0x3) == 0x3 && p_dir & 0xC) || (p_dir & 0x3 && (p_dir & 0xC) == 0xC))
+	else if (!((p_dir ^ 0xF) & ((p_dir ^ 0xF) - 1)))
 		spawn_pipe(/obj/machinery/atmospherics/pipe/manifold, p_dir ^ 0xF)
 	else if (p_dir)
-		if ((p_dir & 0x3) == 0x3 || (p_dir & 0xC) == 0xC)
-			spawn_pipe(/obj/machinery/atmospherics/pipe/simple, (p_dir & 0x3) ? NORTH : EAST)
+		if (p_dir << (p_dir & 0x2) == 0xC)
+			spawn_pipe(/obj/machinery/atmospherics/pipe/simple, p_dir & 0x9)
 		else // bent pipe
 			spawn_pipe(/obj/machinery/atmospherics/pipe/simple, p_dir)
 

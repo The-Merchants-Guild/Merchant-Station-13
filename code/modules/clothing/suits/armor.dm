@@ -336,7 +336,7 @@
 
 /obj/item/clothing/suit/armor/vest/kevlar
 	name = "improvised kevlar vest"
-	desc = "A vest made of kevlar, will easily stop small  arms fire, but larger guns will tear through it like paper."
+	desc = "A vest made of kevlar, will easily stop small arms fire, but larger guns will tear through it like paper."
 	icon_state = "kevlar_vest"
 	inhand_icon_state = "rus_armor"
 	armor = list(MELEE = 25, BULLET = 40, LASER = 0, ENERGY = 10, BOMB = 5, BIO = 0, RAD = 10, FIRE = 10, ACID = 50, WOUND = 10)

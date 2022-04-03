@@ -177,6 +177,8 @@
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/box/drinkingglasses,
 /obj/item/storage/box/zipties,
+/obj/item/ammo_box/magazine/m9mm,
+/obj/item/ammo_box/magazine/m9mm,
 /obj/item/switchblade,
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
@@ -1660,7 +1662,20 @@
 "ex" = (
 /obj/structure/table,
 /obj/structure/reagent_dispensers/peppertank/directional/east,
-/obj/effect/spawner/lootdrop/space/fancytool,
+/obj/item/gun/ballistic/automatic/wt550{
+	pixel_y = 3
+	},
+/obj/item/gun/ballistic/automatic/wt550{
+	pixel_y = -5
+	},
+/obj/item/ammo_box/magazine/wt550m9{
+	pixel_x = 4;
+	pixel_y = 12
+	},
+/obj/item/ammo_box/magazine/wt550m9{
+	pixel_x = 4;
+	pixel_y = 10
+	},
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/deepstorage/armory)
 "ey" = (
@@ -1821,6 +1836,7 @@
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/mask/gas,
+/obj/effect/spawner/lootdrop/space/fancytool,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/deepstorage/armory)
 "eP" = (

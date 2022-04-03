@@ -1827,9 +1827,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/item/gps/spaceruin{
-	name = "hotel gps"
-	},
+/obj/item/gps/spaceruin,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/hotel/dock)
 "gw" = (

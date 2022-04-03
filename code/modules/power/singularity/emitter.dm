@@ -158,7 +158,7 @@
 	if(!active || !powernet)
 		icon_state = base_icon_state
 		return ..()
-	icon_state = avail(active_power_usage) ? icon_state_on : icon_state_underpowered
+	icon_state = surplus() >= active_power_usage ? icon_state_on : icon_state_underpowered
 	return ..()
 
 /obj/machinery/power/emitter/interact(mob/user)

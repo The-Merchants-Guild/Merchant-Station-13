@@ -69,7 +69,8 @@
 				world.Reboot(fast_track = TRUE)
 			if("Server Restart (Kill and restart DD)")
 				to_chat(world, "Server restart - [init_by]")
-				world.TgsEndProcess()
+				SSticker.hard_restart = TRUE
+				world.Reboot()
 
 /datum/admins/proc/end_round()
 	set category = "Server"

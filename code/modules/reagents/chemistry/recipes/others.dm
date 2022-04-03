@@ -921,7 +921,7 @@
 	..()
 
 /datum/chemical_reaction/kevlar
-	required_reagents = list(/datum/reagent/pentaerythritol = 2 , /datum/reagent/acetaldehyde = 2, /datum/reagent/fluorine = 1 ,/datum/reagent/carbon = 10)
+	required_reagents = list(/datum/reagent/pentaerythritol = 2, /datum/reagent/acetaldehyde = 2, /datum/reagent/fluorine = 1, /datum/reagent/carbon = 10)
 	required_temp = 574
 	reaction_flags = REACTION_INSTANT
 	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_CHEMICAL

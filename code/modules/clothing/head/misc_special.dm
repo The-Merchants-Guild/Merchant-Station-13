@@ -433,3 +433,23 @@
 	. = ..()
 	if(!warped)
 		warp_up()
+
+/obj/item/clothing/head/kevlar
+	name = "kevlar cowl"
+	desc = "A cowl made of kevlar, protects firmly against small arms fire from all sides but the front."
+	icon_state = "kevlar_cowl"
+	armor = list(MELEE = 25, BULLET = 40, LASER = 0, ENERGY = 10, BOMB = 5, BIO = 0, RAD = 10, FIRE = 10, ACID = 50, WOUND = 10)
+
+/obj/item/clothing/head/kevlar/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
+	if(!istype(hitby,/obj/projectile/bullet))
+		return ..()
+
+	var/obj/projectile/bullet/P = hitby
+	if(REVERSE_DIR(angle2dir(P.Angle)) == owner.dir )
+		return ..()
+
+	//kevlar armor has 100% to block all bullets that do less than 18 damage. 50% for 19 damage, 25% for 20 damage, etc.
+	if(prob(100 *  min(1,0.5 ** (damage - 18) ) ))
+		return
+	return ..()
+

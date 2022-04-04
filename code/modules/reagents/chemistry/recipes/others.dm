@@ -146,7 +146,6 @@
 	optimal_temp = 550
 	overheat_temp = 575
 	temp_exponent_factor = 0.2
-	purity_min = 0.3
 	thermic_constant = 35 //gives a bonus 15C wiggle room
 	rate_up_lim = 25 //Give a chance to pull back
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
@@ -366,7 +365,6 @@
 	results = list(/datum/reagent/ammonia = 3)
 	required_reagents = list(/datum/reagent/hydrogen = 3, /datum/reagent/nitrogen = 1)
 	optimal_ph_min = 1  // Lets increase our range for this basic chem
-	optimal_ph_max = 12
 	H_ion_release = -0.02 //handmade is more neutral
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
@@ -769,12 +767,9 @@
 	required_temp = 274 // So we can be sure that basic ghetto rigged stuff can freeze
 	optimal_temp = 200
 	overheat_temp = 0
-	optimal_ph_min = 0
-	optimal_ph_max = 14
 	thermic_constant = 0
 	H_ion_release = 0
 	rate_up_lim = 50
-	purity_min = 0
 	mix_message = "The solution freezes up into ice!"
 	reaction_flags = REACTION_COMPETITIVE
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_DRINK
@@ -785,12 +780,9 @@
 	required_temp = 275
 	optimal_temp = 350
 	overheat_temp = NO_OVERHEAT
-	optimal_ph_min = 0
-	optimal_ph_max = 14
 	thermic_constant = 0
 	H_ion_release = 0
 	rate_up_lim = 50
-	purity_min = 0
 	mix_message = "The ice melts back into water!"
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_DRINK
 
@@ -802,12 +794,9 @@
 	required_temp = 274
 	optimal_temp = 350
 	overheat_temp = NO_OVERHEAT
-	optimal_ph_min = 0
-	optimal_ph_max = 14
 	thermic_constant = 0
 	H_ion_release = 0
 	rate_up_lim = 50
-	purity_min = 0
 	mix_message = "The mixture's colors swirl together."
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
 
@@ -820,15 +809,10 @@
 	required_temp = 350
 	optimal_temp =  600
 	overheat_temp = 650
-	optimal_ph_min = 9
-	optimal_ph_max = 12
-	determin_ph_range = 5
 	temp_exponent_factor = 1.5
-	ph_exponent_factor = 3
 	thermic_constant = 12
 	H_ion_release = -0.05
 	rate_up_lim = 10
-	purity_min = 0.4
 	reaction_flags = REACTION_HEAT_ARBITARY
 	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
 
@@ -869,8 +853,6 @@
 	results = list(/datum/reagent/ants = 3)
 	required_reagents = list(/datum/reagent/ants = 2, /datum/reagent/consumable/sugar = 6)
 	//FermiChem vars:
-	optimal_ph_min = 3
-	optimal_ph_max = 12
 	required_temp = 50
 	reaction_flags = REACTION_INSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE

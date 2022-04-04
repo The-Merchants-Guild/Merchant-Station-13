@@ -3237,8 +3237,6 @@
 #include "code\modules\reagents\chemistry\machinery\chem_assembler\instructions\get.dm"
 #include "code\modules\reagents\chemistry\machinery\chem_assembler\instructions\int.dm"
 #include "code\modules\reagents\chemistry\machinery\chem_assembler\instructions\jmp.dm"
-#include "code\modules\reagents\chemistry\machinery\chem_assembler\instructions\jsa.dm"
-#include "code\modules\reagents\chemistry\machinery\chem_assembler\instructions\jsb.dm"
 #include "code\modules\reagents\chemistry\machinery\chem_assembler\instructions\jse.dm"
 #include "code\modules\reagents\chemistry\machinery\chem_assembler\instructions\jsf.dm"
 #include "code\modules\reagents\chemistry\machinery\chem_assembler\instructions\jsr.dm"

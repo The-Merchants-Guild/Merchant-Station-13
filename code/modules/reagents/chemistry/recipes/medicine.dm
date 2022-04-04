@@ -2,10 +2,7 @@
 /datum/chemical_reaction/medicine
 	required_reagents = null //Don't add this to master list
 	optimal_temp = 700
-	optimal_ph_max = 10
 	temp_exponent_factor = 1.2
-	ph_exponent_factor = 0.8
-	purity_min = 0.1
 	rate_up_lim = 35
 	reaction_tags = REACTION_TAG_HEALING | REACTION_TAG_EASY
 
@@ -34,15 +31,10 @@
 	required_temp = 200
 	optimal_temp = 400
 	overheat_temp = 600
-	optimal_ph_min = 4.8
-	optimal_ph_max = 8.5
-	determin_ph_range = 5
 	temp_exponent_factor = 0.4
-	ph_exponent_factor = 1.7
 	thermic_constant = 1
 	H_ion_release = 0.01
 	rate_up_lim = 14.5
-	purity_min = 0.3
 
 /datum/chemical_reaction/medicine/oculine/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
 	. = ..()
@@ -58,15 +50,10 @@
 	required_temp = 200
 	optimal_temp = 400
 	overheat_temp = 450
-	optimal_ph_min = 2
-	optimal_ph_max = 5
-	determin_ph_range = 10
 	temp_exponent_factor = 3
-	ph_exponent_factor = 0.5
 	thermic_constant = 200
 	H_ion_release = 0.05
 	rate_up_lim = 50
-	purity_min = 0.25
 
 ///Calls it over and over
 /datum/chemical_reaction/medicine/inacusiate/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
@@ -99,16 +86,10 @@
 	required_temp = 250
 	optimal_temp = 310
 	overheat_temp = 325
-	optimal_ph_min = 5.5
-	optimal_ph_max = 9.5
-	determin_ph_range = 3
 	temp_exponent_factor = 1
-	ph_exponent_factor = 2
 	thermic_constant = 10
 	H_ion_release = -3.5
 	rate_up_lim = 20 //affected by pH too
-	purity_min = 0.3
-	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE | REACTION_TAG_BURN
 
 /datum/chemical_reaction/medicine/calomel
@@ -151,15 +132,10 @@
 	required_temp = 200
 	optimal_temp = 300
 	overheat_temp = 500
-	optimal_ph_min = 7
-	optimal_ph_max = 9
-	determin_ph_range = 3
 	temp_exponent_factor = 0.1
-	ph_exponent_factor = 0.8
 	thermic_constant = -0.25
 	H_ion_release = -0.02
 	rate_up_lim = 15
-	purity_min = 0.32
 
 /datum/chemical_reaction/medicine/ephedrine/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
 	default_explode(holder, equilibrium.reacted_vol, 0, 25)
@@ -199,15 +175,10 @@
 	required_temp = 50
 	optimal_temp = 300
 	overheat_temp = 650
-	optimal_ph_min = 5
-	optimal_ph_max = 7.5
-	determin_ph_range = 3
 	temp_exponent_factor = 1
-	ph_exponent_factor = 1
 	thermic_constant = 100
 	H_ion_release = 0
 	rate_up_lim = 10
-	purity_min = 0.4
 
 /datum/chemical_reaction/medicine/mannitol/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
 	if(off_cooldown(holder, equilibrium, 10, "mannitol"))
@@ -222,15 +193,10 @@
 	required_temp = 100
 	optimal_temp = 500
 	overheat_temp = 700
-	optimal_ph_min = 6.8
-	optimal_ph_max = 10
-	determin_ph_range = 8
 	temp_exponent_factor = 0.8
-	ph_exponent_factor = 2
 	thermic_constant = 87
 	H_ion_release = -0.05
 	rate_up_lim = 15
-	purity_min = 0.4
 
 /datum/chemical_reaction/medicine/neurine/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
 	if(off_cooldown(holder, equilibrium, 10, "neurine"))
@@ -250,15 +216,10 @@
 	required_temp = 1
 	optimal_temp = 300
 	overheat_temp = 550
-	optimal_ph_min = 3.5
-	optimal_ph_max = 8.5
-	determin_ph_range = 5
 	temp_exponent_factor = 2
-	ph_exponent_factor = 2
 	thermic_constant = -100
 	H_ion_release = 0.09
 	rate_up_lim = 25
-	purity_min = 0.15
 	reaction_flags = REACTION_CLEAR_INVERSE
 
 /datum/chemical_reaction/medicine/antihol/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)

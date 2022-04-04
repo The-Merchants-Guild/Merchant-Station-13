@@ -143,10 +143,9 @@ export const ChemDispenser = (props, context) => {
                 width="129.5px"
                 lineHeight={1.75}
                 content={chemical.title}
-                tooltip={"pH: " + chemical.pH}
                 backgroundColor={recipeReagents.includes(chemical.id)
                   ? hasCol ? "black" : "green"
-                  : hasCol ? chemical.pHCol : "default"}
+                  : "default"}
                 onClick={() => act('dispense', {
                   reagent: chemical.id,
                 })} />
@@ -205,13 +204,6 @@ export const ChemDispenser = (props, context) => {
                   units of {chemical.name}
                 </Box>
               ))}
-              {((beakerContents.length > 0 && !!data.showpH) && (
-                <Box>
-                  pH:
-                  <AnimatedNumber
-                    value={data.beakerCurrentpH} />
-                </Box>)
-              )}
             </LabeledList.Item>
           </LabeledList>
         </Section>

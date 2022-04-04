@@ -31,16 +31,8 @@
 	. = ..()
 	AddComponent(/datum/component/plumbing/reaction_chamber, bolt, layer)
 
-	acidic_beaker = new (src)
-	alkaline_beaker = new (src)
-
-	AddComponent(/datum/component/plumbing/acidic_input, bolt, custom_receiver = acidic_beaker)
-	AddComponent(/datum/component/plumbing/alkaline_input, bolt, custom_receiver = alkaline_beaker)
-
 /// Make sure beakers are deleted when being deconstructed
 /obj/machinery/plumbing/reaction_chamber/Destroy()
-	QDEL_NULL(acidic_beaker)
-	QDEL_NULL(alkaline_beaker)
 	. = ..()
 
 /obj/machinery/plumbing/reaction_chamber/create_reagents(max_vol, flags)
@@ -64,11 +56,6 @@
 	return NONE
 
 /obj/machinery/plumbing/reaction_chamber/process(delta_time)
-	if(reagents.is_reacting && reagents.ph < alkaline_limit)
-		alkaline_beaker.reagents.trans_to(reagents, 1 * delta_time)
-	if(reagents.is_reacting && reagents.ph > acidic_limit)
-		acidic_beaker.reagents.trans_to(reagents, 1 * delta_time)
-
 	if(!emptying || reagents.is_reacting) //suspend heating/cooling during emptying phase
 		reagents.adjust_thermal_energy((target_temperature - reagents.chem_temp) * heater_coefficient * delta_time * SPECIFIC_HEAT_DEFAULT * reagents.total_volume) //keep constant with chem heater
 		reagents.handle_reactions()
@@ -99,7 +86,6 @@
 	data["reagents"] = reagents_data
 	data["emptying"] = emptying
 	data["temperature"] = round(reagents.chem_temp, 0.1)
-	data["ph"] = round(reagents.ph, 0.01)
 	data["targetTemp"] = target_temperature
 	data["isReacting"] = reagents.is_reacting
 	data["reagentAcidic"] = acidic_limit

@@ -94,14 +94,7 @@
 	//Tutorial logics
 	if(tutorial_active)
 		switch(tutorial_state)
-			if(TUT_NO_BUFFER)
-				if(reagents.has_reagent(/datum/reagent/reaction_agent/basic_buffer, 5) && reagents.has_reagent(/datum/reagent/reaction_agent/acidic_buffer, 5))
-					tutorial_state = TUT_START
-
 			if(TUT_START)
-				if(!reagents.has_reagent(/datum/reagent/reaction_agent/basic_buffer, 5) || !reagents.has_reagent(/datum/reagent/reaction_agent/acidic_buffer, 5))
-					tutorial_state = TUT_NO_BUFFER
-					return
 				if(beaker?.reagents.has_reagent(/datum/reagent/mercury, 10) || beaker?.reagents.has_reagent(/datum/reagent/chlorine, 10))
 					tutorial_state = TUT_HAS_REAGENTS
 			if(TUT_HAS_REAGENTS)
@@ -236,7 +229,6 @@
 	data["currentTemp"] = beaker ? beaker.reagents.chem_temp : null
 	data["beakerCurrentVolume"] = beaker ? round(beaker.reagents.total_volume, 0.01) : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
-	data["currentpH"] = beaker ? round(beaker.reagents.ph, 0.01)  : null
 	var/upgrade_level = heater_coefficient*10
 	data["upgradeLevel"] = upgrade_level
 
@@ -262,13 +254,6 @@
 			continue
 		var/overheat = FALSE
 		var/danger = FALSE
-		var/purity_alert = 2 //same as flashing
-		if(reagent.purity < equilibrium.reaction.purity_min)
-			purity_alert = ENABLE_FLASHING//Because 0 is seen as null
-			danger = TRUE
-		if(!(flashing == ENABLE_FLASHING))//So that the pH meter flashes for ANY reactions out of optimal
-			if(equilibrium.reaction.optimal_ph_min > beaker?.reagents.ph || equilibrium.reaction.optimal_ph_max < beaker?.reagents.ph)
-				flashing = ENABLE_FLASHING
 		if(equilibrium.reaction.is_cold_recipe)
 			if(equilibrium.reaction.overheat_temp > beaker?.reagents.chem_temp && equilibrium.reaction.overheat_temp != NO_OVERHEAT)
 				danger = TRUE
@@ -285,36 +270,15 @@
 					entry["quality"] = (entry["quality"] + equilibrium.reaction_quality) /2
 					continue
 		active_reactions.len++
-		active_reactions[length(active_reactions)] = list("name" = reagent.name, "danger" = danger, "purityAlert" = purity_alert, "quality" = equilibrium.reaction_quality, "overheat" = overheat, "inverse" = reagent.inverse_chem_val, "minPure" = equilibrium.reaction.purity_min, "reactedVol" = equilibrium.reacted_vol, "targetVol" = round(equilibrium.target_vol, 1))//Use the first result reagent to name the reaction detected
+		active_reactions[length(active_reactions)] = list("name" = reagent.name, "danger" = danger, "quality" = equilibrium.reaction_quality, "overheat" = overheat, "inverse" = reagent.inverse_chem_val, "reactedVol" = equilibrium.reacted_vol, "targetVol" = round(equilibrium.target_vol, 1))//Use the first result reagent to name the reaction detected
 	data["activeReactions"] = active_reactions
 	data["isFlashing"] = flashing
-
-	data["acidicBufferVol"] = reagents.get_reagent_amount(/datum/reagent/reaction_agent/acidic_buffer)
-	data["basicBufferVol"] = reagents.get_reagent_amount(/datum/reagent/reaction_agent/basic_buffer)
 	data["dispenseVolume"] = dispense_volume
 
 	data["tutorialMessage"] = null
 	//Tutorial output
 	if(tutorial_active)
 		switch(tutorial_state)
-			if(TUT_NO_BUFFER)//missing buffer
-				data["tutorialMessage"] = {"It looks like you’re a little low on buffers, here’s how to make more:
-
-Acidic buffer: 2 parts Sodium
-			2 parts Hydrogen
-			2 parts Ethanol
-			2 parts Water
-
-Basic buffer: 3 parts Ammonia
-			2 parts Chlorine
-			2 parts Hydrogen
-			2 parts Oxygen
-
-Heat either up to speed up the reaction.
-
-When the reactions are done, refill your chamber by pressing the Draw all buttons, to the right of the respective volume indicators.
-
-To continue with the tutorial, fill both of your acidic and alkaline volumes to at least 5u."}
 			if(TUT_START)//Default start
 				data["tutorialMessage"] = {"Hello and welcome to the exciting world of chemistry! This help option will teach you the basic of reactions by guiding you through a calomel reaction.
 
@@ -383,20 +347,6 @@ To continue set your target temperature to 390K."}
 			//Eject doesn't turn it off, so you can preheat for beaker swapping
 			replace_beaker(usr)
 			. = TRUE
-		if("acidBuffer")
-			var/target = params["target"]
-			if(text2num(target) != null)
-				target = text2num(target)
-				. = TRUE
-			if(.)
-				move_buffer("acid", target)
-		if("basicBuffer")
-			var/target = params["target"]
-			if(text2num(target) != null)
-				target = text2num(target) //Because the input is flipped
-				. = TRUE
-			if(.)
-				move_buffer("basic", target)
 		if("disp_vol")
 			var/target = params["target"]
 			if(text2num(target) != null)
@@ -415,80 +365,17 @@ To continue set your target temperature to 390K."}
 			ui_interact(usr, null)
 
 
-///Moves a type of buffer from the heater to the beaker, or vice versa
-/obj/machinery/chem_heater/proc/move_buffer(buffer_type, volume)
-	if(!beaker)
-		say("No beaker found!")
-		return
-	if(buffer_type == "acid")
-		if(volume < 0)
-			var/datum/reagent/acid_reagent = beaker.reagents.get_reagent(/datum/reagent/reaction_agent/acidic_buffer)
-			if(!acid_reagent)
-				say("Unable to find acidic buffer in beaker to draw from! Please insert a beaker containing acidic buffer.")
-				return
-			var/datum/reagent/acid_reagent_heater = reagents.get_reagent(/datum/reagent/reaction_agent/acidic_buffer)
-			var/cur_vol = 0
-			if(acid_reagent_heater)
-				cur_vol = acid_reagent_heater.volume
-			volume = 100 - cur_vol
-			beaker.reagents.trans_id_to(src, acid_reagent.type, volume)//negative because we're going backwards
-			return
-		//We must be positive here
-		reagents.trans_id_to(beaker, /datum/reagent/reaction_agent/acidic_buffer, dispense_volume)
-		return
-
-	if(buffer_type == "basic")
-		if(volume < 0)
-			var/datum/reagent/basic_reagent = beaker.reagents.get_reagent(/datum/reagent/reaction_agent/basic_buffer)
-			if(!basic_reagent)
-				say("Unable to find basic buffer in beaker to draw from! Please insert a beaker containing basic buffer.")
-				return
-			var/datum/reagent/basic_reagent_heater = reagents.get_reagent(/datum/reagent/reaction_agent/basic_buffer)
-			var/cur_vol = 0
-			if(basic_reagent_heater)
-				cur_vol = basic_reagent_heater.volume
-			volume = 100 - cur_vol
-			beaker.reagents.trans_id_to(src, basic_reagent.type, volume)//negative because we're going backwards
-			return
-		reagents.trans_id_to(beaker, /datum/reagent/reaction_agent/basic_buffer, dispense_volume)
-		return
-
-
-/obj/machinery/chem_heater/proc/get_purity_color(datum/equilibrium/equilibrium)
-	var/_reagent = equilibrium.reaction.results[1]
-	var/datum/reagent/reagent = equilibrium.holder.get_reagent(_reagent)
-	switch(reagent.purity)
-		if(1 to INFINITY)
-			return "blue"
-		if(0.8 to 1)
-			return "green"
-		if(reagent.inverse_chem_val to 0.8)
-			return "olive"
-		if(equilibrium.reaction.purity_min to reagent.inverse_chem_val)
-			return "orange"
-		if(-INFINITY to equilibrium.reaction.purity_min)
-			return "red"
-
-//Has a lot of buffer and is upgraded
+//Has a upgraded and farded
 /obj/machinery/chem_heater/debug
 	name = "Debug Reaction Chamber"
-	desc = "Now with even more buffers!"
+	desc = "Now with even more literal unironic shit!"
 
 /obj/machinery/chem_heater/debug/Initialize()
 	. = ..()
 	reagents.maximum_volume = 2000
-	reagents.add_reagent(/datum/reagent/reaction_agent/basic_buffer, 1000)
-	reagents.add_reagent(/datum/reagent/reaction_agent/acidic_buffer, 1000)
 	heater_coefficient = 0.4 //hack way to upgrade
 
 //map load types
-/obj/machinery/chem_heater/withbuffer
-	desc = "This Reaction Chamber comes with a bit of buffer to help get you started."
-
-/obj/machinery/chem_heater/withbuffer/Initialize()
-	. = ..()
-	reagents.add_reagent(/datum/reagent/reaction_agent/basic_buffer, 20)
-	reagents.add_reagent(/datum/reagent/reaction_agent/acidic_buffer, 20)
 
 #undef TUT_NO_BUFFER
 #undef TUT_START

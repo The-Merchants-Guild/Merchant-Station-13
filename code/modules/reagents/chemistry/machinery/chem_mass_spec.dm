@@ -304,12 +304,12 @@ This will not clean any inverted reagents. Inverted reagents will still be corre
 		var/delta_purity = initial(reagent.purity) - reagent.purity
 		if(delta_purity <= 0)//As pure as we can be - so lets not add more than we need
 			log += list(reagent.type = "Can't purify over [initial(reagent.purity)*100]%")
-			beaker2.reagents.add_reagent(reagent.type, volume, reagtemp = beaker1.reagents.chem_temp, added_purity = reagent.purity, added_ph = reagent.ph)
+			beaker2.reagents.add_reagent(reagent.type, volume, reagtemp = beaker1.reagents.chem_temp, added_purity = reagent.purity)
 			beaker1.reagents.remove_reagent(reagent.type, volume)
 			continue
 
 		var/product_vol = reagent.volume * (1-delta_purity)
-		beaker2.reagents.add_reagent(reagent.type, product_vol, reagtemp = beaker1.reagents.chem_temp, added_purity = initial(reagent.purity), added_ph = reagent.ph)
+		beaker2.reagents.add_reagent(reagent.type, product_vol, reagtemp = beaker1.reagents.chem_temp, added_purity = initial(reagent.purity))
 		beaker1.reagents.remove_reagent(reagent.type, reagent.volume)
 		log += list(reagent.type = "Purified to [initial(reagent.purity)*100]%")
 

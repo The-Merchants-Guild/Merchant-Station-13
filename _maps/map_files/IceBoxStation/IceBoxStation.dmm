@@ -10591,7 +10591,7 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/medical)
 "bjO" = (
-/obj/machinery/chem_heater/withbuffer,
+/obj/machinery/chem_heater,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -10795,7 +10795,7 @@
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "bkL" = (
-/obj/machinery/chem_heater/withbuffer,
+/obj/machinery/chem_heater,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -14076,7 +14076,7 @@
 /turf/open/floor/iron/white,
 /area/medical/cryo)
 "bCP" = (
-/obj/machinery/chem_heater/withbuffer,
+/obj/machinery/chem_heater,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8

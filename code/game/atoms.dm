@@ -633,7 +633,6 @@
 						. += "[round(R.volume, 0.01)] units of [R.name]"
 					if(reagents.is_reacting)
 						. += span_warning("It is currently reacting!")
-					. += span_notice("The solution's pH is [round(reagents.ph, 0.01)] and has a temperature of [reagents.chem_temp]K.")
 				else //Otherwise, just show the total volume
 					var/total_volume = 0
 					for(var/datum/reagent/R in reagents.reagent_list)

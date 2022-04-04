@@ -57,8 +57,6 @@
 #define CHEMICAL_VOLUME_MINIMUM 0.001
 ///Round to this, to prevent extreme decimal magic and to keep reagent volumes in line with perceived values.
 #define CHEMICAL_VOLUME_ROUNDING 0.01
-///Default pH for reagents datum
-#define CHEMICAL_NORMAL_PH 7.000
 ///The maximum temperature a reagent holder can attain
 #define CHEMICAL_MAXIMUM_TEMPERATURE 99999
 
@@ -94,10 +92,8 @@
 #define REACTION_HEAT_ARBITARY (1<<4)
 ///Used to bypass the chem_master transfer block (This is needed for competitive reactions unless you have an end state programmed). More stuff might be added later. When defining this, please add in the comments the associated reactions that it competes with
 #define REACTION_COMPETITIVE (1<<5)
-///Used to force pH changes to be constant regardless of volume
-#define REACTION_PH_VOL_CONSTANT (1<<6)
 ///If a reaction will generate it's impure/inverse reagents in the middle of a reaction, as apposed to being determined on ingestion/on reaction completion
-#define REACTION_REAL_TIME_SPLIT (1<<7)
+#define REACTION_REAL_TIME_SPLIT (1<<6)
 
 ///Used for overheat_temp - This sets the overheat so high it effectively has no overheat temperature.
 #define NO_OVERHEAT 99999

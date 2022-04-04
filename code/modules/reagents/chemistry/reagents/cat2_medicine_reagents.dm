@@ -97,7 +97,6 @@
 	ph = 8.2
 	taste_description = "bitter with a hint of alcohol"
 	reagent_state = SOLID
-	impure_chem = /datum/reagent/impurity/libitoil
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/medicine/c2/libital/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -160,7 +159,6 @@
 	reagent_state = LIQUID
 	color = "#6171FF"
 	ph = 4.7
-	impure_chem = /datum/reagent/impurity/lentslurri
 	failed_chem = /datum/reagent/inverse/ichiyuri //I do hope cobby won't take this personally
 	var/resetting_probability = 0 //What are these for?? Can I remove them?
 	var/spammer = 0
@@ -178,7 +176,6 @@
 	reagent_state = LIQUID
 	color = "#8C93FF"
 	ph = 4
-	impure_chem = /datum/reagent/impurity/aiuri //blurriness
 	var/resetting_probability = 0 //same with this? Old legacy vars that should be removed?
 	var/message_cd = 0
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
@@ -384,7 +381,6 @@
 	color = "#8CDF24" // heavy saturation to make the color blend better
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	overdose_threshold = 6
-	impure_chem = /datum/reagent/inverse/healing/syriniver
 	ph = 8.6
 	var/conversion_amount
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED

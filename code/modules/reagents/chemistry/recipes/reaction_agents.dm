@@ -92,10 +92,6 @@
 	var/vol = max(20, holder.total_volume/5) //Not letting you have more than 5
 	clear_reagents(holder, vol)//Lest we explode forever
 
-/datum/chemical_reaction/prefactor_b/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
-	explode_fire(holder, equilibrium)
-	var/vol = max(20, holder.total_volume/5) //Not letting you have more than 5
-	clear_reagents(holder, vol)
 
 /datum/chemical_reaction/prefactor_a/competitive //So we have a back and forth reaction
 	results = list(/datum/reagent/prefactor_a = 5)

@@ -10,10 +10,16 @@
 	required_temp = 250
 	optimal_temp = 1000
 	overheat_temp = 550
+	optimal_ph_min = 5
+	optimal_ph_max = 9.5
+	determin_ph_range = 4
 	temp_exponent_factor = 1
+	ph_exponent_factor = 4
 	thermic_constant = 100
 	H_ion_release = 4
 	rate_up_lim = 55
+	purity_min = 0.55
+	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE
 
 /datum/chemical_reaction/medicine/helbital/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
@@ -35,10 +41,16 @@
 	required_temp = 225
 	optimal_temp = 700
 	overheat_temp = 840
+	optimal_ph_min = 6
+	optimal_ph_max = 10
+	determin_ph_range = 4
 	temp_exponent_factor = 1.75
+	ph_exponent_factor = 1
 	thermic_constant = 75
 	H_ion_release = -6.5
 	rate_up_lim = 40
+	purity_min = 0.2
+	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE
 
 /datum/chemical_reaction/medicine/probital
@@ -47,11 +59,16 @@
 	required_temp = 225
 	optimal_temp = 700
 	overheat_temp = 750
+	optimal_ph_min = 4.5
+	optimal_ph_max = 12
+	determin_ph_range = 2
 	temp_exponent_factor = 0.75
+	ph_exponent_factor = 4
 	thermic_constant = 50
 	H_ion_release = -2.5
 	rate_up_lim = 30
-	reaction_flags = REACTION_CLEAR_INVERSE
+	purity_min = 0.35//15% window
+	reaction_flags = REACTION_CLEAR_INVERSE | REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE
 
 /*****BURN*****/
@@ -65,10 +82,16 @@
 	required_temp = 200
 	optimal_temp = 300
 	overheat_temp = 500
+	optimal_ph_min = 6
+	optimal_ph_max = 11
+	determin_ph_range = 6
 	temp_exponent_factor = 1
+	ph_exponent_factor = 2
 	thermic_constant = -175 //Though, it is a test in endothermicity
 	H_ion_release = -2.5
 	rate_up_lim = 30
+	purity_min = 0.25
+	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BURN
 
 /datum/chemical_reaction/medicine/aiuri
@@ -77,10 +100,16 @@
 	required_temp = 50
 	optimal_temp = 300
 	overheat_temp = 315
+	optimal_ph_min = 4.8
+	optimal_ph_max = 9
+	determin_ph_range = 3
 	temp_exponent_factor = 5
+	ph_exponent_factor = 2
 	thermic_constant = -400
 	H_ion_release = 3
 	rate_up_lim = 35
+	purity_min = 0.25
+	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BURN
 
 /datum/chemical_reaction/medicine/aiuri/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
@@ -98,11 +127,15 @@
 	required_temp = 47
 	optimal_temp = 10
 	overheat_temp = 5
+	optimal_ph_min = 6
+	optimal_ph_max = 10
+	determin_ph_range = 1
 	temp_exponent_factor = 3
 	thermic_constant = -40
 	H_ion_release = 3.7
 	rate_up_lim = 50
-	reaction_flags = REACTION_CLEAR_INVERSE
+	purity_min = 0.15
+	reaction_flags = REACTION_PH_VOL_CONSTANT | REACTION_CLEAR_INVERSE
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BURN
 
 /datum/chemical_reaction/medicine/hercuri/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
@@ -125,10 +158,15 @@
 	optimal_temp = 420
 	overheat_temp = 570 //Ash will be created before this - so it's pretty rare that overheat is actually triggered
 	optimal_ph_min = 3.045 //Rigged to blow once without oxygen
+	optimal_ph_max = 8.5
+	determin_ph_range = 2
 	temp_exponent_factor = 0.75
+	ph_exponent_factor = 1.25
 	thermic_constant = 15
 	H_ion_release = -1
 	rate_up_lim = 50
+	purity_min = 0.25
+	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OXY
 
 /datum/chemical_reaction/medicine/convermol/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, delta_ph, step_reaction_vol)
@@ -155,10 +193,16 @@
 	optimal_temp = 1
 	optimal_temp = 900
 	overheat_temp = 720
+	optimal_ph_min = 2
+	optimal_ph_max = 7.1
+	determin_ph_range = 2
 	temp_exponent_factor = 4
+	ph_exponent_factor = 1.8
 	thermic_constant = -20
 	H_ion_release = 3
 	rate_up_lim = 50
+	purity_min = 0.2
+	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OXY
 
 /datum/chemical_reaction/medicine/tirimol/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, delta_ph, step_reaction_vol)
@@ -166,6 +210,8 @@
 	var/datum/reagent/oxy = holder.has_reagent(/datum/reagent/oxygen)
 	if(oxy)
 		holder.remove_reagent(/datum/reagent/oxygen, 0.25)
+	else
+		holder.adjust_all_reagents_ph(-0.05*step_reaction_vol)//pH drifts faster
 
 //Sleepytime for chem
 /datum/chemical_reaction/medicine/tirimol/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, impure = FALSE)
@@ -188,11 +234,16 @@
 	required_temp = 320
 	optimal_temp = 280
 	overheat_temp = NO_OVERHEAT
+	optimal_ph_min = 5
+	optimal_ph_max = 8
+	determin_ph_range = 2
 	temp_exponent_factor = 1
+	ph_exponent_factor = 0.5
 	thermic_constant = -500
 	H_ion_release = -2
 	rate_up_lim = 15
-	reaction_flags = REACTION_CLEAR_INVERSE
+	purity_min = 0.2
+	reaction_flags = REACTION_PH_VOL_CONSTANT | REACTION_CLEAR_INVERSE
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_TOXIN
 /datum/chemical_reaction/medicine/multiver
 	results = list(/datum/reagent/medicine/c2/multiver = 2)
@@ -201,11 +252,16 @@
 	required_temp = 380
 	optimal_temp = 400
 	overheat_temp = 410
+	optimal_ph_min = 2.5
+	optimal_ph_max = 7
+	determin_ph_range = 4
 	temp_exponent_factor = 0.5
+	ph_exponent_factor = 1
 	thermic_constant = 0
 	H_ion_release = 0
 	rate_up_lim = 25
-	reaction_flags = REACTION_REAL_TIME_SPLIT
+	purity_min = 0.1 //Fire is our worry for now
+	reaction_flags = REACTION_REAL_TIME_SPLIT | REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_PLANT | REACTION_TAG_TOXIN
 
 //You get nothing! I'm serious about staying under the heating requirements!
@@ -233,10 +289,16 @@
 	required_temp = 250
 	optimal_temp = 310
 	overheat_temp = NO_OVERHEAT
+	optimal_ph_min = 6.5
+	optimal_ph_max = 9
+	determin_ph_range = 6
 	temp_exponent_factor = 2
+	ph_exponent_factor = 0.5
 	thermic_constant = -20
 	H_ion_release = -5.5
 	rate_up_lim = 20 //affected by pH too
+	purity_min = 0.3
+	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_TOXIN
 
 /datum/chemical_reaction/medicine/syriniver/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, delta_ph, step_reaction_vol)
@@ -249,10 +311,16 @@
 	required_temp = 255
 	optimal_temp = 350
 	overheat_temp = 450
+	optimal_ph_min = 5
+	optimal_ph_max = 9
+	determin_ph_range = 3
 	temp_exponent_factor = 1
+	ph_exponent_factor = 1
 	thermic_constant = 150
 	H_ion_release = -0.5
 	rate_up_lim = 15
+	purity_min = 0.55
+	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_TOXIN
 
 //overheat beats like a heart! (or is it overbeat?)

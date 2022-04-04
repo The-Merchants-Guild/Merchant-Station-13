@@ -64,6 +64,14 @@
 		if(inverse_reagent)
 			outstring += "\n<br>Inverse: \[\[#[inverse_reagent.name]|[inverse_reagent.name]\]\] <[reagent.inverse_chem_val*100]%"
 
+		var/datum/reagent/failed_reagent = GLOB.chemical_reagents_list[reagent.failed_chem]
+		if(failed_reagent && reaction)
+			outstring += "\n<br>Failed: \[\[#[failed_reagent.name]|[failed_reagent.name]\]\] <[reaction.purity_min*100]%"
+	var/ph_color
+	CONVERT_PH_TO_COLOR(reagent.ph, ph_color)
+	outstring += "\n<br>pH: [reagent.ph]<span style=\"color:[ph_color];background-color:white\">▮</span>"
+	outstring += "\n|"
+
 	//RECIPE
 	//|{{RecursiveChem/Oil}}
 	if(reaction)
@@ -76,6 +84,9 @@
 			outstring += "<b>Cold reaction</b>\n<br>"
 		outstring += "<b>Min temp:</b> [reaction.required_temp]K\n<br><b>Overheat:</b> [reaction.overheat_temp]K\n<br><b>Optimal pH:</b> [reaction.optimal_ph_min] to [reaction.optimal_ph_max]"
 
+		//Overly impure levels
+		if(reaction.purity_min)
+			outstring += "\n<br><b>Unstable purity:</b> <[reaction.purity_min*100]%"
 
 		//Kinetics
 		var/thermic = reaction.thermic_constant
@@ -110,6 +121,40 @@
 				outstring += "\n<br>Overwhelmingly exothermic"
 			//if("cheesey")
 				//outstring += "<br>Dangerously Cheesey"
+
+		//pH drift
+		if(reaction.results)
+			var/start_ph = 0
+			var/reactant_vol = 0
+			for(var/typepath in reaction.required_reagents)
+				var/datum/reagent/req_reagent = GLOB.chemical_reagents_list[typepath]
+				start_ph += req_reagent.ph * reaction.required_reagents[typepath]
+				reactant_vol += reaction.required_reagents[typepath]
+
+			var/product_vol = 0
+			var/end_ph = 0
+			for(var/typepath in reaction.results)
+				var/datum/reagent/prod_reagent = GLOB.chemical_reagents_list[typepath]
+				end_ph += prod_reagent.ph * reaction.results[typepath]
+				product_vol += reaction.results[typepath]
+
+			if(reactant_vol || product_vol)
+				start_ph = start_ph / reactant_vol
+				end_ph = end_ph / product_vol
+				var/sum_change = end_ph - start_ph
+				sum_change += reaction.H_ion_release
+
+				if(sum_change > 0)
+					outstring += "\n<br>H+ consuming"
+				else if (sum_change < 0)
+					outstring += "\n<br>H+ producing"
+			else
+				to_chat(usr, "[reaction] doesn't have valid product and reagent volumes! Please tell Fermi.")
+		else
+			if(reaction.H_ion_release > 0)
+				outstring += "\n<br>H+ consuming"
+			else if (reaction.H_ion_release < 0)
+				outstring += "\n<br>H+ producing"
 
 		//container
 		if(reaction.required_container)

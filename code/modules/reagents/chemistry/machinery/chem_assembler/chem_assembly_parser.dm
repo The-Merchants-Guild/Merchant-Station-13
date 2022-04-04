@@ -11,6 +11,8 @@
 		"jmp" = /datum/chem_assembly_instruction/jump,
 		"jsf" = /datum/chem_assembly_instruction/jump/jump_slot_full,
 		"jse" = /datum/chem_assembly_instruction/jump/jump_slot_empty,
+		"jsa" = /datum/chem_assembly_instruction/jump/jump_slot_acidic,
+		"jsb" = /datum/chem_assembly_instruction/jump/jump_slot_basic,
 		"jsr" = /datum/chem_assembly_instruction/jump/jump_slot_reacting,
 		"jtc" = /datum/chem_assembly_instruction/jump/jump_temperature_correct,
 		"sneed" = /datum/chem_assembly_instruction/sneed

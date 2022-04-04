@@ -23,10 +23,15 @@
 	required_temp = 372
 	optimal_temp = 376//Wow this is tight
 	overheat_temp = 380
+	optimal_ph_min = 6.5
+	optimal_ph_max = 7.5
+	determin_ph_range = 5
 	temp_exponent_factor = 1
+	ph_exponent_factor = 1.4
 	thermic_constant = 0.1 //exothermic nature is equal to impurty
 	H_ion_release = -0.025
 	rate_up_lim = 12.5
+	purity_min = 0.5 //100u will natrually just dip under this w/ no buffer
 	reaction_flags = REACTION_HEAT_ARBITARY //Heating up is arbitary because of submechanics of this reaction.
 	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DRUG | REACTION_TAG_DANGEROUS
 
@@ -46,6 +51,9 @@
 	var/datum/reagent/meth = holder.get_reagent(/datum/reagent/drug/methamphetamine)
 	if(!meth)//Other procs before this can already blow us up
 		return ..()
+	if(meth.purity < purity_min)
+		temp_meth_explosion(holder, react_vol)
+		return
 	return ..()
 
 //Refactoring of explosions is coming later, this is till then so it still explodes

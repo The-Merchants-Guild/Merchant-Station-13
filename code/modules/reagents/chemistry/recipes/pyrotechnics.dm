@@ -414,10 +414,15 @@
 	required_temp = -200
 	optimal_temp = 300
 	overheat_temp = NO_OVERHEAT //There is an overheat - 50 see reaction_step()
+	optimal_ph_min = 4
+	optimal_ph_max = 10
+	determin_ph_range = 6
 	temp_exponent_factor = 0.5
+	ph_exponent_factor = 1
 	thermic_constant = -7.5
 	H_ion_release = 0
 	rate_up_lim = 10
+	purity_min = 0.2
 	reaction_flags = REACTION_HEAT_ARBITARY
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_ORGAN
 
@@ -468,10 +473,15 @@
 	required_temp = 99999
 	optimal_temp = 300
 	overheat_temp = 0
+	optimal_ph_min = 0
+	optimal_ph_max = 14
+	determin_ph_range = 0
 	temp_exponent_factor = 1
+	ph_exponent_factor = 1
 	thermic_constant = -50 //This is the part that cools things down now
 	H_ion_release = 0
 	rate_up_lim = 4
+	purity_min = 0.15
 	reaction_flags = REACTION_HEAT_ARBITARY
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 

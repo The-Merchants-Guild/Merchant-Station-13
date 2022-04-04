@@ -30,6 +30,10 @@ export const ReagentLookup = (props, context) => {
       <LabeledList.Item label="Description">
         {reagent.desc}
       </LabeledList.Item>
+      <LabeledList.Item label="pH">
+        <Icon name="circle" mr={1} color={reagent.pHCol} />
+        {reagent.pH}
+      </LabeledList.Item>
       <LabeledList.Item label="Properties">
         <LabeledList>
           {!!reagent.OD && (

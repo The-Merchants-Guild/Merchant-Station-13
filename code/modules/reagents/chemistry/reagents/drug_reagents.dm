@@ -13,6 +13,7 @@
 	description = "An illegal chemical compound used as drug."
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 30
+	ph = 9
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/hallucinogens = 10) //4 per 2 seconds
 
@@ -38,6 +39,7 @@
 	description = "A psychoactive drug from the Cannabis plant used for recreational purposes."
 	color = "#059033"
 	overdose_threshold = INFINITY
+	ph = 6
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 
@@ -66,6 +68,7 @@
 	trippy = FALSE
 	overdose_threshold=15
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
+	ph = 8
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/nicotine = 18) // 7.2 per 2 seconds
 
@@ -102,6 +105,7 @@
 	reagent_state = LIQUID
 	color = "#FA00C8"
 	overdose_threshold = 20
+	ph = 10
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/stimulants = 14) //5.6 per 2 seconds
 
@@ -131,6 +135,7 @@
 	reagent_state = LIQUID
 	color = "#0064B4"
 	overdose_threshold = 20
+	ph = 9
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/opiods = 18) //7.2 per 2 seconds
 
@@ -162,6 +167,7 @@
 	color = "#FAFAFA"
 	overdose_threshold = 20
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
+	ph = 5
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	addiction_types = list(/datum/addiction/stimulants = 12) //4.8 per 2 seconds
 
@@ -214,6 +220,7 @@
 	taste_description = "salt" // because they're bathsalts?
 	addiction_types = list(/datum/addiction/stimulants = 25)  //8 per 2 seconds
 	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
+	ph = 8.2
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/drug/bath_salts/on_mob_metabolize(mob/living/L)

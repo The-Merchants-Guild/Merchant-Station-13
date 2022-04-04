@@ -1,3 +1,40 @@
+/datum/chemical_reaction/basic_buffer
+	results = list(/datum/reagent/reaction_agent/basic_buffer = 10)
+	required_reagents = list(/datum/reagent/ammonia = 3, /datum/reagent/chlorine = 2, /datum/reagent/hydrogen = 2, /datum/reagent/oxygen = 2) //vagely NH4OH + NH4Cl buffer
+	mix_message = "The solution fizzes in the beaker."
+	//FermiChem vars:
+	required_temp = 250
+	optimal_temp = 500
+	overheat_temp = NO_OVERHEAT
+	optimal_ph_min = 0
+	optimal_ph_max = 14
+	determin_ph_range = 0
+	temp_exponent_factor = 4
+	ph_exponent_factor = 0
+	thermic_constant = 0
+	H_ion_release = 0.01
+	rate_up_lim = 15
+	purity_min = 0
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
+
+/datum/chemical_reaction/acidic_buffer
+	results = list(/datum/reagent/reaction_agent/acidic_buffer = 10)
+	required_reagents = list(/datum/reagent/sodium = 2, /datum/reagent/hydrogen = 2, /datum/reagent/consumable/ethanol = 2, /datum/reagent/water = 2)
+	mix_message = "The solution froths in the beaker."
+	required_temp = 250
+	optimal_temp = 500
+	overheat_temp = NO_OVERHEAT
+	optimal_ph_min = 0
+	optimal_ph_max = 14
+	determin_ph_range = 0
+	temp_exponent_factor = 4
+	ph_exponent_factor = 0
+	thermic_constant = 0
+	H_ion_release = -0.01
+	rate_up_lim = 20
+	purity_min = 0
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////// Example competitive reaction (REACTION_COMPETITIVE)  //////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -11,10 +48,15 @@
 	required_temp = 800
 	optimal_temp = 300
 	overheat_temp = -1 //no overheat
+	optimal_ph_min = 2
+	optimal_ph_max = 12
+	determin_ph_range = 5
 	temp_exponent_factor = 1
+	ph_exponent_factor = 0
 	thermic_constant = -400
 	H_ion_release = 0
 	rate_up_lim = 4
+	purity_min = 0.25
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_COMPETITIVE
 
 
@@ -26,10 +68,15 @@
 	required_temp = 50
 	optimal_temp = 500
 	overheat_temp = 500
+	optimal_ph_min = 5
+	optimal_ph_max = 8
+	determin_ph_range = 5
 	temp_exponent_factor = 1
+	ph_exponent_factor = 2
 	thermic_constant = -800
 	H_ion_release = -0.02
 	rate_up_lim = 6
+	purity_min = 0.35
 	reaction_flags = REACTION_COMPETITIVE //Competes with /datum/chemical_reaction/prefactor_a/competitive
 	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_DANGEROUS | REACTION_TAG_CHEMICAL | REACTION_TAG_COMPETITIVE
 

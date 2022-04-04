@@ -28,8 +28,10 @@
 	var/failed = 0
 	///If we're forcing optimal conditions
 	var/should_force_temp = FALSE
+	var/should_force_ph = FALSE
 	///Forced values
 	var/force_temp = 300
+	var/force_ph = 7
 	///Multiplier of product
 	var/vol_multiplier = 20
 	///If we're reacting
@@ -92,6 +94,8 @@
 /obj/machinery/chem_recipe_debug/process(delta_time)
 	if(processing == FALSE)
 		setup_reactions()
+	if(should_force_ph)
+		reagents.ph = force_ph
 	if(should_force_temp)
 		reagents.chem_temp = force_temp
 	if(reagents.is_reacting == TRUE)
@@ -122,7 +126,7 @@
 /obj/machinery/chem_recipe_debug/proc/relay_ended_reaction()
 	if(reagents.reagent_list)
 		var/cached_purity
-		say("Reaction completed for [cached_reactions[index]] final temperature = [reagents.chem_temp],, time taken = [react_time]s.")
+		say("Reaction completed for [cached_reactions[index]] final temperature = [reagents.chem_temp], ph = [reagents.ph], time taken = [react_time]s.")
 		var/datum/chemical_reaction/reaction = cached_reactions[index]
 		for(var/reagent_type in reaction.results)
 			var/datum/reagent/reagent =  reagents.get_reagent(reagent_type)
@@ -176,6 +180,9 @@
 	if(should_force_temp && !min_temp)
 		say("Using forced temperatures.")
 		reagents.chem_temp = force_temp ? force_temp : reaction.optimal_temp
+	if(should_force_ph)
+		say("Using forced pH.")
+		reagents.ph = force_ph ? force_ph : (reaction.optimal_ph_max + reaction.optimal_ph_min)/2
 	if(failed == 0 && !should_force_temp)
 		reagents.chem_temp = reaction.optimal_temp
 	if(failed == 1 && !should_force_temp)
@@ -184,15 +191,19 @@
 	if(min_temp)
 		say("Overriding temperature to required temp.")
 		reagents.chem_temp = reaction.is_cold_recipe ? reaction.required_temp - 1 : reaction.required_temp + 1
+	say("Reacting [span_nicegreen("[cached_reactions[index]]")] starting pH: [reagents.ph] index [index] of [cached_reactions.len]")
 
 /obj/machinery/chem_recipe_debug/ui_data(mob/user)
 	var/data = list()
 	data["targetTemp"] = force_temp
+	data["targatpH"] = force_ph
 	data["isActive"] = reagents.is_reacting
+	data["forcepH"] = should_force_ph
 	data["forceTemp"] = should_force_temp
 	data["targetVol"] = vol_multiplier
 	data["processAll"] = process_all
 	data["currentTemp"] = reagents.chem_temp
+	data["currentpH"] = round(reagents.ph, 0.01)
 	data["processing"] = processing
 	data["index"] = index
 	data["endIndex"] = cached_reactions.len
@@ -226,6 +237,13 @@
 			continue
 		var/overheat = FALSE
 		var/danger = FALSE
+		var/purity_alert = 2 //same as flashing
+		if(reagent.purity < equilibrium.reaction.purity_min)
+			purity_alert = ENABLE_FLASHING//Because 0 is seen as null
+			danger = TRUE
+		if(flashing != ENABLE_FLASHING)//So that the pH meter flashes for ANY reactions out of optimal
+			if(equilibrium.reaction.optimal_ph_min > reagents.ph || equilibrium.reaction.optimal_ph_max < reagents.ph)
+				flashing = ENABLE_FLASHING
 		if(equilibrium.reaction.is_cold_recipe)
 			if(equilibrium.reaction.overheat_temp > reagents.chem_temp && equilibrium.reaction.overheat_temp != NO_OVERHEAT)
 				danger = TRUE
@@ -242,7 +260,7 @@
 					entry["quality"] = (entry["quality"] + equilibrium.reaction_quality) /2
 					continue
 		active_reactions.len++
-		active_reactions[length(active_reactions)] = list("name" = reagent.name, "danger" = danger,, "quality" = equilibrium.reaction_quality, "overheat" = overheat, "inverse" = reagent.inverse_chem_val, "reactedVol" = equilibrium.reacted_vol, "targetVol" = round(equilibrium.target_vol, 1))//Use the first result reagent to name the reaction detected
+		active_reactions[length(active_reactions)] = list("name" = reagent.name, "danger" = danger, "purityAlert" = purity_alert, "quality" = equilibrium.reaction_quality, "overheat" = overheat, "inverse" = reagent.inverse_chem_val, "minPure" = equilibrium.reaction.purity_min, "reactedVol" = equilibrium.reacted_vol, "targetVol" = round(equilibrium.target_vol, 1))//Use the first result reagent to name the reaction detected
 	data["activeReactions"] = active_reactions
 	data["isFlashing"] = flashing
 
@@ -253,10 +271,15 @@
 			list("name" = "required_temp" , "var" = edit_recipe.required_temp),
 			list("name" = "optimal_temp" , "var" = edit_recipe.optimal_temp),
 			list("name" = "overheat_temp" , "var" = edit_recipe.overheat_temp),
+			list("name" = "optimal_ph_min" , "var" = edit_recipe.optimal_ph_min),
+			list("name" = "optimal_ph_max" , "var" = edit_recipe.optimal_ph_max),
+			list("name" = "determin_ph_range" , "var" = edit_recipe.determin_ph_range),
 			list("name" = "temp_exponent_factor" , "var" = edit_recipe.temp_exponent_factor),
+			list("name" = "ph_exponent_factor" , "var" = edit_recipe.ph_exponent_factor),
 			list("name" = "thermic_constant" , "var" = edit_recipe.thermic_constant),
 			list("name" = "H_ion_release" , "var" = edit_recipe.H_ion_release),
 			list("name" = "rate_up_lim" , "var" = edit_recipe.rate_up_lim),
+			list("name" = "purity_min" , "var" = edit_recipe.purity_min),
 		)
 
 	return data
@@ -275,8 +298,18 @@
 				. = TRUE
 			if(.)
 				force_temp = clamp(target, 0, 1000)
+		if("pH")
+			var/target = params["target"]
+			if(text2num(target) != null)
+				target = text2num(target)
+				. = TRUE
+			if(.)
+				force_ph = target
 		if("forceTemp")
 			should_force_temp = ! should_force_temp
+			. = TRUE
+		if("forcepH")
+			should_force_ph = ! should_force_ph
 			. = TRUE
 		if("react")
 			react = TRUE
@@ -346,10 +379,15 @@
 required_temp = [edit_recipe.required_temp]
 optimal_temp = [edit_recipe.optimal_temp]
 overheat_temp = [edit_recipe.overheat_temp]
+optimal_ph_min = [edit_recipe.optimal_ph_min]
+optimal_ph_max = [edit_recipe.optimal_ph_max]
+determin_ph_range = [edit_recipe.determin_ph_range]
 temp_exponent_factor = [edit_recipe.temp_exponent_factor]
+ph_exponent_factor = [edit_recipe.ph_exponent_factor]
 thermic_constant = [edit_recipe.thermic_constant]
 H_ion_release = [edit_recipe.H_ion_release]
-rate_up_lim = [edit_recipe.rate_up_lim]"}
+rate_up_lim = [edit_recipe.rate_up_lim]
+purity_min = [edit_recipe.purity_min]"}
 			say(export)
 			text2file(export, "[GLOB.log_directory]/chem_parse.txt")
 

@@ -4169,7 +4169,6 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "lC" = (
-/obj/structure/table/wood,
 /obj/machinery/griddle,
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)

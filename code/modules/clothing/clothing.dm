@@ -514,4 +514,7 @@ BLIND     // can't see anything
 	if(prob(0.2))
 		to_chat(L, span_warning("The damaged threads on your [src.name] chafe!"))
 
+/obj/item
+	var/list/alternate_screams = list() //moyai
+
 #undef MOTH_EATING_CLOTHING_DAMAGE

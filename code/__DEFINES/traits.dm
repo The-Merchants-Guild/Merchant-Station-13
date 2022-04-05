@@ -484,6 +484,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_INSANITY "insanity"
 #define TRAIT_POLISH "polish"
 #define TRAIT_UKRAINIAN "ukrainian"
+#define TRAIT_FINNABOO "finnish"
 
 ///Trait for dryable items
 #define TRAIT_DRYABLE "trait_dryable"

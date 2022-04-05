@@ -304,8 +304,8 @@
 	desc = "You have a powerful relic of old Finland in your posession."
 	value = 0
 	mob_trait = TRAIT_FINNABOO
-	gain_text = "<span class='notice'>You know enjoy everything about Finland.</span>"
-	lose_text = "<span class='danger'>You suddenly like Sweden a bit more..</span>"
+	gain_text = "<span class='notice'>You enjoy everything about Finland.</span>"
+	lose_text = "<span class='danger'>You suddenly like Sweden a bit more...</span>"
 	medical_record_text = "Patient mentions archeology in ancient finnish lands as a stress-relieving hobby."
 
 /datum/quirk/item_quirk/finnish/add_unique()

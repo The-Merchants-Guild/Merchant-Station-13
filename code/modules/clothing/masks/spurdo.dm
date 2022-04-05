@@ -59,9 +59,9 @@
 		C.say("SUOMI PERKELE!", forced = "spurdo mask") // bawb made me do this | rest in piece, mcbawbaggins. Died of a cum overdose.
 	return ..()
 
-obj/item/clothing/mask/spurdo/cursed
+/obj/item/clothing/mask/spurdo/cursed
 	flags_1 =  MASKINTERNALS
 
-obj/item/clothing/mask/spurdo/cursed/Initialize()
+/obj/item/clothing/mask/spurdo/cursed/Initialize()
 	ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
 	. = ..()

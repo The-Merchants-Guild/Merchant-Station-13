@@ -1593,45 +1593,48 @@
 
 /datum/reagent/colorful_reagent/powder/red/crayon
 	name = "Red Crayon Powder"
-	can_colour_mobs = FALSE
+	can_colour_mobs = TRUE
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/colorful_reagent/powder/orange/crayon
 	name = "Orange Crayon Powder"
-	can_colour_mobs = FALSE
+	can_colour_mobs = TRUE
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/colorful_reagent/powder/yellow/crayon
 	name = "Yellow Crayon Powder"
-	can_colour_mobs = FALSE
+	can_colour_mobs = TRUE
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/colorful_reagent/powder/green/crayon
 	name = "Green Crayon Powder"
-	can_colour_mobs = FALSE
+	can_colour_mobs = TRUE
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/colorful_reagent/powder/blue/crayon
 	name = "Blue Crayon Powder"
-	can_colour_mobs = FALSE
+	can_colour_mobs = TRUE
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/colorful_reagent/powder/purple/crayon
 	name = "Purple Crayon Powder"
-	can_colour_mobs = FALSE
+	can_colour_mobs = TRUE
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 //datum/reagent/colorful_reagent/powder/invisible/crayon
 
 /datum/reagent/colorful_reagent/powder/black/crayon
 	name = "Black Crayon Powder"
-	can_colour_mobs = FALSE
+	can_colour_mobs = TRUE
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/colorful_reagent/powder/white/crayon
 	name = "White Crayon Powder"
-	can_colour_mobs = FALSE
+	can_colour_mobs = TRUE
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+
+
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
 
@@ -2478,6 +2481,7 @@
 	description = "A highly mutative liquid of unknown origin."
 	color = "#9A6750" //RGB: 154, 103, 80
 	taste_description = "inner peace"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	penetrates_skin = NONE
 
 /datum/reagent/gondola_mutation_toxin/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE, touch_protection = 0)

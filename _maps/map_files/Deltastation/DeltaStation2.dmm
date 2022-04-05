@@ -4373,6 +4373,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/south,
+/obj/machinery/atm,
 /turf/open/floor/iron/dark,
 /area/commons/locker)
 "aEH" = (
@@ -16805,7 +16806,6 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "ciN" = (
-/obj/machinery/vending/security,
 /obj/structure/sign/nanotrasen{
 	pixel_y = -32
 	},
@@ -16813,6 +16813,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/point_vendor/security,
 /turf/open/floor/iron,
 /area/security/brig)
 "ciO" = (
@@ -20730,8 +20731,8 @@
 /turf/closed/wall/r_wall,
 /area/medical/storage)
 "cNL" = (
-/obj/machinery/vending/medical,
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/point_vendor/medical,
 /turf/open/floor/iron,
 /area/medical/storage)
 "cNM" = (
@@ -45959,7 +45960,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/paper/fluff/ids_for_dummies,
 /turf/open/floor/iron/dark,
 /area/command/heads_quarters/hop)
 "gDQ" = (
@@ -59920,7 +59920,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 9
 	},
-/obj/machinery/vending/drugs,
+/obj/machinery/point_vendor/drug,
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "kvh" = (
@@ -64046,7 +64046,7 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
-/obj/item/card/id/advanced/gold/captains_spare,
+/obj/item/card/id/tier5/captains_spare,
 /turf/open/floor/carpet,
 /area/command/heads_quarters/captain)
 "lxf" = (
@@ -111133,8 +111133,8 @@
 /turf/open/floor/iron,
 /area/service/kitchen)
 "xMl" = (
-/obj/machinery/vending/engivend,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/point_vendor/engineering,
 /turf/open/floor/iron,
 /area/engineering/main)
 "xMn" = (

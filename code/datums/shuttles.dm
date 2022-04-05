@@ -407,7 +407,6 @@
 	admin_notes = "Tiny, single airlock, wooden walls. No way anyone would maxcap the thing..."
 	movement_force = list("KNOCKDOWN" = 3, "THROW" = 2)
 	credit_cost = CARGO_CRATE_VALUE * 4
-	restricted = TRUE
 
 /datum/map_template/shuttle/emergency/goon
 	suffix = "goon"

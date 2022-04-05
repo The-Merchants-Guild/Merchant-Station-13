@@ -33,6 +33,8 @@
 	window_name = "Automatic Medical Unit v1.1"
 	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 	path_image_color = "#DDDDFF"
+	card_access = /datum/card_access/job/paramedic
+
 	/// drop determining variable
 	var/healthanalyzer = /obj/item/healthanalyzer
 	/// drop determining variable
@@ -49,8 +51,6 @@
 	var/heal_amount = 2.5
 	/// Start healing when they have this much damage in a category
 	var/heal_threshold = 10
-	/// What damage type does this bot support. Because the default is brute, if the medkit is brute-oriented there is a slight bonus to healing. set to "all" for it to heal any of the 4 base damage types
-	var/damagetype_healer = BRUTE
 	/// If active, the bot will transmit a critical patient alert to MedHUD users.
 	var/declare_crit = TRUE
 	/// Prevents spam of critical patient alerts.
@@ -75,14 +75,12 @@
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
 	skin = "bezerk"
-	damagetype_healer = "all"
 	heal_amount = 10
 
 /mob/living/simple_animal/bot/medbot/derelict
 	name = "\improper Old Medibot"
 	desc = "Looks like it hasn't been modified since the late 2080s."
 	skin = "bezerk"
-	damagetype_healer = "all"
 	heal_threshold = 0
 	declare_crit = 0
 	heal_amount = 5
@@ -108,16 +106,9 @@
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
 
-	// Doing this hurts my soul, but simplebot access reworks are for another day.
-	var/datum/id_trim/job/para_trim = SSid_access.trim_singletons_by_path[/datum/id_trim/job/paramedic]
-	access_card.add_access(para_trim.access + para_trim.wildcard_access)
-	prev_access = access_card.access.Copy()
-
 	skin = new_skin
 	update_appearance()
 	linked_techweb = SSresearch.science_tech
-	if(damagetype_healer == "all")
-		return
 
 	AddComponent(/datum/component/tippable, \
 		tip_time = 3 SECONDS, \
@@ -476,9 +467,7 @@
 	if(C.getToxLoss() > heal_threshold)
 		treat_me_for += TOX
 
-	if(damagetype_healer in treat_me_for)
-		return TRUE
-	if(damagetype_healer == "all" && treat_me_for.len)
+	if(treat_me_for.len)
 		return TRUE
 
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
@@ -535,11 +524,9 @@
 			potential_methods += TOX
 
 		for(var/i in potential_methods)
-			if(i != damagetype_healer)
-				continue
 			treatment_method = i
 
-		if(damagetype_healer == "all" && potential_methods.len)
+		if(potential_methods.len)
 			treatment_method = pick(potential_methods)
 
 		if(!treatment_method && emagged != 2) //If they don't need any of that they're probably cured!
@@ -559,8 +546,7 @@
 			if(do_mob(src, patient, 20)) //Slightly faster than default tend wounds, but does less HPS
 				if((get_dist(src, patient) <= 1) && (on) && assess_patient(patient))
 					var/healies = heal_amount
-					var/obj/item/storage/firstaid/FA = firstaid
-					if(treatment_method == BRUTE && initial(FA.damagetype_healed) == BRUTE) //specialized brute gets a bit of bonus, as a snack.
+					if(treatment_method == BRUTE) //specialized brute gets a bit of bonus, as a snack.
 						healies *= 1.1
 					if(emagged == 2)
 						patient.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)

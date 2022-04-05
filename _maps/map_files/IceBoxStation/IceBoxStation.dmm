@@ -14252,7 +14252,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 1
 	},
-/obj/machinery/vending/drugs,
+/obj/machinery/point_vendor/drug,
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "bDX" = (
@@ -14289,9 +14289,6 @@
 /turf/open/floor/iron/white,
 /area/medical/cryo)
 "bEh" = (
-/obj/machinery/vending/medical{
-	pixel_x = -2
-	},
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -14302,6 +14299,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/machinery/point_vendor/medical,
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "bEi" = (
@@ -23930,8 +23928,8 @@
 /turf/open/floor/iron/freezer,
 /area/commons/toilet/locker)
 "ePV" = (
-/obj/machinery/vending/engivend,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden,
+/obj/machinery/point_vendor/engineering,
 /turf/open/floor/iron,
 /area/engineering/main)
 "eQR" = (
@@ -41732,6 +41730,14 @@
 	dir = 4
 	},
 /area/science/misc_lab)
+"pbA" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/atm,
+/turf/open/floor/iron,
+/area/commons/fitness)
 "pbB" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4;
@@ -54098,7 +54104,6 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/paper/fluff/ids_for_dummies,
 /turf/open/floor/iron,
 /area/command/heads_quarters/hop)
 "vRV" = (
@@ -56620,7 +56625,7 @@
 /turf/closed/wall/r_wall,
 /area/ai_monitored/command/nuke_storage)
 "xpW" = (
-/obj/machinery/vending/security,
+/obj/machinery/point_vendor/security,
 /turf/open/floor/iron/showroomfloor,
 /area/security/office)
 "xqa" = (
@@ -57254,7 +57259,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/stamp/captain,
-/obj/item/card/id/advanced/gold/captains_spare,
+/obj/item/card/id/tier5/captains_spare,
 /turf/open/floor/wood,
 /area/command/heads_quarters/captain)
 "xHo" = (
@@ -94191,7 +94196,7 @@ boP
 boP
 boP
 baY
-jWz
+pbA
 jWz
 hDQ
 jWz

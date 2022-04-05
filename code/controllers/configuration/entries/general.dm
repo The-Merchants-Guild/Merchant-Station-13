@@ -219,8 +219,8 @@
 /datum/config_entry/string/wikiurl
 	default = "http://www.tgstation13.org/wiki"
 
-/datum/config_entry/string/forumurl
-	default = "http://tgstation13.org/phpBB/index.php"
+/datum/config_entry/string/discordurl
+	default = ""
 
 /datum/config_entry/string/rulesurl
 	default = "http://www.tgstation13.org/wiki/Rules"
@@ -527,3 +527,5 @@
 /datum/config_entry/number/hard_deletes_overrun_limit
 	default = 0
 	min_val = 0
+
+/datum/config_entry/string/hard_restart_command

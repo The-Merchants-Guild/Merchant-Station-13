@@ -251,7 +251,7 @@
 /turf/open/floor/plating/asteroid/snow/icemoon,
 /area/icemoon/surface/outdoors)
 "be" = (
-/obj/item/card/id/advanced/engioutpost,
+/obj/item/card/id/engioutpost,
 /turf/open/floor/plating/asteroid/snow/icemoon,
 /area/icemoon/surface/outdoors)
 "bf" = (
@@ -766,7 +766,7 @@
 /turf/open/floor/plating/icemoon,
 /area/icemoon/surface/outdoors)
 "de" = (
-/obj/machinery/rnd/production/circuit_imprinter/offstation,
+/obj/machinery/rnd/production/circuit_imprinter,
 /turf/open/floor/iron/icemoon,
 /area/icemoon/surface/outdoors)
 "df" = (

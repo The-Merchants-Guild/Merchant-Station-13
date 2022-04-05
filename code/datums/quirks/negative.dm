@@ -804,3 +804,11 @@
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "bad_touch", /datum/mood_event/very_bad_touch)
 	else
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "bad_touch", /datum/mood_event/bad_touch)
+
+/datum/quirk/obstructive
+	name = "Physically Obstructive"
+	desc = "You somehow manage to always be in the way. You can't swap places with other people."
+	value = -1
+	mob_trait = TRAIT_NOMOBSWAP
+	gain_text = "<span class='danger'>You feel like you're in the way.</span>"
+	lose_text = "<span class='notice'>You feel less like you're in the way.</span>"

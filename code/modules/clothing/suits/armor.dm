@@ -334,6 +334,22 @@
 	inhand_icon_state = "rus_armor"
 	armor = list(MELEE = 25, BULLET = 30, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 20, FIRE = 20, ACID = 50, WOUND = 10)
 
+/obj/item/clothing/suit/armor/vest/kevlar
+	name = "improvised kevlar vest"
+	desc = "A vest made of kevlar, will easily stop small arms fire, but larger guns will tear through it like paper."
+	icon_state = "kevlar_vest"
+	inhand_icon_state = "rus_armor"
+	armor = list(MELEE = 25, BULLET = 40, LASER = 0, ENERGY = 10, BOMB = 5, BIO = 0, RAD = 10, FIRE = 10, ACID = 50, WOUND = 10)
+
+/obj/item/clothing/suit/armor/vest/kevlar/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
+	if(!istype(hitby,/obj/projectile/bullet))
+		return ..()
+
+	//kevlar armor has 100% to block all bullets that do less than 6 damage. 50% for 19 damage, 25% for 20 damage, etc.
+	if(prob(100 *  min(1,0.5 ** (damage - 18) ) ))
+		return
+	return ..()
+
 /obj/item/clothing/suit/armor/vest/russian_coat
 	name = "russian battle coat"
 	desc = "Used in extremly cold fronts, made out of real bears."

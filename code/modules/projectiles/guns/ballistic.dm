@@ -113,8 +113,6 @@
 	var/can_misfire = FALSE
 	///How likely is our gun to misfire?
 	var/misfire_probability = 0
-	///How much does shooting the gun increment the misfire probability?
-	var/misfire_percentage_increment = 0
 	///What is the cap on our misfire probability? Do not set this to 100.
 	var/misfire_probability_cap = 25
 
@@ -380,7 +378,6 @@
 
 /obj/item/gun/ballistic/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	if(can_misfire)
-		misfire_probability += misfire_percentage_increment
 		misfire_probability = clamp(misfire_probability, 0, misfire_probability_cap)
 
 	. = ..()

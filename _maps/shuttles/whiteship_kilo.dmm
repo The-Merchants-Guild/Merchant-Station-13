@@ -1014,6 +1014,11 @@
 /obj/structure/table,
 /obj/machinery/light/small/directional/east,
 /obj/machinery/recharger,
+/obj/item/gps{
+	gpstag = "BSE Singularity";
+	pixel_x = -12;
+	pixel_y = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/abandoned/bridge)
 "bU" = (
@@ -1109,7 +1114,7 @@
 /turf/open/floor/plating,
 /area/shuttle/abandoned/crew)
 "cf" = (
-/obj/machinery/computer/shuttle/white_ship/bridge{
+/obj/machinery/computer/shuttle/white_ship{
 	dir = 4
 	},
 /obj/machinery/light/directional/west,

@@ -454,8 +454,8 @@
 			user.say(cry, ignore_spam = TRUE, forced = "bombvest cry")
 			playsound(src, "allah", 100, 0)
 			for(var/obj/item/grenade/G in attached_grenade)
-				addtimer(CALLBACK(G, /obj/item/grenade.proc/detonate), 20)
-			QDEL_IN(src, 21) //if you know of any better way to do this, please tell me
+				addtimer(CALLBACK(G, /obj/item/grenade.proc/detonate), 30)
+			QDEL_IN(src, 31) //if you know of any better way to do this, please tell me
 	else
 		to_chat(user, "You need to be wearing the suit to trigger it.")
 		return

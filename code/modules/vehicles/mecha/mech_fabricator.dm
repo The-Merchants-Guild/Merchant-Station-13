@@ -108,7 +108,7 @@
 
 /obj/machinery/mecha_part_fabricator/AltClick(mob/user)
 	. = ..()
-	if(!user.canUseTopic(src, BE_CLOSE))
+	if(!user.Adjacent(src))
 		return
 	if(panel_open)
 		dir = turn(dir, -90)

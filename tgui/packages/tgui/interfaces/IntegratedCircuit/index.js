@@ -1,10 +1,11 @@
-import { useBackend } from '../../backend';
+import { useBackend, useLocalState } from '../../backend';
 import {
   Input,
   InfinitePlane,
   Stack,
   Box,
   Button,
+  Section,
 } from '../../components';
 import { Component } from 'inferno';
 import { Window } from '../../layouts';
@@ -13,6 +14,12 @@ import { CircuitInfo } from './CircuitInfo';
 import { NULL_REF, ABSOLUTE_Y_OFFSET, MOUSE_BUTTON_LEFT } from './constants';
 import { Connections } from './Connections';
 import { ObjectComponent } from './ObjectComponent';
+import { createSearch } from 'common/string';
+
+const searchFor = searchText => createSearch(
+  searchText,
+  ([_, thing]) => thing.name + thing.description,
+);
 
 export class IntegratedCircuit extends Component {
   constructor() {
@@ -201,6 +208,8 @@ export class IntegratedCircuit extends Component {
     } = data;
     const { locations, selectedPort } = this.state;
     const connections = [];
+    const [searchText, setSearchText] = useLocalState(this.context, "searchText", "");
+    const [showPrinter, setShowPrinter] = useLocalState(this.context, "showPrinter", true);
 
     for (const comp of components) {
       if (comp === null) {
@@ -250,6 +259,15 @@ export class IntegratedCircuit extends Component {
                     act('set_display_name', { display_name: value })}
                 />
               </Stack.Item>
+              <Stack.Item>
+                <Button
+                position = "absolute"
+                  onClick={() => setShowPrinter(!showPrinter)}
+                  >
+                    {!!showPrinter && ( "Hide Printer" )}
+                    {!showPrinter && ( "Show Printer" )}
+                    </Button>
+              </Stack.Item>
               {!!is_admin && (
                 <Stack.Item>
                   <Button
@@ -268,6 +286,8 @@ export class IntegratedCircuit extends Component {
           style={{
             'background-image': 'none',
           }}>
+          <Stack horizontal>
+            <Stack.Item>
           <InfinitePlane
             width="100%"
             height="100%"
@@ -304,6 +324,53 @@ export class IntegratedCircuit extends Component {
               notices={examined_notices}
             />
           )}
+          </Stack.Item>
+          {!!showPrinter && (
+            <Stack.Item width="300px">
+              <Stack>
+                <Stack.Item basis="100%">
+                  <Section title="Parts">
+                    <Stack vertical backgroundColor="rgba(0,0,0,0.6)">
+                      <Stack.Item>
+                        <Input
+                          placeholder="Search..."
+                          autoFocus
+                          fluid
+                          value={searchText}
+                          onInput={(_, value) => setSearchText(value)} />
+                      </Stack.Item>
+  
+                      {Object.entries(data.designs)
+                        .filter(searchFor(searchText))
+                        .map(([designId, design]) => {
+                          return (
+                            <Stack.Item key={designId}>
+                              <Section title={design.name} buttons={(
+                                <Button
+                                  onClick={() => {
+                                    act("add_component", {
+                                      designId,
+                                    });
+                                  }}
+                                  px={1.5}
+                                >
+                                  Print
+                                </Button>
+                              )}>
+                                <Box inline width="100%">
+                                  {design.description}
+                                </Box>
+                              </Section>
+                            </Stack.Item>
+                          );
+                        })}
+                    </Stack>
+                  </Section>
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+                )}
+          </Stack>
         </Window.Content>
       </Window>
     );

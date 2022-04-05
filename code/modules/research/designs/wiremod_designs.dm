@@ -32,7 +32,7 @@
 /datum/design/component
 	name = "Component ( NULL ENTRY )"
 	desc = "A component that goes into an integrated circuit."
-	build_type = IMPRINTER | COMPONENT_PRINTER
+	build_type = IMPRINTER | COMPONENT_PRINTER | COMPONENT_INTEGRATED
 	materials = list(/datum/material/glass = 1000)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 	category = list("Circuitry", "Components")
@@ -192,6 +192,7 @@
 	name = "MMI Component"
 	id = "comp_mmi"
 	build_path = /obj/item/circuit_component/mmi
+	build_type = IMPRINTER | COMPONENT_PRINTER
 
 /datum/design/component/multiplexer
 	name = "Multiplexer Component"
@@ -218,6 +219,7 @@
 	id = "comp_comp_vis"
 	build_path = /obj/item/circuit_component/computer_vision
 	materials = list(/datum/material/glass = 2000, /datum/material/diamond = 500)
+	build_type = IMPRINTER | COMPONENT_PRINTER
 
 /datum/design/component/string_split
 	name = "String Split Component"
@@ -253,9 +255,11 @@
 	name = "Module Component"
 	id = "comp_module"
 	build_path = /obj/item/circuit_component/module
+	build_type = IMPRINTER | COMPONENT_PRINTER
 	
 /datum/design/component/bci
 	category = list("Circuitry", "BCI Components")
+	build_type = IMPRINTER | COMPONENT_PRINTER
 
 /datum/design/component/bci/bci_action
 	name = "BCI Action Component"

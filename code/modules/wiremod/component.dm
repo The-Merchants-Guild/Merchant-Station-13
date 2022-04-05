@@ -45,6 +45,11 @@
 	/// The power usage whenever this component receives an input
 	var/power_usage_per_input = 1
 
+	/// This determines whether the component can always be printed from inside a circuit component (this avoids unnecessary clicking syndrome)
+	var/basic = FALSE
+	/// Used to make sure that removing it destroys it entirely, rather than just popping it out
+	var/added_internally = FALSE
+
 	/// The current selected option
 	var/current_option
 	/// The options that this component can take on. Limited to strings
@@ -215,6 +220,8 @@
 
 /// Called when this component is removed from an integrated_circuit.
 /obj/item/circuit_component/proc/removed_from(obj/item/integrated_circuit/removed_from)
+	if(added_internally)
+		qdel(src)
 	return
 
 /**

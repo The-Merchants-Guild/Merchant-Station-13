@@ -44,6 +44,7 @@
 #define NANITE_COMPILER  (1<<7) //Prints nanite disks
 /// For wiremod/integrated circuits. Uses various minerals.
 #define COMPONENT_PRINTER (1<<10)
+#define COMPONENT_INTEGRATED (1<<11)
 //Note: More than one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 //Modular computer/NTNet defines

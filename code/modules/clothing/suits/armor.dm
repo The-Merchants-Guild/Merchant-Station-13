@@ -409,7 +409,7 @@
 	var/pre_attached_grenade_type
 	var/cry = "Victory in death!"
 
-/obj/item/clothing/suit/armor/suicide/proc/attach_grenade(var/obj/item/grenade/G)
+/obj/item/clothing/suit/armor/suicide/proc/attach_grenade(obj/item/grenade/G)
 	attached_grenade.Add(G)
 	G.forceMove(src)
 
@@ -417,20 +417,20 @@
 	. = ..()
 	attached_grenade = list()
 
-/obj/item/clothing/suit/armor/suicide/attackby(var/obj/item/grenade/G, var/mob/user)
+/obj/item/clothing/suit/armor/suicide/attackby(obj/item/grenade/G, user)
 	if(istype(G))
 		if(attached_grenade.len >= 4)
 			to_chat(user, "<span class='warning'>All the grenade slots are filled, تؤخر!</span>")
-		else if(user.transferItemToLoc(G,src))
-			user.visible_message("<span class='warning'>\The [user] attaches \a [G] to \the [src]!</span>", "<span class='notice'>You attach \the [G] to \the [src].</span>")
+		else if(usr.transferItemToLoc(G,src))
+			usr.visible_message("<span class='warning'>\The [user] attaches \a [G] to \the [src]!</span>", "<span class='notice'>You attach \the [G] to \the [src].</span>")
 			attached_grenade.Add(G)
 			G.forceMove(src)
 	else
 		return ..()
 
-/obj/item/clothing/suit/armor/suicide/attack_self(var/mob/user)
+/obj/item/clothing/suit/armor/suicide/attack_self(/user)
 	if(attached_grenade.len)
-		user.visible_message("<span class='warning'>\The [user] empties out \the [src]!</span>", "<span class='notice'>You empty out \the [src].</span>")
+		usr.visible_message("<span class='warning'>\The [usr] empties out \the [src]!</span>", "<span class='notice'>You empty out \the [src].</span>")
 		for(var/obj/item/grenade/G in attached_grenade)
 			G.forceMove(drop_location())
 		desc = initial(desc)

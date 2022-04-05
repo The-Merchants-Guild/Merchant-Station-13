@@ -1063,6 +1063,7 @@
 	design_ids = list(
 		"cryo_Grenade",
 		"cryotube",
+		"noreactsyringe",
 		"splitbeaker",
 		"stasis",
 	)
@@ -1396,6 +1397,7 @@
 		"c38_hotshot",
 		"c38_iceblox",
 		"techshotshell",
+		"shotgundartcryostasis",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 

@@ -1,5 +1,4 @@
 #define CONFUSION_STACK_MAX_MULTIPLIER 2
-
 /// No deviation at all. Flashed from the front or front-left/front-right. Alternatively, flashed in direct view.
 #define DEVIATION_NONE 0
 /// Partial deviation. Flashed from the side. Alternatively, flashed out the corner of your eyes.

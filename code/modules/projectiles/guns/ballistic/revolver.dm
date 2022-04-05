@@ -98,7 +98,6 @@
 	alternative_ammo_misfires = TRUE
 	can_misfire = FALSE
 	misfire_probability = 0
-	misfire_percentage_increment = 25 //about 1 in 4 rounds, which increases rapidly every shot
 	obj_flags = UNIQUE_RENAME
 	unique_reskin = list("Default" = "detective",
 						"Fitz Special" = "detective_fitz",

@@ -146,7 +146,6 @@
 	can_modify_ammo = TRUE
 	can_misfire = TRUE
 	misfire_probability = 0
-	misfire_percentage_increment = 5 //Slowly increases every shot
 	can_bayonet = FALSE
 	can_be_sawn_off = FALSE
 	projectile_damage_multiplier = 0.75
@@ -165,7 +164,6 @@
 	can_misfire = FALSE
 	can_jam = FALSE
 	misfire_probability = 0
-	misfire_percentage_increment = 0
 	projectile_damage_multiplier = 1
 
 /// MAGICAL BOLT ACTIONS + ARCANE BARRAGE? ///

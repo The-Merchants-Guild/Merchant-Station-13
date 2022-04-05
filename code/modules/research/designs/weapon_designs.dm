@@ -322,6 +322,16 @@
 	build_path = /obj/item/melee/cleric_mace
 	category = list("Imported")
 
+/datum/design/cryostasis_shotgun_dart
+	name = "Cryostasis Shotgun Dart"
+	desc = "A shotgun dart designed with similar internals to that of a cryostasis beaker, allowing reagents to not react when inside."
+	id = "shotgundartcryostasis"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 3500)
+	build_path = /obj/item/ammo_casing/shotgun/dart/noreact
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/stun_boomerang
 	name = "OZtek Boomerang"
 	desc = "Uses reverse flow gravitodynamics to flip its personal gravity back to the thrower mid-flight. Also functions similar to a stun baton."

@@ -266,8 +266,6 @@
 				S.firstaid = firstaid
 				S.robot_arm = robot_arm
 				S.healthanalyzer = healthanalyzer
-				var/obj/item/storage/firstaid/FA = firstaid
-				S.damagetype_healer = initial(FA.damagetype_healed) ? initial(FA.damagetype_healed) : BRUTE
 				qdel(src)
 
 

@@ -4031,12 +4031,7 @@
 	dir = 1;
 	pixel_y = 1
 	},
-/obj/item/book/manual/chef_recipes{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/machinery/microwave,
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "ll" = (
@@ -4174,12 +4169,7 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "lC" = (
-/obj/structure/table/wood,
-/obj/machinery/reagentgrinder,
-/obj/item/kitchen/rollingpin,
-/obj/item/kitchen/knife{
-	pixel_x = 6
-	},
+/obj/machinery/griddle,
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "lE" = (
@@ -4385,16 +4375,6 @@
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "mc" = (
-/obj/item/storage/box/donkpockets{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_y = 3
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 2
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
 	dir = 9
 	},
@@ -4402,10 +4382,13 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/secure_closet/freezer/kitchen/maintenance{
-	req_access = null
-	},
 /obj/structure/cable,
+/obj/structure/table,
+/obj/item/book/manual/wiki/barman_recipes,
+/obj/item/book/manual/chef_recipes{
+	pixel_x = 2;
+	pixel_y = 6
+	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "md" = (
@@ -4544,6 +4527,7 @@
 	pixel_y = -23
 	},
 /obj/structure/cable,
+/obj/item/reagent_containers/food/drinks/shaker,
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "mw" = (
@@ -4552,7 +4536,11 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "mx" = (
 /obj/structure/table/wood,
-/obj/machinery/microwave,
+/obj/item/kitchen/rollingpin,
+/obj/item/kitchen/knife{
+	pixel_x = 6
+	},
+/obj/machinery/reagentgrinder,
 /turf/open/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "my" = (
@@ -4560,6 +4548,24 @@
 /obj/item/reagent_containers/food/condiment/enzyme,
 /obj/item/food/chocolatebar,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 2
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_y = 3
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/food/meat/slab/synthmeat{
+	pixel_y = -5
+	},
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/chicken,
+/obj/item/food/meat/slab/chicken{
+	pixel_y = 5
+	},
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "mz" = (

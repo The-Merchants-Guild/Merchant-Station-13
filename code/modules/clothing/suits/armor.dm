@@ -396,3 +396,66 @@
 /obj/item/clothing/suit/toggle/armor/hos/hos_formal/Initialize()
 	. = ..()
 	allowed = GLOB.security_wintercoat_allowed
+
+/obj/item/clothing/suit/armor/suicide
+	name = "Suicide vest"
+	desc = "سُبْحَانَ اللّٰہِ ۔ اَلْحَمْدُ لِلّٰہِ ۔ اَللّٰہُ اَکْبَرْ"
+	icon_state = "bomb"
+	worn_icon_state = "bombvest"
+	blood_overlay_type = "armor"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	body_parts_covered = CHEST|GROIN
+	var/list/attached_grenade
+	var/pre_attached_grenade_type
+	var/cry = "Victory in death!"
+
+/obj/item/clothing/suit/armor/suicide/proc/attach_grenade(var/obj/item/grenade/G)
+	attached_grenade.Add(G)
+	G.forceMove(src)
+
+/obj/item/clothing/suit/armor/suicide/Initialize()
+	. = ..()
+	attached_grenade = list()
+
+/obj/item/clothing/suit/armor/suicide/attackby(var/obj/item/grenade/G, var/mob/user)
+	if(istype(G))
+		if(attached_grenade.len >= 4)
+			to_chat(user, "<span class='warning'>All the grenade slots are filled, تؤخر!</span>")
+		else if(user.transferItemToLoc(G,src))
+			user.visible_message("<span class='warning'>\The [user] attaches \a [G] to \the [src]!</span>", "<span class='notice'>You attach \the [G] to \the [src].</span>")
+			attached_grenade.Add(G)
+			G.forceMove(src)
+	else
+		return ..()
+
+/obj/item/clothing/suit/armor/suicide/attack_self(var/mob/user)
+	if(attached_grenade.len)
+		user.visible_message("<span class='warning'>\The [user] empties out \the [src]!</span>", "<span class='notice'>You empty out \the [src].</span>")
+		for(var/obj/item/grenade/G in attached_grenade)
+			G.forceMove(drop_location())
+		desc = initial(desc)
+		attached_grenade.Cut()
+	else
+		return ..()
+
+/obj/item/clothing/suit/armor/suicide/attack_hand(mob/user, list/modifiers)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		var/input = stripped_input(user,"What do you want your battlecry to be?", ,"", MAX_MESSAGE_LEN)
+		if(!QDELETED(src) && !QDELETED(user) && !user.Adjacent(src))
+			return
+		if(input)
+			cry = input
+	return ..()
+
+
+/obj/item/clothing/suit/armor/suicide/AltClick(mob/living/user)
+	if(istype(user.get_item_by_slot(ITEM_SLOT_OCLOTHING), /obj/item/clothing/suit/armor/suicide))
+		if(attached_grenade.len)
+			user.say(cry, ignore_spam = TRUE, forced = "bombvest cry")
+			playsound(src, "allah", 100, 0)
+			for(var/obj/item/grenade/G in attached_grenade)
+				addtimer(CALLBACK(G, /obj/item/grenade.proc/detonate), 20)
+			QDEL_IN(src, 21) //if you know of any better way to do this, please tell me
+	else
+		to_chat(user, "You need to be wearing the suit to trigger it.")
+		return

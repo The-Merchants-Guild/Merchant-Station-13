@@ -58,7 +58,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "k" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
+/obj/effect/mapping_helpers/simple_pipes/general/visible{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -89,7 +89,7 @@
 	port_direction = 4;
 	width = 7
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
+/obj/effect/mapping_helpers/simple_pipes/general/visible{
 	dir = 4
 	},
 /turf/open/floor/plating,

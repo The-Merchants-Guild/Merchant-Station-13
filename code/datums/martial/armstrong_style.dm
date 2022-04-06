@@ -16,7 +16,7 @@
 
 // misc. defines
 #define STATUS_EFFECT_HORSE_STANCE /datum/status_effect/horse_stance // define for the horse stance spell
-var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
+GLOBAL_VAR_INIT(horse_stance_effects, FALSE) // ensures the horse stance gains it effect
 
 // rest of the file
 
@@ -543,9 +543,9 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	return ..()
 
 /datum/status_effect/horse_stance/proc/toggle_horse_stance_effects(mob/living/owner) //recycled effect code from monkeyman
-	horse_stance_effects = !horse_stance_effects
+	GLOB.horse_stance_effects = !GLOB.horse_stance_effects
 	var/mutable_appearance/horsestance_effect= mutable_appearance('icons/effects/genetics.dmi', "servitude")
-	if(!horse_stance_effects)
+	if(!GLOB.horse_stance_effects)
 		owner.cut_overlay(horsestance_effect)
 	else
 		owner.add_overlay(horsestance_effect)

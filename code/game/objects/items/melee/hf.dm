@@ -38,10 +38,9 @@
 		final_block_chance = 0
 	if(attack_type == MELEE_ATTACK) // It really is not a good idea to get close to this thing.
 		final_block_chance = 100
-		var/hideandseeklogic = rand(1,5) // YES, ADD MORE RNG TO COMBAT.
 		if(ishuman(hitby.loc))
 			var/mob/living/carbon/human/attacker = hitby.loc
-			if(hideandseeklogic == 1 || HAS_TRAIT(attacker, TRAIT_CLUMSY))
+			if(prob(20) || HAS_TRAIT(attacker, TRAIT_CLUMSY))
 				attacker.visible_message("<span class = 'warning'>[attacker] attempts to attack [owner] and accidentally slices their arm off! What an idiot!</span>")
 				var/which_hand = BODY_ZONE_L_ARM
 				if(!(attacker.active_hand_index % 2))

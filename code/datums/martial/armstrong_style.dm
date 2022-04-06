@@ -121,7 +121,7 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 
 // Actual combos
 
-/datum/martial_art/armstrong/proc/Buster(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/armstrong/proc/Buster(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	log_combat(A, D, "buster punched (Armstrong)")
 	D.visible_message("<span class='danger'>[A] buster punches [D]!</span>", \
 								"<span class='userdanger'>[A] knocks down [D] with two strong punches!</span>")
@@ -183,7 +183,7 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 			log_combat(A, D, "surprised (Armstrong)")
 			return
 
-/datum/martial_art/armstrong/proc/MachineGun(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/armstrong/proc/MachineGun(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	log_combat(A, D, "Machine Gun Fisted (Armstrong)")
 	D.visible_message("<span class='danger'>[A] unleashes a flurry of punches on [D]!</span>", \
 								"<span class='userdanger'>[A] punches [D] at the speed of a machine gun!</span>")
@@ -542,13 +542,13 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	addtimer(CALLBACK(src, .proc/toggle_horse_stance_effects, owner), 150, TIMER_UNIQUE)
 	return ..()
 
-/datum/status_effect/horse_stance/proc/toggle_horse_stance_effects(var/mob/living/owner) //recycled effect code from monkeyman
-    horse_stance_effects = !horse_stance_effects
-    var/mutable_appearance/horsestance_effect= mutable_appearance('icons/effects/genetics.dmi', "servitude")
-    if(!horse_stance_effects)
-        owner.cut_overlay(horsestance_effect)
-    else
-        owner.add_overlay(horsestance_effect)
+/datum/status_effect/horse_stance/proc/toggle_horse_stance_effects(mob/living/owner) //recycled effect code from monkeyman
+	horse_stance_effects = !horse_stance_effects
+	var/mutable_appearance/horsestance_effect= mutable_appearance('icons/effects/genetics.dmi', "servitude")
+	if(!horse_stance_effects)
+		owner.cut_overlay(horsestance_effect)
+	else
+		owner.add_overlay(horsestance_effect)
 
 /datum/status_effect/horse_stance/tick()
 	owner.adjustBruteLoss(-4)

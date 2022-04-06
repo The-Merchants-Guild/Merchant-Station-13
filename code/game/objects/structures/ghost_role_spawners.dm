@@ -114,7 +114,7 @@
 		var/mob/living/carbon/human/H = new_spawn
 		H.underwear = "Nude"
 		H.update_body()
-		ADD_TRAIT(H, TRAIT_PRIMITIVE, ROUNDSTART_TRAIT)
+		ADD_TRAIT(H, ROUNDSTART_TRAIT)
 		H.remove_language(/datum/language/common)
 	team.players_spawned += (new_spawn.key)
 	eggshell.egg = null

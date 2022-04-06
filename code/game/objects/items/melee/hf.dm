@@ -22,32 +22,65 @@
 	var/rules_of_nature = TRUE // Turn this off to break the rules, and watch the horrors of no proximity flags unfold.
 	var/brazil = FALSE
 	var/brightness = 5
+	var/wielded = FALSE
 
 /obj/item/melee/hfblade/Initialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 30, 95, 5)
 	set_light(brightness)
 	START_PROCESSING(SSobj, src)
+	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
+	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
+
+/obj/item/melee/hfblade/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed)
+
+/obj/item/melee/hfblade/proc/on_wield(obj/item/source, mob/user)
+	SIGNAL_HANDLER
+
+	wielded = TRUE
+
+/obj/item/melee/hfblade/proc/on_unwield(obj/item/source, mob/user)
+	SIGNAL_HANDLER
+
+	wielded = FALSE
 
 /obj/item/melee/hfblade/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/melee/hfblade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0
-	if(attack_type == MELEE_ATTACK) // It really is not a good idea to get close to this thing.
-		final_block_chance = 100
-		if(ishuman(hitby.loc))
-			var/mob/living/carbon/human/attacker = hitby.loc
-			if(prob(20) || HAS_TRAIT(attacker, TRAIT_CLUMSY))
-				attacker.visible_message("<span class = 'warning'>[attacker] attempts to attack [owner] and accidentally slices their arm off! What an idiot!</span>")
-				var/which_hand = BODY_ZONE_L_ARM
-				if(!(attacker.active_hand_index % 2))
-					which_hand = BODY_ZONE_R_ARM
-				var/obj/item/bodypart/disarm_arm = attacker.get_bodypart(which_hand)
-				disarm_arm.dismember()
-				playsound(attacker,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, 1, -1)
+	if(wielded)
+		if(attack_type == MELEE_ATTACK) // It's harder to parry with two hands(ignore the log :moyai:)
+			final_block_chance = 33
+			if(ishuman(hitby.loc))
+				var/mob/living/carbon/human/attacker = hitby.loc
+				if(prob(20) || HAS_TRAIT(attacker, TRAIT_CLUMSY))
+					attacker.visible_message("<span class = 'warning'>[attacker] attempts to attack [owner] and accidentally slices their arm off! What an idiot!</span>")
+					var/which_hand = BODY_ZONE_L_ARM
+					if(!(attacker.active_hand_index % 2))
+						which_hand = BODY_ZONE_R_ARM
+					var/obj/item/bodypart/disarm_arm = attacker.get_bodypart(which_hand)
+					disarm_arm.dismember()
+					playsound(attacker,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, 1, -1)
+		if(attack_type == PROJECTILE_ATTACK) //It's easier to cut bullets I guess idk lol bazinga
+			final_block_chance = 80
+	else
+		if(attack_type == MELEE_ATTACK) //parry this
+			final_block_chance = 80
+			if(ishuman(hitby.loc))
+				var/mob/living/carbon/human/attacker = hitby.loc
+				if(prob(20) || HAS_TRAIT(attacker, TRAIT_CLUMSY))
+					attacker.visible_message("<span class = 'warning'>[attacker] attempts to attack [owner] and accidentally slices their arm off! What an idiot!</span>")
+					var/which_hand = BODY_ZONE_L_ARM
+					if(!(attacker.active_hand_index % 2))
+						which_hand = BODY_ZONE_R_ARM
+					var/obj/item/bodypart/disarm_arm = attacker.get_bodypart(which_hand)
+					disarm_arm.dismember()
+					playsound(attacker,pick('sound/misc/desecration-01.ogg','sound/misc/desecration-02.ogg','sound/misc/desecration-01.ogg') ,50, 1, -1)
+		if(attack_type == PROJECTILE_ATTACK) //this doesn't make any sense but I like the idea that it's better to have it wielded for something and not wielded for something else
+			final_block_chance = 20
 	return ..()
 
 /obj/item/melee/hfblade/afterattack(atom/target, mob/user, proximity_flag, click_parameters)

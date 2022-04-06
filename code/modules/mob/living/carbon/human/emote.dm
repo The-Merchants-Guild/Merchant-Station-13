@@ -53,6 +53,9 @@
 	vary = TRUE
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
+	LAZYINITLIST(user.alternate_screams)
+	if(LAZYLEN(user.alternate_screams))
+		return pick(user.alternate_screams)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user

@@ -261,12 +261,12 @@ export class IntegratedCircuit extends Component {
               </Stack.Item>
               <Stack.Item>
                 <Button
-                position = "absolute"
-                  onClick={() => setShowPrinter(!showPrinter)}
-                  >
-                    {!!showPrinter && ( "Hide Printer" )}
-                    {!showPrinter && ( "Show Printer" )}
-                    </Button>
+                position="absolute"
+                onClick={() => setShowPrinter(!showPrinter)}
+                >
+                  {!!showPrinter && ( "Hide Printer" )}
+                  {!showPrinter && ( "Show Printer" )}
+                </Button>
               </Stack.Item>
               {!!is_admin && (
                 <Stack.Item>
@@ -369,7 +369,7 @@ export class IntegratedCircuit extends Component {
                 </Stack.Item>
               </Stack>
             </Stack.Item>
-                )}
+            )}
           </Stack>
         </Window.Content>
       </Window>

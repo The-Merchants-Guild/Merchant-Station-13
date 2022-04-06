@@ -45,8 +45,6 @@
 	/// The power usage whenever this component receives an input
 	var/power_usage_per_input = 1
 
-	/// This determines whether the component can always be printed from inside a circuit component (this avoids unnecessary clicking syndrome)
-	var/basic = FALSE
 	/// Used to make sure that removing it destroys it entirely, rather than just popping it out
 	var/added_internally = FALSE
 

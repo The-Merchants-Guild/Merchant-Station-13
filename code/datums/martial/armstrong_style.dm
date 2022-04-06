@@ -1,3 +1,4 @@
+//Credit to Dwarf/Kawaii Big Boss for making this in the first place, a few years ago on hippie. I hope he'll be happy to know that grabs being broken there is an issue that persists here.
 // combo defines
 
 #define BUSTER_COMBO "EEG"

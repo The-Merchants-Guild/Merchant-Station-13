@@ -2135,7 +2135,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/belt/hfblade
 	cost = 15
 	surplus = 15
-  
+
 /datum/uplink_item/dangerous/wrestling
 	name = "Wrestling Set"
 	desc = "OH YEAH BROTHERRRR!"

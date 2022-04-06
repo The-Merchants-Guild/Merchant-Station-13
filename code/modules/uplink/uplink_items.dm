@@ -2127,6 +2127,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1 //it sucks balls for anything but memeing
 	surplus = 30 //Theres a good chance this will end up in surplus crates, so its a great way to add a little spice to any meme round.
 
+
 /datum/uplink_item/dangerous/vibroblade
 	name = "High Frequency Blade"
 	desc = "An electric katana that weakens the molecular bonds of whatever it touches. Perfect for slicing off the limbs of your coworkers. \
@@ -2134,3 +2135,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/belt/hfblade
 	cost = 15
 	surplus = 15
+  
+/datum/uplink_item/dangerous/wrestling
+	name = "Wrestling Set"
+	desc = "OH YEAH BROTHERRRR!"
+	item = /obj/item/storage/box/syndie_kit/wrestling
+	cost = 8 //The wrestling set is not as powerful as it once was
+	purchasable_from = UPLINK_TRAITORS
+

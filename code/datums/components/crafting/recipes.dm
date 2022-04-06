@@ -461,6 +461,17 @@
 				/obj/item/organ/ears/cat = 1)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/suicide
+	name = "Suicide Vest"
+	result = /obj/item/clothing/suit/armor/suicide
+	reqs = list(/obj/item/assembly/health = 1,
+				/obj/item/assembly/igniter = 1,
+				/obj/item/clothing/suit/armor/vest = 1,
+				/obj/item/stack/cable_coil = 10)
+	tool_behaviors = list(TOOL_WRENCH, TOOL_MULTITOOL)
+	time = 20
+	category = CAT_CLOTHING
+
 
 /datum/crafting_recipe/radiogloves
 	name = "Radio Gloves"

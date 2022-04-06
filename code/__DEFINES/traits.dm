@@ -274,7 +274,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Makes you flashable from any direction
 #define TRAIT_FLASH_SENSITIVE "flash_sensitive"
 #define TRAIT_NAIVE "naive"
-#define TRAIT_PRIMITIVE "primitive"
 #define TRAIT_GUNFLIP "gunflip"
 /// Increases chance of getting special traumas, makes them harder to cure
 #define TRAIT_SPECIAL_TRAUMA_BOOST "special_trauma_boost"
@@ -484,6 +483,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_INSANITY "insanity"
 #define TRAIT_POLISH "polish"
 #define TRAIT_UKRAINIAN "ukrainian"
+#define TRAIT_FINNABOO "finnish"
 
 ///Trait for dryable items
 #define TRAIT_DRYABLE "trait_dryable"

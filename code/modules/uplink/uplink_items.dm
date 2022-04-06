@@ -2126,3 +2126,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/melee/execution_sword
 	cost = 1 //it sucks balls for anything but memeing
 	surplus = 30 //Theres a good chance this will end up in surplus crates, so its a great way to add a little spice to any meme round.
+
+/datum/uplink_item/dangerous/vibroblade
+	name = "High Frequency Blade"
+	desc = "An electric katana that weakens the molecular bonds of whatever it touches. Perfect for slicing off the limbs of your coworkers. \
+	Avoid using a multitool on it."
+	item = /obj/item/storage/belt/hfblade
+	cost = 9
+	surplus = 15

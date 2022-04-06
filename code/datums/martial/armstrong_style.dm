@@ -449,7 +449,7 @@ GLOBAL_VAR_INIT(horse_stance_effects, FALSE) // ensures the horse stance gains i
 				owner.update_hair() //makes the hair/facial hair change actually happen
 			else
 				if(!istype(owner.wear_mask, /obj/item/clothing/mask/fakemoustache/italian/cursed))
-					if(!owner.doUnEquip(owner.wear_mask))
+					if(!owner.dropItemToGround(owner.wear_mask))
 						qdel(owner.wear_mask)
 					owner.equip_to_slot_or_del(new /obj/item/clothing/mask/fakemoustache/italian/cursed(owner), ITEM_SLOT_MASK) //your snowflake race won't save you from hair now
 			owner.playsound_local(get_turf(owner), 'sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)

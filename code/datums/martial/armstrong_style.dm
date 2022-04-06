@@ -20,16 +20,12 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 
 // rest of the file
 
-/datum/martial_art/proc/help_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	return 0
 
 /datum/martial_art/armstrong
 	name = "Armstrong Style"
 	help_verb = /mob/living/carbon/human/proc/armstrong_help
 	max_streak_length = 4
-	no_guns = TRUE
 	block_chance = 75
-	deflection_chance = 50
 	allow_temp_override = FALSE
 // vars by iamgoofball - the guy who wrote monk code
 	var/current_exp = 1
@@ -37,9 +33,9 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	var/static/exp_slope = 10.5
 	var/current_level = 1
 	var/level_cap = 30
+	display_combos = TRUE
 
 /datum/martial_art/armstrong/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	A.hud_used.combo_object.update_icon(streak, 60)
 	if(findtext(streak,BUSTER_COMBO) && current_level >= 2)
 		Buster(A,D)
 	else if(findtext(streak,SLOPPY_HARM) || findtext (streak,SLOPPY_HELP) || findtext(streak,SLOPPY_DISARM) || findtext(streak,SLOPPY_GRAB)) // they all funnel into the same combo
@@ -63,10 +59,29 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	else
 		return 0
 	streak = ""
-	A.hud_used.combo_object.update_icon(streak)
 	return 1
 
 //special effects
+
+/datum/martial_art/armstrong/on_projectile_hit(mob/living/A, obj/projectile/P, def_zone)
+	. = ..()
+	if(A.incapacitated(FALSE, TRUE)) //NO STUN
+		return BULLET_ACT_HIT
+	if(!(A.mobility_flags & MOBILITY_USE)) //NO UNABLE TO USE
+		return BULLET_ACT_HIT
+	var/datum/dna/dna = A.has_dna()
+	if(dna?.check_mutation(HULK)) //NO HULK
+		return BULLET_ACT_HIT
+	if(!isturf(A.loc)) //NO MOTHERFLIPPIN MECHS!
+		return BULLET_ACT_HIT
+	if(A.throw_mode)
+		if(prob(50))
+			A.visible_message(span_danger("[A] effortlessly swats the projectile aside! They can block bullets with their bare hands!"), span_userdanger("You deflect the projectile!"))
+			playsound(get_turf(A), pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
+			P.firer = A
+			P.set_angle(rand(0, 360))//SHING
+			return BULLET_ACT_FORCE_PIERCE
+	return BULLET_ACT_HIT
 
 /datum/martial_art/armstrong/proc/SloppyAnimate(mob/living/carbon/human/A)
 	set waitfor = FALSE
@@ -74,7 +89,7 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 		if(!A)
 			break
 		A.setDir(i)
-		playsound(A.loc, 'hippiestation/sound/weapons/armstrong_punch.ogg', 35, 1, -1)
+		playsound(A.loc, 'sound/weapons/armstrong_punch.ogg', 35, 1, -1)
 		sleep(1)
 
 /datum/martial_art/armstrong/proc/Sloppy(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -90,7 +105,7 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 		R.cast(turfs)
 		add_exp(4, A)
 		log_combat(A, D, "sloppily flailed around (Armstrong)")
-		A.playsound_local(get_turf(A), 'hippiestation/sound/effects/fart.ogg', 100, FALSE, pressure_affected = FALSE)
+		A.playsound_local(get_turf(A), 'sound/effects/fart.ogg', 100, FALSE, pressure_affected = FALSE)
 		return
 	else
 		A.Knockdown(10)
@@ -101,7 +116,7 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 		D.visible_message("<span class='danger'>[A] sloppily punts [D] away, and trips!</span>", \
 									"<span class='userdanger'>[A] punts [D] away with a rushed combo!</span>")
 		log_combat(A, D, "sloppily flailed around (Armstrong)")
-		A.playsound_local(get_turf(A), 'hippiestation/sound/misc/oof.ogg', 100, FALSE, pressure_affected = FALSE)
+		A.playsound_local(get_turf(A), 'sound/misc/oof.ogg', 100, FALSE, pressure_affected = FALSE)
 		return
 
 // Actual combos
@@ -110,8 +125,8 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	log_combat(A, D, "buster punched (Armstrong)")
 	D.visible_message("<span class='danger'>[A] buster punches [D]!</span>", \
 								"<span class='userdanger'>[A] knocks down [D] with two strong punches!</span>")
-	playsound(D.loc, 'hippiestation/sound/weapons/armstrong_zipper.ogg', 100, 1)
-	A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
+	playsound(D.loc, 'sound/weapons/armstrong_zipper.ogg', 100, 1)
+	A.playsound_local(get_turf(A), 'sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	D.adjustBruteLoss(8) //Decentish damage. It racks up to 18 if the victim hits a wall.
 	D.Knockdown(15) //Minimal knockdown, but becomes a potential stunlock if they hit a wall.
@@ -126,7 +141,7 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	var/atom/throw_target = get_edge_target_turf(D, get_dir(D, get_step_away(D, A)))
 	playsound(get_turf(A), 'sound/magic/fireball.ogg', 25, 1)
-	A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
+	A.playsound_local(get_turf(A), 'sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
 	D.throw_at(throw_target, 2, 4,A)
 	D.adjust_fire_stacks(1)
 	D.IgniteMob()
@@ -136,8 +151,8 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 
 /datum/martial_art/armstrong/proc/Dropkick(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-	playsound(D.loc, 'hippiestation/sound/weapons/armstrong_punch.ogg', 50, 1, -1)
-	A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
+	playsound(D.loc, 'sound/weapons/armstrong_punch.ogg', 50, 1, -1)
+	A.playsound_local(get_turf(A), 'sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
 	D.Knockdown(15)
 	D.adjustBruteLoss(12)
 	A.Knockdown(5)
@@ -151,8 +166,8 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 
 /datum/martial_art/armstrong/proc/Surprise(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D.stat && !D.IsKnockdown()) // Blocks easy stunlocking.
-		playsound(D.loc, 'hippiestation/sound/weapons/armstrong_punch.ogg', 75, 0, -1)
-		A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
+		playsound(D.loc, 'sound/weapons/armstrong_punch.ogg', 75, 0, -1)
+		A.playsound_local(get_turf(A), 'sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
 		D.Knockdown(50)
 		D.emote("scream")
 		D.adjustBruteLoss(5)
@@ -172,7 +187,7 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	log_combat(A, D, "Machine Gun Fisted (Armstrong)")
 	D.visible_message("<span class='danger'>[A] unleashes a flurry of punches on [D]!</span>", \
 								"<span class='userdanger'>[A] punches [D] at the speed of a machine gun!</span>")
-	A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
+	A.playsound_local(get_turf(A), 'sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
 	D.adjustBruteLoss(18) //punch punch punch
 	SloppyAnimate(A)
 	D.Stun(10)
@@ -185,7 +200,7 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	var/atom/throw_target = get_edge_target_turf(D, get_dir(D, get_step_away(D, A)))
 	playsound(get_turf(A), 'sound/magic/fireball.ogg', 25, 1)
-	A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
+	A.playsound_local(get_turf(A), 'sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
 	D.throw_at(throw_target, 2, 4,A)
 	D.adjust_fire_stacks(3)
 	D.adjustFireLoss(8)
@@ -202,10 +217,10 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	D.visible_message("<span class='warning'>[A] headbutts [D]!</span>", \
 					  "<span class='userdanger'>[A] headbutts you with atom-shattering strength!</span>")
 	D.apply_damage(18, BRUTE, "head") //same as machine gun, but easier to pull off + a stun. a good combo for level 15.
-	playsound(get_turf(D), 'hippiestation/sound/weapons/armstrong_headbutt.ogg', 80, 0, -1)
-	A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
+	playsound(get_turf(D), 'sound/weapons/armstrong_headbutt.ogg', 80, 0, -1)
+	A.playsound_local(get_turf(A), 'sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
 	D.AdjustUnconscious(15)
-	D.adjustBrainLoss(30)
+	D.adjustOrganLoss(ORGAN_SLOT_BRAIN, 30)
 	add_exp(12, A)
 	var/datum/effect_system/explosion/E = new
 	E.set_up(get_turf(D))
@@ -217,7 +232,7 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	if(!D.stat && !D.IsKnockdown()) // Blocks easy stunlocking.
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		playsound(D.loc, 'sound/effects/suitstep1.ogg', 50, 1, -1)
-		A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
+		A.playsound_local(get_turf(A), 'sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
 		D.Knockdown(80)
 		D.adjustBruteLoss(10)
 		A.Knockdown(5)
@@ -243,7 +258,7 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	D.adjustBruteLoss(10)
 	add_exp(8, A)
 	log_combat(A, D, "cannonballed (Armstrong)")
-	A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
+	A.playsound_local(get_turf(A), 'sound/weapons/armstrong_success.ogg', 50, FALSE, pressure_affected = FALSE)
 	return
 
 // Help/Hurt/Grab/Disarm acts
@@ -260,9 +275,9 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 		D.apply_damage(rand(6,13), BRUTE) // lower base damage
 		D.adjustStaminaLoss(rand(6,10)) // but higher stamina damage
 		add_exp(rand(1,3), A)
-		playsound(get_turf(D), 'hippiestation/sound/weapons/armstrong_punch.ogg', 75, 0, -1)
-		A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_combo.ogg', 25, FALSE, pressure_affected = FALSE)
-		if(prob(D.getBruteLoss()) && !D.lying)
+		playsound(get_turf(D), 'sound/weapons/armstrong_punch.ogg', 75, 0, -1)
+		A.playsound_local(get_turf(A), 'sound/weapons/armstrong_combo.ogg', 25, FALSE, pressure_affected = FALSE)
+		if(prob(D.getBruteLoss()) && !D.body_position == LYING_DOWN)
 			D.visible_message("<span class='warning'>Critical hit!</span>", "<span class='userdanger'>Critical hit!</span>")
 			D.apply_damage(10, BRUTE)
 			D.Knockdown(20)
@@ -286,9 +301,9 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 		D.apply_damage(rand(8,15), BRUTE) // higher base damage
 		D.adjustStaminaLoss(rand(4,8)) // but lower stamina damage
 		add_exp(rand(1,3), A)
-		playsound(get_turf(D), 'hippiestation/sound/weapons/armstrong_punch.ogg', 50, 0, -1)
-		A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_combo.ogg', 25, FALSE, pressure_affected = FALSE)
-		if(prob(D.getBruteLoss()) && !D.lying)
+		playsound(get_turf(D), 'sound/weapons/armstrong_punch.ogg', 50, 0, -1)
+		A.playsound_local(get_turf(A), 'sound/weapons/armstrong_combo.ogg', 25, FALSE, pressure_affected = FALSE)
+		if(prob(D.getBruteLoss()) && !D.body_position == LYING_DOWN)
 			D.visible_message("<span class='warning'>Critical hit!</span>", "<span class='userdanger'>Critical hit!</span>")
 			D.apply_damage(10, BRUTE)
 			D.Knockdown(20)
@@ -314,9 +329,9 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 		D.apply_damage(rand(6,12), BRUTE) // right hand brute damage - weakened
 		D.adjustStaminaLoss(rand(3,8)) // right hand stamina damage
 		add_exp(rand(2,4), A)
-		playsound(get_turf(D), 'hippiestation/sound/weapons/armstrong_zipper.ogg', 50, 0, -1)
-		A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_combo.ogg', 25, FALSE, pressure_affected = FALSE)
-		if(prob(D.getBruteLoss()) && !D.lying)
+		playsound(get_turf(D), 'sound/weapons/armstrong_zipper.ogg', 50, 0, -1)
+		A.playsound_local(get_turf(A), 'sound/weapons/armstrong_combo.ogg', 25, FALSE, pressure_affected = FALSE)
+		if(prob(D.getBruteLoss()) && !D.body_position == LYING_DOWN)
 			D.visible_message("<span class='warning'>Critical hit!</span>", "<span class='userdanger'>Critical hit!</span>")
 			D.apply_damage(10, BRUTE)
 		if(current_level >= 10)
@@ -339,9 +354,9 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 		D.apply_damage(rand(3,5), BRUTE) // weakest brute damage
 		D.adjustStaminaLoss(rand(10,20)) // strongest stamina damage
 		add_exp(rand(2,4), A)
-		playsound(get_turf(D), 'hippiestation/sound/weapons/armstrong_palmthrust.ogg', 50, 0, -1)
-		A.playsound_local(get_turf(A), 'hippiestation/sound/weapons/armstrong_combo.ogg', 25, FALSE, pressure_affected = FALSE)
-		if(prob(D.getBruteLoss()) && !D.lying)
+		playsound(get_turf(D), 'sound/weapons/armstrong_palmthrust.ogg', 50, 0, -1)
+		A.playsound_local(get_turf(A), 'sound/weapons/armstrong_combo.ogg', 25, FALSE, pressure_affected = FALSE)
+		if(prob(D.getBruteLoss()) && !D.body_position == LYING_DOWN)
 			D.visible_message("<span class='warning'>Critical hit!</span>", "<span class='userdanger'>Critical hit!</span>")
 			D.apply_damage(10, BRUTE)
 			D.adjustStaminaLoss(10)
@@ -392,6 +407,7 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/armstrong/F = new/datum/martial_art/armstrong(null)
 		F.teach(H)
+		ADD_TRAIT(H, TRAIT_NOGUNS, ARMSTRONG_STYLE_TRAIT)
 		to_chat(H, "<span class='boldannounce'>Examining the scroll teaches you Armstrong Style. The paper's texts suddenly vanish, with the paper drenched in booze.</span>")
 		used = TRUE
 		desc = "It's completely ruined!"
@@ -421,53 +437,53 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	switch(current_level)
 		if(2)
 			to_chat(owner, "<span class = 'notice'>You have re-awakened the Buster Punches technique. To use: Help Help Grab</span>")
-			owner.playsound_local(get_turf(owner), 'hippiestation/sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
+			owner.playsound_local(get_turf(owner), 'sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
 		if(3)
 			to_chat(owner, "<span class = 'notice'>You remember the Surprise Attack. To use: Disarm Disarm Harm.</span>")
-			owner.playsound_local(get_turf(owner), 'hippiestation/sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
+			owner.playsound_local(get_turf(owner), 'sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
 		if(5)
 			to_chat(owner, "<span class = 'notice'>You remember how to utilize your emotion, and learned Fireball. To use: Help Grab Disarm</span>")
 			to_chat(owner, "<span class = 'danger'>You also seem to be growing some facial hair...</span>")
 			if(is_species(owner, /datum/species/human))
-				owner.facial_hair_style = "Broken Man"
+				owner.facial_hairstyle = "Broken Man"
 				owner.update_hair() //makes the hair/facial hair change actually happen
 			else
 				if(!istype(owner.wear_mask, /obj/item/clothing/mask/fakemoustache/italian/cursed))
 					if(!owner.doUnEquip(owner.wear_mask))
 						qdel(owner.wear_mask)
 					owner.equip_to_slot_or_del(new /obj/item/clothing/mask/fakemoustache/italian/cursed(owner), ITEM_SLOT_MASK) //your snowflake race won't save you from hair now
-			owner.playsound_local(get_turf(owner), 'hippiestation/sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
+			owner.playsound_local(get_turf(owner), 'sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
 		if(6)
 			to_chat(owner, "<span class = 'notice'>You remember how to Dropkick. To use: Disarm Help Help Harm</span>")
-			owner.playsound_local(get_turf(owner), 'hippiestation/sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
+			owner.playsound_local(get_turf(owner), 'sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
 		if(7)
 			to_chat(owner, "<span class = 'notice'>You learn how to jab at rapid speeds, and unlocked Machine Gun Fist. To use: Help Harm Help Harm</span>")
-			owner.playsound_local(get_turf(owner), 'hippiestation/sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
+			owner.playsound_local(get_turf(owner), 'sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
 		if(8)
 			to_chat(owner, "<span class = 'notice'>You remember the Horse Stance. Use it to quickly recover health and stamina</span>")
-			owner.playsound_local(get_turf(owner), 'hippiestation/sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
+			owner.playsound_local(get_turf(owner), 'sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
 			owner.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/horse_stance/)
 		if(10)
 			to_chat(owner, "<span class = 'notice'>You have mastered basic combos. Your attacks are more swift.</span>")
 			to_chat(owner, "<span class = 'notice'>You have also unlocked Cannonball. To use: Disarm Disarm Grab.</span>")
 			to_chat(owner, "<span class = 'danger'><b>This great speed requires precision. Use your combos!</b></span>")
-			owner.hair_style = "Bald"
-			owner.facial_hair_style = "Broken Man" //ensures the proper look
+			owner.hairstyle = "Bald"
+			owner.facial_hairstyle = "Broken Man" //ensures the proper look
 			owner.update_hair() //makes the hair/facial hair change actually happen
-			owner.playsound_local(get_turf(owner), 'hippiestation/sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
+			owner.playsound_local(get_turf(owner), 'sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
 		if(12)
 			to_chat(owner, "<span class = 'notice'>You have unlocked an upgraded Fireball attack. To use: Help Disarm Disarm.</span>")
-			owner.playsound_local(get_turf(owner), 'hippiestation/sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
+			owner.playsound_local(get_turf(owner), 'sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
 		if(13)
 			to_chat(owner, "<span class = 'notice'>You have unlocked Head Slide. To use: Grab Disarm Disarm Grab.</span>")
-			owner.playsound_local(get_turf(owner), 'hippiestation/sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
+			owner.playsound_local(get_turf(owner), 'sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
 		if(15)
 			to_chat(owner, "<span class = 'notice'>You have unlocked Headbutt. To use: Help Harm Grab</span>")
-			owner.playsound_local(get_turf(owner), 'hippiestation/sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
+			owner.playsound_local(get_turf(owner), 'sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
 		if(30)
 			to_chat(owner, "<span class = 'danger'><b>You can now use Fireball without needing to combo.</b></span>")
 			owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aimed/fireball(null))
-			owner.playsound_local(get_turf(owner), 'hippiestation/sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
+			owner.playsound_local(get_turf(owner), 'sound/weapons/armstrong_newcombo.ogg', 50, FALSE, pressure_affected = FALSE)
 	/*	if(20)
 			to_chat(owner, "<span class = 'notice'><b>You can now Headslide without needing to combo.</b></span>")
 			head_slide.Grant(owner) */ //todo: make this a spell - action code is garbage.
@@ -500,13 +516,12 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 	desc = "Assumes a horse stance. Recovers health and stamina."
 	school = "transmutation"
 	charge_max = 1500 // 2 minutes 30 seconds
-	clothes_req = 0
-	staff_req = 0
+	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
 	range = -1
 	include_user = 1
-	action_icon = 'hippiestation/icons/mob/actions.dmi'
+	action_icon = 'icons/hud/actions.dmi'
 	action_icon_state = "horse_stance"
 
 //Horse Stance Status Effect
@@ -544,5 +559,5 @@ var/horse_stance_effects = FALSE // ensures the horse stance gains it effect
 
 /datum/status_effect/horse_stance/on_remove()
 	owner.visible_message("<span class='warning'>[owner] resumes a normal stance!</span>", "<span class='warning'>The Horse Stance ends...</span>")
-	playsound(owner, 'hippiestation/sound/weapons/armstrong_horse.ogg', 75, 1)
+	playsound(owner, 'sound/weapons/armstrong_horse.ogg', 75, 1)
 

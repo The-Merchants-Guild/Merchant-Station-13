@@ -1,10 +1,3 @@
-#define BEYBLADE_PUKE_THRESHOLD 30 //How confused a carbon must be before they will vomit
-#define BEYBLADE_PUKE_NUTRIENT_LOSS 60 //How must nutrition is lost when a carbon pukes
-#define BEYBLADE_DIZZINESS_PROBABILITY 20 //How often a carbon becomes penalized
-#define BEYBLADE_DIZZINESS_VALUE 10 //How long the screenshake lasts
-#define BEYBLADE_CONFUSION_INCREMENT 10 //How much confusion a carbon gets when penalized
-#define BEYBLADE_CONFUSION_LIMIT 40 //A max for how penalized a carbon will be for beyblading
-
 //The code execution of the emote datum is located at code/datums/emotes.dm
 /mob/proc/emote(act, m_type = null, message = null, intentional = FALSE, force_silence = FALSE)
 	act = lowertext(act)

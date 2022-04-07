@@ -123,7 +123,6 @@
 		SSid_access.apply_card_access(src, card_access, force = TRUE)
 
 	update_label()
-	update_icon()
 
 	RegisterSignal(src, COMSIG_ATOM_UPDATED_ICON, .proc/update_in_wallet)
 
@@ -147,7 +146,6 @@
 /obj/item/card/id/proc/get_cached_flat_icon()
 	if(!cached_flat_icon)
 		cached_flat_icon = getFlatIcon(src)
-		cached_flat_icon.Crop(ID_ICON_BORDERS)
 	return cached_flat_icon
 
 /obj/item/card/id/get_examine_string(mob/user, thats = FALSE)
@@ -212,7 +210,6 @@
 		switch(var_name)
 			if(NAMEOF(src, assignment), NAMEOF(src, registered_name), NAMEOF(src, registered_age))
 				update_label()
-				update_icon()
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rupee))
@@ -446,6 +443,7 @@
 /obj/item/card/id/tier0
 	icon = 'icons/obj/new_id.dmi'
 	icon_state = "tier0"
+	chip_slots = 0
 	access_tier = 0
 
 /obj/item/card/id/tier1
@@ -567,7 +565,6 @@
 /obj/item/card/id/tier5/captains_spare/update_label() //so it doesn't change to Captain's ID card (Captain) on a sneeze
 	if(registered_name == "Captain")
 		name = "[initial(name)][(!assignment || assignment == "Captain") ? "" : " ([assignment])"]"
-		update_appearance(UPDATE_ICON)
 	else
 		..()
 

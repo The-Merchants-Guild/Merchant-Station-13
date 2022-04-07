@@ -382,6 +382,9 @@
 					continue
 				AI = crew
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
+		addtimer(CALLBACK(WR, /obj/structure/mecha_wreckage.proc/kaboom), 5 SECONDS)
+		playsound(WR, 'sound/mecha/meltdown.ogg', 50)
+		WR.visible_message(span_danger("The remains of [WR] are about to blow up!"))
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E

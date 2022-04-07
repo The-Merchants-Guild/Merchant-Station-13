@@ -10,6 +10,7 @@
 	density = TRUE
 	anchored = FALSE
 	opacity = FALSE
+	armor = list(BOMB = 50) // So the wreckage doesn't blow up in the initial explosion.
 	var/list/welder_salvage = list(/obj/item/stack/sheet/plasteel, /obj/item/stack/sheet/iron, /obj/item/stack/rods)
 	var/salvage_num = 5
 	var/list/crowbar_salvage = list()
@@ -229,3 +230,6 @@
 			/obj/item/mecha_parts/part/odysseus_right_arm,
 			/obj/item/mecha_parts/part/odysseus_left_leg,
 			/obj/item/mecha_parts/part/odysseus_right_leg)
+
+/obj/structure/mecha_wreckage.proc/kaboom()
+	explosion(loc, -1, 1, 2, 3, 3 ,3)

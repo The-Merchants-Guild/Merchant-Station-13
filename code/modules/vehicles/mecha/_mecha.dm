@@ -120,8 +120,6 @@
 
 	///TIme taken to leave the mech
 	var/exit_delay = 2 SECONDS
-	///Time you get slept for if you get forcible ejected by the mech exploding
-	var/destruction_sleep_duration = 2 SECONDS
 	///Whether outside viewers can see the pilot inside
 	var/enclosed = TRUE
 	///In case theres a different iconstate for AI/MMI pilot(currently only used for ripley)
@@ -242,14 +240,14 @@
 	return ..()
 
 /obj/vehicle/sealed/mecha/obj_destruction()
-	explosion(loc, -1, 0, 1, 2, 3, 3)
 	loc.assume_air(cabin_air)
 	for(var/mob/living/occupant as anything in occupants)
 		if(isAI(occupant))
 			occupant.gib() //No wreck, no AI to recover
 			continue
 		mob_exit(occupant, FALSE, TRUE)
-		occupant.SetSleeping(destruction_sleep_duration)
+		occupant.Stun(2 SECONDS) // Scared?
+		occupant.Knockdown(5 SECONDS) // YOU BETTER START CRAWLING BOY!
 	return ..()
 
 

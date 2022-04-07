@@ -1140,6 +1140,7 @@
 #include "code\game\objects\items\bouquets.dm"
 #include "code\game\objects\items\broom.dm"
 #include "code\game\objects\items\candle.dm"
+#include "code\game\objects\items\canister_regulator_breaker.dm"
 #include "code\game\objects\items\card_access_chips.dm"
 #include "code\game\objects\items\cardboard_cutouts.dm"
 #include "code\game\objects\items\cards_ids.dm"

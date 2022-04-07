@@ -1,6 +1,6 @@
 import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, Knob, LabeledControls, LabeledList, RoundGauge, Section, Tooltip } from '../components';
+import { Box, Button, Flex, Icon, Knob, LabeledControls, LabeledList, RoundGauge, Section, Tooltip, NoticeBox } from '../components';
 import { formatSiUnit } from '../format';
 import { Window } from '../layouts';
 
@@ -28,6 +28,7 @@ export const Canister = (props, context) => {
     holdingTankLeakPressure,
     holdingTankFragPressure,
     restricted,
+    brokenRegulator,
   } = data;
   return (
     <Window
@@ -74,42 +75,48 @@ export const Canister = (props, context) => {
                     format={formatPressure} />
                 </LabeledControls.Item>
                 <LabeledControls.Item label="Regulator">
-                  <Box
-                    position="relative"
-                    left="-8px">
-                    <Knob
-                      size={1.25}
-                      color={!!valveOpen && 'yellow'}
-                      value={releasePressure}
-                      unit="kPa"
-                      minValue={minReleasePressure}
-                      maxValue={maxReleasePressure}
-                      step={5}
-                      stepPixelSize={1}
-                      onDrag={(e, value) => act('pressure', {
-                        pressure: value,
-                      })} />
-                    <Button
-                      fluid
-                      position="absolute"
-                      top="-2px"
-                      right="-20px"
-                      color="transparent"
-                      icon="fast-forward"
-                      onClick={() => act('pressure', {
-                        pressure: maxReleasePressure,
-                      })} />
-                    <Button
-                      fluid
-                      position="absolute"
-                      top="16px"
-                      right="-20px"
-                      color="transparent"
-                      icon="undo"
-                      onClick={() => act('pressure', {
-                        pressure: defaultReleasePressure,
-                      })} />
-                  </Box>
+                  {!brokenRegulator && (
+                    <Box
+                      position="relative"
+                      left="-8px">
+                      <Knob
+                        size={1.25}
+                        color={!!valveOpen && 'yellow'}
+                        value={releasePressure}
+                        unit="kPa"
+                        minValue={minReleasePressure}
+                        maxValue={maxReleasePressure}
+                        step={5}
+                        stepPixelSize={1}
+                        onDrag={(e, value) => act('pressure', {
+                          pressure: value,
+                        })} />
+                      <Button
+                        fluid
+                        position="absolute"
+                        top="-2px"
+                        right="-20px"
+                        color="transparent"
+                        icon="fast-forward"
+                        onClick={() => act('pressure', {
+                          pressure: maxReleasePressure,
+                        })} />
+                      <Button
+                        fluid
+                        position="absolute"
+                        top="16px"
+                        right="-20px"
+                        color="transparent"
+                        icon="undo"
+                        onClick={() => act('pressure', {
+                          pressure: defaultReleasePressure,
+                        })} />
+                    </Box>
+                  ) || (
+                    <NoticeBox height="50px" width="80px" danger>
+                      WARNING<br />BROKEN<br />GET HELP
+                    </NoticeBox>
+                  )}
                 </LabeledControls.Item>
                 <LabeledControls.Item label="Valve">
                   <Button

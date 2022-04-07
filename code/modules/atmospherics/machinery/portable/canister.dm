@@ -522,6 +522,7 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 		"defaultReleasePressure" = round(CAN_DEFAULT_RELEASE_PRESSURE),
 		"minReleasePressure" = round(can_min_release_pressure),
 		"maxReleasePressure" = round(can_max_release_pressure),
+		"maximumPressure" = maximum_pressure,
 		"holdingTankLeakPressure" = round(TANK_LEAK_PRESSURE),
 		"holdingTankFragPressure" = round(TANK_FRAGMENT_PRESSURE)
 	)

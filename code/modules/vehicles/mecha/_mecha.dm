@@ -246,7 +246,7 @@
 			occupant.gib() //No wreck, no AI to recover
 			continue
 		mob_exit(occupant, FALSE, TRUE)
-		occupant.Stun(2 SECONDS) // Scared?
+		occupant.Stun(3 SECONDS) // Scared?
 		occupant.Knockdown(5 SECONDS) // YOU BETTER START CRAWLING BOY!
 	return ..()
 

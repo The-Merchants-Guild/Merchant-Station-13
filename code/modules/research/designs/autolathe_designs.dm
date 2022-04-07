@@ -717,6 +717,14 @@
 	build_path = /obj/item/assembly/voice
 	category = list("initial", "Misc")
 
+/datum/design/bang_assembly
+	name = "BANG assembly"
+	id = "bang_assembly"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 50)
+	build_path = /obj/item/assembly/bang
+	category = list("initial", "Misc")
+
 /datum/design/light_tube
 	name = "Light Tube"
 	id = "light_tube"

@@ -932,7 +932,6 @@
 #include "code\game\machinery\Beacon.dm"
 #include "code\game\machinery\bounty_board.dm"
 #include "code\game\machinery\buttons.dm"
-#include "code\game\machinery\canister_frame.dm"
 #include "code\game\machinery\cell_charger.dm"
 #include "code\game\machinery\civilian_bounties.dm"
 #include "code\game\machinery\constructable_frame.dm"

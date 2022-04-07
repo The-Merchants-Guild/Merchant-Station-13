@@ -46464,10 +46464,6 @@
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/iron/dark,
 /area/science/storage)
-"fyU" = (
-/obj/machinery/atmospherics/pipe/layer_manifold,
-/turf/closed/wall/r_wall,
-/area/science/server)
 "fzA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -58460,7 +58456,9 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/visible{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
+	dir = 10
+	},
 /turf/open/floor/iron/dark,
 /area/engineering/atmos)
 "kFL" = (
@@ -128438,7 +128436,7 @@ alB
 cMG
 sws
 tov
-fyU
+aZF
 sSm
 auQ
 bzB

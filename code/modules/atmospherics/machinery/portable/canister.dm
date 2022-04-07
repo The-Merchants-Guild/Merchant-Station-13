@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 	desc = "Plasma gas. The reason YOU are here. Highly toxic."
 	gas_type = /datum/gas/plasma
 	greyscale_config = /datum/greyscale_config/canister/hazard
-	greyscale_colors = "#b44800#000000"
+	greyscale_colors = "#ff8000#000000"
 
 /obj/machinery/portable_atmospherics/canister/tritium
 	name = "Tritium canister"

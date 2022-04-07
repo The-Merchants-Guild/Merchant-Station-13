@@ -428,7 +428,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 				continue
 			p_dir |= d
 		for (var/obj/machinery/atmospherics/A in T)
-			if (!(A.initialize_directions & rd) || A.piping_layer != piping_layer)
+			if (!(A.initialize_directions & rd) || (A.piping_layer != piping_layer && !istype(A, /obj/machinery/atmospherics/pipe/layer_manifold)))
 				continue
 			// layer manifolds are considered components in this case.
 			if (istype(A, /obj/machinery/atmospherics/pipe) && !istype(A, /obj/machinery/atmospherics/pipe/layer_manifold))

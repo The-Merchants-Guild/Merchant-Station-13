@@ -2143,3 +2143,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8 //The wrestling set is not as powerful as it once was
 	purchasable_from = UPLINK_TRAITORS
 
+/datum/uplink_item/dangerous/armstrong
+	name = "Armstrong Style Kit"
+	desc = "A kit with the necessary equipment to become an excellent martial artist, and terrible parent!"
+	item = /obj/item/storage/box/syndie_kit/armstrong
+	cost = 14
+	surplus = 20 // someone who respects the eldritch god Nar-Sie a little (((too much))) complained

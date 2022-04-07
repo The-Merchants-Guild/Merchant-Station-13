@@ -242,7 +242,7 @@
 	return ..()
 
 /obj/vehicle/sealed/mecha/obj_destruction()
-	explosion(loc, -1, 0, 1, 2, 3 ,3)
+	explosion(loc, -1, 0, 1, 2, 3, 3)
 	loc.assume_air(cabin_air)
 	for(var/mob/living/occupant as anything in occupants)
 		if(isAI(occupant))

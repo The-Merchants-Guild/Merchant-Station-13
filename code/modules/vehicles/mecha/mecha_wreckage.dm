@@ -231,5 +231,5 @@
 			/obj/item/mecha_parts/part/odysseus_left_leg,
 			/obj/item/mecha_parts/part/odysseus_right_leg)
 
-/obj/structure/mecha_wreckage.proc/kaboom()
+/obj/structure/mecha_wreckage/proc/kaboom()
 	explosion(loc, -1, 1, 2, 3, 3 ,3)

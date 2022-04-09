@@ -4,9 +4,10 @@
  * Scans for mobs or objects
  */
 /obj/item/circuit_component/computer_vision
-	display_name = "Computer Vision Component"
+	display_name = "Computer Vision"
 	display_desc = "Scans its surroundings to find mobs or objects"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
+	icon_state = "computer_vision"
 
 	var/datum/port/output/scanned_objects
 	var/scan_range = 5

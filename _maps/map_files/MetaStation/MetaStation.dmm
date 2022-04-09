@@ -55537,9 +55537,6 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/security/brig)
-"qpm" = (
-/turf/open/floor/engine/n2,
-/area/maintenance/starboard)
 "qpp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -120643,7 +120640,7 @@ apc
 aqq
 rID
 bUy
-qpm
+alq
 waS
 uHb
 qkN

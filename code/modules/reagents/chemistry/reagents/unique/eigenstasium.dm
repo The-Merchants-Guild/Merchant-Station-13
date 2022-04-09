@@ -16,10 +16,8 @@
 	color = "#5020F4"
 	overdose_threshold = 15
 	metabolization_rate = 1 * REAGENTS_METABOLISM
-	ph = 3.7
 	purity = 0.5
 	creation_purity = 0.5
-	impure_chem = /datum/reagent/impurity/eigenswap
 	inverse_chem = null
 	inverse_chem_val = 0
 	failed_chem = /datum/reagent/bluespace //crashes out

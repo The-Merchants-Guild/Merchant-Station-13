@@ -48,10 +48,6 @@
 	. = ..()
 	explode_flash(equilibrium.reacted_vol/10, 10)
 
-/datum/chemical_reaction/medicine/oculine/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
-	. = ..()
-	explode_flash(3, 30)
-
 
 /datum/chemical_reaction/medicine/inacusiate
 	results = list(/datum/reagent/medicine/inacusiate = 2)
@@ -76,12 +72,6 @@
 /datum/chemical_reaction/medicine/inacusiate/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
 	holder.my_atom.audible_message(span_notice("[icon2html(holder.my_atom, viewers(DEFAULT_MESSAGE_RANGE, src))]The [holder.my_atom] suddenly gives out a loud bang!"))
 	explode_deafen(holder, equilibrium, 0.5, 10, 3)
-
-/datum/chemical_reaction/medicine/inacusiate/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
-	var/power = equilibrium.reacted_vol/10
-	holder.my_atom.audible_message(span_notice("[icon2html(holder.my_atom, viewers(DEFAULT_MESSAGE_RANGE, src))]The [holder.my_atom] suddenly gives out an ear-crushingly loud bang!"))
-	explode_deafen(holder, equilibrium, power/2, power*2, max(power/2, 3))
-	clear_products(holder)
 
 /datum/chemical_reaction/medicine/synaptizine
 	results = list(/datum/reagent/medicine/synaptizine = 3)
@@ -174,9 +164,6 @@
 /datum/chemical_reaction/medicine/ephedrine/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
 	default_explode(holder, equilibrium.reacted_vol, 0, 25)
 
-/datum/chemical_reaction/medicine/ephedrine/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
-	default_explode(holder, equilibrium.reacted_vol, 0, 20)
-
 /datum/chemical_reaction/medicine/diphenhydramine
 	results = list(/datum/reagent/medicine/diphenhydramine = 4)
 	required_reagents = list(/datum/reagent/fuel/oil = 1, /datum/reagent/carbon = 1, /datum/reagent/bromine = 1, /datum/reagent/diethylamine = 1, /datum/reagent/consumable/ethanol = 1)
@@ -227,9 +214,6 @@
 		explode_attack_chem(holder, equilibrium, /datum/reagent/impurity/mannitol, 5)
 		explode_invert_smoke(holder, equilibrium)
 
-/datum/chemical_reaction/medicine/mannitol/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
-	overheated(holder, equilibrium, vol_added)
-
 /datum/chemical_reaction/medicine/neurine
 	results = list(/datum/reagent/medicine/neurine = 3)
 	required_reagents = list(/datum/reagent/medicine/mannitol = 1, /datum/reagent/acetone = 1, /datum/reagent/oxygen = 1)
@@ -253,10 +237,6 @@
 		explode_invert_smoke(holder, equilibrium, clear_products = FALSE, clear_reactants = FALSE)
 		explode_attack_chem(holder, equilibrium, /datum/reagent/inverse/neurine, 10)
 		clear_products(holder, 5)
-
-/datum/chemical_reaction/medicine/neurine/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
-	overheated(holder, equilibrium, vol_added)
-
 /datum/chemical_reaction/medicine/mutadone
 	results = list(/datum/reagent/medicine/mutadone = 3)
 	required_reagents = list(/datum/reagent/toxin/mutagen = 1, /datum/reagent/acetone = 1, /datum/reagent/bromine = 1)
@@ -282,9 +262,6 @@
 	reaction_flags = REACTION_CLEAR_INVERSE
 
 /datum/chemical_reaction/medicine/antihol/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
-	explode_smoke(holder, equilibrium)
-
-/datum/chemical_reaction/medicine/antihol/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
 	explode_smoke(holder, equilibrium)
 
 

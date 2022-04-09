@@ -54,6 +54,8 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 
 	///Is the valve open?
 	var/valve_open = FALSE
+	///Is the pressure regulator broken?
+	var/broken_regulator = FALSE
 	///Used to log opening and closing of the valve, available on VV
 	var/release_log = ""
 	///How much the canister should be filled (recommended from 0 to 1)
@@ -599,7 +601,8 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 		"releasePressure" = round(release_pressure),
 		"valveOpen" = !!valve_open,
 		"isPrototype" = !!prototype,
-		"hasHoldingTank" = !!holding
+		"hasHoldingTank" = !!holding,
+		"brokenRegulator" = broken_regulator
 	)
 
 	if (prototype)
@@ -647,6 +650,9 @@ GLOBAL_LIST_INIT(gas_id_to_canister, init_gas_id_to_canister())
 				req_access = list()
 				. = TRUE
 		if("pressure")
+			if (broken_regulator)
+				. = TRUE
+				return
 			var/pressure = params["pressure"]
 			if(pressure == "reset")
 				pressure = CAN_DEFAULT_RELEASE_PRESSURE

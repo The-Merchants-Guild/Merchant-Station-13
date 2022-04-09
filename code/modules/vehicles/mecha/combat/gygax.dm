@@ -32,7 +32,6 @@
 	internals_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/gygax/dark
 	max_equip = 5
-	destruction_sleep_duration = 20
 
 /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded/Initialize()
 	. = ..()

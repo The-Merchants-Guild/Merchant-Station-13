@@ -20,7 +20,7 @@ export const Canister = (props, context) => {
     defaultReleasePressure,
     minReleasePressure,
     maxReleasePressure,
-    pressureLimit,
+    maximumPressure,
     valveOpen,
     isPrototype,
     hasHoldingTank,
@@ -65,12 +65,12 @@ export const Canister = (props, context) => {
                     size={1.75}
                     value={tankPressure}
                     minValue={0}
-                    maxValue={pressureLimit}
-                    alertAfter={pressureLimit * 0.70}
+                    maxValue={maximumPressure}
+                    alertAfter={maximumPressure * 0.70}
                     ranges={{
-                      "good": [0, pressureLimit * 0.70],
-                      "average": [pressureLimit * 0.70, pressureLimit * 0.85],
-                      "bad": [pressureLimit * 0.85, pressureLimit],
+                      "good": [0, maximumPressure * 0.70],
+                      "average": [maximumPressure * 0.70, maximumPressure * 0.85],
+                      "bad": [maximumPressure * 0.85, maximumPressure],
                     }}
                     format={formatPressure} />
                 </LabeledControls.Item>

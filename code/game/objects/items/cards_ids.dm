@@ -487,9 +487,11 @@
 /obj/item/card/id/away/hotel
 	name = "Staff ID"
 	desc = "A staff ID used to access the hotel's doors."
+	card_access = /datum/card_access/away/hotel
 
 /obj/item/card/id/away/hotel/security
 	name = "Officer ID"
+	card_access = /datum/card_access/away/hotel/security
 
 /obj/item/card/id/away/old
 	name = "\proper a perfectly generic identification card"
@@ -674,6 +676,7 @@
 	name = "agent card"
 	desc = "A highly advanced chameleon ID card. Touch this card on another ID card or human to choose which accesses to copy. Has special magnetic properties which force it to the front of wallets."
 	card_access = /datum/card_access/chameleon
+	access_tier = 5
 	/// Have we set a custom name and job assignment, or will we use what we're given when we chameleon change?
 	var/forged = FALSE
 

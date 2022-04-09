@@ -46,10 +46,14 @@
 
 	/// Y position of the examined component
 	var/examined_rel_y = 0
+	
+	/// Just so we only print things that we have researched - is it bloat? not for me to decide
+	var/datum/techweb/techweb
 
 /obj/item/integrated_circuit/Initialize()
 	. = ..()
 	RegisterSignal(src, COMSIG_ATOM_USB_CABLE_TRY_ATTACH, .proc/on_atom_usb_cable_try_attach)
+	techweb = SSresearch.science_tech
 
 /obj/item/integrated_circuit/loaded/Initialize()
 	. = ..()
@@ -271,6 +275,27 @@
 	.["examined_rel_x"] = examined_rel_x
 	.["examined_rel_y"] = examined_rel_y
 
+
+/obj/item/integrated_circuit/ui_static_data(mob/user)
+	var/list/data = list()
+
+	var/list/designs = list()
+
+	for (var/researched_design_id in techweb.researched_designs)
+		var/datum/design/design = SSresearch.techweb_design_by_id(researched_design_id)
+		if (!(design.build_type & COMPONENT_INTEGRATED))
+			continue
+
+		designs[researched_design_id] = list(
+			"name" = design.name,
+			"description" = design.desc,
+			"categories" = design.category,
+		)
+
+	data["designs"] = designs
+
+	return data
+
 /obj/item/integrated_circuit/ui_host(mob/user)
 	if(shell)
 		return shell
@@ -461,6 +486,20 @@
 		if("remove_examined_component")
 			examined_component = null
 			. = TRUE
+		if ("add_component")
+			var/design_id = params["designId"]
+			if (!techweb.researched_designs[design_id])
+				return TRUE
+
+			var/datum/design/design = SSresearch.techweb_design_by_id(design_id)
+			if (!(design.build_type & COMPONENT_INTEGRATED))
+				return TRUE
+
+			var/atom/printed_design = new design.build_path()
+			if(istype(printed_design, /obj/item/circuit_component))
+				var/obj/item/circuit_component/C = printed_design
+				C.added_internally = TRUE
+				add_component(C, null)
 
 /obj/item/integrated_circuit/proc/on_atom_usb_cable_try_attach(datum/source, obj/item/usb_cable/usb_cable, mob/user)
 	SIGNAL_HANDLER

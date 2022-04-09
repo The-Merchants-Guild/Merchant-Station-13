@@ -35,9 +35,7 @@
 		return
 
 	var/localhost_addresses = list("127.0.0.1", "::1")
-	var/list/options = list("Regular Restart", "Regular Restart (with delay)", "Hard Restart (No Delay/Feeback Reason)", "Hardest Restart (No actions, just reboot)")
-	if(world.TgsAvailable())
-		options += "Server Restart (Kill and restart DD)";
+	var/list/options = list("Regular Restart", "Regular Restart (with delay)", "Hard Restart (No Delay/Feeback Reason)", "Hardest Restart (No actions, just reboot)", "Server Restart (Kill and restart DD)")
 
 	if(SSticker.admin_delay_notice)
 		if(tgui_alert(usr, "Are you sure? An admin has already delayed the round end for the following reason: [SSticker.admin_delay_notice]", "Confirmation", list("Yes", "No")) != "Yes")
@@ -69,7 +67,8 @@
 				world.Reboot(fast_track = TRUE)
 			if("Server Restart (Kill and restart DD)")
 				to_chat(world, "Server restart - [init_by]")
-				world.TgsEndProcess()
+				SSticker.hard_restart = TRUE
+				world.Reboot()
 
 /datum/admins/proc/end_round()
 	set category = "Server"

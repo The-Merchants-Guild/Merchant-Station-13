@@ -103,7 +103,17 @@
 		if(HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
 			balloon_alert(src, "fingers are too big!")
 			return FALSE
-	if(HAS_TRAIT(src, TRAIT_NOGUNS))
+
+	if(HAS_TRAIT_FROM(src, TRAIT_NOGUNS, ARMSTRONG_STYLE_TRAIT))
+		to_chat(src, span_warning("Use of ranged weaponry would bring dishonor to the clan."))
+		return FALSE
+	else if(HAS_TRAIT_FROM(src, TRAIT_NOGUNS, SLEEPING_CARP_TRAIT))
+		to_chat(src, span_warning("Use of ranged weaponry would bring dishonor to the clan."))
+		return FALSE
+	else if(HAS_TRAIT_FROM(src, TRAIT_NOGUNS, NINJA_SUIT_TRAIT))
+		to_chat(src, span_warning("Use of ranged weaponry would bring dishonor to the clan."))
+		return FALSE
+	else if(HAS_TRAIT(src, TRAIT_NOGUNS))
 		to_chat(src, span_warning("You can't bring yourself to use a ranged weapon!"))
 		return FALSE
 

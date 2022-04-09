@@ -20,10 +20,10 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 
 /datum/design/bluemine
-	name = "Bluespace Mining"
+	name = "Machine Design (Bluespace Miner)"
 	desc = "Through the joint effort of Bluespace-A.S.S Technologies, It is now possible to mine a trickle of resources via Bluespace Magic..."
 	id = "bluemine"
-	build_type = PROTOLATHE
+	build_type = IMPRINTER
 	materials = list(/datum/material/gold = 500, /datum/material/silver = 500, /datum/material/bluespace = 500) //quite cheap, for more convenience
 	build_path = /obj/item/circuitboard/machine/bluespace_miner
 	category = list("Bluespace Designs")

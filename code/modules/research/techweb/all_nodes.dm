@@ -20,7 +20,6 @@
 		"bucket",
 		"c-reader",
 		"circuit_imprinter",
-		"circuit_imprinter_offstation",
 		"conveyor_belt",
 		"conveyor_switch",
 		"design_disk",
@@ -1064,6 +1063,7 @@
 	design_ids = list(
 		"cryo_Grenade",
 		"cryotube",
+		"noreactsyringe",
 		"splitbeaker",
 		"stasis",
 	)
@@ -1397,6 +1397,7 @@
 		"c38_hotshot",
 		"c38_iceblox",
 		"techshotshell",
+		"shotgundartcryostasis",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 

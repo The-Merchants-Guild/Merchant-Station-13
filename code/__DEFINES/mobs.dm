@@ -224,9 +224,8 @@
 //Sentience types, to prevent things like sentience potions from giving bosses sentience
 #define SENTIENCE_ORGANIC 1
 #define SENTIENCE_ARTIFICIAL 2
-#define SENTIENCE_HUMANOID 3
-#define SENTIENCE_MINEBOT 4
-#define SENTIENCE_BOSS 5
+#define SENTIENCE_MINEBOT 3
+#define SENTIENCE_BOSS 4
 
 //Mob AI Status
 #define POWER_RESTORATION_OFF 0

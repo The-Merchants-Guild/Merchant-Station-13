@@ -139,8 +139,9 @@
 
 /obj/item/card/id/update_overlays()
 	. = ..()
-
-	cached_flat_icon = null
+	if (chip_slots)
+		. += "chip[min(chips.len, 2)]"
+		cached_flat_icon = null
 
 /// If no cached_flat_icon exists, this proc creates it and crops it. This proc then returns the cached_flat_icon. Intended only for use displaying ID card icons in chat.
 /obj/item/card/id/proc/get_cached_flat_icon()
@@ -231,11 +232,13 @@
 		else
 			to_chat(user, span_notice("You slot the [W] into the ID card."))
 			apply_access_chip(W)
+			update_appearance(UPDATE_OVERLAYS)
 		return
 	else if (W.tool_behaviour == TOOL_SCREWDRIVER && chips.len)
 		var/chip = chips[chips.len]
 		to_chat(user, span_notice("You remove [chip] from the card."))
 		remove_access_chip(chip) // remove last in list
+		update_appearance(UPDATE_OVERLAYS)
 		return
 	else
 		return ..()

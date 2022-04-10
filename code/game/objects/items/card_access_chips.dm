@@ -17,7 +17,6 @@
 
 /obj/item/card_access_chip/roundstart
 	icon_state = "aachip-roundstart"
-	rewritable = FALSE // In case someone decides to change the base.
 	var/assignment = ""
 
 /obj/item/card_access_chip/roundstart/Initialize(mapload, _assignment)
@@ -28,5 +27,4 @@
 /obj/item/card_access_chip/mining
 	name = "mining access chip"
 	icon_state = "aachip-cargo"
-	rewritable = FALSE // In case someone decides to change the base.
 	access = list(ACCESS_MAILSORTING, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_MINING, ACCESS_MINING_STATION)

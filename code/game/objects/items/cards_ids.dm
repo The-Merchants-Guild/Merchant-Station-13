@@ -106,7 +106,7 @@
 	var/access_tier = 0
 
 	/// How many additional access chips can this ID card have?
-	var/chip_slots = 2
+	var/chip_slots = 0
 
 	/// List of installed additional access chips.
 	var/list/chips = list()
@@ -446,38 +446,39 @@
 /obj/item/card/id/tier0
 	icon = 'icons/obj/new_id.dmi'
 	icon_state = "tier0"
-	chip_slots = 0
 	access_tier = 0
 
 /obj/item/card/id/tier1
 	icon = 'icons/obj/new_id.dmi'
 	icon_state = "tier1"
+	chip_slots = 2
 	access_tier = 1
 
 /obj/item/card/id/tier2
 	icon = 'icons/obj/new_id.dmi'
 	icon_state = "tier2"
+	chip_slots = 2
 	access_tier = 2
 
 /obj/item/card/id/tier3
 	icon = 'icons/obj/new_id.dmi'
 	icon_state = "tier3"
+	chip_slots = 2
 	access_tier = 3
 
 /obj/item/card/id/tier4
 	icon = 'icons/obj/new_id.dmi'
 	icon_state = "tier4"
+	chip_slots = 2
 	access_tier = 4
 
 /obj/item/card/id/tier5
-	icon = 'icons/obj/new_id.dmi'
-	icon_state = "tier5"
 	name = "gold identification card"
 	desc = "A golden card which shows power and might."
+	icon = 'icons/obj/new_id.dmi'
+	icon_state = "tier5"
+	chip_slots = 2
 	access_tier = 5
-
-/obj/item/card/id/tier6
-	access_tier = 6
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"

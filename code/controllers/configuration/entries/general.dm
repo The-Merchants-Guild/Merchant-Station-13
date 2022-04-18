@@ -280,7 +280,7 @@
 /datum/config_entry/string/panic_server_address/ValidateAndSet(str_val)
 	return str_val != "byond://address:port" && ..()
 
-/datum/config_entry/string/invoke_youtubedl
+/datum/config_entry/string/invoke_ytdlp
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/flag/show_irc_name

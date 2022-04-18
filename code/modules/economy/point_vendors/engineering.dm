@@ -13,11 +13,6 @@
 		/obj/item/grenade/chem_grenade/smart_metal_foam = list("Smart Metal Foam Grenade", 25, 250, 10, 2 MINUTES),
 		/obj/item/geiger_counter = list("Geiger Counter", 10, 100, 5, 2 MINUTES),
 		/obj/item/stock_parts/cell/high = list("High-Capacity Power Cell", 80, 500, 10, 8 MINUTES),
-		/obj/item/electronics/airlock = list("Airlock Electronics", 10, 100, 10, 2 MINUTES),
-		/obj/item/electronics/apc = list("Power Control Module", 10, 100, 10, 2 MINUTES),
-		/obj/item/electronics/airalarm = list("Air Alarm Electronics", 10, 100, 10, 2 MINUTES),
-		/obj/item/electronics/firealarm = list("Fire Alarm Electronics", 10, 100, 10, 2 MINUTES),
-		/obj/item/electronics/firelock = list("Firelock Circuitry", 10, 100, 10, 2 MINUTES),
 		/obj/item/storage/belt/utility = list("Toolbelt", 200, 1000, 3, 5 MINUTES),
 		/obj/item/construction/rcd/loaded = list("Rapid-Construction-Device", 500, 5000, 2, 10 MINUTES),
 		/obj/item/storage/box/smart_metal_foam = list("Box of Smart Metal Foam Grenades", 150, 1500, 1, 10 MINUTES)

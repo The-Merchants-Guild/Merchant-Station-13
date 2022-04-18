@@ -18,7 +18,7 @@
 	desc = "This butt has bluespace properties, letting you store more items in it. Four tiny items, or two small ones, or one normal one can fit."
 	id = "bluebutt"
 	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 500, MAT_SILVER = 500) //quite cheap, for more convenience
+	materials = list(/datum/material/gold = 500, /datum/material/silver = 500) //quite cheap, for more convenience
 	build_path = /obj/item/organ/butt/bluebutt
 	category = list("Bluespace Designs")
 
@@ -37,7 +37,7 @@
 	name = "Artificial Bluespace Crystal"
 	desc = "A small blue crystal with mystical properties."
 	id = "bluespace_crystal"
-	build_type = PROTOLATHE | AWAY_LATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/diamond = 1500, /datum/material/plasma = 1500)
 	build_path = /obj/item/stack/ore/bluespace_crystal/artificial
 	category = list("Bluespace Designs")
@@ -67,7 +67,7 @@
 	name = "Mining Satchel of Holding"
 	desc = "A mining satchel that can hold an infinite amount of ores."
 	id = "minerbag_holding"
-	build_type = PROTOLATHE | AWAY_LATHE
+	build_type = PROTOLATHE
 	materials = list(/datum/material/gold = 250, /datum/material/uranium = 500) //quite cheap, for more convenience
 	build_path = /obj/item/storage/bag/ore/holding
 	category = list("Bluespace Designs")

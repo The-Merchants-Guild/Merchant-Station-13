@@ -1,16 +1,13 @@
 /*
 //////////////////////////////////////
 Disfiguration
-
 	Hidden.
 	No change to resistance.
 	Increases stage speed.
 	Slightly increases transmittability.
 	Critical Level.
-
 BONUS
 	Adds disfiguration trait making the mob appear as "Unknown" to others.
-
 //////////////////////////////////////
 */
 

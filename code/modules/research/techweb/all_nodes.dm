@@ -9,6 +9,8 @@
 	description = "NT default research technologies."
 	// Default research tech, prevents bricking
 	design_ids = list(
+		"airlock_board",
+		"apc_control",
 		"basic_capacitor",
 		"basic_cell",
 		"basic_matter_bin",
@@ -18,7 +20,6 @@
 		"bucket",
 		"c-reader",
 		"circuit_imprinter",
-		"circuit_imprinter_offstation",
 		"conveyor_belt",
 		"conveyor_switch",
 		"design_disk",
@@ -28,6 +29,8 @@
 		"doppler_array",
 		"experi_scanner",
 		"experimentor",
+		"firealarm_electronics",
+		"firelock_board",
 		"handlabel",
 		"mechfab",
 		"micro_mani",
@@ -41,6 +44,7 @@
 		"plastic_spoon",
 		"plastitanium",
 		"plastitaniumglass",
+		"power_control",
 		"rdconsole",
 		"rdserver",
 		"rdservercontrol",
@@ -49,6 +53,7 @@
 		"sec_38",
 		"sec_dart",
 		"sec_dslug",
+		"sec_lslug",
 		"space_heater",
 		"tech_disk",
 		"titaniumglass",
@@ -417,19 +422,15 @@
 		"adv_matter_bin",
 		"adv_scanning",
 		"airalarm_electronics",
-		"airlock_board",
-		"apc_control",
 		"atmos_control",
 		"atmosalerts",
 		"autolathe",
-		"cell_charger",
 		"cell_charger",
 		"crystallizer",
 		"electrolyzer",
 		"emergency_oxygen",
 		"emergency_oxygen_engi",
-		"firealarm_electronics",
-		"firelock_board",
+		"emitter",
 		"grounding_rod",
 		"high_cell",
 		"high_micro_laser",
@@ -440,7 +441,6 @@
 		"plasma_tank",
 		"plasmaman_tank_belt",
 		"pneumatic_seal",
-		"power control",
 		"powermonitor",
 		"rad_collector",
 		"recharger",
@@ -452,7 +452,7 @@
 		"stack_machine",
 		"tesla_coil",
 		"thermomachine",
-		"w-recycler" , "emitter",
+		"w-recycler",
 		"welding_goggles",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
@@ -1064,6 +1064,7 @@
 	design_ids = list(
 		"cryo_Grenade",
 		"cryotube",
+		"noreactsyringe",
 		"splitbeaker",
 		"stasis",
 	)
@@ -1397,6 +1398,7 @@
 		"c38_hotshot",
 		"c38_iceblox",
 		"techshotshell",
+		"shotgundartcryostasis",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 

@@ -81,12 +81,8 @@
 /obj/machinery/atmospherics/components/binary/crystallizer/update_overlays()
 	. = ..()
 	cut_overlays()
-	var/mutable_appearance/pipe_appearance1 = mutable_appearance('icons/obj/atmospherics/pipes/pipe_underlays.dmi', "intact_[dir]_[piping_layer]", layer = GAS_SCRUBBER_LAYER)
-	pipe_appearance1.color = COLOR_LIME
-	var/mutable_appearance/pipe_appearance2 = mutable_appearance('icons/obj/atmospherics/pipes/pipe_underlays.dmi', "intact_[turn(dir, 180)]_[piping_layer]", layer = GAS_SCRUBBER_LAYER)
-	pipe_appearance2.color = COLOR_MOSTLY_PURE_RED
-	. += pipe_appearance1
-	. += pipe_appearance2
+	add_overlay(getpipeimage(icon, "pipe", dir, COLOR_LIME, piping_layer))
+	add_overlay(getpipeimage(icon, "pipe", turn(dir, 180), COLOR_MOSTLY_PURE_RED, piping_layer))
 
 /obj/machinery/atmospherics/components/binary/crystallizer/update_icon_state()
 	. = ..()
@@ -138,11 +134,11 @@
 /obj/machinery/atmospherics/components/binary/crystallizer/proc/heat_calculations()
 	if(	(internal.temperature >= (selected_recipe.min_temp * MIN_DEVIATION_RATE) && internal.temperature <= selected_recipe.min_temp) || \
 		(internal.temperature >= selected_recipe.max_temp && internal.temperature <= (selected_recipe.max_temp * MAX_DEVIATION_RATE)))
-		quality_loss = min(quality_loss + 1.5, 100)
+		quality_loss = min(quality_loss + (MIN_PROGRESS_AMOUNT * 4.5 / (round(log(10, total_recipe_moles * 0.1), 0.01))), 100)
 
 	var/median_temperature = (selected_recipe.max_temp - selected_recipe.min_temp) * 0.5
 	if(internal.temperature >= (median_temperature * MIN_DEVIATION_RATE) && internal.temperature <= (median_temperature * MAX_DEVIATION_RATE))
-		quality_loss = max(quality_loss - 5.5, -100)
+		quality_loss = max(quality_loss - (MIN_PROGRESS_AMOUNT * 4.5 / (round(log(10, total_recipe_moles * 0.1), 0.01))), -85)
 
 	if(selected_recipe.reaction_type == "endothermic")
 		internal.temperature = max(internal.temperature - (selected_recipe.energy_release / internal.heat_capacity()), TCMB)

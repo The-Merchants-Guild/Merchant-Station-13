@@ -1574,6 +1574,6 @@
 
 /*Power module, used for APC construction*/
 /obj/item/electronics/apc
-	name = "power control module"
+	name = "APC electronics"
 	icon_state = "power_mod"
 	desc = "Heavy-duty switching circuits for power control."

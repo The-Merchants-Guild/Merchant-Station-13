@@ -407,7 +407,7 @@
 	AddComponent(/datum/component/butchering, 70, 110) //the harvest gives a high bonus chance
 
 /obj/item/nullrod/scythe/vibro
-	name = "high frequency blade"
+	name = "high fronquency bladd"
 	desc = "Bad references are the DNA of the soul."
 	icon_state = "hfrequency0"
 	inhand_icon_state = "hfrequency1"

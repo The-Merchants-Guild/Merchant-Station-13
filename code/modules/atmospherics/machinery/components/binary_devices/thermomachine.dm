@@ -270,7 +270,7 @@
 	if(panel_open && item.tool_behaviour == TOOL_MULTITOOL)
 		color_index = (color_index >= GLOB.pipe_paint_colors.len) ? (color_index = 1) : (color_index = 1 + color_index)
 		pipe_color = GLOB.pipe_paint_colors[GLOB.pipe_paint_colors[color_index]]
-		visible_message("<span class='notice'>You set [src] pipe color to [GLOB.pipe_color_name[pipe_color]].")
+		visible_message("<span class='notice'>You set [src] pipe color to [GLOB.pipe_paint_colors[pipe_color]].")
 		update_appearance()
 		return SECONDARY_ATTACK_CONTINUE_CHAIN
 	return SECONDARY_ATTACK_CONTINUE_CHAIN

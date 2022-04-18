@@ -7,6 +7,7 @@
 	var/super_fart = 76
 	var/super_nova_fart = 12
 	var/fart_fly = 12
+	var/smug_cd = 0
 /datum/emote/living/carbon/fart
 	key = "fart"
 	key_third_person = "farts"
@@ -143,6 +144,7 @@
 /datum/emote/living/carbon/human/superfart
 	key = "superfart"
 	key_third_person = "superfarts"
+	stat_allowed = HARD_CRIT
 
 /datum/emote/living/carbon/human/superfart/run_emote(mob/living/carbon/human/user, params)
 	. = ..()
@@ -393,4 +395,3 @@
 	else
 		qdel(noogie)
 		to_chat(user, span_warning("You're incapable of noogie'ing in your current state."))
-

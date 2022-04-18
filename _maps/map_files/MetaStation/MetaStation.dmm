@@ -17609,8 +17609,8 @@
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable,
 /obj/item/storage/backpack/duffelbag/med/surgery{
-	step_x = -5;
-	step_y = 11
+	pixel_x = -5;
+	pixel_y = 11
 	},
 /turf/open/floor/iron/white,
 /area/medical/surgery)
@@ -22294,8 +22294,7 @@
 	},
 /obj/structure/bed/pod{
 	name = "medical bed";
-	desc = "An old medical bed, just waiting for replacement with something up to date.";
-	step_y = 0
+	desc = "An old medical bed, just waiting for replacement with something up to date."
 	},
 /obj/item/bedsheet/medical,
 /turf/open/floor/iron/white,
@@ -24852,8 +24851,6 @@
 	pixel_y = 8
 	},
 /obj/item/reagent_containers/chem_pack{
-	step_x = -1;
-	step_y = -3;
 	pixel_x = 10;
 	pixel_y = 10
 	},
@@ -34508,17 +34505,15 @@
 /obj/structure/table/reinforced,
 /obj/machinery/light/directional/north,
 /obj/item/clothing/gloves/color/latex/nitrile{
-	step_y = 6
+	pixel_y = 6
 	},
 /obj/item/clothing/gloves/color/latex/nitrile{
-	step_y = 4
+	pixel_y = 4
 	},
 /obj/item/clothing/gloves/color/latex/nitrile{
-	step_y = 2
+	pixel_y = 2
 	},
-/obj/item/clothing/gloves/color/latex/nitrile{
-	step_y = 0
-	},
+/obj/item/clothing/gloves/color/latex/nitrile,
 /turf/open/floor/iron/dark,
 /area/medical/storage)
 "jtP" = (
@@ -37986,8 +37981,8 @@
 "kCu" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/duffelbag/med/surgery{
-	step_x = -5;
-	step_y = 11
+	pixel_x = -5;
+	pixel_y = 11
 	},
 /obj/structure/window/reinforced/tinted{
 	dir = 4
@@ -40569,8 +40564,7 @@
 "ltb" = (
 /obj/structure/bed/pod{
 	name = "medical bed";
-	desc = "An old medical bed, just waiting for replacement with something up to date.";
-	step_y = 0
+	desc = "An old medical bed, just waiting for replacement with something up to date."
 	},
 /obj/item/bedsheet/medical,
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -48582,7 +48576,6 @@
 "nUV" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Primary Treatment Centre";
-	step_y = 0;
 	req_access_txt = "5"
 	},
 /obj/machinery/door/firedoor,
@@ -50857,7 +50850,7 @@
 	},
 /obj/machinery/light_switch/directional/west,
 /obj/item/storage/belt/medical{
-	step_y = 4
+	pixel_y = 4
 	},
 /obj/item/clothing/glasses/hud/health,
 /obj/structure/window/reinforced,
@@ -60410,7 +60403,7 @@
 	dir = 1
 	},
 /obj/item/storage/belt/medical{
-	step_y = 4
+	pixel_y = 4
 	},
 /obj/item/clothing/glasses/hud/health,
 /obj/structure/window/reinforced,
@@ -64447,9 +64440,7 @@
 /area/science/mixing)
 "tgQ" = (
 /obj/structure/water_source/puddle,
-/obj/structure/flora/junglebush/large{
-	pixel_y = 0
-	},
+/obj/structure/flora/junglebush/large,
 /obj/structure/cable,
 /turf/open/floor/grass,
 /area/medical/virology)
@@ -65505,7 +65496,7 @@
 	dir = 1
 	},
 /obj/item/storage/belt/medical{
-	step_y = 4
+	pixel_y = 4
 	},
 /obj/item/clothing/glasses/hud/health,
 /obj/structure/window/reinforced{
@@ -67223,8 +67214,8 @@
 	},
 /obj/machinery/airalarm/directional/south,
 /obj/item/storage/backpack/duffelbag/med/surgery{
-	step_x = -5;
-	step_y = 11
+	pixel_x = -5;
+	pixel_y = 11
 	},
 /turf/open/floor/iron/white,
 /area/medical/surgery)
@@ -72313,8 +72304,7 @@
 /obj/machinery/light/directional/south,
 /obj/structure/bed/pod{
 	name = "medical bed";
-	desc = "An old medical bed, just waiting for replacement with something up to date.";
-	step_y = 0
+	desc = "An old medical bed, just waiting for replacement with something up to date."
 	},
 /obj/item/bedsheet/medical,
 /turf/open/floor/iron/white,
@@ -72893,7 +72883,7 @@
 	},
 /obj/machinery/firealarm/directional/west,
 /obj/item/storage/belt/medical{
-	step_y = 4
+	pixel_y = 4
 	},
 /obj/item/clothing/glasses/hud/health,
 /obj/structure/window/reinforced{

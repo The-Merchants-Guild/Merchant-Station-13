@@ -73,7 +73,7 @@
 
 	var/ytdlp = CONFIG_GET(string/invoke_ytdlp)
 	if(!ytdlp)
-		to_chat(src, span_boldwarning("Youtube-dl was not configured, action unavailable"), confidential = TRUE) //Check config.txt for the INVOKE_YOUTUBEDL value
+		to_chat(src, span_boldwarning("yt-dlp was not configured, action unavailable"), confidential = TRUE) //Check config.txt for the INVOKE_YTDLP value
 		return
 
 	var/web_sound_input = input("Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via yt-dlp") as text|null
@@ -98,7 +98,7 @@
 				try
 					data = json_decode(stdout)
 				catch(var/exception/e)
-					to_chat(src, span_boldwarning("Youtube-dl JSON parsing FAILED:"), confidential = TRUE)
+					to_chat(src, span_boldwarning("Yt-dlp JSON parsing FAILED:"), confidential = TRUE)
 					to_chat(src, span_warning("[e]: [stdout]"), confidential = TRUE)
 					return
 
@@ -124,7 +124,7 @@
 					log_admin("[key_name(src)] played web sound: [web_sound_input]")
 					message_admins("[key_name(src)] played web sound: [web_sound_input]")
 			else
-				to_chat(src, span_boldwarning("Youtube-dl URL retrieval FAILED:"), confidential = TRUE)
+				to_chat(src, span_boldwarning("Yt-dlp URL retrieval FAILED:"), confidential = TRUE)
 				to_chat(src, span_warning("[stderr]"), confidential = TRUE)
 
 		else //pressed ok with blank

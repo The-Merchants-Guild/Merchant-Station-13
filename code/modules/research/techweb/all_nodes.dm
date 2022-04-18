@@ -53,6 +53,7 @@
 		"sec_38",
 		"sec_dart",
 		"sec_dslug",
+		"sec_lslug",
 		"space_heater",
 		"tech_disk",
 		"titaniumglass",

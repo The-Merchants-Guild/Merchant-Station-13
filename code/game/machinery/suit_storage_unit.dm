@@ -423,12 +423,7 @@
 		return
 	if(!istype(suit, /obj/item/clothing/suit/space))
 		return
-	if(!suit.cell)
 		return
-
-	var/obj/item/stock_parts/cell/C = suit.cell
-	use_power(charge_rate * delta_time)
-	C.give(charge_rate * delta_time)
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))

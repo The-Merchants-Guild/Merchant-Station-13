@@ -47708,9 +47708,6 @@
 	dir = 10
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/trimline/blue/end{
-	dir = 1
-	},
 /turf/open/floor/iron/white,
 /area/medical/treatment_center)
 "nIe" = (

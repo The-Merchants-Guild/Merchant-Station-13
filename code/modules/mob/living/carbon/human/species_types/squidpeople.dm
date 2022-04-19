@@ -4,10 +4,10 @@
     default_color = "b8dfda"
     species_traits = list(MUTCOLORS,EYECOLOR,TRAIT_NOSLIPWATER)
     inherent_traits = list(TRAIT_NOSLIPWATER)
-    default_features = list("mcolor" = "FFF") // bald
+//	default_features = list("mcolor" = "FFF") // bald
     changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | SLIME_EXTRACT
     use_skintones = 0
-    no_equip = list(SLOT_SHOES)
+    no_equip = list(ITEM_SLOT_FEET)
     skinned_type = /obj/item/stack/sheet/animalhide/human
     special_step_sounds = list('sound/effects/footstep/squidwalk1.ogg', 'sound/effects/footstep/squidwalk2.ogg' )
     disliked_food = FRIED
@@ -16,8 +16,8 @@
 /mob/living/carbon/human/species/squid
     race = /datum/species/squid
 
-/datum/species/squid/qualifies_for_rank(rank, list/features)
-    return TRUE
+//	/datum/species/squid/qualifies_for_rank(rank, list/features)
+//	    return TRUE
 
 /datum/species/squid/random_name(gender,unique,lastname)
 	if(unique)

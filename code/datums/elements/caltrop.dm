@@ -96,7 +96,10 @@
 	H.apply_damage(damage, BRUTE, picked_def_zone, wound_bonus = CANT_WOUND)
 
 	if(!(flags & CALTROP_NOSTUN)) // Won't set off the paralysis.
-		H.Paralyze(60)
+		if(H.dna.species.id == "squid")
+			H.Paralyze(90)
+
+		else H.Paralyze(60)
 
 	if(!soundfile)
 		return

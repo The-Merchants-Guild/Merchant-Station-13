@@ -1,9 +1,10 @@
 /datum/species/squid
     name = "Squidperson"
     id = "squid"
+	say_mod = "spits"
     default_color = "b8dfda"
-    species_traits = list(MUTCOLORS,EYECOLOR,TRAIT_NOSLIPWATER)
-    inherent_traits = list(TRAIT_NOSLIPWATER)
+    species_traits = list(MUTCOLORS,EYECOLOR,TRAIT_NOSLIPWATER,HAIR,HAS_FLESH,HAS_BONE,LIPS)
+    inherent_traits = list(TRAIT_NOSLIPWATER,TRAIT_ADVANCEDTOOLUSER,TRAIT_CAN_STRIP)
     payday_modifier = 0.75
 //	default_features = list("mcolor" = "FFF") // bald
     changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | SLIME_EXTRACT

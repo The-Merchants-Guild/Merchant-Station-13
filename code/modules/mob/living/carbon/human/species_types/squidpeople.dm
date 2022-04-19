@@ -4,17 +4,20 @@
     default_color = "b8dfda"
     species_traits = list(MUTCOLORS,EYECOLOR,TRAIT_NOSLIPWATER)
     inherent_traits = list(TRAIT_NOSLIPWATER)
+    payday_modifier = 0.75
 //	default_features = list("mcolor" = "FFF") // bald
     changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | SLIME_EXTRACT
     use_skintones = 0
     no_equip = list(ITEM_SLOT_FEET)
     skinned_type = /obj/item/stack/sheet/animalhide/human
+    ass_image = 'icons/ass/asssquid.png'
     special_step_sounds = list('sound/effects/footstep/squidwalk1.ogg', 'sound/effects/footstep/squidwalk2.ogg' )
+    attack_verb = "slap"
+    attack_sound = 'sound/weapons/whip.ogg'
+    miss_sound = 'sound/weapons/whipmiss.ogg'
+    grab_sound = 'sound/weapons/whipgrab.ogg'
     disliked_food = FRIED
 //	nojumpsuit = TRUE
-	attack_sound = 'sound/weapons/whip.ogg'
-	miss_sound = 'sound/weapons/whipmiss.ogg'
-	grab_sound = 'sound/weapons/whipgrab.ogg'
 
 /mob/living/carbon/human/species/squid
     race = /datum/species/squid

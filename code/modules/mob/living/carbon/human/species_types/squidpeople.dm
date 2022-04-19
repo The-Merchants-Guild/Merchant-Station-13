@@ -12,6 +12,9 @@
     special_step_sounds = list('sound/effects/footstep/squidwalk1.ogg', 'sound/effects/footstep/squidwalk2.ogg' )
     disliked_food = FRIED
 //	nojumpsuit = TRUE
+	attack_sound = 'sound/weapons/whip.ogg'
+	miss_sound = 'sound/weapons/whipmiss.ogg'
+	grab_sound = 'sound/weapons/whipgrab.ogg'
 
 /mob/living/carbon/human/species/squid
     race = /datum/species/squid

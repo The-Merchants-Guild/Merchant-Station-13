@@ -3,8 +3,8 @@
 	id = "squid"
 	say_mod = "spits out"
 	default_color = "b8dfda"
-	species_traits = list(MUTCOLORS,EYECOLOR,TRAIT_NOSLIPWATER,HAS_FLESH,HAS_BONE,LIPS)
-	inherent_traits = list(TRAIT_NOSLIPWATER,TRAIT_ADVANCEDTOOLUSER,TRAIT_CAN_STRIP,TRAIT_CAN_USE_FLIGHT_POTION)
+	species_traits = list(MUTCOLORS,EYECOLOR,HAS_FLESH,HAS_BONE,LIPS)
+	inherent_traits = list(TRAIT_ADVANCEDTOOLUSER,TRAIT_CAN_STRIP,TRAIT_CAN_USE_FLIGHT_POTION)
 	payday_modifier = 0.75
 //	default_features = list("mcolor" = "FFF") // bald
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT

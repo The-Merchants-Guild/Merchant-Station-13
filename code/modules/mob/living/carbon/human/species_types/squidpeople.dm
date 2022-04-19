@@ -1,7 +1,7 @@
 /datum/species/squid
     name = "Squidperson"
     id = "squid"
-	say_mod = "spits"
+    say_mod = "spits"
     default_color = "b8dfda"
     species_traits = list(MUTCOLORS,EYECOLOR,TRAIT_NOSLIPWATER,HAIR,HAS_FLESH,HAS_BONE,LIPS)
     inherent_traits = list(TRAIT_NOSLIPWATER,TRAIT_ADVANCEDTOOLUSER,TRAIT_CAN_STRIP)

@@ -820,5 +820,3 @@
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
-
-#undef HARDSUIT_EMP_BURN

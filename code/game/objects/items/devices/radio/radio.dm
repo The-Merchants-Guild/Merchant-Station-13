@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "walkietalkie"
 	inhand_icon_state = "walkietalkie"
 	worn_icon_state = "radio"
-	desc = "A basic handheld radio that communicates on the station's subspace network."
+	desc = "A basic handheld radio that can communicate on the station's subspace network, or can can transmit messages locally in emergencies."
 	dog_fashion = /datum/dog_fashion/back
 
 	flags_1 = CONDUCT_1
@@ -42,8 +42,8 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	var/prison_radio = FALSE  // If true, the transmit wire starts cut.
 	var/unscrewed = FALSE  // Whether wires are accessible. Toggleable by screwdrivering.
 	var/freerange = FALSE  // If true, the radio has access to the full spectrum.
-	var/subspace_transmission = TRUE  // If true, the radio transmits and receives on subspace exclusively.
-	var/subspace_switchable = FALSE  // If true, subspace_transmission can be toggled at will.
+	var/subspace_transmission = FALSE  // If true, the radio transmits and receives on subspace exclusively.
+	var/subspace_switchable = TRUE  // If true, subspace_transmission can be toggled at will.
 	var/freqlock = FALSE  // Frequency lock to stop the user from untuning specialist radios.
 	var/use_command = FALSE  // If true, broadcasts will be large and BOLD.
 	var/command = FALSE  // If true, use_command can be toggled at will.
@@ -463,8 +463,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/borg
 	name = "cyborg radio"
-	subspace_transmission = TRUE
-	subspace_switchable = TRUE
 	dog_fashion = null
 
 /obj/item/radio/borg/resetChannels()

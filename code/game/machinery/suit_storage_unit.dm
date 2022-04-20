@@ -421,7 +421,6 @@
 		return
 	if(!istype(suit, /obj/item/clothing/suit/space))
 		return
-		return
 
 /obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))

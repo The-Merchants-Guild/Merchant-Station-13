@@ -464,6 +464,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/borg
 	name = "cyborg radio"
 	dog_fashion = null
+	subspace_transmission = TRUE
 
 /obj/item/radio/borg/resetChannels()
 	. = ..()

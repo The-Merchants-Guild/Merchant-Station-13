@@ -1,16 +1,31 @@
 #define FREQ_LISTENING (1<<0)
 
+// Used for translating channels to tokens on examination
+GLOBAL_LIST_INIT(channel_tokens, list(
+	RADIO_CHANNEL_COMMON = RADIO_KEY_COMMON,
+	RADIO_CHANNEL_SCIENCE = RADIO_TOKEN_SCIENCE,
+	RADIO_CHANNEL_COMMAND = RADIO_TOKEN_COMMAND,
+	RADIO_CHANNEL_MEDICAL = RADIO_TOKEN_MEDICAL,
+	RADIO_CHANNEL_ENGINEERING = RADIO_TOKEN_ENGINEERING,
+	RADIO_CHANNEL_SECURITY = RADIO_TOKEN_SECURITY,
+	RADIO_CHANNEL_CENTCOM = RADIO_TOKEN_CENTCOM,
+	RADIO_CHANNEL_SYNDICATE = RADIO_TOKEN_SYNDICATE,
+	RADIO_CHANNEL_SUPPLY = RADIO_TOKEN_SUPPLY,
+	RADIO_CHANNEL_SERVICE = RADIO_TOKEN_SERVICE,
+	MODE_BINARY = MODE_TOKEN_BINARY,
+	RADIO_CHANNEL_AI_PRIVATE = RADIO_TOKEN_AI_PRIVATE
+))
+
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
-	name = "station bounced radio"
+	name = "hand radio"
 	icon_state = "walkietalkie"
 	inhand_icon_state = "walkietalkie"
 	worn_icon_state = "radio"
-	desc = "A basic handheld radio that communicates with local telecommunication networks."
+	desc = "A basic handheld radio that communicates on the station's subspace network."
 	dog_fashion = /datum/dog_fashion/back
 
 	flags_1 = CONDUCT_1
-	slot_flags = ITEM_SLOT_BELT
 	throw_speed = 3
 	throw_range = 7
 	w_class = WEIGHT_CLASS_SMALL
@@ -27,7 +42,7 @@
 	var/prison_radio = FALSE  // If true, the transmit wire starts cut.
 	var/unscrewed = FALSE  // Whether wires are accessible. Toggleable by screwdrivering.
 	var/freerange = FALSE  // If true, the radio has access to the full spectrum.
-	var/subspace_transmission = FALSE  // If true, the radio transmits and receives on subspace exclusively.
+	var/subspace_transmission = TRUE  // If true, the radio transmits and receives on subspace exclusively.
 	var/subspace_switchable = FALSE  // If true, subspace_transmission can be toggled at will.
 	var/freqlock = FALSE  // Frequency lock to stop the user from untuning specialist radios.
 	var/use_command = FALSE  // If true, broadcasts will be large and BOLD.
@@ -38,6 +53,7 @@
 
 	// Encryption key handling
 	var/obj/item/encryptionkey/keyslot
+	var/obj/item/encryptionkey/keyslot2
 	var/translate_binary = FALSE  // If true, can hear the special binary channel.
 	var/independent = FALSE  // If true, can say/hear on the special CentCom channel.
 	var/syndie = FALSE  // If true, hears all well-known channels automatically, and can say/hear on the Syndicate channel.
@@ -68,6 +84,18 @@
 		if(keyslot.independent)
 			independent = TRUE
 
+	if(keyslot2)
+		for(var/ch_name in keyslot2.channels)
+			if(!(ch_name in src.channels))
+				channels[ch_name] = keyslot2.channels[ch_name]
+
+		if(keyslot2.translate_binary)
+			translate_binary = TRUE
+		if(keyslot2.syndie)
+			syndie = TRUE
+		if (keyslot2.independent)
+			independent = TRUE
+
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
@@ -88,6 +116,8 @@
 	remove_radio_all(src) //Just to be sure
 	QDEL_NULL(wires)
 	QDEL_NULL(keyslot)
+	QDEL_NULL(keyslot2)
+
 	return ..()
 
 /obj/item/radio/Initialize()
@@ -103,6 +133,8 @@
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
 	become_hearing_sensitive(ROUNDSTART_TRAIT)
+
+	recalculateChannels()
 
 /obj/item/radio/ComponentInitialize()
 	. = ..()
@@ -342,14 +374,63 @@
 	else
 		. += span_notice("It cannot be modified or attached.")
 
+	if(item_flags & IN_INVENTORY && loc == user)
+		// construction of frequency description
+		var/list/avail_chans = list("Use [RADIO_KEY_COMMON] for the currently tuned frequency")
+		if(translate_binary)
+			avail_chans += "use [MODE_TOKEN_BINARY] for [MODE_BINARY]"
+		if(length(channels))
+			for(var/i in 1 to length(channels))
+				if(i == 1)
+					avail_chans += "use [MODE_TOKEN_DEPARTMENT] or [GLOB.channel_tokens[channels[i]]] for [lowertext(channels[i])]"
+				else
+					avail_chans += "use [GLOB.channel_tokens[channels[i]]] for [lowertext(channels[i])]"
+		. += span_notice("A small screen on the [name] displays the following available frequencies:\n[english_list(avail_chans)].")
+
+		if(command)
+			. += span_info("Alt-click to toggle the high-volume mode.")
+	else
+		. += span_notice("A small screen on the [name] flashes, it's too small to read without holding or wearing it.")
+
 /obj/item/radio/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
+	user.set_machine(src)
+
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		unscrewed = !unscrewed
-		if(unscrewed)
-			to_chat(user, span_notice("The radio can now be attached and modified!"))
+		if(keyslot || keyslot2)
+			for(var/ch_name in channels)
+				SSradio.remove_object(src, GLOB.radiochannels[ch_name])
+				secure_radio_connections[ch_name] = null
+
+			if(keyslot)
+				user.put_in_hands(keyslot)
+				keyslot = null
+			if(keyslot2)
+				user.put_in_hands(keyslot2)
+				keyslot2 = null
+
+			recalculateChannels()
+			to_chat(user, span_notice("You pop the encryption keys out of the [name]."))
+
 		else
-			to_chat(user, span_notice("The radio can no longer be modified or attached!"))
+			to_chat(user, span_warning("This [name] doesn't have any unique encryption keys! How useless..."))
+
+	else if(istype(W, /obj/item/encryptionkey))
+		if(keyslot && keyslot2)
+			to_chat(user, span_warning("The [name] can't hold another key!"))
+			return
+
+		if(!keyslot)
+			if(!user.transferItemToLoc(W, src))
+				return
+			keyslot = W
+
+		else
+			if(!user.transferItemToLoc(W, src))
+				return
+			keyslot2 = W
+
+
+		recalculateChannels()
 	else
 		return ..()
 

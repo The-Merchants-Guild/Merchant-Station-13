@@ -412,7 +412,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 			to_chat(user, span_notice("You pop the encryption keys out of the [name]."))
 
 		else
-			to_chat(user, span_warning("This [name] doesn't have any unique encryption keys! How useless..."))
+			to_chat(user, span_warning("This [name] doesn't have any encryption keys installed!"))
 
 	else if(istype(W, /obj/item/encryptionkey))
 		if(keyslot && keyslot2)
@@ -481,39 +481,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/borg/syndicate/Initialize()
 	. = ..()
 	set_frequency(FREQ_SYNDICATE)
-
-/obj/item/radio/borg/attackby(obj/item/W, mob/user, params)
-
-	if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		if(keyslot)
-			for(var/ch_name in channels)
-				SSradio.remove_object(src, GLOB.radiochannels[ch_name])
-				secure_radio_connections[ch_name] = null
-
-
-			if(keyslot)
-				var/turf/T = get_turf(user)
-				if(T)
-					keyslot.forceMove(T)
-					keyslot = null
-
-			recalculateChannels()
-			to_chat(user, span_notice("You pop out the encryption key in the radio."))
-
-		else
-			to_chat(user, span_warning("This radio doesn't have any encryption keys!"))
-
-	else if(istype(W, /obj/item/encryptionkey/))
-		if(keyslot)
-			to_chat(user, span_warning("The radio can't hold another key!"))
-			return
-
-		if(!keyslot)
-			if(!user.transferItemToLoc(W, src))
-				return
-			keyslot = W
-
-		recalculateChannels()
 
 
 /obj/item/radio/off // Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.

@@ -98,7 +98,6 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/medicine/c2/libital/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 0.3 * REM * delta_time)
 	M.adjustBruteLoss(-3 * REM * normalise_creation_purity() * delta_time)
 	..()
 	return TRUE
@@ -162,7 +161,7 @@
 
 /datum/reagent/medicine/c2/lenturi/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjustFireLoss(-3 * REM * normalise_creation_purity() * delta_time)
-	M.adjustOrganLoss(ORGAN_SLOT_STOMACH, 0.4 * REM * delta_time)
+
 	..()
 	return TRUE
 
@@ -177,7 +176,6 @@
 
 /datum/reagent/medicine/c2/aiuri/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	M.adjustFireLoss(-2 * REM * normalise_creation_purity() * delta_time)
-	M.adjustOrganLoss(ORGAN_SLOT_EYES, 0.25 * REM * delta_time)
 	..()
 	return TRUE
 
@@ -324,7 +322,6 @@
 
 	//you're yes and... oh no!
 	healypoints = round(healypoints, 0.1)
-	M.adjustOrganLoss(ORGAN_SLOT_HEART, healypoints / 5)
 	..()
 	return TRUE
 
@@ -345,7 +342,6 @@
 	if(creation_purity >= 1) //Perfectly pure multivers gives a bonus of 2!
 		medibonus += 1
 	M.adjustToxLoss(-0.5 * min(medibonus, 3 * normalise_creation_purity()) * REM * delta_time) //not great at healing but if you have nothing else it will work
-	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 0.5 * REM * delta_time) //kills at 40u
 	for(var/r2 in M.reagents.reagent_list)
 		var/datum/reagent/the_reagent2 = r2
 		if(the_reagent2 == src)
@@ -389,7 +385,6 @@
 	..()
 
 /datum/reagent/medicine/c2/syriniver/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 0.8 * REM * delta_time)
 	M.adjustToxLoss(-1 * REM * delta_time, 0)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(issyrinormusc(R))
@@ -417,7 +412,6 @@
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/medicine/c2/musiver/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
-	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 0.1 * REM * delta_time)
 	M.adjustToxLoss(-1 * REM * delta_time * normalise_creation_purity(), 0)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(issyrinormusc(R))
@@ -505,7 +499,6 @@
 	ADD_TRAIT(M, TRAIT_NOCRITDAMAGE,type)
 
 /datum/reagent/medicine/c2/penthrite/on_mob_life(mob/living/carbon/human/H, delta_time, times_fired)
-	H.adjustOrganLoss(ORGAN_SLOT_STOMACH, 0.25 * REM * delta_time)
 	if(H.health <= HEALTH_THRESHOLD_CRIT && H.health > (H.crit_threshold + HEALTH_THRESHOLD_FULLCRIT * (2 * normalise_creation_purity()))) //we cannot save someone below our lowered crit threshold.
 
 		H.adjustToxLoss(-2 * REM * delta_time, 0)
@@ -515,7 +508,6 @@
 
 		H.losebreath = 0
 
-		H.adjustOrganLoss(ORGAN_SLOT_HEART, max(volume/10, 1) * REM * delta_time) // your heart is barely keeping up!
 
 		H.Jitter(rand(0, 2) * REM * delta_time)
 		H.Dizzy(rand(0, 2) * REM * delta_time)

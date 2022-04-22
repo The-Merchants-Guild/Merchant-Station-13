@@ -276,8 +276,6 @@
 	if(istype(H))
 		H.toggle_welding_screen(owner)
 
-/datum/action/item_action/toggle_spacesuit
-
 /datum/action/item_action/toggle_spacesuit/Destroy()
 	UnregisterSignal(target, COMSIG_SUIT_SPACE_TOGGLE)
 	return ..()

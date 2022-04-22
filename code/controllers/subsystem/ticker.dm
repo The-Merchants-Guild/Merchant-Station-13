@@ -646,7 +646,6 @@ SUBSYSTEM_DEF(ticker)
 		'sound/roundend/scrunglartiy.ogg',
 		'sound/roundend/petersondisappointed.ogg',
 		'sound/roundend/bully2.ogg',
-		'sound/roundend/ssethdisappointed.ogg',
 		'sound/roundend/ssethenjoyedyourchaos.ogg',
 		'sound/roundend/ssethyoumakemesick.ogg',
 		'sound/roundend/reasonsunknown.ogg',

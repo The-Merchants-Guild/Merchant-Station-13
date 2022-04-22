@@ -638,11 +638,8 @@
 /datum/reagent/consumable/honey/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
 	. = ..()
 	if(chems.has_reagent(type, 1))
-		if(myseed && prob(20))
-			mytray.pollinate(1)
-		else
-			mytray.adjustWeeds(rand(1,2))
-			mytray.adjustPests(rand(1,2))
+		mytray.adjustWeeds(rand(1,2))
+		mytray.adjustPests(rand(1,2))
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	holder.add_reagent(/datum/reagent/consumable/sugar, 3 * REM * delta_time)

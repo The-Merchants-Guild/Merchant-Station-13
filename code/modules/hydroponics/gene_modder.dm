@@ -153,7 +153,7 @@
 						if(gene.value < min_wchance)
 							dat += "<br><br>This device's extraction capabilities are currently limited to <span class='highlight'>[min_wchance]</span> weed chance. "
 							dat += "Target gene will be degraded to <span class='highlight'>[min_wchance]</span> weed chance on extraction."
-					else if(isty(target, /datum/plant_gene/core/instability))
+					else if(istype(target, /datum/plant_gene/core/instability))
 						if(gene.value < min_wchance)
 							dat += "<br><br>This device's extraction capabilities are currently limited to <span class='highlight'>[min_wchance]</span> weed chance. "
 							dat += "Target gene will be degraded to <span class='highlight'>[min_wchance]</span> weed chance on extraction."

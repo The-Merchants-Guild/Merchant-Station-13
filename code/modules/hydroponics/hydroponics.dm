@@ -238,6 +238,9 @@
 					myseed.set_yield(min((myseed.yield), WEED_HARDY_YIELD_MIN, MAX_PLANT_YIELD))
 
 
+//This is the part with pollination
+			pollinate()
+
 //This is where stability mutations exist now.
 			if(myseed.instability >= 80)
 				var/mutation_chance = myseed.instability - 75
@@ -473,6 +476,33 @@
 	if(!dead)
 		update_appearance()
 		dead = TRUE
+
+/**
+ * Plant Cross-Pollination.
+ * Checks all plants in the tray's oview range, then averages out the seed's potency, instability, and yield values.
+ * If the seed's instability is >= 20, the seed donates one of it's reagents to that nearby plant.
+ * * Range - The Oview range of trays to which to look for plants to donate reagents.
+ */
+/obj/machinery/hydroponics/proc/pollinate(range = 1)
+	for(var/obj/machinery/hydroponics/T in oview(src, range))
+		//Here is where we check for window blocking.
+		if(!Adjacent(T) && range <= 1)
+			continue
+		if(T.myseed && !T.dead)
+			T.myseed.set_potency(round((T.myseed.potency+(1/10)*(myseed.potency-T.myseed.potency))))
+			T.myseed.set_instability(round((T.myseed.instability+(1/10)*(myseed.instability-T.myseed.instability))))
+			T.myseed.set_yield(round((T.myseed.yield+(1/2)*(myseed.yield-T.myseed.yield))))
+			if(myseed.instability >= 20 && prob(70) && length(T.myseed.reagents_add))
+				var/list/datum/plant_gene/reagent/possible_reagents = list()
+				for(var/datum/plant_gene/reagent/reag in T.myseed.genes)
+					possible_reagents += reag
+				var/datum/plant_gene/reagent/reagent_gene = pick(possible_reagents) //Let this serve as a lession to delete your WIP comments before merge.
+				if(reagent_gene.can_add(myseed))
+					if(!reagent_gene.try_upgrade_gene(myseed))
+						myseed.genes += reagent_gene.Copy()
+					myseed.reagents_from_genes()
+					continue
+
 
 /**
  * Pest Mutation Proc.

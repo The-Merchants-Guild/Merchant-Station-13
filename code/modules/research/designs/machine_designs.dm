@@ -554,6 +554,14 @@
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
+/datum/design/board/plantmanip
+	name = "Machine Design (Plant DNA Manipulator)"
+	desc = "The circuit board for a Plant DNA Manipulator"
+	id = "plantmanip"
+	build_path = /obj/item/circuitboard/machine/plantgenes
+	category = list("Hydroponics Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/board/donksofttoyvendor
 	name = "Machine Design (Donksoft Toy Vendor Board)"
 	desc = "The circuit board for a Donksoft Toy Vendor."

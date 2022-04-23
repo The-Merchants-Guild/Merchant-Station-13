@@ -28406,6 +28406,7 @@
 /obj/structure/table,
 /obj/item/book/manual/hydroponics_pod_people,
 /obj/item/paper/guides/jobs/hydroponics,
+/obj/item/watertank,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "hBG" = (
@@ -30432,7 +30433,7 @@
 /area/science/mixing)
 "iKx" = (
 /obj/structure/table,
-/obj/item/watertank,
+/obj/machinery/plantgenes,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "iKz" = (

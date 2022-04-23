@@ -49447,6 +49447,8 @@
 /obj/machinery/light_switch/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/south,
+/obj/structure/table,
+/obj/machinery/plantgenes,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "gTc" = (

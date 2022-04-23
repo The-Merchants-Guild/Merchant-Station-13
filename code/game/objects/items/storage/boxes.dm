@@ -1564,6 +1564,14 @@
 	new chosen_box(loc)
 	return INITIALIZE_HINT_QDEL
 
+/obj/item/storage/box/disks_plantgene
+	name = "plant data disks box"
+	illustration = "disk_kit"
+
+/obj/item/storage/box/disks_plantgene/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/disk/plantgene(src)
+
 /obj/item/storage/box/hero
 	name = "Courageous Tomb Raider - 1940's."
 	desc = "This legendary figure of still dubious historical accuracy is thought to have been a world-famous archeologist who embarked on countless adventures in far away lands, along with his trademark whip and fedora hat."

@@ -7,6 +7,7 @@
 	custom_materials = list(/datum/material/iron=75)
 	canhear_range = 0 // can't hear headsets from very far away
 	subspace_switchable = FALSE
+	subspace_transmission = TRUE
 
 	slot_flags = ITEM_SLOT_EARS
 	dog_fashion = null

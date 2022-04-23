@@ -15605,11 +15605,11 @@
 /area/science/storage)
 "dee" = (
 /obj/structure/table,
-/obj/item/food/grown/poppy/lily,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /obj/machinery/light/directional/south,
+/obj/machinery/plantgenes,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "deh" = (

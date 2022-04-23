@@ -27,9 +27,9 @@
 		return
 	if(HUD_type)
 		var/datum/atom_hud/H = GLOB.huds[HUD_type]
-		H.add_hud_to(M)
+		H.add_hud_to(owner)
 	if(HUD_trait)
-		ADD_TRAIT(M, HUD_trait, ORGAN_TRAIT)
+		ADD_TRAIT(owner, HUD_trait, ORGAN_TRAIT)
 
 /obj/item/organ/cyberimp/eyes/hud/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = FALSE)
 	..()

@@ -29,6 +29,9 @@
 	new_gene.mutability_flags = mutability_flags
 	return new_gene
 
+/datum/plant_gene/proc/apply_vars(obj/item/seeds/S) // I weep
+	return
+
 /// Core plant genes. Stores the main variables: lifespan, endurance, production, yield, potency, instability, weed rate/chance
 /datum/plant_gene/core
 	/// The number value of our core gene.

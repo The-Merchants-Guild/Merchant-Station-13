@@ -101,8 +101,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/Destroy()
 	remove_radio_all(src) //Just to be sure
 	QDEL_NULL(wires)
-	for (var/K in keyslots)
-		QDEL_NULL(K)
+	QDEL_LIST(keyslots)
 
 	return ..()
 

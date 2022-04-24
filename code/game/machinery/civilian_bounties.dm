@@ -278,6 +278,7 @@
 	radio = new(src)
 	radio.keyslots += new radio_key
 	radio.listening = FALSE
+	radio.subspace_transmission = FALSE
 	radio.recalculateChannels()
 
 /obj/item/bounty_cube/Destroy()

@@ -57,7 +57,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	var/independent = FALSE  // If true, can say/hear on the special CentCom channel.
 	var/syndie = FALSE  // If true, hears all well-known channels automatically, and can say/hear on the Syndicate channel.
 	var/list/channels = list()  // Map from name (see communications.dm) to on/off. First entry is current department (:h)
-	var/list/keyslots = list()
+	var/list/obj/item/encryptionkey/keyslots = list()
 	var/list/secure_radio_connections
 
 /obj/item/radio/suicide_act(mob/living/user)

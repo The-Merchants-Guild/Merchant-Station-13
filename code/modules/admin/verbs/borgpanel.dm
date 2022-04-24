@@ -177,7 +177,7 @@
 				log_admin("[key_name(user)] removed the [channel] radio channel from [key_name(borg)].")
 			else // We're adding a channel
 				if (!borg.radio.keyslots.len) // Assert that an encryption key exists
-					borg.radio.keyslots += new /obj/item/radio/borg
+					borg.radio.keyslots += new /obj/item/encryptionkey
 				borg.radio.keyslots[1].channels[channel] = 1
 				if (channel == RADIO_CHANNEL_SYNDICATE)
 					borg.radio.keyslots[1].syndie = TRUE

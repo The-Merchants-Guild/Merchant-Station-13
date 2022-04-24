@@ -161,7 +161,7 @@
 	set_custom_texts()
 	Radio = new/obj/item/radio(src)
 	if(radio_key)
-		Radio.keyslot = new radio_key
+		Radio.keyslots += new radio_key
 	Radio.subspace_transmission = TRUE
 	Radio.canhear_range = 0 // anything greater will have the bot broadcast the channel as if it were saying it out loud.
 	Radio.recalculateChannels()

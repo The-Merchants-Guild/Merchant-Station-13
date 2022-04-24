@@ -153,7 +153,7 @@
 	moderator_internal.volume = 10000
 
 	radio = new(src)
-	radio.keyslot = new radio_key
+	radio.keyslots += new radio_key
 	radio.listening = 0
 	radio.recalculateChannels()
 	investigate_log("has been created.", INVESTIGATE_HYPERTORUS)

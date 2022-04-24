@@ -161,28 +161,28 @@
 		if ("toggle_radio")
 			var/channel = params["channel"]
 			if (channel in borg.radio.channels) // We're removing a channel
-				if (!borg.radio.keyslot) // There's no encryption key. This shouldn't happen but we can cope
+				if (!borg.radio.keyslots.len) // There's no encryption key. This shouldn't happen but we can cope
 					borg.radio.channels -= channel
 					if (channel == RADIO_CHANNEL_SYNDICATE)
 						borg.radio.syndie = FALSE
 					else if (channel == "CentCom")
 						borg.radio.independent = FALSE
 				else
-					borg.radio.keyslot.channels -= channel
+					borg.radio.keyslots[1].channels -= channel
 					if (channel == RADIO_CHANNEL_SYNDICATE)
-						borg.radio.keyslot.syndie = FALSE
+						borg.radio.keyslots[1].syndie = FALSE
 					else if (channel == "CentCom")
-						borg.radio.keyslot.independent = FALSE
+						borg.radio.keyslots[1].independent = FALSE
 				message_admins("[key_name_admin(user)] removed the [channel] radio channel from [ADMIN_LOOKUPFLW(borg)].")
 				log_admin("[key_name(user)] removed the [channel] radio channel from [key_name(borg)].")
 			else // We're adding a channel
-				if (!borg.radio.keyslot) // Assert that an encryption key exists
-					borg.radio.keyslot = new (borg.radio)
-				borg.radio.keyslot.channels[channel] = 1
+				if (!borg.radio.keyslots.len) // Assert that an encryption key exists
+					borg.radio.keyslots += new (borg.radio)
+				borg.radio.keyslots[1].channels[channel] = 1
 				if (channel == RADIO_CHANNEL_SYNDICATE)
-					borg.radio.keyslot.syndie = TRUE
+					borg.radio.keyslots[1].syndie = TRUE
 				else if (channel == "CentCom")
-					borg.radio.keyslot.independent = TRUE
+					borg.radio.keyslots[1].independent = TRUE
 				message_admins("[key_name_admin(user)] added the [channel] radio channel to [ADMIN_LOOKUPFLW(borg)].")
 				log_admin("[key_name(user)] added the [channel] radio channel to [key_name(borg)].")
 			borg.radio.recalculateChannels()

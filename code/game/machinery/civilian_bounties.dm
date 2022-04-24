@@ -276,7 +276,7 @@
 /obj/item/bounty_cube/Initialize()
 	. = ..()
 	radio = new(src)
-	radio.keyslot = new radio_key
+	radio.keyslots += new radio_key
 	radio.listening = FALSE
 	radio.recalculateChannels()
 

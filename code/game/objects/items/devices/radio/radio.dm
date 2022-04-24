@@ -52,12 +52,12 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	var/anonymize = FALSE
 
 	// Encryption key handling
-	var/obj/item/encryptionkey/keyslot
-	var/obj/item/encryptionkey/keyslot2
+	var/max_keyslots = 1
 	var/translate_binary = FALSE  // If true, can hear the special binary channel.
 	var/independent = FALSE  // If true, can say/hear on the special CentCom channel.
 	var/syndie = FALSE  // If true, hears all well-known channels automatically, and can say/hear on the Syndicate channel.
 	var/list/channels = list()  // Map from name (see communications.dm) to on/off. First entry is current department (:h)
+	var/list/keyslots = list()
 	var/list/secure_radio_connections
 
 /obj/item/radio/suicide_act(mob/living/user)
@@ -71,29 +71,16 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/proc/recalculateChannels()
 	resetChannels()
-
-	if(keyslot)
-		for(var/ch_name in keyslot.channels)
+	for (var/obj/item/encryptionkey/K in keyslots)
+		for(var/ch_name in K.channels)
 			if(!(ch_name in channels))
-				channels[ch_name] = keyslot.channels[ch_name]
+				channels[ch_name] = K.channels[ch_name]
 
-		if(keyslot.translate_binary)
+		if(K.translate_binary)
 			translate_binary = TRUE
-		if(keyslot.syndie)
+		if(K.syndie)
 			syndie = TRUE
-		if(keyslot.independent)
-			independent = TRUE
-
-	if(keyslot2)
-		for(var/ch_name in keyslot2.channels)
-			if(!(ch_name in src.channels))
-				channels[ch_name] = keyslot2.channels[ch_name]
-
-		if(keyslot2.translate_binary)
-			translate_binary = TRUE
-		if(keyslot2.syndie)
-			syndie = TRUE
-		if (keyslot2.independent)
+		if(K.independent)
 			independent = TRUE
 
 	for(var/ch_name in channels)
@@ -107,16 +94,15 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	independent = FALSE
 
 /obj/item/radio/proc/make_syndie() // Turns normal radios into Syndicate radios!
-	qdel(keyslot)
-	keyslot = new /obj/item/encryptionkey/syndicate
+	keyslots += new /obj/item/encryptionkey/syndicate
 	syndie = 1
 	recalculateChannels()
 
 /obj/item/radio/Destroy()
 	remove_radio_all(src) //Just to be sure
 	QDEL_NULL(wires)
-	QDEL_NULL(keyslot)
-	QDEL_NULL(keyslot2)
+	for (var/K in keyslots)
+		QDEL_NULL(K)
 
 	return ..()
 
@@ -396,17 +382,14 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	user.set_machine(src)
 
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		if(keyslot || keyslot2)
+		if(keyslots.len)
 			for(var/ch_name in channels)
 				SSradio.remove_object(src, GLOB.radiochannels[ch_name])
 				secure_radio_connections[ch_name] = null
 
-			if(keyslot)
-				user.put_in_hands(keyslot)
-				keyslot = null
-			if(keyslot2)
-				user.put_in_hands(keyslot2)
-				keyslot2 = null
+			for (var/K in keyslots)
+				user.put_in_hands(K)
+				keyslots -= K
 
 			recalculateChannels()
 			to_chat(user, span_notice("You pop the encryption keys out of the [name]."))
@@ -415,20 +398,13 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 			to_chat(user, span_warning("This [name] doesn't have any encryption keys installed!"))
 
 	else if(istype(W, /obj/item/encryptionkey))
-		if(keyslot && keyslot2)
+		if(keyslots.len >= max_keyslots)
 			to_chat(user, span_warning("The [name] can't hold another key!"))
 			return
 
-		if(!keyslot)
-			if(!user.transferItemToLoc(W, src))
-				return
-			keyslot = W
-
-		else
-			if(!user.transferItemToLoc(W, src))
-				return
-			keyslot2 = W
-
+		if(!user.transferItemToLoc(W, src))
+			return
+		keyslots += W
 
 		recalculateChannels()
 	else
@@ -476,7 +452,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/borg/syndicate
 	syndie = 1
-	keyslot = new /obj/item/encryptionkey/syndicate
+	keyslots = list(new /obj/item/encryptionkey/syndicate)
 
 /obj/item/radio/borg/syndicate/Initialize()
 	. = ..()

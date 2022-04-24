@@ -220,20 +220,16 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 	recalculateChannels()
 
 /obj/item/radio/headset/headset_sec/alt/department/engi
-	keyslot = new /obj/item/encryptionkey/headset_sec
-	keyslot2 = new /obj/item/encryptionkey/headset_eng
+	keyslots = list(new /obj/item/encryptionkey/headset_sec, new /obj/item/encryptionkey/headset_eng)
 
 /obj/item/radio/headset/headset_sec/alt/department/supply
-	keyslot = new /obj/item/encryptionkey/headset_sec
-	keyslot2 = new /obj/item/encryptionkey/headset_cargo
+	keyslots = list(new /obj/item/encryptionkey/headset_sec, new /obj/item/encryptionkey/headset_cargo)
 
 /obj/item/radio/headset/headset_sec/alt/department/med
-	keyslot = new /obj/item/encryptionkey/headset_sec
-	keyslot2 = new /obj/item/encryptionkey/headset_med
+	keyslots = list(new /obj/item/encryptionkey/headset_sec, new /obj/item/encryptionkey/headset_med)
 
 /obj/item/radio/headset/headset_sec/alt/department/sci
-	keyslot = new /obj/item/encryptionkey/headset_sec
-	keyslot2 = new /obj/item/encryptionkey/headset_sci
+	keyslots = list(new /obj/item/encryptionkey/headset_sec, new /obj/item/encryptionkey/headset_sci)
 
 /// Returns the distribution of splitting the given security officers into departments.
 /// Return value is an assoc list of candidate => SEC_DEPT_*.

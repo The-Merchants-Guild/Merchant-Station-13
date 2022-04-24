@@ -113,7 +113,7 @@
 		begin_processing()
 
 	radio = new(src)
-	radio.keyslot = new radio_key
+	radio.keyslots += new radio_key
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
 	radio.recalculateChannels()

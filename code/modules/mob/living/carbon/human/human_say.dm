@@ -69,23 +69,20 @@
 	if(message_mods[MODE_HEADSET])
 		if(ears)
 			ears.talk_into(src, message, , spans, language, message_mods)
-		for(var/obj/item/radio/held in held_items)
-			if(held)
-				held.talk_into(src, message, , spans, language, message_mods)
+		for(var/obj/item/held in held_items)
+			held.talk_into(src, message, , spans, language, message_mods)
 		return ITALICS | REDUCE_RANGE
 	else if(message_mods[RADIO_EXTENSION] == MODE_DEPARTMENT)
 		if(ears)
 			ears.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
-		for(var/obj/item/radio/held in held_items)
-			if(held)
-				held.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+		for(var/obj/item/held in held_items)
+			held.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
 		return ITALICS | REDUCE_RANGE
 	else if(GLOB.radiochannels[message_mods[RADIO_EXTENSION]])
 		if(ears)
 			ears.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
-		for(var/obj/item/radio/held in held_items)
-			if(held)
-				held.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+		for(var/obj/item/held in held_items)
+			held.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
 		return ITALICS | REDUCE_RANGE
 
 	return FALSE

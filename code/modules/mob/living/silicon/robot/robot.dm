@@ -108,9 +108,10 @@
 	if(shell)
 		GLOB.available_ai_shells -= src
 	else
-		if(T && istype(radio) && istype(radio.keyslot))
-			radio.keyslot.forceMove(T)
-			radio.keyslot = null
+		if(T && istype(radio) && radio.keyslots.len)
+			for (var/atom/movable/K in radio.keyslots)
+				K.forceMove(T)
+				radio.keyslots -= K
 	QDEL_NULL(wires)
 	QDEL_NULL(model)
 	QDEL_NULL(eye_lights)

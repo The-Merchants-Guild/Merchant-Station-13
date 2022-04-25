@@ -5449,6 +5449,16 @@
 /obj/item/storage/fancy/cigarettes,
 /turf/open/floor/iron/grimy,
 /area/hallway/secondary/exit)
+"wu" = (
+/obj/structure/table/reinforced,
+/obj/machinery/reagentgrinder{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_x = -5
+	},
+/turf/open/floor/iron,
+/area/service/hydroponics)
 "wv" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
@@ -8070,14 +8080,9 @@
 /area/hallway/primary/central)
 "Gm" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -5
-	},
-/obj/machinery/reagentgrinder{
-	pixel_x = 5
-	},
 /obj/effect/turf_decal/tile/green/half,
 /obj/machinery/light,
+/obj/machinery/plantgenes,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "Gn" = (
@@ -25345,7 +25350,7 @@ QB
 Me
 Et
 OP
-Xt
+wu
 qo
 vQ
 vQ

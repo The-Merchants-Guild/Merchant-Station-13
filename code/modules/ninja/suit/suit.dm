@@ -22,6 +22,8 @@
 
 	///The person wearing the suit
 	var/mob/living/carbon/human/affecting = null
+	//The suit's power cell
+	var/obj/item/stock_parts/cell/cell
 	///The suit's spark system, used for... sparking.
 	var/datum/effect_system/spark_spread/spark_system
 	///The suit's stored research.  Used for the research objective (see antagonist file)
@@ -88,10 +90,6 @@
 	QDEL_NULL(spark_system)
 	QDEL_NULL(cell)
 	return ..()
-
-// seal the cell in the ninja outfit
-/obj/item/clothing/suit/space/space_ninja/toggle_spacesuit_cell(mob/user)
-	return
 
 // Space Suit temperature regulation and power usage
 /obj/item/clothing/suit/space/space_ninja/process(delta_time)

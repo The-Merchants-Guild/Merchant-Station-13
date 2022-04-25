@@ -237,6 +237,7 @@
 					myseed.adjust_yield(-rand(1,2)) //Weeds choke out the plant's ability to bear more fruit.
 					myseed.set_yield(min((myseed.yield), WEED_HARDY_YIELD_MIN, MAX_PLANT_YIELD))
 
+
 //This is the part with pollination
 			pollinate()
 
@@ -501,6 +502,7 @@
 						myseed.genes += reagent_gene.Copy()
 					myseed.reagents_from_genes()
 					continue
+
 
 /**
  * Pest Mutation Proc.

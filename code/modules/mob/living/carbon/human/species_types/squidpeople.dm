@@ -6,7 +6,6 @@
 	species_traits = list(MUTCOLORS,EYECOLOR,HAS_FLESH,HAS_BONE,LIPS)
 	inherent_traits = list(TRAIT_ADVANCEDTOOLUSER,TRAIT_CAN_STRIP,TRAIT_CAN_USE_FLIGHT_POTION)
 	payday_modifier = 0.75
-//	default_features = list("mcolor" = "FFF") // bald
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	use_skintones = 0
 	mutant_organs = list(/obj/item/organ/butt)
@@ -19,13 +18,9 @@
 	miss_sound = 'sound/weapons/whipmiss.ogg'
 	grab_sound = 'sound/weapons/whipgrab.ogg'
 	disliked_food = FRIED
-//	nojumpsuit = TRUE
 
 /mob/living/carbon/human/species/squid
 	race = /datum/species/squid
-
-//	/datum/species/squid/qualifies_for_rank(rank, list/features)
-//		return TRUE
 
 /datum/species/squid/random_name(gender,unique,lastname)
 	if(unique)
@@ -43,8 +38,3 @@
 		. = capitalize(squid_name(genderToFind))
 		if(!findname(.))
 			break
-
-/datum/mood_event/squid //april 1st only
-	description = "<span class='nicegreen'>Spongebob isn't on this station with me.</span>\n" //Used for syndies, nukeops etc so they can focus on their goals
-	mood_change = 0
-	hidden = FALSE

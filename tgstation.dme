@@ -3574,6 +3574,7 @@
 #include "code\modules\surgery\organs\cybernetics\augments_chest.dm"
 #include "code\modules\surgery\organs\cybernetics\augments_eyes.dm"
 #include "code\modules\surgery\organs\cybernetics\augments_internal.dm"
+#include "code\modules\surgery\organs\cybernetics\augments_internal_wordblock.dm"
 #include "code\modules\surgery\organs\cybernetics\augments_legs.dm"
 #include "code\modules\surgery\organs\stomach\_stomach.dm"
 #include "code\modules\surgery\organs\stomach\stomach_ethereal.dm"

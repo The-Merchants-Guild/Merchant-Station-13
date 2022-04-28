@@ -13,9 +13,6 @@ Setup Database:
   image: mysql:latest
   rules:
     - if: $CI_MERGE_REQUEST_IID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_MESSAGE =~ /skip ci/
-      when: manual
-      allow_failure: true
   script:
     - mysql -hmariadb -uroot -proot -e 'CREATE DATABASE tg_ci;'
     - mysql -hmariadb -uroot -proot tg_ci < SQL/tgstation_schema.sql
@@ -27,9 +24,6 @@ Run Linters:
   image: node:lts
   rules:
     - if: $CI_MERGE_REQUEST_IID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_MESSAGE =~ /skip ci/
-      when: manual
-      allow_failure: true
   script:
     - apt-get update
     - apt-get install -y jq php-cli python3 python3-pip python3-venv python3-yaml
@@ -55,9 +49,6 @@ Compile Codebase:
   image: node:lts
   rules:
     - if: $CI_MERGE_REQUEST_IID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_MESSAGE =~ /skip ci/
-      when: manual
-      allow_failure: true
   script:
     - dpkg --add-architecture i386
     - apt-get update
@@ -84,9 +75,6 @@ Compile Maps:
     - if: $CI_MERGE_REQUEST_IID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
       changes:
       - "**/*.dmm"
-    - if: $CI_COMMIT_MESSAGE =~ /skip ci/
-      when: manual
-      allow_failure: true
   script:
     - dpkg --add-architecture i386
     - apt-get update
@@ -102,9 +90,6 @@ Run Tests:
   image: ubuntu:20.04
   rules:
     - if: $CI_MERGE_REQUEST_IID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_MESSAGE =~ /skip ci/
-      when: manual
-      allow_failure: true
   script:
     - dpkg --add-architecture i386
     - apt-get update

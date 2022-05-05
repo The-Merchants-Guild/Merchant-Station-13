@@ -1,14 +1,15 @@
 GLOBAL_LIST_EMPTY(wordblockers)
 
 /obj/item/organ/cyberimp/brain/wordblocker
-	name = "word inhibitor implant"
-	desc = "This implant allows you to stop the victim from saying certain words." // todo: better desc
+	name = "speech filtration implant"
+	desc = "Originally made for prison use, this gruesome implant interfaces directly with the brain's speech centers, both allowing control over what the victim can say and bypassing need for a cyberlink."
 	icon_state = "brain_implant"
 	slot = ORGAN_SLOT_BRAIN_LANGUAGEINHIBITOR
-	encode_info = AUGMENT_NO_REQ // dunno wtf this is seems nice
+	encode_info = AUGMENT_NO_REQ
 
 	var/id = 0
 	var/static/wordblock_uid = 0
+	var/locked = FALSE // write protection (for idk admin shenanigans)
 
 	var/datum/wordfilter_manager/mgr = null
 
@@ -18,8 +19,12 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	mgr = new(id, src)
 
 	GLOB.wordblockers.Add(src)
-
 	..()
+
+/obj/item/organ/cyberimp/brain/wordblocker/ComponentInitialize()
+	. = ..()
+	// We do not want our encode_info scrambled
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 
 /obj/item/organ/cyberimp/brain/wordblocker/Del()
 	GLOB.wordblockers.Remove(src)
@@ -35,7 +40,7 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	. = ..()
 	. += "<span class='info'>A little screen reads: 'Implant Unique ID: [id]'</span>"
 	if(mgr)
-		. += "<span class='info'>The implant currently does [mgr.visible ? "" : "not"] allow remote access. Use a screwdriver to change this.>"
+		. += "<span class='info'>The implant currently does [mgr.visible ? "" : "not"] allow remote access. Use a screwdriver to change this.</span>"
 
 /obj/item/organ/cyberimp/brain/wordblocker/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -43,9 +48,11 @@ GLOBAL_LIST_EMPTY(wordblockers)
 		return TRUE
 	I.play_tool_sound(src)
 	if(!mgr || mgr == null)
-		to_chat(user, "<span class='notice'>You try to reconfigure [src], but the screwdriver phases straight through it. You should probably notify a coder. </span>")
+		to_chat(user, "<span class='notice'>You try to reconfigure [src], but your [I] phases straight through it. You should probably notify a coder. </span>")
 		return
-	// feels hacky idk
+	if(locked)
+		to_chat(user, "<span class='notice'>You try to reconfigure [src], only to find it's remote access switch glued in the [mgr.visible ? "ON" : "OFF"] position.</span>")
+		return
 	mgr.visible = !mgr.visible
 	to_chat(user, "<span class='notice'>You reconfigure [src] to [mgr.visible ? "" : "not"] allow remote access.</span>")
 
@@ -54,8 +61,8 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	var/replace_phrase = "lg tv+"
 
 	var/case_sensitive = FALSE
-	var/active = TRUE // might want to disable but keep the thing to
-	var/replace = TRUE
+	var/replace = TRUE // replace or block?
+	var/active = TRUE
 
 /datum/wordfilter/New(block, replace_msg, casesensitive = FALSE, replacetxt = TRUE, on = TRUE)
 	blocked_word = block
@@ -69,7 +76,6 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	if(!active)
 		return message // don't process the string
 	var/regex/r = new(blocked_word, (case_sensitive ? "gm" : "gmi"))
-	if(r)
 	if(replace)
 		var/t = r.Replace(message, replace_phrase)
 		if(uppertext(message) == message) // I AM YELLING CAN YOU HEAR ME
@@ -100,26 +106,30 @@ GLOBAL_LIST_EMPTY(wordblockers)
 
 /datum/wordfilter_manager/proc/process_msg(message)
 	. = message
-	// going over it like this to make sure it applies
-	// the "topmost" filter first
-	for(var/i = 1; i <= word_filters.len, i++) // why are byond lists 1-indexed why
+	// going over it like this to make sure it
+	// applies the "topmost" filter first
+	for(var/i = 1; i <= word_filters.len, i++)
 		var/datum/wordfilter/w = word_filters[i]
 		var/before_message = message
 		message = w.process_msg(message)
 		if(message == FALSE)
-			implant.owner.log_talk("Message blocked by [implant] (ID: [id]): [w.blocked_word] -> (BLOCK) | message: [before_message]", LOG_WORDFILTER)
+			implant.owner.log_talk("Message blocked by [implant] \[ID: [id]\]: [w.blocked_word] -> (!BLOCK!) | message: [before_message]", LOG_WORDFILTER)
 			return FALSE
-		implant.owner.log_talk("Message modified by [implant] (ID: [id]): [w.blocked_word] -> [w.replace_phrase] | message: [before_message]", LOG_WORDFILTER)
+		if(message != before_message) // don't log no changes
+			implant.owner.log_talk("Message modified by [implant] \[ID: [id]\]: [w.blocked_word] -> [w.replace_phrase] | message: '[before_message]' -> '[message]'", LOG_WORDFILTER)
+
 	return message
 
-/obj/item/organ/cyberimp/brain/wordblocker/nwordinhibitor
+/obj/item/organ/cyberimp/brain/wordblocker/nword
 	name = "N Word Inhibitor Implant"
 	desc = "DOKTOR! TURN OFF MY N WORD INHIBITOR!"
+	locked = TRUE
 
-/obj/item/organ/cyberimp/brain/wordblocker/nwordinhibitor/New()
+/obj/item/organ/cyberimp/brain/wordblocker/nword/New()
 	..()
-	mgr.add_filter("nigger", "Crime statistically misrepresented Person(s)", FALSE, FALSE, TRUE)
+	mgr.visible = FALSE
+	mgr.add_filter(@"n+\s*i+\s*g+\s*g+\s*e+\s*r+", "Crime statistically misrepresented Person(s)", FALSE, FALSE, TRUE)
 
-/obj/item/autosurgeon/organ/nwordinhibitor
-	starting_organ = /obj/item/organ/cyberimp/brain/wordblocker/nwordinhibitor
+/obj/item/autosurgeon/organ/nword
+	starting_organ = /obj/item/organ/cyberimp/brain/wordblocker/nword
 	uses = 1

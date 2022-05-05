@@ -757,6 +757,7 @@
 	prereq_ids = list("biotech", "datatheory")
 	design_ids = list(
 		"skill_station",
+		"ci-wordblock"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 

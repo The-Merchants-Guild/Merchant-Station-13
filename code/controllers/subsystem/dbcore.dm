@@ -212,7 +212,6 @@ SUBSYSTEM_DEF(dbcore)
 	var/user = CONFIG_GET(string/feedback_login)
 	var/pass = CONFIG_GET(string/feedback_password)
 	var/db = CONFIG_GET(string/feedback_database)
-	var/ssl = CONFIG_GET(number/feedback_ssl)
 	var/address = CONFIG_GET(string/address)
 	var/port = CONFIG_GET(number/port)
 	var/timeout = max(CONFIG_GET(number/async_query_timeout), CONFIG_GET(number/blocking_query_timeout))
@@ -226,7 +225,6 @@ SUBSYSTEM_DEF(dbcore)
 		"user" = user,
 		"pass" = pass,
 		"db_name" = db,
-		"db_ssl" = ssl,
 		"read_timeout" = timeout,
 		"write_timeout" = timeout,
 		"max_threads" = thread_limit,

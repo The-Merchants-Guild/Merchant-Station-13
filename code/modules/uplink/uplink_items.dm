@@ -2147,7 +2147,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Wrestling Set"
 	desc = "OH YEAH BROTHERRRR!"
 	item = /obj/item/storage/box/syndie_kit/wrestling
-	cost = 17 //The wrestling set is not as powerful as it once was (BULLSHIT)
+	cost = 8 //The wrestling set is not as powerful as it once was
 	purchasable_from = UPLINK_TRAITORS
 
 /datum/uplink_item/dangerous/armstrong

@@ -199,6 +199,10 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 	if (CONFIG_GET(flag/log_shuttle))
 		WRITE_LOG(GLOB.world_shuttle_log, "SHUTTLE: [text]")
 
+/proc/log_wordfilter(text) // mainly for the implant
+	if (CONFIG_GET(flag/log_wordfilter))
+		WRITE_LOG(GLOB.world_game_log, "WORDFILTER: [text]")
+
 /proc/log_topic(text)
 	WRITE_LOG(GLOB.world_game_log, "TOPIC: [text]")
 

@@ -23,3 +23,11 @@
 		return T.could_speak_language(language)
 	else
 		return initial(language.flags) & TONGUELESS_SPEECH
+
+/mob/living/carbon/midflight_check(message)
+	. = ..()
+	var/obj/item/organ/cyberimp/brain/wordblocker/W = getorganslot(ORGAN_SLOT_BRAIN_LANGUAGEINHIBITOR)
+	if(W)
+		var/datum/wordfilter_manager/M = W.get_manager()
+		var/postcheck = M.process_msg(message)
+		return postcheck

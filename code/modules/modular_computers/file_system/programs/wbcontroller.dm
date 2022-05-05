@@ -22,7 +22,7 @@
 	if (.)
 		return
 
-	var/datum/wordblocker_manager/mgr = getManagerByID(params["mgrID"])
+	var/datum/wordfilter_manager/mgr = getManagerByID(params["mgrID"])
 	var/filterIndex
 
 	if(params["filterID"] != null)
@@ -57,7 +57,7 @@
 
 			return TRUE
 		if("PRG_removefilter")
-			var/datum/wordblocker/F = mgr.word_filters[filterIndex]
+			var/datum/wordfilter/F = mgr.word_filters[filterIndex]
 			if(F)
 				mgr.word_filters.Remove(F)
 
@@ -85,12 +85,12 @@
 		for(var/obj/item/organ/cyberimp/brain/wordblocker/W in GLOB.wordblockers)
 			if(!W || !W.mgr)
 				continue
-			var/datum/wordblocker_manager/M = W.mgr
+			var/datum/wordfilter_manager/M = W.mgr
 			if(!M.visible)
 				continue
 
 			var/list/filters = list()
-			for(var/datum/wordblocker/F in M.word_filters)
+			for(var/datum/wordfilter/F in M.word_filters)
 				filters += list(list(
 					"filtered_word" = F.blocked_word,
 					"replacement_word" = F.replace_phrase,

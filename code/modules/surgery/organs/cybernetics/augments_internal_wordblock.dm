@@ -1,5 +1,3 @@
-// will be moved to augments_internal.dm later. maybe.
-
 GLOBAL_LIST_EMPTY(wordblockers)
 
 /obj/item/organ/cyberimp/brain/wordblocker
@@ -12,12 +10,12 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	var/id = 0
 	var/static/wordblock_uid = 0
 
-	var/datum/wordblocker_manager/mgr = null
+	var/datum/wordfilter_manager/mgr = null
 
 /obj/item/organ/cyberimp/brain/wordblocker/New()
 	id = wordblock_uid + 1
 	wordblock_uid = id
-	mgr = new(id)
+	mgr = new(id, src)
 
 	GLOB.wordblockers.Add(src)
 
@@ -45,13 +43,13 @@ GLOBAL_LIST_EMPTY(wordblockers)
 		return TRUE
 	I.play_tool_sound(src)
 	if(!mgr || mgr == null)
-		to_chat(user, "<span class='notice'> You try to reconfigure [src], only to fail miserably. You should probably notify a coder. </span>")
+		to_chat(user, "<span class='notice'>You try to reconfigure [src], but the screwdriver phases straight through it. You should probably notify a coder. </span>")
 		return
 	// feels hacky idk
 	mgr.visible = !mgr.visible
-	to_chat(user, "<span class='notice'>You reconfigure [src] to [mgr.visible ? "" : "not"] allow remote access.")
+	to_chat(user, "<span class='notice'>You reconfigure [src] to [mgr.visible ? "" : "not"] allow remote access.</span>")
 
-/datum/wordblocker
+/datum/wordfilter
 	var/blocked_word = "lgbt"
 	var/replace_phrase = "lg tv+"
 
@@ -59,20 +57,19 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	var/active = TRUE // might want to disable but keep the thing to
 	var/replace = TRUE
 
-// looks ugly but eh
-/datum/wordblocker/New(block, replace_msg, casesensitive = FALSE, replacetxt = TRUE, on = TRUE)
+/datum/wordfilter/New(block, replace_msg, casesensitive = FALSE, replacetxt = TRUE, on = TRUE)
 	blocked_word = block
 	replace_phrase = replace_msg
 	case_sensitive = casesensitive
 	replace = replacetxt
 	active = on
 
-/datum/wordblocker/proc/process_msg(message)
+/datum/wordfilter/proc/process_msg(message)
 	. = message
 	if(!active)
 		return message // don't process the string
 	var/regex/r = new(blocked_word, (case_sensitive ? "gm" : "gmi"))
-
+	if(r)
 	if(replace)
 		var/t = r.Replace(message, replace_phrase)
 		if(uppertext(message) == message) // I AM YELLING CAN YOU HEAR ME
@@ -83,29 +80,36 @@ GLOBAL_LIST_EMPTY(wordblockers)
 		if(found)
 			return FALSE
 
-/datum/wordblocker_manager
+/datum/wordfilter_manager
 	var/id = null
 	var/visible = TRUE
-	var/list/datum/wordblocker/word_filters = list()
+	var/list/datum/wordfilter/word_filters = list()
+	var/obj/item/organ/cyberimp/brain/wordblocker/implant = null
 
-/datum/wordblocker_manager/New(mgrid)
+/datum/wordfilter_manager/New(mgrid, imp)
 	id = mgrid
-	var/datum/wordblocker/wb = new("cbt", "cock and ball torture from wikipedia the free encyclopedia at EN dot WIKIPEDIA dot ORG")
+	implant = imp
+	if(!imp)
+		WARNING("[src] created with no implant! This will cause issues.")
+		// issues include: runtime when logging message
+
+
+/datum/wordfilter_manager/proc/add_filter(block, replace, casesensitive = FALSE, replacetxt = TRUE, on = TRUE)
+	var/datum/wordfilter/wb = new(block, replace, casesensitive, replacetxt, on)
 	word_filters.Add(wb)
 
-/datum/wordblocker_manager/proc/add_filter(block, replace, casesensitive = FALSE, replacetxt = TRUE, on = TRUE)
-	var/datum/wordblocker/wb = new(block, replace, casesensitive, replacetxt, on)
-	word_filters.Add(wb)
-
-/datum/wordblocker_manager/proc/process_msg(message)
-	//var/original_message = message
+/datum/wordfilter_manager/proc/process_msg(message)
+	. = message
 	// going over it like this to make sure it applies
 	// the "topmost" filter first
 	for(var/i = 1; i <= word_filters.len, i++) // why are byond lists 1-indexed why
-		var/datum/wordblocker/w = word_filters[i]
+		var/datum/wordfilter/w = word_filters[i]
+		var/before_message = message
 		message = w.process_msg(message)
 		if(message == FALSE)
+			implant.owner.log_talk("Message blocked by [implant] (ID: [id]): [w.blocked_word] -> (BLOCK) | message: [before_message]", LOG_WORDFILTER)
 			return FALSE
+		implant.owner.log_talk("Message modified by [implant] (ID: [id]): [w.blocked_word] -> [w.replace_phrase] | message: [before_message]", LOG_WORDFILTER)
 	return message
 
 /obj/item/organ/cyberimp/brain/wordblocker/nwordinhibitor
@@ -114,7 +118,7 @@ GLOBAL_LIST_EMPTY(wordblockers)
 
 /obj/item/organ/cyberimp/brain/wordblocker/nwordinhibitor/New()
 	..()
-	mgr.add_filter("nigger", "cock and ball torture", FALSE, FALSE, TRUE)
+	mgr.add_filter("nigger", "Crime statistically misrepresented Person(s)", FALSE, FALSE, TRUE)
 
 /obj/item/autosurgeon/organ/nwordinhibitor
 	starting_organ = /obj/item/organ/cyberimp/brain/wordblocker/nwordinhibitor

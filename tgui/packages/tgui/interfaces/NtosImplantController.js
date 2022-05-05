@@ -80,6 +80,16 @@ const Filter = (props, context) => {
     managers,
   } = data;
 
+  const [
+    selectedMGR,
+    setSelectedMGR,
+  ] = useLocalState(context, 'MGRID', -1);
+
+  const refresh = () => {
+    setSelectedMGR(-1);
+    setSelectedMGR(selMGR);
+  };
+
   // super hacky sorry
   const VisualSwap = (a, b) => {
     let {
@@ -119,6 +129,7 @@ const Filter = (props, context) => {
                       filterID: index,
                       direction: "up",
                     });
+                    refresh();
                     VisualSwap(selMGR.filters[index], selMGR.filters[index-1]);
                   }}
                 />
@@ -132,6 +143,7 @@ const Filter = (props, context) => {
                       filterID: index,
                       direction: "down",
                     });
+                    refresh();
                     VisualSwap(selMGR.filters[index], selMGR.filters[index+1]);
                   }}
                 />
@@ -144,6 +156,7 @@ const Filter = (props, context) => {
                     mgrID: selMGR.id,
                     filterID: index,
                   });
+                  refresh();
                   selMGR.filters.splice(index, 1);
                 }}
               />

@@ -28,6 +28,6 @@
 	. = ..()
 	var/obj/item/organ/cyberimp/brain/wordblocker/W = getorganslot(ORGAN_SLOT_BRAIN_LANGUAGEINHIBITOR)
 	if(W)
-		var/datum/wordblocker_manager/M = W.get_manager()
+		var/datum/wordfilter_manager/M = W.get_manager()
 		var/postcheck = M.process_msg(message)
 		return postcheck

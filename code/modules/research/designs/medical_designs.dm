@@ -512,6 +512,17 @@
 	category = list("Implants", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/cyberimp_wordfilter
+	name = "Speech Filtration Implant"
+	desc = "Allows for customizable speech filtration of implantee."
+	id = "ci-wordblock"
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 600) // cheap; we want to see it early in the round
+	build_path = /obj/item/organ/cyberimp/brain/wordblocker
+	category = list("Implants", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
+
 /////////////////////////////////////////
 ////////////Regular Implants/////////////
 /////////////////////////////////////////

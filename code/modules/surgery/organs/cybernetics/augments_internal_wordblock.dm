@@ -1,11 +1,11 @@
 GLOBAL_LIST_EMPTY(wordblockers)
 
 /obj/item/organ/cyberimp/brain/wordblocker
-	name = "word inhibitor implant"
-	desc = "This implant allows you to stop the victim from saying certain words." // todo: better desc
+	name = "speech filtration implant"
+	desc = "Originally made for prison use, this gruesome implant interfaces directly with the brain's speech centers, both allowing control over what the victim can say AND bypassing need for a cyberlink."
 	icon_state = "brain_implant"
 	slot = ORGAN_SLOT_BRAIN_LANGUAGEINHIBITOR
-	encode_info = AUGMENT_NO_REQ // dunno wtf this is seems nice
+	encode_info = AUGMENT_NO_REQ
 
 	var/id = 0
 	var/static/wordblock_uid = 0
@@ -18,8 +18,11 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	mgr = new(id, src)
 
 	GLOB.wordblockers.Add(src)
-
 	..()
+
+/obj/item/organ/cyberimp/brain/wordblocker/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 
 /obj/item/organ/cyberimp/brain/wordblocker/Del()
 	GLOB.wordblockers.Remove(src)
@@ -107,7 +110,7 @@ GLOBAL_LIST_EMPTY(wordblockers)
 		var/before_message = message
 		message = w.process_msg(message)
 		if(message == FALSE)
-			implant.owner.log_talk("Message blocked by [implant] (ID: [id]): [w.blocked_word] -> (BLOCK) | message: [before_message]", LOG_WORDFILTER)
+			implant.owner.log_talk("Message blocked by [implant] (ID: [id]): [w.blocked_word] -> (!BLOCK!) | message: [before_message]", LOG_WORDFILTER)
 			return FALSE
 		implant.owner.log_talk("Message modified by [implant] (ID: [id]): [w.blocked_word] -> [w.replace_phrase] | message: [before_message]", LOG_WORDFILTER)
 	return message
@@ -118,7 +121,7 @@ GLOBAL_LIST_EMPTY(wordblockers)
 
 /obj/item/organ/cyberimp/brain/wordblocker/nwordinhibitor/New()
 	..()
-	mgr.add_filter("nigger", "Crime statistically misrepresented Person(s)", FALSE, FALSE, TRUE)
+	mgr.add_filter(@"n+\s*i+\s*g+\s*g+\s*e+\s*r+", "Crime statistically misrepresented Person(s)", FALSE, FALSE, TRUE)
 
 /obj/item/autosurgeon/organ/nwordinhibitor
 	starting_organ = /obj/item/organ/cyberimp/brain/wordblocker/nwordinhibitor

@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	. = ..()
 	. += "<span class='info'>A little screen reads: 'Implant Unique ID: [id]'</span>"
 	if(mgr)
-		. += "<span class='info'>The implant currently does [mgr.visible ? "" : "not"] allow remote access. Use a screwdriver to change this.>"
+		. += "<span class='info'>The implant currently does [mgr.visible ? "" : "not"] allow remote access. Use a screwdriver to change this.</span>"
 
 /obj/item/organ/cyberimp/brain/wordblocker/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -111,7 +111,9 @@ GLOBAL_LIST_EMPTY(wordblockers)
 		if(message == FALSE)
 			implant.owner.log_talk("Message blocked by [implant] (ID: [id]): [w.blocked_word] -> (!BLOCK!) | message: [before_message]", LOG_WORDFILTER)
 			return FALSE
-		implant.owner.log_talk("Message modified by [implant] (ID: [id]): [w.blocked_word] -> [w.replace_phrase] | message: [before_message]", LOG_WORDFILTER)
+		if(message != before_message) // don't log no changes
+			implant.owner.log_talk("Message modified by [implant] (ID: [id]): [w.blocked_word] -> [w.replace_phrase] | message: '[before_message]' -> '[message]'", LOG_WORDFILTER)
+
 	return message
 
 /obj/item/organ/cyberimp/brain/wordblocker/nwordinhibitor

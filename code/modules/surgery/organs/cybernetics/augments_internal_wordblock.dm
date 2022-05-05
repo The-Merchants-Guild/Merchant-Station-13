@@ -72,7 +72,6 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	if(!active)
 		return message // don't process the string
 	var/regex/r = new(blocked_word, (case_sensitive ? "gm" : "gmi"))
-	if(r)
 	if(replace)
 		var/t = r.Replace(message, replace_phrase)
 		if(uppertext(message) == message) // I AM YELLING CAN YOU HEAR ME

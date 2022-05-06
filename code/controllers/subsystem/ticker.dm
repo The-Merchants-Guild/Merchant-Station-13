@@ -25,7 +25,6 @@ SUBSYSTEM_DEF(ticker)
 	var/delay_end = FALSE //if set true, the round will not restart on it's own
 	var/admin_delay_notice = "" //a message to display to anyone who tries to restart the world after a delay
 	var/ready_for_reboot = FALSE //all roundend preparation done with, all that's left is reboot
-	var/hard_restart = FALSE
 
 	var/tipped = FALSE //Did we broadcast the tip of the day yet?
 	var/selected_tip // What will be the tip of the day?

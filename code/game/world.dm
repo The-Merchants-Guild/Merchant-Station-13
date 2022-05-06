@@ -237,20 +237,13 @@ GLOBAL_VAR(restart_counter)
 	qdel(src) //shut it down
 
 /world/Reboot(reason = 0, fast_track = FALSE)
-	if (reason == 3)
-		to_chat(world, span_boldannounce("Server will update after this round."))
-		SSticker.hard_restart = TRUE
-		return
 	if (reason || fast_track) //special reboot, do none of the normal stuff
 		if (usr)
 			log_admin("[key_name(usr)] Has requested an immediate world restart via client side debugging tools")
 			message_admins("[key_name_admin(usr)] Has requested an immediate world restart via client side debugging tools")
 		to_chat(world, span_boldannounce("Rebooting World immediately due to host request."))
 	else
-		if (SSticker.hard_restart)
-			to_chat(world, span_boldannounce("Restarting and updating server..."))
-		else
-			to_chat(world, span_boldannounce("Rebooting world..."))
+		to_chat(world, span_boldannounce("Rebooting world..."))
 		Master.Shutdown() //run SS shutdowns
 
 	#ifdef UNIT_TESTS
@@ -283,14 +276,7 @@ GLOBAL_VAR(restart_counter)
 
 	TgsReboot()
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
-	if (SSticker.hard_restart)
-		var/hrc = CONFIG_GET(string/hard_restart_command)
-		if (hrc)
-			shell(hrc)
-		else
-			del world // not ideal
-	else
-		..()
+	..()
 
 /world/proc/update_status()
 

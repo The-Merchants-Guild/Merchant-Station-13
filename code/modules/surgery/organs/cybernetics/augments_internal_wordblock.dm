@@ -22,6 +22,7 @@ GLOBAL_LIST_EMPTY(wordblockers)
 
 /obj/item/organ/cyberimp/brain/wordblocker/ComponentInitialize()
 	. = ..()
+	// We do not want our encode_info scrambled
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF)
 
 /obj/item/organ/cyberimp/brain/wordblocker/Del()
@@ -48,7 +49,6 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	if(!mgr || mgr == null)
 		to_chat(user, "<span class='notice'>You try to reconfigure [src], but the screwdriver phases straight through it. You should probably notify a coder. </span>")
 		return
-	// feels hacky idk
 	mgr.visible = !mgr.visible
 	to_chat(user, "<span class='notice'>You reconfigure [src] to [mgr.visible ? "" : "not"] allow remote access.</span>")
 

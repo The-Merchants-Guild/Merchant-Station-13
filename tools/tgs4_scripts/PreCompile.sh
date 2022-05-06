@@ -29,24 +29,12 @@ if ! [ -x "$has_cargo" ]; then
 	. ~/.profile
 fi
 
-# apt packages, libssl needed by rust-g but not included in TGS barebones install
-if ! ( [ -x "$has_git" ] && [ -x "$has_grep" ] && [ -f "/usr/lib/i386-linux-gnu/libssl.so" ] ); then
-	echo "Installing apt dependencies..."
-	if ! [ -x "$has_sudo" ]; then
-		dpkg --add-architecture i386
-		apt-get update
-		apt-get install -y git libssl-dev:i386
-		rm -rf /var/lib/apt/lists/*
-	else
-		sudo dpkg --add-architecture i386
-		sudo apt-get update
-		sudo apt-get install -y git libssl-dev:i386
-		sudo rm -rf /var/lib/apt/lists/*
-	fi
+# dnf packages, libssl needed by rust-g but not included in TGS barebones install
+echo "Installing dependencies..."
+if [ -x "$has_sudo" ]; then
+	sudo dnf install -y git openssl-devel.i686 gcc glibc-devel.i686 zlib-devel.i686 pkgconf-pkg-config
 fi
-dpkg --add-architecture i386
-apt-get update
-apt-get install -y lib32z1 pkg-config libssl-dev:i386 libssl-dev libssl1.1:i386
+
 # update rust-g
 if [ ! -d "rust-g" ]; then
 	echo "Cloning rust-g..."
@@ -70,10 +58,8 @@ cd ..
 # which we assume was used to install it
 if ! [ -x "$has_youtubedl" ]; then
 	echo "Installing youtube-dl with pip3..."
-	if ! [ -x "$has_sudo" ]; then
-		apt-get install -y python3 python3-pip
-	else
-		sudo apt-get install -y python3 python3-pip
+	if [ -x "$has_sudo" ]; then
+		sudo dnf install -y python3-pip
 	fi
 	pip3 install youtube-dl
 elif [ -x "$has_pip3" ]; then

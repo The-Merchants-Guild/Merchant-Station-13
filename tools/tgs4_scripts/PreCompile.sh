@@ -62,10 +62,11 @@ if ! [ -x "$has_ytdlp" ]; then
 	echo "Installing yt-dlp with pip3..."
 	if [ -x "$has_sudo" ]; then
 		sudo dnf install -y python3-pip
+		sudo pip3 install yt-dlp
 	else
 		dnf install -y python3-pip
+		pip3 install yt-dlp
 	fi
-	pip3 install yt-dlp
 elif [ -x "$has_pip3" ]; then
 	echo "Ensuring yt-dlp is up-to-date with pip3..."
 	if [ -x "$has_sudo" ]; then

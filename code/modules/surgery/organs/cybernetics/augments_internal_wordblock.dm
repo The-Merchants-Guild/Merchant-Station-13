@@ -2,13 +2,14 @@ GLOBAL_LIST_EMPTY(wordblockers)
 
 /obj/item/organ/cyberimp/brain/wordblocker
 	name = "speech filtration implant"
-	desc = "Originally made for prison use, this gruesome implant interfaces directly with the brain's speech centers, both allowing control over what the victim can say AND bypassing need for a cyberlink."
+	desc = "Originally made for prison use, this gruesome implant interfaces directly with the brain's speech centers, both allowing control over what the victim can say and bypassing need for a cyberlink."
 	icon_state = "brain_implant"
 	slot = ORGAN_SLOT_BRAIN_LANGUAGEINHIBITOR
 	encode_info = AUGMENT_NO_REQ
 
 	var/id = 0
 	var/static/wordblock_uid = 0
+	var/locked = FALSE // write protection (for idk admin shenanigans)
 
 	var/datum/wordfilter_manager/mgr = null
 
@@ -47,7 +48,10 @@ GLOBAL_LIST_EMPTY(wordblockers)
 		return TRUE
 	I.play_tool_sound(src)
 	if(!mgr || mgr == null)
-		to_chat(user, "<span class='notice'>You try to reconfigure [src], but the screwdriver phases straight through it. You should probably notify a coder. </span>")
+		to_chat(user, "<span class='notice'>You try to reconfigure [src], but your [I] phases straight through it. You should probably notify a coder. </span>")
+		return
+	if(locked)
+		to_chat(user, "<span class='notice'>You try to reconfigure [src], only to find it's remote access switch glued in the [mgr.visible ? "ON" : "OFF"] position.</span>")
 		return
 	mgr.visible = !mgr.visible
 	to_chat(user, "<span class='notice'>You reconfigure [src] to [mgr.visible ? "" : "not"] allow remote access.</span>")
@@ -57,8 +61,8 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	var/replace_phrase = "lg tv+"
 
 	var/case_sensitive = FALSE
-	var/active = TRUE // might want to disable but keep the thing to
-	var/replace = TRUE
+	var/replace = TRUE // replace or block?
+	var/active = TRUE
 
 /datum/wordfilter/New(block, replace_msg, casesensitive = FALSE, replacetxt = TRUE, on = TRUE)
 	blocked_word = block
@@ -102,9 +106,9 @@ GLOBAL_LIST_EMPTY(wordblockers)
 
 /datum/wordfilter_manager/proc/process_msg(message)
 	. = message
-	// going over it like this to make sure it applies
-	// the "topmost" filter first
-	for(var/i = 1; i <= word_filters.len, i++) // why are byond lists 1-indexed why
+	// going over it like this to make sure it
+	// applies the "topmost" filter first
+	for(var/i = 1; i <= word_filters.len, i++)
 		var/datum/wordfilter/w = word_filters[i]
 		var/before_message = message
 		message = w.process_msg(message)
@@ -116,14 +120,16 @@ GLOBAL_LIST_EMPTY(wordblockers)
 
 	return message
 
-/obj/item/organ/cyberimp/brain/wordblocker/nwordinhibitor
+/obj/item/organ/cyberimp/brain/wordblocker/nword
 	name = "N Word Inhibitor Implant"
 	desc = "DOKTOR! TURN OFF MY N WORD INHIBITOR!"
+	locked = TRUE
 
-/obj/item/organ/cyberimp/brain/wordblocker/nwordinhibitor/New()
+/obj/item/organ/cyberimp/brain/wordblocker/nword/New()
 	..()
+	mgr.visible = FALSE
 	mgr.add_filter(@"n+\s*i+\s*g+\s*g+\s*e+\s*r+", "Crime statistically misrepresented Person(s)", FALSE, FALSE, TRUE)
 
-/obj/item/autosurgeon/organ/nwordinhibitor
-	starting_organ = /obj/item/organ/cyberimp/brain/wordblocker/nwordinhibitor
+/obj/item/autosurgeon/organ/nword
+	starting_organ = /obj/item/organ/cyberimp/brain/wordblocker/nword
 	uses = 1

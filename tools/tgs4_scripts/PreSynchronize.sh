@@ -7,17 +7,21 @@ has_pip="$(command -v pip3)"
 
 set -e
 
-if ! { [ -x "$has_python" ] && [ -x "$has_pip" ] && [ -x "$has_git" ];  }; then
+if ! { [ -x "$has_python" ] && [ -x "$has_pip" ] && [ -x "$has_git" ]; }; then
     echo "Installing dependencies..."
-    if ! [ -x "$has_sudo" ]; then
-        dnf install -y python3-pip git
-    else
+    if [ -x "$has_sudo" ]; then
         sudo dnf install -y python3-pip git
+    else
+        dnf install -y python3-pip git
     fi
 fi
 
 echo "Installing pip dependencies..."
-pip3 install PyYaml beautifulsoup4
+if [ -x "$has_sudo" ]; then
+	sudo pip3 install PyYaml beautifulsoup4
+else
+	pip3 install PyYaml beautifulsoup4
+fi
 
 cd $1
 

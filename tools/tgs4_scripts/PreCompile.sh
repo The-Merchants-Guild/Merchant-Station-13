@@ -18,7 +18,7 @@ has_git="$(command -v git)"
 has_cargo="$(command -v ~/.cargo/bin/cargo)"
 has_sudo="$(command -v sudo)"
 has_grep="$(command -v grep)"
-has_youtubedl="$(command -v youtube-dl)"
+has_ytdlp="$(command -v yt-dlp)"
 has_pip3="$(command -v pip3)"
 set -e
 
@@ -29,24 +29,12 @@ if ! [ -x "$has_cargo" ]; then
 	. ~/.profile
 fi
 
-# apt packages, libssl needed by rust-g but not included in TGS barebones install
-if ! ( [ -x "$has_git" ] && [ -x "$has_grep" ] && [ -f "/usr/lib/i386-linux-gnu/libssl.so" ] ); then
-	echo "Installing apt dependencies..."
-	if ! [ -x "$has_sudo" ]; then
-		dpkg --add-architecture i386
-		apt-get update
-		apt-get install -y git libssl-dev:i386
-		rm -rf /var/lib/apt/lists/*
-	else
-		sudo dpkg --add-architecture i386
-		sudo apt-get update
-		sudo apt-get install -y git libssl-dev:i386
-		sudo rm -rf /var/lib/apt/lists/*
-	fi
+# dnf packages, libssl needed by rust-g but not included in TGS barebones install
+echo "Installing dependencies..."
+if [ -x "$has_sudo" ]; then
+	sudo dnf install -y git openssl-devel.i686 gcc glibc-devel.i686 zlib-devel.i686 pkgconf-pkg-config
 fi
-dpkg --add-architecture i386
-apt-get update
-apt-get install -y lib32z1 pkg-config libssl-dev:i386 libssl-dev libssl1.1:i386
+
 # update rust-g
 if [ ! -d "rust-g" ]; then
 	echo "Cloning rust-g..."
@@ -66,19 +54,17 @@ env PKG_CONFIG_ALLOW_CROSS=1 ~/.cargo/bin/cargo build --release --target=i686-un
 mv target/i686-unknown-linux-gnu/release/librust_g.so "$1/librust_g.so"
 cd ..
 
-# install or update youtube-dl when not present, or if it is present with pip3,
+# install or update yt-dlp when not present, or if it is present with pip3,
 # which we assume was used to install it
-if ! [ -x "$has_youtubedl" ]; then
-	echo "Installing youtube-dl with pip3..."
-	if ! [ -x "$has_sudo" ]; then
-		apt-get install -y python3 python3-pip
-	else
-		sudo apt-get install -y python3 python3-pip
+if ! [ -x "$has_ytdlp" ]; then
+	echo "Installing yt-dlp with pip3..."
+	if [ -x "$has_sudo" ]; then
+		sudo dnf install -y python3-pip
 	fi
-	pip3 install youtube-dl
+	pip3 install yt-dlp
 elif [ -x "$has_pip3" ]; then
-	echo "Ensuring youtube-dl is up-to-date with pip3..."
-	pip3 install youtube-dl -U
+	echo "Ensuring yt-dlp is up-to-date with pip3..."
+	pip3 install yt-dlp -U
 fi
 
 # compile tgui

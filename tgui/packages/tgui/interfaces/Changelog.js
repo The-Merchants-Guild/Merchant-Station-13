@@ -79,7 +79,7 @@ export class Changelog extends Component {
         const result = await changelogData.text();
         const errorRegex = /^Cannot find/;
         if (errorRegex.test(result)) {
-          self.setData(result);
+          self.setData(changelogData);
         } else {
           self.setData(yaml.load(result, { schema: yaml.CORE_SCHEMA }));
         }

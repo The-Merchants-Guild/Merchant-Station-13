@@ -26,6 +26,6 @@ jobs:
       - name: Make CL
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          git config --local user.email "action@github.com"
-          git config --local user.name "Changelogs"
+          GIT_EMAIL: "action@github.com"
+          GIT_NAME: "Changelogs"
         run: python tools/changelog/generate_cl.py

@@ -92,12 +92,6 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 
 	return new_msg
 
-// This is purely for the word inhibitor implant
-// Overwritten in /mob/living/carbon for the implant logic
-// ((mob/living has no organs))
-/mob/living/proc/midflight_check(message) //todo: come up with a better name for proc
-	return message
-
 /mob/living/say(message, bubble_type,list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	var/ic_blocked = FALSE
 	if(client && !forced && CHAT_FILTER_CHECK(message))
@@ -179,15 +173,6 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 		else
 			to_chat(src, span_warning("You find yourself unable to speak!"))
 			return
-
-
-	// please suggest a better solution to this
-	// if possible.
-	message = midflight_check(message)
-	if(!message)
-		to_chat(src, span_warning("An implant prevents you from speaking!"))
-		return
-
 
 	var/message_range = 7
 

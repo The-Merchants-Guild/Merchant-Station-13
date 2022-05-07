@@ -21,6 +21,14 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	GLOB.wordblockers.Add(src)
 	..()
 
+/obj/item/organ/cyberimp/brain/wordblocker/Insert(mob/living/carbon/owner, special)
+	..()
+	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+
+/obj/item/organ/cyberimp/brain/wordblocker/Remove(mob/living/carbon/organ_owner, special)
+	UnregisterSignal(owner, COMSIG_MOB_SAY)
+	..()
+
 /obj/item/organ/cyberimp/brain/wordblocker/ComponentInitialize()
 	. = ..()
 	// We do not want our encode_info scrambled
@@ -28,13 +36,28 @@ GLOBAL_LIST_EMPTY(wordblockers)
 
 /obj/item/organ/cyberimp/brain/wordblocker/Del()
 	GLOB.wordblockers.Remove(src)
+	UnregisterSignal(owner, COMSIG_MOB_SAY)
 	..()
 
 /obj/item/organ/cyberimp/brain/wordblocker/proc/get_manager()
 	if(!mgr)
-		mgr = new(id)
-
+		mgr = new(id, src)
 	return mgr
+
+/obj/item/organ/cyberimp/brain/wordblocker/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
+	if(!mgr)
+		return
+
+	var/newmsg = mgr.process_message(speech_args[SPEECH_MESSAGE])
+	if(owner && (!newmsg || newmsg == FALSE || newmsg == ""))
+		to_chat(owner, span_warning("An implant prevents you from speaking!"))
+		speech_args[SPEECH_MESSAGE] = ""
+		return
+	speech_args[SPEECH_MESSAGE] = newmsg
+
+
 
 /obj/item/organ/cyberimp/brain/wordblocker/examine(mob/user)
 	. = ..()
@@ -71,19 +94,19 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	replace = replacetxt
 	active = on
 
-/datum/wordfilter/proc/process_msg(message)
+/datum/wordfilter/proc/process_message(message)
 	. = message
 	if(!active)
 		return message // don't process the string
 	var/regex/r = new(blocked_word, (case_sensitive ? "gm" : "gmi"))
+	// regex can be replaced with replacetext() if it gets abused or something
 	if(replace)
 		var/t = r.Replace(message, replace_phrase)
 		if(uppertext(message) == message) // I AM YELLING CAN YOU HEAR ME
 			t = uppertext(t)
 		return t
 	else
-		var/found = r.Find(message)
-		if(found)
+		if(r.Find(message))
 			return FALSE
 
 /datum/wordfilter_manager
@@ -104,18 +127,21 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	var/datum/wordfilter/wb = new(block, replace, casesensitive, replacetxt, on)
 	word_filters.Add(wb)
 
-/datum/wordfilter_manager/proc/process_msg(message)
+/datum/wordfilter_manager/proc/process_message(message)
 	. = message
 	// going over it like this to make sure it
 	// applies the "topmost" filter first
+	var/mob/living/carbon/impowner = implant.owner
+
 	for(var/i = 1; i <= word_filters.len, i++)
 		var/datum/wordfilter/w = word_filters[i]
 		var/before_message = message
-		message = w.process_msg(message)
+		message = w.process_message(message)
 		if(message == FALSE)
-			implant.owner.log_talk("Message blocked by [implant] \[ID: [id]\]: [w.blocked_word] -> (!BLOCK!) | message: [before_message]", LOG_WORDFILTER)
+			if(impowner)
+				impowner.log_talk("Message blocked by [implant] \[ID: [id]\]: [w.blocked_word] -> (!BLOCK!) | message: [before_message]", LOG_WORDFILTER)
 			return FALSE
-		if(message != before_message) // don't log no changes
+		if(message != before_message && impowner) // don't log no changes
 			implant.owner.log_talk("Message modified by [implant] \[ID: [id]\]: [w.blocked_word] -> [w.replace_phrase] | message: '[before_message]' -> '[message]'", LOG_WORDFILTER)
 
 	return message

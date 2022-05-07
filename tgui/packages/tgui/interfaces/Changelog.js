@@ -77,8 +77,9 @@ export class Changelog extends Component {
     fetch(resolveAsset(date + '.yml'))
       .then(async (changelogData) => {
         const result = await changelogData.text();
-        const errorRegex = /^Cannot find/;
-
+        // const errorRegex = /^Cannot find/;
+        self.setData(result);
+        /*
         if (errorRegex.test(result)) {
           const timeout = 50 + attemptNumber * 50;
 
@@ -91,6 +92,7 @@ export class Changelog extends Component {
         } else {
           self.setData(yaml.load(result, { schema: yaml.CORE_SCHEMA }));
         }
+*/
       });
   }
 

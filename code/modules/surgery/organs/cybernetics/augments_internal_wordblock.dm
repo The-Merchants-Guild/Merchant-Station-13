@@ -95,19 +95,23 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	active = on
 
 /datum/wordfilter/proc/process_message(message)
-	. = message
 	if(!active)
 		return message // don't process the string
 	var/regex/r = new(blocked_word, (case_sensitive ? "gm" : "gmi"))
 	// regex can be replaced with replacetext() if it gets abused or something
+	var/t = message
 	if(replace)
-		var/t = r.Replace(message, replace_phrase)
-		if(uppertext(message) == message) // I AM YELLING CAN YOU HEAR ME
-			t = uppertext(t)
-		return t
+		t = r.Replace(message, replace_phrase)
 	else
-		if(r.Find(message))
-			return FALSE
+		var/find = r.Find(message)
+		if(find != 0 && (find+1) < length(message)) // block "lean" = "I love lean, you should too" -> "i love l-"
+			t = splicetext(t, find+1, 0, "-")
+
+	if(uppertext(message) == message) // I AM YELLING CAN YOU HEAR ME
+		t = uppertext(t)
+
+	return t
+
 
 /datum/wordfilter_manager
 	var/id = null
@@ -137,12 +141,11 @@ GLOBAL_LIST_EMPTY(wordblockers)
 		var/datum/wordfilter/w = word_filters[i]
 		var/before_message = message
 		message = w.process_message(message)
-		if(message == FALSE)
-			if(impowner)
-				impowner.log_talk("Message blocked by [implant] \[ID: [id]\]: [w.blocked_word] -> (!BLOCK!) | message: [before_message]", LOG_WORDFILTER)
-			return FALSE
-		if(message != before_message && impowner) // don't log no changes
-			implant.owner.log_talk("Message modified by [implant] \[ID: [id]\]: [w.blocked_word] -> [w.replace_phrase] | message: '[before_message]' -> '[message]'", LOG_WORDFILTER)
+		if(impowner)
+			if(w.replace == FALSE)
+				impowner.log_talk("Message blocked by [implant] \[ID: [id]\]: [w.blocked_word] -> (!BLOCK!) | message: [before_message] -> '[message]'", LOG_WORDFILTER)
+			if(message != before_message) // don't log no changes
+				impowner.log_talk("Message modified by [implant] \[ID: [id]\]: [w.blocked_word] -> [w.replace_phrase] | message: '[before_message]' -> '[message]'", LOG_WORDFILTER)
 
 	return message
 

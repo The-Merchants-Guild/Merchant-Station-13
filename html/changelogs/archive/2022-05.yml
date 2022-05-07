@@ -2,3 +2,6 @@
   EtraIV:
   - bugfix: Fixes changelog YAML error I accidentally committed in.
   - rscadd: Automatic changelog compilation.
+  MACIEKBAKI:
+  - rscadd: Station surgeons have finally been trained in the insertion and removal
+      of leg-inserted cybernetic implants.

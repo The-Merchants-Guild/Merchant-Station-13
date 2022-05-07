@@ -798,6 +798,7 @@
   - bugfix: One spraycan can no longer colour every light on the station.
   Fikou:
   - code_imp: bless aware hud is no longer hardcoded for chaplains
+  - bugfix: the elite syndie suit now has the proper icons on its first equip
   Ghommie:
   - bugfix: Sentient monkeys are no longer subsceptible to being knocked over by mobs
       in their way.
@@ -831,10 +832,15 @@
   Wayland-Smithy:
   - spellcheck: Made the Doppler Array explosive sale message less wordy.
   - bugfix: Fixed Chat Highlighting working on your own Binary messages.
+  - qol: Poll Candidates alerts no longer steal window focus, like ghost role rolls
+      and cult leadership votes.
+  - code_imp: Added an autofocus argument to tgui_alert, defaults on, that can be
+      used to prevent accidental inputs from surprise alerts when used.
   dragomagol:
   - bugfix: lavaland syndie base and seed vault no longer explode into green tiles
   timothymtorres:
   - expansion: Added xeno plasma statue
+  - bugfix: Fixed wallets not granting access for ID cards inside them.
   tralezab:
   - spellcheck: Tiger Cooperative Traitors now have a slightly better uplink information
       flavor text
@@ -849,26 +855,16 @@
       glass nearby as well.
   - expansion: Kilostation Engineering's solar now starts partially built, with a
       box with assembly and glass nearby.
-  Fikou:
-  - bugfix: the elite syndie suit now has the proper icons on its first equip
   Guestify:
   - bugfix: Replaces security newscasters with non security ones in non security rooms
       on Tramstation
   Kylerace:
   - balance: tram is now twice as fast, pray it doesnt get faster
-  Wayland-Smithy:
-  - qol: Poll Candidates alerts no longer steal window focus, like ghost role rolls
-      and cult leadership votes.
-  - code_imp: Added an autofocus argument to tgui_alert, defaults on, that can be
-      used to prevent accidental inputs from surprise alerts when used.
   ZephyrTFA:
   - bugfix: Rust Heretics can once again benefit from rust
   aaaa1023:
   - bugfix: Removes stray coldroom area tile in cryogenics, medbay central tiles under
       medical and snaking chapel office line on chapel walls on Metastation.
-  timothymtorres:
-  - bugfix: Fixed wallets not granting access for ID cards inside them.
   timothymtorres, SomeoneYouProbablyKnow:
   - expansion: Added a referee costume to autodrope and costume spawners
   - imageadd: Added referee costume
-

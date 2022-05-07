@@ -1,8 +1,10 @@
 name: Compile changelogs
 
 on:
-  schedule:
-  - cron: "0 0 * * *"
+  workflow_run:
+    workflows: [Make changelogs]
+    types:
+      - completed
 
 jobs:
   compile:

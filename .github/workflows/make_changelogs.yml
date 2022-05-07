@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - cl-overhaul
+      - cl-merge-test
 
 jobs:
   MakeCL:

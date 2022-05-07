@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-      - cl-overhaul
-      - cl-merge-test
 
 jobs:
   MakeCL:
@@ -27,6 +25,6 @@ jobs:
       - name: Make CL
         env:
           GITHUB_TOKEN: ${{ secrets.CL_TOKEN }}
-          GIT_EMAIL: "34369281+EtraIV@users.noreply.github.com"
-          GIT_NAME: "EtraIV"
+          GIT_EMAIL: "105106537+MerchantStation13@users.noreply.github.com"
+          GIT_NAME: "MerchantStation13"
         run: python tools/changelog/generate_cl.py

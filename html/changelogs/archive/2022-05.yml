@@ -1,5 +1,4 @@
-author: EtraIV
-delete-after: true
-changes:
+2022-05-07:
+  EtraIV:
   - bugfix: Fixes changelog YAML error I accidentally committed in.
   - rscadd: Automatic changelog compilation.

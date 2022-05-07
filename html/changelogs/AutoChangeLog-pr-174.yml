@@ -1,0 +1,5 @@
+author: EtraIV
+delete-after: true
+changes:
+  - bugfix: Fixes changelog YAML error I accidentally committed in.
+  - rscadd: Automatic changelog compilation.

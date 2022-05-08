@@ -588,3 +588,31 @@
 	required_reagents = list(/datum/reagent/consumable/ethanol/planet_cracker = 1, /datum/reagent/consumable/ethanol/triumphal_arch = 1)
 	strengthdiv = 20
 	mix_message = "<span class='boldannounce'>The two patriotic drinks instantly reject each other!</span>"
+
+/datum/chemical_reaction/over_reactible
+	var/exothermic_gain = 0
+	var/overheat_threshold = 0
+	var/overpressure_threshold = 0
+	var/can_overheat = FALSE
+	var/can_overpressure = FALSE
+
+/datum/chemical_reaction/proc/over_reaction(datum/reagents/holder, created_volume)
+
+	var/location = get_turf(holder.my_atom)
+	var/datum/effect_system/smoke_spread/chem/S = new
+	S.attach(location)
+	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
+	if(S)
+		S.set_up(holder, 4, location, 0)
+		S.start()
+	if(holder)
+		holder.clear_reagents()
+
+/datum/chemical_reaction/over_reactible/on_reaction(datum/reagents/holder, created_volume)
+	..()
+	holder.chem_temp += exothermic_gain
+
+	if(can_overheat == TRUE && holder.chem_temp >= overheat_threshold)
+		over_reaction(holder)
+	if(can_overpressure == TRUE && holder.chem_pressure >= overpressure_threshold)
+		over_reaction(holder, created_volume)

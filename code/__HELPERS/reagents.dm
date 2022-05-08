@@ -51,6 +51,9 @@
 		//there is at least one unique catalyst for the short reaction, so there is no conflict
 		return FALSE
 
+	if(short_req.centrifuge_recipe && !long_req.centrifuge_recipe)
+		return FALSE
+
 	//if we got this far, the longer reaction will be impossible to create if the shorter one is earlier in GLOB.chemical_reactions_list_reactant_index, and will require the reagents to be added in a particular order otherwise
 	return TRUE
 
@@ -183,6 +186,16 @@
 	var/static/list/random_reagents = list()
 	if(!random_reagents.len)
 		for(var/thing in subtypesof(/datum/reagent))
+			var/datum/reagent/R = thing
+			if(initial(R.chemical_flags) & REAGENT_CAN_BE_SYNTHESIZED)
+				random_reagents += R
+	var/picked_reagent = pick(random_reagents)
+	return picked_reagent
+
+/proc/get_random_toxic_reagent_id()
+	var/static/list/random_reagents = list()
+	if(!random_reagents.len)
+		for(var/thing in subtypesof(/datum/reagent/toxin))
 			var/datum/reagent/R = thing
 			if(initial(R.chemical_flags) & REAGENT_CAN_BE_SYNTHESIZED)
 				random_reagents += R

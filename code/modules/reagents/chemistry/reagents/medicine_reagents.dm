@@ -1534,3 +1534,72 @@
 	clot_rate = 0.4 //slightly better than regular coagulant
 	passive_bleed_modifier = 0.5
 	overdose_threshold = 10 //but easier to overdose on
+
+/datum/reagent/medicine/liquid_life
+	name = "Liquid Life"
+	description = "The purest form of healing avaliable, unfortunately extremely painful for the user when regenerating"
+	color = "#C8A5DC" // rgb: 200, 165, 220
+	overdose_threshold = 40 //gib nuke
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	taste_description = "the tastiest taste"
+	var/message= TRUE
+
+/datum/reagent/medicine/liquid_life/on_mob_life(mob/living/M)//rebalanced to cripple the person being healed essentially acting as a sort of hunker down chem
+	if(M.getBruteLoss() != 0 || M.getFireLoss() != 0 || M.getToxLoss() != 0)
+		if(message == TRUE)
+			to_chat(M, "<span class='warning'>You double over in pain as you begin to violently regenerate!</span>")
+			M.emote("scream")
+			message = FALSE
+		M.setStaminaLoss(40)//or your devil
+		M.drowsyness = max(M.drowsyness, 1)
+		M.setToxLoss(0)//i can be yuor angle
+		M.hallucination = 0
+		M.adjustFireLoss(-10)
+		M.adjustBruteLoss(-10)
+	..()
+
+/datum/reagent/medicine/liquid_life/overdose_process(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/turf/T = M.loc
+
+		switch(current_cycle)
+			if(4)
+				to_chat(M, "<span class='warning'>You start to feel very bloated!</span>")
+				H.resize = 1.1
+				H.update_transform()
+
+			if(8)
+				to_chat(M, "<span class='userdanger'>Immense pain surges through your expanding body!</span>")
+				H.resize = 1.2
+				H.update_transform()
+
+
+			if(14)
+				to_chat(M, "<span class='userdanger'>YOU FEEL LIKE YOU ARE ABOUT TO EXPLODE!</span>")
+				H.vomit(20, 1, 5)
+				H.resize = 1.4
+				H.update_transform()
+
+			if(20)
+				H.vomit(20, 1, 5)
+				M.Knockdown(100, 0)
+				H.resize = 1.5
+				H.update_transform()
+
+			if(24)
+				playsound(T, 'sound/magic/disintegrate.ogg', 200, 1, 8)
+				for(var/I in 1 to 30)
+					var/gibtype = pick(/obj/effect/decal/cleanable/blood/gibs/up, /obj/effect/decal/cleanable/blood/gibs/down, /obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/body, /obj/effect/decal/cleanable/blood/gibs/limb, /obj/effect/decal/cleanable/blood/gibs/core)
+					var/obj/effect/decal/cleanable/blood/gibs/G = new gibtype(T)
+					G.throw_at(get_edge_target_turf(T, pick(GLOB.alldirs)), rand(1,20), 1)
+
+				for(var/turf/C in oview(T, 8))
+					new /obj/effect/decal/cleanable/blood/splatter(C)
+				var/datum/effect_system/reagents_explosion/e = new()
+				e.set_up(5, T, 1, 2)
+				e.start()
+				holder.clear_reagents()
+				M.gib()
+				return ..()
+	..()

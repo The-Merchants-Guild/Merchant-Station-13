@@ -58,6 +58,10 @@
 	///Tagging vars
 	///A bitflag var for tagging reagents for the reagent loopup functon
 	var/reaction_tags = NONE
+	var/centrifuge_recipe = FALSE
+	var/pressure_required = 0
+	var/radioactivity_required = 0
+	var/bluespace_recipe = FALSE
 
 /datum/chemical_reaction/New()
 	. = ..()

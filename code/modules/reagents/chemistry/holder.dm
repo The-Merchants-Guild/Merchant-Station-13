@@ -131,6 +131,11 @@
 	var/ui_reaction_index = 1
 	///If we're syncing with the beaker - so return reactions that are actively happening
 	var/ui_beaker_sync = FALSE
+	var/chem_pressure = 0
+	var/chem_radioactivity = 0
+	var/chem_bluespaced = FALSE
+	var/chem_centrifuged = FALSE
+	var/next_react = 0
 
 /datum/reagents/New(maximum=100, new_flags=0)
 	maximum_volume = maximum
@@ -805,6 +810,10 @@
 			var/matching_container = FALSE
 			var/matching_other = FALSE
 			var/required_temp = reaction.required_temp
+			var/centrifuge_recipe = reaction.centrifuge_recipe
+			var/pressure_required = reaction.pressure_required
+			var/radioactivity_required = reaction.radioactivity_required
+			var/bluespace_recipe = reaction.bluespace_recipe
 			var/is_cold_recipe = reaction.is_cold_recipe
 			var/meets_temp_requirement = FALSE
 			var/meets_ph_requirement = FALSE
@@ -842,13 +851,21 @@
 				if(!reaction.required_other)
 					matching_other = TRUE
 
+			if(centrifuge_recipe == TRUE)
+				if(!chem_centrifuged)
+					continue
+
+			if(bluespace_recipe == TRUE)
+				if(!chem_bluespaced)
+					continue
+
 			if(required_temp == 0 || (is_cold_recipe && chem_temp <= required_temp) || (!is_cold_recipe && chem_temp >= required_temp))
 				meets_temp_requirement = TRUE
 
 			if(((ph >= (reaction.optimal_ph_min - reaction.determin_ph_range)) && (ph <= (reaction.optimal_ph_max + reaction.determin_ph_range))))
 				meets_ph_requirement = TRUE
 
-			if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other)
+			if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && chem_pressure >= pressure_required && matching_other && chem_radioactivity >= radioactivity_required)
 				if(meets_temp_requirement && meets_ph_requirement)
 					possible_reactions  += reaction
 				else

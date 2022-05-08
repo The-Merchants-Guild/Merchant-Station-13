@@ -2708,3 +2708,11 @@
 	if(methods & (PATCH|TOUCH|VAPOR))
 		amount_left = round(reac_volume,0.1)
 		exposed_mob.apply_status_effect(STATUS_EFFECT_ANTS, amount_left)
+
+/datum/reagent/unstablemutationtoxin
+	name = "Unstable Mutation Toxin"
+	description = "A corruptive toxin... it seems to bubble and froth unpredictably. Are you sure you want to be around this for long?"
+	color = "#a872e6" // rgb: 168, 114, 230
+	metabolization_rate = INFINITY
+	taste_description = "fizzy slime"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED

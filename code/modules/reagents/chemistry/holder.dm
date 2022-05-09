@@ -854,9 +854,8 @@
 			if(centrifuge_recipe && !chem_centrifuged)
 				continue
 
-			if(bluespace_recipe == TRUE)
-				if(!chem_bluespaced)
-					continue
+			if(bluespace_recipe && !chem_bluespaced)
+				continue
 
 			if(required_temp == 0 || (is_cold_recipe && chem_temp <= required_temp) || (!is_cold_recipe && chem_temp >= required_temp))
 				meets_temp_requirement = TRUE

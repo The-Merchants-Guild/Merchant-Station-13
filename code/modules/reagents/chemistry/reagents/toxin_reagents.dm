@@ -1447,7 +1447,7 @@
 			chance = 80
 	if(prob(chance))
 		M.emote("scream")
-		. = 1
+		. = TRUE
 	..()
 
 /datum/reagent/toxin/vomit

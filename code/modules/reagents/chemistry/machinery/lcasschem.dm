@@ -37,6 +37,7 @@
 	return TRUE
 
 /obj/machinery/chem/AltClick(mob/living/user)
+	..()
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 	replace_beaker(user)
@@ -263,7 +264,7 @@
 			return
 		to_chat(user, "<span class='notice'>You add the bluespace material to the [src].</span>")
 		crystal_amt += 1//10 crystals max
-		user.dropItemToGround(I)
+		user.temporarilyRemoveItemFromInventory(I)
 		qdel(I)//it's a var now
 		return
 	..()

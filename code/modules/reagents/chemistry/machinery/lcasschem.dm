@@ -222,7 +222,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /obj/machinery/chem/bluespace
 	name = "Bluespace recombobulator"
-	desc = "Forget changing molecules , this thing changes the laws of physics itself in order to produce chemicals."
+	desc = "Forget changing molecules, this thing changes the laws of physics itself in order to produce chemicals."
 	icon_state = "blue"
 	var/crystal_amt = 0
 	var/intensity = 0

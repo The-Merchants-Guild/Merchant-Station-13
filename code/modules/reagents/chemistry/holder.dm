@@ -811,8 +811,8 @@
 			var/matching_other = FALSE
 			var/required_temp = reaction.required_temp
 			var/centrifuge_recipe = reaction.centrifuge_recipe
-			var/pressure_required = reaction.pressure_required
-			var/radioactivity_required = reaction.radioactivity_required
+			var/required_pressure = reaction.required_pressure
+			var/required_radioactivity = reaction.required_radioactivity
 			var/bluespace_recipe = reaction.bluespace_recipe
 			var/is_cold_recipe = reaction.is_cold_recipe
 			var/meets_temp_requirement = FALSE
@@ -863,7 +863,7 @@
 			if(((ph >= (reaction.optimal_ph_min - reaction.determin_ph_range)) && (ph <= (reaction.optimal_ph_max + reaction.determin_ph_range))))
 				meets_ph_requirement = TRUE
 
-			if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && chem_pressure >= pressure_required && matching_other && chem_radioactivity >= radioactivity_required)
+			if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && chem_pressure >= required_pressure && matching_other && chem_radioactivity >= required_radioactivity)
 				if(meets_temp_requirement && meets_ph_requirement)
 					possible_reactions  += reaction
 				else

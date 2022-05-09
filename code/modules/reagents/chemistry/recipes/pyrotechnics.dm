@@ -591,7 +591,6 @@
 
 /datum/chemical_reaction/over_reactible
 	var/exothermic_gain = 0
-	var/overheat_threshold = 0
 	var/overpressure_threshold = 0
 	var/can_overheat = FALSE
 	var/can_overpressure = FALSE
@@ -612,7 +611,7 @@
 	..()
 	holder.chem_temp += exothermic_gain
 
-	if(can_overheat == TRUE && holder.chem_temp >= overheat_threshold)
+	if(can_overheat == TRUE && holder.chem_temp >= overheat_temp)
 		over_reaction(holder)
 	if(can_overpressure == TRUE && holder.chem_pressure >= overpressure_threshold)
 		over_reaction(holder, created_volume)
@@ -630,7 +629,7 @@
 	required_temp = 290
 	is_cold_recipe = TRUE
 	can_overheat = TRUE
-	overheat_threshold = 310
+	overheat_temp = 310
 	exothermic_gain = 30
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DANGEROUS
 
@@ -643,7 +642,7 @@
 	is_cold_recipe = TRUE
 	exothermic_gain = 25
 	can_overheat = TRUE
-	overheat_threshold = 245
+	overheat_temp = 245
 	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/over_reactible/impvolt
@@ -653,7 +652,7 @@
 	is_cold_recipe = TRUE
 	bluespace_recipe = TRUE
 	can_overheat = TRUE
-	overheat_threshold = 310
+	overheat_temp = 310
 	exothermic_gain = 20
 	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_DAMAGING
 
@@ -703,7 +702,7 @@
 	required_reagents = list(/datum/reagent/toxin/plasma = 5, /datum/reagent/water = 3)
 	required_temp = 340
 	can_overheat = TRUE
-	overheat_threshold = 370
+	overheat_temp = 370
 
 /datum/chemical_reaction/over_reactible/proto
 	results = list(/datum/reagent/proto = 2, /datum/reagent/toxin/radgoop = 6)
@@ -711,7 +710,7 @@
 	required_temp = 320
 	radioactivity_required = 20
 	can_overheat = TRUE
-	overheat_threshold = 340
+	overheat_temp = 340
 
 /datum/chemical_reaction/over_reactible/proto
 	results = list(/datum/reagent/proto = 2, /datum/reagent/toxin/radgoop = 6)
@@ -719,7 +718,7 @@
 	required_temp = 320
 	radioactivity_required = 20
 	can_overheat = TRUE
-	overheat_threshold = 340
+	overheat_temp = 340
 
 /datum/chemical_reaction/arclumin
 	results = list(/datum/reagent/arclumin = 2)

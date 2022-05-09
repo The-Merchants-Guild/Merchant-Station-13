@@ -434,7 +434,7 @@
 	required_temp = 460
 	bluespace_recipe = TRUE
 	can_overheat = TRUE
-	overheat_threshold = 1000
+	overheat_temp = 1000
 	exothermic_gain = 350
 
 /datum/chemical_reaction/methphos
@@ -456,7 +456,7 @@
 	results = list(/datum/reagent/toxin/sarin = 3)
 	can_overheat = TRUE
 	can_overpressure = TRUE//hehehe quickest way to get killed as a lunatic chemist
-	overheat_threshold = 450
+	overheat_temp = 450
 	overpressure_threshold = 100
 	centrifuge_recipe = TRUE
 	pressure_required = 95
@@ -499,7 +499,7 @@
 	can_overheat = TRUE
 	required_temp = 750
 	pressure_required = 30
-	overheat_threshold = 775
+	overheat_temp = 775
 	required_reagents = list(/datum/reagent/toxin/emote = 3, /datum/reagent/medicine/ephedrine = 1)
 
 /datum/chemical_reaction/stablemutationtoxin

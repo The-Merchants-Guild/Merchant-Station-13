@@ -284,7 +284,7 @@
 	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
 
-	var beakerContents[0]
+	var/beakerContents[0]
 	if(beaker)
 		for(var/I in beaker.reagents.reagent_list)
 			var/datum/reagent/R = I

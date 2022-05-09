@@ -1397,7 +1397,7 @@
 							/obj/item/stock_parts/cell = 1)
 
 /obj/item/circuitboard/machine/centrifuge
-	name = "circuit board (Centrifuge)"
+	name = "Centrifuge (Machine Board)"
 	build_path = /obj/machinery/chem/centrifuge
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,

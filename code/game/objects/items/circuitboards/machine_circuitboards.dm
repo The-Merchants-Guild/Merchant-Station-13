@@ -1385,7 +1385,7 @@
 		/obj/item/stock_parts/scanning_module = 1)
 
 /obj/item/circuitboard/machine/pressure
-	name = "circuit board (Pressurized reaction vessel)"
+	name = "Pressurized Reaction Vessel (Machine Board)"
 	build_path = /obj/machinery/chem/pressure
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,

@@ -851,9 +851,8 @@
 				if(!reaction.required_other)
 					matching_other = TRUE
 
-			if(centrifuge_recipe == TRUE)
-				if(!chem_centrifuged)
-					continue
+			if(centrifuge_recipe && !chem_centrifuged)
+				continue
 
 			if(bluespace_recipe == TRUE)
 				if(!chem_bluespaced)

@@ -1421,7 +1421,7 @@
 							/obj/item/stock_parts/cell = 1)
 
 /obj/item/circuitboard/machine/bluespace
-	name = "circuit board (Bluespace recombobulator)"
+	name = "Bluespace Recombobulator (Machine Board)"
 	build_path = /obj/machinery/chem/bluespace
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 3,

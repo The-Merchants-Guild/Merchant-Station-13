@@ -222,7 +222,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /obj/machinery/chem/bluespace
 	name = "Bluespace recombobulator"
-	desc = "Forget changing molecules , this thing changes the laws of physics itself in order to produce chemicals."
+	desc = "Forget changing molecules, this thing changes the laws of physics itself in order to produce chemicals."
 	icon_state = "blue"
 	var/crystal_amt = 0
 	var/intensity = 0
@@ -284,7 +284,7 @@
 	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
 
-	var beakerContents[0]
+	var/beakerContents[0]
 	if(beaker)
 		for(var/I in beaker.reagents.reagent_list)
 			var/datum/reagent/R = I

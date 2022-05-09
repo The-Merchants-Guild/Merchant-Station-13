@@ -1409,7 +1409,7 @@
 							/obj/item/stock_parts/cell = 1)
 
 /obj/item/circuitboard/machine/radioactive
-	name = "circuit board (Radioactive molecular reassembler)"
+	name = "Radioactive Molecular Reassembler (Machine Board)"
 	build_path = /obj/machinery/chem/radioactive
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,

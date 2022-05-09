@@ -74,7 +74,7 @@
 	if(!is_operational)
 		return
 	if(on)
-		pressure = min(pressure += 5, 100)
+		pressure = min(pressure + 5, 100)
 	if(beaker)
 		if(beaker.reagents.chem_pressure != pressure)
 			beaker.reagents.chem_pressure = pressure

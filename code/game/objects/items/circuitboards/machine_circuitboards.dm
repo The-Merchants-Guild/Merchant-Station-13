@@ -1385,7 +1385,7 @@
 		/obj/item/stock_parts/scanning_module = 1)
 
 /obj/item/circuitboard/machine/pressure
-	name = "circuit board (Pressurized reaction vessel)"
+	name = "Pressurized Reaction Vessel (Machine Board)"
 	build_path = /obj/machinery/chem/pressure
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
@@ -1397,7 +1397,7 @@
 							/obj/item/stock_parts/cell = 1)
 
 /obj/item/circuitboard/machine/centrifuge
-	name = "circuit board (Centrifuge)"
+	name = "Centrifuge (Machine Board)"
 	build_path = /obj/machinery/chem/centrifuge
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
@@ -1409,7 +1409,7 @@
 							/obj/item/stock_parts/cell = 1)
 
 /obj/item/circuitboard/machine/radioactive
-	name = "circuit board (Radioactive molecular reassembler)"
+	name = "Radioactive Molecular Reassembler (Machine Board)"
 	build_path = /obj/machinery/chem/radioactive
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
@@ -1421,7 +1421,7 @@
 							/obj/item/stock_parts/cell = 1)
 
 /obj/item/circuitboard/machine/bluespace
-	name = "circuit board (Bluespace recombobulator)"
+	name = "Bluespace Recombobulator (Machine Board)"
 	build_path = /obj/machinery/chem/bluespace
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 3,

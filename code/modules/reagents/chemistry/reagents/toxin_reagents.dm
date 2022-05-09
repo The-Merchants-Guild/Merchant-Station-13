@@ -1158,7 +1158,7 @@
 	if(istype(M))
 		M.name = "Aussie Cant"
 		M.real_name = "Aussie Cant"
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25, 100) //you are going to die
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25) //you are going to die
 	..()
 
 /datum/reagent/toxin/emote
@@ -1463,3 +1463,35 @@
 		M.vomit(10)
 	..()
 
+/datum/reagent/toxin/carbonf
+	name = "Carbonic fluoride"
+	description = "A fairly nasty chemical used to produce potent medicines"
+	color = "#A300B3"
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	toxpwr = 2
+
+/datum/reagent/toxin/bleach
+	name = "Bleach"
+	description = "Also known as sodium hypochlorite. A potent and toxic cleaning agent"
+	color = "#FFFFFF"
+	toxpwr = 2
+
+/datum/reagent/toxin/bleach/on_mob_life(mob/living/M)
+	if(M && isliving(M) && M.color != initial(M.color))
+		M.color = initial(M.color)
+	..()
+
+/datum/reagent/toxin/bleach/expose_mob(mob/living/M, reac_volume)
+	if(M && isliving(M) && M.color != initial(M.color))
+		M.color = initial(M.color)
+	..()
+
+/datum/reagent/toxin/bleach/expose_obj(obj/O, reac_volume)
+	if(O && O.color != initial(O.color))
+		O.color = initial(O.color)
+	..()
+
+/datum/reagent/toxin/bleach/expose_turf(turf/T, reac_volume)
+	if(T && T.color != initial(T.color))
+		T.color = initial(T.color)
+	..()

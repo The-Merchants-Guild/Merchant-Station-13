@@ -352,3 +352,43 @@
 	results = list(/datum/reagent/consumable/sugar = 1)
 	required_reagents = list(/datum/reagent/medicine/coagulant/seraka_extract = 1, /datum/reagent/lye = 1)
 	reaction_tags = REACTION_TAG_EASY
+
+/datum/chemical_reaction/atropine
+	results = list(/datum/reagent/medicine/atropine = 5)
+	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/acetone = 1, /datum/reagent/diethylamine = 1, /datum/reagent/phenol = 1, /datum/reagent/toxin/acid = 1)
+	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_HEALING
+
+/datum/chemical_reaction/over_reactible/superzine//no longer requires heat due to annoying meth explosions
+	results = list(/datum/reagent/medicine/superzine = 6, /datum/reagent/dizinc = 2)
+	required_catalysts = list(/datum/reagent/toxin/mutagen = 5)
+	required_reagents = list(/datum/reagent/drug/methamphetamine = 2, /datum/reagent/hexamine = 2, /datum/reagent/medicine/virogone = 2)
+	pressure_required = 78
+	can_overpressure = TRUE
+	overpressure_threshold = 90
+	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_HEALING
+
+/datum/chemical_reaction/defib
+	results = list(/datum/reagent/medicine/defib = 4, /datum/reagent/toxin/radgoop = 4)
+	required_reagents = list(/datum/reagent/sparky = 2, /datum/reagent/toxin/carbonf = 2, /datum/reagent/medicine/virogone = 2)
+	pressure_required = 70
+	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_HEALING
+
+/datum/chemical_reaction/sodiumf
+	results = list(/datum/reagent/medicine/sodiumf = 4, /datum/reagent/toxin/goop = 3)
+	required_reagents = list(/datum/reagent/toxin/carbonf = 2, /datum/reagent/sodium = 4)
+	required_temp = 470
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_HEALING | REACTION_TAG_TOXIN
+
+/datum/chemical_reaction/aluminiumf
+	results = list(/datum/reagent/medicine/aluminiumf = 4, /datum/reagent/toxin/goop = 2)
+	required_reagents = list(/datum/reagent/toxin/carbonf = 2, /datum/reagent/oxygen = 2, /datum/reagent/aluminium = 2)
+	required_temp = 230
+	pressure_required = 25
+	is_cold_recipe = TRUE
+	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_HEALING | REACTION_TAG_BRUTE | REACTION_TAG_BURN
+
+/datum/chemical_reaction/virogone
+	results = list(/datum/reagent/medicine/virogone = 2, /datum/reagent/toxin/mutagen = 2)
+	required_reagents = list(/datum/reagent/medicine/aluminiumf = 2, /datum/reagent/medicine/sodiumf = 3)
+	pressure_required = 76
+	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_HEALING

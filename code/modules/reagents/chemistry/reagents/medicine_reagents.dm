@@ -1603,3 +1603,139 @@
 				M.gib()
 				return ..()
 	..()
+
+/datum/reagent/medicine/atropine
+	name = "Atropine"
+	description = "If a patient is in critical condition, rapidly heals all damage types as well as regulating oxygen in the body. Excellent for stabilizing wounded patients."
+	reagent_state = LIQUID
+	color = "#000000"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	overdose_threshold = 35
+
+/datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/M)
+	if(M.health <= M.crit_threshold)
+		M.adjustToxLoss(-2*REM, 0)
+		M.adjustBruteLoss(-2*REM, 0)
+		M.adjustFireLoss(-2*REM, 0)
+		M.adjustOxyLoss(-5*REM, 0)
+		. = 1
+	M.losebreath = 0
+	if(prob(20))
+		M.Dizzy(5)
+		M.Jitter(5)
+	..()
+
+/datum/reagent/medicine/atropine/overdose_process(mob/living/M)
+	M.adjustToxLoss(0.5*REM, 0)
+	. = 1
+	M.Dizzy(1)
+	M.Jitter(1)
+	..()
+
+/datum/reagent/medicine/superzine
+	name = "Superzine"
+	description = "An extremely effective muscle stimulant and stamina restorer."
+	color = "#C8A5DC" // rgb: 200, 165, 220
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	overdose_threshold = 40
+
+/datum/reagent/medicine/superzine/on_mob_life(mob/living/M as mob)
+	if(prob(15))
+		M.emote(pick("twitch","blink_r","shiver"))
+	M.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+	M.adjustStaminaLoss(-5)
+	if(prob(2))
+		M<<"<span class='danger'>You collapse suddenly!"
+		M.emote("collapse")
+		M.Knockdown(30, 0)
+	..()
+
+/datum/reagent/medicine/superzine/on_mob_end_metabolize(mob/living/M)
+	if (istype(M))
+		M.remove_movespeed_modifier(type)
+	..()
+
+/datum/reagent/medicine/superzine/overdose_process(mob/living/M)
+	if(prob(5))//changed from gib to heart attack
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(!H.undergoing_cardiac_arrest() && H.can_heartattack())
+				H.set_heartattack(TRUE)
+				if(H.stat == CONSCIOUS)
+					H.visible_message("<span class='userdanger'>[H] clutches at [H.p_their()] chest as if [H.p_their()] heart stopped!</span>")
+
+/datum/reagent/medicine/defib
+	name = "Exstatic mixture"
+	description = "An amazing chemical that can bring the dead back to life!"
+	color = "#C8A5DC" // rgb: 200, 165, 220
+	metabolization_rate = 4 * REAGENTS_METABOLISM
+	taste_description = "electricity"
+
+/datum/reagent/medicine/defib/on_mob_life(mob/living/M, reac_volume)
+	M.electrocute_act((reac_volume * 0.5), "exstatic mixture")//changed from being instant death to those who are still alive
+	..()
+
+/datum/reagent/medicine/defib/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+	if(M.stat == DEAD)
+		M.electrocute_act(1, "exstatic mixture")
+		if(!M.suiciding && !HAS_TRAIT(M, TRAIT_HUSK))
+			if(!M)
+				return
+			if(M.notify_ghost_cloning(source = M))
+				spawn (100) //so the ghost has time to re-enter
+					return
+			else
+				holder.clear_reagents()
+				M.revive(full_heal = TRUE)
+				M.adjustToxLoss(95)//you get revived near crit
+				M.updatehealth()
+				M.emote("gasp")
+				log_combat(M, M, "revived", src)
+
+/datum/reagent/medicine/sodiumf
+	name = "Sodium fluoride"
+	description = "A powerful antitoxin"
+	color = "#C8A5DC" // rgb: 200, 165, 220
+
+/datum/reagent/medicine/sodiumf/on_mob_life(mob/living/M)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(prob(5))
+			C.vomit(20)//no longer oxyloss deathchem
+		C.reagents.remove_all_type(/datum/reagent/toxin, 1*REM, 0, 1)
+		C.hallucination = max(0, M.hallucination - 5*REM)
+		C.adjustToxLoss(-7*REM)
+	else
+		return
+	..()
+
+/datum/reagent/medicine/aluminiumf
+	name = "Aluminium fluorate"
+	description = "A powerful burn and brute healing chemical that is slightly toxic"
+	color = "#C8A5DC" // rgb: 200, 165, 220
+
+/datum/reagent/medicine/aluminiumf/on_mob_life(mob/living/M)
+	M.adjustToxLoss(1)//deals minor toxin damage  designed to be very potent
+	M.hallucination++ //just a weeny bit
+	M.adjustFireLoss(-5 * REM)
+	M.adjustBruteLoss(-5 * REM)
+	..()
+
+/datum/reagent/medicine/virogone
+	name = "Cyclo-bromazine"
+	description = "Potent anti viral chemical that puts the user to sleep while purging nearly any viral agents very quickly"
+	color = "#C8A5DC" // rgb: 200, 165, 220
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/virogone/on_mob_life(mob/living/M)//cures viruses very effectively but puts you to sleep while doing so
+	if(current_cycle <= 20)
+		M.adjustToxLoss(0.5)
+		for(var/datum/disease/D in M.diseases)
+			if(D.severity == DISEASE_SEVERITY_NONTHREAT || D.agent == "N-G-T"|| !(D.disease_flags & 1))//last one checks if it's curable
+				continue
+			M.Sleeping(600, 0)//only puts to sleep if viruses are actually present so it isn't just instant chloral memes
+			D.spread_text = "Remissive"
+			D.stage--
+			if(D.stage < 1)
+				D.cure()
+	..()

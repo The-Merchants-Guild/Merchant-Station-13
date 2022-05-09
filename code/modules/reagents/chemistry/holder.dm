@@ -664,7 +664,7 @@
 /datum/reagents/proc/metabolize(mob/living/carbon/owner, delta_time, times_fired, can_overdose = FALSE, liverless = FALSE)
 	var/list/cached_reagents = reagent_list
 	if(owner)
-		expose_temperature(owner.bodytemperature, 0.25)
+		expose_temperature(owner.bodytemperature, 0.4)
 	var/need_mob_update = FALSE
 	for(var/datum/reagent/reagent as anything in cached_reagents)
 		need_mob_update += metabolize_reagent(owner, reagent, delta_time, times_fired, can_overdose, liverless)

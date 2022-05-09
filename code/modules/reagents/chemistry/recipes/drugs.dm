@@ -122,3 +122,8 @@
 	required_reagents = list(/datum/reagent/drug/maint/sludge = 6 , /datum/reagent/toxin/acid/nitracid = 1 , /datum/reagent/consumable/enzyme = 1)
 	required_catalysts = list(/datum/reagent/acetone_oxide = 5)
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DRUG | REACTION_TAG_ORGAN | REACTION_TAG_DAMAGING
+
+/datum/chemical_reaction/flipout
+	results = list(/datum/reagent/drug/flipout = 3)
+	required_reagents = list(/datum/reagent/cryptobiolin = 1, /datum/reagent/lube = 1, /datum/reagent/toxin/mindbreaker = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DRUG | REACTION_TAG_TOXIN | REACTION_TAG_DAMAGING

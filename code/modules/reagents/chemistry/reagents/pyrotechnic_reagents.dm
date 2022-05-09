@@ -381,6 +381,18 @@
 	if(methods & (TOUCH|VAPOR))
 		exposed_mob.extinguish_mob() //All stacks are removed
 
+/datum/reagent/impvolt
+	name = "Translucent mixture"
+	description = "It's sparking slightly."
+	color = "#CABFAC"
+	metabolization_rate = 2 * REAGENTS_METABOLISM
+
+/datum/reagent/impvolt/on_mob_life(mob/living/M)
+	if(prob(25))
+		to_chat(M, "<span class='userdanger'>Your insides burn!</span>")
+		M.adjustFireLoss(10)
+	..()
+
 /datum/reagent/volt
 	name = "Sparking mixture"
 	description = " A bubbling concoction of sparks and static electricity."
@@ -452,3 +464,209 @@
 				qdel(hotspot)
 		if(reac_volume >= 6)
 			O.freon_gas_act() //freon in my pocket
+
+/datum/reagent/sparky
+	name = "Electrostatic substance"
+	description = "A charged substance that generates an electromagnetic field capable of interfering with light fixtures."
+	color = "#A300B3"
+
+/datum/reagent/sparky/on_mob_life(mob/living/M)
+	for(var/obj/machinery/light/L in range(M, 5))
+		if(prob(25))
+			L.flicker()
+		if(prob(15))
+			L.light_color = pick("#FA8282", "#64C864", "#6496FA", "#7DE1E1", "#C48A18")
+		if(prob(2))
+			L.break_light_tube()
+
+	if(prob(10))
+		M.adjustFireLoss(3)//extremely weak damage
+		do_sparks(2, TRUE, M)
+	if(prob(5))
+		M.adjust_fire_stacks(2)
+		holder.remove_reagent(src.type,5,safety = 1)
+	..()
+
+/datum/reagent/dizinc//more dangerous than clf3 when ingested with slower metabolism, less effective on touch and doesn't burn objects
+	name = "Diethyl zinc"
+	description = "Highly pyrophoric substance that incinerates carbon based life, although it's not so effective on objects"
+	color = "#000067"
+	metabolization_rate = 2 * REAGENTS_METABOLISM
+
+/datum/reagent/dizinc/on_mob_life(mob/living/M)
+	M.adjust_fire_stacks(4)
+	M.IgniteMob()
+	..()
+
+/datum/reagent/dizinc/expose_mob(mob/living/M, methods=TOUCH)
+	if(methods != INGEST && methods != INJECT)
+		M.adjust_fire_stacks(pick(1, 3))
+		M.IgniteMob()
+		..()
+
+/datum/reagent/hexamine
+	name = "Hexamine"
+	description = "Used in fuel production"
+	color = "#000067"
+	metabolization_rate = 4 * REAGENTS_METABOLISM
+
+/datum/reagent/hexamine/on_mob_life(mob/living/M)
+	M.adjust_fire_stacks(3)//increases burn time
+	..()
+
+/datum/reagent/hexamine/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+	M.adjust_fire_stacks(min(reac_volume/2, 10))//much more effective on the outside
+	..()
+
+/datum/reagent/emit
+	name = "Emittrium"
+	description = "An unstable compound prone to emitting intense bursts of plasma when in an excited state, it currently appears inert."
+	color = "#AAFFAA"
+
+/datum/reagent/emit_on
+	name = "Glowing Emittrium"
+	description = "It's rather radioactive and glowing painfully bright, you feel the need to RUN!"
+	color = "#1211FB"
+
+/datum/reagent/emit_on/process()
+	if(holder)
+		playsound(get_turf(holder.my_atom), 'sound/weapons/emitter.ogg', 50, 1)
+		for(var/direction in GLOB.cardinals)
+			var/obj/projectile/beam/emitter/P = new /obj/projectile/beam/emitter(get_turf(holder.my_atom))
+			switch(direction)
+				if(1)
+					P.fire(dir2angle(1))
+
+				if(2)
+					P.fire(dir2angle(2))
+
+				if(4)
+					P.fire(dir2angle(4))
+
+				if(8)
+					P.fire(dir2angle(8))
+
+		holder.remove_reagent(src.type,10,safety = 1)
+	..()
+
+/datum/reagent/emit_on/on_mob_life(mob/living/M)
+	M.apply_effect(5, EFFECT_IRRADIATE, 0)
+	..()
+
+/datum/reagent/sboom
+	name = "Nitrogenated isopropyl alcohol"
+	description = "Hmm , needs more nitrogen!"
+	color = "#13BC5E"
+
+/datum/reagent/superboom//oh boy
+	name = "N-amino azidotetrazole"
+	description = "An absurdly unstable chemical prone to causing gigantic explosions when even slightly disturbed. Only an idiot would attempt to create this."
+	color = "#13BC5E"
+
+/datum/reagent/superboom/on_mob_life(mob/living/M)
+	if(M.m_intent == MOVE_INTENT_RUN && current_cycle <= 5)
+		var/location = get_turf(holder.my_atom)
+		var/datum/effect_system/reagents_explosion/e = new()
+		e.set_up(round(volume, 0.5), location, 0, 0, message = 0)
+		e.start()
+		holder.clear_reagents()
+	..()
+
+/datum/reagent/superboom/on_ex_act()
+	var/location = get_turf(holder.my_atom)
+	var/datum/effect_system/reagents_explosion/e = new()
+	e.set_up(round(volume, 0.5), location, 0, 0, message = 0)
+	e.start()
+	holder.clear_reagents()
+	..()
+
+/datum/reagent/oxyplas//very rapidly heats people up then metabolises
+	name = "Plasminate"
+	description = "A toxic and flammable precursor"
+	color = "#FF32A1"
+	metabolization_rate = 4 * REAGENTS_METABOLISM
+
+/datum/reagent/oxyplas/expose_mob(mob/living/M, methods=TOUCH)
+	var/turf/T = get_turf(M)
+	for(var/turf/F in range(1,T))
+		new /obj/effect/hotspot(F)
+	..()
+
+/datum/reagent/oxyplas/on_mob_life(mob/living/M)
+	M.adjustToxLoss(1)
+	M.bodytemperature += 60
+	..()
+
+/datum/reagent/proto//volatile. causes fireballs when heated or put in a burning human
+	name = "Protomatised plasma"
+	description = "An exceedingly pyrophoric state of plasma that superheats air and lifeforms alike"
+	color = "#FF0000"
+
+/datum/reagent/proto/expose_mob(mob/living/M, methods=TOUCH)
+	var/turf/T = get_turf(M)
+	for(var/turf/F in range(1,T))
+		new /obj/effect/hotspot(F)
+	..()
+
+/datum/reagent/proto/on_mob_life(mob/living/M)
+	if(M.on_fire)
+		var/turf/T = get_turf(M)
+		for(var/turf/F in range(1,T))
+			new /obj/effect/hotspot(F)
+	else
+		M.reagents.add_reagent(pick("clf3", "dizinc", "oxyplas", "plasma"), 2)//ouch
+	..()
+
+/datum/reagent/arclumin//memechem made in honour of the late arclumin
+	name = "Arc-Luminol"
+	description = "You have no idea what the fuck this is but it looks absurdly unstable. It is emitting a sickly glow suggesting ingestion is probably not a great idea."
+	color = "#ffff66" //RGB: 255, 255, 102
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+
+/datum/reagent/arclumin/on_mob_life(mob/living/carbon/M)//windup starts off with constant shocking, confusion, dizziness and oscillating luminosity
+	M.electrocute_act(1, 1, 1, stun = FALSE) //Override because it's caused from INSIDE of you
+	M.set_light(rand(1,3))
+	M.add_confusion(2)
+	M.dizziness += 4
+	if(current_cycle >= 20) //the fun begins as you become a demigod of chaos
+		var/turf/open/T = get_turf(holder.my_atom)
+		switch(rand(1,6))
+
+			if(1)
+				playsound(T, 'sound/magic/lightningbolt.ogg', 50, 1)
+				tesla_zap(T, 6, 1000)//weak tesla zap
+				M.Stun(2)
+
+			if(2)
+				playsound(T, 'sound/effects/EMPulse.ogg', 30, 1)
+				do_teleport(M, T, 5)
+
+			if(3)
+				M.random_mutate()
+				if(prob(75))
+					M.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
+				if(prob(1))
+					M.easy_random_mutate(POSITIVE)
+				M.updateappearance()
+				M.domutcheck()
+
+			if(4)
+				empulse(T, 3, 5, 1)
+
+			if(5)
+				playsound(T, 'sound/effects/supermatter.ogg', 20, 1)
+				radiation_pulse(T, 4, 8, 25, 0)
+
+			if(6)
+				T.atmos_spawn_air("water_vapor= 40 ;TEMP= 298")//janitor friendly
+	..()
+
+/datum/reagent/arclumin/on_mob_end_metabolize(mob/living/M)// so you don't remain at luminosity 3 forever
+	M.set_light(0)
+
+/datum/reagent/arclumin/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1)//weak on touch, short teleport and low damage shock, will however give a permanent weak glow
+	if(methods == TOUCH)
+		M.electrocute_act(5, 1, 1, stun = FALSE)
+		M.set_light(1)
+		var/turf/T = get_turf(M)
+		do_teleport(M, T, 2)

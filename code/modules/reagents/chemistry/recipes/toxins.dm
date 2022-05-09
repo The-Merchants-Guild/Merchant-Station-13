@@ -553,3 +553,13 @@
 /datum/chemical_reaction/plasmamutationtoxin
 	results = list(/datum/reagent/mutationtoxin/plasma = 1)
 	required_reagents = list(/datum/reagent/unstablemutationtoxin = 1, /datum/reagent/uranium = 1, /datum/reagent/toxin/plasma = 1)
+
+/datum/chemical_reaction/carbonf
+	results = list(/datum/reagent/toxin/carbonf = 4)
+	required_reagents = list(/datum/reagent/consumable/ethanol = 4, /datum/reagent/fluorine = 2)
+	required_temp = 320
+	reaction_tags = REACTION_TAG_TOXIN | REACTION_TAG_DAMAGING
+
+/datum/chemical_reaction/bleach
+	results = list(/datum/reagent/toxin/bleach = 3)
+	required_reagents = list(/datum/reagent/space_cleaner = 1, /datum/reagent/sodium = 1, /datum/reagent/chlorine = 1)

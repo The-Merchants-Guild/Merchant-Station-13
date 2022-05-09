@@ -473,3 +473,40 @@
 
 	M.adjustToxLoss(5 * REM * delta_time)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 3 * REM * delta_time)
+
+/datum/reagent/drug/flipout
+	name = "Flipout"
+	description = "A chemical compound that causes uncontrolled and extremely violent flipping."
+	color = "#ff33cc" // rgb: 255, 51, 204
+	overdose_threshold = 40
+	addiction_types = list(/datum/addiction/flipout = 15)
+
+
+/datum/reagent/drug/flipout/on_mob_life(mob/living/M)
+	var/high_message = pick("You have the uncontrollable, all consuming urge to FLIP!.", "You feel as if you are flipping to a higher plane of existence.", "You just can't stop FLIPPING.")
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(prob(80))
+			H.SpinAnimation(10,1)
+		if(prob(10))
+			M << "<span class='notice'>[high_message].</span>"
+
+	..()
+	return
+
+/datum/reagent/drug/flipout/overdose_process(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.SpinAnimation(16,100)
+		if(prob(70))
+			H.Dizzy(20)
+			if((M.mobility_flags & MOBILITY_MOVE) && !istype(M.loc, /atom/movable))
+				for(var/i = 0, i < 4, i++)
+				step(M, pick(GLOB.cardinals))
+		if(prob(15))
+			M << "<span class='danger'>The flipping is so intense you begin to tire </span>"
+			H.add_confusion(4)
+			M.adjustStaminaLoss(10)
+			H.transform *= -1
+	..()
+	return

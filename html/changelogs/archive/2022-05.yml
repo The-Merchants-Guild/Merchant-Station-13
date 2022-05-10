@@ -8,3 +8,6 @@
 2022-05-08:
   EtraIV:
   - imageadd: Replaced mailman uniform sprites.
+2022-05-10:
+  EtraIV:
+  - bugfix: Changelogs work again

@@ -1,0 +1,12 @@
+2021-12-14:
+  Fantii644:
+  - balance: Spells Stun and Shackle nerfed in paralysing and mute duration
+  - balance: Blood Rites buffed
+  - balance: Runes which need 2 or more Cultists, have been adjusted to need 1 fewer Cultist
+      (except the conversion rune)
+  - balance: Spells helf on self by rune lowered from 4 to 3
+  - balance: Crafting a Construct Shell requires less iron
+  - balance: Red Halo given faster
+2021-12-16:
+  Fantii644:
+  - rscadd: Documentation added in code\modules\antagonists\cult

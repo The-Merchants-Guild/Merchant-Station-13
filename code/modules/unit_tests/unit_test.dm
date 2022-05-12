@@ -14,6 +14,8 @@ You can use the run_loc_floor_bottom_left and run_loc_floor_top_right to get tur
 GLOBAL_DATUM(current_test, /datum/unit_test)
 GLOBAL_VAR_INIT(failed_any_test, FALSE)
 GLOBAL_VAR(test_log)
+/// When unit testing, all logs sent to log_mapping are stored here and retrieved in log_mapping unit test.
+GLOBAL_LIST_EMPTY(unit_test_mapping_logs)
 
 /datum/unit_test
 	//Bit of metadata for the future maybe
@@ -78,6 +80,51 @@ GLOBAL_VAR(test_log)
 	allocated += instance
 	return instance
 
+<<<<<<< HEAD
+=======
+/proc/RunUnitTest(test_path, list/test_results)
+	var/datum/unit_test/test = new test_path
+
+	GLOB.current_test = test
+	var/duration = REALTIMEOFDAY
+
+	test.Run()
+
+	duration = REALTIMEOFDAY - duration
+	GLOB.current_test = null
+	GLOB.failed_any_test |= !test.succeeded
+
+	var/list/log_entry = list(
+		"[test.succeeded ? TEST_OUTPUT_GREEN("PASS") : TEST_OUTPUT_RED("FAIL")]: [test_path] [duration / 10]s",
+	)
+	var/list/fail_reasons = test.fail_reasons
+	var/map_name = SSmapping.config.map_name
+
+	for(var/reasonID in 1 to LAZYLEN(fail_reasons))
+		var/text = fail_reasons[reasonID][1]
+		var/file = fail_reasons[reasonID][2]
+		var/line = fail_reasons[reasonID][3]
+
+		// Github action annotation.
+		// See https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions
+
+		// Need to escape the text to properly support newlines.
+		var/annotation_text = replacetext(text, "%", "%25")
+		annotation_text = replacetext(annotation_text, "\n", "%0A")
+
+		log_world("::error file=[file],line=[line],title=[map_name]: [test_path]::[annotation_text]")
+
+		// Normal log message
+		log_entry += "\tREASON #[reasonID]: [text] at [file]:[line]"
+
+	var/message = log_entry.Join("\n")
+	log_test(message)
+
+	test_results[test_path] = list("status" = test.succeeded ? UNIT_TEST_PASSED : UNIT_TEST_FAILED, "message" = message, "name" = test_path)
+
+	qdel(test)
+
+>>>>>>> d8d29f6701 (Test all maps in parallel integration tests (#66864))
 /proc/RunUnitTests()
 	CHECK_TICK
 

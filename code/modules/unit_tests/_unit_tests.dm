@@ -37,6 +37,23 @@
 #define UNIT_TEST_FAILED 1
 #define UNIT_TEST_SKIPPED 2
 
+#define TEST_PRE 0
+#define TEST_DEFAULT 1
+#define TEST_DEL_WORLD INFINITY
+
+/// Change color to red on ANSI terminal output, if enabled with -DANSICOLORS.
+#ifdef ANSICOLORS
+#define TEST_OUTPUT_RED(text) "\x1B\x5B1;31m[text]\x1B\x5B0m"
+#else
+#define TEST_OUTPUT_RED(text) (text)
+#endif
+/// Change color to green on ANSI terminal output, if enabled with -DANSICOLORS.
+#ifdef ANSICOLORS
+#define TEST_OUTPUT_GREEN(text) "\x1B\x5B1;32m[text]\x1B\x5B0m"
+#else
+#define TEST_OUTPUT_GREEN(text) (text)
+#endif
+
 /// A trait source when adding traits through unit tests
 #define TRAIT_SOURCE_UNIT_TESTS "unit_tests"
 
@@ -64,6 +81,7 @@
 #include "initialize_sanity.dm"
 #include "keybinding_init.dm"
 #include "machine_disassembly.dm"
+#include "mapping.dm"
 #include "medical_wounds.dm"
 #include "merge_type.dm"
 #include "metabolizing.dm"

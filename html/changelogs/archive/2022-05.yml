@@ -1,9 +1,9 @@
 2022-05-02:
-  karmaisblackandbluepilled:
-  - rscadd: Replica Pods added to megaseed vendor.
   EtraIV:
   - rscadd: Overhaul GitLab CI scripts, now has full functionality of GitHub CI suite
   - config: Changed CI test server config for GitLab CI
+  karmaisblackandbluepilled:
+  - rscadd: Replica Pods added to megaseed vendor.
 2022-05-03:
   EtraIV:
   - rscadd: Added MariaDB TLS support
@@ -26,3 +26,6 @@
 2022-05-10:
   EtraIV:
   - bugfix: Changelogs work again
+2022-05-14:
+  EtraIV:
+  - config: Changed config URLs to use merchant station links

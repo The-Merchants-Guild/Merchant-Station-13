@@ -217,16 +217,16 @@
 /datum/config_entry/string/banappeals
 
 /datum/config_entry/string/wikiurl
-	default = "http://www.tgstation13.org/wiki"
+	default = "http://wiki.merchantstation.net/"
 
 /datum/config_entry/string/discordurl
-	default = ""
+	default = "https://discord.gg/2YYfU3ZanD"
 
 /datum/config_entry/string/rulesurl
-	default = "http://www.tgstation13.org/wiki/Rules"
+	default = "http://wiki.merchantstation.net/wiki/Rules"
 
 /datum/config_entry/string/githuburl
-	default = "https://www.github.com/tgstation/tgstation"
+	default = "https://www.github.com/The-Merchants-Guild/Merchant-Station-13"
 
 /datum/config_entry/string/discordbotcommandprefix
 	default = "?"

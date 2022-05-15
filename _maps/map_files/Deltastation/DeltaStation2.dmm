@@ -31765,10 +31765,10 @@
 /area/science/storage)
 "dIF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 1;
 	external_pressure_bound = 140;
 	name = "server vent";
-	pressure_checks = 0;
-	dir = 1
+	pressure_checks = 0
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
@@ -31780,9 +31780,9 @@
 	network = list("ss13","rd")
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
+	dir = 1;
 	external_pressure_bound = 120;
-	name = "server vent";
-	dir = 1
+	name = "server vent"
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
@@ -44511,6 +44511,10 @@
 	},
 /obj/structure/table,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/plantgenes{
+	pixel_x = 1;
+	pixel_y = 6
+	},
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "gko" = (

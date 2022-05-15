@@ -217,7 +217,7 @@
 /datum/config_entry/string/banappeals
 
 /datum/config_entry/string/wikiurl
-	default = "http://wiki.merchantstation.net/"
+	default = "http://wiki.merchantstation.net"
 
 /datum/config_entry/string/discordurl
 	default = "https://discord.gg/2YYfU3ZanD"

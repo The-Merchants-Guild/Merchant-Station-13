@@ -29,3 +29,9 @@
 2022-05-14:
   EtraIV:
   - config: Changed config URLs to use merchant station links
+2022-05-15:
+  AcapitalA:
+  - rscadd: Shotgun shells and slugs can now be printed from hacked autolathes again.
+  - bugfix: Deltastation now has a DNA manipulator again.
+  averagejoe22:
+  - tweak: All deathmatch maps now only require 2 players to start

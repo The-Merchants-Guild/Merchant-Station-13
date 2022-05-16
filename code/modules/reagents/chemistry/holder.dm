@@ -106,6 +106,11 @@
 	var/atom/my_atom = null
 	/// Current temp of the holder volume
 	var/chem_temp = 150
+	//I'm not explaining these
+	var/chem_pressure = 0
+	var/chem_radioactivity = 0
+	var/chem_bluespaced = FALSE
+	var/chem_centrifuged = FALSE
 	///pH of the whole system
 	var/ph = CHEMICAL_NORMAL_PH
 	/// unused
@@ -131,10 +136,6 @@
 	var/ui_reaction_index = 1
 	///If we're syncing with the beaker - so return reactions that are actively happening
 	var/ui_beaker_sync = FALSE
-	var/chem_pressure = 0
-	var/chem_radioactivity = 0
-	var/chem_bluespaced = FALSE
-	var/chem_centrifuged = FALSE
 	var/next_react = 0
 
 /datum/reagents/New(maximum=100, new_flags=0)

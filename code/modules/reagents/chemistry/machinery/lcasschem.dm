@@ -75,18 +75,19 @@
 		return
 	if(on)
 		pressure = min(pressure + 5, 100)
+	else
+		pressure = max(pressure - 5, 0)
 	if(beaker)
 		if(beaker.reagents.chem_pressure != pressure)
 			beaker.reagents.chem_pressure = pressure
 			beaker.reagents.chem_pressure = round(beaker.reagents.chem_pressure)
 			beaker.reagents.handle_reactions()
-	if(!on)
-		pressure = max(pressure -= 5, 0)
 
-/obj/machinery/chem/pressure/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/chem/pressure/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "chem_pressure", name, 400, 400, master_ui, state)
+		ui = new(user, src, "ChemPressure", name)
 		ui.open()
 
 /obj/machinery/chem/pressure/ui_data()
@@ -94,11 +95,12 @@
 	data["isActive"] = on
 	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
 	data["internalPressure"] = pressure
-	data["currentPressure"] = beaker ? beaker.reagents.chem_pressure : null
-	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
-	data["beakerMaxVolume"] = beaker ? beaker.volume : null
+	if(beaker)
+		data["currentPressure"] = beaker.reagents.chem_pressure
+		data["beakerCurrentVolume"] = beaker.reagents.total_volume
+		data["beakerMaxVolume"] = beaker.volume
 
-	var beakerContents[0]
+	var/beakerContents[0]
 	if(beaker)
 		for(var/I in beaker.reagents.reagent_list)
 			var/datum/reagent/R = I
@@ -185,7 +187,7 @@
 	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
 
-	var beakerContents[0]
+	var/beakerContents[0]
 	if(beaker)
 		for(var/I in beaker.reagents.reagent_list)
 			var/datum/reagent/R = I
@@ -268,10 +270,10 @@
 		qdel(I)//it's a var now
 		return
 	..()
-/obj/machinery/chem/bluespace/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/chem/bluespace/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "chem_bluespace", name, 400, 400, master_ui, state)
+		ui = new(user, src, "ChemBluespace", name)
 		ui.open()
 
 /obj/machinery/chem/bluespace/ui_data()
@@ -346,10 +348,10 @@
 	if(!on)
 		icon_state = "cent_off"
 
-/obj/machinery/chem/centrifuge/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/chem/centrifuge/ui_interact(mob/user, datum/tgui/ui)
+	uui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "chem_centrifuge", name, 275, 400, master_ui, state)
+		ui = new(user, src, "ChemCentrifuge", name)
 		ui.open()
 
 /obj/machinery/chem/centrifuge/ui_data()
@@ -359,7 +361,8 @@
 	data["timeRemaining"] = time_required - time
 	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
-	var beakerContents[0]
+
+	var/beakerContents[0]
 	if(beaker)
 		for(var/I in beaker.reagents.reagent_list)
 			var/datum/reagent/R = I

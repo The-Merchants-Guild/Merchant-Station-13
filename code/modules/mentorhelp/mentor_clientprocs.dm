@@ -21,8 +21,7 @@
 	if(!mentor_datum && check_rights_for(src, R_ADMIN,0)) // Admin with no mentor datum? let's fix that
 		new /datum/mentors(ckey)
 	if(mentor_datum)
-		if(!check_rights_for(src, R_ADMIN,0) && !admin)
-			GLOB.mentors |= src // Don't add admins too.
+		GLOB.mentors |= src
 		mentor_datum.owner = src
 		add_mentor_verbs()
 

@@ -22,7 +22,7 @@
 		C = M.client
 	else if(istext(whom))
 		C = GLOB.directory[whom]
-	else if(istype(whom,/client))
+	else if(istype(whom, /client))
 		C = whom
 	if(!C)
 		if(is_mentor())

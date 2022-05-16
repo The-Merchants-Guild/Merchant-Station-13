@@ -3,29 +3,34 @@
 	set name = "Mentorwho"
 
 	var/msg = "<b>Current Mentors:</b>\n"
+	//Admin version
 	if(holder)
-		for(var/client/C in GLOB.mentors)
-			if(C.mentor_datum && !check_rights_for(C, R_ADMIN,0))
-				msg += "\t[C] is a mentor"
-				if(isobserver(C.mob))
-					msg += " - Observing"
-				else if(isnewplayer(C.mob))
-					msg += " - Lobby"
-				else
-					msg += " - Playing"
+		for(var/client/mentor_clients in GLOB.mentors)
+			if(GLOB.deadmins[mentor_clients.ckey])
+				msg += "\t[mentor_clients] is a Deadmin"
+			if(mentor_clients.mentor_datum)
+				msg += "\t[mentor_clients] is a Mentor"
+			if(isobserver(mentor_clients.mob))
+				msg += " - Observing"
+			else if(isnewplayer(mentor_clients.mob))
+				msg += " - Lobby"
+			else
+				msg += " - Playing"
 
-				if(C.is_afk())
-					msg += " (AFK)"
-				msg += "\n"
+			if(mentor_clients.is_afk())
+				msg += " (AFK)"
+
+			msg += "\n"
+
+	//Regular version
 	else
-		for(var/client/C in GLOB.mentors)
-			if(C.is_afk())
+		for(var/client/mentor_clients in GLOB.mentors)
+			if(mentor_clients.is_afk())
 				continue
-			if(check_rights_for(C, R_ADMIN,0))
+			if(GLOB.deadmins[mentor_clients.ckey])
 				continue
-			// Dont show deadmined folk
-			if(GLOB.deadmins[ckey])
-				continue
-			if(C.mentor_datum)
-				msg += "\t[C] is a Mentor\n"
+
+			if(mentor_clients.mentor_datum)
+				msg += "\t[mentor_clients] is a Mentor\n"
+
 	to_chat(src, msg)

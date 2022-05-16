@@ -119,7 +119,7 @@
 /obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user, params)
 	if(can_decon && (I.tool_behaviour == TOOL_SCREWDRIVER || I.tool_behaviour == TOOL_WRENCH))
 		to_chat(user, span_notice("You start unsecuring [name]..."))
-		if(I.use_tool(src, user, 30, volume=50))
+		if(I.use_tool(src, user, volume=50))
 			playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 			to_chat(user, span_notice("You unsecure [name]."))
 			deconstruct()

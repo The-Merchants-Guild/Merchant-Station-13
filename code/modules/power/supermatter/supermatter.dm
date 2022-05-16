@@ -979,7 +979,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(istype(item, /obj/item/scalpel/supermatter))
 		var/obj/item/scalpel/supermatter/scalpel = item
 		to_chat(user, span_notice("You carefully begin to scrape \the [src] with \the [item]..."))
-		if(item.use_tool(src, user, 60, volume=100))
+		if(item.use_tool(src, user, volume=100))
 			if (scalpel.usesLeft)
 				to_chat(user, span_danger("You extract a sliver from \the [src]. \The [src] begins to react violently!"))
 				new /obj/item/nuke_core/supermatter_sliver(drop_location())

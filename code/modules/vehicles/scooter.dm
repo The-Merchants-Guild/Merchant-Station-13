@@ -14,7 +14,7 @@
 /obj/vehicle/ridden/scooter/wrench_act(mob/living/user, obj/item/I)
 	..()
 	to_chat(user, span_notice("You begin to remove the handlebars..."))
-	if(!I.use_tool(src, user, 40, volume=50))
+	if(!I.use_tool(src, user, volume=50))
 		return TRUE
 	var/obj/vehicle/ridden/scooter/skateboard/improvised/skater = new(drop_location())
 	new /obj/item/stack/rods(drop_location(), 2)
@@ -193,7 +193,7 @@
 	if(!I.tool_start_check(user, amount=5))
 		return
 	to_chat(user, span_notice("You begin to add wheels to [src]."))
-	if(!I.use_tool(src, user, 80, volume=50, amount=5))
+	if(!I.use_tool(src, user, volume=50, amount=5))
 		return
 	to_chat(user, span_notice("You finish making wheels for [src]."))
 	new /obj/vehicle/ridden/scooter/skateboard/improvised(user.loc)
@@ -216,7 +216,7 @@
 	if(!I.tool_start_check(user, amount=2))
 		return
 	to_chat(user, span_notice("You begin making handlebars for [src]."))
-	if(!I.use_tool(src, user, 25, volume=50, amount=2))
+	if(!I.use_tool(src, user, volume=50, amount=2))
 		return
 	to_chat(user, span_notice("You add the rods to [src], creating handlebars."))
 	var/obj/vehicle/ridden/scooter/skaterskoot = new(loc)
@@ -231,7 +231,7 @@
 	if(.)
 		return
 	to_chat(user, span_notice("You begin to deconstruct and remove the wheels on [src]..."))
-	if(!I.use_tool(src, user, 20, volume=50))
+	if(!I.use_tool(src, user, volume=50))
 		return
 	to_chat(user, span_notice("You deconstruct the wheels on [src]."))
 	new /obj/item/stack/sheet/iron(drop_location(), 5)

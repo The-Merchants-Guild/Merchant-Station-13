@@ -406,7 +406,7 @@
 
 /obj/machinery/power/solar_control/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(I.use_tool(src, user, 20, volume=50))
+		if(I.use_tool(src, user, volume=50))
 			if (src.machine_stat & BROKEN)
 				to_chat(user, span_notice("The broken glass falls out."))
 				var/obj/structure/frame/computer/A = new /obj/structure/frame/computer( src.loc )

@@ -102,7 +102,7 @@
 
 		if(ASSEMBLY_FOURTH_STEP)
 			if(W.tool_behaviour == TOOL_WELDER)
-				if(W.use_tool(src, user, 0, volume=40))
+				if(W.use_tool(src, user, volume=40))
 					name = "shielded frame assembly"
 					to_chat(user, span_notice("You weld the vest to [src]."))
 					build_step++
@@ -157,7 +157,7 @@
 		if(8)
 			if(W.tool_behaviour == TOOL_SCREWDRIVER)
 				to_chat(user, span_notice("You start attaching the gun to the frame..."))
-				if(W.use_tool(src, user, 40, volume=100))
+				if(W.use_tool(src, user, volume=100))
 					var/mob/living/simple_animal/bot/secbot/ed209/B = new(drop_location())
 					B.name = created_name
 					to_chat(user, span_notice("You complete the ED-209."))
@@ -319,7 +319,7 @@
 	switch(build_step)
 		if(ASSEMBLY_FIRST_STEP)
 			if(I.tool_behaviour == TOOL_WELDER)
-				if(I.use_tool(src, user, 0, volume=40))
+				if(I.use_tool(src, user, volume=40))
 					add_overlay("hs_hole")
 					to_chat(user, span_notice("You weld a hole in [src]!"))
 					build_step++
@@ -341,7 +341,7 @@
 				build_step++
 
 			else if(I.tool_behaviour == TOOL_WELDER) //deconstruct
-				if(I.use_tool(src, user, 0, volume=40))
+				if(I.use_tool(src, user, volume=40))
 					cut_overlay("hs_hole")
 					to_chat(user, span_notice("You weld the hole in [src] shut!"))
 					build_step--
@@ -483,12 +483,12 @@
 	switch(build_step)
 		if(ASSEMBLY_FIRST_STEP)
 			if(I.tool_behaviour == TOOL_WELDER) //Construct
-				if(I.use_tool(src, user, 0, volume=40))
+				if(I.use_tool(src, user, volume=40))
 					to_chat(user, span_notice("You weld a water hole in [src]!"))
 					build_step++
 					return
 			if(I.tool_behaviour == TOOL_WRENCH) //Deconstruct
-				if(I.use_tool(src, user, 0, volume=40))
+				if(I.use_tool(src, user, volume=40))
 					new /obj/item/stack/sheet/iron(Tsec, 2)
 					to_chat(user, span_notice("You disconnect the hygienebot assembly."))
 					qdel(src)
@@ -501,7 +501,7 @@
 				to_chat(user, span_notice("You add [I] to [src]."))
 				qdel(I)
 			if(I.tool_behaviour == TOOL_WELDER) //Deconstruct
-				if(I.use_tool(src, user, 0, volume=30))
+				if(I.use_tool(src, user, volume=30))
 					to_chat(user, span_notice("You weld close the water hole in [src]!"))
 					build_step--
 					return

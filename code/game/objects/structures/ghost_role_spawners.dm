@@ -114,7 +114,6 @@
 		var/mob/living/carbon/human/H = new_spawn
 		H.underwear = "Nude"
 		H.update_body()
-		ADD_TRAIT(H, TRAIT_PRIMITIVE, ROUNDSTART_TRAIT)
 		H.remove_language(/datum/language/common)
 	team.players_spawned += (new_spawn.key)
 	eggshell.egg = null
@@ -187,7 +186,7 @@
 	var/can_transfer = TRUE //if golems can switch bodies to this new shell
 	var/mob/living/owner = null //golem's owner if it has one
 	short_desc = "You are a Free Golem. Your family worships The Liberator."
-	flavour_text = "In his infinite and divine wisdom, he set your clan free to travel the stars with a single declaration: \"Yeah go do whatever.\"" 
+	flavour_text = "In his infinite and divine wisdom, he set your clan free to travel the stars with a single declaration: \"Yeah go do whatever.\""
 
 /obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
@@ -442,8 +441,8 @@
 	ears = /obj/item/radio/headset/syndicate/alt
 	back = /obj/item/storage/backpack
 	implants = list(/obj/item/implant/weapons_auth)
-	id = /obj/item/card/id/advanced/chameleon
-	id_trim = /datum/id_trim/chameleon/operative
+	id = /obj/item/card/id/chameleon
+	card_access = /datum/card_access/chameleon/operative
 
 /datum/outfit/syndicate_empty/post_equip(mob/living/carbon/human/H)
 	H.faction |= ROLE_SYNDICATE
@@ -496,7 +495,7 @@
 	head = /obj/item/clothing/head/hos/syndicate
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
-	id_trim = /datum/id_trim/battlecruiser/captain
+	card_access = /datum/card_access/battlecruiser/captain
 
 //Ancient cryogenic sleepers. Players become NT crewmen from a hundred year old space station, now on the verge of collapse.
 /obj/effect/mob_spawn/human/oldsec
@@ -517,6 +516,7 @@
 	uniform = /obj/item/clothing/under/rank/security/officer
 	shoes = /obj/item/clothing/shoes/jackboots
 	id = /obj/item/card/id/away/old/sec
+	card_access = /datum/card_access/away/old/sec
 	r_pocket = /obj/item/restraints/handcuffs
 	l_pocket = /obj/item/assembly/flash/handheld
 	spawner_job_path = /datum/job/ancient_crew
@@ -543,6 +543,7 @@
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	shoes = /obj/item/clothing/shoes/workboots
 	id = /obj/item/card/id/away/old/eng
+	card_access = /datum/card_access/away/old/eng
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
 	l_pocket = /obj/item/tank/internals/emergency_oxygen
 	spawner_job_path = /datum/job/ancient_crew
@@ -569,6 +570,7 @@
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
 	shoes = /obj/item/clothing/shoes/laceup
 	id = /obj/item/card/id/away/old/sci
+	card_access = /datum/card_access/away/old/sci
 	l_pocket = /obj/item/stack/medical/bruise_pack
 	spawner_job_path = /datum/job/ancient_crew
 
@@ -722,7 +724,8 @@
 	l_pocket = /obj/item/gun/ballistic/automatic/pistol
 	r_pocket = /obj/item/kitchen/knife/combat/survival
 	belt = /obj/item/storage/belt/military/assault
-	id = /obj/item/card/id/advanced/black/syndicate_command/crew_id
+	id = /obj/item/card/id/black/syndicate_command
+	card_access = /datum/card_access/syndicom/crew
 	implants = list(/obj/item/implant/weapons_auth)
 
 /datum/outfit/syndicatespace/syndicaptain
@@ -736,7 +739,8 @@
 	back = /obj/item/storage/backpack
 	r_pocket = /obj/item/kitchen/knife/combat/survival
 	belt = /obj/item/storage/belt/military/assault
-	id = /obj/item/card/id/advanced/black/syndicate_command/captain_id
+	id = /obj/item/card/id/black/syndicate_command
+	card_access = /datum/card_access/syndicom/captain
 	implants = list(/obj/item/implant/weapons_auth)
 	backpack_contents = list(/obj/item/documents/syndicate/red, /obj/item/paper/fluff/ruins/forgottenship/password, /obj/item/gun/ballistic/automatic/pistol/aps)
 
@@ -766,7 +770,7 @@
 	r_pocket = /obj/item/storage/wallet/random
 	l_pocket = /obj/item/food/pizzaslice/dank
 	uniform = /obj/item/clothing/under/pants/youngfolksjeans
-	id = /obj/item/card/id/advanced
+	id = /obj/item/card/id
 
 /datum/outfit/beachbum/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -775,7 +779,7 @@
 	H.dna.add_mutation(STONER)
 
 /datum/outfit/beachbum/lifeguard
-	id_trim = /datum/id_trim/lifeguard
+	card_access = /datum/card_access/lifeguard
 
 /obj/effect/mob_spawn/human/bartender/alive
 	death = FALSE
@@ -795,8 +799,8 @@
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	suit = /obj/item/clothing/suit/armor/vest
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
-	id = /obj/item/card/id/advanced
-	id_trim = /datum/id_trim/space_bartender
+	id = /obj/item/card/id
+	card_access = /datum/card_access/job/bartender
 
 /datum/outfit/spacebartender/post_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()

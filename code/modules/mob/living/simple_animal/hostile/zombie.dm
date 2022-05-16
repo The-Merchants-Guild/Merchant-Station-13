@@ -5,7 +5,6 @@
 	icon_state = "zombie"
 	icon_living = "zombie"
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
-	sentience_type = SENTIENCE_HUMANOID
 	speak_chance = 0
 	stat_attack = HARD_CRIT //braains
 	maxHealth = 100

@@ -8,12 +8,12 @@
 	open_sound_volume = 25
 	close_sound_volume = 50
 	max_integrity = 70
+	door_anim_time = 0
 
 /obj/structure/closet/acloset
 	name = "strange closet"
 	desc = "It looks alien!"
 	icon_state = "alien"
-
 
 /obj/structure/closet/gimmick
 	name = "administrative supply closet"
@@ -117,6 +117,7 @@
 	icon_welded = "welded_small"
 	max_mob_size = MOB_SIZE_SMALL
 	storage_capacity = 7
+	door_anim_time = 0
 
 /obj/structure/closet/mini_fridge/PopulateContents()
 	. = ..()

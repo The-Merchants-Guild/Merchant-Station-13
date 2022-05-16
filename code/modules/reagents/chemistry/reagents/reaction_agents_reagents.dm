@@ -20,7 +20,6 @@
 	name = "Strong acidic buffer"
 	description = "This reagent will consume itself and move the pH of a beaker towards acidity when added to another."
 	color = "#fbc314"
-	ph = 0
 	impure_chem = null
 	inverse_chem = null
 	failed_chem = null
@@ -47,7 +46,6 @@
 	name = "Strong basic buffer"
 	description = "This reagent will consume itself and move the pH of a beaker towards alkalinity when added to another."
 	color = "#3853a4"
-	ph = 14
 	impure_chem = null
 	inverse_chem = null
 	failed_chem = null
@@ -84,7 +82,6 @@
 /datum/reagent/reaction_agent/purity_tester
 	name = "Purity tester"
 	description = "This reagent will consume itself and violently react if there is a highly impure reagent in the beaker."
-	ph = 3
 	color = "#ffffff"
 
 /datum/reagent/reaction_agent/purity_tester/intercept_reagents_transfer(datum/reagents/target, amount)
@@ -106,7 +103,6 @@
 /datum/reagent/reaction_agent/speed_agent
 	name = "Tempomyocin"
 	description = "This reagent will consume itself and speed up an ongoing reaction, modifying the current reaction's purity by it's own."
-	ph = 10
 	color = "#e61f82"
 	///How much the reaction speed is sped up by - for 5u added to 100u, an additional step of 1 will be done up to a max of 2x
 	var/strength = 20

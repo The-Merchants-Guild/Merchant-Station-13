@@ -1,0 +1,28 @@
+2021-08-03:
+  AcapitalA:
+  - balance: PML-9 rocket prices are cut in half due to the supply far exeeding its demand...
+2021-08-04:
+  Bucovineanu:
+  - rscadd: Some vomit may be named after famous trash.
+2021-08-06:
+  Bucovineanu:
+  - rscadd: All mechs can now be upgraded to be able to take a circuit as a controller/occupant.
+      Nanotrasen has assured us that nothing bad can come out of the ability to autonomously pilot
+      the deadliest vehicles available on the station.
+  - rscadd: Ported quantum pad and conveyor belt USBs from tg
+  - rscadd: Ported BCI overlays from tg
+  - qol: Ported circuit drag and drop from tg
+2021-08-08:
+  Bucovineanu:
+  - rscadd: String splitter component, like the normal splitter but ports instead of a list
+  - rscadd: Concat component has variable number of ports, like the string splitter
+  - rscadd: Computer vision component now allows you to identify nearby mobs
+2021-08-11:
+  Bucovineanu:
+  - bugfix: Circuit mechs fire properly at targets again
+2021-08-12:
+  Bucovineanu:
+  - rscadd: Security cameras now have an USB port, allowing them to be connected to circuits
+2021-08-13:
+  TheChosenEvilOne:
+  - bugfix: Vehicles can now be buckled to again.

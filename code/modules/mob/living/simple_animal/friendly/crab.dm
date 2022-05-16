@@ -70,7 +70,7 @@
 	icon_state = "kreb"
 	icon_living = "kreb"
 	icon_dead = "kreb_dead"
-	gold_core_spawnable = NO_SPAWN
+	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/crab/evil/kreb
 	name = "Evil Kreb"
@@ -78,4 +78,4 @@
 	icon_state = "evilkreb"
 	icon_living = "evilkreb"
 	icon_dead = "evilkreb_dead"
-	gold_core_spawnable = NO_SPAWN
+	gold_core_spawnable = FRIENDLY_SPAWN

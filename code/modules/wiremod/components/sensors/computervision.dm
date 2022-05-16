@@ -4,12 +4,14 @@
  * Scans for mobs or objects
  */
 /obj/item/circuit_component/computer_vision
-	display_name = "Computer Vision Component"
+	display_name = "Computer Vision"
 	display_desc = "Scans its surroundings to find mobs or objects"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
+	icon_state = "computer_vision"
 
 	var/datum/port/output/scanned_objects
 	var/scan_range = 5
+	var/object_scan_range = 3
 	
 /obj/item/circuit_component/computer_vision/populate_options()
 	var/static/component_options = list(COMP_COMPVIS_MOB, COMP_COMPVIS_OBJECT) // gonna implement the second one later
@@ -47,6 +49,15 @@
 				entry["species"] = initial(A.name)
 			else
 				entry["species"] = human.dna.species.name
+			new_table += list(entry)
+	else
+		for(var/atom/A in view(object_scan_range, current_turf))
+			if(A.invisibility > SEE_INVISIBLE_LIVING)
+				continue
+			var/list/entry = list()
+			entry["entity"] = A
+			entry["name"] = A.name
+			entry["range"] = get_dist(current_turf, A)
 			new_table += list(entry)
 
 	scanned_objects.set_output(new_table)

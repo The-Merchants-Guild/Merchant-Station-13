@@ -30,6 +30,7 @@
 	var/wire_type = WIRE_RECEIVE | WIRE_PULSE
 	var/attachable = FALSE // can this be attached to wires
 	var/datum/wires/connected = null
+	var/activation_delay = 30
 	var/next_activate = 0 //When we're next allowed to activate - for spam control
 
 /obj/item/assembly/Destroy()
@@ -86,7 +87,7 @@
 /obj/item/assembly/proc/activate()
 	if(QDELETED(src) || !secured || (next_activate > world.time))
 		return FALSE
-	next_activate = world.time + 30
+	next_activate = world.time + activation_delay
 	return TRUE
 
 /obj/item/assembly/proc/toggle_secure()

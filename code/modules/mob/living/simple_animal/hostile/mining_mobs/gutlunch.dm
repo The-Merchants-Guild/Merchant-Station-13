@@ -100,7 +100,7 @@
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch
 	name = "grublunch"
 	wanted_objects = list() //They don't eat.
-	gold_core_spawnable = NO_SPAWN
+	gold_core_spawnable = FRIENDLY_SPAWN
 	var/growth = 0
 
 //Baby gutlunch

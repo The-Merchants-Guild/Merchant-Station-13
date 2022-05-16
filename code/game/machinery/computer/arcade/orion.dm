@@ -492,8 +492,26 @@ GLOBAL_LIST_INIT(orion_events, generate_orion_events())
 	name = "spaceport security"
 	desc = "Premier corporate security forces for all spaceports found along the Orion Trail."
 	faction = list("orion")
-	loot = list()
-	del_on_death = TRUE
+	loot = list(/obj/effect/mob_spawn/human/corpse/orionsecurity,
+				/obj/item/gun/ballistic/automatic/c20r/unrestricted,
+				/obj/item/shield/energy)
+
+/obj/effect/mob_spawn/human/corpse/orionsecurity
+	name = "Spaceport Security"
+	outfit = /datum/outfit/orionsecurity
+
+/datum/outfit/orionsecurity
+	name = "Orion Spaceport Security"
+	uniform = /obj/item/clothing/under/syndicate
+	suit = /obj/item/clothing/suit/armor/vest
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	ears = /obj/item/radio/headset
+	mask = /obj/item/clothing/mask/gas
+	head = /obj/item/clothing/head/helmet/swat
+	back = /obj/item/storage/backpack
+	id = /obj/item/card/id/chameleon
+	card_access = /datum/card_access/syndicom
 
 /obj/item/orion_ship
 	name = "model settler ship"

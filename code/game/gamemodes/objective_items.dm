@@ -43,6 +43,12 @@
 	difficulty = 5
 	excludefromjob = list("Captain", "Research Director")
 
+/datum/objective_item/steal/holotool
+	name = "the holotool."
+	targetitem = /obj/item/holotool
+	difficulty = 5
+	excludefromjob = list("Research Director")
+
 /datum/objective_item/steal/jetpack
 	name = "the Captain's jetpack."
 	targetitem = /obj/item/tank/jetpack/oxygen/captain

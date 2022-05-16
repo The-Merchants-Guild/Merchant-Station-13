@@ -18,8 +18,6 @@
 	var/foodtypes
 	///Amount of volume the food can contain
 	var/max_volume
-	///How long it will take to eat this food without any other modifiers
-	var/eat_time
 	///Tastes to describe this food
 	var/list/tastes
 	///Verbs used when eating this food in the to_chat messages
@@ -47,8 +45,6 @@
 		tastes = string_assoc_list(tastes)
 	if(eatverbs)
 		eatverbs = string_list(eatverbs)
-	if(venue_value)
-		AddElement(/datum/element/venue_price, venue_value)
 	MakeEdible()
 	MakeProcessable()
 	MakeLeaveTrash()
@@ -62,7 +58,6 @@
 				food_flags = food_flags,\
 				foodtypes = foodtypes,\
 				volume = max_volume,\
-				eat_time = eat_time,\
 				tastes = tastes,\
 				eatverbs = eatverbs,\
 				bite_consumption = bite_consumption,\

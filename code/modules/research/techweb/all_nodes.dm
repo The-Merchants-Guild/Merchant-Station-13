@@ -9,6 +9,8 @@
 	description = "NT default research technologies."
 	// Default research tech, prevents bricking
 	design_ids = list(
+		"airlock_board",
+		"apc_control",
 		"basic_capacitor",
 		"basic_cell",
 		"basic_matter_bin",
@@ -18,7 +20,6 @@
 		"bucket",
 		"c-reader",
 		"circuit_imprinter",
-		"circuit_imprinter_offstation",
 		"conveyor_belt",
 		"conveyor_switch",
 		"design_disk",
@@ -28,6 +29,8 @@
 		"doppler_array",
 		"experi_scanner",
 		"experimentor",
+		"firealarm_electronics",
+		"firelock_board",
 		"handlabel",
 		"mechfab",
 		"micro_mani",
@@ -41,15 +44,16 @@
 		"plastic_spoon",
 		"plastitanium",
 		"plastitaniumglass",
+		"power_control",
 		"rdconsole",
 		"rdserver",
 		"rdservercontrol",
-		"restaurant_portal",
 		"rglass",
 		"salestagger",
 		"sec_38",
 		"sec_dart",
 		"sec_dslug",
+		"sec_lslug",
 		"space_heater",
 		"tech_disk",
 		"titaniumglass",
@@ -272,7 +276,6 @@
 		"soda_dispenser",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-	required_experiments = list(/datum/experiment/scanning/points/slime/calibration)
 
 /datum/techweb_node/adv_biotech
 	id = "adv_biotech"
@@ -295,7 +298,6 @@
 		"smoke_machine",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
-	required_experiments = list(/datum/experiment/scanning/points/slime/easy)
 	discount_experiments = list(/datum/experiment/scanning/random/material/meat = 4000) //Big discount to reinforce doing it.
 
 /datum/techweb_node/xenoorgan_biotech
@@ -420,19 +422,15 @@
 		"adv_matter_bin",
 		"adv_scanning",
 		"airalarm_electronics",
-		"airlock_board",
-		"apc_control",
 		"atmos_control",
 		"atmosalerts",
 		"autolathe",
-		"cell_charger",
 		"cell_charger",
 		"crystallizer",
 		"electrolyzer",
 		"emergency_oxygen",
 		"emergency_oxygen_engi",
-		"firealarm_electronics",
-		"firelock_board",
+		"emitter",
 		"grounding_rod",
 		"high_cell",
 		"high_micro_laser",
@@ -443,7 +441,6 @@
 		"plasma_tank",
 		"plasmaman_tank_belt",
 		"pneumatic_seal",
-		"power control",
 		"powermonitor",
 		"rad_collector",
 		"recharger",
@@ -455,7 +452,7 @@
 		"stack_machine",
 		"tesla_coil",
 		"thermomachine",
-		"w-recycler" , "emitter",
+		"w-recycler",
 		"welding_goggles",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
@@ -855,8 +852,6 @@
 		"holosignsec",
 		"holosignengi",
 		"holosignatmos",
-		"holosignrestaurant",
-		"holosignbar",
 		"inducer",
 		"tray_goggles",
 		"holopad",
@@ -1069,6 +1064,7 @@
 	design_ids = list(
 		"cryo_Grenade",
 		"cryotube",
+		"noreactsyringe",
 		"splitbeaker",
 		"stasis",
 	)
@@ -1244,6 +1240,7 @@
 		"hydro_tray",
 		"portaseeder",
 		"seed_extractor",
+		"plantmanip",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000)
 	discount_experiments = list(/datum/experiment/scanning/random/plants/wild = 3000)
@@ -1316,7 +1313,6 @@
 		"tele_shield",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
-	required_experiments = list(/datum/experiment/explosion/calibration)
 
 /datum/techweb_node/adv_weaponry
 	id = "adv_weaponry"
@@ -1327,7 +1323,6 @@
 		"pin_loyalty",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
-	required_experiments = list(/datum/experiment/explosion/medium)
 
 /datum/techweb_node/electric_weapons
 	id = "electronic_weapons"
@@ -1382,7 +1377,6 @@
 		"pyro_Grenade",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-	required_experiments = list(/datum/experiment/explosion/maxcap)
 
 /datum/techweb_node/ballistic_weapons
 	id = "ballistic_weapons"
@@ -1405,6 +1399,7 @@
 		"c38_hotshot",
 		"c38_iceblox",
 		"techshotshell",
+		"shotgundartcryostasis",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -1976,7 +1971,6 @@
 	)
 
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-	required_experiments = list(/datum/experiment/scanning/points/slime/hard)
 	hidden = TRUE
 
 /datum/techweb_node/alien_engi

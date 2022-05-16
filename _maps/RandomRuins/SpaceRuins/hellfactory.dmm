@@ -15,7 +15,7 @@
 /turf/open/floor/plastic,
 /area/ruin/space/has_grav/hellfactory)
 "ae" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
 /obj/structure/closet/secure_closet/freezer/meat,
@@ -61,7 +61,7 @@
 /turf/closed/indestructible/reinforced,
 /area/ruin/space/has_grav/hellfactoryoffice)
 "aj" = (
-/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
 /obj/structure/hedge/opaque,

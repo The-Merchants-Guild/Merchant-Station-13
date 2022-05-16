@@ -7,7 +7,9 @@
 
 /datum/outfit/centcom/ert
 	name = "ERT Common"
+	card_access = /datum/card_access/centcom/ert
 
+	id = /obj/item/card/id/centcom/ert
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	ears = /obj/item/radio/headset/headset_cent/alt
 	gloves = /obj/item/clothing/gloves/combat
@@ -32,8 +34,8 @@
 
 /datum/outfit/centcom/ert/commander
 	name = "ERT Commander"
+	card_access = /datum/card_access/centcom/ert
 
-	id = /obj/item/card/id/advanced/centcom/ert
 	suit = /obj/item/clothing/suit/space/hardsuit/ert
 	suit_store = /obj/item/gun/energy/e_gun
 	back = /obj/item/storage/backpack/ert
@@ -51,7 +53,7 @@
 	if(visualsOnly)
 		return
 	var/obj/item/radio/R = H.ears
-	R.keyslot = new /obj/item/encryptionkey/heads/captain
+	R.keyslots += new /obj/item/encryptionkey/heads/captain
 	R.recalculateChannels()
 
 /datum/outfit/centcom/ert/commander/alert
@@ -67,8 +69,8 @@
 
 /datum/outfit/centcom/ert/security
 	name = "ERT Security"
+	card_access = /datum/card_access/centcom/ert/security
 
-	id = /obj/item/card/id/advanced/centcom/ert/security
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/sec
 	suit_store = /obj/item/gun/energy/e_gun/stun
 	back = /obj/item/storage/backpack/ert/security
@@ -88,7 +90,7 @@
 		return
 
 	var/obj/item/radio/R = H.ears
-	R.keyslot = new /obj/item/encryptionkey/heads/hos
+	R.keyslots += new /obj/item/encryptionkey/heads/hos
 	R.recalculateChannels()
 
 /datum/outfit/centcom/ert/security/alert
@@ -104,8 +106,8 @@
 
 /datum/outfit/centcom/ert/medic
 	name = "ERT Medic"
+	card_access = /datum/card_access/centcom/ert/medical
 
-	id = /obj/item/card/id/advanced/centcom/ert/medical
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/med
 	suit_store = /obj/item/gun/energy/e_gun
 	back = /obj/item/storage/backpack/ert/medical
@@ -127,7 +129,7 @@
 		return
 
 	var/obj/item/radio/R = H.ears
-	R.keyslot = new /obj/item/encryptionkey/heads/cmo
+	R.keyslots += new /obj/item/encryptionkey/heads/cmo
 	R.recalculateChannels()
 
 /datum/outfit/centcom/ert/medic/alert
@@ -145,8 +147,8 @@
 
 /datum/outfit/centcom/ert/engineer
 	name = "ERT Engineer"
+	card_access = /datum/card_access/centcom/ert/engineer
 
-	id = /obj/item/card/id/advanced/centcom/ert/engineer
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engi
 	suit_store = /obj/item/gun/energy/e_gun
 	back = /obj/item/storage/backpack/ert/engineer
@@ -167,7 +169,7 @@
 		return
 
 	var/obj/item/radio/R = H.ears
-	R.keyslot = new /obj/item/encryptionkey/heads/ce
+	R.keyslots += new /obj/item/encryptionkey/heads/ce
 	R.recalculateChannels()
 
 /datum/outfit/centcom/ert/engineer/alert
@@ -184,8 +186,7 @@
 /datum/outfit/centcom/centcom_official
 	name = "CentCom Official"
 
-	id = /obj/item/card/id/advanced/centcom
-	id_trim = /datum/id_trim/centcom/official
+	id = /obj/item/card/id/centcom
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	back = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
@@ -251,8 +252,8 @@
 
 /datum/outfit/centcom/ert/chaplain
 	name = "ERT Chaplain"
+	card_access = /datum/card_access/centcom/ert/chaplain
 
-	id = /obj/item/card/id/advanced/centcom/ert/chaplain
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor // Chap role always gets this suit
 	suit_store = /obj/item/gun/energy/e_gun
 	back = /obj/item/storage/backpack/cultpack
@@ -268,7 +269,7 @@
 	if(visualsOnly)
 		return
 	var/obj/item/radio/R = H.ears
-	R.keyslot = new /obj/item/encryptionkey/heads/hop
+	R.keyslots += new /obj/item/encryptionkey/heads/hop
 	R.recalculateChannels()
 
 /datum/outfit/centcom/ert/chaplain/inquisitor
@@ -283,8 +284,8 @@
 
 /datum/outfit/centcom/ert/janitor
 	name = "ERT Janitor"
+	card_access = /datum/card_access/centcom/ert/janitor
 
-	id = /obj/item/card/id/advanced/centcom/ert/janitor
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
 	back = /obj/item/storage/backpack/ert/janitor
 	backpack_contents = list(
@@ -308,7 +309,7 @@
 		return
 
 	var/obj/item/radio/R = H.ears
-	R.keyslot = new /obj/item/encryptionkey/headset_service
+	R.keyslots += new /obj/item/encryptionkey/headset_service
 	R.recalculateChannels()
 
 /datum/outfit/centcom/ert/janitor/heavy
@@ -324,8 +325,8 @@
 
 /datum/outfit/centcom/ert/clown
 	name = "ERT Clown"
+	card_access = /datum/card_access/centcom/ert/clown
 
-	id = /obj/item/card/id/advanced/centcom/ert/clown
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/clown
 	back = /obj/item/storage/backpack/ert/clown
 	backpack_contents = list(
@@ -346,7 +347,7 @@
 	if(visualsOnly)
 		return
 	var/obj/item/radio/R = H.ears
-	R.keyslot = new /obj/item/encryptionkey/headset_service
+	R.keyslots += new /obj/item/encryptionkey/headset_service
 	R.recalculateChannels()
 	ADD_TRAIT(H, TRAIT_NAIVE, INNATE_TRAIT)
 	H.dna.add_mutation(CLOWNMUT)
@@ -355,9 +356,9 @@
 
 /datum/outfit/centcom/centcom_intern
 	name = "CentCom Intern"
+	card_access = /datum/card_access/centcom/intern
 
-	id = /obj/item/card/id/advanced/centcom
-	id_trim = /datum/id_trim/centcom/intern
+	id = /obj/item/card/id/centcom
 	uniform = /obj/item/clothing/under/rank/centcom/intern
 	back = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
@@ -392,6 +393,7 @@
 
 /datum/outfit/centcom/centcom_intern/leader
 	name = "CentCom Head Intern"
+	card_access = /datum/card_access/centcom/intern/head
 
 	suit = /obj/item/clothing/suit/armor/vest
 	suit_store = /obj/item/gun/ballistic/rifle/boltaction/brand_new
@@ -436,7 +438,7 @@
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/storage/box/survival/engineer = 1,
 )
-	belt = /obj/item/melee/classic_baton/telescopic
+	belt = /obj/item/melee/baton/stungun
 	l_pocket = /obj/item/assembly/flash
 	r_pocket = /obj/item/storage/wallet
 
@@ -491,9 +493,9 @@
 
 /datum/outfit/centcom/death_commando
 	name = "Death Commando"
+	card_access = /datum/card_access/centcom/deathsquad
 
-	id = /obj/item/card/id/advanced/black/deathsquad
-	id_trim = /datum/id_trim/centcom/deathsquad
+	id = /obj/item/card/id/black
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
@@ -541,7 +543,6 @@
 /datum/outfit/centcom/ert/marine
 	name = "Marine Commander"
 
-	id = /obj/item/card/id/advanced/centcom/ert
 	suit = /obj/item/clothing/suit/armor/vest/marine
 	suit_store = /obj/item/gun/ballistic/automatic/wt550
 	back = /obj/item/shield/riot
@@ -559,13 +560,13 @@
 	if(visualsOnly)
 		return
 	var/obj/item/radio/headset = equipper.ears
-	headset.keyslot = new /obj/item/encryptionkey/heads/captain
+	headset.keyslots += new /obj/item/encryptionkey/heads/captain
 	headset.recalculateChannels()
 
 /datum/outfit/centcom/ert/marine/security
 	name = "Marine Heavy"
+	card_access = /datum/card_access/centcom/ert/security
 
-	id = /obj/item/card/id/advanced/centcom/ert/security
 	suit = /obj/item/clothing/suit/armor/vest/marine/security
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/grenade/smokebomb
@@ -579,13 +580,13 @@
 		return
 
 	var/obj/item/radio/headset = equipper.ears
-	headset.keyslot = new /obj/item/encryptionkey/heads/hos
+	headset.keyslots += new /obj/item/encryptionkey/heads/hos
 	headset.recalculateChannels()
 
 /datum/outfit/centcom/ert/marine/medic
 	name = "Marine Medic"
+	card_access = /datum/card_access/centcom/ert/medical
 
-	id = /obj/item/card/id/advanced/centcom/ert/medical
 	suit = /obj/item/clothing/suit/armor/vest/marine/medic
 	suit_store = /obj/item/storage/belt/holster/detective/full/ert
 	back = /obj/item/storage/backpack/ert/medical
@@ -608,13 +609,13 @@
 		return
 
 	var/obj/item/radio/headset = equipper.ears
-	headset.keyslot = new /obj/item/encryptionkey/heads/cmo
+	headset.keyslots += new /obj/item/encryptionkey/heads/cmo
 	headset.recalculateChannels()
 
 /datum/outfit/centcom/ert/marine/engineer
 	name = "Marine Engineer"
+	card_access = /datum/card_access/centcom/ert/engineer
 
-	id = /obj/item/card/id/advanced/centcom/ert/engineer
 	suit = /obj/item/clothing/suit/armor/vest/marine/engineer
 	suit_store = /obj/item/gun/ballistic/shotgun/lethal
 	mask = /obj/item/clothing/mask/cigarette/robustgold
@@ -638,5 +639,5 @@
 		return
 
 	var/obj/item/radio/headset = equipper.ears
-	headset.keyslot = new /obj/item/encryptionkey/heads/ce
+	headset.keyslots += new /obj/item/encryptionkey/heads/ce
 	headset.recalculateChannels()

@@ -215,6 +215,7 @@
 	new /obj/item/reagent_containers/syringe(src)
 	new /obj/item/reagent_containers/syringe/lethal(src)
 	new /obj/item/reagent_containers/syringe/piercing(src)
+	new /obj/item/reagent_containers/syringe/noreact(src)
 	new /obj/item/reagent_containers/syringe/bluespace(src)
 
 /obj/item/storage/box/medipens
@@ -538,7 +539,7 @@
 
 /obj/item/storage/box/ids/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/card/id/advanced(src)
+		new /obj/item/card/id/tier2(src)
 
 //Some spare PDAs in a box
 /obj/item/storage/box/pdas
@@ -565,7 +566,7 @@
 
 /obj/item/storage/box/silver_ids/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/card/id/advanced/silver(src)
+		new /obj/item/card/id/tier3(src)
 
 /obj/item/storage/box/prisoner
 	name = "box of prisoner IDs"
@@ -575,13 +576,13 @@
 
 /obj/item/storage/box/prisoner/PopulateContents()
 	..()
-	new /obj/item/card/id/advanced/prisoner/one(src)
-	new /obj/item/card/id/advanced/prisoner/two(src)
-	new /obj/item/card/id/advanced/prisoner/three(src)
-	new /obj/item/card/id/advanced/prisoner/four(src)
-	new /obj/item/card/id/advanced/prisoner/five(src)
-	new /obj/item/card/id/advanced/prisoner/six(src)
-	new /obj/item/card/id/advanced/prisoner/seven(src)
+	new /obj/item/card/id/prisoner/one(src)
+	new /obj/item/card/id/prisoner/two(src)
+	new /obj/item/card/id/prisoner/three(src)
+	new /obj/item/card/id/prisoner/four(src)
+	new /obj/item/card/id/prisoner/five(src)
+	new /obj/item/card/id/prisoner/six(src)
+	new /obj/item/card/id/prisoner/seven(src)
 
 /obj/item/storage/box/seccarts
 	name = "box of PDA security cartridges"
@@ -1051,9 +1052,9 @@
 	illustration = "scicircuit"
 
 /obj/item/storage/box/rndboards/PopulateContents()
-	new /obj/item/circuitboard/machine/protolathe/offstation(src)
+	new /obj/item/circuitboard/machine/protolathe(src)
 	new /obj/item/circuitboard/machine/destructive_analyzer(src)
-	new /obj/item/circuitboard/machine/circuit_imprinter/offstation(src)
+	new /obj/item/circuitboard/machine/circuit_imprinter(src)
 	new /obj/item/circuitboard/computer/rdconsole(src)
 
 /obj/item/storage/box/silver_sulf
@@ -1562,6 +1563,14 @@
 	var/chosen_box = pick(subtypesof(/obj/item/storage/box/ingredients) - /obj/item/storage/box/ingredients/random)
 	new chosen_box(loc)
 	return INITIALIZE_HINT_QDEL
+
+/obj/item/storage/box/disks_plantgene
+	name = "plant data disks box"
+	illustration = "disk_kit"
+
+/obj/item/storage/box/disks_plantgene/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/disk/plantgene(src)
 
 /obj/item/storage/box/hero
 	name = "Courageous Tomb Raider - 1940's."

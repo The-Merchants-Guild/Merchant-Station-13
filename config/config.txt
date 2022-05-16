@@ -239,13 +239,13 @@ WEBCLIENT_ONLY_BYOND_MEMBERS
 # FORUMURL http://tgstation13.org/phpBB/index.php
 
 ## Wiki address
-# WIKIURL http://www.tgstation13.org/wiki
+# WIKIURL http://wiki.merchantstation.net/
 
 ## Rules address
-# RULESURL http://www.tgstation13.org/wiki/Rules
+# RULESURL http://wiki.merchantstation.net/wiki/Rules
 
 ## Github address
-# GITHUBURL https://www.github.com/tgstation/tgstation
+# GITHUBURL https://www.github.com/The-Merchants-Guild/Merchant-Station-13
 
 ## Discord bot command prefix, if the discord bot is used
 # DISCORDBOTCOMMANDPREFIX ?
@@ -264,13 +264,13 @@ WEBCLIENT_ONLY_BYOND_MEMBERS
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
 # BANAPPEALS http://justanotherday.example.com
 
-## System command that invokes youtube-dl, used by Play Internet Sound.
+## System command that invokes yt-dlp, used by Play Internet Sound.
 ## You can install youtube-dl with
 ## "pip install youtube-dl" if you have pip installed
 ## from https://github.com/rg3/youtube-dl/releases
 ## or your package manager
 ## The default value assumes youtube-dl is in your system PATH
-INVOKE_YOUTUBEDL C:\Users\Bones\Desktop\tgstation-apr20-2021\youtube-dl.exe
+INVOKE_YTDLP yt-dlp
 
 ## In-game features
 ##Toggle for having jobs load up from the .txt

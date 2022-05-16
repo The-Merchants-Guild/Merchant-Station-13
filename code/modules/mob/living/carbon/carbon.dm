@@ -66,7 +66,7 @@
 	for(var/datum/surgery/S in surgeries)
 		if(body_position == LYING_DOWN || !S.lying_required)
 			var/list/modifiers = params2list(params)
-			if((S.self_operable || user != src) && !user.combat_mode)
+			if(!user.combat_mode)
 				if(S.next_step(user, modifiers))
 					return 1
 
@@ -745,11 +745,6 @@
 /mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
 	if(hud_used?.internals)
 		hud_used.internals.icon_state = "internal[internal_state]"
-
-/mob/living/carbon/proc/update_spacesuit_hud_icon(cell_state = "empty")
-	if(hud_used?.spacesuit)
-		hud_used.spacesuit.icon_state = "spacesuit_[cell_state]"
-
 
 /mob/living/carbon/set_health(new_value)
 	. = ..()

@@ -44,8 +44,9 @@
 /datum/outfit/job/captain
 	name = "Captain"
 	jobtype = /datum/job/captain
+	card_access = /datum/card_access/job/captain
 
-	id = /obj/item/card/id/advanced/gold
+	id = /obj/item/card/id/tier5
 	belt = /obj/item/pda/captain
 	glasses = /obj/item/clothing/glasses/sunglasses
 	ears = /obj/item/radio/headset/heads/captain/alt
@@ -54,7 +55,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/caphat
-	backpack_contents = list(/obj/item/melee/classic_baton/telescopic=1, /obj/item/station_charter=1)
+	backpack_contents = list(/obj/item/melee/baton/stungun=1, /obj/item/station_charter=1)
 
 	skillchips = list(/obj/item/skillchip/disk_verifier)
 
@@ -67,7 +68,6 @@
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/captain)
 
-	id_trim = /datum/id_trim/job/captain
 	var/special_charter
 
 /datum/outfit/job/captain/pre_equip(mob/living/carbon/human/H, visualsOnly)

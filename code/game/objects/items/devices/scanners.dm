@@ -815,7 +815,7 @@ GENE SCANNER
 	worn_icon_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	desc = "A hand-held scanner for analyzing someones gene sequence on the fly. Hold near a DNA console to update the internal database."
+	desc = "A hand-held scanner for analyzing someones gene sequence on the fly. Hold near a DNA console to update from their database."
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
@@ -825,9 +825,6 @@ GENE SCANNER
 	throw_range = 7
 	custom_materials = list(/datum/material/iron=200)
 	var/list/discovered = list() //hit a dna console to update the scanners database
-	var/list/buffer
-	var/ready = TRUE
-	var/cooldown = 200
 
 /obj/item/sequence_scanner/attack(mob/living/M, mob/living/carbon/human/user)
 	add_fingerprint(user)
@@ -838,12 +835,6 @@ GENE SCANNER
 
 	else
 		user.visible_message(span_notice("[user] fails to analyze [M]'s genetic sequence."), span_warning("[M] has no readable genetic sequence!"))
-
-/obj/item/sequence_scanner/attack_self(mob/user)
-	display_sequence(user)
-
-/obj/item/sequence_scanner/attack_self_tk(mob/user)
-	return
 
 /obj/item/sequence_scanner/afterattack(obj/O, mob/user, proximity)
 	. = ..()
@@ -858,56 +849,25 @@ GENE SCANNER
 		else
 			to_chat(user,span_warning("No database to update from."))
 
-/obj/item/sequence_scanner/proc/gene_scan(mob/living/carbon/C, mob/living/user)
+/proc/gene_scan(mob/living/carbon/C, mob/living/user, obj/item/sequence_scanner/G)
 	if(!iscarbon(C) || !C.has_dna())
 		return
-	buffer = C.dna.mutation_index
-	to_chat(user, span_notice("Subject [C.name]'s DNA sequence has been saved to buffer."))
-	if(LAZYLEN(buffer))
-		for(var/A in buffer)
-			to_chat(user, span_notice("[get_display_name(A)]"))
+	to_chat(user, "<span class='notice'>[C.name]'s potential mutations.")
+	for(var/A in C.dna.mutation_index)
+		var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(A)
+		var/mut_name
+		if(G && (A in G.discovered))
+			mut_name = "[HM.name] ([HM.alias])"
+		else
+			mut_name = HM.alias
+		var/temp = GET_GENE_STRING(HM.type, C.dna)
+		var/display
+		for(var/i in 0 to length(temp) / DNA_MUTATION_BLOCKS-1)
+			if(i)
+				display += "-"
+			display += copytext(temp, 1 + i*DNA_MUTATION_BLOCKS, DNA_MUTATION_BLOCKS*(1+i) + 1)
+		to_chat(user, "<span class='boldnotice'>- [mut_name] > [display]</span>")
 
-
-/obj/item/sequence_scanner/proc/display_sequence(mob/living/user)
-	if(!LAZYLEN(buffer) || !ready)
-		return
-	var/list/options = list()
-	for(var/A in buffer)
-		options += get_display_name(A)
-
-	var/answer = input(user, "Analyze Potential", "Sequence Analyzer")  as null|anything in sortList(options)
-	if(answer && ready && user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-		var/sequence
-		for(var/A in buffer) //this physically hurts but i dont know what anything else short of an assoc list
-			if(get_display_name(A) == answer)
-				sequence = buffer[A]
-				break
-
-		if(sequence)
-			var/display
-			for(var/i in 0 to length_char(sequence) / DNA_MUTATION_BLOCKS-1)
-				if(i)
-					display += "-"
-				display += copytext_char(sequence, 1 + i*DNA_MUTATION_BLOCKS, DNA_MUTATION_BLOCKS*(1+i) + 1)
-
-			to_chat(user, "[span_boldnotice("[display]")]<br>")
-
-		ready = FALSE
-		icon_state = "[icon_state]_recharging"
-		addtimer(CALLBACK(src, .proc/recharge), cooldown, TIMER_UNIQUE)
-
-/obj/item/sequence_scanner/proc/recharge()
-	icon_state = initial(icon_state)
-	ready = TRUE
-
-/obj/item/sequence_scanner/proc/get_display_name(mutation)
-	var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(mutation)
-	if(!HM)
-		return "ERROR"
-	if(mutation in discovered)
-		return  "[HM.name] ([HM.alias])"
-	else
-		return HM.alias
 
 /obj/item/scanner_wand
 	name = "kiosk scanner wand"

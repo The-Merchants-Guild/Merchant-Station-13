@@ -68,20 +68,10 @@
 	)
 
 
-/datum/job/cook/award_service(client/winner, award)
-	winner.give_award(award, winner.mob)
-
-	var/datum/venue/restaurant = SSrestaurant.all_venues[/datum/venue/restaurant]
-	var/award_score = restaurant.total_income
-	var/award_status = winner.get_award_status(/datum/award/score/chef_tourist_score)
-	if(award_score > award_status)
-		award_score -= award_status
-	winner.give_award(/datum/award/score/chef_tourist_score, winner.mob, award_score)
-
-
 /datum/outfit/job/cook
 	name = "Cook"
 	jobtype = /datum/job/cook
+	card_access = /datum/card_access/job/cook
 
 	belt = /obj/item/pda/cook
 	ears = /obj/item/radio/headset/headset_srv
@@ -94,8 +84,6 @@
 		/obj/item/choice_beacon/ingredient = 1
 	)
 	skillchips = list(/obj/item/skillchip/job/chef)
-
-	id_trim = /datum/id_trim/job/cook
 
 /datum/outfit/job/cook/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

@@ -49,8 +49,9 @@
 /datum/outfit/job/ce
 	name = "Chief Engineer"
 	jobtype = /datum/job/chief_engineer
+	card_access = /datum/card_access/job/chief_engineer
 
-	id = /obj/item/card/id/advanced/silver
+	id = /obj/item/card/id/tier4
 	belt = /obj/item/storage/belt/utility/chief/full
 	l_pocket = /obj/item/pda/heads/ce
 	ears = /obj/item/radio/headset/heads/ce
@@ -58,7 +59,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/hardhat/white
 	gloves = /obj/item/clothing/gloves/color/black
-	backpack_contents = list(/obj/item/melee/classic_baton/telescopic=1, /obj/item/modular_computer/tablet/preset/advanced/command/engineering=1)
+	backpack_contents = list(/obj/item/melee/baton/stungun=1, /obj/item/modular_computer/tablet/preset/advanced/command/engineering=1)
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng
@@ -68,8 +69,6 @@
 	chameleon_extras = /obj/item/stamp/ce
 
 	skillchips = list(/obj/item/skillchip/job/engineer)
-
-	id_trim = /datum/id_trim/job/chief_engineer
 
 /datum/outfit/job/ce/rig
 	name = "Chief Engineer (Hardsuit)"

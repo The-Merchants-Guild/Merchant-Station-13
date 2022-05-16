@@ -66,7 +66,6 @@
 	if((clothing_flags & VOICEBOX_TOGGLABLE))
 		actions_types += /datum/action/item_action/toggle_voice_box
 	. = ..()
-	AddElement(/datum/element/venue_price, FOOD_PRICE_CHEAP)
 	if(ispath(pocket_storage_component_path))
 		LoadComponent(pocket_storage_component_path)
 	if(can_be_bloody && ((body_parts_covered & FEET) || (flags_inv & HIDESHOES)))
@@ -107,7 +106,6 @@
 		food_flags = food_flags,\
 		foodtypes = foodtypes,\
 		volume = max_volume,\
-		eat_time = eat_time,\
 		tastes = tastes,\
 		eatverbs = eatverbs,\
 		bite_consumption = bite_consumption,\
@@ -243,9 +241,9 @@
 	return ..()
 
 /obj/item/clothing/dropped(mob/user)
-	..()
+	. = ..()
 	if(!istype(user))
-		return
+		return FALSE
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	for(var/trait in clothing_traits)
 		REMOVE_TRAIT(user, trait, "[CLOTHING_TRAIT] [REF(src)]")
@@ -260,7 +258,7 @@
 /obj/item/clothing/equipped(mob/user, slot)
 	. = ..()
 	if (!istype(user))
-		return
+		return FALSE
 	if(slot_flags & slot) //Was equipped to a valid slot for this item?
 		if(iscarbon(user) && LAZYLEN(zones_disabled))
 			RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/bristle, override = TRUE)
@@ -515,5 +513,8 @@ BLIND     // can't see anything
 		return
 	if(prob(0.2))
 		to_chat(L, span_warning("The damaged threads on your [src.name] chafe!"))
+
+/obj/item
+	var/list/alternate_screams = list() //moyai
 
 #undef MOTH_EATING_CLOTHING_DAMAGE

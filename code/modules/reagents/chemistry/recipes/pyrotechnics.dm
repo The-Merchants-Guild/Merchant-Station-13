@@ -151,8 +151,8 @@
 /datum/chemical_reaction/reagent_explosion/gunpowder_explosion
 	required_reagents = list(/datum/reagent/gunpowder = 1)
 	required_temp = 474
-	strengthdiv = 10
-	modifier = 5
+	strengthdiv = 8
+	modifier = 2
 	mix_message = "<span class='boldannounce'>Sparks start flying around the gunpowder!</span>"
 
 /datum/chemical_reaction/reagent_explosion/gunpowder_explosion/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
@@ -218,8 +218,8 @@
 /datum/chemical_reaction/reagent_explosion/methsplosion
 	required_temp = 380 //slightly above the meth mix time.
 	required_reagents = list(/datum/reagent/drug/methamphetamine = 1)
-	strengthdiv = 12
-	modifier = 5
+	strengthdiv = 8
+	modifier = 2
 	mob_react = FALSE
 
 /datum/chemical_reaction/reagent_explosion/methsplosion/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
@@ -461,17 +461,6 @@
 	freeze_radius(holder, null, holder.chem_temp*2, clamp(cryostylane.volume/30, 2, 6), 120 SECONDS, 2)
 	clear_reactants(holder, 15)
 	holder.chem_temp += 100
-
-//Makes a snowman if you're too impure!
-/datum/chemical_reaction/cryostylane/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, vol_added)
-	var/datum/reagent/cryostylane/cryostylane = holder.has_reagent(/datum/reagent/cryostylane)
-	var/turf/local_turf = get_turf(holder.my_atom)
-	playsound(local_turf, 'sound/magic/ethereal_exit.ogg', 50, 1)
-	local_turf.visible_message("The reaction furiously freezes up as a snowman suddenly rises out of the [holder.my_atom.name]!")
-	freeze_radius(holder, equilibrium, holder.chem_temp, clamp(cryostylane.volume/15, 3, 10), 180 SECONDS, 5)
-	new /obj/structure/statue/snow/snowman(local_turf)
-	clear_reactants(holder)
-	clear_products(holder)
 
 #undef CRYOSTYLANE_UNDERHEAT_TEMP
 #undef CRYOSTYLANE_IMPURE_TEMPERATURE_RANGE

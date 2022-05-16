@@ -219,7 +219,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			agent card, specialised contractor baton, and three randomly selected low cost items. Can include otherwise unobtainable items."
 	item = /obj/item/storage/box/syndicate/contract_kit
 	cost = 20
-	player_minimum = 20
+	player_minimum = 15
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/bundles_tc/bundle_a
@@ -244,7 +244,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Blood, heat and dust. The wind howls, the russians are no more, but the ones that inherited wealth from them still stand tall. Prove yourself Operative, and make sure you don't go completely mad."
 	item = /obj/item/storage/backpack/satchel/miami/prefilled
 	cost = 20
-	player_minimum = 25
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/bundles_tc/surplus
@@ -253,7 +252,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			but you never know. Contents are sorted to always be worth 50 TC."
 	item = /obj/structure/closet/crate
 	cost = 20
-	player_minimum = 25
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	var/starting_crate_value = 50
 /datum/uplink_item/bundles_tc/surplus/super
@@ -621,7 +619,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat \
 			and gain the ability to swat bullets from the air, but you will also refuse to use dishonorable ranged weaponry."
 	item = /obj/item/book/granter/martial/carp
-	player_minimum = 25
 	cost = 13
 	surplus = 0
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
@@ -635,7 +632,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	slur as if inebriated. It can produce an infinite number \
 	of bolts, but takes time to automatically recharge after each shot."
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
-	player_minimum = 25
 	cost = 10
 	surplus = 50
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
@@ -1214,7 +1210,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			from other identification cards. In addition, they can be forged to display a new assignment, name and trim. \
 			This can be done an unlimited amount of times. Some Syndicate areas and devices can only be accessed \
 			with these cards."
-	item = /obj/item/card/id/advanced/chameleon
+	item = /obj/item/card/id/chameleon
 	cost = 2
 
 /datum/uplink_item/stealthy_tools/ai_detector
@@ -1298,7 +1294,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 2
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
-	player_minimum = 20
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	item = /obj/item/clothing/shoes/chameleon/noslip
@@ -1353,6 +1348,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/suit/space/hardsuit/syndi
 	cost = 8
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS) //you can't buy it in nuke, because the elite hardsuit costs the same while being better
+
+/datum/uplink_item/suits/hardsuit/cybersun
+	name = "Cybersun Hardsuit"
+	desc = "A long forgotten hardsuit made by Cybersun industries. \
+			Offers ROBUST protection against laser-based weapons, while still giving somewhat good chances \
+			to survive assault from a toolbox or shotgun. \
+			Not to mention, it doesn't slow you down and contains an integrated jetpack that runs on standard tanks. \
+			Systems in this hardsuit make it really hard to take it off from you."
+	item = /obj/item/clothing/suit/space/hardsuit/cybersun
+	cost = 14
+	purchasable_from = ALL
+
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
@@ -1543,7 +1550,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			load on the grid, causing a station-wide blackout. The sink is large and cannot be stored in most \
 			traditional bags and boxes. Caution: Will explode if the powernet contains sufficient amounts of energy."
 	item = /obj/item/powersink
-	player_minimum = 25
 	cost = 11
 
 /datum/uplink_item/device_tools/rad_laser
@@ -2003,7 +2009,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Laser Arm Implant"
 	desc = "An implant that grants you a recharging laser gun inside your arm. Weak to EMPs. Comes with a syndicate autosurgeon for immediate self-application."
 	cost = 10
-	item = /obj/item/autosurgeon/organ/syndicate/laser_arm
+	item = /obj/item/storage/briefcase/syndie_laser
 	restricted_roles = list("Roboticist", "Research Director")
 
 /datum/uplink_item/role_restricted/ocd_device
@@ -2027,6 +2033,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/toolbox/emergency/turret
 	cost = 11
 	restricted_roles = list("Station Engineer")
+
+/datum/uplink_item/role_restricted/canister_regulator_breaker
+	name = "Canister Pressure Regulator Breaking Tool"
+	desc = "A highly advanced tool created to destroy the pressure regulation hardware on canisters."
+	item = /obj/item/canister_regulator_breaker
+	cost = 15
+	restricted_roles = list("Atmospheric Technician")
 
 // Pointless
 /datum/uplink_item/badass
@@ -2120,3 +2133,26 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/melee/execution_sword
 	cost = 1 //it sucks balls for anything but memeing
 	surplus = 30 //Theres a good chance this will end up in surplus crates, so its a great way to add a little spice to any meme round.
+
+
+/datum/uplink_item/dangerous/vibroblade
+	name = "High Frequency Blade"
+	desc = "An electric katana that weakens the molecular bonds of whatever it touches. Perfect for slicing off the limbs of your coworkers. \
+	Avoid using a multitool on it."
+	item = /obj/item/storage/belt/hfblade
+	cost = 15
+	surplus = 15
+
+/datum/uplink_item/dangerous/wrestling
+	name = "Wrestling Set"
+	desc = "OH YEAH BROTHERRRR!"
+	item = /obj/item/storage/box/syndie_kit/wrestling
+	cost = 17 //The wrestling set is not as powerful as it once was (BULLSHIT)
+	purchasable_from = UPLINK_TRAITORS
+
+/datum/uplink_item/dangerous/armstrong
+	name = "Armstrong Style Kit"
+	desc = "A kit with the necessary equipment to become an excellent martial artist, and terrible parent!"
+	item = /obj/item/storage/box/syndie_kit/armstrong
+	cost = 14
+	surplus = 20 // someone who respects the eldritch god Nar-Sie a little (((too much))) complained

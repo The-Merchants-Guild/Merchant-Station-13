@@ -151,14 +151,6 @@
 	rate_up_lim = 25 //Give a chance to pull back
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
 
-/datum/chemical_reaction/nitrous_oxide/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
-	. = ..()
-	var/turf/exposed_turf = get_turf(holder.my_atom)
-	if(!exposed_turf)
-		return
-	exposed_turf.atmos_spawn_air("n2o=[equilibrium.step_target_vol/2];TEMP=[holder.chem_temp]")
-	clear_products(holder, equilibrium.step_target_vol)
-
 /datum/chemical_reaction/nitrous_oxide/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
 	return //This is empty because the explosion reaction will occur instead (see pyrotechnics.dm). This is just here to update the lookup ui.
 
@@ -754,17 +746,6 @@
 	required_reagents = list(/datum/reagent/plasma_oxide = 1,/datum/reagent/stabilizing_agent = 1)
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
 
-/datum/chemical_reaction/silver_solidification
-	required_reagents = list(/datum/reagent/silver = 20, /datum/reagent/carbon = 10)
-	required_temp = 630
-	mob_react = FALSE
-	reaction_flags = REACTION_INSTANT
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
-
-/datum/chemical_reaction/silver_solidification/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/i in 1 to created_volume)
-		new /obj/item/stack/sheet/mineral/silver(location)
 
 /datum/chemical_reaction/bone_gel
 	required_reagents = list(/datum/reagent/bone_dust = 10, /datum/reagent/carbon = 10)
@@ -884,31 +865,6 @@
 		do_sparks(3,FALSE,nearby_mob)
 	clear_products(holder, step_volume_added)
 
-/datum/chemical_reaction/eigenstate/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
-	if(!off_cooldown(holder, equilibrium, 1, "eigen"))
-		return
-	var/turf/location = get_turf(holder.my_atom)
-	do_sparks(3,FALSE,location)
-	holder.chem_temp += 10
-	playsound(location, 'sound/effects/phasein.ogg', 80, TRUE)
-	for(var/obj/machinery/duct/duct in range(location, 3))
-		do_teleport(duct, location, 3, no_effects=TRUE)
-		equilibrium.data["ducts_teleported"] = TRUE //If we teleported a duct - call the process in
-	var/lets_not_go_crazy = 15 //Teleport 15 items at max
-	var/list/items = list()
-	for(var/obj/item/item in range(location, 3))
-		items += item
-	shuffle(items)
-	for(var/obj/item/item in items)
-		do_teleport(item, location, 3, no_effects=TRUE)
-		lets_not_go_crazy -= 1
-		item.add_atom_colour("#c4b3fd", WASHABLE_COLOUR_PRIORITY)
-		if(!lets_not_go_crazy)
-			clear_products(holder, step_volume_added)
-			return
-	clear_products(holder, step_volume_added)
-	holder.my_atom.audible_message(span_notice("[icon2html(holder.my_atom, viewers(DEFAULT_MESSAGE_RANGE, src))] The reaction gives out a fizz, teleporting items everywhere!"))
-
 /datum/chemical_reaction/ants
 	results = list(/datum/reagent/ants = 3)
 	required_reagents = list(/datum/reagent/ants = 2, /datum/reagent/consumable/sugar = 6)
@@ -930,3 +886,15 @@
 	for(var/i in rand(1, created_volume) to created_volume)
 		new /mob/living/simple_animal/ant(location)
 	..()
+
+/datum/chemical_reaction/kevlar
+	required_reagents = list(/datum/reagent/pentaerythritol = 2, /datum/reagent/acetaldehyde = 2, /datum/reagent/fluorine = 1, /datum/reagent/carbon = 10)
+	required_temp = 574
+	reaction_flags = REACTION_INSTANT
+	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_CHEMICAL
+
+/datum/chemical_reaction/kevlar/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /obj/item/stack/sheet/kevlar(location)
+

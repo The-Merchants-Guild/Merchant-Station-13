@@ -1,13 +1,15 @@
-## /tg/station codebase
+# MerchantStation Codebase
 
-[![Build Status](https://github.com/tgstation/tgstation/workflows/CI%20Suite/badge.svg)](https://github.com/tgstation/tgstation/actions?query=workflow%3A%22CI+Suite%22)
-[![Percentage of issues still open](https://isitmaintained.com/badge/open/tgstation/tgstation.svg)](https://isitmaintained.com/project/tgstation/tgstation "Percentage of issues still open")
-[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/tgstation/tgstation.svg)](https://isitmaintained.com/project/tgstation/tgstation "Average time to resolve an issue")
-![Coverage](https://img.shields.io/badge/coverage---3%25-red.svg)
+[![Build Status](https://github.com/the-merchants-guild/merchant-station-13/workflows/CI%20Suite/badge.svg)](https://github.com/the-merchants-guild/merchant-station-13/actions?query=workflow%3A%22CI+Suite%22)
+[![Percentage of issues still open](https://isitmaintained.com/badge/open/the-merchants-guild/merchant-station-13.svg)](https://isitmaintained.com/project/the-merchants-guild/merchant-station-13 "Percentage of issues still open")
+[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/the-merchants-guild/merchant-station-13.svg)](https://isitmaintained.com/project/the-merchants-guild/merchant-station-13 "Average time to resolve an issue")
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-resentment.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/contains-technical-debt.svg)](https://user-images.githubusercontent.com/8171642/50290880-ffef5500-043a-11e9-8270-a2e5b697c86c.png) [![forinfinityandbyond](https://user-images.githubusercontent.com/5211576/29499758-4efff304-85e6-11e7-8267-62919c3688a9.gif)](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a)
 
-* **Wiki:** https://tgstation13.org/wiki/Main_Page
+* **Website:** https://www.merchantstation.net/
+* **Wiki:** https://wiki.merchantstation.net/, (Early work in progress, check out [/tg/station's wiki](https://tgstation13.org/wiki/Main_Page) in the meantime).
+* **Discord:** https://discord.gg/2YYfU3ZanD
+* **HackMD:** https://hackmd.io/79ogwXLUS2-A_xnzUmCH9g
 
 This is the codebase for the Merchant Station, a modified /tg/station-based fork of SpaceStation 13.
 
@@ -16,7 +18,7 @@ Space Station 13 is a paranoia-laden round-based roleplaying game set against th
 ## DOWNLOADING
 [Downloading](.github/DOWNLOADING.md)
 
-[Running on the server](.github/RUNNING_A_SERVER.md)
+[Running a server](.github/RUNNING_A_SERVER.md)
 
 [Maps and Away Missions](.github/MAPS_AND_AWAY_MISSIONS.md)
 
@@ -28,20 +30,9 @@ Find `BUILD.bat` here in the root folder of tgstation, and double click it to in
 
 After it finishes, you can then [setup the server](.github/RUNNING_A_SERVER.md) normally by opening `tgstation.dmb` in DreamDaemon.
 
-**Building tgstation in DreamMaker directly is now deprecated and might produce errors**, such as `'tgui.bundle.js': cannot find file`.
+**Building Merchant Station in DreamMaker directly is now deprecated and might produce errors**, such as `'tgui.bundle.js': cannot find file`.
 
 **[How to compile in VSCode and other build options](tools/build/README.md).**
-
-## Requirements for contributors
-[Guidelines for Contributors](.github/CONTRIBUTING.md)
-
-[/tg/station HACKMD account](https://hackmd.io/@tgstation) - Design documentation here
-
-[Documenting your code](.github/AUTODOC_GUIDE.md)
-
-[Policy configuration system](.github/POLICYCONFIG.md)
-
-[Interested in some starting lore?](https://github.com/tgstation/common_core)
 
 ## LICENSE
 

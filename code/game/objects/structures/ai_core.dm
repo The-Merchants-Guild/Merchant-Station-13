@@ -108,7 +108,7 @@
 				return
 
 			to_chat(user, span_notice("You start to deconstruct the frame..."))
-			if(P.use_tool(src, user, 20, volume=50) && state == EMPTY_CORE)
+			if(P.use_tool(src, user, volume=50) && state == EMPTY_CORE)
 				to_chat(user, span_notice("You deconstruct the frame."))
 				deconstruct(TRUE)
 			return

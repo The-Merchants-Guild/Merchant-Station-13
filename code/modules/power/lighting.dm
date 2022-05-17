@@ -139,7 +139,7 @@
 					return
 				else
 					to_chat(user, span_notice("You begin deconstructing [src]..."))
-					if (W.use_tool(src, user, 30, volume=50))
+					if (W.use_tool(src, user, volume=50))
 						new /obj/item/stack/sheet/iron(drop_location(), sheets_refunded)
 						user.visible_message(span_notice("[user.name] deconstructs [src]."), \
 							span_notice("You deconstruct [src]."), span_hear("You hear a ratchet."))

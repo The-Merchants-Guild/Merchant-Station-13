@@ -76,11 +76,11 @@
 	switch(state)
 		if(BOOKCASE_UNANCHORED)
 			if(I.tool_behaviour == TOOL_WRENCH)
-				if(I.use_tool(src, user, 20, volume=50))
+				if(I.use_tool(src, user, volume=50))
 					to_chat(user, span_notice("You wrench the frame into place."))
 					set_anchored(TRUE)
 			else if(I.tool_behaviour == TOOL_CROWBAR)
-				if(I.use_tool(src, user, 20, volume=50))
+				if(I.use_tool(src, user, volume=50))
 					to_chat(user, span_notice("You pry the frame apart."))
 					deconstruct(TRUE)
 

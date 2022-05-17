@@ -42,7 +42,7 @@
 
 			user.visible_message(span_notice("[user] is slicing apart the [name]."), \
 								span_notice("You are slicing apart the [name]..."))
-			if(W.use_tool(src, user, 40, volume=50))
+			if(W.use_tool(src, user, volume=50))
 				user.visible_message(span_notice("[user] slices apart the [name]."), \
 									span_notice("You slice apart the [name]!"))
 				deconstruct(TRUE)

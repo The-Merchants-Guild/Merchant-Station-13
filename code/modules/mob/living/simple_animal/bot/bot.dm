@@ -357,7 +357,7 @@
 				to_chat(user, span_warning("Unable to repair with the maintenance panel closed!"))
 				return
 
-			if(W.use_tool(src, user, 0, volume=40))
+			if(W.use_tool(src, user, volume=40))
 				adjustHealth(-10)
 				user.visible_message(span_notice("[user] repairs [src]!"),span_notice("You repair [src]."))
 		else

@@ -47,7 +47,7 @@
 				return
 
 			to_chat(user, span_notice("You begin repairing [src]."))
-			if(I.use_tool(src, user, 40, volume=50, amount=2))
+			if(I.use_tool(src, user, volume=50, amount=2))
 				obj_integrity = max_integrity
 				update_appearance()
 				to_chat(user, span_notice("You repair [src]."))

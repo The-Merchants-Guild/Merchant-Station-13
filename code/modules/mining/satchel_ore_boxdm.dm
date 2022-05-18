@@ -23,7 +23,7 @@
 	AddElement(/datum/element/rad_insulation, 0.01) //please datum mats no more cancer
 
 /obj/structure/ore_box/crowbar_act(mob/living/user, obj/item/I)
-	if(I.use_tool(src, user, 50, volume=50))
+	if(I.use_tool(src, user, volume=50))
 		user.visible_message(span_notice("[user] pries \the [src] apart."),
 			span_notice("You pry apart \the [src]."),
 			span_hear("You hear splitting wood."))

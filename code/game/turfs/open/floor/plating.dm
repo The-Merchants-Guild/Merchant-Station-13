@@ -75,7 +75,7 @@
 			else
 				to_chat(user, span_warning("This section is too damaged to support a tile! Use a welding tool or a plating repair tool to fix the damage."))
 	else if(istype(C, /obj/item/cautery/prt)) //plating repair tool
-		if((broken || burnt) && C.use_tool(src, user, 0, volume=80))
+		if((broken || burnt) && C.use_tool(src, user, volume=80))
 			to_chat(user, span_danger("You fix some dents on the broken plating."))
 			icon_state = base_icon_state
 			burnt = FALSE
@@ -84,7 +84,7 @@
 
 /turf/open/floor/plating/welder_act(mob/living/user, obj/item/I)
 	..()
-	if((broken || burnt) && I.use_tool(src, user, 0, volume=80))
+	if((broken || burnt) && I.use_tool(src, user, volume=80))
 		to_chat(user, span_danger("You fix some dents on the broken plating."))
 		icon_state = base_icon_state
 		burnt = FALSE

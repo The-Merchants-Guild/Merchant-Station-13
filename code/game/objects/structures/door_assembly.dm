@@ -65,7 +65,7 @@
 		if(mineral)
 			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 			user.visible_message(span_notice("[user] welds the [mineral] plating off the airlock assembly."), span_notice("You start to weld the [mineral] plating off the airlock assembly..."))
-			if(W.use_tool(src, user, 40, volume=50))
+			if(W.use_tool(src, user, volume=50))
 				to_chat(user, span_notice("You weld the [mineral] plating off."))
 				new mineral_path(loc, 2)
 				var/obj/structure/door_assembly/PA = new previous_assembly(loc)
@@ -73,7 +73,7 @@
 
 		else if(glass)
 			user.visible_message(span_notice("[user] welds the glass panel out of the airlock assembly."), span_notice("You start to weld the glass panel out of the airlock assembly..."))
-			if(W.use_tool(src, user, 40, volume=50))
+			if(W.use_tool(src, user, volume=50))
 				to_chat(user, span_notice("You weld the glass panel out."))
 				if(heat_proof_finished)
 					new /obj/item/stack/sheet/rglass(get_turf(src))
@@ -84,7 +84,7 @@
 		else if(!anchored)
 			user.visible_message(span_warning("[user] disassembles the airlock assembly."), \
 								span_notice("You start to disassemble the airlock assembly..."))
-			if(W.use_tool(src, user, 40, volume=50))
+			if(W.use_tool(src, user, volume=50))
 				to_chat(user, span_notice("You disassemble the airlock assembly."))
 				deconstruct(TRUE)
 
@@ -101,7 +101,7 @@
 					span_notice("You start to secure the airlock assembly to the floor..."), \
 					span_hear("You hear wrenching."))
 
-				if(W.use_tool(src, user, 40, volume=100))
+				if(W.use_tool(src, user, volume=100))
 					if(anchored)
 						return
 					to_chat(user, span_notice("You secure the airlock assembly."))
@@ -114,7 +114,7 @@
 			user.visible_message(span_notice("[user] unsecures the airlock assembly from the floor."), \
 				span_notice("You start to unsecure the airlock assembly from the floor..."), \
 				span_hear("You hear wrenching."))
-			if(W.use_tool(src, user, 40, volume=100))
+			if(W.use_tool(src, user, volume=100))
 				if(!anchored)
 					return
 				to_chat(user, span_notice("You unsecure the airlock assembly."))
@@ -127,7 +127,7 @@
 
 		user.visible_message(span_notice("[user] wires the airlock assembly."), \
 							span_notice("You start to wire the airlock assembly..."))
-		if(W.use_tool(src, user, 40, amount=1))
+		if(W.use_tool(src, user, amount=1))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 				return
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
@@ -138,7 +138,7 @@
 		user.visible_message(span_notice("[user] cuts the wires from the airlock assembly."), \
 							span_notice("You start to cut the wires from the airlock assembly..."))
 
-		if(W.use_tool(src, user, 40, volume=100))
+		if(W.use_tool(src, user, volume=100))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 				return
 			to_chat(user, span_notice("You cut the wires from the airlock assembly."))
@@ -166,7 +166,7 @@
 		user.visible_message(span_notice("[user] removes the electronics from the airlock assembly."), \
 								span_notice("You start to remove electronics from the airlock assembly..."))
 
-		if(W.use_tool(src, user, 40, volume=100))
+		if(W.use_tool(src, user, volume=100))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 				return
 			to_chat(user, span_notice("You remove the airlock electronics."))
@@ -239,7 +239,7 @@
 		user.visible_message(span_notice("[user] finishes the airlock."), \
 			span_notice("You start finishing the airlock..."))
 
-		if(W.use_tool(src, user, 40, volume=100))
+		if(W.use_tool(src, user, volume=100))
 			if(loc && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 				to_chat(user, span_notice("You finish the airlock."))
 				var/obj/machinery/door/airlock/door

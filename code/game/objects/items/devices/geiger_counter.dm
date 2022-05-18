@@ -161,7 +161,7 @@
 			to_chat(user, span_warning("Turn off [src] before you perform this action!"))
 			return FALSE
 		user.visible_message(span_notice("[user] unscrews [src]'s maintenance panel and begins fiddling with its innards..."), span_notice("You begin resetting [src]..."))
-		if(!I.use_tool(src, user, 40, volume=50))
+		if(!I.use_tool(src, user, volume=50))
 			return FALSE
 		user.visible_message(span_notice("[user] refastens [src]'s maintenance panel!"), span_notice("You reset [src] to its factory settings!"))
 		obj_flags &= ~EMAGGED

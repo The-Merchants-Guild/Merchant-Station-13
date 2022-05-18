@@ -10,7 +10,7 @@
 
 /obj/item/target/welder_act(mob/living/user, obj/item/I)
 	..()
-	if(I.use_tool(src, user, 0, volume=40))
+	if(I.use_tool(src, user, volume=40))
 		for (var/bullethole in bullethole_overlays)
 			cut_overlay(bullethole)
 		bullethole_overlays = null

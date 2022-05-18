@@ -31,7 +31,7 @@
 	var/action = anchored ? "unscrews [src] from" : "screws [src] to"
 	var/uraction = anchored ? "unscrew [src] from" : "screw [src] to"
 	user.visible_message(span_warning("[user] [action] the floor."), span_notice("You start to [uraction] the floor..."), span_hear("You hear rustling noises."))
-	if(!W.use_tool(src, user, 100, volume=100, extra_checks = CALLBACK(src, .proc/check_anchored_state, anchored)))
+	if(!W.use_tool(src, user, volume=100, extra_checks = CALLBACK(src, .proc/check_anchored_state, anchored)))
 		return TRUE
 	set_anchored(!anchored)
 	update_atmos_behaviour()
@@ -47,7 +47,7 @@
 	. = ..()
 	if(!anchored)
 		user.visible_message(span_warning("[user] cuts apart [src]."), span_notice("You start to cut apart [src]."), span_hear("You hear cutting."))
-		if(W.use_tool(src, user, 50, volume=100))
+		if(W.use_tool(src, user, volume=100))
 			if(anchored)
 				return TRUE
 			to_chat(user, span_notice("You cut apart [src]."))

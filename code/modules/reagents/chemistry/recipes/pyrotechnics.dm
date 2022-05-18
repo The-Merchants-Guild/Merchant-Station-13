@@ -211,7 +211,7 @@
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	for(var/turf/target as anything in RANGE_TURFS(1,T))
+	for(var/turf/target in range(1,T))
 		new /obj/effect/hotspot(target)
 	holder.chem_temp = 1000 // hot as shit
 

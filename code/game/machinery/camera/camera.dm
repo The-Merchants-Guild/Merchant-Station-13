@@ -264,7 +264,7 @@
 		return TRUE
 
 	to_chat(user, span_notice("You start to weld [src]..."))
-	if(I.use_tool(src, user, 100, volume=50))
+	if(I.use_tool(src, user, volume=50))
 		user.visible_message(span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
 			span_warning("You unweld [src], leaving it as just a frame bolted to the wall"))
 		deconstruct(TRUE)
@@ -290,7 +290,7 @@
 
 		else if(istype(I, /obj/item/stack/sheet/mineral/plasma))
 			if(!isEmpProof(TRUE)) //don't reveal it was already upgraded if was done via MALF AI Upgrade Camera Network ability
-				if(I.use_tool(src, user, 0, amount=1))
+				if(I.use_tool(src, user, amount=1))
 					upgradeEmpProof(FALSE, TRUE)
 					to_chat(user, span_notice("You attach [I] into [assembly]'s inner circuits."))
 			else

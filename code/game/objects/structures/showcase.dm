@@ -120,7 +120,7 @@
 			deconstruction_state = SHOWCASE_SCREWDRIVERED
 
 	if(W.tool_behaviour == TOOL_CROWBAR && deconstruction_state == SHOWCASE_SCREWDRIVERED)
-		if(W.use_tool(src, user, 20, volume=100))
+		if(W.use_tool(src, user, volume=100))
 			to_chat(user, span_notice("You start to crowbar the showcase apart..."))
 			new /obj/item/stack/sheet/iron(drop_location(), 4)
 			qdel(src)

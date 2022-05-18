@@ -105,7 +105,7 @@
 	else if(I.tool_behaviour == TOOL_WRENCH && user != src) //They aren't required to be hacked, because laws can change in other ways (i.e. admins)
 		user.visible_message(span_notice("[user] starts resetting [src]..."), \
 			span_notice("You press down on [src]'s factory reset control..."))
-		if(I.use_tool(src, user, 50, volume=50))
+		if(I.use_tool(src, user, volume=50))
 			user.visible_message(span_notice("[user] resets [src]!"), \
 				span_notice("You reset [src]'s directives to factory defaults!"))
 			update_drone_hack(FALSE)

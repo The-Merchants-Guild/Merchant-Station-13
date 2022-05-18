@@ -100,7 +100,7 @@
 			to_chat(user, span_warning("You can't reach, close it first!"))
 
 	else if(W.tool_behaviour == TOOL_WELDER)
-		if(W.use_tool(src, user, 0, volume=50))
+		if(W.use_tool(src, user, volume=50))
 			dismantle(user, TRUE)
 	else
 		return ..()

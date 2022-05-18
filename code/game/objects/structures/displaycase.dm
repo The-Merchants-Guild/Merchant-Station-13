@@ -129,7 +129,7 @@
 				return
 
 			to_chat(user, span_notice("You begin repairing [src]..."))
-			if(W.use_tool(src, user, 40, amount=5, volume=50))
+			if(W.use_tool(src, user, amount=5, volume=50))
 				obj_integrity = max_integrity
 				update_appearance()
 				to_chat(user, span_notice("You repair [src]."))
@@ -547,7 +547,7 @@
 			to_chat(user, span_notice("You start unsecuring [src]..."))
 		else
 			to_chat(user, span_notice("You start securing [src]..."))
-		if(I.use_tool(src, user, 16, volume=50))
+		if(I.use_tool(src, user, volume=50))
 			if(QDELETED(I))
 				return
 			if(anchored)

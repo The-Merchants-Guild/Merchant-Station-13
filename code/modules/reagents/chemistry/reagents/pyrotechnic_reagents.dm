@@ -448,6 +448,7 @@
 	return ..()
 
 /datum/reagent/cryogenic_fluid/expose_turf(turf/T, reac_volume)
+	..()
 	if (!istype(T))
 		return FALSE
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T) //instantly delts hotspots
@@ -621,7 +622,7 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
 /datum/reagent/arclumin/on_mob_life(mob/living/carbon/M)//windup starts off with constant shocking, confusion, dizziness and oscillating luminosity
-	M.electrocute_act(1, 1, 1, stun = FALSE) //Override because it's caused from INSIDE of you
+	M.electrocute_act(1, 1, 1, flags = SHOCK_NOGLOVES) //Override because it's caused from INSIDE of you
 	M.set_light(rand(1,3))
 	M.add_confusion(2)
 	M.dizziness += 4
@@ -662,8 +663,9 @@
 	M.set_light(0)
 
 /datum/reagent/arclumin/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1)//weak on touch, short teleport and low damage shock, will however give a permanent weak glow
+	..()
 	if(methods == TOUCH)
-		M.electrocute_act(5, 1, 1, stun = FALSE)
+		M.electrocute_act(5, 1, 1)
 		M.set_light(1)
 		var/turf/T = get_turf(M)
 		do_teleport(M, T, 2)

@@ -1638,7 +1638,7 @@
 /datum/reagent/medicine/superzine/on_mob_life(mob/living/M as mob)
 	if(prob(15))
 		M.emote(pick("twitch","blink_r","shiver"))
-	M.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+	M.add_movespeed_modifier(/datum/movespeed_modifier/reagent/ephedrine)
 	M.adjustStaminaLoss(-5)
 	if(prob(2))
 		M<<"<span class='danger'>You collapse suddenly!"
@@ -1672,6 +1672,7 @@
 	..()
 
 /datum/reagent/medicine/defib/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+	..()
 	if(M.stat == DEAD)
 		M.electrocute_act(1, "exstatic mixture")
 		if(!M.suiciding && !HAS_TRAIT(M, TRAIT_HUSK))

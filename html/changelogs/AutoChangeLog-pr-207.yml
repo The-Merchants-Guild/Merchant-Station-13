@@ -1,0 +1,6 @@
+author: karmaisblackandbluepilled
+delete-after: true
+changes:
+  - balance: Stabilizing TaTP and Nitroglycerin now uses normal stabilizing agent
+      once more.
+  - bugfix: Fixed welding emitters and mining delays.

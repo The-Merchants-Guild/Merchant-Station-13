@@ -741,10 +741,6 @@
 	required_catalysts = list(/datum/reagent/water/holywater = 1)
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_PLANT | REACTION_TAG_OTHER
 
-/datum/chemical_reaction/exotic_stabilizer
-	results = list(/datum/reagent/exotic_stabilizer = 2)
-	required_reagents = list(/datum/reagent/plasma_oxide = 1,/datum/reagent/stabilizing_agent = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
 
 
 /datum/chemical_reaction/bone_gel

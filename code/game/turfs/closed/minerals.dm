@@ -76,7 +76,7 @@
 		last_act = world.time
 		to_chat(user, span_notice("You start picking..."))
 
-		if(I.use_tool(src, user, volume=50))
+		if(I.use_tool(src, user, 20, volume=50))
 			if(ismineralturf(src))
 				to_chat(user, span_notice("You finish cutting into the rock."))
 				gets_drilled(user, TRUE)

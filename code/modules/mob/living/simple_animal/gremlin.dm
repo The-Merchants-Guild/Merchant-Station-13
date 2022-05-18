@@ -211,7 +211,7 @@ GLOBAL_LIST(bad_gremlin_items)
 	min_next_vent = world.time + 900 //90 seconds between ventcrawls
 
 //This allows player-controlled gremlins to tamper with machinery
-/mob/living/simple_animal/hostile/gremlin/UnarmedAttack(var/atom/A)
+/mob/living/simple_animal/hostile/gremlin/UnarmedAttack(atom/A)
 	if(istype(A, /obj/machinery) || istype(A, /obj/structure))
 		tamper(A)
 	if(istype(target, /obj/item/reagent_containers/food)) //eat food

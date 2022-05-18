@@ -1,6 +1,6 @@
 #define MAXIMUM_MARKOV_LENGTH 25000
 
-/proc/markov_chain(var/text, var/order = 4, var/length = 250)
+/proc/markov_chain(text, order = 4, length = 250)
 	if(!text || order < 0 || order > 20 || length < 1 || length > MAXIMUM_MARKOV_LENGTH)
 		return
 
@@ -8,7 +8,7 @@
 	var/markov = markov_text(length, table, order)
 	return markov
 
-/proc/markov_table(var/text, var/look_forward = 4)
+/proc/markov_table(text, look_forward = 4)
 	if(!text)
 		return
 	var/list/table = list()
@@ -29,7 +29,7 @@
 
 	return table
 
-/proc/markov_text(var/length = 250, var/table, var/look_forward = 4)
+/proc/markov_text(length = 250, table, look_forward = 4)
 	if(!table)
 		return
 	var/char = pick(table)
@@ -46,7 +46,7 @@
 
 	return o
 
-/proc/markov_weighted_char(var/list/array)
+/proc/markov_weighted_char(list/array)
 	if(!array || !array.len)
 		return
 

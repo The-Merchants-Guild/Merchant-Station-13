@@ -491,7 +491,7 @@
 
 /datum/chemical_reaction/carpet/simple_neon_purple
 	results = list(/datum/reagent/carpet/neon/simple_purple = 2)
-	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/consumable/tinlux = 1, /datum/reagent/stabilizing_agent = 1)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/consumable/tinlux = 1, /datum/reagent/plasma_oxide = 1)
 
 /datum/chemical_reaction/carpet/simple_neon_violet
 	results = list(/datum/reagent/carpet/neon/simple_violet = 2)

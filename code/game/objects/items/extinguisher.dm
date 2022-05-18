@@ -136,7 +136,7 @@
 		. += span_notice("Alt-click to empty it.")
 
 /obj/item/extinguisher/proc/AttemptRefill(atom/target, mob/user)
-	if(istype(target, /obj/structure/reagent_dispensers) && target.Adjacent(user))
+	if(istype(target, tanktype) && target.Adjacent(user))
 		if(reagents.total_volume == reagents.maximum_volume)
 			to_chat(user, span_warning("\The [src] is already full!"))
 			return TRUE

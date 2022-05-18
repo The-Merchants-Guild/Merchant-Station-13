@@ -1566,26 +1566,22 @@
 		switch(current_cycle)
 			if(4)
 				to_chat(M, "<span class='warning'>You start to feel very bloated!</span>")
-				H.resize = 1.1
-				H.update_transform()
+				H.transform = H.transform.Scale(1.1)
 
 			if(8)
 				to_chat(M, "<span class='userdanger'>Immense pain surges through your expanding body!</span>")
-				H.resize = 1.2
-				H.update_transform()
+				H.transform = H.transform.Scale(1.2)
 
 
 			if(14)
 				to_chat(M, "<span class='userdanger'>YOU FEEL LIKE YOU ARE ABOUT TO EXPLODE!</span>")
 				H.vomit(20, 1, 5)
-				H.resize = 1.4
-				H.update_transform()
+				H.transform = H.transform.Scale(1.4)
 
 			if(20)
 				H.vomit(20, 1, 5)
 				M.Knockdown(100, 0)
-				H.resize = 1.5
-				H.update_transform()
+				H.transform = H.transform.Scale(1.5)
 
 			if(24)
 				playsound(T, 'sound/magic/disintegrate.ogg', 200, 1, 8)

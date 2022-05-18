@@ -414,10 +414,7 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 
 /datum/reagent/cryogenic_fluid/process()
-	if(!data)
-		data = list("misc" = 1)
 	if(holder)
-		data["misc"]++
 		holder.chem_temp = max(holder.chem_temp - 15, TCMB)
 
 
@@ -484,7 +481,7 @@
 		do_sparks(2, TRUE, M)
 	if(prob(5))
 		M.adjust_fire_stacks(2)
-		holder.remove_reagent(src.type,5,safety = 1)
+		holder.remove_reagent(src.type,5)
 	..()
 
 /datum/reagent/dizinc//more dangerous than clf3 when ingested with slower metabolism, less effective on touch and doesn't burn objects

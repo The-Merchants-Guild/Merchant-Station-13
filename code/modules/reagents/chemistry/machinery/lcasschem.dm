@@ -184,8 +184,9 @@
 	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
 	data["materialAmount"] = material_amt
 	data["currentRadioactivity"] = beaker ? beaker.reagents.chem_radioactivity : null
-	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
-	data["beakerMaxVolume"] = beaker ? beaker.volume : null
+	if (beaker)
+		data["beakerCurrentVolume"] = beaker.reagents.total_volume
+		data["beakerMaxVolume"] = beaker.volume
 
 	var/beakerContents[0]
 	if(beaker)
@@ -349,7 +350,7 @@
 		icon_state = "cent_off"
 
 /obj/machinery/chem/centrifuge/ui_interact(mob/user, datum/tgui/ui)
-	uui = SStgui.try_update_ui(user, src, ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ChemCentrifuge", name)
 		ui.open()

@@ -2716,3 +2716,10 @@
 	metabolization_rate = INFINITY
 	taste_description = "fizzy slime"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/reagent/unstablemutationtoxin/on_mob_metabolize(mob/living/carbon/human/H)
+	..()
+	if(!istype(H))
+		return
+	H.reagents.add_reagent(pick("stablemutationtoxin","lizardmutationtoxin","flymutationtoxin", "mothmutationtoxin", "podmutationtoxin", "jellymutationtoxin", "golemmutationtoxin", "abductormutationtoxin", "androidmutationtoxin", "skeletonmutationtoxin", "zombiemutationtoxin", "ashmutationtoxin", "shadowmutationtoxin"), 1) //No plasmaman 4u xDDD
+	return

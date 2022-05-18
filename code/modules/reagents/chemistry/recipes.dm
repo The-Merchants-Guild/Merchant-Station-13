@@ -31,6 +31,14 @@
 	///FermiChem! - See fermi_readme.md
 	///Required temperature for the reaction to begin, for fermimechanics it defines the lower area of bell curve for determining heat based rate reactions, aka the minimum
 	var/required_temp = 100
+	//Required to be centrifuged?
+	var/centrifuge_recipe = FALSE
+	//Pressure required for reaction
+	var/required_pressure = 0
+	//reactivity required for reaction
+	var/required_radioactivity = 0
+	//Does this need a run through the Bluespace recombobulator?
+	var/bluespace_recipe = FALSE
 	/// Upper end for above (i.e. the end of the curve section defined by temp_exponent_factor)
 	var/optimal_temp = 500
 	/// Temperature at which reaction explodes - If any reaction is this hot, it explodes!
@@ -58,10 +66,6 @@
 	///Tagging vars
 	///A bitflag var for tagging reagents for the reagent loopup functon
 	var/reaction_tags = NONE
-	var/centrifuge_recipe = FALSE
-	var/required_pressure = 0
-	var/required_radioactivity = 0
-	var/bluespace_recipe = FALSE
 
 /datum/chemical_reaction/New()
 	. = ..()

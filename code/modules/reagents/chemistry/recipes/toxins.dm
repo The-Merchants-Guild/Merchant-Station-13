@@ -408,7 +408,7 @@
 
 /datum/chemical_reaction/aus
 	results = list(/datum/reagent/toxin/aus = 6)
-	required_reagents = list(/datum/reagent/drug/space_drugs = 4, /datum/reagent/consumable/ethanol = 2, /datum/reagent/lithium = 2)
+	required_reagents = list(/datum/reagent/medicine/ephedrine = 4, /datum/reagent/consumable/ethanol = 2, /datum/reagent/lithium = 2)
 	required_temp = 430
 	centrifuge_recipe = TRUE
 

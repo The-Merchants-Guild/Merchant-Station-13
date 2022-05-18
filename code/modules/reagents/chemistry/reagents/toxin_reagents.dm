@@ -1169,7 +1169,7 @@
 
 /datum/reagent/toxin/emote/on_mob_life(mob/living/M)
 	if(prob(25))
-		M.emote(pick("fart","flap","aflap","airguitar","blink","shrug","cough","sneeze","shake","twitch", "scream"))
+		M.emote(pick("fart","spin","flip","flap","aflap","airguitar","blink","shrug","cough","sneeze","shake","twitch", "scream"))
 		M.Jitter(2)
 	..()
 
@@ -1281,7 +1281,7 @@
 	if(current_cycle % 10 == 0)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
-			pick(C.vomit(20, stun = FALSE), C.vomit(20,1, stun = FALSE))
+			pick(C.vomit(20, stun = FALSE), C.vomit(20, TRUE, stun = FALSE))
 
 	switch(current_cycle)
 		if(1 to 12)
@@ -1334,7 +1334,7 @@
 	metabolization_rate = 3 * REAGENTS_METABOLISM //goes really quickly but does huge amounts of damage
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED //fun fact, this is a REALLY bad idea. LOL!
 
-/datum/reagent/toxin/tabun/on_mob_life(var/mob/living/M as mob)
+/datum/reagent/toxin/tabun/on_mob_life(mob/living/M)
 	M.adjustToxLoss(3*REM)//This stuff is crazily powerful
 	M.losebreath += 2
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
@@ -1361,11 +1361,11 @@
 		data["misc"]++
 		if(prob(2) && data["misc"] > 40) //randomly creates small explosions or fireballs but has a delay so it doesn't just kill people while they're still mixing
 			var/location = get_turf(holder.my_atom)
-			holder.remove_reagent(src.type,5,safety = 1)
+			holder.remove_reagent(src.type,5)
 			switch(prob(50))
 				if(TRUE)
 					var/datum/effect_system/reagents_explosion/e = new()
-					e.set_up(rand(1, 3), location, 0, 0, message = 1)
+					e.set_up(rand(1, 3), location)
 					e.start()
 				if(FALSE)
 					for(var/turf/F in range(1,location))

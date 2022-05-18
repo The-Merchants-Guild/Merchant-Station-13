@@ -294,7 +294,7 @@
 		user.visible_message(span_notice("[user.name] starts to cut the [name] free from the floor."), \
 			span_notice("You start to cut [src] free from the floor..."), \
 			span_hear("You hear welding."))
-		if(!item.use_tool(src, user, amount=1, 50))
+		if(!item.use_tool(src, user, 0, 1, 50))
 			return FALSE
 		welded = FALSE
 		to_chat(user, span_notice("You cut [src] free from the floor."))
@@ -310,7 +310,7 @@
 	user.visible_message(span_notice("[user.name] starts to weld the [name] to the floor."), \
 		span_notice("You start to weld [src] to the floor..."), \
 		span_hear("You hear welding."))
-	if(!item.use_tool(src, user, amount=1, 50))
+	if(!item.use_tool(src, user, 0, 1, 50))
 		return FALSE
 	welded = TRUE
 	to_chat(user, span_notice("You weld [src] to the floor."))

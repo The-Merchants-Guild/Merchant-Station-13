@@ -443,8 +443,8 @@
 				M.adjustOrganLoss(ORGAN_SLOT_BRAIN, (0.25*reac_volume)) //hypothermia isn't good for the brain
 
 			else
-			 M.bodytemperature = max(M.bodytemperature - 15, TCMB)
-			 M.adjust_fire_stacks(-(6*reac_volume))
+				M.bodytemperature = max(M.bodytemperature - 15, TCMB)
+				M.adjust_fire_stacks(-(6*reac_volume))
 	return ..()
 
 /datum/reagent/cryogenic_fluid/expose_turf(turf/T, reac_volume)

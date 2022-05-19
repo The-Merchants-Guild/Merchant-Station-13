@@ -856,12 +856,20 @@
 	build_path = /obj/item/ammo_casing/shotgun/rubbershot
 	category = list("hacked", "Security")
 
-/datum/design/shotgun_laser
-	name = "Laser Shell"
-	id = "laser_shell"
+/datum/design/shotgun_buck
+	name = "Buckshot Shell"
+	id = "shotgun_buck"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000)
-	build_path = /obj/item/ammo_casing/shotgun/laser
+	materials = list(/datum/material/iron = 4000)
+	build_path = /obj/item/ammo_casing/shotgun/buckshot
+	category = list("hacked", "Security")
+
+/datum/design/shotgun_slug
+	name = "Shotgun Slug"
+	id = "shotgun_slug"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 4000)
+	build_path = /obj/item/ammo_casing/shotgun
 	category = list("hacked", "Security")
 
 /datum/design/shotgun_dart
@@ -1053,6 +1061,15 @@
 	build_path = /obj/item/stack/package_wrap
 	category = list("initial", "Misc", "Equipment")
 	maxstack = 30
+
+/datum/design/diskplantgene
+	name = "Plant Data Disk"
+	desc = "A disk for storing plant genetic data."
+	id = "diskplantgene"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron=200, /datum/material/glass = 100)
+	build_path = /obj/item/disk/plantgene
+	category = list("initial", "Misc", "Electronics")
 
 /datum/design/holodisk
 	name = "Holodisk"

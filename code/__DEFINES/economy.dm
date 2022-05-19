@@ -7,6 +7,7 @@
 
 //Experimental change: These are subject to tweaking based on the /tg/ economy overhaul.
 //Current design direction: Higher paying jobs are vastly outnumbered by lower paying jobs, so anything above medium hurts inflation, common jobs help inflation
+#define PAYCHECK_JANNY 0
 #define PAYCHECK_PRISONER 25
 #define PAYCHECK_ASSISTANT 50
 #define PAYCHECK_MINIMAL 55

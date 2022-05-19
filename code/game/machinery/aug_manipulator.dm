@@ -87,7 +87,7 @@
 				span_notice("You begin repairing [src]..."), \
 				span_hear("You hear welding."))
 
-			if(O.use_tool(src, user, 40, volume=50))
+			if(O.use_tool(src, user, volume=50))
 				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, span_notice("You repair [src]."))

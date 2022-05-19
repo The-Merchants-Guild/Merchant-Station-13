@@ -2034,6 +2034,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 11
 	restricted_roles = list("Station Engineer")
 
+/datum/uplink_item/role_restricted/canister_regulator_breaker
+	name = "Canister Pressure Regulator Breaking Tool"
+	desc = "A highly advanced tool created to destroy the pressure regulation hardware on canisters."
+	item = /obj/item/canister_regulator_breaker
+	cost = 15
+	restricted_roles = list("Atmospheric Technician")
+
 // Pointless
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
@@ -2140,7 +2147,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Wrestling Set"
 	desc = "OH YEAH BROTHERRRR!"
 	item = /obj/item/storage/box/syndie_kit/wrestling
-	cost = 8 //The wrestling set is not as powerful as it once was
+	cost = 17 //The wrestling set is not as powerful as it once was (BULLSHIT)
 	purchasable_from = UPLINK_TRAITORS
 
 /datum/uplink_item/dangerous/armstrong

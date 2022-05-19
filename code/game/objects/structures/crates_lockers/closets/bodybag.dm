@@ -17,6 +17,7 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	drag_slowdown = 0
 	has_closed_overlay = FALSE
+	door_anim_time = 0
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
 	var/tagged = FALSE // so closet code knows to put the tag overlay back

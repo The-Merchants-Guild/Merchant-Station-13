@@ -271,7 +271,7 @@
 	if(!I.tool_start_check(user, amount=0))
 		return TRUE
 	to_chat(user, span_notice("Now welding the scrubber."))
-	if(I.use_tool(src, user, 20, volume=50))
+	if(I.use_tool(src, user, volume=50))
 		if(!welded)
 			user.visible_message(span_notice("[user] welds the scrubber shut."),span_notice("You weld the scrubber shut."), span_hear("You hear welding."))
 			welded = TRUE

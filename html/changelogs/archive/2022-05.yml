@@ -1,0 +1,57 @@
+2022-05-02:
+  EtraIV:
+  - rscadd: Overhaul GitLab CI scripts, now has full functionality of GitHub CI suite
+  - config: Changed CI test server config for GitLab CI
+  karmaisblackandbluepilled:
+  - rscadd: Replica Pods added to megaseed vendor.
+2022-05-03:
+  EtraIV:
+  - rscadd: Added MariaDB TLS support
+  - bugfix: update rust-g version for CI
+2022-05-06:
+  EtraIV:
+  - tgs: Revert hard restart code to integrate with TGS
+  - tgs: Use DNF instead of Apt for TGS4 precompile scripts
+  - server: Updates Node LTS again to latest version
+2022-05-07:
+  EtraIV:
+  - bugfix: Fixes changelog YAML error I accidentally committed in.
+  - rscadd: Automatic changelog compilation.
+  MACIEKBAKI:
+  - rscadd: Station surgeons have finally been trained in the insertion and removal
+      of leg-inserted cybernetic implants.
+2022-05-08:
+  EtraIV:
+  - imageadd: Replaced mailman uniform sprites.
+2022-05-10:
+  EtraIV:
+  - bugfix: Changelogs work again
+2022-05-14:
+  EtraIV:
+  - config: Changed config URLs to use merchant station links
+2022-05-15:
+  AcapitalA:
+  - rscadd: Shotgun shells and slugs can now be printed from hacked autolathes again.
+  - bugfix: Deltastation now has a DNA manipulator again.
+  averagejoe22:
+  - tweak: All deathmatch maps now only require 2 players to start
+2022-05-17:
+  karmaisblackandbluepilled:
+  - rscadd: The Roundend is having a mental breakdown, as evidenced by this new sound
+      it makes sometimes.
+2022-05-18:
+  EtraIV:
+  - rscadd: Operating computers can link to stasis beds again.
+  karmaisblackandbluepilled:
+  - balance: Nanotrasen finally added the muscle upgrades that lets all of the crewmembers
+      use tools faster! Not welding tools though.
+2022-05-19:
+  EtraIV:
+  - bugfix: Fixed the discord button for dark theme
+  - balance: He does it for free
+  karmaisblackandbluepilled:
+  - balance: Stabilizing TaTP and Nitroglycerin now uses normal stabilizing agent
+      once more.
+  - bugfix: Fixed welding emitters and mining delays.
+  - rscadd: Fire extinguishers now have a handy dandy refilling nozzle that works
+      with beakers or whatever small container you can think of.

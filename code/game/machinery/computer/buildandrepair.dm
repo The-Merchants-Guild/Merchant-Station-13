@@ -9,7 +9,7 @@
 		if(0)
 			if(P.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, span_notice("You start wrenching the frame into place..."))
-				if(P.use_tool(src, user, 20, volume=50))
+				if(P.use_tool(src, user, volume=50))
 					to_chat(user, span_notice("You wrench the frame into place."))
 					set_anchored(TRUE)
 					state = 1
@@ -19,7 +19,7 @@
 					return
 
 				to_chat(user, span_notice("You start deconstructing the frame..."))
-				if(P.use_tool(src, user, 20, volume=50))
+				if(P.use_tool(src, user, volume=50))
 					to_chat(user, span_notice("You deconstruct the frame."))
 					var/obj/item/stack/sheet/iron/M = new (drop_location(), 5)
 					M.add_fingerprint(user)
@@ -28,7 +28,7 @@
 		if(1)
 			if(P.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, span_notice("You start to unfasten the frame..."))
-				if(P.use_tool(src, user, 20, volume=50))
+				if(P.use_tool(src, user, volume=50))
 					to_chat(user, span_notice("You unfasten the frame."))
 					set_anchored(FALSE)
 					state = 0
@@ -72,7 +72,7 @@
 				if(!P.tool_start_check(user, amount=5))
 					return
 				to_chat(user, span_notice("You start adding cables to the frame..."))
-				if(P.use_tool(src, user, 20, volume=50, amount=5))
+				if(P.use_tool(src, user, volume=50, amount=5))
 					if(state != 2)
 						return
 					to_chat(user, span_notice("You add cables to the frame."))
@@ -94,7 +94,7 @@
 					return
 				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 				to_chat(user, span_notice("You start to put in the glass panel..."))
-				if(P.use_tool(src, user, 20, amount=2))
+				if(P.use_tool(src, user, amount=2))
 					if(state != 3)
 						return
 					to_chat(user, span_notice("You put in the glass panel."))

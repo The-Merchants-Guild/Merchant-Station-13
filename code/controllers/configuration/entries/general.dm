@@ -217,16 +217,16 @@
 /datum/config_entry/string/banappeals
 
 /datum/config_entry/string/wikiurl
-	default = "http://www.tgstation13.org/wiki"
+	default = "http://wiki.merchantstation.net/w"
 
 /datum/config_entry/string/discordurl
-	default = ""
+	default = "https://discord.gg/2YYfU3ZanD"
 
 /datum/config_entry/string/rulesurl
-	default = "http://www.tgstation13.org/wiki/Rules"
+	default = "http://wiki.merchantstation.net/wiki/Rules"
 
 /datum/config_entry/string/githuburl
-	default = "https://www.github.com/tgstation/tgstation"
+	default = "https://www.github.com/The-Merchants-Guild/Merchant-Station-13"
 
 /datum/config_entry/string/discordbotcommandprefix
 	default = "?"
@@ -280,7 +280,7 @@
 /datum/config_entry/string/panic_server_address/ValidateAndSet(str_val)
 	return str_val != "byond://address:port" && ..()
 
-/datum/config_entry/string/invoke_youtubedl
+/datum/config_entry/string/invoke_ytdlp
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/flag/show_irc_name
@@ -527,5 +527,3 @@
 /datum/config_entry/number/hard_deletes_overrun_limit
 	default = 0
 	min_val = 0
-
-/datum/config_entry/string/hard_restart_command

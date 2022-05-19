@@ -72,7 +72,7 @@
 	radio.subspace_transmission = subspace_transmission
 	radio.canhear_range = 0
 	if(radio_key)
-		radio.keyslot = new radio_key
+		radio.keyslots += new radio_key
 	radio.recalculateChannels()
 
 /obj/item/implant/radio/Destroy()

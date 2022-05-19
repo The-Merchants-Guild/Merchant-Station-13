@@ -536,7 +536,7 @@
 			return
 
 		to_chat(user, span_notice("You begin repairing damage to \the [src]..."))
-		if(W.use_tool(src, user, 20, volume=50, amount=1))
+		if(W.use_tool(src, user, volume=50, amount=1))
 			obj_integrity = max_integrity
 			to_chat(user, span_notice("You repair \the [src]."))
 		return

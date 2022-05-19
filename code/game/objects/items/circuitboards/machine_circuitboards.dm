@@ -1110,6 +1110,15 @@
 	var/transmit = TRUE
 	needs_anchored = FALSE
 
+/obj/item/circuitboard/machine/plantgenes
+	name = "Plant DNA Manipulator (Machine Board)"
+	build_path = /obj/machinery/plantgenes
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/scanning_module = 1)
+
 /obj/item/circuitboard/machine/dish_drive/examine(mob/user)
 	. = ..()
 	. += span_notice("Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.")

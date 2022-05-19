@@ -25,7 +25,6 @@ SUBSYSTEM_DEF(ticker)
 	var/delay_end = FALSE //if set true, the round will not restart on it's own
 	var/admin_delay_notice = "" //a message to display to anyone who tries to restart the world after a delay
 	var/ready_for_reboot = FALSE //all roundend preparation done with, all that's left is reboot
-	var/hard_restart = FALSE
 
 	var/tipped = FALSE //Did we broadcast the tip of the day yet?
 	var/selected_tip // What will be the tip of the day?
@@ -645,7 +644,12 @@ SUBSYSTEM_DEF(ticker)
 		'sound/roundend/disappointed.ogg',
 		'sound/roundend/scrunglartiy.ogg',
 		'sound/roundend/petersondisappointed.ogg',
-		'sound/roundend/bully2.ogg'\
+		'sound/roundend/bully2.ogg',
+		'sound/roundend/ssethenjoyedyourchaos.ogg',
+		'sound/roundend/ssethyoumakemesick.ogg',
+		'sound/roundend/reasonsunknown.ogg',
+		'sound/roundend/moon.ogg',
+		'sound/roundend/wings_of_redemption.ogg'\
 		)
 	///The reference to the end of round sound that we have chosen.
 	var/sound/end_of_round_sound_ref = sound(round_end_sound)

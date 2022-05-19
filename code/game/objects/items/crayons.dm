@@ -754,16 +754,8 @@
 
 	if(isobj(target) && !(target.flags_1 & UNPAINTABLE_1))
 		if(actually_paints)
-			var/list/rgb = hex2rgb(paint_color)
-			var/list/hsl = rgb2hsl(rgb[1], rgb[2], rgb[3])
-			var/color_is_dark = hsl[3] < DARK_COLOR_LIGHTNESS_THRESHOLD
-
-			if (color_is_dark && !(target.flags_1 & ALLOW_DARK_PAINTS_1))
-				to_chat(user, span_warning("A color that dark on an object like this? Surely not..."))
-				return FALSE
-
 			target.add_atom_colour(paint_color, WASHABLE_COLOUR_PRIORITY)
-			SEND_SIGNAL(target, COMSIG_OBJ_PAINTED, color_is_dark)
+
 		. = use_charges(user, 2, requires_full = FALSE)
 		reagents.trans_to(target, ., volume_multiplier, transfered_by = user, methods = VAPOR)
 

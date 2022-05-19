@@ -53,6 +53,7 @@
 		"sec_38",
 		"sec_dart",
 		"sec_dslug",
+		"sec_lslug",
 		"space_heater",
 		"tech_disk",
 		"titaniumglass",
@@ -1239,6 +1240,7 @@
 		"hydro_tray",
 		"portaseeder",
 		"seed_extractor",
+		"plantmanip",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000)
 	discount_experiments = list(/datum/experiment/scanning/random/plants/wild = 3000)

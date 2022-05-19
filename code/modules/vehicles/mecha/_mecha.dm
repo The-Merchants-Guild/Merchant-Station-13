@@ -120,8 +120,6 @@
 
 	///TIme taken to leave the mech
 	var/exit_delay = 2 SECONDS
-	///Time you get slept for if you get forcible ejected by the mech exploding
-	var/destruction_sleep_duration = 2 SECONDS
 	///Whether outside viewers can see the pilot inside
 	var/enclosed = TRUE
 	///In case theres a different iconstate for AI/MMI pilot(currently only used for ripley)
@@ -248,7 +246,8 @@
 			occupant.gib() //No wreck, no AI to recover
 			continue
 		mob_exit(occupant, FALSE, TRUE)
-		occupant.SetSleeping(destruction_sleep_duration)
+		occupant.Stun(3 SECONDS) // Scared?
+		occupant.Knockdown(5 SECONDS) // YOU BETTER START CRAWLING BOY!
 	return ..()
 
 
@@ -465,11 +464,11 @@
 
 		var/integrity = obj_integrity/max_integrity*100
 		switch(integrity)
-			if(30 to 45)
+			if(35 to 50)
 				occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 1)
-			if(15 to 35)
+			if(20 to 35)
 				occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 2)
-			if(-INFINITY to 15)
+			if(-INFINITY to 20)
 				occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 3)
 			else
 				occupant.clear_alert("mech damage")

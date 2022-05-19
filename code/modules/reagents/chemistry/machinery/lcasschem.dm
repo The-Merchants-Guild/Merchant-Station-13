@@ -140,7 +140,7 @@
 			on = FALSE
 
 		if(beaker.reagents.chem_radioactivity == target_radioactivity && target_radioactivity != 0)
-			visible_message("<span class='notice'> A green light shows on the [src].</span>")
+			visible_message("<span class='notice'> A green light shows on \the [src].</span>")
 			playsound(src, 'sound/machines/ping.ogg', 50, 0)
 			on = FALSE
 		if(material_amt >= 50)

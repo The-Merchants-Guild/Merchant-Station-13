@@ -1,0 +1,4 @@
+author: EtraIV
+delete-after: true
+changes:
+  - bugfix: Fixed the discord button for dark theme

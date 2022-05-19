@@ -48,7 +48,10 @@
 2022-05-19:
   EtraIV:
   - bugfix: Fixed the discord button for dark theme
+  - balance: He does it for free
   karmaisblackandbluepilled:
   - balance: Stabilizing TaTP and Nitroglycerin now uses normal stabilizing agent
       once more.
   - bugfix: Fixed welding emitters and mining delays.
+  - rscadd: Fire extinguishers now have a handy dandy refilling nozzle that works
+      with beakers or whatever small container you can think of.

@@ -783,6 +783,11 @@
 
 /mob/living/carbon/human/vv_do_topic(list/href_list)
 	. = ..()
+	if(href_list[VV_HK_CLUWNE])
+		if(!check_rights(R_SPAWN))
+			return
+		cluwneify()
+		message_admins("<span class='notice'>[key_name(usr)] has made [key_name(src)] into a Cluwne.</span>")
 	if(href_list[VV_HK_COPY_OUTFIT])
 		if(!check_rights(R_SPAWN))
 			return

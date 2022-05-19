@@ -58,6 +58,7 @@
 #define VOID /datum/mutation/human/void
 #define WACKY /datum/mutation/human/wacky
 #define XRAY /datum/mutation/human/xray
+#define CLUWNEMUT /datum/mutation/human/cluwne
 
 #define BURDENED /datum/mutation/human/burdened
 #define HONORBOUND /datum/mutation/human/honorbound

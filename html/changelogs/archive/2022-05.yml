@@ -45,3 +45,8 @@
   karmaisblackandbluepilled:
   - balance: Nanotrasen finally added the muscle upgrades that lets all of the crewmembers
       use tools faster! Not welding tools though.
+2022-05-19:
+  karmaisblackandbluepilled:
+  - balance: Stabilizing TaTP and Nitroglycerin now uses normal stabilizing agent
+      once more.
+  - bugfix: Fixed welding emitters and mining delays.

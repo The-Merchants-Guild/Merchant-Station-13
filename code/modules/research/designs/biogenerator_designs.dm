@@ -2,6 +2,14 @@
 ///////Biogenerator Designs ///////
 ///////////////////////////////////
 
+/datum/design/strange
+	name = "Strange Seed Packet"
+	id = "strangeseed"
+	build_type = BIOGENERATOR
+	materials = list(/datum/material/biomass= 600)
+	build_path = /obj/item/seeds/random
+	category = list("initial","Organic Materials")
+
 /datum/design/milk
 	name = "10u Milk"
 	id = "milk"

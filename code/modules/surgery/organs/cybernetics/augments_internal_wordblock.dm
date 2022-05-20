@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(wordblockers)
 		return
 
 	var/newmsg = mgr.process_message(speech_args[SPEECH_MESSAGE])
-	if(owner && (!newmsg || newmsg == FALSE || newmsg == ""))
+	if(owner && !newmsg)
 		to_chat(owner, span_warning("An implant prevents you from speaking!"))
 		speech_args[SPEECH_MESSAGE] = ""
 		return
@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	. = ..()
 	. += "<span class='info'>A little screen reads: 'Implant Unique ID: [id]'</span>"
 	if(mgr)
-		. += "<span class='info'>The implant currently does [mgr.visible ? "" : "not"] allow remote access. Use a screwdriver to change this.</span>"
+		. += "<span class='info'>The implant currently does[mgr.visible ? " " : " not "]allow remote access. Use a screwdriver to change this.</span>"
 
 /obj/item/organ/cyberimp/brain/wordblocker/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -71,13 +71,13 @@ GLOBAL_LIST_EMPTY(wordblockers)
 		return TRUE
 	I.play_tool_sound(src)
 	if(!mgr || mgr == null)
-		to_chat(user, "<span class='notice'>You try to reconfigure [src], but your [I] phases straight through it. You should probably notify a coder. </span>")
+		to_chat(user, "<span class='notice'>You try to reconfigure \the [src], but your [I] phases straight through it. You should probably notify a coder. </span>")
 		return
 	if(locked)
-		to_chat(user, "<span class='notice'>You try to reconfigure [src], only to find it's remote access switch glued in the [mgr.visible ? "ON" : "OFF"] position.</span>")
+		to_chat(user, "<span class='notice'>You try to reconfigure \the [src], only to find its remote access switch glued in the [mgr.visible ? "ON" : "OFF"] position.</span>")
 		return
 	mgr.visible = !mgr.visible
-	to_chat(user, "<span class='notice'>You reconfigure [src] to [mgr.visible ? "" : "not"] allow remote access.</span>")
+	to_chat(user, "<span class='notice'>You reconfigure \the [src] to [mgr.visible ? "" : "not"] allow remote access.</span>")
 
 /datum/wordfilter
 	var/blocked_word = "lgbt"
@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(wordblockers)
 		t = r.Replace(message, replace_phrase)
 	else
 		var/find = r.Find(message)
-		if(find != 0 && (find+1) < length(message)) // block "lean" = "I love lean, you should too" -> "i love l-"
+		if(find > 0 && (find + 1) < length(message)) // block "lean" = "I love lean, you should too" -> "i love l-"
 			t = splicetext(t, find+1, 0, "-")
 
 	if(uppertext(message) == message) // I AM YELLING CAN YOU HEAR ME

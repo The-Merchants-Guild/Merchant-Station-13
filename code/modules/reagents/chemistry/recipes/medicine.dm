@@ -73,6 +73,22 @@
 	holder.my_atom.audible_message(span_notice("[icon2html(holder.my_atom, viewers(DEFAULT_MESSAGE_RANGE, src))]The [holder.my_atom] suddenly gives out a loud bang!"))
 	explode_deafen(holder, equilibrium, 0.5, 10, 3)
 
+/datum/chemical_reaction/medicine/capoten
+	results = list(/datum/reagent/medicine/capoten = 3)
+	required_reagents = list(/datum/reagent/medicine/c2/multiver = 1, /datum/reagent/oxygen = 1, /datum/reagent/consumable/sugar = 1)
+	mix_message = "The mixture starts beating with a steady rhythm as it becomes a dark red color!"
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_ORGAN
+
+/datum/chemical_reaction/medicine/albuterol
+	results = list(/datum/reagent/medicine/albuterol = 3)
+	required_reagents = list(/datum/reagent/medicine/c2/multiver = 1, /datum/reagent/nitrogen = 1, /datum/reagent/potassium = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_ORGAN
+
+/datum/chemical_reaction/medicine/ursodeoxycholicacid
+	results = list(/datum/reagent/medicine/ursodeoxycholicacid = 3)
+	required_reagents = list(/datum/reagent/medicine/c2/multiver = 1, /datum/reagent/copper = 1, /datum/reagent/silicon = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_ORGAN
+
 /datum/chemical_reaction/medicine/synaptizine
 	results = list(/datum/reagent/medicine/synaptizine = 3)
 	required_reagents = list(/datum/reagent/consumable/sugar = 1, /datum/reagent/lithium = 1, /datum/reagent/water = 1)

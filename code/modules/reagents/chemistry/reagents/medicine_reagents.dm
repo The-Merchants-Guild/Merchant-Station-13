@@ -712,6 +712,57 @@
 	. = ..()
 	UnregisterSignal(owner, COMSIG_MOVABLE_HEAR)
 
+/datum/reagent/medicine/capoten
+	name = "Capoten"
+	description = "Restores heart damage. Most effective in corpses."
+	reagent_state = LIQUID
+	color = "#801818" //dark red-ish
+	purity = REAGENT_STANDARD_PURITY
+	impure_chem = null
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/reagent/medicine/capoten/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
+	C.adjustOrganLoss(ORGAN_SLOT_HEART, -0.3 * REM * delta_time * normalise_creation_purity())
+	..()
+
+/datum/reagent/medicine/capoten/on_mob_dead(mob/living/carbon/C, delta_time)
+	C.adjustOrganLoss(ORGAN_SLOT_HEART, -1.8 * REM * delta_time * normalise_creation_purity())
+	..()
+
+/datum/reagent/medicine/albuterol
+	name = "Albuterol"
+	description = "Restores lung damage. Works best in corpses."
+	reagent_state = LIQUID
+	color = "#123b61"
+	purity = REAGENT_STANDARD_PURITY
+	impure_chem = null
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/reagent/medicine/albuterol/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
+	C.adjustOrganLoss(ORGAN_SLOT_LUNGS, -0.3 * REM * delta_time * normalise_creation_purity())
+	..()
+
+/datum/reagent/medicine/albuterol/on_mob_dead(mob/living/carbon/C, delta_time)
+	C.adjustOrganLoss(ORGAN_SLOT_LUNGS, -1.8 * REM * delta_time * normalise_creation_purity())
+	..()
+
+/datum/reagent/medicine/ursodeoxycholicacid
+	name = "Ursodeoxycholic acid"
+	description = "Restores liver damage. Works best in corpses."
+	reagent_state = LIQUID
+	color = "#3d2b2b"
+	purity = REAGENT_STANDARD_PURITY
+	impure_chem = null
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/reagent/medicine/ursodeoxycholicacid/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
+	C.adjustOrganLoss(ORGAN_SLOT_LIVER, -0.3 * REM * delta_time * normalise_creation_purity())
+	..()
+
+/datum/reagent/medicine/ursodeoxycholicacid/on_mob_dead(mob/living/carbon/C, delta_time)
+	C.adjustOrganLoss(ORGAN_SLOT_LIVER, -1.8 * REM * delta_time * normalise_creation_purity())
+	..()
+
 /datum/reagent/medicine/atropine
 	name = "Atropine"
 	description = "If a patient is in critical condition, rapidly heals all damage types as well as regulating oxygen in the body. Excellent for stabilizing wounded patients."

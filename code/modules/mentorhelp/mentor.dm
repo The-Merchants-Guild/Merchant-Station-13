@@ -57,15 +57,57 @@ GLOBAL_PROTECT(mentor_href_token)
 	return "mentor_token=[RawMentorHrefToken(forceGlobal)]"
 
 /proc/load_mentors()
+	var/dbfail
+	if(!CONFIG_GET(flag/mentor_legacy_system) && !SSdbcore.Connect())
+		message_admins("Failed to connect to database while loading mentors. Loading from backup.")
+		log_sql("Failed to connect to database while loading mentors. Loading from backup.")
+		dbfail = 1
+	//clear the datums references
 	GLOB.mentor_datums.Cut()
 	for(var/client/C in GLOB.mentors)
 		C.remove_mentor_verbs()
 		C.mentor_datum = null
 	GLOB.mentors.Cut()
-	var/list/lines = world.file2list("[global.config.directory]/mentors.txt")
-	for(var/line in lines)
-		if(!length(line))
-			continue
-		if(findtextEx(line, "#", 1, 2))
-			continue
-		new /datum/mentors(line)
+	//ckeys listed in mentors.txt are always made mentors before sql loading is attempted
+	var/mentors_text = file2text("[global.config.directory]/mentors.txt")
+	var/regex/mentors_regex = new(@"^(?!#)(.+?)\s+=\s+(.+)", "gm")
+	while(mentors_regex.Find(mentors_text))
+		new /datum/mentors(mentors_regex.group[1])
+	if(!CONFIG_GET(flag/mentor_legacy_system) || dbfail)
+		var/datum/db_query/query_load_mentors = SSdbcore.NewQuery("SELECT `ckey`, FROM [format_table_name("mentor")]")
+		if(!query_load_mentors.Execute())
+			message_admins("Error loading mentors from database. Loading from backup.")
+			log_sql("Error loading mentors from database. Loading from backup.")
+			dbfail = 1
+		else
+			while(query_load_mentors.NextRow())
+				var/mentor_ckey = ckey(query_load_mentors)
+				var/skip
+				if(GLOB.mentor_datums[mentor_ckey])
+					skip = 1
+				if(!skip)
+					new /datum/mentors(mentor_ckey)
+		qdel(query_load_mentors)
+	//load mentors from backup file
+	if(dbfail)
+		var/backup_file = file2text("data/mentors_backup.json")
+		if(backup_file == null)
+			log_world("Unable to locate mentors backup file.")
+			return
+		for(var/J in backup_file["mentors"])
+			var/skip
+			for(var/M in GLOB.mentor_datums)
+				if(M == "[J]") //this mentor was already loaded from txt override
+					skip = TRUE
+			if(skip)
+				continue
+			new /datum/mentors(ckey("[J]"))
+/datum/mentors/proc/disassociate()
+	if(owner)
+		GLOB.mentors -= owner
+		owner.remove_mentor_verbs()
+		owner.init_verbs()
+		owner.mentor_datum=null
+		owner.holder = null
+		owner = null
+

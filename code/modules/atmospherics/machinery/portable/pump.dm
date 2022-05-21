@@ -13,7 +13,6 @@
 	name = "portable air pump"
 	icon_state = "psiphon:0"
 	density = TRUE
-	max_integrity = 250
 
 	///Is the machine on?
 	var/on = FALSE

@@ -12,6 +12,7 @@
 	fill_icon_thresholds = list(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)
 	custom_price = PAYCHECK_EASY * 1.1
 	amount_per_transfer_from_this = 10
+	custom_materials = list(/datum/material/glass=1000)
 	volume = 100
 	force = 15 //Smashing bottles over someone's head hurts.
 	throwforce = 15
@@ -29,6 +30,7 @@
 	desc = "This blank bottle is unyieldingly anonymous, offering no clues to its contents."
 	icon_state = "glassbottlesmall"
 	volume = 50
+	custom_materials = list(/datum/material/glass=850)
 	custom_price = PAYCHECK_EASY * 0.9
 
 /obj/item/reagent_containers/food/drinks/bottle/smash(mob/living/target, mob/thrower, ranged = FALSE)
@@ -151,6 +153,48 @@
 	. = ..()
 	AddComponent(/datum/component/butchering, 200, 55)
 
+/obj/item/reagent_containers/food/drinks/bottle/imitation
+	name = "imitation glass bottle"
+	desc = "This very real glass bottle has the technology to morph its appearance based on its contents, but is ambigious on drinks outside its nano-software parameters."
+
+/obj/item/reagent_containers/food/drinks/bottle/imitation/on_reagent_change(datum/reagents/holder, ...)
+	. = ..()
+	if(!length(reagents.reagent_list))
+		renamedByPlayer = FALSE //so new drinks can rename the imitation bottle
+
+/obj/item/reagent_containers/food/drinks/bottle/imitation/update_name(updates)
+	if(renamedByPlayer)
+		return
+	. = ..()
+	var/datum/reagent/largest_reagent = reagents.get_master_reagent()
+	name = largest_reagent?.bottle_name || initial(name)
+
+/obj/item/reagent_containers/food/drinks/bottle/imitation/update_desc(updates)
+	if(renamedByPlayer)
+		return
+	. = ..()
+	var/datum/reagent/largest_reagent = reagents.get_master_reagent()
+	desc = largest_reagent?.bottle_desc || initial(desc)
+
+/obj/item/reagent_containers/food/drinks/bottle/imitation/update_icon_state()
+	if(!length(reagents.reagent_list))
+		icon_state = "glassbottle"
+		return ..()
+
+	var/datum/reagent/largest_reagent = reagents.get_master_reagent()
+	if(largest_reagent?.bottle_icon_state)
+		icon_state = largest_reagent.bottle_icon_state
+	return ..()
+
+/obj/item/reagent_containers/food/drinks/bottle/imitation/update_overlays()
+	. = ..()
+	if(icon_state != initial(icon_state))
+		return
+
+	var/mutable_appearance/reagent_overlay = mutable_appearance(icon, "glassoverlay")
+	reagent_overlay.color = mix_color_from_reagents(reagents.reagent_list)
+	. += reagent_overlay
+
 /obj/item/reagent_containers/food/drinks/bottle/gin
 	name = "Griffeater gin"
 	desc = "A bottle of high quality gin, produced in the New London Space Station."
@@ -223,6 +267,7 @@
 	desc = "A flask of the chaplain's holy water."
 	icon_state = "holyflask"
 	list_reagents = list(/datum/reagent/water/holywater = 100)
+	custom_materials = list(/datum/material/glass=850)
 	foodtype = NONE
 
 /obj/item/reagent_containers/food/drinks/bottle/holywater/hell
@@ -366,6 +411,7 @@
 	desc = "Sweet as can be, and burns like fire going down."
 	icon_state = "sakebottle"
 	list_reagents = list(/datum/reagent/consumable/ethanol/sake = 100)
+	custom_materials = list(/datum/material/glass=850)
 
 /obj/item/reagent_containers/food/drinks/bottle/sake/Initialize()
 	. = ..()
@@ -396,6 +442,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/orangejuice = 100)
+	custom_materials = null
 	foodtype = FRUIT | BREAKFAST
 	age_restricted = FALSE
 
@@ -409,6 +456,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/cream = 100)
+	custom_materials = null
 	foodtype = DAIRY
 	age_restricted = FALSE
 
@@ -422,6 +470,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/tomatojuice = 100)
+	custom_materials = null
 	foodtype = VEGETABLES
 	age_restricted = FALSE
 
@@ -435,6 +484,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/limejuice = 100)
+	custom_materials = null
 	foodtype = FRUIT
 	age_restricted = FALSE
 
@@ -448,6 +498,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/pineapplejuice = 100)
+	custom_materials = null
 	foodtype = FRUIT | PINEAPPLE
 	age_restricted = FALSE
 
@@ -461,6 +512,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/menthol = 100)
+	custom_materials = null
 
 /obj/item/reagent_containers/food/drinks/bottle/grenadine
 	name = "Jester Grenadine"
@@ -593,6 +645,8 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	list_reagents = list(/datum/reagent/consumable/prunomix = 50)
+	isGlass = FALSE
+	custom_materials = null
 	var/fermentation_time = 30 SECONDS /// time it takes to ferment
 	var/fermentation_time_remaining /// for partial fermentation
 	var/fermentation_timer /// store the timer id of fermentation

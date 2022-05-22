@@ -432,3 +432,9 @@
 		))
 
 	return data
+
+//don't ask why this is being put here :thumbs_up_skin_tone_0:
+/datum/material/reagent
+	name = "Refined Reagents"
+	id = MAT_REAGENT
+	sheet_type = /obj/item/stack/sheet/mineral/reagent

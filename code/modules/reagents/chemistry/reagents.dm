@@ -98,7 +98,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/list/addiction_types = null
 	///The amount a robot will pay for a glass of this (20 units but can be higher if you pour more, be frugal!)
 	var/glass_price
-
+	///If this chemical can be used in the forge
+	var/can_forge = TRUE
 
 /datum/reagent/New()
 	SHOULD_CALL_PARENT(TRUE)

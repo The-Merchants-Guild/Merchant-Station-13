@@ -15,6 +15,12 @@
 	default = "test"
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
+/datum/config_entry/number/feedback_ssl
+	default = 0
+	min_val = 0
+	max_val = 1
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
 /datum/config_entry/string/feedback_login
 	default = "root"
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN

@@ -58,7 +58,7 @@
 	///Whether the mechs maintenance protocols are on or off
 	var/construction_state = MECHA_LOCKED
 	///Contains flags for the mecha
-	var/mecha_flags = ADDING_ACCESS_POSSIBLE | CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS | MMI_COMPATIBLE
+	var/mecha_flags = ADDING_ACCESS_POSSIBLE | CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS
 	///Stores the DNA enzymes of a carbon so tht only they can access the mech
 	var/dna_lock
 	///Spark effects are handled by this datum
@@ -120,8 +120,6 @@
 
 	///TIme taken to leave the mech
 	var/exit_delay = 2 SECONDS
-	///Time you get slept for if you get forcible ejected by the mech exploding
-	var/destruction_sleep_duration = 2 SECONDS
 	///Whether outside viewers can see the pilot inside
 	var/enclosed = TRUE
 	///In case theres a different iconstate for AI/MMI pilot(currently only used for ripley)
@@ -248,7 +246,8 @@
 			occupant.gib() //No wreck, no AI to recover
 			continue
 		mob_exit(occupant, FALSE, TRUE)
-		occupant.SetSleeping(destruction_sleep_duration)
+		occupant.Stun(3 SECONDS) // Scared?
+		occupant.Knockdown(5 SECONDS) // YOU BETTER START CRAWLING BOY!
 	return ..()
 
 
@@ -465,11 +464,11 @@
 
 		var/integrity = obj_integrity/max_integrity*100
 		switch(integrity)
-			if(30 to 45)
+			if(35 to 50)
 				occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 1)
-			if(15 to 35)
+			if(20 to 35)
 				occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 2)
-			if(-INFINITY to 15)
+			if(-INFINITY to 20)
 				occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 3)
 			else
 				occupant.clear_alert("mech damage")
@@ -977,9 +976,6 @@
 	return TRUE
 
 /obj/vehicle/sealed/mecha/proc/mmi_move_inside(obj/item/mmi/brain_obj, mob/user)
-	if(!(mecha_flags & MMI_COMPATIBLE))
-		to_chat(user, span_warning("This mecha is not compatible with MMIs!"))
-		return FALSE
 	if(!brain_obj.brain_check(user))
 		return FALSE
 	var/mob/living/brain/brain_mob = brain_obj.brainmob

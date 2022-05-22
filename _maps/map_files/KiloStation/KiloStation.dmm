@@ -46464,10 +46464,6 @@
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/iron/dark,
 /area/science/storage)
-"fyU" = (
-/obj/machinery/atmospherics/pipe/layer_manifold,
-/turf/closed/wall/r_wall,
-/area/science/server)
 "fzA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -49451,6 +49447,8 @@
 /obj/machinery/light_switch/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/south,
+/obj/structure/table,
+/obj/machinery/plantgenes,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "gTc" = (
@@ -58460,7 +58458,9 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/visible{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
+	dir = 10
+	},
 /turf/open/floor/iron/dark,
 /area/engineering/atmos)
 "kFL" = (
@@ -75288,7 +75288,7 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/canister_frame/machine/frame_tier_0,
+/obj/machinery/portable_atmospherics/canister,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -128438,7 +128438,7 @@ alB
 cMG
 sws
 tov
-fyU
+aZF
 sSm
 auQ
 bzB

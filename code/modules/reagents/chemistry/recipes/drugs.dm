@@ -47,10 +47,6 @@
 	. = ..()
 	temp_meth_explosion(holder, equilibrium.reacted_vol)
 
-/datum/chemical_reaction/methamphetamine/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
-	. = ..()
-	temp_meth_explosion(holder, equilibrium.reacted_vol)
-
 /datum/chemical_reaction/methamphetamine/reaction_finish(datum/reagents/holder, datum/equilibrium/reaction, react_vol)
 	var/datum/reagent/meth = holder.get_reagent(/datum/reagent/drug/methamphetamine)
 	if(!meth)//Other procs before this can already blow us up

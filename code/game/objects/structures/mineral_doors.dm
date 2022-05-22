@@ -157,7 +157,7 @@
 		return
 	. = TRUE
 	to_chat(user, span_notice("You start digging [src]..."))
-	if(I.use_tool(src, user, 40, volume=50))
+	if(I.use_tool(src, user, volume=50))
 		to_chat(user, span_notice("You finish digging."))
 		deconstruct(TRUE)
 
@@ -169,7 +169,7 @@
 		return
 
 	user.visible_message(span_notice("[user] starts to weld apart [src]!"), span_notice("You start welding apart [src]."))
-	if(!I.use_tool(src, user, 60, 5, 50))
+	if(!I.use_tool(src, user, 5, 50))
 		to_chat(user, span_warning("You failed to weld apart [src]!"))
 		return
 
@@ -183,7 +183,7 @@
 		return
 
 	user.visible_message(span_notice("[user] starts to pry apart [src]!"), span_notice("You start prying apart [src]."))
-	if(!I.use_tool(src, user, 60, volume = 50))
+	if(!I.use_tool(src, user, volume = 50))
 		to_chat(user, span_warning("You failed to pry apart [src]!"))
 		return
 

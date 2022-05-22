@@ -3942,7 +3942,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "la" = (
-/obj/machinery/portable_atmospherics/canister/tier_3,
+/obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "lb" = (
@@ -4784,7 +4784,7 @@
 	pixel_x = 6;
 	pixel_y = -40
 	},
-/obj/machinery/portable_atmospherics/canister/tier_3,
+/obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "nf" = (
@@ -5767,7 +5767,7 @@
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Ed" = (
-/obj/machinery/portable_atmospherics/canister/tier_3,
+/obj/machinery/portable_atmospherics/canister,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /turf/open/floor/iron,
 /area/ruin/unpowered/syndicate_lava_base/engineering)

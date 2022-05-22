@@ -77,7 +77,7 @@
 	if (W.tool_behaviour == TOOL_WIRECUTTER)
 		if (bulb)
 			user.visible_message(span_notice("[user] begins to disconnect [src]'s flashbulb."), span_notice("You begin to disconnect [src]'s flashbulb..."))
-			if(W.use_tool(src, user, 30, volume=50) && bulb)
+			if(W.use_tool(src, user, volume=50) && bulb)
 				user.visible_message(span_notice("[user] disconnects [src]'s flashbulb!"), span_notice("You disconnect [src]'s flashbulb."))
 				bulb.forceMove(loc)
 				bulb = null
@@ -96,7 +96,7 @@
 	else if (W.tool_behaviour == TOOL_WRENCH)
 		if(!bulb)
 			to_chat(user, span_notice("You start unsecuring the flasher frame..."))
-			if(W.use_tool(src, user, 40, volume=50))
+			if(W.use_tool(src, user, volume=50))
 				to_chat(user, span_notice("You unsecure the flasher frame."))
 				deconstruct(TRUE)
 		else

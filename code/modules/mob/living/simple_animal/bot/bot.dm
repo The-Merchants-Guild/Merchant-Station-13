@@ -161,8 +161,7 @@
 	set_custom_texts()
 	Radio = new/obj/item/radio(src)
 	if(radio_key)
-		Radio.keyslot = new radio_key
-	Radio.subspace_transmission = TRUE
+		Radio.keyslots += new radio_key
 	Radio.canhear_range = 0 // anything greater will have the bot broadcast the channel as if it were saying it out loud.
 	Radio.recalculateChannels()
 
@@ -358,7 +357,7 @@
 				to_chat(user, span_warning("Unable to repair with the maintenance panel closed!"))
 				return
 
-			if(W.use_tool(src, user, 0, volume=40))
+			if(W.use_tool(src, user, volume=40))
 				adjustHealth(-10)
 				user.visible_message(span_notice("[user] repairs [src]!"),span_notice("You repair [src]."))
 		else

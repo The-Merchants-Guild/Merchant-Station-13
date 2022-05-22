@@ -416,7 +416,7 @@
 	if(flags_1 & NODECONSTRUCT_1)
 		return ..()
 	to_chat(user, span_notice("You start mining..."))
-	if(W.use_tool(src, user, 40, volume=50))
+	if(W.use_tool(src, user, volume=50))
 		to_chat(user, span_notice("You finish mining the rock."))
 		if(mineResult && mineAmount)
 			new mineResult(loc, mineAmount)

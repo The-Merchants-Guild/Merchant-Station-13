@@ -86,3 +86,25 @@
 	desc = "It makes you look HONKable!"
 	icon_state = "sexyclown"
 	inhand_icon_state = "sexyclown"
+
+/obj/item/clothing/under/rank/civilian/clown/cluwne
+	name = "clown suit"
+	desc = "<i>'HONK!'</i>"
+	alternate_screams = list('sound/voice/cluwnelaugh1.ogg','sound/voice/cluwnelaugh2.ogg','sound/voice/cluwnelaugh3.ogg')
+	icon_state = "cluwne"
+	inhand_icon_state = "cluwne"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	item_flags = DROPDEL
+	can_adjust = 0
+
+/obj/item/clothing/under/hippie/cluwne/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+
+/obj/item/clothing/under/hippie/cluwne/equipped(mob/living/carbon/user, slot)
+	if(!ishuman(user))
+		return
+	if(slot == ITEM_SLOT_ICLOTHING)
+		var/mob/living/carbon/human/H = user
+		H.dna.add_mutation(CLUWNEMUT)
+	return ..()

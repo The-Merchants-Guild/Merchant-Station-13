@@ -79,10 +79,6 @@
 			. += "Internal Atmosphere Info: [internal.name]"
 			. += "Tank Pressure: [internal_air.return_pressure()]"
 			. += "Distribution Pressure: [internal.distribute_pressure]"
-	if(istype(wear_suit, /obj/item/clothing/suit/space))
-		var/obj/item/clothing/suit/space/S = wear_suit
-		. += "Thermal Regulator: [S.thermal_on ? "on" : "off"]"
-		. += "Cell Charge: [S.cell ? "[round(S.cell.percent(), 0.1)]%" : "!invalid!"]"
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
@@ -787,6 +783,11 @@
 
 /mob/living/carbon/human/vv_do_topic(list/href_list)
 	. = ..()
+	if(href_list[VV_HK_CLUWNE])
+		if(!check_rights(R_SPAWN))
+			return
+		cluwneify()
+		message_admins("<span class='notice'>[key_name(usr)] has made [key_name(src)] into a Cluwne.</span>")
 	if(href_list[VV_HK_COPY_OUTFIT])
 		if(!check_rights(R_SPAWN))
 			return

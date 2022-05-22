@@ -15300,8 +15300,8 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -15310,11 +15310,11 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 4
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -28406,6 +28406,7 @@
 /obj/structure/table,
 /obj/item/book/manual/hydroponics_pod_people,
 /obj/item/paper/guides/jobs/hydroponics,
+/obj/item/watertank,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "hBG" = (
@@ -30432,7 +30433,7 @@
 /area/science/mixing)
 "iKx" = (
 /obj/structure/table,
-/obj/item/watertank,
+/obj/machinery/plantgenes,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "iKz" = (
@@ -33930,7 +33931,7 @@
 /turf/open/floor/engine,
 /area/science/misc_lab)
 "kMd" = (
-/obj/machinery/portable_atmospherics/canister/tier_1,
+/obj/machinery/portable_atmospherics/canister,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/science/mixing)
@@ -36993,7 +36994,7 @@
 /turf/open/floor/iron,
 /area/engineering/atmos)
 "muJ" = (
-/obj/machinery/portable_atmospherics/canister/tier_1,
+/obj/machinery/portable_atmospherics/canister,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -40871,7 +40872,7 @@
 "oDW" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/tier_1,
+/obj/machinery/portable_atmospherics/canister,
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/open/floor/iron,
 /area/science/storage)
@@ -44960,7 +44961,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/command/heads_quarters/rd)
 "qSi" = (
-/obj/machinery/portable_atmospherics/canister/tier_1,
+/obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/iron,
 /area/science/mixing)
 "qSz" = (
@@ -50706,6 +50707,19 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/visible,
 /turf/open/floor/iron,
 /area/engineering/atmos)
+"ucG" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/port)
 "ucI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -76288,7 +76302,7 @@ oCz
 nHv
 siK
 sqd
-bgw
+ucG
 gnP
 pgu
 quZ

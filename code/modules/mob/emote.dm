@@ -1,10 +1,3 @@
-#define BEYBLADE_PUKE_THRESHOLD 30 //How confused a carbon must be before they will vomit
-#define BEYBLADE_PUKE_NUTRIENT_LOSS 60 //How must nutrition is lost when a carbon pukes
-#define BEYBLADE_DIZZINESS_PROBABILITY 20 //How often a carbon becomes penalized
-#define BEYBLADE_DIZZINESS_VALUE 10 //How long the screenshake lasts
-#define BEYBLADE_CONFUSION_INCREMENT 10 //How much confusion a carbon gets when penalized
-#define BEYBLADE_CONFUSION_LIMIT 40 //A max for how penalized a carbon will be for beyblading
-
 //The code execution of the emote datum is located at code/datums/emotes.dm
 /mob/proc/emote(act, m_type = null, message = null, intentional = FALSE, force_silence = FALSE)
 	act = lowertext(act)
@@ -66,28 +59,6 @@
 	if(.)
 		user.SpinAnimation(7,1)
 
-/datum/emote/flip/check_cooldown(mob/user, intentional)
-	. = ..()
-	if(.)
-		return
-	if(!can_run_emote(user, intentional=intentional))
-		return
-	if(isliving(user))
-		var/mob/living/flippy_mcgee = user
-		if(prob(20))
-			flippy_mcgee.Knockdown(1 SECONDS)
-			flippy_mcgee.visible_message(
-				span_notice("[flippy_mcgee] attempts to do a flip and falls over, what a doofus!"),
-				span_notice("You attempt to do a flip while still off balance from the last flip and fall down!")
-			)
-			if(prob(50))
-				flippy_mcgee.adjustBruteLoss(1)
-		else
-			flippy_mcgee.visible_message(
-				span_notice("[flippy_mcgee] stumbles a bit after their flip."),
-				span_notice("You stumble a bit from still being off balance from your last flip.")
-			)
-
 /datum/emote/spin
 	key = "spin"
 	key_third_person = "spins"
@@ -99,29 +70,3 @@
 	. = ..()
 	if(.)
 		user.spin(20, 1)
-
-/datum/emote/spin/check_cooldown(mob/living/carbon/user, intentional)
-	. = ..()
-	if(.)
-		return
-	if(!can_run_emote(user, intentional=intentional))
-		return
-	if(!iscarbon(user))
-		return
-	var/current_confusion = user.get_confusion()
-	if(current_confusion > BEYBLADE_PUKE_THRESHOLD)
-		user.vomit(BEYBLADE_PUKE_NUTRIENT_LOSS, distance = 0)
-		return
-	if(prob(BEYBLADE_DIZZINESS_PROBABILITY))
-		to_chat(user, span_warning("You feel woozy from spinning."))
-		user.Dizzy(BEYBLADE_DIZZINESS_VALUE)
-		if(current_confusion < BEYBLADE_CONFUSION_LIMIT)
-			user.add_confusion(BEYBLADE_CONFUSION_INCREMENT)
-
-
-#undef BEYBLADE_PUKE_THRESHOLD
-#undef BEYBLADE_PUKE_NUTRIENT_LOSS
-#undef BEYBLADE_DIZZINESS_PROBABILITY
-#undef BEYBLADE_DIZZINESS_VALUE
-#undef BEYBLADE_CONFUSION_INCREMENT
-#undef BEYBLADE_CONFUSION_LIMIT

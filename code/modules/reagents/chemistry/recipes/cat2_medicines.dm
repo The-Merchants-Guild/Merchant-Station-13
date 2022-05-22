@@ -22,19 +22,6 @@
 	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE
 
-/datum/chemical_reaction/medicine/helbital/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
-	explode_fire_vortex(holder, equilibrium, 1, 1, "impure")
-	holder.chem_temp += 2.5
-	var/datum/reagent/helbital = holder.get_reagent(/datum/reagent/medicine/c2/helbital)
-	if(!helbital)
-		return
-	if(helbital.purity <= 0.25)
-		if(prob(25))
-			new /obj/effect/hotspot(holder.my_atom.loc)
-			holder.remove_reagent(/datum/reagent/medicine/c2/helbital, 2)
-			holder.chem_temp += 5
-			holder.my_atom.audible_message(span_notice("[icon2html(holder.my_atom, viewers(DEFAULT_MESSAGE_RANGE, src))] The impurity of the reacting helbital is too great causing [holder.my_atom] to let out a hearty burst of flame, evaporating part of the product!"))
-
 /datum/chemical_reaction/medicine/helbital/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
 	. = ..()//drains product
 	explode_fire_vortex(holder, equilibrium, 2, 2, "overheat", TRUE)
@@ -197,11 +184,6 @@
 	else
 		explode_shockwave(holder, equilibrium, range, damage = 2)
 
-/datum/chemical_reaction/medicine/convermol/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
-	. = ..()
-	overheated(holder, equilibrium, impure = TRUE)
-	clear_reactants(holder, step_volume_added*2)
-
 
 /datum/chemical_reaction/medicine/tirimol
 	results = list(/datum/reagent/medicine/c2/tirimol = 5)
@@ -241,11 +223,6 @@
 	else
 		explode_invert_smoke(holder, equilibrium, 3)
 
-/datum/chemical_reaction/medicine/tirimol/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
-	. = ..()
-	overheated(holder, equilibrium, TRUE)
-	clear_reactants(holder, 2)
-
 /*****TOX*****/
 //These all care about purity in their reactions
 
@@ -268,13 +245,6 @@
 	purity_min = 0.2
 	reaction_flags = REACTION_PH_VOL_CONSTANT | REACTION_CLEAR_INVERSE
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_TOXIN
-
-/datum/chemical_reaction/medicine/seiver/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
-	if(off_cooldown(holder, equilibrium, 1, "seiver_rads"))
-		return
-	var/modifier = max((100 - holder.chem_temp)*0.025, 0)*step_volume_added //0 - 5 * volume based off temperature(colder is more)
-	radiation_pulse(holder.my_atom, modifier, 0.5, can_contaminate=FALSE) //Please advise on this, I don't have a good handle on the numbers
-
 /datum/chemical_reaction/medicine/multiver
 	results = list(/datum/reagent/medicine/c2/multiver = 2)
 	required_reagents = list(/datum/reagent/ash = 1, /datum/reagent/consumable/salt = 1)
@@ -363,7 +333,3 @@
 		explode_shockwave(holder, equilibrium, 3, 2, implosion = TRUE)
 		playsound(holder.my_atom, 'sound/health/slowbeat.ogg', 50, 1)
 	explode_fire_vortex(holder, equilibrium, 1, 1)
-
-//enabling hardmode
-/datum/chemical_reaction/medicine/penthrite/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
-	holder.chem_temp += 15

@@ -85,7 +85,7 @@
 					return
 
 				to_chat(user, span_notice("You start to add cables to the frame..."))
-				if(P.use_tool(src, user, 20, volume=50, amount=5))
+				if(P.use_tool(src, user, volume=50, amount=5))
 					to_chat(user, span_notice("You add cables to the frame."))
 					state = 2
 					icon_state = "box_1"
@@ -94,7 +94,7 @@
 			if(P.tool_behaviour == TOOL_SCREWDRIVER && !anchored)
 				user.visible_message(span_warning("[user] disassembles the frame."), \
 									span_notice("You start to disassemble the frame..."), span_hear("You hear banging and clanking."))
-				if(P.use_tool(src, user, 40, volume=50))
+				if(P.use_tool(src, user, volume=50))
 					if(state == 1)
 						to_chat(user, span_notice("You disassemble the frame."))
 						var/obj/item/stack/sheet/iron/M = new (loc, 5)
@@ -107,7 +107,7 @@
 					to_chat(user, span_notice("You fail to secure [src]."))
 					return
 				to_chat(user, span_notice("You start [anchored ? "un" : ""]securing [src]..."))
-				if(P.use_tool(src, user, 40, volume=75))
+				if(P.use_tool(src, user, volume=75))
 					if(state == 1)
 						to_chat(user, span_notice("You [anchored ? "un" : ""]secure [src]."))
 						set_anchored(!anchored)
@@ -116,7 +116,7 @@
 		if(2)
 			if(P.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, span_notice("You start [anchored ? "un" : ""]securing [src]..."))
-				if(P.use_tool(src, user, 40, volume=75))
+				if(P.use_tool(src, user, volume=75))
 					to_chat(user, span_notice("You [anchored ? "un" : ""]secure [src]."))
 					set_anchored(!anchored)
 				return
@@ -174,7 +174,7 @@
 
 			if(P.tool_behaviour == TOOL_WRENCH && !circuit.needs_anchored)
 				to_chat(user, span_notice("You start [anchored ? "un" : ""]securing [src]..."))
-				if(P.use_tool(src, user, 40, volume=75))
+				if(P.use_tool(src, user, volume=75))
 					to_chat(user, span_notice("You [anchored ? "un" : ""]secure [src]."))
 					set_anchored(!anchored)
 				return

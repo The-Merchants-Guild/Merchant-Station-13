@@ -237,6 +237,7 @@
 					myseed.adjust_yield(-rand(1,2)) //Weeds choke out the plant's ability to bear more fruit.
 					myseed.set_yield(min((myseed.yield), WEED_HARDY_YIELD_MIN, MAX_PLANT_YIELD))
 
+
 //This is the part with pollination
 			pollinate()
 
@@ -502,6 +503,7 @@
 					myseed.reagents_from_genes()
 					continue
 
+
 /**
  * Pest Mutation Proc.
  * When a tray is mutated with high pest values, it will spawn spiders.
@@ -680,7 +682,7 @@
 			return
 		user.visible_message(span_notice("[user] starts digging out [src]'s plants..."),
 			span_notice("You start digging out [src]'s plants..."))
-		if(O.use_tool(src, user, 50, volume=50) || (!myseed && !weedlevel))
+		if(O.use_tool(src, user, volume=50) || (!myseed && !weedlevel))
 			user.visible_message(span_notice("[user] digs out the plants in [src]!"), span_notice("You dig out all of [src]'s plants!"))
 			if(myseed) //Could be that they're just using it as a de-weeder
 				age = 0

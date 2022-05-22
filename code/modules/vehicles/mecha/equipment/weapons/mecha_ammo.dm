@@ -61,6 +61,20 @@
 	rounds = 750
 	ammo_type = "lmg"
 
+/obj/item/mecha_ammo/mech_revolver
+	name = "mechvolver .357 ammo box"
+	desc = "A box of linked ammunition, designed for the mechrevolver .357 exosuit weapon."
+	icon_state = "357"
+	rounds = 7
+	ammo_type = "mech_revolver"
+
+/obj/item/mecha_ammo/mech_revolver_38
+	name = "mechvolver .38 ammo box"
+	desc = "A box of linked ammunition, designed for the mechrevolver .38 exosuit weapon."
+	icon_state = "38"
+	rounds = 7
+	ammo_type = "mech_revolver_38"
+
 /obj/item/mecha_ammo/missiles_kinetic
 	name = "kinetic missiles"
 	desc = "A box of light-explosive kinetic missiles, ready for loading into an SRM-8 exosuit missile rack."

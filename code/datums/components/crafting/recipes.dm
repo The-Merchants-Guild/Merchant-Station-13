@@ -1212,5 +1212,46 @@
 	time = 5 SECONDS
 	category = CAT_ROBOT
 
+/datum/crafting_recipe/lockermechvolver
+	name = "Makeshift mech revolver .357"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/mech_revolver
+	reqs = list(/obj/item/gun/ballistic/revolver = 1,
+				/obj/item/stack/rods = 4,
+				/obj/item/stack/cable_coil = 5)
+	tool_behaviors = list(TOOL_SCREWDRIVER)
+	time = 5 SECONDS
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/lockermechvolver_38
+	name = "Makeshift mech revolver .38"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/mech_revolver_38
+	reqs = list(/obj/item/gun/ballistic/revolver = 1,
+				/obj/item/stack/rods = 4,
+				/obj/item/stack/cable_coil = 5)
+	tool_behaviors = list(TOOL_SCREWDRIVER)
+	time = 5 SECONDS
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/lockermechvolverammo
+	name = "Makeshift mech revolver ammo packet for .357"
+	result = /obj/item/mecha_ammo/mech_revolver
+	reqs = list(/obj/item/stack/sheet/cardboard = 5,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/ammo_casing/a357 = 7)
+	tool_behaviors = list(TOOL_SCREWDRIVER)
+	time = 5 SECONDS
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/lockermechvolverammo_38
+	name = "Makeshift mech revolver ammo packet for .38"
+	result = /obj/item/mecha_ammo/mech_revolver_38
+	reqs = list(/obj/item/stack/sheet/cardboard = 5,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/ammo_casing/c38 = 7,
+				/obj/)
+	tool_behaviors = list(TOOL_SCREWDRIVER)
+	time = 5 SECONDS
+	category = CAT_ROBOT
+
 #undef CRAFTING_MACHINERY_CONSUME
 #undef CRAFTING_MACHINERY_USE

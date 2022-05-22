@@ -29,6 +29,33 @@
 	category = list("initial","Tools","Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
+/datum/design/gbottle
+	name="Glass Drinking Bottle"
+	id="gbottle"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/glass=1000)
+	build_path = /obj/item/reagent_containers/food/drinks/bottle
+	category = list("initial", "Dinnerware")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/smlgbottle
+	name="Small Glass Drinking Bottle"
+	id="smlgbottle"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/glass=850)
+	build_path = /obj/item/reagent_containers/food/drinks/bottle/small
+	category = list("initial", "Dinnerware")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/pgbottle
+	name="Imitation Glass Drinking Bottle"
+	id="imitbottle"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/glass=1000)
+	build_path = /obj/item/reagent_containers/food/drinks/bottle/imitation
+	category = list("initial", "Dinnerware")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/crowbar
 	name = "Pocket Crowbar"
 	id = "crowbar"
@@ -1216,7 +1243,7 @@
 /datum/design/petridish
 	name = "Petri Dish"
 	id = "petri_dish"
-	build_type = PROTOLATHE| AUTOLATHE
+	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(/datum/material/glass = 500)
 	build_path = /obj/item/petri_dish
 	category = list("initial","Misc","Equipment")

@@ -429,8 +429,10 @@
 						exposed_human.skin_tone = "african1"
 					if("arab")
 						exposed_human.skin_tone = "indian"
+					if("simpson")
+						exposed_human.skin_tone = "indian"
 					if("asian2")
-						exposed_human.skin_tone = "arab"
+						exposed_human.skin_tone = pick("arab", "simpson")
 					if("asian1")
 						exposed_human.skin_tone = "asian2"
 					if("mediterranean")

@@ -32,9 +32,9 @@ fi
 # dnf packages, libssl needed by rust-g but not included in TGS barebones install
 echo "Installing dependencies..."
 if [ -x "$has_sudo" ]; then
-	sudo dnf install -y git openssl-devel.i686 gcc glibc-devel.i686 zlib-devel.i686 pkgconf-pkg-config
+	sudo dnf install -y git openssl-devel openssl-devel.i686 gcc libstdc++.i686 glibc-devel.i686 zlib-devel.i686 pkgconf-pkg-config
 else
-	dnf install -y git openssl-devel.i686 gcc glibc-devel.i686 zlib-devel.i686 pkgconf-pkg-config
+	dnf install -y git openssl-devel openssl-devel.i686 gcc libstdc++.i686 glibc-devel.i686 zlib-devel.i686 pkgconf-pkg-config
 fi
 
 # update rust-g

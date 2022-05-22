@@ -1,0 +1,4 @@
+author: TheChosenEvilOne
+delete-after: true
+changes:
+  - bugfix: Deathmatch now properly cleans up special statuses and such from players.

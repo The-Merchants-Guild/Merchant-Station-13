@@ -95,10 +95,12 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "beerglass"
 	glass_name = "glass of beer"
 	glass_desc = "A freezing pint of beer."
+	bottle_icon_state = "lbeerbottle"
+	bottle_name = "large space beer bottle"	//based off a 1.5L bottle
+	bottle_desc = "Beer. In space. Crack open this cold one to share with the boys."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	fallback_icon_state = "beer"
 	glass_price = DRINK_PRICE_STOCK
-
 
 	// Beer is a chemical composition of alcohol and various other things. It's a garbage nutrient but hey, it's still one. Also alcohol is bad, mmmkay?
 /datum/reagent/consumable/ethanol/beer/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
@@ -114,6 +116,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	taste_description = "dish water"
 	glass_name = "glass of light beer"
 	glass_desc = "A freezing pint of watery light beer."
+	bottle_icon_state = "beerlitebottle"
+	bottle_name = "deluxe size light beer bottle"
+	bottle_desc = "A deluxe-size bottle of light beer, your liver would thank you even more if you drank a smaller bottle."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	fallback_icon_state = "beer"
 
@@ -124,6 +129,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	taste_description = "sweet corn beer and the hood life"
 	glass_name = "glass of malt liquor"
 	glass_desc = "A freezing pint of malt liquor."
+	bottle_icon_state = "maltliquorbottle"
+	bottle_name = "\improper Rabid Bear malt liquor"
+	bottle_desc = "A 40 full of malt liquor. Kicks stronger than, well, a rabid bear."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/beer/green
@@ -134,8 +142,10 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "greenbeerglass"
 	glass_name = "glass of green beer"
 	glass_desc = "A freezing pint of green beer. Festive."
+	bottle_icon_state = "lgreenbottle"
+	bottle_name = "holiday-size green beer bottle"
+	bottle_desc = "A festive green holiday-sized bottle of space beer, capped off with tinsel."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-
 
 /datum/reagent/consumable/ethanol/beer/green/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
 	if(M.color != color)
@@ -153,6 +163,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "kahluaglass"
 	glass_name = "glass of RR coffee liquor"
 	glass_desc = "DAMN, THIS THING LOOKS ROBUST!"
+	bottle_icon_state = "kahluabottle"
+	bottle_name = "\improper Robert Robust.Jnr's coffee liqueur"
+	bottle_desc = "A bottle of widely known, Mexican coffee-flavoured liqueur. In production since 1936, though this bottle looks brand new."
 	shot_glass_icon_state = "shotglasscream"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -174,6 +187,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "whiskeyglass"
 	glass_name = "glass of whiskey"
 	glass_desc = "The silky, smokey whiskey goodness inside the glass makes the drink look very classy."
+	bottle_icon_state = "whiskeybottle"
+	bottle_name = "bottle of whiskey"
+	bottle_desc = "A bottle of fine single-malt whiskey."
 	shot_glass_icon_state = "shotglassbrown"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_STOCK
@@ -183,18 +199,25 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	description = "Makes You Go Ape!&#174;"
 	color = "#332100" // rgb: 51, 33, 0
 	taste_description = "the grip of a giant ape"
+	glass_icon_state = "kongglass"
 	glass_name = "glass of Kong"
 	glass_desc = "Makes You Go Ape!&#174;"
+	bottle_icon_state = "kongbottle"
+	bottle_name = "/improper bottle of Kong"
+	bottle_desc = "By drinking from this bottle you waiver your rights to sue Kong!&#174;.Co in cases of related: decapitation, mutilation, strangulation, disembowlment and bodily harm incurred in inebriated fights against Great Apes."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-
 
 /datum/reagent/consumable/ethanol/whiskey/candycorn
 	name = "candy corn liquor"
 	description = "Like they drank in 2D speakeasies."
 	color = "#ccb800" // rgb: 204, 184, 0
 	taste_description = "pancake syrup"
+	glass_icon_state = "candycorn_glass"
 	glass_name = "glass of candy corn liquor"
 	glass_desc = "Good for your Imagination."
+	bottle_icon_state = "candycornbottle"
+	bottle_name = "bottle of candy corn liquor"
+	bottle_desc = "Snappy on the toungue, probably the only kind of corn syrup-whisky a space faring person would willingly drink."
 	var/hal_amt = 4
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -275,6 +298,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "ginvodkaglass"
 	glass_name = "glass of vodka"
 	glass_desc = "The glass contain wodka. Xynta."
+	bottle_icon_state = "vodkabottle"
+	bottle_name = "\improper Tunguska triple distilled"
+	bottle_desc = "Aah, vodka. Prime choice of drink AND fuel by Russians worldwide."
 	shot_glass_icon_state = "shotglassclear"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -325,6 +351,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "ginvodkaglass"
 	glass_name = "glass of gin"
 	glass_desc = "A crystal clear glass of Griffeater gin."
+	bottle_icon_state = "ginbottle"
+	bottle_name = "bottle of gin"
+	bottle_desc = "A fashionably British bottle of gin, it even appears to be raining in the label. Quaint."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_STOCK
 
@@ -337,6 +366,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "rumglass"
 	glass_name = "glass of rum"
 	glass_desc = "Now you want to Pray for a pirate suit, don't you?"
+	bottle_icon_state = "rumbottle"
+	bottle_name = "bottle of spiced rum"
+	bottle_desc = "This isn't just rum, oh no. It's tropical sunrise in a bottle. Yarrr."
 	shot_glass_icon_state = "shotglassbrown"
 
 /datum/reagent/consumable/ethanol/tequila
@@ -348,6 +380,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "tequilaglass"
 	glass_name = "glass of tequila"
 	glass_desc = "Now all that's missing is the weird colored shades!"
+	bottle_icon_state = "tequilabottle"
+	bottle_name = "bottle of tequila"
+	bottle_desc = "Made from quality extracts of Aloe, mainly because that's the only agave like plant we could find."
 	shot_glass_icon_state = "shotglassgold"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_STOCK
@@ -361,6 +396,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "vermouthglass"
 	glass_name = "glass of vermouth"
 	glass_desc = "You wonder why you're even drinking this straight."
+	bottle_icon_state = "vermouthbottle"
+	bottle_name = "bottle of vermouth"
+	bottle_desc = "Sweet, sweet dryness~"
 	shot_glass_icon_state = "shotglassclear"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -373,6 +411,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "wineglass"
 	glass_name = "glass of wine"
 	glass_desc = "A very classy looking drink."
+	bottle_icon_state = "winebottle"
+	bottle_name = "unlabeled wine bottle"
+	bottle_desc = "There's no label on this wine bottle."
 	shot_glass_icon_state = "shotglassred"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_STOCK
@@ -397,6 +438,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	boozepwr = 45
 	quality = DRINK_FANTASTIC
 	taste_description = "scaley sweetness"
+	bottle_icon_state = "lizardwine"
+	bottle_name = "\improper bottle of lizard wine"
+	bottle_desc = "An alcoholic beverage from Space China, made by infusing lizard tails in ethanol. A authentic vintage in a knockoff bottle, typical."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_STOCK
 
@@ -409,6 +453,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "grappa"
 	glass_name = "glass of grappa"
 	glass_desc = "A fine drink originally made to prevent waste by using the leftovers from winemaking."
+	bottle_icon_state = "grappabottle"
+	bottle_name = "bottle of grappa"
+	bottle_desc = "It appears to have places and of objects Italian cultural heritage on the label but nothing to do about wine."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_STOCK
 
@@ -421,6 +468,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "amarettoglass"
 	glass_name = "glass of amaretto"
 	glass_desc = "A sweet and syrupy looking drink."
+	bottle_icon_state = "disaronno"
+	bottle_name = "bottle of amaretto"
+	bottle_desc = "The contents slosh around gently in the bottle, wafting the sickly sweet aroma of fresh fruits."
 	shot_glass_icon_state = "shotglassgold"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_STOCK
@@ -430,10 +480,13 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	description = "A sweet and strongly alcoholic drink, made after numerous distillations and years of maturing. Classy as fornication."
 	color = "#AB3C05" // rgb: 171, 60, 5
 	boozepwr = 75
-	taste_description = "angry and irish"
+	taste_description = "fine aged oak"
 	glass_icon_state = "cognacglass"
 	glass_name = "glass of cognac"
 	glass_desc = "Damn, you feel like some kind of French aristocrat just by holding this."
+	bottle_icon_state = "cognacbottle"
+	bottle_name = "bottle of cognac"
+	bottle_desc = "A sweet and strongly alchoholic drink. Such refined taste might make you well as not scream 'SHITCURITY' this time."
 	shot_glass_icon_state = "shotglassbrown"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_STOCK
@@ -447,6 +500,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "absinthe"
 	glass_name = "glass of absinthe"
 	glass_desc = "It's as strong as it smells."
+	bottle_icon_state = "absinthebottle"
+	bottle_name = "bottle of absinthe"
+	bottle_desc = "A strong alcoholic drink, the brewery mentioned on the label has been scribbled out."
 	shot_glass_icon_state = "shotglassgreen"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -464,6 +520,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "glass_brown2"
 	glass_name = "Hooch"
 	glass_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
+	bottle_icon_state = "hoochbottle"
+	bottle_name = "/improper hooch bottle"
+	bottle_desc = "A bottle of rotgut. Its owner has applied some street wisdom to cleverly disguise it as a brown paper bag."
 	addiction_types = list(/datum/addiction/alcohol = 5, /datum/addiction/maintenance_drugs = 2)
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -483,6 +542,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "aleglass"
 	glass_name = "glass of ale"
 	glass_desc = "A freezing pint of delicious Ale."
+	bottle_icon_state = "aletankard"
+	bottle_name = "ale tankard"	//people wont stop drinking from the bottle so i might as well embrace it.
+	bottle_desc = "A plainative tankard of ale, a real man drinks their pint or three from this."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/goldschlager
@@ -495,6 +557,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "goldschlagerglass"
 	glass_name = "glass of goldschlager"
 	glass_desc = "100% proof that teen girls will drink anything with gold in it."
+	bottle_icon_state = "goldschlagerbottle"
+	bottle_name = "bottle of goldschlager"
+	bottle_desc = "Too trashy for champagne, too socialite to say no, perfect for sorority parties."
 	shot_glass_icon_state = "shotglassgold"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
@@ -532,6 +597,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "patronglass"
 	glass_name = "glass of patron"
 	glass_desc = "Drinking patron in the bar, with all the subpar ladies."
+	bottle_icon_state = "patronbottle"
+	bottle_name = "bottle of patron"
+	bottle_desc = "Silver laced tequila, served in space night clubs across the galaxy."
 	shot_glass_icon_state = "shotglassclear"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_HIGH
@@ -605,6 +673,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "martiniglass"
 	glass_name = "Classic Martini"
 	glass_desc = "Damn, the bartender even stirred it, not shook it."
+	bottle_icon_state = "classicmartinibottle"
+	bottle_name = "/improper bottle of classic martini"
+	bottle_desc = "A high class bottle of classic martini, for those too tired to stirr their own."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_EASY
 
@@ -618,6 +689,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "martiniglass"
 	glass_name = "Vodka martini"
 	glass_desc ="A bastardisation of the classic martini. Still great."
+	bottle_icon_state = "classicmartinibottle"
+	bottle_name = "/improper bottle of classic martini"
+	bottle_desc = "A high class bottle of vodka martini, for those too tired to shake their own."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/white_russian
@@ -822,6 +896,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "manlydorfglass"
 	glass_name = "The Manly Dorf"
 	glass_desc = "A manly concoction made from Ale and Beer. Intended for true men only."
+	bottle_icon_state = "manlydorftankard"
+	bottle_name = "manly dwarf tankard"
+	bottle_desc = "A deep and seemingly neverending tankard of frothy mixture of ale and beer. Karakan, Karakan arr! "	//warhammer dwarf fantasy battlecry in Khazlid
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	var/dorf_mode
 
@@ -861,6 +938,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "glass_clear"
 	glass_name = "Moonshine"
 	glass_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
+	bottle_icon_state = "moonshinebottle"
+	bottle_name = "/improper moonshine jug"
+	bottle_desc = "Its a long way from the backwoods, but never too late to drink up the courage to a banjo duel... before vomiting and passing out."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/b52
@@ -1133,6 +1213,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "iced_beerglass"
 	glass_name = "iced beer"
 	glass_desc = "A beer so frosty, the air around it freezes."
+	bottle_icon_state = "iced_beerbottle"
+	bottle_name = "/improper bottle of iced beer"
+	bottle_desc = "Finely chilled beer, kept at temperature in a bucket."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/iced_beer/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -1373,6 +1456,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "whiskeyglass"
 	glass_name = "hard cider"
 	glass_desc = "Tastes like autumn... no wait, fall!"
+	bottle_icon_state = "hcider"
+	bottle_name = "Jian Hard Cider"
+	bottle_desc = "Apple juice for adults."
 	shot_glass_icon_state = "shotglassbrown"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_STOCK
@@ -2200,6 +2286,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "champagne_glass"
 	glass_name = "Champagne"
 	glass_desc = "The flute clearly displays the slowly rising bubbles."
+	bottle_icon_state = "nocorkchampagne_bottle"
+	bottle_name = "corkless bottle of champagne"
+	bottle_desc = "Is it ever really a true champagne bottle without the pop of a cork? Still perfect for cheap wedding gifts."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	glass_price = DRINK_PRICE_EASY
 
@@ -2258,6 +2347,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "applejack_glass"
 	glass_name = "Applejack"
 	glass_desc = "You feel like you could drink this all neight."
+	bottle_icon_state = "applejack_bottle"
+	bottle_name = "bottle of applejack"
+	bottle_desc = "Describing vintage is a serious affair, with rich apple tones like this there's no time to be horsing around."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/jack_rose
@@ -2363,6 +2455,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "trappistglass"
 	glass_name = "Trappist Beer"
 	glass_desc = "boozy Catholicism in a glass."
+	bottle_icon_state = "trappistbottle"
+	bottle_name = "bottle of trappist beer"
+	bottle_desc = "A non-secularist beer almost too fine for the non-devout. Pas moyen monsieur"	//translation "no way mister"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/trappist/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -2381,6 +2476,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "blazaamglass"
 	glass_name = "Blazaam"
 	glass_desc = "The glass seems to be sliding between realities. Doubles as a Berenstain remover."
+	bottle_icon_state = "blazaambottle"
+	bottle_name = "bottle of blazaam"
+	bottle_desc = "Whisper gently into the lid 'Open Sesame', pour a glass, and ride away the magic carpet."
 	var/stored_teleports = 0
 
 /datum/reagent/consumable/ethanol/blazaam/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
@@ -2595,6 +2693,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "glass_orange"
 	glass_name = "glass of mushi kombucha"
 	glass_desc = "A glass of (slightly alcoholic) fermented sweetened mushroom tea. Refreshing, if a little strange."
+	bottle_icon_state = "shroomy_bottle"
+	bottle_name = "bottle of mushi kombucha"
+	bottle_desc = "Numerous lizard trading ventures have found that tall bottles of mushrooms cater best to mushroom gobbling small people demographics."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/ethanol/triumphal_arch

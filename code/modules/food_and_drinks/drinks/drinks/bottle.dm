@@ -178,7 +178,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/imitation/update_icon_state()
 	if(!length(reagents.reagent_list))
-		icon_state = "glassbottle"
+		icon_state = initial(icon_state)
 		return ..()
 
 	var/datum/reagent/largest_reagent = reagents.get_master_reagent()

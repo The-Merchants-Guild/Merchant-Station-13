@@ -180,15 +180,6 @@
 	if(!added_ph)
 		added_ph = glob_reagent.ph
 
-	//Split up the reagent if it's in a mob
-	var/has_split = FALSE
-	if(!ignore_splitting && (flags & REAGENT_HOLDER_ALIVE)) //Stomachs are a pain - they will constantly call on_mob_add unless we split on addition to stomachs, but we also want to make sure we don't double split
-		var/adjusted_vol = process_mob_reagent_purity(glob_reagent, amount, added_purity)
-		if(!adjusted_vol) //If we're inverse or FALSE cancel addition
-			return FALSE
-		amount = adjusted_vol
-		has_split = TRUE
-
 	update_total()
 	var/cached_total = total_volume
 	if(cached_total + amount > maximum_volume)
@@ -244,8 +235,6 @@
 	if(isliving(my_atom))
 		new_reagent.on_mob_add(my_atom, amount) //Must occur before it could posibly run on_mob_delete
 
-	if(has_split) //prevent it from splitting again
-		new_reagent.chemical_flags |= REAGENT_DONOTSPLIT
 
 	update_total()
 	if(reagtemp != cached_temp)
@@ -734,38 +723,6 @@
 			reagent.metabolizing = FALSE
 			reagent.on_mob_end_metabolize(C)
 
-/*Processes the reagents in the holder and converts them, only called in a mob/living/carbon on addition
-*
-* Arguments:
-* * reagent - the added reagent datum/object
-* * added_volume - the volume of the reagent that was added (since it can already exist in a mob)
-* * added_purity - the purity of the added volume
-* returns the volume of the current reagent to keep
-*/
-/datum/reagents/proc/process_mob_reagent_purity(datum/reagent/reagent, added_volume, added_purity)
-	if(!reagent)
-		stack_trace("Attempted to process a mob's reagent purity for a null reagent!")
-		return FALSE
-	if(added_purity == 1)
-		return added_volume
-	if(reagent.chemical_flags & REAGENT_DONOTSPLIT)
-		return added_volume
-	if(added_purity < 0)
-		stack_trace("Purity below 0 for chem on mob splitting: [reagent.type]!")
-		added_purity = 0
-
-	if((reagent.inverse_chem_val > added_purity) && (reagent.inverse_chem))//Turns all of a added reagent into the inverse chem
-		add_reagent(reagent.inverse_chem, added_volume, FALSE, added_purity = 1-reagent.creation_purity)
-		var/datum/reagent/inverse_reagent = has_reagent(reagent.inverse_chem)
-		if(inverse_reagent.chemical_flags & REAGENT_SNEAKYNAME)
-			inverse_reagent.name = reagent.name//Negative effects are hidden
-		return FALSE //prevent addition
-	else if(reagent.impure_chem)
-		var/impure_vol = added_volume * (1 - added_purity) //turns impure ratio into impure chem
-		add_reagent(reagent.impure_chem, impure_vol, FALSE, added_purity = 1-reagent.creation_purity)
-		if(!(reagent.chemical_flags & REAGENT_SPLITRETAINVOL))
-			return added_volume - impure_vol
-	return added_volume
 
 ///Processes any chems that have the REAGENT_IGNORE_STASIS bitflag ONLY
 /datum/reagents/proc/handle_stasis_chems(mob/living/carbon/owner, delta_time, times_fired)
@@ -900,27 +857,9 @@
 	update_previous_reagent_list()
 	//This is the point where we have all the possible reactions from a reagent/catalyst point of view, so we set up the reaction list
 	for(var/datum/chemical_reaction/selected_reaction as anything in possible_reactions)
-		if((selected_reaction.reaction_flags & REACTION_INSTANT) || (flags & REAGENT_HOLDER_INSTANT_REACT)) //If we have instant reactions, we process them here
-			instant_react(selected_reaction)
-			.++
-			update_total()
-			continue
-		else
-			var/exists = FALSE
-			for(var/datum/equilibrium/E_exist as anything in reaction_list)
-				if(ispath(E_exist.reaction.type, selected_reaction.type)) //Don't add duplicates
-					exists = TRUE
-
-			//Add it if it doesn't exist in the list
-			if(!exists)
-				is_reacting = TRUE//Prevent any on_reaction() procs from infinite looping
-				var/datum/equilibrium/equilibrium = new (selected_reaction, src) //Otherwise we add them to the processing list.
-				if(equilibrium.to_delete)//failed startup checks
-					qdel(equilibrium)
-				else
-					//Adding is done in new(), deletion is in qdel
-					equilibrium.reaction.on_reaction(src, equilibrium, equilibrium.multiplier)
-					equilibrium.react_timestep(1)//Get an initial step going so there's not a delay between setup and start - DO NOT ADD THIS TO equilibrium.NEW()
+		instant_react(selected_reaction)
+		.++
+		update_total()
 
 	if(LAZYLEN(reaction_list))
 		is_reacting = TRUE //We've entered the reaction phase - this is set here so any reagent handling called in on_reaction() doesn't cause infinite loops

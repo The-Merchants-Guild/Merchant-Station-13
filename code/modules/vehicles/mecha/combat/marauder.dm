@@ -12,7 +12,7 @@
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
 	internals_req_access = list(ACCESS_CENT_SPECOPS)
 	wreckage = /obj/structure/mecha_wreckage/marauder
-	mecha_flags = CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS | MMI_COMPATIBLE
+	mecha_flags = CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS
 	internal_damage_threshold = 25
 	force = 45
 	max_equip = 5
@@ -76,7 +76,6 @@
 	internals_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/mauler
 	max_equip = 6
-	destruction_sleep_duration = 20
 
 /obj/vehicle/sealed/mecha/combat/marauder/mauler/Initialize()
 	. = ..()

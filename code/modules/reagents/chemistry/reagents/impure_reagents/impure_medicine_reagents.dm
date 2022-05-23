@@ -30,7 +30,6 @@
 	description = "A viscous mess of various medicines. Will heal a damage type at random"
 	metabolization_rate = 1 * REM//This is fast
 	addiction_types = list(/datum/addiction/medicine = 7.5)
-	ph = 11
 
 //Random healing of the 4 main groups
 /datum/reagent/impurity/healing/medicine_failure/on_mob_life(mob/living/carbon/owner, delta_time, times_fired)
@@ -54,7 +53,6 @@
 	description = "This rare and forbidden concoction is thought to bring you closer to the grasp of the Norse goddess Hel."
 	metabolization_rate = 1*REM //This is fast
 	tox_damage = 0.25
-	ph = 14
 	//Compensates for delta_time lag by spawning multiple hands at the end
 	var/lag_remainder = 0
 	//Keeps track of the hand timer so we can cleanup on removal
@@ -126,7 +124,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	name = "Libitoil"
 	description = "Temporarilly interferes a patient's ability to process alcohol."
 	chemical_flags = REAGENT_DONOTSPLIT
-	ph = 13.5
 	liver_damage = 0.1
 	addiction_types = list(/datum/addiction/medicine = 4)
 
@@ -173,7 +170,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	reagent_state = SOLID
 	color = "#b3ff00"
 	overdose_threshold = 10
-	ph = 1
 	addiction_types = list(/datum/addiction/medicine = 5)
 	liver_damage = 0
 
@@ -185,7 +181,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	name = "Prion peptides"
 	taste_description = "spearmint frosting"
 	description = "These inhibitory peptides cause cellular damage and cost nutrition to the patient!"
-	ph = 2.1
 
 /datum/reagent/peptides_failed/on_mob_life(mob/living/carbon/owner, delta_time, times_fired)
 	owner.adjustCloneLoss(0.25 * delta_time)
@@ -214,7 +209,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	description = "Prolonged exposure to this chemical can cause an overwhelming urge to itch oneself."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	ph = 1.7
 	addiction_types = list(/datum/addiction/medicine = 2.5)
 	tox_damage = 0.1
 	///Probability of scratch - increases as a function of time
@@ -241,7 +235,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/impurity/aiuri
 	name = "Aivime"
 	description = "This reagent is known to interfere with the eyesight of a patient."
-	ph = 3.1
 	addiction_types = list(/datum/addiction/medicine = 1.5)
 	liver_damage = 0.1
 	//blurriness at the start of taking the med
@@ -263,7 +256,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/inverse/hercuri
 	name = "Herignis"
 	description = "This reagent causes a dramatic raise in a patient's body temperature."
-	ph = 0.8
 	tox_damage = 0
 	color = "#ff1818"
 	taste_description = "heat! Ouch!"
@@ -346,7 +338,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/inverse/healing/convermol
 	name = "Coveroli"
 	description = "This reagent is known to coat the inside of a patient's lungs, providing greater protection against hot or cold air."
-	ph = 3.82
 	tox_damage = 0
 	addiction_types = list(/datum/addiction/medicine = 2.3)
 	//The heat damage levels of lungs when added (i.e. heat_level_1_threshold on lungs)
@@ -472,7 +463,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/inverse/healing/monover
 	name = "Monover"
 	description = "A toxin treating reagent, that only is effective if it's the only reagent present in the patient."
-	ph = 0.5
 	addiction_types = list(/datum/addiction/medicine = 3.5)
 
 //Heals toxins if it's the only thing present - kinda the oposite of multiver! Maybe that's why it's inverse!
@@ -492,7 +482,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/inverse/penthrite
 	name = "Nooartrium"
 	description = "A reagent that is known to stimulate the heart in a dead patient, temporarily bringing back recently dead patients at great cost to their heart."
-	ph = 14
 	metabolization_rate = 0.05 * REM
 	addiction_types = list(/datum/addiction/medicine = 12)
 	overdose_threshold = 20
@@ -578,7 +567,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	description = "Gives the patient a temporary speech impediment."
 	color = "#CDCDFF"
 	addiction_types = list(/datum/addiction/medicine = 5)
-	ph = 12.4
 	liver_damage = 0
 	///The speech we're forcing on the owner
 	var/speech_option
@@ -610,7 +598,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	name = "Neruwhine"
 	description = "Induces a temporary brain trauma in the patient by redirecting neuron activity."
 	color = "#DCDCAA"
-	ph = 13.4
 	addiction_types = list(/datum/addiction/medicine = 8)
 	metabolization_rate = 0.025 * REM
 	tox_damage = 0
@@ -646,7 +633,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	description = "Interferes with the body's natural pacemaker, forcing the patient to manually beat their heart."
 	color = "#5F5F5F"
 	self_consuming = TRUE
-	ph = 13.5
 	addiction_types = list(/datum/addiction/medicine = 2.5)
 	metabolization_rate = REM
 	chemical_flags = REAGENT_DEAD_PROCESS
@@ -736,7 +722,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	metabolization_rate = 0.1 * REM
 	addiction_types = list(/datum/addiction/medicine = 3)
 	taste_description = "funky toxin"
-	ph = 13
 	tox_damage = 0
 	metabolization_rate = 0.2 * REM
 	///Did we get a headache?
@@ -764,7 +749,6 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	addiction_types = list(/datum/addiction/medicine = 5.6)
 	color = "#DDDDFF"
 	taste_description = "the heat evaporating from your mouth."
-	ph = 1
 	liver_damage = 0.1
 	metabolization_rate = 0.04 * REM
 	///The random span we start hearing in

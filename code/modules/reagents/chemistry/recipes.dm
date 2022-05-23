@@ -131,52 +131,10 @@
 		var/datum/reagent/reagent = holder.has_reagent(id)
 		if(!reagent)
 			continue
-		//Split like this so it's easier for people to edit this function in a child
-		convert_into_failed(reagent, holder)
-		reaction_clear_check(reagent, holder)
 	holder.chem_temp = cached_temp
 
-/**
- * Converts a reagent into the type specified by the failed_chem var of the input reagent
- *
- * Arguments:
- * * reagent - the target reagent to convert
- */
-/datum/chemical_reaction/proc/convert_into_failed(datum/reagent/reagent, datum/reagents/holder)
-	if(reagent.purity < purity_min && reagent.failed_chem)
-		var/cached_volume = reagent.volume
-		holder.remove_reagent(reagent.type, cached_volume, FALSE)
-		holder.add_reagent(reagent.failed_chem, cached_volume, FALSE, added_purity = 1)
-		SSblackbox.record_feedback("tally", "chemical_reaction", 1, "[type] failed reactions")
 
-/**
- * REACTION_CLEAR handler
- * If the reaction has the REACTION_CLEAR flag, then it will split using purity methods in the beaker instead
- *
- * Arguments:
- * * reagent - the target reagent to convert
- */
-/datum/chemical_reaction/proc/reaction_clear_check(datum/reagent/reagent, datum/reagents/holder)
-	if(!reagent)//Failures can delete R
-		return
-	if(reaction_flags & (REACTION_CLEAR_IMPURE | REACTION_CLEAR_INVERSE))
-		if(reagent.purity == 1)
-			return
 
-		var/cached_volume = reagent.volume
-		var/cached_purity = reagent.purity
-		if((reaction_flags & REACTION_CLEAR_INVERSE) && reagent.inverse_chem)
-			if(reagent.inverse_chem_val > reagent.purity)
-				holder.remove_reagent(reagent.type, cached_volume, FALSE)
-				holder.add_reagent(reagent.inverse_chem, cached_volume, FALSE, added_purity = 1-cached_purity)
-				return
-
-		if((reaction_flags & REACTION_CLEAR_IMPURE) && reagent.impure_chem)
-			var/impureVol = cached_volume * (1 - reagent.purity)
-			holder.remove_reagent(reagent.type, (impureVol), FALSE)
-			holder.add_reagent(reagent.impure_chem, impureVol, FALSE, added_purity = 1-cached_purity)
-			reagent.creation_purity = cached_purity
-			reagent.chemical_flags = reagent.chemical_flags | REAGENT_DONOTSPLIT
 
 /**
  * Occurs when a reation is overheated (i.e. past it's overheatTemp)
@@ -196,26 +154,6 @@
 		if(!reagent)
 			return
 		reagent.volume =  round((reagent.volume*0.98), 0.01) //Slowly lower yield per tick
-
-/**
- * Occurs when a reation is too impure (i.e. it's below purity_min)
- * Will be called every tick in the reaction that it is too impure
- * If you want this to be a once only proc (i.e. the reaction is stopped after) set reaction.toDelete = TRUE
- * The above is useful if you're writing an explosion
- * By default the parent proc will reduce the purity of all reagents involved in the reaction in the beaker slightly. If you don't want that don't add ..()
- *
- * Arguments:
- * * holder - the datum that holds this reagent, be it a beaker or anything else
- * * equilibrium - the equilibrium datum that contains the equilibrium reaction properties and methods
- * * step_volume_added - how much product (across all products) was added for this single step
- */
-/datum/chemical_reaction/proc/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
-	var/affected_list = results + required_reagents
-	for(var/_reagent in affected_list)
-		var/datum/reagent/reagent = holder.get_reagent(_reagent)
-		if(!reagent)
-			continue
-		reagent.purity = clamp((reagent.purity-0.01), 0, 1) //slowly reduce purity of reagents
 
 /**
  * Magical mob spawning when chemicals react

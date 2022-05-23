@@ -17,8 +17,11 @@
 				check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 			else
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
-		if(. >= 5 || prob(33))
-			to_chat(occupants, "[icon2html(src, occupants)][span_userdanger("Taking damage!")]")
+		to_chat(occupants, "[icon2html(src, occupants)][span_danger("Taking damage!")]")
+		var/integrity = obj_integrity*100/max_integrity
+		if(. && integrity < 20)
+			to_chat(occupants, "[icon2html(src, occupants)][span_userdanger("HULL DAMAGE CRITICAL!")]")
+			SEND_SOUND(occupants, sound('sound/mecha/critical.ogg',volume=50))
 		log_message("Took [damage_amount] points of damage. Damage type: [damage_type]", LOG_MECHA)
 
 /obj/vehicle/sealed/mecha/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -306,13 +309,13 @@
 		return
 	. = TRUE
 	if(internal_damage & MECHA_INT_TANK_BREACH)
-		if(!W.use_tool(src, user, 0, volume=50, amount=1))
+		if(!W.use_tool(src, user, volume=50, amount=1))
 			return
 		clear_internal_damage(MECHA_INT_TANK_BREACH)
 		to_chat(user, span_notice("You repair the damaged gas tank."))
 		return
 	if(obj_integrity < max_integrity)
-		if(!W.use_tool(src, user, 0, volume=50, amount=1))
+		if(!W.use_tool(src, user, volume=50, amount=1))
 			return
 		user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [src]."))
 		obj_integrity += min(10, max_integrity-obj_integrity)
@@ -379,6 +382,9 @@
 					continue
 				AI = crew
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
+		addtimer(CALLBACK(WR, /obj/structure/mecha_wreckage/proc/kaboom), 5 SECONDS)
+		playsound(WR, 'sound/mecha/meltdown.ogg', 50)
+		WR.visible_message(span_danger("The remains of [WR] are about to blow up!"))
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E

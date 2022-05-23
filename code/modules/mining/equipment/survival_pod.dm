@@ -170,7 +170,7 @@
 
 	user.visible_message(span_warning("[user] disassembles [src]."),
 		span_notice("You start to disassemble [src]..."), span_hear("You hear clanking and banging noises."))
-	if(I.use_tool(src, user, 20, volume=50))
+	if(I.use_tool(src, user, volume=50))
 		new /obj/item/gps(loc)
 		qdel(src)
 	return TRUE
@@ -244,7 +244,7 @@
 
 	user.visible_message(span_warning("[user] disassembles [src]."),
 		span_notice("You start to disassemble [src]..."), span_hear("You hear clanking and banging noises."))
-	if(I.use_tool(src, user, 20, volume=50))
+	if(I.use_tool(src, user, volume=50))
 		deconstruct()
 	return TRUE
 

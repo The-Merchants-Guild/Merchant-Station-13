@@ -323,3 +323,24 @@
 	inhand_icon_state = "hunter"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEFACIALHAIR|HIDEFACE|HIDEEYES|HIDEEARS|HIDEHAIR|HIDESNOUT
+
+/obj/item/clothing/mask/gas/cluwne
+	name = "clown wig and mask"
+	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
+	icon_state = "cluwne"
+	inhand_icon_state = "cluwne"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	item_flags = ABSTRACT | DROPDEL
+	flags_inv = HIDEFACIALHAIR|HIDEFACE|HIDEEYES|HIDEEARS|HIDEHAIR|HIDESNOUT
+
+/obj/item/clothing/mask/gas/cluwne/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+
+/obj/item/clothing/mask/gas/cluwne/equipped(mob/user, slot)
+	. = ..()
+	if(!ishuman(user))
+		return
+	if(slot == ITEM_SLOT_MASK)
+		var/mob/living/carbon/human/H = user
+		H.dna.add_mutation(CLUWNEMUT)

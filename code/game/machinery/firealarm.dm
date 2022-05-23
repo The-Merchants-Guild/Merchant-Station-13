@@ -209,7 +209,7 @@
 					return
 
 				to_chat(user, span_notice("You begin repairing [src]..."))
-				if(tool.use_tool(src, user, 40, volume=50))
+				if(tool.use_tool(src, user, volume=50))
 					obj_integrity = max_integrity
 					to_chat(user, span_notice("You repair [src]."))
 			else
@@ -256,7 +256,7 @@
 				else if(tool.tool_behaviour == TOOL_CROWBAR)
 					user.visible_message(span_notice("[user.name] removes the electronics from [src.name]."), \
 										span_notice("You start prying out the circuit..."))
-					if(tool.use_tool(src, user, 20, volume=50))
+					if(tool.use_tool(src, user, volume=50))
 						if(buildstage == 1)
 							if(machine_stat & BROKEN)
 								to_chat(user, span_notice("You remove the destroyed circuit."))

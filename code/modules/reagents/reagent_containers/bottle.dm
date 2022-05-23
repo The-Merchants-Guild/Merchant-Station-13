@@ -438,11 +438,6 @@
 	desc = "A small bottle. Contains flash powder."
 	list_reagents = list(/datum/reagent/flash_powder = 30)
 
-/obj/item/reagent_containers/glass/bottle/exotic_stabilizer
-	name = "exotic stabilizer bottle"
-	desc = "A small bottle. Contains exotic stabilizer."
-	list_reagents = list(/datum/reagent/exotic_stabilizer = 30)
-
 /obj/item/reagent_containers/glass/bottle/leadacetate
 	name = "lead acetate bottle"
 	desc = "A small bottle. Contains lead acetate."

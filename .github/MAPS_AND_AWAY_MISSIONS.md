@@ -1,13 +1,16 @@
 ## MAPS
 
-/tg/station currently comes equipped with five maps.
+MerchantStation currently comes equipped with four maps,
 
-* [BoxStation (default)](https://tgstation13.org/wiki/Boxstation)
-* [MetaStation](https://tgstation13.org/wiki/MetaStation)
+* [MetaStation (default)](https://tgstation13.org/wiki/MetaStation)
+* [BoxStation](https://tgstation13.org/wiki/Boxstation)
 * [DeltaStation](https://tgstation13.org/wiki/DeltaStation)
-* [PubbyStation](https://tgstation13.org/wiki/PubbyStation)
-* [DonutStation](https://tgstation13.org/wiki/Donutstation)
+* [KiloStation](https://tgstation13.org/wiki/KiloStation)
 
+As well as two debug station maps.
+
+* [RuntimeStation](https://tgstation13.org/wiki/RuntimeStation)
+* MultiZ
 
 All maps have their own code file that is in the base of the _maps directory. Maps are loaded dynamically when the game starts. Follow this guideline when adding your own map, to your fork, for easy compatibility.
 
@@ -19,7 +22,7 @@ Anytime you want to make changes to a map it's imperative you use the [Map Mergi
 
 ## AWAY MISSIONS
 
-/tg/station supports loading away missions however they are disabled by default.
+MerchantStation supports loading away missions however they are disabled by default.
 
 Map files for away missions are located in the _maps/RandomZLevels directory. Each away mission includes it's own code definitions located in /code/modules/awaymissions/mission_code. These files must be included and compiled with the server beforehand otherwise the server will crash upon trying to load away missions that lack their code.
 

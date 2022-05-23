@@ -48,6 +48,16 @@
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/lasershot
+	name = "Laser Shell"
+	desc = "An advanced shotgun shell that fires a spread of laser beams, for dealing with serious threats."
+	id = "sec_lslug"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000)
+	build_path = /obj/item/ammo_casing/shotgun/laser
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	
 /datum/design/shotgun_dart/sec
 	id = "sec_dart"
 	build_type = PROTOLATHE

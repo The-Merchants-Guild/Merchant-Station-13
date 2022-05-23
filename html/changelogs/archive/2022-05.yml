@@ -79,3 +79,6 @@
   - rscadd: Well well, Look at the city slicker pulling up in his fancy German car
   xDyouGamer:
   - rscdel: Removed portable pump pressure and heat limit
+2022-05-23:
+  TheChosenEvilOne:
+  - bugfix: Deathmatch now properly cleans up special statuses and such from players.

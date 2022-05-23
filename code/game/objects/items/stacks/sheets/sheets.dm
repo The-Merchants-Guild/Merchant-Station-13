@@ -55,6 +55,7 @@
 	merge_type = /obj/item/stack/sheet/mineral/reagent
 	amount = 1
 	max_amount = 50
+	material_type = /datum/material/custom
 	var/datum/reagent/reagent_type
 
 

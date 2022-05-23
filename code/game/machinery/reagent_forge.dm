@@ -16,7 +16,8 @@
 	light_range = 5
 	light_power = 1.5
 	light_color = LIGHT_COLOR_FIRE
-	var/datum/reagent/currently_forging//forge one mat at a time
+	var/operation = ""
+	var/datum/reagent/currently_forging //forge one mat at a time
 	var/processing = FALSE
 	var/efficiency = 1
 	var/datum/techweb/stored_research
@@ -57,20 +58,21 @@
 					to_chat(user, "<span class='warning'>The sheet crumbles away into dust, perhaps it was a fake one?</span>")
 					qdel(R)
 					return FALSE
-				materials.user_insert(R, R.amount)
+				materials.user_insert(R, user)
 				to_chat(user, "<span class='notice'>You add [R] to [src]</span>")
 				currently_forging = new R.reagent_type.type
 				return
 
 			if(currently_forging && currently_forging.type && R.reagent_type.type == currently_forging.type)//preventing unnecessary references from being made
 				var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-				materials.user_insert(R, R.amount)
+				materials.user_insert(R, user)
 				to_chat(user, "<span class='notice'>You add [R] to [src]</span>")
 				return
 			else
 				to_chat(user, "<span class='notice'>[currently_forging] is currently being forged, either remove or use it before adding a different material</span>")//if null is currently being forged comes up i'm gonna scree
 				return
-
+	if(currently_forging)
+		desc += "There is currently [currently_forging] inside."
 	else
 		to_chat(user, "<span class='alert'>[src] rejects the [I]</span>")
 
@@ -95,7 +97,7 @@
 		return TRUE
 
 
-/obj/machinery/reagent_forge/proc/create_product(datum/design/D, amount, mob/user)
+/obj/machinery/reagent_forge/proc/create_product(datum/design/forge/D, amount, mob/user)
 	if(!loc)
 		return FALSE
 
@@ -123,53 +125,23 @@
 	update_icon()
 	return .
 
-
-/obj/machinery/reagent_forge/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "chem_reagent_forge", name, 400, 570, master_ui, state)
-		ui.open()
-
-
-/obj/machinery/reagent_forge/ui_data(mob/user)
-	var/list/listofrecipes = list()
-	var/list/data = list()
-	var/lowest_cost = 1
-
-	for(var/v in stored_research.researched_designs)
-		var/datum/design/forge/D = SSresearch.techweb_design_by_id(v)
-		var/md5name = md5(D.name)
-		var/cost = D.materials[MAT_REAGENT]*efficiency
-		if(!listofrecipes[md5name])
-			listofrecipes[md5name] = list("name" = D.name, "category" = D.category[2], "cost" = cost)
-			if(cost < lowest_cost)
-				lowest_cost = cost
-	sortList(listofrecipes)
-
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	data["recipes"] = listofrecipes
-	data["currently_forging"] = currently_forging ? currently_forging : "Nothing"
-	data["material_amount"] = materials.get_item_material_amount(MAT_REAGENT)
-	data["can_afford"] = check_cost(lowest_cost, FALSE)
-	return data
-
-
-/obj/machinery/reagent_forge/ui_act(action, params)
+/obj/machinery/reagent_forge/interact(mob/user, special_state)
 	. = ..()
-	if(.)
-		return
+	var/action = tgui_alert(user, "What do you want to do?","Operate Reagent Forge", list("Create", "Dump"))
 	switch(action)
 		if("Create")
+			var/list/designs_list = typesof(/datum/design/forge)
+			for(var/V in designs_list)
+				var/datum/design/forge/A = V
+			var/choice = input(user, "What do you want to forge?", "Forged Weapon Type") as null|anything in designs_list
+			if(!choice)
+				return FALSE
 			var/amount = 0
 			amount = input("How many?", "How many would you like to forge?", 1) as null|num
 			if(amount <= 0)
 				return FALSE
-
-			for(var/v in stored_research.researched_designs)
-				var/datum/design/forge/D = SSresearch.techweb_design_by_id(v)
-				if(D.name == params["name"])
-					create_product(D, amount, usr)
-					return TRUE
+			create_product(choice, amount, usr)
+			return TRUE
 
 		if("Dump")
 			if(currently_forging)
@@ -197,4 +169,87 @@
 			currently_forging = null
 			return TRUE
 
-	return FALSE
+
+/obj/machinery/reagent_forge/ui_interact(mob/user)
+	. = ..()
+	if(!user)
+		return
+
+	var/datum/browser/popup = new(user, "reagentforge", "Reagent Forge", 450, 600)
+	if(!(in_range(src, user) || issilicon(user)))
+		popup.close()
+		return
+
+	var/dat = ""
+
+
+
+
+/obj/machinery/reagent_forge/ui_data(mob/user)
+	var/list/listofrecipes = list()
+	var/list/data = list()
+	var/lowest_cost = 1
+
+	for(var/v in stored_research.researched_designs)
+		var/datum/design/forge/D = SSresearch.techweb_design_by_id(v)
+		var/md5name = md5(D.name)
+		var/cost = D.materials[MAT_REAGENT]*efficiency
+		if(!listofrecipes[md5name])
+			listofrecipes[md5name] = list("name" = D.name, "category" = D.category[2], "cost" = cost)
+			if(cost < lowest_cost)
+				lowest_cost = cost
+	sortList(listofrecipes)
+
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	data["recipes"] = listofrecipes
+	data["currently_forging"] = currently_forging ? currently_forging : "Nothing"
+	data["material_amount"] = materials.get_item_material_amount(MAT_REAGENT)
+	data["can_afford"] = check_cost(lowest_cost, FALSE)
+	return data
+
+
+/*/obj/machinery/reagent_forge/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
+	switch(action)
+		if("Create")
+			var/amount = 0
+			amount = input("How many?", "How many would you like to forge?", 1) as null|num
+			if(amount <= 0)
+				return FALSE
+			var/datum/design/forge/D = SSresearch.techweb_design_by_id(v)
+			var/list/designs_list = typesof(/datum/design/forge)
+			for(var/V in designs_list)
+				var/
+			if(D.name == params["name"])
+				create_product(D, amount, usr)
+				return TRUE
+
+		if("Dump")
+			if(currently_forging)
+				var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+				var/amount = materials.get_item_material_amount(MAT_REAGENT)
+				if(amount > 0)
+					var/list/materials_used = list(MAT_REAGENT=amount)
+					materials.use_materials(materials_used)
+					var/obj/item/stack/sheet/mineral/reagent/RS = new(get_turf(usr))
+					RS.amount = materials.amount2sheet(amount)
+					var/paths = subtypesof(/datum/reagent)//one reference per stack
+
+					for(var/path in paths)
+						var/datum/reagent/RR = new path
+						if(RR.type == currently_forging.type)
+							RS.reagent_type = RR
+							RS.name = "[RR.name] ingots"
+							RS.singular_name = "[RR.name] ingot"
+							RS.add_atom_colour(RR.color, FIXED_COLOUR_PRIORITY)
+							to_chat(usr, "<span class='notice'>You remove the [RS.name] from [src]</span>")
+							break
+						else
+							qdel(RR)
+			qdel(currently_forging)
+			currently_forging = null
+			return TRUE
+
+	return FALSE*/

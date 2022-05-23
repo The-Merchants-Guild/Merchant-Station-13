@@ -1232,6 +1232,17 @@
 	time = 5 SECONDS
 	category = CAT_ROBOT
 
+/datum/crafting_recipe/lockerflamethrower
+	name = "Modified Flamethrower"
+	result = /obj/item/mecha_parts/mecha_equipment/flamethrower
+	reqs = list(/obj/item/flamethrower,
+				/obj/item/stack/rods = 4,
+				/obj/item/stack/cable_coil = 5)
+	tool_behaviors =  list(TOOL_SCREWDRIVER)
+	time = 5 SECONDS
+	category = CAT_ROBOT
+
+
 /datum/crafting_recipe/lockermechvolverammo
 	name = "Makeshift mech revolver ammo packet for .357"
 	result = /obj/item/mecha_ammo/mech_revolver

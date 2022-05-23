@@ -3,4 +3,3 @@
 #If SQL-based mentors loading is enabled, mentors listed here will always be loaded first and will override any duplicate entries in the database.
 
 #your_ckey = Mentor
-Chloral Hydrate = Mentor

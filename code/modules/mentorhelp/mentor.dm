@@ -62,7 +62,7 @@ GLOBAL_PROTECT(mentor_href_token)
 		message_admins("Failed to connect to database while loading mentors. Loading from backup.")
 		log_sql("Failed to connect to database while loading mentors. Loading from backup.")
 		dbfail = 1
-	//clear the datums references
+	//Clear the datums references
 	GLOB.mentor_datums.Cut()
 	for(var/client/C in GLOB.mentors)
 		C.remove_mentor_verbs()
@@ -74,34 +74,29 @@ GLOBAL_PROTECT(mentor_href_token)
 	while(mentors_regex.Find(mentors_text))
 		new /datum/mentors(mentors_regex.group[1])
 	if(!CONFIG_GET(flag/mentor_legacy_system) || dbfail)
-		var/datum/db_query/query_load_mentors = SSdbcore.NewQuery("SELECT `ckey`, FROM [format_table_name("mentor")]")
+		var/datum/db_query/query_load_mentors = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor")] ORDER BY ckey")
 		if(!query_load_mentors.Execute())
 			message_admins("Error loading mentors from database. Loading from backup.")
 			log_sql("Error loading mentors from database. Loading from backup.")
 			dbfail = 1
 		else
 			while(query_load_mentors.NextRow())
-				var/mentor_ckey = ckey(query_load_mentors)
+				var/mentor_ckey = ckey(query_load_mentors.item[1])
 				var/skip
 				if(GLOB.mentor_datums[mentor_ckey])
 					skip = 1
 				if(!skip)
 					new /datum/mentors(mentor_ckey)
 		qdel(query_load_mentors)
-	//load mentors from backup file
-	if(dbfail)
-		var/backup_file = file2text("data/mentors_backup.json")
-		if(backup_file == null)
-			log_world("Unable to locate mentors backup file.")
-			return
-		for(var/J in backup_file["mentors"])
-			var/skip
-			for(var/M in GLOB.mentor_datums)
-				if(M == "[J]") //this mentor was already loaded from txt override
-					skip = TRUE
-			if(skip)
-				continue
-			new /datum/mentors(ckey("[J]"))
+
+	#ifdef TESTING
+	var/msg = "Mentors Built:\n"
+	for(var/ckey in GLOB.mentor_datums)
+		var/datum/mentors/M = GLOB.mentor_datums[ckey]
+		msg += "\t[ckey] - MENTOR\n"
+	testing(msg)
+	#endif
+
 /datum/mentors/proc/disassociate()
 	if(owner)
 		GLOB.mentors -= owner

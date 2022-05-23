@@ -1,0 +1,6 @@
+#List users here to be made mentors with the format: ckey = mentor.
+#Ckey will be converted to ckey format, lowercase with no punctuation except '@'.
+#If SQL-based mentors loading is enabled, mentors listed here will always be loaded first and will override any duplicate entries in the database.
+
+#your_ckey = Mentor
+Chloral Hydrate = Mentor

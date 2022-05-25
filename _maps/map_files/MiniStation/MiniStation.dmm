@@ -4763,7 +4763,8 @@
 /area/science/research)
 "ty" = (
 /obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
-	dir = 1
+	dir = 1;
+	piping_layer = 2
 	},
 /turf/open/floor/iron,
 /area/engineering/main)
@@ -6055,7 +6056,9 @@
 /turf/open/floor/iron,
 /area/engineering/main)
 "yF" = (
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engineering/main)
 "yG" = (
@@ -9891,7 +9894,6 @@
 	},
 /obj/effect/turf_decal/tile/purple,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/machinery/plumbing/layer_manifold,
 /turf/open/floor/iron/white,
 /area/science/research)
 "NU" = (
@@ -10074,7 +10076,9 @@
 /turf/open/floor/iron,
 /area/cargo/storage)
 "Ox" = (
-/obj/machinery/atmospherics/components/unary/thermomachine/heater,
+/obj/machinery/atmospherics/components/unary/thermomachine/heater{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engineering/main)
 "Oy" = (

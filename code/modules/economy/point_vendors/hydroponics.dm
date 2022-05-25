@@ -1,4 +1,4 @@
-/obj/machinery/point_vendor/hydroseeds
+/obj/machinery/point_vendor/hydroponics
 	name = "\improper MegaSneed Servitor"
 	desc = "When you need seeds fast!"
 	icon_state = "seeds"

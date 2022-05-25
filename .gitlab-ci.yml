@@ -1,11 +1,106 @@
-build:
-    stage: build
-    rules:
-      - if: $CI_MERGE_REQUEST_IID || $CI_COMMIT_REF_NAME == "master"
-        changes:
-          - tgui/**/*.js
-          - tgui/**/*.scss
-        when: always
-    image: node:lts
-    script:
-        - tgui/bin/tgui --ci
+stages:
+  - setup
+  - linting
+  - build
+  - testing
+services:
+  - mariadb:10.6
+variables:
+  MARIADB_ROOT_PASSWORD: root
+
+Setup Database:
+  stage: setup
+  image: mysql:latest
+  rules:
+    - if: $CI_MERGE_REQUEST_IID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  script:
+    - mysql -hmariadb -uroot -proot -e 'CREATE DATABASE tg_ci;'
+    - mysql -hmariadb -uroot -proot tg_ci < SQL/tgstation_schema.sql
+    - mysql -hmariadb -uroot -proot -e 'CREATE DATABASE tg_ci_prefixed;'
+    - mysql -hmariadb -uroot -proot tg_ci_prefixed < SQL/tgstation_schema_prefixed.sql
+
+Run Linters:
+  stage: linting
+  image: node:lts
+  rules:
+    - if: $CI_MERGE_REQUEST_IID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  script:
+    - apt-get update
+    - apt-get install -y jq php-cli python3 python3-pip python3-venv python3-yaml
+    - tools/ci/install_spaceman_dmm.sh dreamchecker
+    - tools/bootstrap/python -c ''
+    - tools/ci/check_filedirs.sh tgstation.dme
+    - tools/ci/check_changelogs.sh
+    - find . -name "*.php" -print0 | xargs -0 -n1 php -l
+    - find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/json_verifier.py
+    - tgui/bin/tgui --lint
+    - tgui/bin/tgui --test
+    - tools/ci/check_grep.sh
+    - tools/bootstrap/python -m dmi.test
+    - tools/bootstrap/python -m mapmerge2.dmm_test
+    - ~/dreamchecker 2>&1 | tee output-annotations.txt
+  needs: []
+  artifacts:
+    paths:
+      - output-annotations.txt
+
+Compile Codebase:
+  stage: build
+  image: node:lts
+  rules:
+    - if: $CI_MERGE_REQUEST_IID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  script:
+    - dpkg --add-architecture i386
+    - apt-get update
+    - apt-get install -y libstdc++6:i386 libssl1.1:i386
+    - tools/ci/install_byond.sh
+    - source $HOME/BYOND/byond/bin/byondsetup
+    - tools/build/build -DCIBUILDING
+  needs: []
+  artifacts:
+    paths:
+      - tgstation.dmb
+      - tgstation.rsc
+      - _maps/
+      - icons/runtime/
+      - sound/runtime/
+      - strings/
+      - tgui/public/
+      - tgui/packages/tgfont/dist/
+
+Compile Maps:
+  stage: build
+  image: node:lts
+  rules:
+    - if: $CI_MERGE_REQUEST_IID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      changes:
+      - "**/*.dmm"
+  script:
+    - dpkg --add-architecture i386
+    - apt-get update
+    - apt-get install -y python3 libstdc++6:i386 libssl1.1:i386
+    - tools/ci/install_byond.sh
+    - source $HOME/BYOND/byond/bin/byondsetup
+    - python3 tools/ci/template_dm_generator.py
+    - tools/build/build dm -DCIBUILDING -DCITESTING -DALL_MAPS
+  needs: []
+
+Run Tests:
+  stage: testing
+  image: ubuntu:20.04
+  rules:
+    - if: $CI_MERGE_REQUEST_IID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  script:
+    - dpkg --add-architecture i386
+    - apt-get update
+    - apt-get install -y make unzip curl wget libstdc++6:i386 libssl1.1:i386 zlib1g:i386
+    - tools/ci/install_byond.sh
+    - source $HOME/BYOND/byond/bin/byondsetup
+    - tools/ci/install_rust_g.sh
+    - tools/ci/run_server.sh
+  needs:
+    - Setup Database
+    - Compile Codebase
+  artifacts:
+    paths:
+      - ci_test/

@@ -167,6 +167,10 @@
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/timestop
 	category = "Defensive"
 
+/datum/spellbook_entry/cluwnecurse
+	name = "Cluwne Curse"
+	spell_type = /obj/effect/proc_holder/spell/targeted/cluwnecurse
+
 /datum/spellbook_entry/smoke
 	name = "Smoke"
 	desc = "Spawns a cloud of choking smoke at your location."

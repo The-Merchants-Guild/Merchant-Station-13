@@ -66,7 +66,7 @@
 			user.visible_message("<span class='notice'>[user] is repairing [src].</span>", \
 							"<span class='notice'>You begin repairing [src]...</span>", \
 							"<span class='hear'>You hear welding.</span>")
-			if(O.use_tool(src, user, 40, volume=50))
+			if(O.use_tool(src, user, volume=50))
 				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")

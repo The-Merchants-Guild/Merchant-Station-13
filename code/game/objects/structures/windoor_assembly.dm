@@ -99,7 +99,7 @@
 				user.visible_message(span_notice("[user] disassembles the windoor assembly."),
 					span_notice("You start to disassemble the windoor assembly..."))
 
-				if(W.use_tool(src, user, 40, volume=50))
+				if(W.use_tool(src, user, volume=50))
 					to_chat(user, span_notice("You disassemble the windoor assembly."))
 					var/obj/item/stack/sheet/rglass/RG = new (get_turf(src), 5)
 					RG.add_fingerprint(user)
@@ -118,7 +118,7 @@
 				user.visible_message(span_notice("[user] secures the windoor assembly to the floor."),
 					span_notice("You start to secure the windoor assembly to the floor..."))
 
-				if(W.use_tool(src, user, 40, volume=100))
+				if(W.use_tool(src, user, volume=100))
 					if(anchored)
 						return
 					for(var/obj/machinery/door/window/WD in loc)
@@ -137,7 +137,7 @@
 				user.visible_message(span_notice("[user] unsecures the windoor assembly to the floor."),
 					span_notice("You start to unsecure the windoor assembly to the floor..."))
 
-				if(W.use_tool(src, user, 40, volume=100))
+				if(W.use_tool(src, user, volume=100))
 					if(!anchored)
 						return
 					to_chat(user, span_notice("You unsecure the windoor assembly."))
@@ -193,7 +193,7 @@
 			if(W.tool_behaviour == TOOL_WIRECUTTER)
 				user.visible_message(span_notice("[user] cuts the wires from the airlock assembly."), span_notice("You start to cut the wires from airlock assembly..."))
 
-				if(W.use_tool(src, user, 40, volume=100))
+				if(W.use_tool(src, user, volume=100))
 					if(state != "02")
 						return
 
@@ -231,7 +231,7 @@
 				user.visible_message(span_notice("[user] removes the electronics from the airlock assembly."),
 					span_notice("You start to uninstall electronics from the airlock assembly..."))
 
-				if(W.use_tool(src, user, 40, volume=100) && electronics)
+				if(W.use_tool(src, user, volume=100) && electronics)
 					to_chat(user, span_notice("You remove the airlock electronics."))
 					name = "wired windoor assembly"
 					var/obj/item/electronics/airlock/ae
@@ -259,7 +259,7 @@
 				user.visible_message(span_notice("[user] pries the windoor into the frame."),
 					span_notice("You start prying the windoor into the frame..."))
 
-				if(W.use_tool(src, user, 40, volume=100) && electronics)
+				if(W.use_tool(src, user, volume=100) && electronics)
 
 					set_density(TRUE) //Shouldn't matter but just incase
 					to_chat(user, span_notice("You finish the windoor."))

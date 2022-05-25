@@ -212,14 +212,14 @@
 	keyslots = list()
 
 /obj/item/radio/headset/headset_cent/commander
-	keyslots = list(new /obj/item/encryptionkey/heads/captain)
+	keyslots = list(new /obj/item/encryptionkey/heads/captain, new /obj/item/encryptionkey/headset_cent)
 
 /obj/item/radio/headset/headset_cent/alt
 	name = "\improper CentCom bowman headset"
 	desc = "A headset especially for emergency response personnel. Protects ears from flashbangs."
 	icon_state = "cent_headset_alt"
 	inhand_icon_state = "cent_headset_alt"
-	keyslots = list()
+	keyslots = list(new /obj/item/encryptionkey/headset_cent)
 
 /obj/item/radio/headset/headset_cent/alt/ComponentInitialize()
 	. = ..()

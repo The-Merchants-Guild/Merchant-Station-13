@@ -1,0 +1,84 @@
+2022-05-02:
+  EtraIV:
+  - rscadd: Overhaul GitLab CI scripts, now has full functionality of GitHub CI suite
+  - config: Changed CI test server config for GitLab CI
+  karmaisblackandbluepilled:
+  - rscadd: Replica Pods added to megaseed vendor.
+2022-05-03:
+  EtraIV:
+  - rscadd: Added MariaDB TLS support
+  - bugfix: update rust-g version for CI
+2022-05-06:
+  EtraIV:
+  - tgs: Revert hard restart code to integrate with TGS
+  - tgs: Use DNF instead of Apt for TGS4 precompile scripts
+  - server: Updates Node LTS again to latest version
+2022-05-07:
+  EtraIV:
+  - bugfix: Fixes changelog YAML error I accidentally committed in.
+  - rscadd: Automatic changelog compilation.
+  MACIEKBAKI:
+  - rscadd: Station surgeons have finally been trained in the insertion and removal
+      of leg-inserted cybernetic implants.
+2022-05-08:
+  EtraIV:
+  - imageadd: Replaced mailman uniform sprites.
+2022-05-10:
+  EtraIV:
+  - bugfix: Changelogs work again
+2022-05-14:
+  EtraIV:
+  - config: Changed config URLs to use merchant station links
+2022-05-15:
+  AcapitalA:
+  - rscadd: Shotgun shells and slugs can now be printed from hacked autolathes again.
+  - bugfix: Deltastation now has a DNA manipulator again.
+  averagejoe22:
+  - tweak: All deathmatch maps now only require 2 players to start
+2022-05-17:
+  karmaisblackandbluepilled:
+  - rscadd: The Roundend is having a mental breakdown, as evidenced by this new sound
+      it makes sometimes.
+2022-05-18:
+  EtraIV:
+  - rscadd: Operating computers can link to stasis beds again.
+  karmaisblackandbluepilled:
+  - balance: Nanotrasen finally added the muscle upgrades that lets all of the crewmembers
+      use tools faster! Not welding tools though.
+2022-05-19:
+  EtraIV:
+  - bugfix: Fixed the discord button for dark theme
+  - balance: He does it for free
+  Salex08:
+  - bugfix: fixed you are able to feed reproductive extracts with biobags again
+  karmaisblackandbluepilled:
+  - balance: Stabilizing TaTP and Nitroglycerin now uses normal stabilizing agent
+      once more.
+  - bugfix: Fixed welding emitters and mining delays.
+  - rscadd: Fire extinguishers now have a handy dandy refilling nozzle that works
+      with beakers or whatever small container you can think of.
+  - rscadd: Gremlins have somehow managed to get into the vents of certain stations.
+      Watch out for malfunctions!
+  - rscadd: Evil and dark rituals from the Clown Planet unleashed the damned Floor
+      Cluwnes upon the world.
+  - rscadd: Disgusting wizards have learned to harness the power of the Cluwnes with
+      a curse.
+2022-05-20:
+  karmaisblackandbluepilled:
+  - rscadd: Biogenerators can now finally produce strange seeds for the low low cost
+      of...SIX HUNDRED BIOMASS?
+2022-05-21:
+  EtraIV:
+  - balance: The singulo can now be used for power generation again
+  karmaisblackandbluepilled:
+  - balance: Nullcrate production is in FULL swing. They are way easier to get now!
+2022-05-22:
+  EtraIV:
+  - bugfix: Fixes automatic viewport fitting
+  trollertroll:
+  - rscadd: Well well, Look at the city slicker pulling up in his fancy German car
+  xDyouGamer:
+  - rscdel: Removed portable pump pressure and heat limit
+2022-05-23:
+  TheChosenEvilOne:
+  - bugfix: Deathmatch now properly cleans up special statuses and such from players.

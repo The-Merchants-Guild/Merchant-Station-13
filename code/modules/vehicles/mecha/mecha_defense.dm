@@ -309,13 +309,13 @@
 		return
 	. = TRUE
 	if(internal_damage & MECHA_INT_TANK_BREACH)
-		if(!W.use_tool(src, user, 0, volume=50, amount=1))
+		if(!W.use_tool(src, user, volume=50, amount=1))
 			return
 		clear_internal_damage(MECHA_INT_TANK_BREACH)
 		to_chat(user, span_notice("You repair the damaged gas tank."))
 		return
 	if(obj_integrity < max_integrity)
-		if(!W.use_tool(src, user, 0, volume=50, amount=1))
+		if(!W.use_tool(src, user, volume=50, amount=1))
 			return
 		user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [src]."))
 		obj_integrity += min(10, max_integrity-obj_integrity)

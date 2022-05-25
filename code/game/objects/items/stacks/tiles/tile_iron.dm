@@ -71,7 +71,7 @@
 		if(get_amount() < 4)
 			to_chat(user, span_warning("You need at least four tiles to do this!"))
 			return
-		if(W.use_tool(src, user, 0, volume=40))
+		if(W.use_tool(src, user, volume=40))
 			var/obj/item/stack/sheet/iron/new_item = new(user.loc)
 			user.visible_message(span_notice("[user] shaped [src] into [new_item] with [W]."), \
 				span_notice("You shaped [src] into [new_item] with [W]."), \

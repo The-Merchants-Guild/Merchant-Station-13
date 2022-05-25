@@ -2140,6 +2140,7 @@
 #include "code\modules\economy\pay_stand.dm"
 #include "code\modules\economy\point_vendor.dm"
 #include "code\modules\economy\point_vendors\engineering.dm"
+#include "code\modules\economy\point_vendors\hydroponics.dm"
 #include "code\modules\economy\point_vendors\medical.dm"
 #include "code\modules\economy\point_vendors\security.dm"
 #include "code\modules\emoji\emoji_parse.dm"

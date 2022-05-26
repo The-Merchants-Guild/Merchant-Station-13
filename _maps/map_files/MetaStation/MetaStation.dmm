@@ -32149,14 +32149,12 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "iBF" = (
-/obj/machinery/vending/hydroseeds{
-	slogan_delay = 700
-	},
 /obj/structure/noticeboard/directional/north,
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/point_vendor/hydroponics,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "iBZ" = (

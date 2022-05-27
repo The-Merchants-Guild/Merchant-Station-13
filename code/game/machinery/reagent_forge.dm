@@ -21,6 +21,7 @@
 	var/processing = FALSE
 	var/efficiency = 1
 	var/datum/techweb/stored_research
+	var/list/currently_using = list()
 
 /datum/techweb/specialized/autounlocking/reagent_forge
 	design_autounlock_buildtypes = REAGENT_FORGE
@@ -28,10 +29,10 @@
 
 /obj/machinery/reagent_forge/Initialize()
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_REAGENT), 200000)
+	AddComponent(/datum/component/material_container, list(/datum/material/custom), 200000, MATCONTAINER_EXAMINE, _after_insert = CALLBACK(src, .proc/AfterMaterialInsert))
 	stored_research = new /datum/techweb/specialized/autounlocking/reagent_forge
 
-/obj/machinery/reagent_forge/attackby(obj/item/I, mob/living/carbon/human/user)
+/obj/machinery/reagent_forge/attackby(obj/item/stack/sheet/mineral/reagent/I, mob/living/carbon/human/user)
 
 	if(user.combat_mode)
 		return ..()
@@ -58,14 +59,15 @@
 					to_chat(user, "<span class='warning'>The sheet crumbles away into dust, perhaps it was a fake one?</span>")
 					qdel(R)
 					return FALSE
-				materials.user_insert(R, user)
+				for()
+					materials.user_insert(R, user, R.amount)
 				to_chat(user, "<span class='notice'>You add [R] to [src]</span>")
 				currently_forging = new R.reagent_type.type
 				return
 
 			if(currently_forging && currently_forging.type && R.reagent_type.type == currently_forging.type)//preventing unnecessary references from being made
 				var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-				materials.user_insert(R, user)
+				materials.user_insert(R, user, R.amount)
 				to_chat(user, "<span class='notice'>You add [R] to [src]</span>")
 				return
 			else
@@ -77,32 +79,20 @@
 		to_chat(user, "<span class='alert'>[src] rejects the [I]</span>")
 
 
-/obj/machinery/reagent_forge/proc/check_cost(materials, using)
-	var/datum/component/material_container/ourmaterials = GetComponent(/datum/component/material_container)
-
-	if(!ourmaterials.has_materials(MAT_REAGENT))
-		qdel(currently_forging)
-		currently_forging = null
-		return FALSE
-
-	if(!materials)
-		return FALSE
-
-	if(materials*efficiency > ourmaterials.get_item_material_amount(MAT_REAGENT))
-		return FALSE
-	else
-		if(using)
-			var/list/materials_used = list(MAT_REAGENT=materials*efficiency)
-			ourmaterials.use_materials(materials_used)
-		return TRUE
-
-
 /obj/machinery/reagent_forge/proc/create_product(datum/design/forge/D, amount, mob/user)
+	var/datum/component/material_container/ourmaterials = GetComponent(/datum/component/material_container)
 	if(!loc)
 		return FALSE
+	var/amount_needed = D.materials[/datum/material/custom]
+	to_chat(world, "<span class='boldannounce'>[amount_needed]")
+	if(ourmaterials.has_materials(amount_needed))
+		to_chat(world, span_boldannounce("WORKIES........"))
+	else
+		to_chat(world, span_boldannounce("no WORKIES........"))
 
 	for(var/i in 1 to amount)
-		if(!check_cost(D.materials[MAT_REAGENT], TRUE))
+		to_chat(world, "<span class='boldannounce'>[check_cost(D.materials, TRUE)]")
+		if(!check_cost(D.materials, TRUE))
 			visible_message("<span class='warning'>The low material indicator flashes on [src]!</span>")
 			playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
 			return FALSE
@@ -130,17 +120,21 @@
 	var/action = tgui_alert(user, "What do you want to do?","Operate Reagent Forge", list("Create", "Dump"))
 	switch(action)
 		if("Create")
+			var/datum/design/forge/poopie
 			var/list/designs_list = typesof(/datum/design/forge)
 			for(var/V in designs_list)
 				var/datum/design/forge/A = V
-			var/choice = input(user, "What do you want to forge?", "Forged Weapon Type") as null|anything in designs_list
-			if(!choice)
+			var/datum/design/forge/choice = input(user, "What do you want to forge?", "Forged Weapon Type") as null|anything in designs_list
+			if(choice)
+				poopie = new choice
+			if(!poopie)
 				return FALSE
 			var/amount = 0
+			to_chat(world, "<span class='boldannounce'>[poopie.name]")
 			amount = input("How many?", "How many would you like to forge?", 1) as null|num
 			if(amount <= 0)
 				return FALSE
-			create_product(choice, amount, usr)
+			create_product(poopie, amount, usr)
 			return TRUE
 
 		if("Dump")

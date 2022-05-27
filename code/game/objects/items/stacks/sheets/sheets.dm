@@ -51,7 +51,7 @@
 	desc = "Ingots made out of treated solidified reagents"
 	singular_name = "reagent ingot"
 	icon_state = "sheet-silver"
-	mats_per_unit = list(MAT_REAGENT=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/custom=MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/mineral/reagent
 	amount = 1
 	max_amount = 50

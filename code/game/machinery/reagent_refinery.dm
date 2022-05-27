@@ -83,7 +83,7 @@
 			RS.add_atom_colour(RR.color, FIXED_COLOUR_PRIORITY)
 			break
 		else
-			qdel(RR)
+			del(RR) //lol
 	QDEL_NULL(working)
 	return
 

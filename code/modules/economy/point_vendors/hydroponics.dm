@@ -52,9 +52,9 @@
 					/obj/item/seeds/glowshroom = list("Glowshroom Seeds", 5, 20, 3, 1 MINUTES),
 					/obj/item/seeds/liberty = list("Liberty Seeds", 5, 20, 3, 1 MINUTES),
 					/obj/item/seeds/nettle = list("Nettle Seeds", 5, 20, 3, 1 MINUTES),
-					/obj/item/seeds/plump = list("Plump Helmet Seeds", 20, 5, 3, 1 MINUTES),
+					/obj/item/seeds/plump = list("Plump Helmet Seeds", 5, 20, 3, 1 MINUTES),
 					/obj/item/seeds/reishi = list("Reishi Seeds", 5, 20, 3, 1 MINUTES),
 					/obj/item/seeds/cannabis = list("Cannabis Seeds", 5, 20, 3, 1 MINUTES),
-					/obj/item/seeds/starthistle = list("Starthistle Seeds", 20, 5, 3, 1 MINUTES),
+					/obj/item/seeds/starthistle = list("Starthistle Seeds", 5, 20, 3, 1 MINUTES),
 					/obj/item/seeds/random = list("Strange Seeds", 5, 20, 3, 1 MINUTES)
 	)

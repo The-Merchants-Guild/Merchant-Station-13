@@ -37,7 +37,6 @@
 /datum/outfit/job/roboticist
 	name = "Roboticist"
 	jobtype = /datum/job/roboticist
-	card_access = /datum/card_access/job/roboticist
 
 	belt = /obj/item/storage/belt/utility/full
 	l_pocket = /obj/item/pda/roboticist
@@ -53,3 +52,5 @@
 	pda_slot = ITEM_SLOT_LPOCKET
 
 	skillchips = list(/obj/item/skillchip/job/roboticist)
+
+	id_trim = /datum/id_trim/job/roboticist

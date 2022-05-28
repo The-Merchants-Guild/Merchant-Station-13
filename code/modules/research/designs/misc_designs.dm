@@ -292,7 +292,7 @@
 	id = "idcard"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron=200, /datum/material/glass = 100)
-	build_path = /obj/item/card/id
+	build_path = /obj/item/card/id/advanced
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 

@@ -41,7 +41,6 @@
 /datum/outfit/job/clown
 	name = "Clown"
 	jobtype = /datum/job/clown
-	card_access = /datum/card_access/job/clown
 
 	belt = /obj/item/pda/clown
 	ears = /obj/item/radio/headset/headset_srv
@@ -65,6 +64,8 @@
 	box = /obj/item/storage/box/hug/survival
 
 	chameleon_extras = /obj/item/stamp/clown
+
+	id_trim = /datum/id_trim/job/clown
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()

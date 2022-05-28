@@ -451,7 +451,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			msgVerified = "<font color='green'><b>Verified by [ID.registered_name] ([ID.assignment])</b></font>"
 			updateUsrDialog()
 		if(screen == REQ_SCREEN_ANNOUNCE)
-			if (ACCESS_RC_ANNOUNCE in ID.GetAccess())
+			if (ACCESS_RC_ANNOUNCE in ID.access)
 				announceAuth = TRUE
 			else
 				announceAuth = FALSE

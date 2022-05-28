@@ -510,8 +510,7 @@ GLOBAL_LIST_INIT(orion_events, generate_orion_events())
 	mask = /obj/item/clothing/mask/gas
 	head = /obj/item/clothing/head/helmet/swat
 	back = /obj/item/storage/backpack
-	id = /obj/item/card/id/chameleon
-	card_access = /datum/card_access/syndicom
+	id = /obj/item/card/id/advanced/black/syndicate_command
 
 /obj/item/orion_ship
 	name = "model settler ship"

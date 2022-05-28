@@ -225,13 +225,8 @@ GLOBAL_LIST_EMPTY(security_officer_distribution)
 	keyslots = list(new /obj/item/encryptionkey/headset_sec, new /obj/item/encryptionkey/headset_eng)
 
 /obj/item/radio/headset/headset_sec/alt/department/supply
-<<<<<<< HEAD
 	keyslots = list(new /obj/item/encryptionkey/headset_sec, new /obj/item/encryptionkey/headset_cargo)
 
-=======
-	keyslot = new /obj/item/encryptionkey/headset_sec
-	keyslot2 = new /obj/item/encryptionkey/headset_cargo
->>>>>>> parent of c1cf8c66a1 (ID rework (#49))
 /obj/item/radio/headset/headset_sec/alt/department/med
 	keyslots = list(new /obj/item/encryptionkey/headset_sec, new /obj/item/encryptionkey/headset_med)
 

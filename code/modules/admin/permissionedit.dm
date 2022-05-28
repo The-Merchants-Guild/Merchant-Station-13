@@ -213,7 +213,6 @@
 			var/msg = "has authenticated [admin_ckey]"
 			message_admins("[key_name_admin(usr)] [msg]")
 			log_admin("[key_name(usr)] [msg]")
-
 			D.bypass_2fa = TRUE
 			D.associate(GLOB.directory[admin_ckey])
 	edit_admin_permissions()
@@ -544,3 +543,82 @@
 		return
 	qdel(query_sync_lastadminrank)
 	to_chat(usr, span_admin("Sync of [admin_key] successful."), confidential = TRUE)
+
+/datum/admins/proc/add_mentor()
+	var/mentor_key = input("Please input the name of the Mentor you would like to be added", "Mentor key") as text|null
+	var/mentor_ckey = ckey(mentor_key)
+	var/use_db
+	use_db = tgui_alert(usr,"Permanent changes are saved to the database for future rounds, temporary changes will affect only the current round", "Permanent or Temporary?", list("Permanent", "Temporary", "Cancel"))
+	if(use_db == "Cancel")
+		return
+	if(use_db == "Permanent")
+		use_db = TRUE
+	else
+		use_db = FALSE
+	if(!SSdbcore.Connect())
+		use_db = FALSE
+		to_chat(usr, span_danger("Not connected to databse change will be temporarily."), confidential = TRUE)
+	if(mentor_ckey)
+		. = mentor_ckey
+	else
+		mentor_key = input("New mentor's key","Mentor key") as text|null
+		. = ckey(mentor_key)
+	if(!.)
+		return FALSE
+	if(!mentor_ckey && (. in GLOB.mentor_datums))
+		to_chat(usr, span_danger("[mentor_key] is already a mentor."), confidential = TRUE)
+		return FALSE
+	if(use_db)
+		var/datum/db_query/query_mentor_in_db = SSdbcore.NewQuery(
+			"SELECT 1 FROM [format_table_name("mentor")] WHERE ckey = :ckey",
+			list("ckey" = .)
+		)
+		if(!query_mentor_in_db.warn_execute())
+			qdel(query_mentor_in_db)
+			return FALSE
+		if(query_mentor_in_db.NextRow())
+			qdel(query_mentor_in_db)
+			to_chat(usr, span_danger("[mentor_ckey] already listed in mentor database. Check the Mentor tab if they don't appear in the list of mentors."), confidential = TRUE)
+			return FALSE
+		qdel(query_mentor_in_db)
+		var/datum/db_query/query_add_mentor = SSdbcore.NewQuery(
+			"INSERT INTO [format_table_name("mentor")] (ckey) VALUES (:ckey)",
+			list("ckey" = .)
+		)
+		if(!query_add_mentor.warn_execute())
+			qdel(query_add_mentor)
+			return FALSE
+		qdel(query_add_mentor)
+
+/datum/admins/proc/remove_mentor()
+	var/mentor_key = input("Please input the name of the Mentor you would like to be removed", "Mentor key") as text|null
+	var/mentor_ckey = ckey(mentor_key)
+	var/datum/mentors/M = GLOB.mentor_datums[mentor_ckey]
+	var/use_db
+	use_db = tgui_alert(usr,"Permanent changes are saved to the database for future rounds, temporary changes will affect only the current round", "Permanent or Temporary?", list("Permanent", "Temporary", "Cancel"))
+	if(use_db == "Cancel")
+		return
+	if(use_db == "Permanent")
+		use_db = TRUE
+	else
+		use_db = FALSE
+	if(!SSdbcore.Connect())
+		use_db = FALSE
+		to_chat(usr, span_danger("Not connected to databse change will be temporarily."), confidential = TRUE)
+	if(tgui_alert(usr,"Are you sure you want to remove [mentor_ckey]?","Confirm Removal",list("Do it","Cancel")) == "Do it")
+		GLOB.mentor_datums -= mentor_ckey
+		if(M)
+			M.disassociate()
+	var/m1 = "[key_name_admin(usr)] removed [mentor_key] from the mentor list [use_db ? "permanently" : "temporarily"]"
+	var/m2 = "[key_name(usr)] removed [mentor_key] from the mentor list [use_db ? "permanently" : "temporarily"]"
+	if(use_db)
+		var/datum/db_query/query_remove_mentor = SSdbcore.NewQuery(
+			"DELETE FROM [format_table_name("mentor")] WHERE ckey = :ckey",
+			list("ckey" = mentor_ckey)
+		)
+		if(!query_remove_mentor.warn_execute())
+			qdel(query_remove_mentor)
+			return
+		qdel(query_remove_mentor)
+	message_admins(m1)
+	log_admin(m2)

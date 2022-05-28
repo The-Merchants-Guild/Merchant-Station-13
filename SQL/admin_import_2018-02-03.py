@@ -64,6 +64,7 @@ parser.add_argument("address", help="MySQL server address (use localhost for the
 parser.add_argument("username", help="MySQL login username")
 parser.add_argument("password", help="MySQL login username")
 parser.add_argument("database", help="Database name")
+parser.add_argument("mentortable", help="Name of the current mentor table")
 parser.add_argument("admintable", help="Name of the current admin table (remember prefixes if you use them)")
 parser.add_argument("rankstable", help="Name of the current admin ranks (remember prefixes)")
 args = parser.parse_args()
@@ -71,6 +72,7 @@ db=MySQLdb.connect(host=args.address, user=args.username, passwd=args.password, 
 cursor=db.cursor()
 ranks_table = args.rankstable
 admin_table = args.admintable
+mentor_table = args.mentortable
 ckeyExformat = re.sub("@|-|_", " ", string.punctuation)
 with open("..\\config\\admin_ranks.txt") as rank_file:
     previous = 0
@@ -94,6 +96,16 @@ with open("..\\config\\admins.txt") as admins_file:
             ckey = "".join((c for c in matches.group(1) if c not in ckeyformat)).lower()
             rank = "".join((c for c in matches.group(2) if c not in ckeyExformat))
             cursor.execute("INSERT INTO {0} (ckey, rank) VALUES ('{1}', '{2}')".format(admin_table, ckey, rank))
+with open("..\\config\\mentors.txt") as mentors_file:
+    previous = 0
+    ckeyformat = string.punctuation.replace("@", " ")
+    for line in admins_file:
+        if line.strip():
+            if line.startswith("#"):
+                continue
+            matches = re.match("(.+)\\b\\s+=\\s+(.+)", line)
+            ckey = "".join((c for c in matches.group(1) if c not in ckeyformat)).lower()
+            cursor.execute("INSERT INTO {0} (ckey, 'Mentor') VALUES ('{1}', '{2}')".format(mentor_table, ckey, 'Mentor'))
 db.commit()
 cursor.close()
 print("Import complete.")

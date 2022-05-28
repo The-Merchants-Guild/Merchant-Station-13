@@ -17,6 +17,8 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/reestablish_db_connection, /*reattempt a connection to the database*/
 	/client/proc/cmd_admin_pm_context, /*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel, /*admin-pm list*/
+	/client/proc/cmd_add_mentor,
+	/client/proc/cmd_remove_mentor,
 	/client/proc/stop_sounds,
 	/client/proc/mark_datum_mapview,
 	/client/proc/debugstatpanel,
@@ -817,3 +819,21 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set category = "Debug"
 
 	src << link("?debug=profile&type=sendmaps&window=test")
+
+/client/proc/cmd_add_mentor()
+	set category = "Mentor"
+	set name = "Add Mentor"
+	if(!check_rights(R_ADMIN))
+		to_chat(src, "<span class='danger'>Error: Only administrators may use this command.</span>", confidential = TRUE)
+		return
+	usr.client.holder.add_mentor()
+	return
+
+/client/proc/cmd_remove_mentor()
+	set category = "Mentor"
+	set name = "Remove Mentor"
+	if(!check_rights(R_ADMIN))
+		to_chat(src, "<span class='danger'>Error: Only administrators may use this command.</span>", confidential = TRUE)
+		return
+	usr.client.holder.remove_mentor()
+

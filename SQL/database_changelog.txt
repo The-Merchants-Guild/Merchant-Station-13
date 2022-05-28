@@ -9,6 +9,20 @@ INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 15);
 In any query remember to add a prefix to the table names if you use one.
 
 -----------------------------------------------------
+Version 5.16, 22 May 2022, by Salex08
+Added mentor table to the database
+
+```
+CREATE TABLE `mentor` (
+  `ckey` varchar(32) NOT NULL,
+  PRIMARY KEY (`ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+```
+
+-----------------------------------------------------
+
+-----------------------------------------------------
 Version 5.15, 2 June 2021, by Mothblocks
 Added verified admin connection log used for 2FA
 

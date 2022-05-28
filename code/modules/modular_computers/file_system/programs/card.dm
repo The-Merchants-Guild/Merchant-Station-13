@@ -213,7 +213,9 @@
 		data["templates"][A.assignment] = A.type
 	data["regions"] = list()
 	for (var/r in usable_regions)
-		data["regions"][r] = SSid_access.tgui_access_list[r]
+		data["regions"][r] = SSid_access.accesses_by_region[r]
+	data["access_names"] = SSid_access.name_by_access
+	data["access_tiers"] = SSid_access.tiers_by_access
 
 	return data
 

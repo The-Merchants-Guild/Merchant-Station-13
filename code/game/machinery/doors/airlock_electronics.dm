@@ -1,7 +1,6 @@
 /obj/item/electronics/airlock
 	name = "airlock electronics"
 	req_access = list(ACCESS_MAINT_TUNNELS)
-	var/usable_regions = list(REGION_GENERAL,REGION_SECURITY, REGION_MEDBAY, REGION_RESEARCH, REGION_ENGINEERING, REGION_SUPPLY, REGION_COMMAND)
 	/// A list of all granted accesses
 	var/list/accesses = list()
 	/// If the airlock should require ALL or only ONE of the listed accesses
@@ -26,9 +25,13 @@
 
 /obj/item/electronics/airlock/ui_static_data(mob/user)
 	var/list/data = list()
-	data["regions"] = list()
-	for (var/r in usable_regions)
-		data["regions"][r] = SSid_access.tgui_access_list[r]
+
+	// var/list/regions = list()
+	// var/list/tgui_region_data = SSid_access.all_region_access_tgui
+	// for(var/region in SSid_access.station_regions)
+	// 	regions += tgui_region_data[region]
+
+	// data["regions"] = regions
 	return data
 
 /obj/item/electronics/airlock/ui_data()
@@ -48,11 +51,8 @@
 			accesses = list()
 			one_access = 0
 			. = TRUE
-		if("grant_region")
-			accesses |= SSid_access.accesses_by_region[params["region"]]
-			. = TRUE
-		if("deny_region")
-			accesses -= SSid_access.accesses_by_region[params["region"]]
+		if("grant_all")
+			//accesses = SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 			. = TRUE
 		if("one_access")
 			one_access = !one_access

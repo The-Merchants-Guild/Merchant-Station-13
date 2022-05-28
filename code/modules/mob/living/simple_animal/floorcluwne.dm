@@ -43,11 +43,10 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	move_resist = INFINITY
 	hud_type = /datum/hud/ghost
 	hud_possible = list(ANTAG_HUD)
-
+	access_card = new /obj/item/card/id/advanced/centcom
 
 /mob/living/simple_animal/hostile/floor_cluwne/Initialize()
 	. = ..()
-	access_card = new /obj/item/card/id/centcom(src) //btw did you know that before tceos retarded rework you didn't have to do it like this? lol
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	invalid_area_typecache = typecacheof(invalid_area_typecache)
 	Manifest()

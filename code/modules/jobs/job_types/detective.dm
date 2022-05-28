@@ -42,7 +42,6 @@
 /datum/outfit/job/detective
 	name = "Detective"
 	jobtype = /datum/job/detective
-	card_access = /datum/card_access/job/security/detective
 
 	belt = /obj/item/pda/detective
 	ears = /obj/item/radio/headset/headset_sec/alt
@@ -62,6 +61,8 @@
 	implants = list(/obj/item/implant/mindshield)
 
 	chameleon_extras = list(/obj/item/gun/ballistic/revolver/detective, /obj/item/clothing/glasses/sunglasses)
+
+	id_trim = /datum/id_trim/job/detective
 
 /datum/outfit/job/detective/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

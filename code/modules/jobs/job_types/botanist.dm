@@ -33,7 +33,6 @@
 /datum/outfit/job/botanist
 	name = "Botanist"
 	jobtype = /datum/job/botanist
-	card_access = /datum/card_access/job/botanist
 
 	belt = /obj/item/pda/botanist
 	ears = /obj/item/radio/headset/headset_srv
@@ -45,3 +44,5 @@
 	backpack = /obj/item/storage/backpack/botany
 	satchel = /obj/item/storage/backpack/satchel/hyd
 	duffelbag = /obj/item/storage/backpack/duffelbag/hydroponics
+
+	id_trim = /datum/id_trim/job/botanist

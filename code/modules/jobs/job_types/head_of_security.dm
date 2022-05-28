@@ -41,9 +41,8 @@
 /datum/outfit/job/hos
 	name = "Head of Security"
 	jobtype = /datum/job/head_of_security
-	card_access = /datum/card_access/job/security/head_of_security
 
-	id = /obj/item/card/id/tier4
+	id = /obj/item/card/id/advanced/silver
 	belt = /obj/item/pda/heads/hos
 	ears = /obj/item/radio/headset/heads/hos/alt
 	uniform = /obj/item/clothing/under/rank/security/head_of_security
@@ -65,6 +64,8 @@
 	implants = list(/obj/item/implant/mindshield)
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun/hos, /obj/item/stamp/hos)
+
+	id_trim = /datum/id_trim/job/head_of_security
 
 /datum/outfit/job/hos/hardsuit
 	name = "Head of Security (Hardsuit)"

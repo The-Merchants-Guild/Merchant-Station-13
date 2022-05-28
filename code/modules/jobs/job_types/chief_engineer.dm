@@ -49,9 +49,8 @@
 /datum/outfit/job/ce
 	name = "Chief Engineer"
 	jobtype = /datum/job/chief_engineer
-	card_access = /datum/card_access/job/chief_engineer
 
-	id = /obj/item/card/id/tier4
+	id = /obj/item/card/id/advanced/silver
 	belt = /obj/item/storage/belt/utility/chief/full
 	l_pocket = /obj/item/pda/heads/ce
 	ears = /obj/item/radio/headset/heads/ce
@@ -69,6 +68,8 @@
 	chameleon_extras = /obj/item/stamp/ce
 
 	skillchips = list(/obj/item/skillchip/job/engineer)
+
+	id_trim = /datum/id_trim/job/chief_engineer
 
 /datum/outfit/job/ce/rig
 	name = "Chief Engineer (Hardsuit)"

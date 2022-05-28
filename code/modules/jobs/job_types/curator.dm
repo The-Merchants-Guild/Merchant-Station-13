@@ -26,7 +26,6 @@
 /datum/outfit/job/curator
 	name = "Curator"
 	jobtype = /datum/job/curator
-	card_access = /datum/card_access/job/curator
 
 	shoes = /obj/item/clothing/shoes/laceup
 	belt = /obj/item/pda/curator
@@ -41,6 +40,8 @@
 		/obj/item/soapstone = 1,
 		/obj/item/barcodescanner = 1
 	)
+
+	id_trim = /datum/id_trim/job/curator
 
 /datum/outfit/job/curator/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

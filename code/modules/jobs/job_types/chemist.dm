@@ -35,7 +35,6 @@
 /datum/outfit/job/chemist
 	name = "Chemist"
 	jobtype = /datum/job/chemist
-	card_access = /datum/card_access/job/chemist
 
 	glasses = /obj/item/clothing/glasses/science
 	belt = /obj/item/pda/chemist
@@ -51,3 +50,5 @@
 	box = /obj/item/storage/box/survival/medical
 
 	chameleon_extras = /obj/item/gun/syringe
+
+	id_trim = /datum/id_trim/job/chemist

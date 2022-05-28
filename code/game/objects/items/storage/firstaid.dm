@@ -258,7 +258,7 @@
 	icon_state = "radfirstaid"
 	inhand_icon_state = "firstaid-rad"
 
-/obj/item/storage/firstaid/PopulateContents()
+/obj/item/storage/firstaid/advanced/PopulateContents()
 	if(empty)
 		return
 	var/static/items_inside = list(

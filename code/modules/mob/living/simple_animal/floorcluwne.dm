@@ -43,10 +43,11 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	move_resist = INFINITY
 	hud_type = /datum/hud/ghost
 	hud_possible = list(ANTAG_HUD)
-	access_card = new /obj/item/card/id/advanced/centcom
+	access_card = new /obj/item/card/id
 
 /mob/living/simple_animal/hostile/floor_cluwne/Initialize()
 	. = ..()
+	access_card.trim = /datum/id_trim/admin //THERE IS NO ESCAPE
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	invalid_area_typecache = typecacheof(invalid_area_typecache)
 	Manifest()

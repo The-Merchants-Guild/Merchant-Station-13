@@ -659,8 +659,6 @@
 
 /obj/item/card/id/mining
 	name = "mining ID"
-	access_tier = 2
-	card_access = /datum/card_access/job/shaft_miner/spare
 
 /obj/item/card/id/highlander
 	name = "highlander ID"

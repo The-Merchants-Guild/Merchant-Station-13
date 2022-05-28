@@ -106,7 +106,7 @@
 	var/access_tier = 0
 
 	/// How many additional access chips can this ID card have?
-	var/chip_slots = 0
+	var/chip_slots = 2
 
 	/// List of installed additional access chips.
 	var/list/chips = list()
@@ -123,6 +123,7 @@
 		SSid_access.apply_card_access(src, card_access, force = TRUE)
 
 	update_label()
+	update_icon()
 
 	RegisterSignal(src, COMSIG_ATOM_UPDATED_ICON, .proc/update_in_wallet)
 
@@ -139,14 +140,14 @@
 
 /obj/item/card/id/update_overlays()
 	. = ..()
-	if (chip_slots)
-		. += "chip[min(chips.len, 2)]"
-		cached_flat_icon = null
+
+	cached_flat_icon = null
 
 /// If no cached_flat_icon exists, this proc creates it and crops it. This proc then returns the cached_flat_icon. Intended only for use displaying ID card icons in chat.
 /obj/item/card/id/proc/get_cached_flat_icon()
 	if(!cached_flat_icon)
 		cached_flat_icon = getFlatIcon(src)
+		cached_flat_icon.Crop(ID_ICON_BORDERS)
 	return cached_flat_icon
 
 /obj/item/card/id/get_examine_string(mob/user, thats = FALSE)
@@ -211,6 +212,7 @@
 		switch(var_name)
 			if(NAMEOF(src, assignment), NAMEOF(src, registered_name), NAMEOF(src, registered_age))
 				update_label()
+				update_icon()
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rupee))
@@ -232,13 +234,11 @@
 		else
 			to_chat(user, span_notice("You slot the [W] into the ID card."))
 			apply_access_chip(W)
-			update_appearance(UPDATE_OVERLAYS)
 		return
 	else if (W.tool_behaviour == TOOL_SCREWDRIVER && chips.len)
 		var/chip = chips[chips.len]
 		to_chat(user, span_notice("You remove [chip] from the card."))
 		remove_access_chip(chip) // remove last in list
-		update_appearance(UPDATE_OVERLAYS)
 		return
 	else
 		return ..()
@@ -451,34 +451,32 @@
 /obj/item/card/id/tier1
 	icon = 'icons/obj/new_id.dmi'
 	icon_state = "tier1"
-	chip_slots = 2
 	access_tier = 1
 
 /obj/item/card/id/tier2
 	icon = 'icons/obj/new_id.dmi'
 	icon_state = "tier2"
-	chip_slots = 2
 	access_tier = 2
 
 /obj/item/card/id/tier3
 	icon = 'icons/obj/new_id.dmi'
 	icon_state = "tier3"
-	chip_slots = 2
 	access_tier = 3
 
 /obj/item/card/id/tier4
 	icon = 'icons/obj/new_id.dmi'
 	icon_state = "tier4"
-	chip_slots = 2
 	access_tier = 4
 
 /obj/item/card/id/tier5
-	name = "gold identification card"
-	desc = "A golden card which shows power and might."
 	icon = 'icons/obj/new_id.dmi'
 	icon_state = "tier5"
-	chip_slots = 2
+	name = "gold identification card"
+	desc = "A golden card which shows power and might."
 	access_tier = 5
+
+/obj/item/card/id/tier6
+	access_tier = 6
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
@@ -569,6 +567,7 @@
 /obj/item/card/id/tier5/captains_spare/update_label() //so it doesn't change to Captain's ID card (Captain) on a sneeze
 	if(registered_name == "Captain")
 		name = "[initial(name)][(!assignment || assignment == "Captain") ? "" : " ([assignment])"]"
+		update_appearance(UPDATE_ICON)
 	else
 		..()
 

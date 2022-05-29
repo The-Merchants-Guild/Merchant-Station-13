@@ -86,7 +86,7 @@ CREATE TABLE `ban` (
   `role` VARCHAR(32) NULL DEFAULT NULL,
   `expiration_time` DATETIME NULL DEFAULT NULL,
   `applies_to_admins` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',
-  `reason` VARCHAR(2048) NOT NULL,
+  `reason` TEXT NOT NULL,
   `ckey` VARCHAR(32) NULL DEFAULT NULL,
   `ip` INT(10) UNSIGNED NULL DEFAULT NULL,
   `computerid` VARCHAR(32) NULL DEFAULT NULL,
@@ -206,7 +206,7 @@ CREATE TABLE `feedback` (
   `version` tinyint(3) unsigned NOT NULL,
   `json` json NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=ROCKSDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

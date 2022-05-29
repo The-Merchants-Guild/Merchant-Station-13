@@ -5,8 +5,9 @@
 	var/opendoors = TRUE
 	var/leader_role = /datum/antagonist/ert/commander
 	var/enforce_human = TRUE
-	var/roles = list(/datum/antagonist/ert/security, /datum/antagonist/ert/medic, /datum/antagonist/ert/engineer) //List of possible roles to be assigned to ERT members.
-	var/mechs = list()
+	var/list/roles = list(/datum/antagonist/ert/security, /datum/antagonist/ert/medic, /datum/antagonist/ert/engineer) //List of possible roles to be assigned to ERT members.
+	var/leader_mech = /obj/vehicle/sealed/mecha/combat/marauder/loaded
+	var/list/grunt_mechs = list()
 	var/rename_team
 	var/code
 	var/mission = "Assist the station."
@@ -21,7 +22,7 @@
 	/// If TRUE, the ERT spawns with cybernetic implants defined in their outfits.
 	var/give_cyberimps = FALSE
 	/// if TRUE, the ERT spawns with their pre-defined mechs.
-	var/give_mechs = FALSE
+	var/spawn_mechs = FALSE
 	var/mech_amount = 3
 
 /datum/ert/New()
@@ -47,6 +48,7 @@
 	name = "Deathsquad"
 	roles = list(/datum/antagonist/ert/deathsquad)
 	leader_role = /datum/antagonist/ert/deathsquad/leader
+	leader_mech = /obj/vehicle/sealed/mecha/working/ripley/deathripley/real
 	rename_team = "Deathsquad"
 	code = "Delta"
 	mission = "Leave no witnesses."

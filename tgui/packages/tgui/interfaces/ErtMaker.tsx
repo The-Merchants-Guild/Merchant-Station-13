@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-max-depth */
 import { useBackend } from '../backend';
-import { Button, LabeledList, ProgressBar, Section, Box, Stack, Dropdown, Flex } from '../components';
+import { Button, LabeledList, LabeledControls, Input, NumberInput, Section, Box, Stack, Dropdown, Flex, Divider } from '../components';
 import { Window } from '../layouts';
 
 type WindowData = {
@@ -15,6 +16,7 @@ type WindowData = {
   spawn_admin: boolean;
   leader_experience: boolean;
   give_cyberimps: boolean;
+  spawn_mechs: boolean;
 }
 
 type ResponseTeamData = {
@@ -41,6 +43,7 @@ export const ErtMaker = (props, context) => {
     spawn_admin,
     leader_experience,
     give_cyberimps,
+    spawn_mechs,
   } = data;
 
   let ert_options_strings = [];
@@ -79,19 +82,160 @@ export const ErtMaker = (props, context) => {
           <Stack.Item height="100%">
             <Stack basis="100%" height="100%">
               <Stack.Item>
-                <LabeledList>
-                  <LabeledList.Item label="selected">{selected_ERT_option.name} - {selected_ERT_option.path}</LabeledList.Item>
-                  <LabeledList.Item label="custom_datum">{custom_datum}</LabeledList.Item>
-                  <LabeledList.Item label="teamsize">{teamsize}</LabeledList.Item>
-                  <LabeledList.Item label="mission">{mission}</LabeledList.Item>
-                  <LabeledList.Item label="polldesc">{polldesc}</LabeledList.Item>
-                  <LabeledList.Item label="rename_team">{rename_team}</LabeledList.Item>
-                  <LabeledList.Item label="enforce_human">{enforce_human}</LabeledList.Item>
-                  <LabeledList.Item label="open_armory">{open_armory}</LabeledList.Item>
-                  <LabeledList.Item label="spawn_admin">{spawn_admin}</LabeledList.Item>
-                  <LabeledList.Item label="leader_experience">{leader_experience}</LabeledList.Item>
-                  <LabeledList.Item label="give_cyberimps">{give_cyberimps}</LabeledList.Item>
-                </LabeledList>
+                <Section title="Customization"
+                  buttons={
+                    <Button
+                      color="red"
+                      tooltip="View Variables"
+                      tooltipPosition="left"
+                      icon="pen"
+                      onClick={() => act('vv')}
+                    />
+                  }
+                >
+                  <LabeledList>
+                    <LabeledList.Item label="Team Name" buttons={
+                      <Button
+                        icon="info"
+                        tooltip="Response team name. Shows up in roundend report."
+                        tooltipPosition="right"
+                        ml={-.5}
+                      />
+                    }>
+                      <Input
+                        fluid
+                        value={rename_team || "Emergency Response Team"}
+                        onChange={(e, val) => act('setTeamName', {
+                          new_value: val,
+                        })}
+                      />
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Team Mission"buttons={
+                      <Button
+                        icon="info"
+                        tooltip="Objective given to response team."
+                        tooltipPosition="right"
+                        ml={-.5}
+                      />
+                    }>
+                      <Input
+                        fluid
+                        value={mission}
+                        onChange={(e, val) => act('setMission', {
+                          new_value: val,
+                        })}
+                      />
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Poll Description"buttons={
+                      <Button
+                        icon="info"
+                        tooltip="Ghost Poll Description, used in ghost join prompt description"
+                        tooltipPosition="right"
+                        ml={-.5}
+                      />
+                    }>
+                      <Input
+                        fluid
+                        value={polldesc}
+                        onChange={(e, val) => act('setPollDesc', {
+                          new_value: val,
+                        })}
+                      />
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Team Size"buttons={
+                      <Button
+                        icon="info"
+                        tooltip="Response Team Size. How many members do we want? Minimum: 1"
+                        tooltipPosition="right"
+                        ml={-.5}
+                      />
+                    }>
+                      <NumberInput
+                        value={teamsize}
+                        onChange={(e, val) => act('setTeamSize', {
+                          new_value: val,
+                        })}
+                      />
+                    </LabeledList.Item>
+                  </LabeledList>
+                </Section>
+                <Divider />
+                <Section title="Toggles">
+                  <Stack vertical>
+                    <Stack.Item>
+                      <Flex justify="space-evenly">
+                        <Flex.Item grow>
+                          <Button.Checkbox fluid
+                            checked={open_armory}
+                            onClick={() => act('openArmory')}
+                            mx={.5}
+                            tooltip="Open armory doors when the ERT spawns."
+                            tooltipPosition="top"
+                          >Open Armory Doors
+                          </Button.Checkbox>
+                        </Flex.Item>
+                        <Flex.Item grow>
+                          <Button.Checkbox fluid
+                            checked={enforce_human}
+                            onClick={() => act('enforceHuman')}
+                            mx={.5}
+                            tooltip="Force ERT members to spawn as humans."
+                            tooltipPosition="top"
+                          >Enforce Human Authority
+                          </Button.Checkbox>
+                        </Flex.Item>
+                      </Flex>
+                    </Stack.Item>
+                    <Stack.Item>
+                      <Flex justify="space-evenly">
+                        <Flex.Item grow>
+                          <Button.Checkbox fluid
+                            checked={spawn_admin}
+                            onClick={() => act('spawnAdmin')}
+                            mx={.5}
+                            tooltip="Spawn yourself as a briefing officer. Must be a ghost."
+                            tooltipPosition="bottom"
+                          >Spawn Admin
+                          </Button.Checkbox>
+                        </Flex.Item>
+                        <Flex.Item grow>
+                          <Button.Checkbox fluid
+                            checked={leader_experience}
+                            onClick={() => act('leaderExperience')}
+                            mx={.5}
+                            tooltip="Pick one of the most experienced players to be the ERT leader."
+                            tooltipPosition="bottom"
+                          >Leader Experience
+                          </Button.Checkbox>
+                        </Flex.Item>
+                        <Flex.Item grow>
+                          <Button.Checkbox fluid
+                            checked={give_cyberimps}
+                            onClick={() => act('giveCyberimps')}
+                            mx={.5}
+                            tooltip="Make ERT spawn with their outfit's cybernetic implants, if such exist."
+                            tooltipPosition="bottom"
+                          >Give Cyberimps
+                          </Button.Checkbox>
+                        </Flex.Item>
+                      </Flex>
+                    </Stack.Item>
+                    <Stack.Item>
+                      <Flex>
+                        <Flex.Item grow>
+                          <Button.Checkbox fluid
+                            checked={spawn_mechs}
+                            onClick={() => act('spawnMechs')}
+                            mx={.5}
+                            tooltip="Make ERT spawn with assigned mechs, if such exist."
+                            tooltipPosition="bottom"
+                          >Spawn Mechs
+                          </Button.Checkbox>
+                        </Flex.Item>
+                      </Flex>
+                    </Stack.Item>
+                  </Stack>
+                </Section>
               </Stack.Item>
               {selected_ERT_option.previewIcon && (
                 <Stack.Item>
@@ -140,13 +284,7 @@ export const ErtMaker = (props, context) => {
                 >Summon ERT
                 </Button>
               </Flex.Item>
-              <Flex.Item align="end" grow={4}>
-                <Button
-                  color="red"
-                  tooltip="View Variables"
-                  icon="pen"
-                />
-              </Flex.Item>
+              <Flex.Item align="end" grow={4} />
             </Flex>
           </Stack.Item>
         </Stack>

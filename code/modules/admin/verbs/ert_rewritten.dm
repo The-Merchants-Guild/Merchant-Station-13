@@ -15,6 +15,13 @@
 	var/list/custom_ERT_options = list()
 	var/datum/ert/selected_ERT_option = null // What have we selected?
 	var/client/holder // client of whoever is using this datum
+
+	var/datum/antagonist/ert/leader_antag = null
+	var/list/datum/antagonist/ert/grunt_antags = list()
+
+	var/obj/vehicle/sealed/mecha/leader_mech = null
+	var/list/obj/vehicle/sealed/mecha/grunt_mechs = null
+
 	var/teamsize = 5
 	var/mission = "Assist the station." // The ERT's mission.
 	var/polldesc = "a code !CODER ERROR! Nanotrasen Emergency Response Team." // Ghost popup text
@@ -25,6 +32,8 @@
 	var/spawn_admin = FALSE // Spawn the admin as a centcom commander to brief the team?
 	var/leader_experience = TRUE // Pick experienced leader? (by playtime, I think)
 	var/give_cyberimps = FALSE // Give the ERT their default cybernetic implants?
+	var/spawn_mechs = FALSE // Give the ERT mechs?
+	var/mech_amount = 5
 
 	var/list/preview_images = list()
 	var/selected_direction = SOUTH
@@ -42,21 +51,42 @@
 		holder = user_mob.client
 
 	selected_ERT_option = new /datum/ert/centcom_official // So we have SOMETHING selected
-	update_ERT_info()
+	load_settings_from_ERT_datum(selected_ERT_option)
 	ui_interact(holder.mob)
 
-/datum/ert_maker/proc/update_ERT_info()
-	teamsize = selected_ERT_option.teamsize
-	mission = selected_ERT_option.mission
-	polldesc = selected_ERT_option.polldesc
-	rename_team = selected_ERT_option.rename_team
+/datum/ert_maker/proc/load_settings_from_ERT_datum(var/datum/ert/ERT_datum)
+	teamsize = ERT_datum.teamsize
+	mission = ERT_datum.mission
+	polldesc = ERT_datum.polldesc
+	rename_team = ERT_datum.rename_team
 	enforce_human = CONFIG_GET(flag/enforce_human_authority)
-	open_armory = selected_ERT_option.opendoors
-	random_names = selected_ERT_option.random_names
-	spawn_admin = selected_ERT_option.spawn_admin
-	leader_experience = selected_ERT_option.leader_experience
-	give_cyberimps = selected_ERT_option.give_cyberimps
-	SStgui.update_user_uis(holder.mob)
+	open_armory = ERT_datum.opendoors
+	random_names = ERT_datum.random_names
+	spawn_admin = ERT_datum.spawn_admin
+	leader_experience = ERT_datum.leader_experience
+	give_cyberimps = ERT_datum.give_cyberimps
+	spawn_mechs = ERT_datum.spawn_mechs
+	leader_antag = ERT_datum.leader_role
+	leader_mech = ERT_datum.leader_mech
+	grunt_antags = ERT_datum.roles
+	grunt_mechs = ERT_datum.grunt_mechs
+
+/datum/ert_maker/proc/copy_settings_to_ERT_datum(var/datum/ert/ERT_datum)
+	ERT_datum.teamsize = teamsize
+	ERT_datum.mission = mission
+	ERT_datum.polldesc = polldesc
+	ERT_datum.rename_team = rename_team
+	ERT_datum.enforce_human = enforce_human
+	ERT_datum.opendoors = open_armory
+	ERT_datum.random_names = random_names
+	ERT_datum.spawn_admin = spawn_admin
+	ERT_datum.leader_experience = leader_experience
+	ERT_datum.give_cyberimps = give_cyberimps
+	ERT_datum.spawn_mechs = spawn_mechs
+	ERT_datum.leader_role = leader_antag
+	ERT_datum.leader_mech = leader_mech
+	ERT_datum.roles = grunt_antags
+	ERT_datum.grunt_mechs = grunt_mechs
 
 /// proc below copy-pasted from old ERT spawner
 /datum/ert_maker/proc/equipAntagOnDummy(mob/living/carbon/human/dummy/mannequin, datum/antagonist/antag)
@@ -161,6 +191,7 @@
 	data["spawn_admin"] = spawn_admin
 	data["leader_experience"] = leader_experience
 	data["give_cyberimps"] = give_cyberimps
+	data["spawn_mechs"] = spawn_mechs
 	return data
 
 /datum/ert_maker/ui_act(action, params)
@@ -173,9 +204,10 @@
 			var/selected_path = text2path(params["selectedERT"])
 
 			selected_ERT_option = new selected_path
-			update_ERT_info()
+			load_settings_from_ERT_datum(selected_ERT_option)
 			if(!(selected_ERT_option.name in preview_images) || !(dir2text(selected_direction) in preview_images[selected_ERT_option.name]))
 				generate_ERT_preview_images()
+			SStgui.update_user_uis(holder.mob)
 			. = TRUE
 		if("rotatePreview")
 			selected_direction = turn(selected_direction, 90*params["direction"])
@@ -183,8 +215,8 @@
 			. = TRUE
 		if("spawnERT") // Mostly copy pasted from the pre-rewrite ERT verb
 
-			var/datum/ert/ERToption = selected_ERT_option // for future custom support
-
+			var/datum/ert/ERToption = new
+			copy_settings_to_ERT_datum(ERToption)
 
 			var/list/spawnpoints = GLOB.emergencyresponseteamspawn
 			var/index = 0
@@ -198,12 +230,13 @@
 				else
 					to_chat(holder, span_warning("Could not spawn you in as briefing officer as you are not a ghost!"))
 
-			var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [polldesc]?", "deathsquad")
+			var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [ERToption.polldesc]?", "deathsquad")
 			var/teamSpawned = FALSE
 			if(candidates.len == 0)
 				return
 
 			var/numagents = min(teamsize,candidates.len)
+			var/nummechs = min(mech_amount, numagents)
 
 			var/datum/team/ert/ert_team = new ERToption.team()
 			if(rename_team)
@@ -211,13 +244,14 @@
 
 			var/datum/objective/missionobj = new()
 			missionobj.team = ert_team
-			missionobj.explanation_text = mission
+			missionobj.explanation_text = ERToption.mission
 			missionobj.completed = TRUE
 			ert_team.objectives += missionobj
 			ert_team.mission = missionobj
 
 			var/mob/dead/observer/earmarked_leader
 			var/leader_spawned = FALSE // just in case the earmarked leader disconnects or becomes unavailable, we can try giving leader to the last guy to get chosen
+			var/leadermech_spawned = FALSE
 
 			if(leader_experience)
 				var/list/candidate_living_exps = list()
@@ -253,13 +287,13 @@
 				var/datum/antagonist/ert/ert_antag
 
 				if((chosen_candidate == earmarked_leader) || (numagents == 1 && !leader_spawned))
-					ert_antag = new ERToption.leader_role ()
+					ert_antag = new ERToption.leader_role()
 					earmarked_leader = null
 					leader_spawned = TRUE
 				else
 					ert_antag = ERToption.roles[WRAP(numagents,1,length(ERToption.roles) + 1)]
 					ert_antag = new ert_antag ()
-				ert_antag.random_names = random_names
+				ert_antag.random_names = ERToption.random_names
 
 				ert_operative.mind.add_antag_datum(ert_antag,ert_team)
 				ert_operative.mind.set_assigned_role(SSjob.GetJobType(ert_antag.ert_job_path))
@@ -269,15 +303,57 @@
 				numagents--
 				teamSpawned++
 
+				if(spawn_mechs && (nummechs > 0)) // abomination
+					var/mech_to_spawn = null
+					if(ERToption.grunt_mechs.len > 0)
+						mech_to_spawn = ERToption.grunt_mechs[WRAP(nummechs, 1, length(ERToption.grunt_mechs) + 1)]
+					if(!leadermech_spawned)
+						if(ERToption.leader_mech)
+							mech_to_spawn = ERToption.leader_mech
+						else if(grunt_mechs.len > 0) // Default to first grunt mech if no leader_mech.
+							mech_to_spawn = ERToption.grunt_mechs[1]
+
+					if(mech_to_spawn)
+						var/obj/vehicle/sealed/mecha/spawned_mech = new mech_to_spawn(spawnloc)
+						var/obj/item/storage/backpack/bag = locate() in ert_operative.contents
+						if(bag)
+							for(var/obj/item/item in ert_operative.held_items)
+								// Move held items to bag
+								// otherwise it'd be dropped on the floor (cooln't)
+								item.forceMove(bag)
+
+						spawned_mech.moved_inside(ert_operative)
+
+					nummechs--
+
 			if (teamSpawned)
-				message_admins("[polldesc] has spawned with the mission: [mission]")
+				message_admins("[ERToption.polldesc] has spawned with the mission: [ERToption.mission]")
 
 			//Open the Armory doors
-			if(open_armory)
+			if(ERToption.opendoors)
 				for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
 					door.open()
 					CHECK_TICK
 			. = TRUE
+
+		/// Customization ///
+		if("setTeamName")
+			rename_team = params["new_value"]
+			SStgui.update_user_uis(holder.mob)
+			. = TRUE
+		if("setMission")
+			mission = params["new_value"]
+			SStgui.update_user_uis(holder.mob)
+			. = TRUE
+		if("setPollDesc")
+			polldesc = params["new_value"]
+			SStgui.update_user_uis(holder.mob)
+			. = TRUE
+		if("setTeamSize")
+			teamsize = min(text2num(params["new_value"]), 1)
+			SStgui.update_user_uis(holder.mob)
+			. = TRUE
+
 		/// Toggles ///
 		if("enforceHuman")
 			enforce_human = !enforce_human
@@ -303,6 +379,11 @@
 			give_cyberimps = !give_cyberimps
 			SStgui.update_user_uis(holder.mob)
 			. = TRUE
+		if("spawnMechs")
+			spawn_mechs = !spawn_mechs
+			SStgui.update_user_uis(holder.mob)
+			. = TRUE
+
 		/// Debug ///
 		if("vv")
 			holder.debug_variables(src)

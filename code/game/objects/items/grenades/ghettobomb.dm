@@ -1,4 +1,40 @@
 //improvised explosives//
+/obj/item/grenade/pipebomb
+	name = "pipe bomb"
+	desc = "Improvised sharpnel bomb."
+	w_class = WEIGHT_CLASS_SMALL
+	icon = 'icons/obj/grenade.dmi'
+	icon_state = "pipe_bomb"
+	inhand_icon_state = "flashbang"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	throw_speed = 3
+	throw_range = 7
+	flags_1 = CONDUCT_1
+	slot_flags = ITEM_SLOT_BELT
+	active = FALSE
+	det_time = 50
+	display_timer = 0
+	shrapnel_type = /obj/projectile/bullet/shrapnel
+	shrapnel_radius = 15
+	ex_heavy = 1
+	ex_light = 4
+	ex_flame = 0
+	var/check_parts = FALSE
+	var/range = 3
+	var/list/times
+
+/obj/item/grenade/pipebomb/change_det_time()
+	return //always be random.
+
+/obj/item/grenade/pipebomb/detonate(mob/living/lanced_by)
+	. = ..()
+	update_mob()
+	qdel(src)
+
+/obj/item/grenade/pipebomb/examine(mob/user)
+	. = ..()
+	. += "Seems very familiar."
 
 /obj/item/grenade/iedcasing
 	name = "improvised firebomb"

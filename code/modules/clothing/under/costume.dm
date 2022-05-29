@@ -17,6 +17,7 @@
 	icon_state = "darkholme"
 	inhand_icon_state = "darkholme"
 	can_adjust = FALSE
+	alternate_screams = list(list('sound/voice/jabroni1.ogg','sound/voice/jabroni2.ogg','sound/voice/jabroni3.ogg','sound/voice/jabroni4.ogg','sound/voice/jabroni5.ogg'))
 
 /obj/item/clothing/under/costume/owl
 	name = "owl uniform"

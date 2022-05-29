@@ -108,6 +108,18 @@
 	var/internals_slot = null
 
 	/**
+	  * Any organs the mob should start implanted with
+	  *
+	  * Format of this list is (typepath, typepath, typepath)
+	  */
+
+	var/list/cyberimplants = null
+
+	/// Should we give them the organs or not?
+	/// Mostly for ERT toggle. If a better way to implement exists, please notify me.
+	var/give_cyberimps = TRUE
+
+	/**
 	  * Any skillchips the mob should have in their brain.
 	  *
 	  * Format of this list is (typepath, typepath, typepath)
@@ -241,6 +253,11 @@
 			for(var/implant_type in implants)
 				var/obj/item/implant/I = new implant_type(H)
 				I.implant(H, null, TRUE)
+
+		if(cyberimplants && give_cyberimps)
+			for(var/organ_type in cyberimplants)
+				var/obj/item/organ/imp = new organ_type(H)
+				imp.Insert(H, FALSE, FALSE)
 
 		// Insert the skillchips associated with this outfit into the target.
 		if(skillchips)

@@ -8,13 +8,13 @@ export const OutfitEditor = (props, context) => {
   return (
     <Window
       width={380}
-      height={600}>
+      height={700}>
       <Window.Content>
         <Box
           as="img"
           fillPositionedParent
           width="100%"
-          height="100%"
+          height="86%"
           opacity={0.5}
           py={3}
           src={`data:image/jpeg;base64,${dummy64}`}
@@ -90,6 +90,9 @@ export const OutfitEditor = (props, context) => {
               <OutfitSlot name="Shoes" icon="socks" slot="shoes" />
               <OutfitSlot name="Left Pocket" icon="envelope-open-o" iconRot={180} slot="l_pocket" />
               <OutfitSlot name="Right Pocket" icon="envelope-open-o" iconRot={180} slot="r_pocket" />
+            </Stack>
+            <Stack mb={2}>
+              <OutfitSlot name="Cyberimps" icon="stethoscope" slot="cyberimp" />
             </Stack>
           </Box>
         </Section>

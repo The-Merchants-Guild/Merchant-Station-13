@@ -107,3 +107,10 @@
 /datum/card_access/centcom/ert/clown
 	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
 	assignment = "Entertainment Response Officer"
+
+
+GLOBAL_LIST_EMPTY(custom_ert_card_access_datums)
+
+/datum/card_access/centcom/ert/custom
+	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
+	assignment = "Code Purple Response Officer"

@@ -93,6 +93,7 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/drop_dynex_bomb,
 	/client/proc/cinematic,
 	/client/proc/summon_ert,
+	/client/proc/summon_ert_rewritten,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/object_say,
 	/client/proc/toggle_random_events,

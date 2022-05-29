@@ -1614,6 +1614,7 @@
 #include "code\modules\admin\verbs\debug.dm"
 #include "code\modules\admin\verbs\diagnostics.dm"
 #include "code\modules\admin\verbs\ert.dm"
+#include "code\modules\admin\verbs\ert_rewritten.dm"
 #include "code\modules\admin\verbs\fix_air.dm"
 #include "code\modules\admin\verbs\fps.dm"
 #include "code\modules\admin\verbs\getlogs.dm"

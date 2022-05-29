@@ -93,6 +93,8 @@
 
 	preview_images[selected_ERT_option.name] = cached_icons
 
+	qdel(mannequin)
+
 
 
 /datum/ert_maker/ui_state(mob/user)
@@ -145,7 +147,7 @@
 
 	if(!(selected_ERT_option.name in preview_images) || !(dir2text(selected_direction) in preview_images[selected_ERT_option.name]))
 		generate_ERT_preview_images()
-	selected_ERT_data["previewIcon"] = preview_images[selected_ERT_option.name][selected_direction]
+	selected_ERT_data["previewIcon"] = preview_images[selected_ERT_option.name][dir2text(selected_direction)]
 
 	data["selected_ERT_option"] = selected_ERT_data
 
@@ -174,6 +176,10 @@
 			update_ERT_info()
 			if(!(selected_ERT_option.name in preview_images) || !(dir2text(selected_direction) in preview_images[selected_ERT_option.name]))
 				generate_ERT_preview_images()
+			. = TRUE
+		if("rotatePreview")
+			selected_direction = turn(selected_direction, 90*params["direction"])
+			SStgui.update_user_uis(holder.mob)
 			. = TRUE
 		if("spawnERT") // Mostly copy pasted from the pre-rewrite ERT verb
 
@@ -296,6 +302,10 @@
 		if("giveCyberimps")
 			give_cyberimps = !give_cyberimps
 			SStgui.update_user_uis(holder.mob)
+			. = TRUE
+		/// Debug ///
+		if("vv")
+			holder.debug_variables(src)
 			. = TRUE
 
 /datum/ert_maker/ui_close(mob/user)

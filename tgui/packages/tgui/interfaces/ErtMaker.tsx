@@ -77,7 +77,7 @@ export const ErtMaker = (props, context) => {
           </Stack.Item>
           <Stack.Divider />
           <Stack.Item height="100%">
-            <Stack basis="100%">
+            <Stack basis="100%" height="100%">
               <Stack.Item>
                 <LabeledList>
                   <LabeledList.Item label="selected">{selected_ERT_option.name} - {selected_ERT_option.path}</LabeledList.Item>
@@ -95,21 +95,59 @@ export const ErtMaker = (props, context) => {
               </Stack.Item>
               {selected_ERT_option.previewIcon && (
                 <Stack.Item>
-                  <Section title="ERT Preview" />
-                  <img
-                    src={`data:image/jpeg;base64,${selected_ERT_option.previewIcon}`}
-                  />
+                  <Section title="ERT Preview" >
+                    <Box
+                      as="img"
+                      // eslint-disable-next-line max-len
+                      src={`data:image/jpeg;base64,${selected_ERT_option.previewIcon}`}
+                      width={20}
+                      height={20}
+                      style={{
+                        '-ms-interpolation-mode': 'nearest-neighbor',
+                      }}
+                    />
+                    <Flex justify="space-between">
+                      <Flex.Item>
+                        <Button
+                          icon="angle-left"
+                          onClick={() => act('rotatePreview', {
+                            direction: -1,
+                          })}
+                        />
+                      </Flex.Item>
+                      <Flex.Item>
+                        <Button
+                          icon="angle-right"
+                          onClick={() => act('rotatePreview', {
+                            direction: 1,
+                          })}
+                        />
+                      </Flex.Item>
+                    </Flex>
+                  </Section>
                 </Stack.Item>
               )}
             </Stack>
           </Stack.Item>
           <Stack.Divider />
-          <Stack.Item align="center">
-            <Button
-              fluid
-              onClick={() => act('spawnERT')}
-            >Summon ERT
-            </Button>
+          <Stack.Item>
+            <Flex justify="space-around" align="center">
+              <Flex.Item grow={4} />
+              <Flex.Item grow>
+                <Button
+                  fluid
+                  onClick={() => act('spawnERT')}
+                >Summon ERT
+                </Button>
+              </Flex.Item>
+              <Flex.Item align="end" grow={4}>
+                <Button
+                  color="red"
+                  tooltip="View Variables"
+                  icon="pen"
+                />
+              </Flex.Item>
+            </Flex>
           </Stack.Item>
         </Stack>
       </Window.Content>

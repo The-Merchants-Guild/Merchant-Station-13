@@ -120,6 +120,16 @@
 	stock_max = 2
 	availability_prob = 15
 
+/datum/blackmarket_item/weapon/pipebomb1
+	name = "Pipe Bomb"
+	desc = "Pipe bomb is an improvised fragmentation grenade and its easy to made."
+	item = /obj/item/grenade/pipebomb
+
+	price_min = 400
+	price_max = 800
+	stock_max = 5
+	availability_prob = 15
+
 /datum/blackmarket_item/weapon/gluon_grenade
 	name = "Gluon Grenade"
 	desc = "A highly advanced grenade, capable of irradiating and freezing everything it hits. \

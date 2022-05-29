@@ -220,13 +220,13 @@
 /datum/config_entry/string/banappeals
 
 /datum/config_entry/string/wikiurl
-	default = "http://wiki.merchantstation.net/w"
+	default = "https://wiki.merchantstation.net/wiki"
 
 /datum/config_entry/string/discordurl
 	default = "https://discord.gg/2YYfU3ZanD"
 
 /datum/config_entry/string/rulesurl
-	default = "http://wiki.merchantstation.net/wiki/Rules"
+	default = "https://wiki.merchantstation.net/wiki/Rules"
 
 /datum/config_entry/string/githuburl
 	default = "https://www.github.com/The-Merchants-Guild/Merchant-Station-13"

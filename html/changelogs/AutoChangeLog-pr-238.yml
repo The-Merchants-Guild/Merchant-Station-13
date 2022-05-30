@@ -1,0 +1,4 @@
+author: EtraIV
+delete-after: true
+changes:
+  - admin: stop bugging me about SQL errors please

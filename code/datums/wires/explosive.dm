@@ -132,3 +132,24 @@
 /datum/wires/explosive/gibtonite/explode()
 	var/obj/item/gibtonite/P = holder
 	P.GibtoniteReaction(null, 2)
+
+/datum/wires/explosive/pipebomb
+	holder_type = /obj/item/grenade/pipebomb
+
+/datum/wires/explosive/pipebomb/New(atom/holder)
+	wires = list(
+		WIRE_BOOM
+	)
+	..()
+
+/datum/wires/explosive/pipebomb/on_pulse(wire)
+	var/obj/item/grenade/pipebomb/B = holder
+	switch(wire)
+		if(WIRE_BOOM)
+			B.receive_signal()
+
+/datum/wires/explosive/pipebomb/on_cut(wire, mend)
+	var/obj/item/grenade/pipebomb/B = holder
+	switch(wire)
+		if(WIRE_BOOM)
+			B.receive_signal()

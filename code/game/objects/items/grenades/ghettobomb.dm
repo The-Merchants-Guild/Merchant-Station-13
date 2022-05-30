@@ -15,7 +15,7 @@
 	active = FALSE
 	det_time = 50
 	display_timer = 0
-	shrapnel_type = /obj/projectile/bullet/shrapnel
+	shrapnel_type = /obj/projectile/bullet/shrapnel/pipe
 	shrapnel_radius = 15
 	ex_heavy = 1
 	ex_light = 4
@@ -24,9 +24,19 @@
 	var/range = 3
 	var/list/times
 
+/obj/item/grenade/c4/attackby(obj/item/item, mob/user, params)
+	if(item.tool_behaviour == TOOL_SCREWDRIVER)
+		wires.interact(user)
+		playsound(src, 'sound/items/screwdriver.ogg', 50, TRUE)
+
+
 /obj/item/grenade/pipebomb/Initialize()
 	. = ..()
-	wires = new /datum/wires/pipebomb(src)
+	wires = new /datum/wires/explosive/pipebomb(src)
+
+/obj/item/grenade/pipebomb/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/grenade/pipebomb/receive_signal()
 	detonate()
@@ -37,6 +47,8 @@
 /obj/item/grenade/pipebomb/detonate(mob/living/lanced_by)
 	. = ..()
 	update_mob()
+	wires = null
+	qdel(wires)
 	qdel(src)
 
 /obj/item/grenade/pipebomb/examine(mob/user)

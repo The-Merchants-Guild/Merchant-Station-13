@@ -35,6 +35,21 @@
 	wound_bonus = 30
 	embedding = list(embed_chance=70, ignore_throwspeed_threshold=TRUE, fall_chance=1)
 
+/obj/projectile/bullet/shrapnel/pipe
+	name = "flying pipe shard"
+	damage = 8
+	range = 20
+	weak_against_armour = TRUE
+	dismemberment = 5
+	ricochets_max = 1
+	ricochet_chance = 20
+	shrapnel_type = /obj/item/shrapnel
+	ricochet_incidence_leeway = 60
+	hit_stunned_targets = FALSE
+	sharpness = SHARP_EDGED
+	wound_bonus = 30
+	embedding = list(embed_chance=130, ignore_throwspeed_threshold=TRUE, fall_chance=1)
+
 /obj/projectile/bullet/shrapnel/mega
 	name = "flying shrapnel hunk"
 	range = 45

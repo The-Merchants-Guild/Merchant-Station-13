@@ -20,8 +20,16 @@
 	ex_heavy = 1
 	ex_light = 4
 	ex_flame = 0
+	var/open_panel = FALSE //are the wires exposed?
 	var/range = 3
 	var/list/times
+
+/obj/item/grenade/pipebomb/Initialize()
+	. = ..()
+	wires = new /datum/wires/pipebomb(src)
+
+/obj/item/grenade/pipebomb/receive_signal()
+	detonate()
 
 /obj/item/grenade/pipebomb/change_det_time()
 	return //always be random.

@@ -37,7 +37,7 @@
 
 /obj/projectile/bullet/shrapnel/pipe
 	name = "flying pipe shard"
-	damage = 8
+	damage = 11
 	range = 20
 	weak_against_armour = TRUE
 	dismemberment = 5

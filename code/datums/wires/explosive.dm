@@ -134,22 +134,15 @@
 	P.GibtoniteReaction(null, 2)
 
 /datum/wires/explosive/pipebomb
+	duds_number = 1
 	holder_type = /obj/item/grenade/pipebomb
 
-/datum/wires/explosive/pipebomb/New(atom/holder)
-	wires = list(
-		WIRE_BOOM
-	)
-	..()
-
 /datum/wires/explosive/pipebomb/on_pulse(wire)
-	var/obj/item/grenade/pipebomb/B = holder
-	switch(wire)
-		if(WIRE_BOOM)
-			B.receive_signal()
+	var/obj/item/grenade/pipebomb/P = holder
+	P.detonate()
+	. = ..()
 
 /datum/wires/explosive/pipebomb/on_cut(wire, mend)
-	var/obj/item/grenade/pipebomb/B = holder
-	switch(wire)
-		if(WIRE_BOOM)
-			B.receive_signal()
+	var/obj/item/grenade/pipebomb/P = holder
+	P.detonate()
+	. = ..()

@@ -1,6 +1,6 @@
 //improvised explosives//
 /obj/item/grenade/pipebomb
-	name = "pipe bomb"
+	name = "Pipe Bomb"
 	desc = "Improvised sharpnel bomb."
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
@@ -18,17 +18,25 @@
 	shrapnel_type = /obj/projectile/bullet/shrapnel/pipe
 	shrapnel_radius = 15
 	ex_heavy = 1
-	ex_light = 4
+	ex_light = 3
 	ex_flame = 0
-	var/open_panel = FALSE //are the wires exposed?
-	var/range = 3
-	var/list/times
+	var/open_panel = FALSE //PANEL MOMENT
 
-/obj/item/grenade/c4/attackby(obj/item/item, mob/user, params)
+/obj/item/grenade/pipebomb/attackby(obj/item/item, mob/user, params)
 	if(item.tool_behaviour == TOOL_SCREWDRIVER)
-		wires.interact(user)
-		playsound(src, 'sound/items/screwdriver.ogg', 50, TRUE)
-
+		if(open_panel == FALSE)
+			open_panel = TRUE
+			playsound(src, 'sound/items/screwdriver.ogg', 50, TRUE)
+			return ..()
+		if(open_panel == TRUE)
+			open_panel = FALSE
+			playsound(src, 'sound/items/screwdriver2.ogg', 50, TRUE)
+			return ..()
+	if(is_wire_tool(item))
+		if(open_panel == TRUE)
+			wires.interact(user)
+	else
+		return ..()
 
 /obj/item/grenade/pipebomb/Initialize()
 	. = ..()
@@ -41,14 +49,10 @@
 /obj/item/grenade/pipebomb/receive_signal()
 	detonate()
 
-/obj/item/grenade/pipebomb/change_det_time()
-	return //always be random.
-
 /obj/item/grenade/pipebomb/detonate(mob/living/lanced_by)
 	. = ..()
 	update_mob()
 	wires = null
-	qdel(wires)
 	qdel(src)
 
 /obj/item/grenade/pipebomb/examine(mob/user)

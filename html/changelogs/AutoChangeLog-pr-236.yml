@@ -1,6 +1,0 @@
-author: EtraIV
-delete-after: true
-changes:
-  - admin: Ban reasons can now be WAY longer (hopefully it doesn't break ban reason
-      display for the banned users)
-  - server: Optimized database schema

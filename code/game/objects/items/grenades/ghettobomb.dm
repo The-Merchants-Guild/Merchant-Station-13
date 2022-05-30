@@ -20,7 +20,6 @@
 	ex_heavy = 1
 	ex_light = 4
 	ex_flame = 0
-	var/check_parts = FALSE
 	var/range = 3
 	var/list/times
 

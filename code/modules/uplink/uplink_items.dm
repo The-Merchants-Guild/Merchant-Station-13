@@ -996,6 +996,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/c4
 	cost = 1
 
+/datum/uplink_item/explosives/pipebomb1
+	name = "Pipe Bomb"
+	desc = "Pipe bomb is an improvised fragmentation grenade and its easy to made."
+	item = /obj/item/grenade/pipebomb
+	cost = 5
+
 /datum/uplink_item/explosives/c4bag
 	name = "Bag of C-4 explosives"
 	desc = "Because sometimes quantity is quality. Contains 10 C-4 plastic explosives."

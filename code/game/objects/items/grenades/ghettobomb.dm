@@ -40,11 +40,6 @@
 	else
 		return ..()
 
-/obj/item/grenade/pipebomb/attack_self(mob/user)
-	if(active == FALSE)
-		to_chat(user, span_warning("You light the [name]!"))
-		return ..()
-
 /obj/item/grenade/pipebomb/Initialize()
 	. = ..()
 	wires = new /datum/wires/explosive/pipebomb(src)

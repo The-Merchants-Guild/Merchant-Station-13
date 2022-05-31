@@ -18,7 +18,7 @@
 	shrapnel_type = /obj/projectile/bullet/shrapnel/pipe
 	shrapnel_radius = 15
 	arm_sound = 'sound/weapons/armbomb.ogg'
-	warning = "You light the [src]"
+	warning = "You light the Pipe Bomb"
 	ex_heavy = 1
 	ex_light = 3
 	ex_flame = 0

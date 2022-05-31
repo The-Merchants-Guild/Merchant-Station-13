@@ -14,7 +14,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
-	var/warning = "You prime [src]! [capitalize(DisplayTimeText(det_time))]!"
+	var/warning = "You prime the grenade!"
 	var/arm_sound = 'sound/weapons/armbomb.ogg'
 	var/active = 0
 	var/det_time = 50
@@ -100,7 +100,7 @@
 	if(user)
 		add_fingerprint(user)
 		if(msg)
-			to_chat(user, span_warning(warning))
+			to_chat(user, span_warning(warning [capitalize(DisplayTimeText(det_time))]))
 	if(shrapnel_type && shrapnel_radius)
 		shrapnel_initialized = TRUE
 		AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_radius)

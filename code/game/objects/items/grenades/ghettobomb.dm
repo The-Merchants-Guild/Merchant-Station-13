@@ -13,7 +13,7 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	active = FALSE
-	det_time = 50
+	det_time = 30
 	display_timer = 0
 	shrapnel_type = /obj/projectile/bullet/shrapnel/pipe
 	shrapnel_radius = 15

@@ -17,6 +17,7 @@
 	display_timer = 0
 	shrapnel_type = /obj/projectile/bullet/shrapnel/pipe
 	shrapnel_radius = 15
+	arm_sound = 'sound/weapons/armbomb.ogg'
 	ex_heavy = 1
 	ex_light = 3
 	ex_flame = 0
@@ -36,6 +37,12 @@
 		if(open_panel == TRUE)
 			wires.interact(user)
 	else
+		return ..()
+
+/obj/item/grenade/pipebomb/attack_self(mob/user)
+	if(active == FALSE)
+		active = TRUE
+		to_chat(user, span_warning("You light the [name]!"))
 		return ..()
 
 /obj/item/grenade/pipebomb/Initialize()

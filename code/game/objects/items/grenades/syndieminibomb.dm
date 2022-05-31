@@ -5,6 +5,7 @@
 	icon_state = "syndicate"
 	inhand_icon_state = "flashbang"
 	worn_icon_state = "minibomb"
+	arm_sound = 'sound/weapons/armbomb.ogg'
 	ex_dev = 1
 	ex_heavy = 2
 	ex_light = 4
@@ -19,6 +20,7 @@
 	name = "HE Grenade"
 	desc = "A compact shrapnel grenade meant to devastate nearby organisms and cause some damage in the process. Pull pin and throw opposite direction."
 	icon_state = "concussion"
+	arm_sound = 'sound/weapons/armbomb.ogg'
 	ex_heavy = 2
 	ex_light = 3
 	ex_flame = 3
@@ -27,6 +29,7 @@
 	name = "frag grenade"
 	desc = "An anti-personnel fragmentation grenade, this weapon excels at killing soft targets by shredding them with metal shrapnel."
 	icon_state = "frag"
+	arm_sound = 'sound/weapons/armbomb.ogg'
 	shrapnel_type = /obj/projectile/bullet/shrapnel
 	shrapnel_radius = 4
 	ex_heavy = 1
@@ -38,6 +41,7 @@
 	desc = "An anti-everything fragmentation grenade, this weapon excels at killing anything any everything by shredding them with metal shrapnel."
 	shrapnel_type = /obj/projectile/bullet/shrapnel/mega
 	shrapnel_radius = 12
+	arm_sound = 'sound/weapons/armbomb.ogg'
 
 /obj/item/grenade/frag/detonate(mob/living/lanced_by)
 	. = ..()
@@ -50,6 +54,7 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "bluefrag"
 	inhand_icon_state = "flashbang"
+	arm_sound = 'sound/weapons/armbomb.ogg'
 	var/freeze_range = 4
 	var/rad_damage = 350
 	var/stamina_damage = 30

@@ -46,9 +46,6 @@
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
-/obj/item/grenade/pipebomb/receive_signal()
-	detonate()
-
 /obj/item/grenade/pipebomb/detonate(mob/living/lanced_by)
 	. = ..()
 	update_mob()

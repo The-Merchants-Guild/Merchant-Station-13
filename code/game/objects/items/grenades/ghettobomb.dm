@@ -18,6 +18,7 @@
 	shrapnel_type = /obj/projectile/bullet/shrapnel/pipe
 	shrapnel_radius = 15
 	arm_sound = 'sound/weapons/armbomb.ogg'
+	warning = "You light the [src]"
 	ex_heavy = 1
 	ex_light = 3
 	ex_flame = 0
@@ -41,7 +42,6 @@
 
 /obj/item/grenade/pipebomb/attack_self(mob/user)
 	if(active == FALSE)
-		active = TRUE
 		to_chat(user, span_warning("You light the [name]!"))
 		return ..()
 

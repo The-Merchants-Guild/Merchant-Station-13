@@ -48,7 +48,7 @@
 			armour_block = 1
 		C.reagents.add_reagent(reagent_type.type, max(0, (0.2 * stabby) * max(1, armour_block - armour_penetration)))
 		if(stabby < 1 && stabby > 0)
-			reagent_type.expose_mob(C, methods=TOUCH, max(0, 1 / stabby))
+			reagent_type.expose_mob(C, TOUCH, max(0, 1 / stabby))
 	if(proximity_flag && reagent_type)
 		for(var/I in special_traits)
 			var/datum/special_trait/A = I
@@ -163,7 +163,7 @@
 			armour_block = 1
 		C.reagents.add_reagent(reagent_type.type, max(0, (0.2 * stabby) * max(1, armour_block - armour_penetration)))
 		if(stabby < 1 && stabby > 0)
-			reagent_type.expose_mob(C, methods=TOUCH, max(0, 1 / stabby))
+			reagent_type.expose_mob(C, TOUCH, max(0, 1 / stabby))
 	if(proximity_flag && reagent_type)
 		for(var/I in special_traits)
 			var/datum/special_trait/A = I
@@ -270,7 +270,7 @@
 		if(!armour_block)
 			armour_block = 1
 		C.reagents.add_reagent(reagent_type.type, max(0, 1 * max(1, armour_block - armour_penetration)))
-		reagent_type.expose_mob(C, methods=TOUCH, 1)
+		reagent_type.expose_mob(C, TOUCH, 1)
 
 //fuck tg
 /obj/projectile/bullet/forged/proc/open_flame(flame_heat=700)

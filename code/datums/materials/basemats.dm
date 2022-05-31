@@ -7,6 +7,7 @@
 	init_flags = MATERIAL_INIT_BESPOKE
 	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE, MAT_CATEGORY_ITEM_MATERIAL=TRUE)
 	value_per_unit = 0
+	id = "reagent"
 
 ///Has no special properties.
 /datum/material/iron

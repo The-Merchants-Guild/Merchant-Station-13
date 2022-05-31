@@ -287,11 +287,11 @@
 /datum/special_trait/acid/on_hit(atom/target, mob/user, obj/item/I, type)
 	if(I && target)
 		if(isliving(target))
-			acid.expose_mob(target, methods=TOUCH, 2)
+			acid.expose_mob(target, TOUCH, 2)
 		else if(isturf(target))
-			acid.expose_turf(target, methods=TOUCH, 2)
+			acid.expose_turf(target, TOUCH, 2)
 		else if(isobj(target))
-			acid.expose_obj(target, methods=TOUCH, 2)
+			acid.expose_obj(target, TOUCH, 2)
 
 	if(user && iscarbon(user))
 		var/mob/living/carbon/C = user

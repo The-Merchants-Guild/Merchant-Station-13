@@ -139,10 +139,10 @@
 
 /datum/wires/explosive/pipebomb/on_pulse(wire)
 	var/obj/item/grenade/pipebomb/P = holder
-	P.arm_grenade(2)
+	P.arm_grenade()
 	. = ..()
 
 /datum/wires/explosive/pipebomb/on_cut(wire, mend)
 	var/obj/item/grenade/pipebomb/P = holder
-	P.arm_grenade(2)
+	P.arm_grenade()
 	. = ..()

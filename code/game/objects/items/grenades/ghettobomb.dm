@@ -56,7 +56,7 @@
 
 /obj/item/grenade/pipebomb/examine(mob/user)
 	. = ..()
-	. += "Seems very familiar."
+	. += "You seems fammiliar with it."
 
 /obj/item/grenade/iedcasing
 	name = "improvised firebomb"

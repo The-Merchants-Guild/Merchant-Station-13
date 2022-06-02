@@ -317,10 +317,17 @@
 	var/trimmable = TRUE
 	var/list/static/random_plant_states
 
+/// Storage type for plants
+/datum/component/storage/concrete/kirbyplants
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_items = 1
+	insert_while_closed = FALSE
+
 /obj/item/kirbyplants/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/tactical)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
+	AddComponent(/datum/component/storage/concrete/kirbyplants)
 	AddElement(/datum/element/beauty, 500)
 
 /obj/item/kirbyplants/attackby(obj/item/I, mob/living/user, params)

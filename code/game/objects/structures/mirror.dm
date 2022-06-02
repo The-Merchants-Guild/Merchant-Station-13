@@ -117,7 +117,7 @@
 		return TRUE
 
 	to_chat(user, span_notice("You begin repairing [src]..."))
-	if(I.use_tool(src, user, 10, volume=50))
+	if(I.use_tool(src, user, volume=50))
 		to_chat(user, span_notice("You repair [src]."))
 		broken = 0
 		icon_state = initial(icon_state)

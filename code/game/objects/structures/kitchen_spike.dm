@@ -26,7 +26,7 @@
 		if(!I.tool_start_check(user, amount=0))
 			return
 		to_chat(user, span_notice("You begin cutting \the [src] apart..."))
-		if(I.use_tool(src, user, 50, volume=50))
+		if(I.use_tool(src, user, volume=50))
 			visible_message(span_notice("[user] slices apart \the [src]."),
 				span_notice("You cut \the [src] apart with \the [I]."),
 				span_hear("You hear welding."))
@@ -55,7 +55,7 @@
 		to_chat(user, span_warning("You can't do that while something's on the spike!"))
 		return TRUE
 
-	if(I.use_tool(src, user, 20, volume=100))
+	if(I.use_tool(src, user, volume=100))
 		to_chat(user, span_notice("You pry the spikes out of the frame."))
 		deconstruct(TRUE)
 	return TRUE

@@ -2156,3 +2156,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/armstrong
 	cost = 14
 	surplus = 20 // someone who respects the eldritch god Nar-Sie a little (((too much))) complained
+
+/datum/uplink_item/dangerous/gremlin
+	name = "Gremlin delivery grenade"
+	desc = "This grenade is filled with several gremlins. Fun for RnD and engineering!"
+	cost = 2
+	item = /obj/item/grenade/spawnergrenade/gremlin
+	surplus = 30

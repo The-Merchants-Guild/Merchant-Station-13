@@ -38,7 +38,7 @@
 
 	if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, span_notice("You start slicing apart the girder..."))
-		if(W.use_tool(src, user, 40, volume=100))
+		if(W.use_tool(src, user, volume=100))
 			to_chat(user, span_notice("You slice apart the girder."))
 			var/obj/item/stack/sheet/iron/M = new (loc, 2)
 			M.add_fingerprint(user)
@@ -234,7 +234,7 @@
 		user.visible_message(span_warning("[user] disassembles the girder."),
 			span_notice("You start to disassemble the girder..."),
 			span_hear("You hear clanking and banging noises."))
-		if(tool.use_tool(src, user, 40, volume=100))
+		if(tool.use_tool(src, user, volume=100))
 			if(state != GIRDER_DISPLACED)
 				return
 			state = GIRDER_DISASSEMBLED
@@ -246,7 +246,7 @@
 
 	else if(state == GIRDER_REINF)
 		to_chat(user, span_notice("You start unsecuring support struts..."))
-		if(tool.use_tool(src, user, 40, volume=100))
+		if(tool.use_tool(src, user, volume=100))
 			if(state != GIRDER_REINF)
 				return
 			to_chat(user, span_notice("You unsecure the support struts."))
@@ -255,7 +255,7 @@
 
 	else if(state == GIRDER_REINF_STRUTS)
 		to_chat(user, span_notice("You start securing support struts..."))
-		if(tool.use_tool(src, user, 40, volume=100))
+		if(tool.use_tool(src, user, volume=100))
 			if(state != GIRDER_REINF_STRUTS)
 				return
 			to_chat(user, span_notice("You secure the support struts."))
@@ -267,7 +267,7 @@
 	. = ..()
 	if(state == GIRDER_REINF_STRUTS)
 		to_chat(user, span_notice("You start removing the inner grille..."))
-		if(tool.use_tool(src, user, 40, volume=100))
+		if(tool.use_tool(src, user, volume=100))
 			to_chat(user, span_notice("You remove the inner grille."))
 			new /obj/item/stack/sheet/plasteel(get_turf(src))
 			var/obj/structure/girder/G = new (loc)
@@ -282,7 +282,7 @@
 			to_chat(user, span_warning("A floor must be present to secure the girder!"))
 
 		to_chat(user, span_notice("You start securing the girder..."))
-		if(tool.use_tool(src, user, 40, volume=100))
+		if(tool.use_tool(src, user, volume=100))
 			to_chat(user, span_notice("You secure the girder."))
 			var/obj/structure/girder/G = new (loc)
 			transfer_fingerprints_to(G)
@@ -290,7 +290,7 @@
 		return TRUE
 	else if(state == GIRDER_NORMAL && can_displace)
 		to_chat(user, span_notice("You start unsecuring the girder..."))
-		if(tool.use_tool(src, user, 40, volume=100))
+		if(tool.use_tool(src, user, volume=100))
 			to_chat(user, span_notice("You unsecure the girder."))
 			var/obj/structure/girder/displaced/D = new (loc)
 			transfer_fingerprints_to(D)
@@ -355,7 +355,7 @@
 			return
 
 		to_chat(user, span_notice("You start slicing apart the girder..."))
-		if(W.use_tool(src, user, 40, volume=50))
+		if(W.use_tool(src, user, volume=50))
 			to_chat(user, span_notice("You slice apart the girder."))
 			var/obj/item/stack/sheet/runed_metal/R = new(drop_location(), 1)
 			transfer_fingerprints_to(R)
@@ -425,7 +425,7 @@
 		if(!W.tool_start_check(user, amount = 0))
 			return
 		to_chat(user, span_notice("You start slicing apart [src]..."))
-		if(W.use_tool(src, user, 40, volume=50))
+		if(W.use_tool(src, user, volume=50))
 			to_chat(user, span_notice("You slice apart [src]."))
 			var/obj/item/stack/sheet/bronze/B = new(drop_location(), 2)
 			transfer_fingerprints_to(B)

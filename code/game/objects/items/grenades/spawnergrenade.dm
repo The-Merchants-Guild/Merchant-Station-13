@@ -62,3 +62,9 @@
 	inhand_icon_state = "clown_broken"
 	spawner_type = /mob/living/simple_animal/hostile/retaliate/clown/mutant
 	deliveryamt = 5
+
+/obj/item/grenade/spawnergrenade/gremlin
+	name = "Shitty EMP Grenade"
+	desc = "Why would you buy this?"
+	spawner_type = /mob/living/simple_animal/hostile/gremlin/traitor
+	deliveryamt = 5

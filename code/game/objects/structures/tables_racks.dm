@@ -167,13 +167,13 @@
 	if(!(flags_1 & NODECONSTRUCT_1) && LAZYACCESS(modifiers, RIGHT_CLICK))
 		if(I.tool_behaviour == TOOL_SCREWDRIVER && deconstruction_ready)
 			to_chat(user, span_notice("You start disassembling [src]..."))
-			if(I.use_tool(src, user, 20, volume=50))
+			if(I.use_tool(src, user, volume=50))
 				deconstruct(TRUE)
 			return
 
 		if(I.tool_behaviour == TOOL_WRENCH && deconstruction_ready)
 			to_chat(user, span_notice("You start deconstructing [src]..."))
-			if(I.use_tool(src, user, 40, volume=50))
+			if(I.use_tool(src, user, volume=50))
 				playsound(src.loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 				deconstruct(TRUE, 1)
 			return
@@ -520,12 +520,12 @@
 		if(weapon.tool_start_check(user, amount = 0))
 			if(deconstruction_ready)
 				to_chat(user, span_notice("You start strengthening the reinforced table..."))
-				if (weapon.use_tool(src, user, 50, volume = 50))
+				if (weapon.use_tool(src, user, volume = 50))
 					to_chat(user, span_notice("You strengthen the table."))
 					deconstruction_ready = FALSE
 			else
 				to_chat(user, span_notice("You start weakening the reinforced table..."))
-				if (weapon.use_tool(src, user, 50, volume = 50))
+				if (weapon.use_tool(src, user, volume = 50))
 					to_chat(user, span_notice("You weaken the table."))
 					deconstruction_ready = TRUE
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN

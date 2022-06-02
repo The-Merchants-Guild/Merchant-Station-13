@@ -132,7 +132,7 @@
 		return TRUE
 
 	to_chat(user, span_notice("You start slicing [src]..."))
-	if(I.use_tool(src, user, 30, volume=50))
+	if(I.use_tool(src, user, volume=50))
 		deconstruct()
 		to_chat(user, span_notice("You slice [src]."))
 	return TRUE

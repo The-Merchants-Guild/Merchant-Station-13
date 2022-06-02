@@ -75,7 +75,7 @@
 
 			to_chat(user, span_notice("You start digging..."))
 
-			if(W.use_tool(src, user, 40, volume=50))
+			if(W.use_tool(src, user, volume=50))
 				if(!can_dig(user))
 					return TRUE
 				to_chat(user, span_notice("You dig a hole."))

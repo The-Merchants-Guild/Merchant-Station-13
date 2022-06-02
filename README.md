@@ -8,7 +8,7 @@
 
 * **Website:** https://www.merchantstation.net/
 * **Wiki:** https://wiki.merchantstation.net/, (Early work in progress, check out [/tg/station's wiki](https://tgstation13.org/wiki/Main_Page) in the meantime).
-* **Discord:** https://discord.gg/2YYfU3ZanD
+* **Discord:** https://discord.gg/cDp57sRwbf
 * **HackMD:** https://hackmd.io/79ogwXLUS2-A_xnzUmCH9g
 
 This is the codebase for the Merchant Station, a modified /tg/station-based fork of SpaceStation 13.

@@ -337,7 +337,7 @@
 					return
 
 				to_chat(user, span_notice("You begin cutting \the [src] apart..."))
-				if(W.use_tool(src, user, 40, volume=50))
+				if(W.use_tool(src, user, volume=50))
 					if(!opened)
 						return
 					user.visible_message(span_notice("[user] slices apart \the [src]."),
@@ -357,7 +357,7 @@
 			return
 
 		to_chat(user, span_notice("You begin [welded ? "unwelding":"welding"] \the [src]..."))
-		if(W.use_tool(src, user, 40, volume=50))
+		if(W.use_tool(src, user, volume=50))
 			if(opened)
 				return
 			welded = !welded

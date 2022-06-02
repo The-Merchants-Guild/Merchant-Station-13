@@ -99,7 +99,7 @@
 		to_chat(user, span_info("[src] is at full integrity."))
 		return
 
-	if(welder.use_tool(src, user, 0, volume=40))
+	if(welder.use_tool(src, user, volume=40))
 		adjustBruteLoss(-15)
 		to_chat(user, span_info("You repair some of the armor on [src]."))
 

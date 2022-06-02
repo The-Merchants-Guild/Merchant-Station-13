@@ -57,7 +57,7 @@
 	if(salvage_num <= 0 || !length(welder_salvage))
 		to_chat(user, span_notice("You don't see anything that can be cut with [I]!"))
 		return
-	if(!I.use_tool(src, user, 0, volume=50))
+	if(!I.use_tool(src, user, volume=50))
 		return
 	if(prob(30))
 		to_chat(user, span_notice("You fail to salvage anything valuable from [src]!"))

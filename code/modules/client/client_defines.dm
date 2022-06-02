@@ -213,3 +213,6 @@
 	var/interviewee = FALSE
 
 	var/country
+
+	/// If this client has been fully initialized or not
+	var/fully_created = FALSE

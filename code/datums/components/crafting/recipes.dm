@@ -402,6 +402,19 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/pipebomb
+	name = "Pipe Bomb"
+	result = /obj/item/grenade/pipebomb
+	reqs = list(/obj/item/pipe = 1,
+				/datum/reagent/gunpowder = 50,
+				/obj/item/stack/cable_coil = 1,
+				/obj/item/assembly/igniter = 1,
+				/obj/item/stack/sticky_tape = 1)
+	tool_behaviors = list(TOOL_SCREWDRIVER)
+	time = 50
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/pipegun_prime
 	name = "Regal Pipegun"
 	always_available = FALSE

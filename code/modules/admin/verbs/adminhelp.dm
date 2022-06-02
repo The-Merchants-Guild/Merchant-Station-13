@@ -125,7 +125,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	if(C.current_ticket)
 		var/datum/admin_help/T = C.current_ticket
 		T.AddInteraction("Client disconnected.")
-		SSblackbox.LogAhelp(T, "Disconnected", "Client disconnected", C.ckey)
+		SSblackbox.LogAhelp(T.id, "Disconnected", "Client disconnected", C.ckey)
 		T.initiator = null
 
 //Get a ticket given a ckey
@@ -487,6 +487,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			Retitle()
 		if("reject")
 			Reject()
+		if("mhelp")
+			MHelpThis()
 		if("reply")
 			usr.client.cmd_ahelp_reply(initiator)
 		if("icissue")

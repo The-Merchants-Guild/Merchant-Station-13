@@ -1,0 +1,4 @@
+2022-06-02:
+  eLeCtrOssSnake:
+  - rscadd: Add ability to stash normal-sized items in potted plants.
+  - code_imp: Added new variable insert_while_closed to /datum/component/storage.

@@ -567,7 +567,7 @@
 		user.visible_message(span_notice("[user.name] welds [src]."), \
 							span_notice("You start welding the APC frame..."), \
 							span_hear("You hear welding."))
-		if(W.use_tool(src, user, 50, volume=50, amount=3))
+		if(W.use_tool(src, user, volume=50, amount=3))
 			if ((machine_stat & BROKEN) || opened==APC_COVER_REMOVED)
 				new /obj/item/stack/sheet/iron(loc)
 				user.visible_message(span_notice("[user.name] cuts [src] apart with [W]."),\

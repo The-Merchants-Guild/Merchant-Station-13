@@ -24,8 +24,11 @@
 	ex_flame = 0
 
 /obj/item/grenade/pipebomb/attackby(obj/item/item, mob/user, params)
+
 	if(is_wire_tool(item))
 		wires.interact(user)
+	else if(item.tool_behaviour == TOOL_SCREWDRIVER)
+		return ..()
 	else
 		return ..()
 

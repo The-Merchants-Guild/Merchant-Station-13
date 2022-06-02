@@ -80,8 +80,6 @@ GLOBAL_LIST_EMPTY(unit_test_mapping_logs)
 	allocated += instance
 	return instance
 
-<<<<<<< HEAD
-=======
 /proc/RunUnitTest(test_path, list/test_results)
 	var/datum/unit_test/test = new test_path
 
@@ -124,7 +122,6 @@ GLOBAL_LIST_EMPTY(unit_test_mapping_logs)
 
 	qdel(test)
 
->>>>>>> d8d29f6701 (Test all maps in parallel integration tests (#66864))
 /proc/RunUnitTests()
 	CHECK_TICK
 

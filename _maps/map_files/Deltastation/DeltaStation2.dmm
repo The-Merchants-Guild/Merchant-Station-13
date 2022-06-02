@@ -16473,10 +16473,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
-"chr" = (
-/obj/structure/cable,
-/turf/open/floor/iron,
-/area/construction)
 "chs" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -37864,6 +37860,10 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/maintenance/department/electrical)
+"eoS" = (
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/construction)
 "eoX" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
@@ -44059,9 +44059,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/medical/pharmacy)
-"gbd" = (
-/turf/open/floor/plating,
-/area/construction)
 "gbz" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -59060,6 +59057,9 @@
 	},
 /turf/open/floor/circuit/green,
 /area/ai_monitored/command/nuke_storage)
+"kle" = (
+/turf/open/floor/plating,
+/area/construction)
 "kly" = (
 /obj/structure/cable,
 /obj/effect/turf_decal/tile/neutral,
@@ -77806,7 +77806,8 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central/aft)
 "oVQ" = (
-/turf/open/floor/iron,
+/obj/structure/sign/departments/engineering,
+/turf/closed/wall,
 /area/construction)
 "oWe" = (
 /obj/effect/decal/cleanable/dirt,
@@ -87855,6 +87856,9 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/starboard/fore)
+"rDh" = (
+/turf/open/floor/iron,
+/area/construction)
 "rDl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
@@ -106688,10 +106692,6 @@
 /turf/open/floor/iron,
 /area/science/xenobiology)
 "wAa" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -106704,6 +106704,10 @@
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 8
+	},
+/obj/machinery/door/airlock/engineering{
+	name = "Construction Area";
+	req_access_txt = "32"
 	},
 /turf/open/floor/iron,
 /area/construction)
@@ -143123,10 +143127,10 @@ etu
 arA
 aKi
 vNR
-gbd
+kle
 ltx
 lMM
-gbd
+kle
 eEH
 prO
 vNR
@@ -143380,11 +143384,11 @@ ozU
 idU
 bxL
 vNR
-gbd
-gbd
-gbd
-gbd
-oVQ
+kle
+kle
+kle
+kle
+rDh
 cLK
 vNR
 aYr
@@ -143637,11 +143641,11 @@ xWM
 iry
 aKj
 vNR
-oVQ
-oVQ
-oVQ
-oVQ
-gbd
+rDh
+rDh
+rDh
+rDh
+kle
 shN
 vNR
 aAe
@@ -144153,8 +144157,8 @@ aKk
 vNR
 lxv
 vvX
-chr
-chr
+eoS
+eoS
 xRY
 vHY
 vNR
@@ -144411,7 +144415,7 @@ vNR
 ftj
 nfs
 pRW
-oVQ
+rDh
 lNF
 prO
 vNR
@@ -144670,7 +144674,7 @@ vNR
 vNR
 ikq
 wAa
-vNR
+oVQ
 vNR
 xGJ
 oft

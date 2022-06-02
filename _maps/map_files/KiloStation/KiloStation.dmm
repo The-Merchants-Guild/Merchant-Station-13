@@ -2727,11 +2727,12 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/fore)
 "aiC" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /obj/structure/cable,
+/obj/machinery/door/airlock/engineering{
+	name = "Construction Area";
+	req_access_txt = "32"
+	},
 /turf/open/floor/iron/dark,
 /area/construction)
 "aiD" = (
@@ -3115,6 +3116,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/medical/gauze,
+/obj/item/toy/clockwork_watch,
 /turf/open/floor/plating,
 /area/construction)
 "ajI" = (
@@ -15804,6 +15806,10 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/lobby)
+"aYF" = (
+/obj/structure/sign/poster/official/no_erp,
+/turf/closed/wall,
+/area/construction)
 "aYH" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -20031,9 +20037,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
-"bmB" = (
-/turf/closed/wall/rust,
-/area/construction)
 "bmC" = (
 /obj/structure/water_source/puddle,
 /obj/structure/flora/ausbushes/reedbush{
@@ -37970,7 +37973,7 @@
 	},
 /area/maintenance/fore)
 "cAH" = (
-/obj/structure/sign/departments/security,
+/obj/structure/sign/departments/engineering,
 /turf/closed/wall,
 /area/construction)
 "cAT" = (
@@ -41172,6 +41175,11 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/dark,
 /area/engineering/break_room)
+"dda" = (
+/obj/structure/closet/toolcloset/partscloset,
+/obj/item/circuitboard/machine/reagent_sheet,
+/turf/open/floor/plating,
+/area/construction)
 "ddk" = (
 /obj/structure/cable,
 /obj/structure/flora/ausbushes/sparsegrass{
@@ -42177,6 +42185,9 @@
 	luminosity = 2
 	},
 /area/ai_monitored/turret_protected/ai_upload)
+"dEd" = (
+/turf/closed/wall,
+/area/construction)
 "dEf" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -49956,6 +49967,9 @@
 /obj/effect/landmark/start/research_director,
 /turf/open/floor/iron/showroomfloor,
 /area/command/heads_quarters/rd)
+"hdQ" = (
+/turf/closed/wall/rust,
+/area/construction)
 "hdT" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -55834,9 +55848,6 @@
 /obj/effect/landmark/start/bartender,
 /turf/open/floor/iron/dark,
 /area/service/bar)
-"jKS" = (
-/turf/closed/wall,
-/area/construction)
 "jLF" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 6
@@ -58699,11 +58710,6 @@
 	},
 /turf/open/floor/plating/asteroid,
 /area/space/nearstation)
-"kLF" = (
-/obj/structure/closet/toolcloset/partscloset,
-/obj/item/circuitboard/machine/reagent_sheet,
-/turf/open/floor/plating,
-/area/construction)
 "kLI" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral{
@@ -66058,6 +66064,12 @@
 	},
 /turf/open/floor/iron,
 /area/engineering/atmos)
+"ofp" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/construction)
 "ofB" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -75282,9 +75294,6 @@
 	},
 /turf/open/floor/wood,
 /area/command/heads_quarters/hop)
-"rZu" = (
-/turf/open/floor/plating,
-/area/construction)
 "rZx" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -83237,12 +83246,6 @@
 /obj/structure/cable,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"vsI" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/construction)
 "vte" = (
 /obj/item/storage/firstaid/regular{
 	pixel_x = 3;
@@ -88550,6 +88553,9 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /turf/open/floor/iron,
 /area/service/hydroponics)
+"xFb" = (
+/turf/open/floor/plating,
+/area/construction)
 "xFp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -113762,7 +113768,7 @@ aeu
 aeu
 aeu
 aeu
-jKS
+dEd
 oLl
 oLl
 wWK
@@ -114019,11 +114025,11 @@ aaa
 aeu
 aeu
 aeu
-jKS
-rZu
+dEd
+xFb
 adA
 ajG
-jKS
+dEd
 abN
 akx
 cDE
@@ -114276,11 +114282,11 @@ aaa
 aeU
 aeu
 aeu
-jKS
-rZu
+dEd
+xFb
 aea
 czi
-bmB
+hdQ
 cAF
 aky
 adH
@@ -114532,13 +114538,13 @@ aaa
 aeU
 aeu
 aeu
-jKS
-jKS
-rZu
+dEd
+dEd
+xFb
 cmo
 cra
-jKS
-jKS
+dEd
+dEd
 ahE
 cBc
 cAF
@@ -114789,13 +114795,13 @@ aaa
 aUz
 aeu
 aeu
-jKS
-rZu
-rZu
+dEd
+xFb
+xFb
 aqn
 cud
 oTZ
-bmB
+hdQ
 akE
 adQ
 cBf
@@ -115046,9 +115052,9 @@ aaa
 aeU
 aeu
 aeu
-jKS
-rZu
-rZu
+dEd
+xFb
+xFb
 inX
 cvc
 ahX
@@ -115303,11 +115309,11 @@ aaa
 aeu
 aeu
 aeu
-jKS
-rZu
-rZu
+dEd
+xFb
+xFb
 jRP
-vsI
+ofp
 bpk
 cAH
 cAT
@@ -115560,13 +115566,13 @@ aaa
 aeu
 aeu
 aeu
-jKS
-rZu
-rZu
+dEd
+xFb
+xFb
 cAr
 sdO
 opx
-bmB
+hdQ
 bsf
 aln
 cBc
@@ -115817,13 +115823,13 @@ aaa
 aaa
 aeu
 aeu
-jKS
-rZu
-rZu
-rZu
-rZu
-kLF
-jKS
+aYF
+xFb
+xFb
+xFb
+xFb
+dda
+dEd
 bxN
 alo
 tFu
@@ -116074,13 +116080,13 @@ aaa
 aaa
 aaa
 aeu
-jKS
-jKS
-jKS
-jKS
-jKS
-jKS
-jKS
+dEd
+dEd
+dEd
+dEd
+dEd
+dEd
+dEd
 pth
 crI
 crW

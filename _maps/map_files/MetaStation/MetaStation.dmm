@@ -6896,10 +6896,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/central)
-"bfu" = (
-/obj/machinery/reagent_material_manipulator,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "bfJ" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /turf/open/floor/iron/dark,
@@ -9658,6 +9654,10 @@
 /area/maintenance/starboard)
 "bLY" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
+"bLZ" = (
+/obj/machinery/reagent_material_manipulator,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bMr" = (
@@ -15013,11 +15013,11 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "cXa" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Storage Room";
-	req_access_txt = "12"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
+/obj/machinery/door/airlock/engineering{
+	name = "Construction Area";
+	req_access_txt = "32"
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "cXd" = (
@@ -39135,6 +39135,10 @@
 	},
 /turf/open/floor/iron,
 /area/construction/storage_wing)
+"kWX" = (
+/obj/structure/sign/departments/engineering,
+/turf/closed/wall,
+/area/maintenance/starboard)
 "kXd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
@@ -120527,7 +120531,7 @@ apc
 aqq
 rID
 bUy
-alq
+kWX
 waS
 uHb
 qkN
@@ -120782,7 +120786,7 @@ kbp
 bPm
 apc
 rBn
-bfu
+bLZ
 jMk
 jMk
 vTw

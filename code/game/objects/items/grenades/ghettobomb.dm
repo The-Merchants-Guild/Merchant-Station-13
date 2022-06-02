@@ -22,21 +22,10 @@
 	ex_heavy = 1
 	ex_light = 3
 	ex_flame = 0
-	var/open_panel = FALSE //PANEL MOMENT
 
 /obj/item/grenade/pipebomb/attackby(obj/item/item, mob/user, params)
-	if(item.tool_behaviour == TOOL_SCREWDRIVER)
-		if(open_panel == FALSE)
-			open_panel = TRUE
-			playsound(src, 'sound/items/screwdriver.ogg', 50, TRUE)
-			return ..()
-		if(open_panel == TRUE)
-			open_panel = FALSE
-			playsound(src, 'sound/items/screwdriver2.ogg', 50, TRUE)
-			return ..()
 	if(is_wire_tool(item))
-		if(open_panel == TRUE)
-			wires.interact(user)
+		wires.interact(user)
 	else
 		return ..()
 

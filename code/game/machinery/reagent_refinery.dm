@@ -27,7 +27,7 @@
 
 /obj/machinery/reagent_sheet/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/food/solid_reagent) && !panel_open)
-		if(!is_operational & BROKEN)
+		if(!is_operational && BROKEN)
 			to_chat(user, "<span class='warning'>[src] is broken!</span>")
 			return
 		if(working)

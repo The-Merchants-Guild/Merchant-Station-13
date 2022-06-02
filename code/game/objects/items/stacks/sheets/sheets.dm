@@ -157,7 +157,6 @@ GLOBAL_LIST_INIT(reagent_recipes, list (
 				D.desc = "A slightly transparent door made out of sheets of [reagent_type]"
 				D.add_atom_colour(reagent_type.color, FIXED_COLOUR_PRIORITY)
 				D.max_integrity = reagent_type.density * 100
-				D.obj_integrity = D.max_integrity
 				break
 			else
 				qdel(RR)

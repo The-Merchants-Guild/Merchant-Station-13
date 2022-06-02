@@ -371,9 +371,12 @@
 	name = "reagent wall"
 	desc = "A wall with reagent plating."
 	icon = 'icons/turf/walls/silver_wall.dmi'
-	icon_state = "silver"
+	icon_state = "silver_wall-0"
+	base_icon_state = "silver_wall"
 	sheet_type = /obj/item/stack/sheet/mineral/reagent
-	canSmoothWith = list(/turf/closed/wall/mineral/reagent)
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SILVER_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_SILVER_WALLS)
 	var/datum/reagent/reagent_type
 	var/obj/effect/particle_effect/fakeholder
 	sheet_amount = 4

@@ -97,8 +97,8 @@
 	weapon_type = MELEE_TYPE_MACE
 	stabby = TRANSFER_PARTIALLY_BLUNT
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb_simple = list("beaten", "bludgeoned")
-	attack_verb_continuous = list("beaten", "bludgeoned")
+	attack_verb_simple = list("beat", "bludgeon")
+	attack_verb_continuous = list("beat", "bludgeon")
 	embedding = list("embed_chance" = 1, "embedded_pain_multiplier" = 2, "embedded_fall_pain_multiplier" = 2.5, "embedded_impact_pain_multiplier" = 3, "embedded_unsafe_removal_pain_multiplier" = 2.5)
 	armour_penetration = 5
 
@@ -119,11 +119,13 @@
 	var/force_unwielded = 0
 	var/force_wielded = 0
 
-/obj/item/twohanded/forged/ComponentInitialize()
+/obj/item/twohanded/forged/warhammer/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=force, force_wielded=two_hand_force, icon_wielded="forged_hammer1")
+	AddComponent(/datum/component/two_handed, force_unwielded=force_unwielded, force_wielded=force_wielded, icon_wielded="forged_hammer1")
 
-
+/obj/item/twohanded/forged/greatsword/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=force_unwielded, force_wielded=force_wielded)
 
 /obj/item/twohanded/forged/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -175,6 +177,7 @@
 	name = "forged greatsword"
 	desc = "A custom greatsword forged from solid ingots"
 	icon_state = "forged_greatsword"
+	inhand_icon_state = "forged_sword"
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64

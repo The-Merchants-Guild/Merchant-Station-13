@@ -119,6 +119,8 @@ commented out until the Lcasschem pr goes through*/
 /datum/reagent/toxin/acid
 	special_traits = list(SPECIAL_TRAIT_ACID)
 
+
+
 //EXPLOSIVES
 
 /*/datum/reagent/superboom
@@ -134,6 +136,12 @@ commented out until the Lcasschem pr goes through*/
 	special_traits = list(SPECIAL_TRAIT_EXPLOSIVE)
 
 /datum/reagent/nitrous_oxide
+	special_traits = list(SPECIAL_TRAIT_EXPLOSIVE)
+
+/datum/reagent/tatp
+	special_traits = list(SPECIAL_TRAIT_EXPLOSIVE)
+
+/datum/reagent/rdx
 	special_traits = list(SPECIAL_TRAIT_EXPLOSIVE)
 
 //MISC

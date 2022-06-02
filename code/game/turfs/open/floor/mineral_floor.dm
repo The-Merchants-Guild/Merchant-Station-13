@@ -362,10 +362,10 @@
 	reagent_act(user)
 	..()
 
-/turf/open/floor/mineral/reagent/Entered(atom/AM)
+/turf/open/floor/mineral/reagent/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	.=..()
 	if(!.)
-		reagent_act(AM)
+		reagent_act(arrived)
 
 /turf/open/floor/mineral/reagent/attackby(obj/item/I, mob/user, params)
 	var/hotness = I.get_temperature()

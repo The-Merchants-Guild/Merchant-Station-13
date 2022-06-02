@@ -803,7 +803,7 @@
 					if(!C.tool_start_check(user, amount=2))
 						return
 					to_chat(user, span_notice("You begin cutting the panel's shielding..."))
-					if(C.use_tool(src, user, 40, volume=50, amount = 2))
+					if(C.use_tool(src, user, volume=50, amount = 2))
 						if(!panel_open)
 							return
 						user.visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
@@ -817,7 +817,7 @@
 				if(C.tool_behaviour == TOOL_CROWBAR)
 					var/obj/item/crowbar/W = C
 					to_chat(user, span_notice("You start removing the inner layer of shielding..."))
-					if(W.use_tool(src, user, 40, volume=100))
+					if(W.use_tool(src, user, volume=100))
 						if(!panel_open)
 							return
 						if(security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
@@ -835,7 +835,7 @@
 					if(!C.tool_start_check(user, amount=2))
 						return
 					to_chat(user, span_notice("You begin cutting the inner layer of shielding..."))
-					if(C.use_tool(src, user, 40, volume=50, amount=2))
+					if(C.use_tool(src, user, volume=50, amount=2))
 						if(!panel_open)
 							return
 						user.visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
@@ -846,7 +846,7 @@
 			if(AIRLOCK_SECURITY_PLASTEEL_O_S)
 				if(C.tool_behaviour == TOOL_CROWBAR)
 					to_chat(user, span_notice("You start removing outer layer of shielding..."))
-					if(C.use_tool(src, user, 40, volume=100))
+					if(C.use_tool(src, user, volume=100))
 						if(!panel_open)
 							return
 						if(security_level != AIRLOCK_SECURITY_PLASTEEL_O_S)
@@ -861,7 +861,7 @@
 					if(!C.tool_start_check(user, amount=2))
 						return
 					to_chat(user, span_notice("You begin cutting the outer layer of shielding..."))
-					if(C.use_tool(src, user, 40, volume=50, amount=2))
+					if(C.use_tool(src, user, volume=50, amount=2))
 						if(!panel_open)
 							return
 						user.visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
@@ -874,7 +874,7 @@
 					if(hasPower() && shock(user, 60)) // Protective grille of wiring is electrified
 						return
 					to_chat(user, span_notice("You start cutting through the outer grille."))
-					if(C.use_tool(src, user, 10, volume=100))
+					if(C.use_tool(src, user, volume=100))
 						if(!panel_open)
 							return
 						user.visible_message(span_notice("[user] cut through \the [src]'s outer grille."),
@@ -956,7 +956,7 @@
 			user.visible_message(span_notice("[user] begins welding the airlock."), \
 							span_notice("You begin repairing the airlock..."), \
 							span_hear("You hear welding."))
-			if(W.use_tool(src, user, 40, volume=50, extra_checks = CALLBACK(src, .proc/weld_checks, W, user)))
+			if(W.use_tool(src, user, volume=50, extra_checks = CALLBACK(src, .proc/weld_checks, W, user)))
 				obj_integrity = max_integrity
 				set_machine_stat(machine_stat & ~BROKEN)
 				user.visible_message(span_notice("[user] finishes welding [src]."), \
@@ -971,7 +971,7 @@
 	user.visible_message(span_notice("[user] begins [welded ? "unwelding":"welding"] the airlock."), \
 		span_notice("You begin [welded ? "unwelding":"welding"] the airlock..."), \
 		span_hear("You hear welding."))
-	if(!tool.use_tool(src, user, 40, volume=50, extra_checks = CALLBACK(src, .proc/weld_checks, tool, user)))
+	if(!tool.use_tool(src, user, volume=50, extra_checks = CALLBACK(src, .proc/weld_checks, tool, user)))
 		return
 	welded = !welded
 	user.visible_message(span_notice("[user] [welded? "welds shut":"unwelds"] [src]."), \
@@ -1018,7 +1018,7 @@
 		if(!security_level && (beingcrowbarred && panel_open && ((obj_flags & EMAGGED) || (density && welded && !operating && !hasPower() && !locked))))
 			user.visible_message(span_notice("[user] removes the electronics from the airlock assembly."), \
 				span_notice("You start to remove electronics from the airlock assembly..."))
-			if(I.use_tool(src, user, 40, volume=100))
+			if(I.use_tool(src, user, volume=100))
 				deconstruct(TRUE, user)
 				return
 	if(seal)

@@ -107,7 +107,7 @@ GLOBAL_VAR(station_nuke_source)
 		if(NUKESTATE_INTACT)
 			if(istype(I, /obj/item/screwdriver/nuke))
 				to_chat(user, span_notice("You start removing [src]'s front panel's screws..."))
-				if(I.use_tool(src, user, 60, volume=100))
+				if(I.use_tool(src, user, volume=100))
 					deconstruction_state = NUKESTATE_UNSCREWED
 					to_chat(user, span_notice("You remove the screws from [src]'s front panel."))
 					update_appearance()
@@ -118,7 +118,7 @@ GLOBAL_VAR(station_nuke_source)
 				if(!I.tool_start_check(user, amount=1))
 					return
 				to_chat(user, span_notice("You start cutting [src]'s inner plate..."))
-				if(I.use_tool(src, user, 80, volume=100, amount=1))
+				if(I.use_tool(src, user, volume=100, amount=1))
 					to_chat(user, span_notice("You cut [src]'s inner plate."))
 					deconstruction_state = NUKESTATE_WELDED
 					update_appearance()
@@ -141,7 +141,7 @@ GLOBAL_VAR(station_nuke_source)
 					return
 
 				to_chat(user, span_notice("You begin repairing [src]'s inner metal plate..."))
-				if(I.use_tool(src, user, 100, amount=20))
+				if(I.use_tool(src, user, amount=20))
 					to_chat(user, span_notice("You repair [src]'s inner metal plate. The radiation is contained."))
 					deconstruction_state = NUKESTATE_PANEL_REMOVED
 					STOP_PROCESSING(SSobj, core)
@@ -154,14 +154,14 @@ GLOBAL_VAR(station_nuke_source)
 	switch(deconstruction_state)
 		if(NUKESTATE_UNSCREWED)
 			to_chat(user, span_notice("You start removing [src]'s front panel..."))
-			if(tool.use_tool(src, user, 30, volume=100))
+			if(tool.use_tool(src, user, volume=100))
 				to_chat(user, span_notice("You remove [src]'s front panel."))
 				deconstruction_state = NUKESTATE_PANEL_REMOVED
 				update_appearance()
 			return TRUE
 		if(NUKESTATE_WELDED)
 			to_chat(user, span_notice("You start prying off [src]'s inner plate..."))
-			if(tool.use_tool(src, user, 30, volume=100))
+			if(tool.use_tool(src, user, volume=100))
 				to_chat(user, span_notice("You pry off [src]'s inner plate. You can see the core's green glow!"))
 				deconstruction_state = NUKESTATE_CORE_EXPOSED
 				update_appearance()

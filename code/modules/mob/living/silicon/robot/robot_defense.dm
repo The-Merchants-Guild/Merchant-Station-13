@@ -94,7 +94,7 @@ GLOBAL_LIST_INIT(blacklisted_borg_hats, typecacheof(list( //Hats that don't real
 			spark_system.start()
 			return
 		to_chat(user, span_notice("You start to unfasten [src]'s securing bolts..."))
-		if(W.use_tool(src, user, 50, volume=50) && !cell)
+		if(W.use_tool(src, user, volume=50) && !cell)
 			user.visible_message(span_notice("[user] deconstructs [src]!"), span_notice("You unfasten the securing bolts, and [src] falls to pieces!"))
 			deconstruct()
 		return

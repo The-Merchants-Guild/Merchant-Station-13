@@ -155,7 +155,7 @@
 				if(emp_module)
 					to_chat(user, span_warning("[src] already contains a [emp_module]!"))
 					return
-				if(!W.use_tool(src, user, 0, amount=1)) //only use one sheet, otherwise the whole stack will be consumed.
+				if(!W.use_tool(src, user, amount=1)) //only use one sheet, otherwise the whole stack will be consumed.
 					return
 				emp_module = new(src)
 				if(malf_xray_firmware_active)
@@ -272,7 +272,7 @@
 	if(!W.tool_start_check(user, amount=3))
 		return FALSE
 	to_chat(user, span_notice("You start to weld [src]..."))
-	if(W.use_tool(src, user, 20, amount=3, volume = 50))
+	if(W.use_tool(src, user, amount=3, volume = 50))
 		return TRUE
 	return FALSE
 

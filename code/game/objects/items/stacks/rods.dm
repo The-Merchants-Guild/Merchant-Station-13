@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 			to_chat(user, span_warning("You need at least two rods to do this!"))
 			return
 
-		if(W.use_tool(src, user, 0, volume=40))
+		if(W.use_tool(src, user, volume=40))
 			var/obj/item/stack/sheet/iron/new_item = new(usr.loc)
 			user.visible_message(span_notice("[user.name] shaped [src] into iron sheets with [W]."), \
 				span_notice("You shape [src] into iron sheets with [W]."), \

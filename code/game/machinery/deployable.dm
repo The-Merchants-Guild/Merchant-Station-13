@@ -32,7 +32,7 @@
 				return
 
 			to_chat(user, span_notice("You begin repairing [src]..."))
-			if(I.use_tool(src, user, 40, volume=40))
+			if(I.use_tool(src, user, volume=40))
 				obj_integrity = clamp(obj_integrity + 20, 0, max_integrity)
 	else
 		return ..()

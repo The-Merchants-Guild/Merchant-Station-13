@@ -49,7 +49,7 @@
 	if(!refined_type)
 		return TRUE
 
-	if(I.use_tool(src, user, 0, volume=50, amount=15))
+	if(I.use_tool(src, user, volume=50, amount=15))
 		new refined_type(drop_location())
 		use(1)
 

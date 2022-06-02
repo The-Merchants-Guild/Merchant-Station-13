@@ -75,7 +75,7 @@
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(l_leg || r_leg || chest || l_arm || r_arm || head)
-		if(I.use_tool(src, user, 5, volume=50))
+		if(I.use_tool(src, user, volume=50))
 			if(l_leg)
 				l_leg.forceMove(T)
 				l_leg = null

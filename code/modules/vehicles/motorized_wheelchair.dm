@@ -128,7 +128,7 @@
 
 /obj/vehicle/ridden/wheelchair/motorized/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, span_notice("You begin to detach the wheels..."))
-	if(!I.use_tool(src, user, 40, volume=50))
+	if(!I.use_tool(src, user, volume=50))
 		return TRUE
 	to_chat(user, span_notice("You detach the wheels and deconstruct the chair."))
 	new /obj/item/stack/rods(drop_location(), 8)

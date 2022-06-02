@@ -153,30 +153,30 @@
 	. = ..()
 	AddComponent(/datum/component/butchering, 200, 55)
 
-/obj/item/reagent_containers/food/drinks/bottle/imitation
-	name = "imitation glass bottle"
-	desc = "This very real glass bottle has the technology to morph its appearance based on its contents, but is ambigious on drinks outside its nano-software parameters."
+/obj/item/reagent_containers/food/drinks/bottle/holotech
+	name = "holo-tech glass bottle"
+	desc = "This very real glass bottle has the technology to morph its appearance based on its contents, but is ambigious on drinks outside its holo-software parameters."
 
-/obj/item/reagent_containers/food/drinks/bottle/imitation/on_reagent_change(datum/reagents/holder, ...)
+/obj/item/reagent_containers/food/drinks/bottle/holotech/on_reagent_change(datum/reagents/holder, ...)
 	. = ..()
 	if(!length(reagents.reagent_list))
-		renamedByPlayer = FALSE //so new drinks can rename the imitation bottle
+		renamedByPlayer = FALSE //so new drinks can rename the holotech bottle
 
-/obj/item/reagent_containers/food/drinks/bottle/imitation/update_name(updates)
+/obj/item/reagent_containers/food/drinks/bottle/holotech/update_name(updates)
 	if(renamedByPlayer)
 		return
 	. = ..()
 	var/datum/reagent/largest_reagent = reagents.get_master_reagent()
 	name = largest_reagent?.bottle_name || initial(name)
 
-/obj/item/reagent_containers/food/drinks/bottle/imitation/update_desc(updates)
+/obj/item/reagent_containers/food/drinks/bottle/holotech/update_desc(updates)
 	if(renamedByPlayer)
 		return
 	. = ..()
 	var/datum/reagent/largest_reagent = reagents.get_master_reagent()
 	desc = largest_reagent?.bottle_desc || initial(desc)
 
-/obj/item/reagent_containers/food/drinks/bottle/imitation/update_icon_state()
+/obj/item/reagent_containers/food/drinks/bottle/holotech/update_icon_state()
 	if(!length(reagents.reagent_list))
 		icon_state = initial(icon_state)
 		return ..()
@@ -186,7 +186,7 @@
 		icon_state = largest_reagent.bottle_icon_state
 	return ..()
 
-/obj/item/reagent_containers/food/drinks/bottle/imitation/update_overlays()
+/obj/item/reagent_containers/food/drinks/bottle/holotech/update_overlays()
 	. = ..()
 	if(icon_state != initial(icon_state))
 		return

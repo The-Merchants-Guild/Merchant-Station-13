@@ -32,10 +32,10 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/glass_desc = "You can't really tell what this is."
 	/// Otherwise just sets the icon to a normal glass with the mixture of the reagents in the glass.
 	var/glass_icon_state = null
-	/// used for imitation bottle naming
-	var/bottle_name = "bottle of imitation...what?"
-	/// desc applied to imitation bottles
-	var/bottle_desc = "It is unlabelled, the imitation bottle nano-software seems to have malfuctioned & you can't really tell what this is."
+	/// used for holotech bottle naming
+	var/bottle_name = "holographic bottle of...what?"
+	/// desc applied to holotech bottles
+	var/bottle_desc = "It is unlabelled, the bottle's holo-software seems to have malfuctioned & you can't really tell what this is."
 	/// Otherwise just sets the icon to a normal bottle with the mixture of the reagents inside.
 	var/bottle_icon_state = null
 	/// used for shot glasses, mostly for alcohol

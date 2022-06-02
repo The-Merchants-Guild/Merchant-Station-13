@@ -107352,8 +107352,8 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "wJU" = (
-/obj/machinery/vending/hydroseeds,
 /obj/effect/turf_decal/bot,
+/obj/machinery/point_vendor/hydroponics,
 /turf/open/floor/iron,
 /area/service/hydroponics)
 "wJW" = (

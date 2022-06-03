@@ -901,3 +901,95 @@
 
 /obj/machinery/hydroponics/soil/CtrlClick(mob/user)
 	return //Soil has no electricity.
+
+///////////////////////////////////////////////////////////////////////////////
+/obj/machinery/hydroponics/soil/pot
+	name = "pot"
+	desc = "A plastic pot for plants."
+	icon = 'icons/obj/flora/plants.dmi'
+	icon_state = "pot"
+	gender = NEUTER
+	circuit = null
+	density = TRUE
+	use_power = NO_POWER_USE
+	flags_1 = NONE
+	unwrenchable = TRUE
+	self_sustaining_overlay_icon_state = null
+	max_integrity = 50
+	/// Half water capacity of the normal tray
+	maxwater = 50
+	waterlevel = 50
+	maxnutri = 10
+	weedlevel = 0
+	pestlevel = 0
+
+	anchored = FALSE
+
+	var/has_soil = FALSE
+
+/obj/machinery/hydroponics/soil/pot/examine(user)
+	. = list("[get_examine_string(user, TRUE)].")
+	. += get_name_chaser(user)
+	if(desc)
+		. += desc
+	if(has_soil)
+		return ..()
+	else
+		return . += span_info("It has no soil.")
+
+/obj/machinery/hydroponics/soil/pot/update_icon(updates=ALL)
+	if(has_soil)
+		icon_state = "pot-full"
+	else
+		icon_state = "pot"
+	return ..()
+
+/obj/machinery/hydroponics/soil/pot/update_plant_overlay()
+	var/mutable_appearance/plant_overlay = mutable_appearance(myseed.growing_icon, layer = OBJ_LAYER + 0.01)
+	plant_overlay.transform *= 0.5
+	if(dead)
+		plant_overlay.icon_state = myseed.icon_dead
+	else if(harvest)
+		if(!myseed.icon_harvest)
+			plant_overlay.icon_state = "[myseed.icon_grow][myseed.growthstages]"
+		else
+			plant_overlay.icon_state = myseed.icon_harvest
+	else
+		var/t_growthstate = clamp(round((age / myseed.maturation) * myseed.growthstages), 1, myseed.growthstages)
+		plant_overlay.icon_state = "[myseed.icon_grow][t_growthstate]"
+	return plant_overlay
+
+/obj/machinery/hydroponics/soil/pot/process(delta_time)
+	if(has_soil)
+		return ..()
+
+/obj/machinery/hydroponics/soil/pot/attackby(obj/item/O, mob/user, params)
+	if(default_unfasten_wrench(user, O))
+		return
+	else if(!has_soil && istype(O, /obj/item/stack/ore/glass) || istype(O, /obj/item/stack/sheet/mineral/sandstone))
+		user.visible_message(span_notice("[user] puts soil into [src]."), span_notice("You put soil into [src]!"))
+
+		has_soil = TRUE
+		O.use(1)
+		update_icon()
+	else if(has_soil && istype(O, /obj/item/stack/ore/glass) || istype(O, /obj/item/stack/sheet/mineral/sandstone))
+		to_chat(user, span_warning("[src] already has soil."))
+	else if(O.tool_behaviour == TOOL_SHOVEL && !istype(O, /obj/item/shovel/spade))
+		O.attack_obj(src, user, params)
+	else if(!has_soil && (IS_EDIBLE(O) || istype(O, /obj/item/reagent_containers) || istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample) || istype(O, /obj/item/cultivator) || istype(O, /obj/item/secateurs) || istype(O, /obj/item/geneshears) || istype(O, /obj/item/graft) || istype(O, /obj/item/gun/energy/floragun)))
+		to_chat(user, span_warning("[src] has no soil in it!"))
+	else
+		return ..()
+
+/obj/machinery/hydroponics/soil/pot/Initialize()
+	create_reagents(10)
+	reagents.add_reagent(/datum/reagent/plantnutriment/eznutriment, 5) //Half filled nutrient trays for dirt trays to have more to grow with in prison/lavaland.
+	. = ..()
+
+/obj/machinery/hydroponics/soil/pot/CtrlClick(mob/user)
+	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
+	SEND_SIGNAL(user, COMSIG_MOB_CTRL_CLICKED, src)
+	var/mob/living/ML = user
+	if(istype(ML))
+		ML.pulled(src)
+	return

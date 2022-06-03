@@ -1118,18 +1118,18 @@
 	desc = "A tile made out of reagents."
 	icon_state = "tile_silver"
 	turf_type = /turf/open/floor/mineral/reagent
+	merge_type = /obj/item/stack/tile/mineral/reagent
 	mineralType = "reagent"
 	var/datum/reagent/reagent_type
 
 /obj/item/stack/tile/mineral/reagent/split_stack(mob/user, amount)
 	var/obj/item/stack/tile/mineral/reagent/F = new(user, amount, FALSE)
-	if(isnull(reagent_type))
-		F.reagent_type = reagent_type
-		F.name = "[reagent_type.name] ingots"
-		F.singular_name = "[reagent_type.name] ingot"
-		F.add_atom_colour(reagent_type.color, FIXED_COLOUR_PRIORITY)
 
 	user.put_in_hands(F)
+	F.reagent_type = reagent_type
+	F.name = "[reagent_type.name] ingots"
+	F.singular_name = "[reagent_type.name] ingot"
+	F.add_atom_colour(reagent_type.color, FIXED_COLOUR_PRIORITY)
 	use(amount, TRUE)
 
 /obj/item/stack/tile/mineral/reagent/place_tile(turf/open/T)
@@ -1143,16 +1143,6 @@
 	if(!istype(S, /obj/item/stack/tile/mineral/reagent))
 		return
 	var/obj/item/stack/tile/mineral/reagent/R = S
-	if(QDELETED(S) || QDELETED(src) || S == src || !R.reagent_type || !reagent_type || R.reagent_type.type != reagent_type.type) //amusingly this can cause a stack to consume itself, let's not allow that.
+	if(!R.reagent_type || !reagent_type || R.reagent_type.type != reagent_type.type) //amusingly this can cause a stack to consume itself, let's not allow that.
 		return
-	var/transfer = get_amount()
-	if(S.is_cyborg)
-		transfer = min(transfer, round((S.source.max_energy - S.source.energy) / S.cost))
-	else
-		transfer = min(transfer, (limit ? limit : S.max_amount) - S.amount)
-	if(pulledby)
-		pulledby.start_pulling(S)
-	S.copy_evidences(src)
-	use(transfer, TRUE)
-	S.add(transfer)
-	return transfer
+	. = ..()

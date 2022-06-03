@@ -101,7 +101,6 @@ GLOBAL_LIST_INIT(reagent_recipes, list (
 	return transfer
 
 /obj/item/stack/sheet/mineral/reagent/ui_act(action, params)//this is a disgusting proc
-	.=..()
 	if(HAS_TRAIT(usr, TRAIT_RESTRAINED) || usr.stat || usr.get_active_held_item() != src)
 		return
 	if (get_amount() < 1)
@@ -175,3 +174,4 @@ GLOBAL_LIST_INIT(reagent_recipes, list (
 				break
 			else
 				qdel(RR)
+	.=..()

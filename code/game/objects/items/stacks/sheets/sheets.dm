@@ -175,3 +175,4 @@ GLOBAL_LIST_INIT(reagent_recipes, list (
 				break
 			else
 				qdel(RR)
+	.=..()

@@ -1,0 +1,5 @@
+author: eLeCtrOssSnake
+delete-after: true
+changes:
+  - rscadd: Added craftable plastic pots
+  - imageadd: Added plastic pot sprite

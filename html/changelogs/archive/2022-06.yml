@@ -2,3 +2,9 @@
   eLeCtrOssSnake:
   - rscadd: Add ability to stash normal-sized items in potted plants.
   - code_imp: Added new variable insert_while_closed to /datum/component/storage.
+2022-06-04:
+  MACIEKBAKI:
+  - rscadd: Speech Filtration Implants
+  eLeCtrOssSnake:
+  - rscadd: Added craftable plastic pots
+  - imageadd: Added plastic pot sprite

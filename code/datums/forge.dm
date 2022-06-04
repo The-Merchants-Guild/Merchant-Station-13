@@ -165,7 +165,7 @@
 					O.throw_at(user, 4, 3)
 
 /datum/special_trait/reflective
-	name = "Reflective"
+	name = "Blocking"
 	desc = "Adds block chance to melee weapons"
 
 

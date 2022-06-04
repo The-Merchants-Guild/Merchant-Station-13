@@ -660,6 +660,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/romerol
 	cost = 25
 	cant_discount = TRUE
+	surplus = 0 //no
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"

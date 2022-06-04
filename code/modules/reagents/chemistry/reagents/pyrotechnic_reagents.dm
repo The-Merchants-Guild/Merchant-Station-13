@@ -561,13 +561,12 @@
 	description = "An absurdly unstable chemical prone to causing gigantic explosions when even slightly disturbed. Only an idiot would attempt to create this."
 	color = "#13BC5E"
 
-/datum/reagent/superboom/on_mob_life(mob/living/M)
+/datum/reagent/superboom/on_mob_life(mob/living/carbon/M)
 	if(M.m_intent == MOVE_INTENT_RUN && current_cycle <= 5)
 		var/location = get_turf(holder.my_atom)
 		var/datum/effect_system/reagents_explosion/e = new()
 		e.set_up(round(volume, 0.5), location, 0, 0, message = 0)
 		e.start()
-		holder.clear_reagents()
 	..()
 
 /datum/reagent/superboom/on_ex_act()

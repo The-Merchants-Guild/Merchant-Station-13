@@ -41,10 +41,6 @@
 				to_chat(user, "<span class='warning'>[initial(RE.name)] cannot be forged!</span>")
 				return
 			if(!currently_forging || !currently_forging.type)
-				if(R.amount <= 0)//this shouldn't exist
-					to_chat(user, "<span class='warning'>The sheet crumbles away into dust, perhaps it was a fake one?</span>")
-					qdel(R)
-					return FALSE
 				//OBSERVE NOW AS I DO SOMETHING **STUPID**
 				trueamount += R.amount*MINERAL_MATERIAL_AMOUNT
 				to_chat(user, "<span class='notice'>You add [R] to [src]</span>")

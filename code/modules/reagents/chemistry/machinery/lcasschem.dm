@@ -79,12 +79,12 @@
 	if(beaker)
 		beaker.reagents.handle_reactions()
 
-/obj/machinery/chem/pressure/proc/pressurize(var/obj/item/reagent_containers/A)
+/obj/machinery/chem/pressure/proc/pressurize(obj/item/reagent_containers/A)
 	A.reagents.chem_pressurized = 1
 	src.on = 0
 	visible_message(span_notice("[src] makes a ding to signal that its pressurization cycle is over!"))
 
-/obj/machinery/chem/pressure/proc/depressurize(var/obj/item/reagent_containers/A)
+/obj/machinery/chem/pressure/proc/depressurize(obj/item/reagent_containers/A)
 	A.reagents.chem_pressurized = 0
 	src.on = 0
 	visible_message(span_notice("[src] makes a ding to signal that its de-pressurization cycle is over!"))
@@ -115,7 +115,7 @@
 	var/target_radioactivity = 0
 	circuit = /obj/item/circuitboard/machine/radioactive
 
-/obj/machinery/chem/radioactive/proc/irradiate(var/obj/item/reagent_containers/A)
+/obj/machinery/chem/radioactive/proc/irradiate(obj/item/reagent_containers/A)
 	A.reagents.chem_irradiated = 1
 	src.material_amt -= 100
 	icon_state = "radio"
@@ -124,7 +124,7 @@
 	src.on = 0
 	visible_message(span_notice("[src] makes a ding and the green light turns off!"))
 
-/obj/machinery/chem/radioactive/proc/scrub(var/obj/item/reagent_containers/A)
+/obj/machinery/chem/radioactive/proc/scrub(obj/item/reagent_containers/A)
 	A.reagents.chem_irradiated = 0
 	src.on = 0
 	visible_message(span_notice("[src] makes a ding and the blue light turns off!"))
@@ -176,7 +176,7 @@
 	var/intensity = 0
 	circuit = /obj/item/circuitboard/machine/bluespace
 
-/obj/machinery/chem/bluespace/proc/fuck(var/obj/item/reagent_containers/beaker)
+/obj/machinery/chem/bluespace/proc/fuck(obj/item/reagent_containers/beaker)
 	beaker.reagents.chem_bluespaced = 1
 	src.on = 0
 	src.crystal_amt -= 300
@@ -221,7 +221,7 @@
 	icon_state = "cent_off"
 	circuit = /obj/item/circuitboard/machine/centrifuge
 
-/obj/machinery/chem/centrifuge/proc/centrifuge(var/obj/item/reagent_containers/beaker)
+/obj/machinery/chem/centrifuge/proc/centrifuge(obj/item/reagent_containers/beaker)
 	beaker.reagents.chem_centrifuged = 1
 	src.on = 0
 	icon_state = "cent_off"

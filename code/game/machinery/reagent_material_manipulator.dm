@@ -115,9 +115,9 @@
 
 /obj/machinery/reagent_material_manipulator/interact(mob/user)
 	. = ..()
-	var/warning = tgui_alert(user, "How would you like to operate the machine?","Operate Reagent Manipulator", list("Eject", "Empty", "Add Trait",))
+	var/warning = tgui_alert(user, "How would you like to operate the machine?","Operate Reagent Manipulator", list("Eject Weapon", "Flash freeze reagents", "Add Trait",))
 	switch(warning)
-		if("Eject")
+		if("Eject Weapon")
 			if(loaded)
 				loaded.forceMove(get_turf(usr))
 				loaded.invisibility = initial(loaded.invisibility)
@@ -130,7 +130,7 @@
 				analyse_only = FALSE
 				is_bullet = FALSE
 				return TRUE
-		if("Empty")
+		if("Flash freeze reagents")
 			if(synthesis)
 				synthesis.reagent_state = SOLID
 				var/obj/item/reagent_containers/food/solid_reagent/Sr = new /obj/item/reagent_containers/food/solid_reagent(src.loc)

@@ -591,7 +591,7 @@
 
 /datum/chemical_reaction/over_reactible
 	var/exothermic_gain = 0
-	var/overpressure_threshold = 0
+	var/overpressure_threshold = FALSE
 	var/can_overheat = FALSE
 	var/can_overpressure = FALSE
 
@@ -620,7 +620,7 @@
 	results = list(/datum/reagent/sparky = 6, /datum/reagent/toxin/radgoop = 4)
 	required_reagents = list(/datum/reagent/uranium = 4, /datum/reagent/carbon = 2)
 	required_temp = 400
-	required_radioactivity = 10
+	required_radioactivity = TRUE
 	reaction_tags = REACTION_TAG_HARD
 
 /datum/chemical_reaction/over_reactible/dizinc
@@ -638,7 +638,7 @@
 	required_reagents = list(/datum/reagent/ammonia = 3, /datum/reagent/carbon = 3)
 	required_catalysts = list(/datum/reagent/iron = 1)
 	required_temp = 230
-	required_pressure = 35
+	required_pressure = TRUE
 	is_cold_recipe = TRUE
 	exothermic_gain = 25
 	can_overheat = TRUE
@@ -672,7 +672,7 @@
 	required_reagents = list(/datum/reagent/sboom = 3, /datum/reagent/ammonia = 3, /datum/reagent/dizinc = 2)
 	required_catalysts = list(/datum/reagent/toxin/tabun_pb = 1)
 	required_temp = 310
-	required_pressure = 35
+	required_pressure = TRUE
 	strengthdiv = 1
 
 /datum/chemical_reaction/reagent_explosion/superboom/on_reaction(datum/reagents/holder, created_volume)//not if stabilising agent is present
@@ -708,7 +708,7 @@
 	results = list(/datum/reagent/proto = 2, /datum/reagent/toxin/radgoop = 6)
 	required_reagents = list(/datum/reagent/oxyplas = 2, /datum/reagent/hexamine = 3)
 	required_temp = 320
-	required_radioactivity = 20
+	required_radioactivity = TRUE
 	can_overheat = TRUE
 	overheat_temp = 340
 
@@ -716,7 +716,7 @@
 	results = list(/datum/reagent/proto = 2, /datum/reagent/toxin/radgoop = 6)
 	required_reagents = list(/datum/reagent/oxyplas = 2, /datum/reagent/hexamine = 3)
 	required_temp = 320
-	required_radioactivity = 20
+	required_radioactivity = TRUE
 	can_overheat = TRUE
 	overheat_temp = 340
 

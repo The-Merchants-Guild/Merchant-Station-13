@@ -362,15 +362,13 @@
 	results = list(/datum/reagent/medicine/superzine = 6, /datum/reagent/dizinc = 2)
 	required_catalysts = list(/datum/reagent/toxin/mutagen = 5)
 	required_reagents = list(/datum/reagent/drug/methamphetamine = 2, /datum/reagent/hexamine = 2, /datum/reagent/medicine/virogone = 2)
-	required_pressure = 78
-	can_overpressure = TRUE
-	overpressure_threshold = 90
+	required_pressure = TRUE
 	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_HEALING
 
 /datum/chemical_reaction/defib
 	results = list(/datum/reagent/medicine/defib = 4, /datum/reagent/toxin/radgoop = 4)
 	required_reagents = list(/datum/reagent/sparky = 2, /datum/reagent/toxin/carbonf = 2, /datum/reagent/medicine/virogone = 2)
-	required_pressure = 70
+	required_pressure = TRUE
 	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_HEALING
 
 /datum/chemical_reaction/sodiumf
@@ -383,12 +381,12 @@
 	results = list(/datum/reagent/medicine/aluminiumf = 4, /datum/reagent/toxin/goop = 2)
 	required_reagents = list(/datum/reagent/toxin/carbonf = 2, /datum/reagent/oxygen = 2, /datum/reagent/aluminium = 2)
 	required_temp = 230
-	required_pressure = 25
+	required_pressure = TRUE
 	is_cold_recipe = TRUE
 	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_HEALING | REACTION_TAG_BRUTE | REACTION_TAG_BURN
 
 /datum/chemical_reaction/virogone
 	results = list(/datum/reagent/medicine/virogone = 2, /datum/reagent/toxin/mutagen = 2)
 	required_reagents = list(/datum/reagent/medicine/aluminiumf = 2, /datum/reagent/medicine/sodiumf = 3)
-	required_pressure = 76
+	required_pressure = TRUE
 	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_HEALING

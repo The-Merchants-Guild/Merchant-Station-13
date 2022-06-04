@@ -34,9 +34,9 @@
 	//Required to be centrifuged?
 	var/centrifuge_recipe = FALSE
 	//Pressure required for reaction
-	var/required_pressure = 0
+	var/required_pressure = FALSE
 	//reactivity required for reaction
-	var/required_radioactivity = 0
+	var/required_radioactivity = FALSE
 	//Does this need a run through the Bluespace recombobulator?
 	var/bluespace_recipe = FALSE
 	/// Upper end for above (i.e. the end of the curve section defined by temp_exponent_factor)

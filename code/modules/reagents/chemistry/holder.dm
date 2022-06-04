@@ -107,8 +107,8 @@
 	/// Current temp of the holder volume
 	var/chem_temp = 150
 	//I'm not explaining these
-	var/chem_pressure = 0
-	var/chem_radioactivity = 0
+	var/chem_pressurized = FALSE
+	var/chem_irradiated = FALSE
 	var/chem_bluespaced = FALSE
 	var/chem_centrifuged = FALSE
 	///pH of the whole system

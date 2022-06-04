@@ -71,17 +71,14 @@
 
 /obj/machinery/chem/pressure/process()
 	..()
-	if(!is_operational)
-		return
-	if(on)
-		pressure = min(pressure + 5, 100)
-	else
-		pressure = max(pressure - 5, 0)
 	if(beaker)
 		if(beaker.reagents.chem_pressure != pressure)
 			beaker.reagents.chem_pressure = pressure
 			beaker.reagents.chem_pressure = round(beaker.reagents.chem_pressure)
 			beaker.reagents.handle_reactions()
+
+/obj/machinery/chem/pressure/interact(mob/user)
+
 
 
 /obj/machinery/chem/pressure/ui_interact(mob/user, datum/tgui/ui)

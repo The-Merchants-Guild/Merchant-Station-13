@@ -415,7 +415,7 @@
 /datum/chemical_reaction/impalco
 	results = list(/datum/reagent/consumable/ethanol/impalco = 5)
 	required_reagents = list(/datum/reagent/toxin/aus = 2, /datum/reagent/consumable/ethanol = 3, /datum/reagent/drug/methamphetamine = 2)
-	required_pressure = 5
+	required_pressure = TRUE
 
 /datum/chemical_reaction/alco
 	results = list(/datum/reagent/consumable/ethanol/alco = 6, /datum/reagent/consumable/ethanol = 6)
@@ -440,7 +440,7 @@
 /datum/chemical_reaction/methphos
 	results = list(/datum/reagent/toxin/methphos = 4)
 	required_reagents = list(/datum/reagent/hydrogen = 3, /datum/reagent/carbon = 1, /datum/reagent/phosphorus = 1, /datum/reagent/oxygen = 1, /datum/reagent/fluorine = 2)
-	required_pressure = 26
+	required_pressure = TRUE
 
 /datum/chemical_reaction/sarin_a
 	results = list(/datum/reagent/toxin/sarin_a = 3)
@@ -449,7 +449,7 @@
 /datum/chemical_reaction/sarin_b
 	results = list(/datum/reagent/toxin/sarin_b = 2)
 	required_temp = 700
-	required_pressure = 5
+	required_pressure = TRUE
 	required_reagents = list(/datum/reagent/toxin/sarin_a = 2)
 
 /datum/chemical_reaction/over_reactible/sarin
@@ -457,9 +457,9 @@
 	can_overheat = TRUE
 	can_overpressure = TRUE//hehehe quickest way to get killed as a lunatic chemist
 	overheat_temp = 450
-	overpressure_threshold = 100
+	overpressure_threshold = TRUE
 	centrifuge_recipe = TRUE
-	required_pressure = 95
+	required_pressure = TRUE
 	required_reagents = list(/datum/reagent/toxin/sarin_b = 6)
 
 /datum/chemical_reaction/tabun_pa
@@ -483,14 +483,14 @@
 /datum/chemical_reaction/impgluco
 	results = list(/datum/reagent/toxin/impgluco = 1)
 	required_temp = 170
-	required_pressure = 45
+	required_pressure = TRUE
 	required_reagents = list(/datum/reagent/consumable/sugar = 3, /datum/reagent/consumable/ethanol/isopropyl = 1, /datum/reagent/consumable/salt = 1)
 
 /datum/chemical_reaction/gluco
 	results = list(/datum/reagent/toxin/gluco = 1)
 	required_temp = 120
 	is_cold_recipe = TRUE
-	required_pressure = 85
+	required_pressure = TRUE
 	required_reagents = list(/datum/reagent/toxin/impgluco = 2, /datum/reagent/cryogenic_fluid = 1)
 	centrifuge_recipe = TRUE
 
@@ -498,7 +498,7 @@
 	results = list(/datum/reagent/toxin/screech = 3)
 	can_overheat = TRUE
 	required_temp = 750
-	required_pressure = 30
+	required_pressure = TRUE
 	overheat_temp = 775
 	required_reagents = list(/datum/reagent/toxin/emote = 3, /datum/reagent/medicine/ephedrine = 1)
 

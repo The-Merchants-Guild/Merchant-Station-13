@@ -118,6 +118,7 @@
 	var/two_hand_force
 	var/force_unwielded = 0
 	var/force_wielded = 0
+	var/wielded = FALSE
 
 /obj/item/twohanded/forged/warhammer/ComponentInitialize()
 	. = ..()
@@ -138,6 +139,23 @@
 	if(fire)
 		open_flame()
 
+
+/obj/item/twohanded/forged/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
+	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
+
+/obj/item/twohanded/forged/proc/on_wield(obj/item/source, mob/user)
+	SIGNAL_HANDLER
+
+	wielded = TRUE
+	force = force_wielded
+
+/obj/item/twohanded/forged/proc/on_unwield(obj/item/source, mob/user)
+	SIGNAL_HANDLER
+
+	wielded = FALSE
+	force = force_unwielded
 
 /obj/item/twohanded/forged/proc/assign_properties()
 	if(reagent_type && weapon_type)
@@ -203,6 +221,7 @@
 	desc = "A custom warhammer forged from solid ingots"
 	icon_state = "forged_hammer0"
 	worn_icon_state = "forged_hammer0"
+	base_icon_state = "forged_hammer0"
 	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/misc/crunch.ogg'
 	weapon_type = MELEE_TYPE_WARHAMMER
@@ -210,6 +229,11 @@
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb_simple = list("crushed", "flattened", "bludgeoned", "pulverised", "shattered")
 	armour_penetration = 10
+
+/obj/item/twohanded/forged/warhammer/on_unwield(obj/item/source, mob/user)
+	. = ..()
+	icon_state = base_icon_state
+
 
 /obj/item/twohanded/forged/warhammer/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()

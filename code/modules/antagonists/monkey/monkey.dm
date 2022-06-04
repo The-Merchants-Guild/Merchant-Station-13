@@ -132,8 +132,6 @@
 	to_chat(owner, "<b>As an initial infectee, you will be considered a 'leader' by your fellow monkeys.</b>")
 	to_chat(owner, "<b>You can use :k to talk to fellow monkeys!</b>")
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/monkey.ogg'))
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Monkey Leader",
-		"Bite other humans to infect them and escape on the emergency shuttle to succeed.")
 
 /datum/objective/monkey
 	explanation_text = "Ensure that infected monkeys escape on the emergency shuttle!"
@@ -143,7 +141,9 @@
 
 /datum/objective/monkey/check_completion()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
-	for(var/mob/living/carbon/monkey/M in GLOB.alive_mob_list)
+	for(var/mob/living/carbon/human/M in GLOB.alive_mob_list)
+		if(!ismonkey(M))
+			continue
 		if (M.HasDisease(D) && (M.onCentCom() || M.onSyndieBase()))
 			escaped_monkeys++
 	if(escaped_monkeys >= monkeys_to_win)
@@ -158,19 +158,21 @@
 	var/datum/objective/monkey/O = new()
 	O.team = src
 	objectives += O
-	for(var/datum/mind/M in members)
-		log_objective(M, O.explanation_text)
 
 /datum/team/monkey/proc/infected_monkeys_alive()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
-	for(var/mob/living/carbon/monkey/M in GLOB.alive_mob_list)
+	for(var/mob/living/carbon/human/M in GLOB.alive_mob_list)
+		if(!ismonkey(M))
+			continue
 		if(M.HasDisease(D))
 			return TRUE
 	return FALSE
 
 /datum/team/monkey/proc/infected_monkeys_escaped()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
-	for(var/mob/living/carbon/monkey/M in GLOB.alive_mob_list)
+	for(var/mob/living/carbon/human/M in GLOB.alive_mob_list)
+		if(!ismonkey(M))
+			continue
 		if(M.HasDisease(D) && (M.onCentCom() || M.onSyndieBase()))
 			return TRUE
 	return FALSE

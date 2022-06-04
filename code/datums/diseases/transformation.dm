@@ -114,6 +114,7 @@
 	agent = "Kongey Vibrion M-909"
 	new_form = /mob/living/carbon/human/species/monkey
 	bantype = ROLE_MONKEY
+	var/first_transform = TRUE
 
 
 	stage1 = list()
@@ -124,23 +125,25 @@
 	stage5 = list("<span class='warning'>You feel like monkeying around.</span>")
 
 /datum/disease/transformation/jungle_fever/do_disease_transformation(mob/living/carbon/affected_mob)
-	if(affected_mob.mind && !is_monkey(affected_mob.mind))
-		add_monkey(affected_mob.mind)
+	if(affected_mob.mind && !IS_INFECTED_MONKEY(affected_mob.mind))
+		affected_mob.mind.add_antag_datum(/datum/antagonist/monkey)
+		affected_mob.monkeyize()
 	if(affected_mob && ishuman(affected_mob))
-		if(first_transform && (is_monkey_leader(affected_mob.mind) || prob(4)))
+		if(first_transform && (IS_MONKEY_LEADER(affected_mob.mind) || prob(4)))
 			affected_mob.rabidgorillize()
 		else
-			var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPVIRUS | TR_KEEPSE)
-			M.ventcrawler = VENTCRAWLER_ALWAYS
+			affected_mob.monkeyize()
+			ADD_TRAIT(affected_mob, TRAIT_VENTCRAWLER_ALWAYS, type)
 			var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-			H.add_hud_to(M)
+			H.add_hud_to(affected_mob)
 	first_transform = FALSE
 
-/datum/disease/transformation/jungle_fever/stage_act()
+/datum/disease/transformation/jungle_fever/stage_act(delta_time, times_fired)
 	..()
 	switch(stage)
 		if(1)
-			H.add_hud_to(new/datum/atom_hud/data/human/medical/advanced())
+			var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+			H.add_hud_to(affected_mob)
 		if(2)
 			if(DT_PROB(1, delta_time))
 				to_chat(affected_mob, span_notice("Your [pick("back", "arm", "leg", "elbow", "head")] itches."))
@@ -155,8 +158,8 @@
 
 /datum/disease/transformation/jungle_fever/cure()
 	affected_mob.mind.remove_antag_datum(/datum/antagonist/monkey)
-	remove_monkey(affected_mob.mind)
-	affected_mob.remove_hud_from(new/datum/atom_hud/data/human/medical/advanced())
+	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	H.remove_hud_from(affected_mob)
 	..()
 
 /datum/disease/transformation/jungle_fever/monkeymode

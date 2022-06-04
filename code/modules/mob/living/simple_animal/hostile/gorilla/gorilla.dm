@@ -40,6 +40,7 @@
 	unique_name = TRUE
 	var/list/gorilla_overlays[GORILLA_TOTAL_LAYERS]
 	var/oogas = 0
+	var/diseased = FALSE
 
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 
@@ -76,6 +77,8 @@
 		else
 			L.Paralyze(20)
 			visible_message(span_danger("[src] knocks [L] down!"))
+		if (diseased)
+			L.ForceContractDisease(new /datum/disease/transformation/jungle_fever())
 
 /mob/living/simple_animal/hostile/gorilla/CanAttack(atom/the_target)
 	var/list/parts = target_bodyparts(target)

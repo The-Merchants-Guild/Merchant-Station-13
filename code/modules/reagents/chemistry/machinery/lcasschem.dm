@@ -44,6 +44,9 @@
 	..()
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
+	if(on)
+		to_chat(user, "<span class='notice'>You can't remove the [beaker] while the [src] is working!</span>")
+		return
 	replace_beaker(user)
 	return
 
@@ -69,16 +72,22 @@
 	name = "Pressurized reaction chamber"
 	desc = "Creates high pressures to suit certain reaction conditions"
 	icon_state = "press"
-	var/pressure = 0
 	circuit = /obj/item/circuitboard/machine/pressure
 
 /obj/machinery/chem/pressure/process()
 	..()
 	if(beaker)
-		if(beaker.reagents.chem_pressurized != pressure)
-			beaker.reagents.chem_pressurized = pressure
-			beaker.reagents.chem_pressurized = round(beaker.reagents.chem_pressurized)
-			beaker.reagents.handle_reactions()
+		beaker.reagents.handle_reactions()
+
+/obj/machinery/chem/pressure/proc/pressurize(var/obj/item/reagent_containers/A)
+	A.reagents.chem_pressurized = 1
+	src.on = 0
+	visible_message(span_notice("[src] makes a ding to signal that its pressurization cycle is over!"))
+
+/obj/machinery/chem/pressure/proc/depressurize(var/obj/item/reagent_containers/A)
+	A.reagents.chem_pressurized = 0
+	src.on = 0
+	visible_message(span_notice("[src] makes a ding to signal that its de-pressurization cycle is over!"))
 
 /obj/machinery/chem/pressure/interact(mob/user)
 	. = ..()
@@ -87,54 +96,15 @@
 		if("Pressurize")
 			if(beaker)
 				if(beaker.reagents)
-					on = TRUE
 					visible_message("<span class='notice'>[src] begins to pressurize its contents!</span>")
-					spawn(10) //I need you to explain to me NOW WHY EVERY SINGLE FUCKING OTHER USAGE OF THIS IS DONE WITH ADDTIMER, WHAT DOES IT IMPROVE
-					beaker.reagents.chem_pressurized = 1
-					visible_message("<span class='notice'>[src] makes a ding to signal that its pressurization cycle is over!</span>")
+					on = 1
+					addtimer(CALLBACK(src, .proc/pressurize, beaker), 60)
 		if("Depressurize")
 			if(beaker)
 				if(beaker.list_reagents)
-					on = TRUE
 					visible_message("<span class='notice'>[src] begins to pressurize its contents!</span>")
-					spawn(10) //I need you to explain to me NOW WHY EVERY SINGLE FUCKING OTHER USAGE OF THIS IS DONE WITH ADDTIMER, WHAT DOES IT IMPROVE
-					beaker.reagents.chem_pressurized = 0
-					visible_message("<span class='notice'>[src] makes a ding to signal that its pressurization cycle is over!</span>")
-
-/obj/machinery/chem/pressure/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "ChemPressure", name)
-		ui.open()
-
-/obj/machinery/chem/pressure/ui_data()
-	var/data = list()
-	data["isActive"] = on
-	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
-	data["internalPressure"] = pressure
-	if(beaker)
-		data["currentPressure"] = beaker.reagents.chem_pressurized
-		data["beakerCurrentVolume"] = beaker.reagents.total_volume
-		data["beakerMaxVolume"] = beaker.volume
-
-	var/beakerContents[0]
-	if(beaker)
-		for(var/I in beaker.reagents.reagent_list)
-			var/datum/reagent/R = I
-			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
-	data["beakerContents"] = beakerContents
-	return data
-
-/obj/machinery/chem/pressure/ui_act(action, params)
-	if(..())
-		return
-	switch(action)
-		if("power")
-			on = !on
-			. = TRUE
-		if("eject")
-			replace_beaker(usr)
-			. = TRUE
+					on = 1
+					addtimer(CALLBACK(src, .proc/depressurize, beaker), 60)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /obj/machinery/chem/radioactive//break up in action dust I walk my brow and I strut my
@@ -145,34 +115,43 @@
 	var/target_radioactivity = 0
 	circuit = /obj/item/circuitboard/machine/radioactive
 
-/obj/machinery/chem/radioactive/process()
-	..()
-	if(!is_operational)
-		return
-	if(on && beaker)
-		icon_state = "radio_on"
-		if(material_amt < 50)
-			audible_message("<span class='notice'>The [src] pings in fury: showing the empty reactor indicator!.</span>")
-			playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
-			on = FALSE
+/obj/machinery/chem/radioactive/proc/irradiate(var/obj/item/reagent_containers/A)
+	A.reagents.chem_irradiated = 1
+	src.material_amt -= 100
+	icon_state = "radio"
+	if(prob(50))
+		radiation_pulse(src.loc, 80, 1)
+	src.on = 0
+	visible_message(span_notice("[src] makes a ding and the green light turns off!"))
 
-		if(beaker.reagents.chem_irradiated == target_radioactivity && target_radioactivity != 0)
-			visible_message("<span class='notice'> A green light shows on \the [src].</span>")
-			playsound(src, 'sound/machines/ping.ogg', 50, 0)
-			on = FALSE
-		if(material_amt >= 50)
-			if(beaker.reagents.chem_irradiated > target_radioactivity)
-				beaker.reagents.chem_irradiated += 1
-			if(beaker.reagents.chem_irradiated < target_radioactivity)
-				beaker.reagents.chem_irradiated += 1
+/obj/machinery/chem/radioactive/proc/scrub(var/obj/item/reagent_containers/A)
+	A.reagents.chem_irradiated = 0
+	src.on = 0
+	visible_message(span_notice("[src] makes a ding and the blue light turns off!"))
 
-			beaker.reagents.chem_irradiated = round(beaker.reagents.chem_irradiated)
-			beaker.reagents.handle_reactions()
-			material_amt = max(material_amt -= 50, 0)
-			if(prob(50))
-				radiation_pulse(src.loc, 1, 4, min(10, target_radioactivity * 2))
-	if(!on)
-		icon_state = "radio"
+/obj/machinery/chem/radioactive/interact(mob/user)
+	. = ..()
+	var/warning = tgui_alert(user, "How would you like to operate the machine?","Operate Radioactive molecular reassembler", list("Irradiate", "Scrub Radioactive Materials",))
+	switch(warning)
+		if("Irradiate")
+			if(material_amt >= 100)
+				if(beaker)
+					on = TRUE
+					visible_message("<span class='notice'>A green light shows on \the [src].</span>")
+					icon_state = "radio_on"
+					playsound(src, 'sound/machines/ping.ogg', 50, 0)
+					addtimer(CALLBACK(src, .proc/irradiate, beaker), 60)
+
+			else
+				audible_message("<span class='notice'>The [src] pings in fury: showing the empty reactor indicator!.</span>")
+				playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
+		if("Scrub Radioactive Materials")
+			if(beaker)
+				on = TRUE
+				visible_message("<span class='notice'> A blue light shows on \the [src].</span>")
+				icon_state = "radio_on"
+				playsound(src, 'sound/machines/ping.ogg', 50, 0)
+				addtimer(CALLBACK(src, .proc/scrub, beaker), 60)
 
 /obj/machinery/chem/radioactive/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/uranium))
@@ -188,57 +167,6 @@
 		return
 	..()
 
-/obj/machinery/chem/radioactive/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "ChemRadioactive", name)
-		ui.open()
-
-/obj/machinery/chem/radioactive/ui_data()
-	var/data = list()
-	data["targetRadioactivity"] = target_radioactivity
-	data["isActive"] = on
-	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
-	data["materialAmount"] = material_amt
-	data["currentRadioactivity"] = beaker ? beaker.reagents.chem_irradiated : null
-	if (beaker)
-		data["beakerCurrentVolume"] = beaker.reagents.total_volume
-		data["beakerMaxVolume"] = beaker.volume
-
-	var/beakerContents[0]
-	if(beaker)
-		for(var/I in beaker.reagents.reagent_list)
-			var/datum/reagent/R = I
-			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
-	data["beakerContents"] = beakerContents
-	return data
-
-/obj/machinery/chem/radioactive/ui_act(action, params)
-	if(..())
-		return
-	switch(action)
-		if("power")
-			on = !on
-			. = TRUE
-		if("irradiate")
-			var/target = params["target"]
-			var/adjust = text2num(params["adjust"])
-			if(target == "input")
-				target = input("New target radioactivity:", name, target_radioactivity) as num|null
-				if(!isnull(target) && !..())
-					. = TRUE
-			else if(adjust)
-				target = target_radioactivity + adjust
-			else if(text2num(target) != null)
-				target = text2num(target)
-				. = TRUE
-			if(.)
-				target_radioactivity = clamp(target, 0, 20)
-		if("eject")
-			on = FALSE
-			replace_beaker(usr)
-			. = TRUE
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /obj/machinery/chem/bluespace
 	name = "Bluespace recombobulator"
@@ -248,33 +176,30 @@
 	var/intensity = 0
 	circuit = /obj/item/circuitboard/machine/bluespace
 
-/obj/machinery/chem/bluespace/process()
-	..()
-	if(!is_operational)
-		return
-	if(on && beaker)
-		icon_state = "blue_on"
-		if(crystal_amt < (intensity * 0.005))
-			audible_message("<span class='notice'>The [src] pings in fury: showing a lack of bluespace activity!.</span>")
-			playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
-			on = FALSE
-		if(beaker.reagents.chem_bluespaced == TRUE)
-			beaker.reagents.handle_reactions()
-			visible_message("<span class='notice'> A green light shows on the [src].</span>")
+/obj/machinery/chem/bluespace/proc/fuck(var/obj/item/reagent_containers/beaker)
+	beaker.reagents.chem_bluespaced = 1
+	src.on = 0
+	src.crystal_amt -= 300
+	icon_state = "blue"
+	if(prob(20))//low chance but could still happen
+		do_sparks(4)
+		for(var/mob/living/L in range(2,src))//boy is this thing nasty!
+			to_chat(L, ("<span class=\"warning\">You feel disorientated!</span>"))
+			do_teleport(L, get_turf(L), 5, asoundin = 'sound/effects/phasein.ogg')
+	visible_message("<span class='notice'> The green light on the [src] turns off.</span>")
+
+/obj/machinery/chem/bluespace/interact(mob/user)
+	. = ..()
+	if(crystal_amt >= 100)
+		if(beaker)
+			on = TRUE
+			visible_message("<span class='notice'>A green light shows on \the [src].</span>")
+			icon_state = "blue_on"
 			playsound(src, 'sound/machines/ping.ogg', 50, 0)
-			on = FALSE
-		if(beaker && crystal_amt >= (intensity * 0.005))
-			if(prob(intensity * 2))
-				beaker.reagents.chem_bluespaced = TRUE
-			beaker.reagents.handle_reactions()
-			crystal_amt = max(crystal_amt -= intensity * 0.005, 0)
-			if(prob(20))//low chance but could still happen
-				do_sparks(4)
-				for(var/mob/living/L in range(2,src))//boy is this thing nasty!
-					to_chat(L, ("<span class=\"warning\">You feel disorientated!</span>"))
-					do_teleport(L, get_turf(L), 5, asoundin = 'sound/effects/phasein.ogg')
-	if(!on)
-		icon_state = "blue"
+			addtimer(CALLBACK(src, .proc/fuck, beaker), 60)
+	else
+		audible_message("<span class='notice'>The [src] pings in fury: showing the empty reactor indicator!</span>")
+		playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
 
 /obj/machinery/chem/bluespace/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
@@ -288,118 +213,28 @@
 		qdel(I)//it's a var now
 		return
 	..()
-/obj/machinery/chem/bluespace/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "ChemBluespace", name)
-		ui.open()
-
-/obj/machinery/chem/bluespace/ui_data()
-	var/data = list()
-	data["intensity"] = intensity
-	data["isActive"] = on
-	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
-	data["crystalAmount"] = crystal_amt
-	data["isBluespaced"] = beaker ? beaker.reagents.chem_bluespaced : null
-	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
-	data["beakerMaxVolume"] = beaker ? beaker.volume : null
-
-	var/beakerContents[0]
-	if(beaker)
-		for(var/I in beaker.reagents.reagent_list)
-			var/datum/reagent/R = I
-			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
-	data["beakerContents"] = beakerContents
-	return data
-
-/obj/machinery/chem/bluespace/ui_act(action, params)
-	if(..())
-		return
-	switch(action)
-		if("power")
-			on = !on
-			. = TRUE
-		if("bluespace")
-			var/target = params["target"]
-			var/adjust = text2num(params["adjust"])
-			if(target == "input")
-				target = input("New emitter intensity:", name, intensity) as num|null
-				if(!isnull(target) && !..())
-					. = TRUE
-			else if(adjust)
-				target = intensity + adjust
-			else if(text2num(target) != null)
-				target = text2num(target)
-				. = TRUE
-			if(.)
-				intensity = clamp(target, 0, 30)
-		if("eject")
-			on = FALSE
-			replace_beaker(usr)
-			. = TRUE
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /obj/machinery/chem/centrifuge
 	name = "Centrifuge"
 	desc = "Spins chemicals at high speeds to seperate them"
 	icon_state = "cent_off"
-	var/time_required = 10
-	var/time = 0
 	circuit = /obj/item/circuitboard/machine/centrifuge
 
-/obj/machinery/chem/centrifuge/process()
-	..()
-	if(!is_operational)
-		return
-	if(on && beaker)
-		icon_state = "cent_on"
-		if(time >= time_required)
-			visible_message("<span class='notice'> A green light shows on the [src].</span>")
-			playsound(src, 'sound/machines/ping.ogg', 50, 0)
-			on = FALSE
-			beaker.reagents.chem_centrifuged = TRUE
-			beaker.reagents.handle_reactions()
-			time = 0
+/obj/machinery/chem/centrifuge/proc/centrifuge(var/obj/item/reagent_containers/beaker)
+	beaker.reagents.chem_centrifuged = 1
+	src.on = 0
+	icon_state = "cent_off"
+	visible_message("<span class='notice'> The [src] finishes its centrifuging cycle.</span>")
 
-		else if(time < time_required)
-			time++
-	if(!on)
-		icon_state = "cent_off"
-
-/obj/machinery/chem/centrifuge/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "ChemCentrifuge", name)
-		ui.open()
-
-/obj/machinery/chem/centrifuge/ui_data()
-	var/data = list()
-	data["isActive"] = on
-	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
-	data["timeRemaining"] = time_required - time
-	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
-	data["beakerMaxVolume"] = beaker ? beaker.volume : null
-
-	var/beakerContents[0]
+/obj/machinery/chem/centrifuge/interact(mob/user)
+	. = ..()
 	if(beaker)
-		for(var/I in beaker.reagents.reagent_list)
-			var/datum/reagent/R = I
-			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
-	data["beakerContents"] = beakerContents
-	return data
-
-/obj/machinery/chem/centrifuge/ui_act(action, params)
-	if(..())
-		return
-	switch(action)
-		if("power")
-			on = !on
-			. = TRUE
-		if("eject")
-			on = FALSE
-			replace_beaker(usr)
-			. = TRUE
-
-/obj/machinery/chem/centrifuge/replace_beaker()
-	..()
-	time = 0
+		on = TRUE
+		visible_message("<span class='notice'>A green light shows on \the [src].</span>")
+		icon_state = "cent_on"
+		playsound(src, 'sound/machines/ping.ogg', 50, 0)
+		addtimer(CALLBACK(src, .proc/centrifuge, beaker), 60)
+	else
+		audible_message("<span class='notice'>The [src] pings in fury: showing the empty chamber indicator! Add a beaker in!</span>")
+		playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)

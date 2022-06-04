@@ -676,7 +676,7 @@
 	strengthdiv = 1
 
 /datum/chemical_reaction/reagent_explosion/superboom/on_reaction(datum/reagents/holder, created_volume)//not if stabilising agent is present
-	if(holder.has_reagent(/datum/reagent/stabilizing_agent) && holder.chem_pressurized < 40)
+	if(holder.has_reagent(/datum/reagent/stabilizing_agent) && holder.chem_pressurized < 1)
 		return
 	holder.remove_reagent(/datum/reagent/sboom, created_volume)
 

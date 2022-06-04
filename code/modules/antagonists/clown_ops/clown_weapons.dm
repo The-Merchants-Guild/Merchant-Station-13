@@ -84,7 +84,7 @@
  */
 /obj/item/melee/transforming/energy/sword/proc/adjust_slipperiness()
 	if(active)
-		AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP)
+		AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP, paralyze=60)
 	else
 		qdel(GetComponent(/datum/component/slippery))
 
@@ -147,7 +147,7 @@
  */
 /obj/item/shield/energy/bananium/proc/adjust_slipperiness()
 	if(active)
-		AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP)
+		AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP, paralyze=60)
 	else
 		qdel(GetComponent(/datum/component/slippery))
 
@@ -205,7 +205,7 @@
 
 /obj/item/grown/bananapeel/bombanana/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, det_time)
+	AddComponent(/datum/component/slippery, det_time, paralyze=det_time)
 
 /obj/item/grown/bananapeel/bombanana/Destroy()
 	. = ..()

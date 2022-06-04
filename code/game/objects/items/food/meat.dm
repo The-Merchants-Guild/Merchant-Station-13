@@ -524,7 +524,7 @@
 
 /obj/item/food/meatclown/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 30)
+	AddComponent(/datum/component/slippery, 30, paralyze=30)
 
 /obj/item/food/lasagna
 	name = "Lasagna"

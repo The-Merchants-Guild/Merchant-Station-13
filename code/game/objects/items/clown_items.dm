@@ -30,7 +30,7 @@
 
 /obj/item/soap/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 80)
+	AddComponent(/datum/component/slippery, 50, paralyze=50)
 
 /obj/item/soap/examine(mob/user)
 	. = ..()

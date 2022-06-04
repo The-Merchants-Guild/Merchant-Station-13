@@ -63,7 +63,7 @@
 		if(!user.transferItemToLoc(B, src))
 			return
 		replace_beaker(user, B)
-		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
+		to_chat(user, "<span class='notice'>You add \the [B] to \the [src].</span>")
 		update_appearance()
 		return
 	return ..()
@@ -143,7 +143,7 @@
 					addtimer(CALLBACK(src, .proc/irradiate, beaker), 60)
 
 			else
-				audible_message("<span class='notice'>The [src] pings in fury: showing the empty reactor indicator!.</span>")
+				audible_message("<span class='notice'>\The [src] pings in fury: showing the empty reactor indicator!.</span>")
 				playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
 		if("Scrub Radioactive Materials")
 			if(beaker)
@@ -157,7 +157,7 @@
 	if(istype(I, /obj/item/stack/sheet/mineral/uranium))
 		. = TRUE //no afterattack
 		if(material_amt >= 50000)
-			to_chat(user, "<span class='warning'>The [src] is full!</span>")
+			to_chat(user, "<span class='warning'>\The [src] is full!</span>")
 			return
 		to_chat(user, "<span class='notice'>You add the uranium to the [src].</span>")
 		var/obj/item/stack/sheet/mineral/uranium/U = I
@@ -198,14 +198,14 @@
 			playsound(src, 'sound/machines/ping.ogg', 50, 0)
 			addtimer(CALLBACK(src, .proc/fuck, beaker), 60)
 	else
-		audible_message("<span class='notice'>The [src] pings in fury: showing the empty reactor indicator!</span>")
+		audible_message("<span class='notice'>\The [src] pings in fury: showing the empty reactor indicator!</span>")
 		playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
 
 /obj/machinery/chem/bluespace/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
 		. = TRUE //no afterattack
 		if(crystal_amt >= 10)
-			to_chat(user, "<span class='warning'>The [src] is full!</span>")
+			to_chat(user, "<span class='warning'>\The [src] is full!</span>")
 			return
 		to_chat(user, "<span class='notice'>You add the bluespace material to the [src].</span>")
 		crystal_amt += 1//10 crystals max
@@ -236,5 +236,5 @@
 		playsound(src, 'sound/machines/ping.ogg', 50, 0)
 		addtimer(CALLBACK(src, .proc/centrifuge, beaker), 60)
 	else
-		audible_message("<span class='notice'>The [src] pings in fury: showing the empty chamber indicator! Add a beaker in!</span>")
+		audible_message("<span class='notice'>\The [src] pings in fury: showing the empty chamber indicator! Add a beaker in!</span>")
 		playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)

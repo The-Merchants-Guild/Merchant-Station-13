@@ -2721,5 +2721,5 @@
 	..()
 	if(!istype(H))
 		return
-	H.reagents.add_reagent(pick("stablemutationtoxin","lizardmutationtoxin","flymutationtoxin", "mothmutationtoxin", "podmutationtoxin", "jellymutationtoxin", "golemmutationtoxin", "abductormutationtoxin", "androidmutationtoxin", "skeletonmutationtoxin", "zombiemutationtoxin", "ashmutationtoxin", "shadowmutationtoxin"), 1) //No plasmaman 4u xDDD
+	H.reagents.add_reagent(pick(/datum/reagent/mutationtoxin, /datum/reagent/mutationtoxin/lizard, /datum/reagent/mutationtoxin/fly, /datum/reagent/mutationtoxin/moth, /datum/reagent/mutationtoxin/pod, /datum/reagent/mutationtoxin/jelly, /datum/reagent/mutationtoxin/golem, /datum/reagent/mutationtoxin/abductor, /datum/reagent/mutationtoxin/android, /datum/reagent/mutationtoxin/skeleton, /datum/reagent/mutationtoxin/zombie, /datum/reagent/mutationtoxin/ash, /datum/reagent/mutationtoxin/shadow), 1) //No plasmaman 4u xDDD
 	return

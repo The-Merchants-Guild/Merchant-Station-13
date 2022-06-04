@@ -864,7 +864,7 @@
 			if(((ph >= (reaction.optimal_ph_min - reaction.determin_ph_range)) && (ph <= (reaction.optimal_ph_max + reaction.determin_ph_range))))
 				meets_ph_requirement = TRUE
 
-			if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && chem_pressure >= required_pressure && matching_other && chem_radioactivity >= required_radioactivity)
+			if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && chem_pressurized >= required_pressure && matching_other && chem_irradiated >= required_radioactivity)
 				if(meets_temp_requirement && meets_ph_requirement)
 					possible_reactions  += reaction
 				else

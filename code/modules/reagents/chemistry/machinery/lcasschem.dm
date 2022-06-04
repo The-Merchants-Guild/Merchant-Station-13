@@ -16,14 +16,18 @@
 
 /obj/machinery/chem/Initialize()
 	. = ..()
-	START_PROCESSING(SSfastprocess, src)
+	create_reagents(200, NO_REACT)
 
 /obj/machinery/chem/Destroy()
-	replace_beaker()
+	if(beaker)
+		QDEL_NULL(beaker)
 	return ..()
 
-/obj/machinery/chem/on_deconstruction()
-	replace_beaker()
+/obj/machinery/chem/deconstruct(disassembled)
+	. = ..()
+	if(beaker && disassembled)
+		beaker.forceMove(drop_location())
+		beaker = null
 
 /obj/machinery/chem/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
 	if(beaker)
@@ -57,12 +61,11 @@
 			return
 		replace_beaker(user, B)
 		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
-		updateUsrDialog()
 		update_appearance()
 		return
 	return ..()
 
-/obj/machinery/chem/pressure//yes i'm shamelessly copying chem heater code, no don't worry this is much better than the old code
+/obj/machinery/chem/pressure//This used heater code before. Not anymore
 	name = "Pressurized reaction chamber"
 	desc = "Creates high pressures to suit certain reaction conditions"
 	icon_state = "press"
@@ -72,14 +75,31 @@
 /obj/machinery/chem/pressure/process()
 	..()
 	if(beaker)
-		if(beaker.reagents.chem_pressure != pressure)
-			beaker.reagents.chem_pressure = pressure
-			beaker.reagents.chem_pressure = round(beaker.reagents.chem_pressure)
+		if(beaker.reagents.chem_pressurized != pressure)
+			beaker.reagents.chem_pressurized = pressure
+			beaker.reagents.chem_pressurized = round(beaker.reagents.chem_pressurized)
 			beaker.reagents.handle_reactions()
 
 /obj/machinery/chem/pressure/interact(mob/user)
-
-
+	. = ..()
+	var/warning = tgui_alert(user, "How would you like to operate the machine?","Operate Pressurized reaction chamber", list("Pressurize", "Depressurize",))
+	switch(warning)
+		if("Pressurize")
+			if(beaker)
+				if(beaker.reagents)
+					on = TRUE
+					visible_message("<span class='notice'>[src] begins to pressurize its contents!</span>")
+					spawn(10) //I need you to explain to me NOW WHY EVERY SINGLE FUCKING OTHER USAGE OF THIS IS DONE WITH ADDTIMER, WHAT DOES IT IMPROVE
+					beaker.reagents.chem_pressurized = 1
+					visible_message("<span class='notice'>[src] makes a ding to signal that its pressurization cycle is over!</span>")
+		if("Depressurize")
+			if(beaker)
+				if(beaker.list_reagents)
+					on = TRUE
+					visible_message("<span class='notice'>[src] begins to pressurize its contents!</span>")
+					spawn(10) //I need you to explain to me NOW WHY EVERY SINGLE FUCKING OTHER USAGE OF THIS IS DONE WITH ADDTIMER, WHAT DOES IT IMPROVE
+					beaker.reagents.chem_pressurized = 0
+					visible_message("<span class='notice'>[src] makes a ding to signal that its pressurization cycle is over!</span>")
 
 /obj/machinery/chem/pressure/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -93,7 +113,7 @@
 	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
 	data["internalPressure"] = pressure
 	if(beaker)
-		data["currentPressure"] = beaker.reagents.chem_pressure
+		data["currentPressure"] = beaker.reagents.chem_pressurized
 		data["beakerCurrentVolume"] = beaker.reagents.total_volume
 		data["beakerMaxVolume"] = beaker.volume
 
@@ -136,17 +156,17 @@
 			playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
 			on = FALSE
 
-		if(beaker.reagents.chem_radioactivity == target_radioactivity && target_radioactivity != 0)
+		if(beaker.reagents.chem_irradiated == target_radioactivity && target_radioactivity != 0)
 			visible_message("<span class='notice'> A green light shows on \the [src].</span>")
 			playsound(src, 'sound/machines/ping.ogg', 50, 0)
 			on = FALSE
 		if(material_amt >= 50)
-			if(beaker.reagents.chem_radioactivity > target_radioactivity)
-				beaker.reagents.chem_radioactivity += 1
-			if(beaker.reagents.chem_radioactivity < target_radioactivity)
-				beaker.reagents.chem_radioactivity += 1
+			if(beaker.reagents.chem_irradiated > target_radioactivity)
+				beaker.reagents.chem_irradiated += 1
+			if(beaker.reagents.chem_irradiated < target_radioactivity)
+				beaker.reagents.chem_irradiated += 1
 
-			beaker.reagents.chem_radioactivity = round(beaker.reagents.chem_radioactivity)
+			beaker.reagents.chem_irradiated = round(beaker.reagents.chem_irradiated)
 			beaker.reagents.handle_reactions()
 			material_amt = max(material_amt -= 50, 0)
 			if(prob(50))
@@ -180,7 +200,7 @@
 	data["isActive"] = on
 	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
 	data["materialAmount"] = material_amt
-	data["currentRadioactivity"] = beaker ? beaker.reagents.chem_radioactivity : null
+	data["currentRadioactivity"] = beaker ? beaker.reagents.chem_irradiated : null
 	if (beaker)
 		data["beakerCurrentVolume"] = beaker.reagents.total_volume
 		data["beakerMaxVolume"] = beaker.volume

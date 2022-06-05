@@ -2135,13 +2135,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 30 //Theres a good chance this will end up in surplus crates, so its a great way to add a little spice to any meme round.
 
 
-/datum/uplink_item/dangerous/vibroblade
+/datum/uplink_item/role_restricted/vibroblade
 	name = "High Frequency Blade"
 	desc = "An electric katana that weakens the molecular bonds of whatever it touches. Perfect for slicing off the limbs of your coworkers. \
 	Avoid using a multitool on it."
 	item = /obj/item/storage/belt/hfblade
 	cost = 15
-	surplus = 15
+	surplus = 5
+	restricted_roles = list("Roboticist", "Research Director")
 
 /datum/uplink_item/dangerous/wrestling
 	name = "Wrestling Set"

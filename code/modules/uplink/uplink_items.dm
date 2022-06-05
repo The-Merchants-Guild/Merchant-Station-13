@@ -284,7 +284,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		log_uplink("- [key_name(user)] received [goods] from [src]")
 		if(U.purchase_log)
 			U.purchase_log.LogPurchase(goods, I, 0)
+
+	var/list/surplus_items = list(/obj/item/toy/plush/goatplushie/angry, /obj/item/clothing/shoes/crowbar, /obj/item/grown/bananapeel/lube, /obj/item/mop/advanced/energy,
+	/mob/living/simple_animal/pet/gondola, /obj/item/blood_debt_granter)
+	var/item_count = rand(0,5)
+	while(item_count)
+		var/surplus_item = pick(surplus_items)
+		item_count -= 1
+		new surplus_item(C) // lovushka jokera
 	return C
+
+
 
 /datum/uplink_item/bundles_tc/random
 	name = "Random Item"

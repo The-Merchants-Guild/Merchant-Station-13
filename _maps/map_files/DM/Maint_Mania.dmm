@@ -3,10 +3,8 @@
 /turf/closed/indestructible/reinforced,
 /area/deathmatch)
 "aP" = (
-/obj/machinery/door/airlock/centcom{
-	req_access_txt = "201"
-	},
-/turf/open/space/basic,
+/obj/structure/sign/poster/official/no_erp,
+/turf/closed/indestructible/reinforced,
 /area/deathmatch)
 "bI" = (
 /obj/machinery/light/no_nightlight/directional/north,
@@ -177,6 +175,9 @@
 /obj/item/stack/cable_coil,
 /obj/item/assembly/igniter,
 /turf/open/indestructible,
+/area/deathmatch)
+"uD" = (
+/turf/open/floor/plating,
 /area/deathmatch)
 "vB" = (
 /obj/machinery/light/small/directional/east,
@@ -462,21 +463,16 @@
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 10
 	},
-/obj/effect/turf_decal/stripes/corner,
 /turf/open/indestructible,
 /area/deathmatch)
 "Vb" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 5
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/indestructible,
 /area/deathmatch)
 "Xb" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/indestructible,
+/turf/closed/indestructible/fakeglass,
 /area/deathmatch)
 "XC" = (
 /obj/item/assembly/igniter,
@@ -624,13 +620,13 @@ aD
 aD
 aD
 aD
-ho
-ho
-ho
-ho
-ho
-ho
-ho
+Xb
+Xb
+Xb
+Xb
+Xb
+Xb
+Xb
 aD
 aD
 aD
@@ -823,7 +819,7 @@ ho
 aD
 aD
 Vb
-hB
+aP
 ga
 Dh
 Ij
@@ -853,7 +849,7 @@ cn
 cn
 Rm
 aD
-Xb
+cn
 aD
 Ij
 Ij
@@ -892,7 +888,7 @@ Ij
 Ij
 "}
 (14,1,1) = {"
-aP
+aD
 cn
 cn
 cn
@@ -1016,7 +1012,7 @@ ga
 ga
 "}
 (18,1,1) = {"
-aP
+aD
 cn
 cn
 cn
@@ -1102,7 +1098,7 @@ ga
 Ij
 ho
 cn
-ho
+Xb
 Ij
 Ij
 ga
@@ -1133,7 +1129,7 @@ ga
 ga
 ho
 nQ
-ho
+Xb
 Ij
 Ij
 ga
@@ -1271,7 +1267,7 @@ Ij
 Ij
 ga
 Ij
-ho
+Xb
 cn
 cn
 pZ
@@ -1302,7 +1298,7 @@ Ij
 Ij
 ga
 Ij
-ho
+Xb
 pT
 sF
 Mt
@@ -1345,7 +1341,7 @@ cn
 cn
 cn
 cn
-ho
+Xb
 Ij
 Ij
 Ij
@@ -1374,7 +1370,7 @@ Hp
 cn
 aD
 aD
-ho
+uD
 aD
 aD
 Ij
@@ -1402,8 +1398,8 @@ zd
 nQ
 aD
 EN
-cn
-ho
+Xb
+Xb
 Ij
 Ij
 Ij
@@ -1461,9 +1457,9 @@ Ij
 Ij
 aD
 aD
-ho
-ho
-ho
+Xb
+Xb
+Xb
 aD
 aD
 ga

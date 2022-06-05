@@ -63,7 +63,7 @@
 	switch(action)
 		if("Create")
 			var/datum/design/forge/poopie
-			var/list/designs_list = typesof(/datum/design/forge)
+			var/list/designs_list = subtypesof(/datum/design/forge)
 			var/datum/design/forge/choice = input(user, "What do you want to forge?", "Forged Weapon Type") as null|anything in designs_list
 			if(choice)
 				poopie = new choice

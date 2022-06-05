@@ -95,17 +95,17 @@
 	if(isliving(user))
 		var/mob/living/L = user
 		C = L.get_idcard(TRUE)
-	if(C)
+	if(C?.registered_account)
+		var/P = C.registered_account?.job_points[department]
+
 		.["user"] = list()
-		var/P = C.registered_account.job_points[department]
 		.["user"]["points"] = P != null ? P : 0
 		.["user"]["credits"] = C.registered_account.account_balance
-		if(C.registered_account)
-			.["user"]["name"] = C.registered_account.account_holder
-			if(C.registered_account.account_job)
-				.["user"]["job"] = C.registered_account.account_job.title
-			else
-				.["user"]["job"] = "No Job"
+		.["user"]["name"] = C.registered_account.account_holder
+		if(C.registered_account.account_job)
+			.["user"]["job"] = C.registered_account.account_job.title
+		else
+			.["user"]["job"] = "No Job"
 	.["amounts"] = list()
 	for(var/path in equipment_list)
 		.["amounts"] += list("[path]" = equipment_list[path][4])
@@ -151,13 +151,6 @@
 			dispense(item)
 			SSblackbox.record_feedback("nested tally", "[department]_equipment_bought_credits", 1, list("[type]", "[item]"))
 			. = TRUE
-
-/obj/machinery/point_vendor/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
-		return
-	if(default_deconstruction_crowbar(I))
-		return
-	return ..()
 
 /obj/machinery/point_vendor/ex_act(severity, target)
 	do_sparks(5, TRUE, src)

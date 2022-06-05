@@ -14,6 +14,7 @@
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/centcom/ert/security
 	var/datum/outfit/plasmaman_outfit = /datum/outfit/plasmaman/centcom_official
+	var/obj/vehicle/sealed/mecha/mech = /obj/vehicle/sealed/mecha/working/ripley
 	var/role = "Security Officer"
 	var/list/name_source
 	var/random_names = TRUE
@@ -109,6 +110,7 @@
 	name = "Deathsquad Trooper"
 	outfit = /datum/outfit/centcom/death_commando
 	plasmaman_outfit = /datum/outfit/plasmaman/centcom_commander
+	mech = /obj/vehicle/sealed/mecha/working/ripley/deathripley/real
 	role = "Trooper"
 	rip_and_tear = TRUE
 
@@ -381,4 +383,9 @@
 GLOBAL_LIST_EMPTY(custom_ert_antag_datums)
 /datum/antagonist/ert/custom
 	role = "Code Purple Responder"
-	equip_ert = FALSE
+	outfit = /datum/outfit/centcom/centcom_official
+
+	/datum/antagonist/ert/custom/leader
+	role = "Code Purple Responder"
+	leader = TRUE
+	outfit = /datum/outfit/centcom/centcom_official

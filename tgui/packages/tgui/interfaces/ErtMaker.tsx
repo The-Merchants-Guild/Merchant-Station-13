@@ -1,12 +1,11 @@
 import { useBackend, useLocalState } from '../backend';
 import { Button, LabeledList, NoticeBox, Input, NumberInput, Section, Box, Stack, Dropdown, Flex, Divider, Collapsible, Dimmer } from '../components';
-import { ButtonCheckbox } from '../components/Button';
 import { Window } from '../layouts';
 
 type WindowData = {
   ERT_options: Array<ResponseTeamData>;
+  custom_ERT_options: Array<ResponseTeamData>;
   editing_mode: boolean;
-  custom_datum: string;
   selected_ERT_option: ResponseTeamData;
   selected_preview_role: string;
   teamsize: number;
@@ -17,7 +16,6 @@ type WindowData = {
   open_armory: boolean;
   spawn_admin: boolean;
   leader_experience: boolean;
-  give_cyberimps: boolean;
   spawn_mechs: boolean;
 }
 
@@ -32,8 +30,10 @@ type ResponseTeamData = {
 
 type AntagData = {
   role: string;
-  path: string;
+  path?: string;
+  ref?: string;
   outfit: string;
+  plasmaOutfit: string;
   mech: string;
 }
 
@@ -41,7 +41,7 @@ export const ErtMaker = (props, context) => {
   const { act, data } = useBackend<WindowData>(context);
   const {
     ERT_options,
-    custom_datum,
+    custom_ERT_options,
     selected_ERT_option,
     editing_mode,
   } = data;
@@ -53,6 +53,40 @@ export const ErtMaker = (props, context) => {
       option.name,
     ];
   }
+  if (custom_ERT_options.length > 0) {
+    ert_options_strings = [
+      ...ert_options_strings,
+      "--- CUSTOM ERTS ---",
+    ];
+    for (let option of custom_ERT_options) {
+      ert_options_strings = [
+        ...ert_options_strings,
+        option.name,
+      ];
+    }
+  }
+
+  const pickERT = (ertString: string) => {
+    let returnval = ERT_options.find((obj) => {
+      return (obj.name === ertString);
+    });
+    if (returnval) {
+      act('pickERT', {
+        selectedERT: returnval.path,
+      });
+    }
+    else {
+      returnval = custom_ERT_options.find((obj) => {
+        return (obj.name === ertString);
+      });
+      if (returnval) {
+        act('pickERT', {
+          selectedREF: returnval.ref,
+        });
+      }
+    }
+  };
+
   { return (
     <Window
       title="Summon ERT"
@@ -68,11 +102,7 @@ export const ErtMaker = (props, context) => {
                 nochevron
                 noscroll
                 width="300px"
-                onSelected={(value) => act('pickERT', {
-                  selectedERT: ERT_options.find((obj) => {
-                    return (obj.name === value);
-                  }).path,
-                })}
+                onSelected={(value) => pickERT(value)}
               />
             ) || (
               <Input
@@ -221,7 +251,8 @@ const ErtAntag = (props, context) => {
     role,
     path,
     outfit,
-    custom_id,
+    plasmaOutfit,
+    mech,
   } = props.antagData;
 
   const [selectedAntagNum, setSelectedAntagNum] = useLocalState(
@@ -260,11 +291,46 @@ const ErtAntag = (props, context) => {
             }>
             <Button
               fluid
-              value={outfit}
               onClick={() => act("setAntagOutfit", {
                 antagNum: selectedAntagNum,
-              })}
-            />
+              })}>
+              {outfit}
+            </Button>
+          </LabeledList.Item>
+          <LabeledList.Item label="Plasmeme"
+            buttons={
+              <Button
+                icon="info"
+                tooltip="The outfit of this antagonist for plasmamen. Gear they spawn with."
+                tooltipPosition="left"
+                ml={-.5}
+              />
+            }>
+            <Button
+              fluid
+              onClick={() => act("setAntagOutfit", {
+                antagNum: selectedAntagNum,
+                plasmaman_outfit: true,
+              })}>
+              {plasmaOutfit}
+            </Button>
+          </LabeledList.Item>
+          <LabeledList.Item label="Mech"
+            buttons={
+              <Button
+                icon="info"
+                tooltip="The mech this antagonist spawns with, if the spawn with mechs toggle is enabled."
+                tooltipPosition="left"
+                ml={-.5}
+              />
+            }>
+            <Button
+              fluid
+              onClick={() => act("setAntagMech", {
+                antagNum: selectedAntagNum,
+              })}>
+              {mech}
+            </Button>
           </LabeledList.Item>
         </LabeledList>
       </Box>
@@ -331,7 +397,6 @@ const ErtTogglesLong = (props, context) => {
     open_armory,
     spawn_admin,
     leader_experience,
-    give_cyberimps,
     spawn_mechs,
   } = data;
   return (
@@ -408,7 +473,6 @@ const ErtTogglesShort = (props, context) => {
     open_armory,
     spawn_admin,
     leader_experience,
-    give_cyberimps,
     spawn_mechs,
   } = data;
   return (

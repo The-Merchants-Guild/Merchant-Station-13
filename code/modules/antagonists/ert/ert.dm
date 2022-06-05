@@ -385,7 +385,7 @@ GLOBAL_LIST_EMPTY(custom_ert_antag_datums)
 	role = "Code Purple Responder"
 	outfit = /datum/outfit/centcom/centcom_official
 
-	/datum/antagonist/ert/custom/leader
+/datum/antagonist/ert/custom/leader
 	role = "Code Purple Responder"
 	leader = TRUE
 	outfit = /datum/outfit/centcom/centcom_official

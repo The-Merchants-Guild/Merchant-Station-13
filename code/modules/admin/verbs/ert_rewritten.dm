@@ -177,8 +177,16 @@
 		var/datum/antagonist/ert/antagonist = antag
 		.["role"] = initial(antagonist.role)
 		.["path"] = "[antagonist]"
-		.["outfit"] = initial(initial(antagonist.outfit).name)
+		.["outfit"] = initial(antagonist.outfit)
+		.["plasmaOutfit"] = initial(antagonist.plasmaman_outfit)
 		.["mech"] = initial(antagonist.mech)
+	else if (istype(antag, /datum/ert_antag_template))
+		var/datum/ert_antag_template/antagonist = antag
+		.["role"] = antagonist.role
+		.["ref"] = "[REF(antagonist)]"
+		.["outfit"] = antagonist.antag_outfit
+		.["plasmaOutfit"] = antagonist.plasmaman_outfit
+		.["mech"] = antagonist.mech
 
 /datum/ert_maker/ui_data(mob/user)
 	var/list/data = list()
@@ -206,7 +214,8 @@
 		ert_data["name"] = ert.name
 		ert_data["path"] = "[ert]"
 		ert_data["ref"] = "[REF(ert)]"
-		custom_ERT_options += ert_data
+		custom_ERT_options += list(ert_data)
+
 	data["custom_ERT_options"] = custom_ERT_options
 
 	var/list/selected_ERT_data = list()
@@ -214,10 +223,17 @@
 	selected_ERT_data = list()
 	selected_ERT_data["name"] = selected_ERT_option.name
 	selected_ERT_data["path"] = "[selected_ERT_option.type]"
-	selected_ERT_data["leaderAntag"] = make_antag_data(leader_antag)
-	selected_ERT_data["memberAntags"] = list()
-	for(var/role in grunt_antags)
-		selected_ERT_data["memberAntags"] += list(make_antag_data(role))
+	if(istype(selected_ERT_option, /datum/ert/custom))
+		var/datum/ert/custom/ert = selected_ERT_option
+		selected_ERT_data["leaderAntag"] = make_antag_data(ert.leader_template)
+		selected_ERT_data["memberAntags"] = list()
+		for(var/role in ert.grunt_templates)
+			selected_ERT_data["memberAntags"] += list(make_antag_data(role))
+	else
+		selected_ERT_data["leaderAntag"] = make_antag_data(leader_antag)
+		selected_ERT_data["memberAntags"] = list()
+		for(var/role in grunt_antags)
+			selected_ERT_data["memberAntags"] += list(make_antag_data(role))
 
 	// Check if we generated the images already.
 	if(!(selected_ERT_option.name in preview_images) \
@@ -251,6 +267,10 @@
 	// Set our selected preview role to the leader of the selected datum
 	selected_preview_role = initial(selected_ERT_option.leader_role.role)
 
+	if(istype(responseTeam, /datum/ert/custom))
+		var/datum/ert/custom/ert = responseTeam
+		selected_preview_role = ert.leader_template.role
+
 	if(!(selected_ERT_option.name in preview_images)\
 	|| !(selected_preview_role in preview_images[selected_ERT_option.name])\
 	|| !(dir2text(selected_direction) in preview_images[selected_ERT_option.name][selected_preview_role]))
@@ -272,11 +292,12 @@
 
 				set_selected_ERT(new selected_path)
 
-			if(params["selectedCustomID"]) // Selected custom ERT.
-				for(var/datum/ert/custom/responseTeam in GLOB.custom_ert_datums)
-					if(istype(responseTeam) && responseTeam.ert_ID == params["selectedCustomID"])
-						set_selected_ERT(responseTeam)
-						break
+			if(params["selectedREF"]) // Selected custom ERT.
+				var/datum/ert/custom/ert = locate(params["selectedREF"])
+				if(ert)
+					set_selected_ERT(ert)
+				else
+					to_chat(holder, span_warning("Unable to locate that ERT. Notify a coder."))
 
 			. = TRUE
 		if("rotatePreview")
@@ -348,17 +369,35 @@
 					to_chat(holder, span_warning("No custom outfits detected. Create one with the outfit manager."))
 			else
 				return TRUE
-			if(istype(new_outfit))
-				if(params["antagNum"] == 0)
+			if(istype(new_outfit) || ispath(new_outfit))
+				var/num = params["antagNum"]
+				if(num == 0)
 					if(params["plasmaman_outfit"])
 						ert.leader_template.plasmaman_outfit = new_outfit
 					else
 						ert.leader_template.antag_outfit = new_outfit
-				else if(ert.grunt_templates[params["antagNum"]])
+					preview_images[selected_ERT_option.name][ert.leader_template.role] = null
+				else if(ert.grunt_templates[num])
 					if(params["plasmaman_outfit"])
-						ert.grunt_templates[params["antagNum"]].plasmaman_outfit = new_outfit
+						ert.grunt_templates[num].plasmaman_outfit = new_outfit
 					else
-						ert.grunt_templates[params["antagNum"]].antag_outfit = new_outfit
+						ert.grunt_templates[num].antag_outfit = new_outfit
+					preview_images[selected_ERT_option.name][ert.grunt_templates[num].role] = null
+
+			SStgui.update_user_uis(holder.mob)
+			. = TRUE
+
+		if("setAntagMech")
+			var/datum/ert/custom/ert = selected_ERT_option
+			if(!editing_ERT || !istype(ert))
+				return TRUE
+			var/obj/vehicle/sealed/mecha/new_mech = tgui_input_list(holder.mob, "Select a mech.", "Mech Select", subtypesof(/obj/vehicle/sealed/mecha))
+			if(istype(new_mech))
+				var/num = params["antagNum"]
+				if(num == 0)
+					ert.leader_template.mech = new_mech
+				else if(ert.grunt_templates[num])
+					ert.grunt_templates[num].mech = new_mech
 
 			SStgui.update_user_uis(holder.mob)
 			. = TRUE
@@ -368,10 +407,38 @@
 			if(!editing_ERT || !istype(ert))
 				return TRUE
 			if(params["newRole"])
-				if(params["antagNum"] == 0)
+				var/num = params["antagNum"]
+				if(num == 0)
+					if(selected_preview_role == ert.leader_template.role)
+						selected_preview_role = params["newRole"]
 					ert.leader_template.role = params["newRole"]
-				else if(ert.grunt_templates[params["antagNum"]])
-					ert.grunt_templates[params["antagNum"]].role = params["newRole"]
+				else if(ert.grunt_templates[num])
+					if(selected_preview_role == ert.grunt_templates[num].role)
+						selected_preview_role = params["newRole"]
+					ert.grunt_templates[num].role = params["newRole"]
+
+			SStgui.update_user_uis(holder.mob)
+			. = TRUE
+
+		if("addAntagonist")
+			var/datum/ert/custom/ert = selected_ERT_option
+			if(!editing_ERT || !istype(ert))
+				return TRUE
+
+			ert.grunt_templates.Add(new /datum/ert_antag_template)
+
+			SStgui.update_user_uis(holder.mob)
+			. = TRUE
+
+		if("removeAntagonist")
+			var/datum/ert/custom/ert = selected_ERT_option
+			if(!editing_ERT || !istype(ert))
+				return TRUE
+
+			var/num = params["antagNum"]
+			if(num && (num > 1))
+				if(ert.grunt_templates[num])
+					ert.grunt_templates.Cut(num, num+1)
 
 			SStgui.update_user_uis(holder.mob)
 			. = TRUE

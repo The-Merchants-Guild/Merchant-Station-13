@@ -38,7 +38,7 @@
 	icon_state = "banana_peel_lube"//fuck you
 
 
- /* Energy Mop */
+/* Energy Mop */
 
 
 /obj/item/mop/advanced/energy

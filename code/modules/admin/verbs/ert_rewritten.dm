@@ -18,9 +18,6 @@
 	var/datum/antagonist/ert/leader_antag = null
 	var/list/datum/antagonist/ert/grunt_antags = list()
 
-	var/obj/vehicle/sealed/mecha/leader_mech = null
-	var/list/obj/vehicle/sealed/mecha/grunt_mechs = null
-
 	var/teamsize = 5
 	var/mission = "Assist the station." // The ERT's mission.
 	var/polldesc = "a code !CODER ERROR! Nanotrasen Emergency Response Team." // Ghost popup text
@@ -83,9 +80,14 @@
 	ERT_datum.spawn_admin = spawn_admin
 	ERT_datum.leader_experience = leader_experience
 	ERT_datum.spawn_mechs = spawn_mechs
-	if(istype(ERT_datum, /datum/ert/custom))
+	if(!istype(ERT_datum, /datum/ert/custom))
 		ERT_datum.leader_role = leader_antag
 		ERT_datum.roles = grunt_antags
+	else if(istype(selected_ERT_option, /datum/ert/custom) && istype(ERT_datum, /datum/ert/custom))
+		var/datum/ert/custom/ert = ERT_datum
+		var/datum/ert/custom/selected = selected_ERT_option
+		ert.leader_template = selected.leader_template
+		ert.grunt_templates = selected.grunt_templates
 
 /// proc below copy-pasted from old ERT spawner
 /datum/ert_maker/proc/equipAntagOnDummy(mob/living/carbon/human/dummy/mannequin, antag)
@@ -309,7 +311,11 @@
 			SStgui.update_user_uis(holder.mob)
 			. = TRUE
 		if("spawnERT")
-			var/datum/ert/ERToption = new
+			var/ERToption
+			if(istype(selected_ERT_option, /datum/ert/custom))
+				ERToption = new /datum/ert/custom(TRUE)
+			else
+				ERToption = new selected_ERT_option
 			copy_settings_to_ERT_datum(ERToption)
 			spawn_ERT_team(ERToption)
 			. = TRUE
@@ -392,7 +398,7 @@
 			if(!editing_ERT || !istype(ert))
 				return TRUE
 			var/obj/vehicle/sealed/mecha/new_mech = tgui_input_list(holder.mob, "Select a mech.", "Mech Select", subtypesof(/obj/vehicle/sealed/mecha))
-			if(istype(new_mech))
+			if(ispath(new_mech))
 				var/num = params["antagNum"]
 				if(num == 0)
 					ert.leader_template.mech = new_mech

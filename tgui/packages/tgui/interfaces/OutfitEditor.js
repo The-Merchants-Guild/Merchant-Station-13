@@ -8,7 +8,7 @@ export const OutfitEditor = (props, context) => {
   return (
     <Window
       width={380}
-      height={700}>
+      height={600}>
       <Window.Content>
         <Box
           as="img"

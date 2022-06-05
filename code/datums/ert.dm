@@ -163,21 +163,21 @@ GLOBAL_LIST_EMPTY(custom_ert_datums)
 	leader_role = /datum/antagonist/ert/custom/leader
 	roles = list(/datum/antagonist/ert/custom)
 
-	var/static/ert_ID_lead = 0
-	var/ert_ID = 0
+	var/weak
 
 	var/datum/ert_antag_template/leader_template = new
 	var/list/datum/ert_antag_template/grunt_templates = list()
 
 
-/datum/ert/custom/New()
+/datum/ert/custom/New(weak = FALSE)
 	..()
-	GLOB.custom_ert_datums += src
-	ert_ID = ert_ID_lead
-	ert_ID_lead += 1
+	src.weak = weak
+	if(!weak)
+		GLOB.custom_ert_datums += src
 
 /datum/ert/custom/Destroy()
-	GLOB.custom_ert_datums -= src
+	if(!weak)
+		GLOB.custom_ert_datums -= src
 	..()
 
 /datum/ert_antag_template

@@ -152,13 +152,6 @@
 			SSblackbox.record_feedback("nested tally", "[department]_equipment_bought_credits", 1, list("[type]", "[item]"))
 			. = TRUE
 
-/obj/machinery/point_vendor/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
-		return
-	if(default_deconstruction_crowbar(I))
-		return
-	return ..()
-
 /obj/machinery/point_vendor/ex_act(severity, target)
 	do_sparks(5, TRUE, src)
 	if(severity > EXPLODE_LIGHT && prob(17 * severity))

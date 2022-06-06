@@ -1,7 +1,0 @@
-author: EtraIV
-delete-after: true
-changes:
-  - bugfix: Point vendors no longer bluescreen when used with an ID card without an
-      account.
-  - rscdel: Point vendors are no longer interactable with tools. Necessary bandaid
-      fix for a later fleshing out internally

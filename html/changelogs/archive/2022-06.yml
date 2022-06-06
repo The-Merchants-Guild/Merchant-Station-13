@@ -12,3 +12,15 @@
   EtraIV:
   - balance: Due to the sudden uptick in demand, the price on surplus crates has been
       reinflated.
+2022-06-06:
+  EtraIV:
+  - bugfix: Point vendors no longer bluescreen when used with an ID card without an
+      account.
+  - rscdel: Point vendors are no longer interactable with tools. Necessary bandaid
+      fix for a later fleshing out internally
+  karmaisblackandbluepilled:
+  - rscadd: Added new items that are only found in surplus crates. Get them while
+      they're hot.
+  - rscadd: Added the Supermatter Spear. Not good.
+  - bugfix: Can't get to CC from the deathmatch map. Also removed the singularity/tesla
+      from OSHA violator for obvious reasons.

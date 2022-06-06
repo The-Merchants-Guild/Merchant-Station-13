@@ -133,9 +133,7 @@
 	src.mintargetdist = mintargetdist
 	src.simulated_only = simulated_only
 	src.avoid = avoid
-	if(use_diags == 0) // I wish it didn't have to be this way
-		src.use_diags = FALSE
-	else src.use_diags = TRUE
+	src.use_diags = use_diags
 
 /**
  * search() is the proc you call to kick off and handle the actual pathfinding, and kills the pathfind datum instance when it's done.
@@ -240,7 +238,8 @@
 		if(parent_node && parent_node.number_tiles + steps_taken > max_distance)
 			return
 
-		var/interesting = FALSE // have we found a forced neighbor that would make us add this turf to the open list?
+		// if we aren't using diagonals in general, then we need to be able to find all direct paths as interesting
+		var/interesting = !use_diags // have we found a forced neighbor that would make us add this turf to the open list?
 
 		switch(heading)
 			if(NORTH)
@@ -255,10 +254,6 @@
 			if(WEST)
 				if(STEP_NOT_HERE_BUT_THERE(current_turf, NORTH, NORTHWEST) || STEP_NOT_HERE_BUT_THERE(current_turf, SOUTH, SOUTHWEST))
 					interesting = TRUE
-
-		// if we aren't using diagonals in general, then we need to be able to find all direct paths as interesting
-		if(!use_diags)
-			interesting = TRUE
 
 		if(interesting)
 			var/datum/jps_node/newnode = new(current_turf, parent_node, steps_taken)

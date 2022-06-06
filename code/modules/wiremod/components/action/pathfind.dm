@@ -127,11 +127,10 @@
 		TIMER_COOLDOWN_END(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME)
 
 		old_dest = destination
-		
-		if(isnull(entity))
-			path = get_path_to(src, destination, max_range, id=path_id, use_diags = use_diag_val)
-		else
-			path = get_path_to(entity, destination, max_range, id=path_id, use_diags = use_diag_val)
+		var/udv = TRUE
+		if(use_diag_val == 0) // I wish it didn't have to be this way
+			udv = FALSE
+		path = get_path_to(entity ||= src, destination, max_range, id=path_id, use_diags = udv)
 		if(length(path) == 0 || !path)// Check if we can even path there
 			next_turf = null
 			failed.set_output(COMPONENT_SIGNAL)

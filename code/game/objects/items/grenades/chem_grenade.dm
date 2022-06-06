@@ -32,9 +32,9 @@
 	if(user.can_see_reagents())
 		if(beakers.len)
 			. += span_notice("You scan the grenade and detect the following reagents:")
-			for(var/obj/item/reagent_containers/glass/G in beakers)
-				for(var/datum/reagent/R in G.reagents.reagent_list)
-					. += span_notice("[R.volume] units of [R.name] in the [G.name].")
+			for(var/obj/item/reagent_containers/B in beakers)
+				for(var/datum/reagent/R in B.reagents.reagent_list)
+					. += span_notice("[R.volume] units of [R.name] in the [B.name].")
 			if(beakers.len == 1)
 				. += span_notice("You detect no second beaker in the grenade.")
 		else

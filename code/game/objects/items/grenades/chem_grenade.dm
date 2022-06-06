@@ -219,8 +219,9 @@
 
 	for(var/obj/item/slime_extract/S in beakers)
 		if(S.Uses)
-			for(var/obj/item/reagent_containers/glass/G in beakers)
-				G.reagents.trans_to(S, G.reagents.total_volume)
+			for(var/obj/item/reagent_containers/B in beakers)
+				if(!istype(B, /obj/item/slime_extract))
+					B.reagents.trans_to(S, B.reagents.total_volume)
 
 			//If there is still a core (sometimes it's used up)
 			//and there are reagents left, behave normally,
@@ -228,8 +229,9 @@
 
 			if(S)
 				if(S.reagents && S.reagents.total_volume)
-					for(var/obj/item/reagent_containers/glass/G in beakers)
-						S.reagents.trans_to(G, S.reagents.total_volume)
+					for(var/obj/item/reagent_containers/B in beakers)
+						if(!istype(B, /obj/item/slime_extract))
+							S.reagents.trans_to(B, S.reagents.total_volume)
 				else
 					S.forceMove(get_turf(src))
 					no_splash = TRUE

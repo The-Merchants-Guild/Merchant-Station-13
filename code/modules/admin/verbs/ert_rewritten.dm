@@ -55,7 +55,7 @@
 	selected_preview_role = initial(selected_ERT_option.leader_role.role)
 	ui_interact(holder.mob)
 
-/datum/ert_maker/proc/load_settings_from_ERT_datum(var/datum/ert/ERT_datum)
+/datum/ert_maker/proc/load_settings_from_ERT_datum(datum/ert/ERT_datum)
 	teamsize = ERT_datum.teamsize
 	mission = ERT_datum.mission
 	polldesc = ERT_datum.polldesc
@@ -69,7 +69,7 @@
 	leader_antag = ERT_datum.leader_role
 	grunt_antags = ERT_datum.roles
 
-/datum/ert_maker/proc/copy_settings_to_ERT_datum(var/datum/ert/ERT_datum)
+/datum/ert_maker/proc/copy_settings_to_ERT_datum(datum/ert/ERT_datum)
 	ERT_datum.teamsize = teamsize
 	ERT_datum.mission = mission
 	ERT_datum.polldesc = polldesc

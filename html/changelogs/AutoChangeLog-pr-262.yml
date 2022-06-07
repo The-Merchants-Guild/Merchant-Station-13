@@ -1,7 +1,0 @@
-author: EtraIV
-delete-after: true
-changes:
-  - balance: Plastic bottles can now be used in chemical grenades.
-  - bugfix: Alternate reagent containers now work in large grenades again.
-  - bugfix: Chemical explosions now work in the stomach again (this was not a rebalance,
-      it generated runtime errors)

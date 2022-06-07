@@ -24,3 +24,11 @@
   - rscadd: Added the Supermatter Spear. Not good.
   - bugfix: Can't get to CC from the deathmatch map. Also removed the singularity/tesla
       from OSHA violator for obvious reasons.
+2022-06-07:
+  EtraIV:
+  - balance: Plastic bottles can now be used in chemical grenades.
+  - bugfix: Alternate reagent containers now work in large grenades again.
+  - bugfix: Chemical explosions now work in the stomach again (this was not a rebalance,
+      it generated runtime errors)
+  karmaisblackandbluepilled:
+  - balance: Slips stun you again. God's in his Heaven, all is right with the world.

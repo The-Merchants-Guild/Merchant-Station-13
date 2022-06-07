@@ -1,0 +1,7 @@
+author: MACIEKBAKI
+delete-after: true
+changes:
+  - code_imp: ERT code has been changed, check PR for details if you care.
+  - admin: Entirely redone ERT spawning menu. New and improved. You can now choose
+      to spawn an ERT with their pre-assigned mechs (i.e. a Deathsquad might spawn
+      with Death Ripleys, Code Red ERT with marauders/seraphs, etc

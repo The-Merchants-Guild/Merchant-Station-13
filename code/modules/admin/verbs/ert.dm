@@ -362,7 +362,7 @@
 
 		if("deleteSelectedERT")
 			var/datum/ert/custom/ert = selected_ERT_option
-			if(!editing_ERT || !istype(ert))
+			if(editing_ERT || !istype(ert))
 				return TRUE
 			GLOB.custom_ert_datums -= ert
 			// GC should handle the rest, I think?

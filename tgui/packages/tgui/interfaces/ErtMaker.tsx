@@ -45,6 +45,7 @@ export const ErtMaker = (props, context) => {
     ERT_options,
     custom_ERT_options,
     selected_ERT_option,
+    custom_datum,
     editing_mode,
   } = data;
 
@@ -89,6 +90,8 @@ export const ErtMaker = (props, context) => {
     }
   };
 
+  let isCustom = selected_ERT_option.path === custom_datum;
+
   { return (
     <Window
       title="Summon ERT"
@@ -98,6 +101,16 @@ export const ErtMaker = (props, context) => {
         <Stack vertical fill>
           <Stack.Item align="center">
             <Flex>
+              <Flex.Item mr={.5}>
+                {(isCustom && !editing_mode) && (
+                  <Button
+                    color="red"
+                    tooltip="Remove selected ERT"
+                    tooltipPosition="bottom"
+                    icon="trash"
+                    onClick={() => act('deleteSelectedERT')}
+                  />) || (<Box />)}
+              </Flex.Item>
               <Flex.Item>
                 {!editing_mode && (
                   <Button
@@ -129,7 +142,7 @@ export const ErtMaker = (props, context) => {
                   />
                 )}
               </Flex.Item>
-              <Flex.Item>
+              <Flex.Item width={isCustom ? 3 : 1}>
                 {!editing_mode && (
                   <Button
                     color="green"

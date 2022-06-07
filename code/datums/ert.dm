@@ -174,6 +174,7 @@ GLOBAL_LIST_EMPTY(custom_ert_datums)
 	src.weak = weak
 	if(!weak)
 		GLOB.custom_ert_datums += src
+	grunt_templates += new /datum/ert_antag_template
 
 /datum/ert/custom/Destroy()
 	if(!weak)

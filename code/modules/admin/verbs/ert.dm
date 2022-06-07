@@ -372,8 +372,11 @@
 			. = TRUE
 
 		if("addNewERT") // I mean you *can* just copy via edit up there but /shrug
-			var/datum/ert/custom/custom = new
+			var/datum/ert/template = new ERT_options[1]
+			var/datum/ert/custom/custom = template.copy_vars_to_custom_ERT_datum()
 			set_selected_ERT(custom)
+			SStgui.update_user_uis(holder.mob)
+			. = TRUE
 
 		if("setSelectedName")
 			var/datum/ert/custom/ert = selected_ERT_option

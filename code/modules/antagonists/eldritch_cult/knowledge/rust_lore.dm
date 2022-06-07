@@ -121,10 +121,11 @@
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/rust_blade_upgrade/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/carbon_target = target
-		carbon_target.reagents.add_reagent(/datum/reagent/eldritch, 5)
+	. = ..()	
+	var/mob/living/carbon/carbon_user = user
+	var/mob/living/carbon/carbon_target = target
+	if(istype(carbon_user) && istype(carbon_target))
+		carbon_target.adjustToxLoss((carbon_user.maxHealth - carbon_user.health)/10)
 
 /datum/eldritch_knowledge/spell/entropic_plume
 	name = "Entropic Plume"

@@ -24,10 +24,8 @@
 				to_chat(user,span_warning("[target.real_name] is near you. They are to the [dir2text(dir)] of you!"))
 			if(16 to 31)
 				to_chat(user,span_warning("[target.real_name] is somewhere in your vicinity. They are to the [dir2text(dir)] of you!"))
-			if(32 to 127)
-				to_chat(user,span_warning("[target.real_name] is far away from you. They are to the [dir2text(dir)] of you!"))
 			else
-				to_chat(user,span_warning("[target.real_name] is beyond our reach."))
+				to_chat(user,span_warning("[target.real_name] is far away from you. They are to the [dir2text(dir)] of you!"))
 
 	if(target.stat == DEAD)
 		to_chat(user,span_warning("[target.real_name] is dead. Bring them to a transmutation rune!"))

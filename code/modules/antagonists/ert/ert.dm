@@ -380,7 +380,6 @@
 	outfit = /datum/outfit/centcom/ert/marine/medic
 	role = "Medical Officer"
 
-GLOBAL_LIST_EMPTY(custom_ert_antag_datums)
 /datum/antagonist/ert/custom
 	role = "Code Purple Responder"
 	outfit = /datum/outfit/centcom/centcom_official

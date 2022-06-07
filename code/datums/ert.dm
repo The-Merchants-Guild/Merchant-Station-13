@@ -19,7 +19,7 @@
 	var/leader_experience = TRUE
 	/// if TRUE, the ERT spawns with their pre-defined mechs.
 	var/spawn_mechs = FALSE
-	var/mech_amount = 3
+	var/mech_amount = 5
 
 /datum/ert/proc/copy_vars_to_custom_ERT_datum()
 	var/datum/ert/custom/copied_datum = new
@@ -185,3 +185,98 @@ GLOBAL_LIST_EMPTY(custom_ert_datums)
 	var/datum/outfit/antag_outfit = /datum/outfit/centcom/centcom_official
 	var/datum/outfit/plasmaman_outfit = /datum/outfit/plasmaman/centcom_official
 	var/obj/vehicle/sealed/mecha/mech = /obj/vehicle/sealed/mecha/working/ripley/cargo
+
+/datum/ert_antag_template/proc/get_json_data()
+	. = list()
+	.["role"] = role
+	.["mech"] = "[mech]"
+	if(istype(antag_outfit))
+		.["antag_outfit"] = antag_outfit.get_json_data()
+	else if (ispath(antag_outfit))
+		.["antag_outfit"] = "[antag_outfit]"
+
+	if(istype(plasmaman_outfit))
+		.["plasmaman_outfit"] = plasmaman_outfit.get_json_data()
+	else if (ispath(plasmaman_outfit))
+		.["plasmaman_outfit"] = "[plasmaman_outfit]"
+
+
+/datum/ert_antag_template/proc/load_from(list/template_data)
+	role = template_data["role"]
+
+	if(ispath(template_data["antag_outfit"]))
+		antag_outfit = text2path(template_data["antag_outfit"])
+	else if (islist(template_data["antag_outfit"]))
+		var/datum/outfit/outfit = new
+		outfit.load_from(template_data["antag_outfit"])
+		antag_outfit = outfit
+
+	if(ispath(template_data["plasmaman_outfit"]))
+		plasmaman_outfit = text2path(template_data["plasmaman_outfit"])
+	else if (islist(template_data["plasmaman_outfit"]))
+		var/datum/outfit/outfit = new
+		outfit.load_from(template_data["plasmaman_outfit"])
+		plasmaman_outfit = outfit
+
+	mech = text2path(template_data["mech"])
+
+
+/// Return a json list of this ERT thingy.
+/datum/ert/custom/proc/get_json_data()
+	. = list()
+	.["name"] = name
+	.["rename_team"] = rename_team
+	.["mission"] = mission
+	.["polldesc"] = polldesc
+
+	.["opendoors"] = opendoors
+	.["enforce_human"] = enforce_human
+	.["random_names"] = random_names
+	.["spawn_admin"] = spawn_admin
+	.["leader_experience"] = leader_experience
+	.["spawn_mechs"] = spawn_mechs
+
+	.["teamsize"] = teamsize
+	.["mech_amount"] = mech_amount
+
+	.["leader_template"] = leader_template.get_json_data()
+	.["grunt_templates"] = list()
+	for(var/datum/ert_antag_template/template in grunt_templates)
+		.["grunt_templates"] += list(template.get_json_data())
+
+
+/datum/ert/custom/proc/load_from(list/ert_data)
+	name = ert_data["name"]
+	rename_team = ert_data["rename_team"]
+	mission = ert_data["mission"]
+	mission = ert_data["mission"]
+	polldesc = ert_data["polldesc"]
+
+	opendoors = ert_data["opendoors"]
+	enforce_human = ert_data["enforce_human"]
+	random_names = ert_data["random_names"]
+	spawn_admin = ert_data["spawn_admin"]
+	leader_experience = ert_data["leader_experience"]
+	spawn_mechs = ert_data["spawn_mechs"]
+
+	teamsize = ert_data["teamsize"]
+	mech_amount = ert_data["mech_amount"]
+	var/datum/ert_antag_template/leadertemp = new
+	leadertemp.load_from(ert_data["leader_template"])
+	leader_template = leadertemp
+
+	for(var/temp in ert_data["grunt_templates"])
+		var/datum/ert_antag_template/grunttemp = new
+		grunttemp.load_from(temp)
+		grunt_templates += grunttemp
+
+	return TRUE
+
+// copied from outfit save_to_file proc
+/datum/ert/custom/proc/save_to_file(mob/badmin)
+	var/stored_data = get_json_data()
+	var/json = json_encode(stored_data)
+	var/f = file("data/TempERTUpload")
+	fdel(f)
+	WRITE_FILE(f, json)
+	badmin << ftp(f, "[name].json")

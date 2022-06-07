@@ -5,10 +5,12 @@ import { Window } from '../layouts';
 type WindowData = {
   ERT_options: Array<ResponseTeamData>;
   custom_ERT_options: Array<ResponseTeamData>;
+  custom_datum: string;
   editing_mode: boolean;
   selected_ERT_option: ResponseTeamData;
   selected_preview_role: string;
   teamsize: number;
+  mech_amount: number;
   mission: string;
   polldesc: string;
   rename_team: string;
@@ -61,7 +63,7 @@ export const ErtMaker = (props, context) => {
     for (let option of custom_ERT_options) {
       ert_options_strings = [
         ...ert_options_strings,
-        option.name,
+        option.name + " " + option.ref,
       ];
     }
   }
@@ -77,7 +79,7 @@ export const ErtMaker = (props, context) => {
     }
     else {
       returnval = custom_ERT_options.find((obj) => {
-        return (obj.name === ertString);
+        return ((obj.name + " " + obj.ref) === ertString);
       });
       if (returnval) {
         act('pickERT', {
@@ -95,24 +97,50 @@ export const ErtMaker = (props, context) => {
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item align="center">
-            {!editing_mode && (
-              <Dropdown
-                options={ert_options_strings}
-                displayText={selected_ERT_option.name}
-                nochevron
-                noscroll
-                width="300px"
-                onSelected={(value) => pickERT(value)}
-              />
-            ) || (
-              <Input
-                value={selected_ERT_option.name}
-                width="300px"
-                onChange={(e, val) => act('setSelectedName', {
-                  newName: val,
-                })}
-              />
-            )}
+            <Flex>
+              <Flex.Item>
+                {!editing_mode && (
+                  <Button
+                    color="green"
+                    tooltip="Add new custom ERT"
+                    tooltipPosition="bottom"
+                    icon="plus"
+                    onClick={() => act('addNewERT')}
+                  />
+                ) || <Box />}
+              </Flex.Item>
+              <Flex.Item mx={.5}>
+                {!editing_mode && (
+                  <Dropdown
+                    options={ert_options_strings}
+                    displayText={selected_ERT_option.name}
+                    nochevron
+                    noscroll
+                    width="300px"
+                    onSelected={(value) => pickERT(value)}
+                  />
+                ) || (
+                  <Input
+                    value={selected_ERT_option.name}
+                    width="300px"
+                    onChange={(e, val) => act('setSelectedName', {
+                      newName: val,
+                    })}
+                  />
+                )}
+              </Flex.Item>
+              <Flex.Item>
+                {!editing_mode && (
+                  <Button
+                    color="green"
+                    tooltip="Load ERT from JSON file"
+                    tooltipPosition="bottom"
+                    icon="file-upload"
+                    onClick={() => act('loadFromFile')}
+                  />
+                ) || <Box />}
+              </Flex.Item>
+            </Flex>
           </Stack.Item>
           <Stack.Divider />
           <Stack.Item height="100%">
@@ -359,6 +387,28 @@ const ErtAntagEditing = (props, context) => {
   return (
     <Section title="Antag Editing" buttons={
       <Box>
+        {(selectedAntagNum > 1) && (
+          <Button
+            icon="minus"
+            tooltip="Remove selected antagonist"
+            onClick={() => {
+              if (selectedAntagNum === all_antags.length-1) {
+                setSelectedAntagNum(Math.max(selectedAntagNum-1, 0));
+              }
+              act('removeAntagonist', {
+                antagNum: selectedAntagNum,
+              });
+            }}
+          />
+        )}
+        <Button
+          icon="plus"
+          tooltip="Add new antagonist"
+          onClick={() => {
+            act('addAntagonist');
+            setSelectedAntagNum(all_antags.length-1);
+          }}
+        />
         <Button
           icon="angle-left"
           onClick={() => {
@@ -524,6 +574,16 @@ const ErtTogglesShort = (props, context) => {
               >Mechs
               </Button.Checkbox>
             </Stack.Item>
+            <Stack.Item>
+              <Button.Checkbox
+                fluid
+                checked={leader_experience}
+                onClick={() => act('leaderExperience')}
+                tooltip="Set whether or not the ERT should select an experienced leader by default"
+                tooltipPosition="bottom"
+              >Experience
+              </Button.Checkbox>
+            </Stack.Item>
           </Stack>
         </Stack.Item>
       </Stack>
@@ -536,8 +596,11 @@ const ErtBasicEditing = (props, context) => {
   const { act, data } = useBackend<WindowData>(context);
   const {
     editing_mode,
+    selected_ERT_option,
+    custom_datum,
     // customization basically
     teamsize,
+    mech_amount,
     mission,
     polldesc,
     rename_team,
@@ -546,18 +609,32 @@ const ErtBasicEditing = (props, context) => {
   const [selectedAntagNum, setSelectedAntagNum] = useLocalState(
     context, 'selected_antag_editing_num', 0);
 
+  let isCustom = selected_ERT_option.path === custom_datum;
+
   return (
     <Stack basis="100%" height="100%">
       <Stack.Item>
         <Section title="Customization"
           buttons={
             <Box>
+              {isCustom && (
+                <Button
+                  color="green"
+                  tooltip="Save to file"
+                  tooltipPosition="bottom"
+                  icon="save"
+                  onClick={() => act('saveToFile')}
+                />
+              ) || <Box />}
               <Button
                 color="red"
-                tooltip="View Variables"
-                tooltipPosition="left"
+                tooltip={editing_mode && "View Variables" || "View ERT Variables"}
+                tooltipPosition="bottom"
                 icon="pen"
-                onClick={() => act('vv')}
+                onClick={() => {
+                  if (!editing_mode) { act('vv'); }
+                  else { act('vvERT'); }
+                }}
               />
               <Button
                 color="red"
@@ -627,10 +704,12 @@ const ErtBasicEditing = (props, context) => {
                 tooltip="Response Team Size. How many members do we want? Minimum: 1"
                 tooltipPosition="right"
                 ml={-.5}
+
               />
             }>
               <NumberInput
                 value={teamsize}
+                minValue={1}
                 onChange={(e, val) => act('setTeamSize', {
                   new_value: val,
                 })}
@@ -645,7 +724,9 @@ const ErtBasicEditing = (props, context) => {
               />
             }>
               <NumberInput
-                value={teamsize}
+                value={mech_amount}
+                minValue={0}
+                maxValue={teamsize}
                 onChange={(e, val) => act('setMechAmount', {
                   new_value: val,
                 })}

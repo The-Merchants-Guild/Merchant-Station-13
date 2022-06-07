@@ -173,3 +173,5 @@
 
 	/// Used for alternate screams.
 	var/list/alternate_screams
+	///How much oxyloss you take from screaming
+	var/scream_oxyloss = 5

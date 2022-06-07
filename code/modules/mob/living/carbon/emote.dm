@@ -255,6 +255,31 @@
 				qdel(B)
 
 
+/datum/emote/living/technobabble
+	key = "technobabble"
+	key_third_person = "technobabbles"
+	message = "says something scientific."
+	message_mime = "pretends to be a researcher."
+	only_forced_audio = FALSE
+	vary = TRUE
+	cooldown = 6
+
+/datum/emote/living/technobabble/get_sound(mob/living/user)
+	if(ishuman(user))
+		user.adjustOxyLoss(user.scream_oxyloss)
+		if(is_type_in_list(user.get_item_by_slot(ITEM_SLOT_OCLOTHING), list(/obj/item/clothing/suit/toggle/labcoat/science, /obj/item/clothing/suit/toggle/labcoat/chemist, /obj/item/clothing/suit/space/hardsuit/rd, /obj/item/clothing/suit/toggle/labcoat/virologist, /obj/item/clothing/suit/toggle/labcoat/genetics, /obj/item/clothing/suit/toggle/labcoat/cmo)))
+			var/num = rand(1, 11)
+			return pick("sound/voice/technobabble" + num2text(num) + ".ogg")
+
+/datum/emote/living/technobabble/run_emote(mob/living/user, params)
+	. = ..()
+	if (!.)
+		return FALSE
+	var/miming = user.mind ? user.mind.miming : 0
+	if(!user.is_muzzled() && !miming)
+		if(ishuman(user))
+			user.adjustOxyLoss(user.scream_oxyloss)
+
 /datum/emote/living/carbon/airguitar
 	key = "airguitar"
 	message = "is strumming the air and headbanging like a safari chimp."

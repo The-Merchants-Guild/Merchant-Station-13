@@ -38,7 +38,7 @@
 	var/turf/open/turfie = get_turf(carbon_target)
 	turfie.TakeTemperature(-20)
 	carbon_target.adjust_bodytemperature(-40)
-	carbon_target.silent += 4
+	carbon_target.silent += 6
 	return TRUE
 
 /datum/eldritch_knowledge/void_grasp/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)

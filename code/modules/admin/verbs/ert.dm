@@ -372,9 +372,7 @@
 			. = TRUE
 
 		if("addNewERT") // I mean you *can* just copy via edit up there but /shrug
-			var/datum/ert/custom/custom
-			var/datum/ert/template = new ERT_options[1]
-			custom = template.copy_vars_to_custom_ERT_datum()
+			var/datum/ert/custom/custom = new
 			set_selected_ERT(custom)
 
 		if("setSelectedName")

@@ -30,5 +30,7 @@
   - bugfix: Alternate reagent containers now work in large grenades again.
   - bugfix: Chemical explosions now work in the stomach again (this was not a rebalance,
       it generated runtime errors)
+  NonCoderAlias:
+  - balance: H.E.C.K suit is space proof again.
   karmaisblackandbluepilled:
   - balance: Slips stun you again. God's in his Heaven, all is right with the world.

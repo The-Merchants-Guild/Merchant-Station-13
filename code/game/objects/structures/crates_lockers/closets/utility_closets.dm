@@ -150,6 +150,9 @@
 	new /obj/item/clothing/under/color/black(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/head/bomb_hood(src)
+	if(prob(20))
+		new /obj/item/clothing/suit/space/hardsuit/rd
+
 
 /obj/structure/closet/bombcloset/security/PopulateContents()
 	new /obj/item/clothing/suit/bomb_suit/security(src)

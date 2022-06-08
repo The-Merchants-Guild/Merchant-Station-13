@@ -159,7 +159,7 @@
 			return TRUE
 
 		to_chat(user, span_notice("You start welding the [pipename] in place..."))
-		if(I.use_tool(src, user, 8, volume=50))
+		if(I.use_tool(src, user, volume=50))
 			to_chat(user, span_notice("The [pipename] has been welded in place."))
 			var/obj/O = new pipe_type(loc, src)
 			transfer_fingerprints_to(O)

@@ -765,7 +765,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 			user.visible_message(span_notice("[user] is repairing [src]."), \
 							span_notice("You begin repairing [src]..."), \
 							span_hear("You hear welding."))
-			if(I.use_tool(src, user, 40, volume=50))
+			if(I.use_tool(src, user, volume=50))
 				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, span_notice("You repair [src]."))

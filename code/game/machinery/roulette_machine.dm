@@ -378,13 +378,13 @@
 	. = ..()
 	if(machine_stat & MAINT)
 		to_chat(user, span_notice("You start re-attaching the top section of [src]..."))
-		if(I.use_tool(src, user, 30, volume=50))
+		if(I.use_tool(src, user, volume=50))
 			to_chat(user, span_notice("You re-attach the top section of [src]."))
 			set_machine_stat(machine_stat & ~MAINT)
 			icon_state = "idle"
 	else
 		to_chat(user, span_notice("You start welding the top section from [src]..."))
-		if(I.use_tool(src, user, 30, volume=50))
+		if(I.use_tool(src, user, volume=50))
 			to_chat(user, span_notice("You removed the top section of [src]."))
 			set_machine_stat(machine_stat | MAINT)
 			icon_state = "open"

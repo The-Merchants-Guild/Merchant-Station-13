@@ -78,6 +78,10 @@
 	var/obj/structure/table/optable/optable = locate(/obj/structure/table/optable, patient_turf)
 	if(optable?.computer)
 		opcomputer = optable.computer
+	else
+		var/obj/machinery/stasis/the_stasis_bed = locate(/obj/machinery/stasis, patient_turf)
+		if(the_stasis_bed?.computer)
+			opcomputer = the_stasis_bed.computer
 	if(!opcomputer)
 		return
 	if(opcomputer.machine_stat & (NOPOWER|BROKEN))

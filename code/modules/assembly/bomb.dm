@@ -56,7 +56,7 @@
 		return
 	if(!I.tool_start_check(user, amount=0))
 		return
-	if(I.use_tool(src, user, 0, volume=40))
+	if(I.use_tool(src, user, volume=40))
 		status = TRUE
 		var/datum/gas_mixture/bomb_mix = bombtank.return_air()
 		log_bomber(user, "welded a single tank bomb,", src, "| Temp: [bomb_mix.temperature-T0C]")

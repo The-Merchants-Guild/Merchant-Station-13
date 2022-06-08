@@ -1,0 +1,78 @@
+2022-04-03:
+  EdgeLordExe:
+  - rscadd: Laser arm now comes bundled with syndicate cyberlink
+  - bugfix: Laser arm now has syndicate hacking protocols instead of Terragov ones
+  - rscadd: Adds kevlar to chemistry
+2022-04-04:
+  karmaisblackandbluepilled:
+  - rscadd: After a massive medical strike, NT has finally decided to stop being
+      cheap and added health analyzers to every medical kit once more.
+  - rscadd: Top of the line medical procedures now ensure that all lizard children
+      do not get their butts lopped off at birth by overzealous doctors. Flies also
+      have them now, for some reason. Was it truly worth it?
+2022-04-06:
+  karmaisblackandbluepilled:
+  - rscadd: Added the craftable suicide vest.
+  - rscadd: WRESTLEMANIA TAKES OVER NANOTRASEN HIGHERUPS, STOCKS PLUMMET!
+  - rscadd: Finnish artefacts dug up from the nuclear hellzones of neo-Finland.
+  Bucovineanu:
+  - expansion: Circuit miniprinter now exists inside integrated circuits,
+      allowing you to no longer waste time between two or more machines!
+2022-04-07:
+  karmaisblackandbluepilled:
+  - rscadd: Brad Armstrong's brain was finally found in a burnt out ditch
+      around a mass grave, and the Syndicate acquired solitary rights to
+      distribute his famous martial art for all the operatives with enough TCs!
+  JinGiant:
+  - rscdel: TRAIT_PRIMITIVE
+2022-04-09:
+  Bucovineanu:
+  - rscadd: Added a sprite for the computer vision component
+  karmaisblackandbluepilled:
+  - rscdel: Removed purity because it SUCKS.
+2022-04-15:
+  EdgeLordExe:
+  - imageadd: Changed hypospray sprite
+2022-04-18:
+  EtraIV:
+  - config: Replaced youtube-dl with yt-dlp
+  KangTut:
+  - balance: Adds the laser shells from the sec lethal locker to the security department lathe
+2022-04-20:
+  EtraIV:
+  - rscadd: Added MetaStation medbay wards
+  - qol: Put the surgical tools in the primary surgical theatre into surgical duffel bags,
+      moved tables around
+  - rscdel: Removed the medical kiosk and tables in the middle of the medbay
+  - rscdel: Got rid of that stupid fucking potted plant, fuck that thing, piece of shit
+2022-04-23:
+  EdgeLordExe:
+  - bugfix: Fixed eye implant auto-update logic
+  - rscadd: CMO's locker now spawns with NT1.0 cyberlink autosurgeon
+  EtraIV:
+  - rscadd: Allows radios to be spoken into when in hand without their microphones being enabled
+  - expansion: Station-bounced radios now communicate on subspace network,
+      can have encryption keys added and removed
+  - rscdel: hand radios can no longer be attached to things, though afaik they couldn't be used
+      for grenades or TTVs anyway
+  - refactor: combined a lot of headset code with radio code
+  - tweak: hands are now checked for radios whenever a human attempts to say something into a
+      radio channel
+  karmaisblackandbluepilled:
+  - rscadd: Added the Hydroponics DNA Modder back in.
+  - rscadd: a bit of poopie? some poopie rapie?
+  - rscadd: Added new ERP mechanics.
+2022-04-24:
+  EtraIV:
+  - rscadd: Adds syndicate cigarette packets to the contraband catalogue of cigarette vending machines.
+  - rscadd: Makes locker doors animated
+2022-04-25:
+  EtraIV:
+  - refactor: replaced keyslot and keyslot2 vars with keyslots list
+  - balance: made radios accept only 1 encryption key by default (except for headsets)
+  - server: update dependencies
+  - refactor: Remove redundant check for talking into radios held in hand
+  - bugfix: Readds the CentCom encryption key to ERT headsets
+2022-04-28:
+  EtraIV:
+  - server: Downgraded node dependency to match RL8 package (16.14.2 -> 16.13.1)

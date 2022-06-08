@@ -109,6 +109,10 @@
 	safety = !safety
 	src.icon_state = "[sprite_name][!safety]"
 	to_chat(user, "<span class='infoplain'>The safety is [safety ? "on" : "off"].</span>")
+	if(safety)
+		reagents.flags = AMOUNT_VISIBLE
+	else
+		reagents.flags = OPENCONTAINER
 	return
 
 /obj/item/extinguisher/attack(mob/M, mob/living/user)
@@ -267,8 +271,14 @@
 
 		user.visible_message(span_notice("[user] empties out \the [src] onto the floor using the release valve."), span_info("You quietly empty out \the [src] using its release valve."))
 
-//firebot assembly
+//firebot assembly and reagent filling
 /obj/item/extinguisher/attackby(obj/O, mob/user, params)
+	if(istype(O, /obj/item/reagent_containers))
+		if(safety)
+			to_chat(user, span_warning("You need to take off the safety before you can refill the [src]!"))
+			return
+	else
+		..()
 	if(istype(O, /obj/item/bodypart/l_arm/robot) || istype(O, /obj/item/bodypart/r_arm/robot))
 		to_chat(user, span_notice("You add [O] to [src]."))
 		qdel(O)

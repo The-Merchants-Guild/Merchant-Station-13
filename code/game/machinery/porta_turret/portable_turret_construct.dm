@@ -69,7 +69,7 @@
 
 				to_chat(user, span_notice("You start to remove the turret's interior metal armor..."))
 
-				if(I.use_tool(src, user, 20, volume=50, amount=5)) //uses up 5 fuel
+				if(I.use_tool(src, user, volume=50, amount=5)) //uses up 5 fuel
 					build_step = PTURRET_BOLTED
 					to_chat(user, span_notice("You remove the turret's interior metal armor."))
 					new /obj/item/stack/sheet/iron(drop_location(), 2)
@@ -132,7 +132,7 @@
 					return
 
 				to_chat(user, span_notice("You begin to weld the turret's armor down..."))
-				if(I.use_tool(src, user, 30, volume=50, amount=5))
+				if(I.use_tool(src, user, volume=50, amount=5))
 					build_step = PTURRET_EXTERNAL_ARMOUR_ON
 					to_chat(user, span_notice("You weld the turret's armor down."))
 

@@ -429,8 +429,10 @@
 						exposed_human.skin_tone = "african1"
 					if("arab")
 						exposed_human.skin_tone = "indian"
+					if("simpson")
+						exposed_human.skin_tone = "indian"
 					if("asian2")
-						exposed_human.skin_tone = "arab"
+						exposed_human.skin_tone = pick("arab", "simpson")
 					if("asian1")
 						exposed_human.skin_tone = "asian2"
 					if("mediterranean")
@@ -2506,12 +2508,6 @@
 	taste_description = "hell"
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
-/datum/reagent/exotic_stabilizer
-	name = "Exotic Stabilizer"
-	description = "Advanced compound created by mixing stabilizing agent and hyper-plasmium oxide."
-	color = "#180000" // rgb: 255, 255, 255
-	taste_description = "blood"
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/wittel
 	name = "Wittel"

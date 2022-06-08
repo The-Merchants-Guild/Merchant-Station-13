@@ -98,6 +98,8 @@
 
 /datum/config_entry/flag/log_shuttle // log shuttle related actions, ie shuttle computers, shuttle manipulator, emergency console
 
+/datum/config_entry/flag/log_wordfilter // word filter implant message filtering/blocking
+
 /datum/config_entry/flag/log_timers_on_bucket_reset // logs all timers in buckets on automatic bucket reset (Useful for timer debugging)
 
 /datum/config_entry/flag/allow_admin_ooccolor // Allows admins with relevant permissions to have their own ooc colour
@@ -180,6 +182,9 @@
 /datum/config_entry/flag/load_legacy_ranks_only //Loads admin ranks only from legacy admin_ranks.txt, while enabled ranks are mirrored to the database
 	protection = CONFIG_ENTRY_LOCKED
 
+/datum/config_entry/flag/mentor_legacy_system //Defines whether the server uses the legacy mentor system with mentors.txt or the SQL system
+	protection = CONFIG_ENTRY_LOCKED
+
 /datum/config_entry/string/hostedby
 
 /datum/config_entry/flag/norespawn
@@ -217,16 +222,16 @@
 /datum/config_entry/string/banappeals
 
 /datum/config_entry/string/wikiurl
-	default = "http://www.tgstation13.org/wiki"
+	default = "http://wiki.merchantstation.net/w"
 
 /datum/config_entry/string/discordurl
-	default = ""
+	default = "https://discord.gg/2YYfU3ZanD"
 
 /datum/config_entry/string/rulesurl
-	default = "http://www.tgstation13.org/wiki/Rules"
+	default = "http://wiki.merchantstation.net/wiki/Rules"
 
 /datum/config_entry/string/githuburl
-	default = "https://www.github.com/tgstation/tgstation"
+	default = "https://www.github.com/The-Merchants-Guild/Merchant-Station-13"
 
 /datum/config_entry/string/discordbotcommandprefix
 	default = "?"

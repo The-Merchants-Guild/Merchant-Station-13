@@ -34,3 +34,16 @@
   - balance: H.E.C.K suit is space proof again.
   karmaisblackandbluepilled:
   - balance: Slips stun you again. God's in his Heaven, all is right with the world.
+2022-06-08:
+  MACIEKBAKI:
+  - code_imp: ERT code has been changed, check PR for details if you care.
+  - admin: Entirely redone ERT spawning menu. New and improved. You can now choose
+      to spawn an ERT with their pre-assigned mechs (i.e. a Deathsquad might spawn
+      with Death Ripleys, Code Red ERT with marauders/seraphs, etc
+  karmaisblackandbluepilled:
+  - rscadd: Added the waddle quirk, put a little pep in your step.
+  - rscadd: Added the technobabble emote, with special sounds for anyone wearing NERD
+      suits.
+  - balance: Both screaming and the technobabble emote deal oxygen damage now, to
+      prevent you from spamming them. On the upside, if you do spam screaming the
+      sounds can overlap.

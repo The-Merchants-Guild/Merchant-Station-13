@@ -1,9 +1,0 @@
-author: karmaisblackandbluepilled
-delete-after: true
-changes:
-  - rscadd: Added the waddle quirk, put a little pep in your step.
-  - rscadd: Added the technobabble emote, with special sounds for anyone wearing NERD
-      suits.
-  - balance: Both screaming and the technobabble emote deal oxygen damage now, to
-      prevent you from spamming them. On the upside, if you do spam screaming the
-      sounds can overlap.

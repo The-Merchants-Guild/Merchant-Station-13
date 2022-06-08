@@ -527,7 +527,7 @@
 
 	//Research Director hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/rd
-	name = "prototype hardsuit helmet"
+	name = "prototype bomb disposal hardsuit helmet"
 	desc = "A prototype helmet designed for handling dangerous materials in a low pressure environment."
 	icon_state = "hardsuit0-rd"
 	hardsuit_type = "rd"
@@ -566,7 +566,7 @@
 	display_visor_message("Explosion detected! Epicenter: [devastation_range], Outer: [heavy_impact_range], Shock: [light_impact_range]")
 
 /obj/item/clothing/suit/space/hardsuit/rd
-	name = "prototype hardsuit"
+	name = "prototype bomb disposal hardsuit"
 	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives."
 	icon_state = "hardsuit-rd"
 	inhand_icon_state = "hardsuit-rd"

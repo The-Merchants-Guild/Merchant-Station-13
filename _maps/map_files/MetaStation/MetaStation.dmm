@@ -1785,6 +1785,7 @@
 	},
 /obj/machinery/light/directional/south,
 /obj/item/radio/intercom/directional/south,
+/obj/item/stack/sheet/mineral/uranium,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "amH" = (
@@ -3374,6 +3375,7 @@
 	c_tag = "Chemistry North";
 	network = list("ss13","medbay")
 	},
+/obj/machinery/chem/radioactive,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "ayp" = (
@@ -6379,14 +6381,6 @@
 /area/hallway/secondary/entry)
 "bad" = (
 /obj/structure/table/glass,
-/obj/item/folder/white{
-	pixel_y = 2
-	},
-/obj/item/screwdriver{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/radio/headset/headset_med,
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/tile/yellow{
@@ -6399,9 +6393,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/item/hand_labeler,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
+/obj/machinery/chem/pressure,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "baf" = (
@@ -11631,6 +11623,10 @@
 	pixel_x = 8;
 	pixel_y = 5
 	},
+/obj/item/screwdriver{
+	pixel_x = -2;
+	pixel_y = 6
+	},
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "ckk" = (
@@ -12060,6 +12056,8 @@
 	pixel_x = -2;
 	pixel_y = 6
 	},
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "coW" = (
@@ -28120,7 +28118,7 @@
 /obj/item/reagent_containers/syringe/contraband/space_drugs{
 	pixel_y = 9;
 	pixel_x = 11;
-	list_reagents = list(/datum/reagent/drug/space_drugs = 10, /datum/reagent/drug/krokodil = 5)
+	list_reagents = list(/datum/reagent/drug/space_drugs=10,/datum/reagent/drug/krokodil=5)
 	},
 /obj/effect/decal/cleanable/wrapping,
 /obj/item/paper/crumpled/fluff/poem{
@@ -44186,6 +44184,7 @@
 	dir = 1
 	},
 /obj/item/radio/intercom/directional/north,
+/obj/machinery/chem/bluespace,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "mDQ" = (
@@ -77700,9 +77699,8 @@
 /obj/machinery/airalarm/directional/south,
 /obj/structure/cable,
 /obj/structure/table/glass,
-/obj/item/clothing/glasses/science,
-/obj/item/clothing/glasses/science,
 /obj/machinery/power/apc/auto_name/west,
+/obj/machinery/chem/centrifuge,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "xwd" = (

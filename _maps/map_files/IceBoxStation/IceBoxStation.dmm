@@ -12688,13 +12688,11 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/table,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/clothing/head/welding,
+/obj/machinery/chem/bluespace,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "bvk" = (
@@ -13833,6 +13831,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/item/stack/sheet/mineral/uranium,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "bBM" = (
@@ -24288,28 +24287,9 @@
 	dir = 1
 	},
 /obj/structure/table/glass,
-/obj/item/assembly/igniter,
-/obj/item/assembly/igniter,
-/obj/item/assembly/igniter,
-/obj/item/assembly/igniter,
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/machinery/airalarm/directional/west,
 /obj/machinery/light/directional/west,
+/obj/machinery/chem/pressure,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "fep" = (
@@ -31565,6 +31545,26 @@
 	pixel_y = 18
 	},
 /obj/machinery/light_switch/directional/west,
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/igniter,
+/obj/item/assembly/igniter,
+/obj/item/assembly/igniter,
+/obj/item/assembly/igniter,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "jtt" = (
@@ -45162,6 +45162,13 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/item/plunger,
+/obj/item/stack/ducts/fifty,
+/obj/item/stack/ducts/fifty,
+/obj/item/stack/ducts/fifty,
+/obj/item/stack/ducts/fifty,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/clothing/head/welding,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "qYQ" = (
@@ -55169,7 +55176,7 @@
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable,
 /obj/structure/table,
-/obj/item/hand_labeler,
+/obj/machinery/chem/centrifuge,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "wEo" = (
@@ -56055,16 +56062,11 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/item/stack/ducts/fifty,
-/obj/item/stack/ducts/fifty,
-/obj/item/stack/ducts/fifty,
-/obj/item/stack/ducts/fifty,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
-/obj/item/plunger,
+/obj/machinery/chem/radioactive,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "xfm" = (

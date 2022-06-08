@@ -12,7 +12,7 @@
 
 /datum/action/neck_chop/Trigger()
 	if(owner.incapacitated())
-		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
+		to_chat(owner, span_warning("You can't use Neck Chop while you're incapacitated."))
 		return
 	if (owner.mind.martial_art.streak == "neck_chop")
 		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack is cleared.</i></b>")
@@ -28,7 +28,7 @@
 
 /datum/action/leg_sweep/Trigger()
 	if(owner.incapacitated())
-		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
+		to_chat(owner, span_warning("You can't use Leg Sweep while you're incapacitated."))
 		return
 	if (owner.mind.martial_art.streak == "leg_sweep")
 		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack is cleared.</i></b>")
@@ -44,7 +44,7 @@
 
 /datum/action/lung_punch/Trigger()
 	if(owner.incapacitated())
-		to_chat(owner, span_warning("You can't use [name] while you're incapacitated."))
+		to_chat(owner, span_warning("You can't use Lung Punch while you're incapacitated."))
 		return
 	if (owner.mind.martial_art.streak == "quick_choke")
 		owner.visible_message(span_danger("[owner] assumes a neutral stance."), "<b><i>Your next attack is cleared.</i></b>")
@@ -149,32 +149,6 @@
 					span_userdanger("You're [picked_hit_type]ed by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
 	to_chat(A, span_danger("You [picked_hit_type] [D]!"))
 	log_combat(A, D, "[picked_hit_type] with [name]")
-	return TRUE
-
-/datum/martial_art/krav_maga/disarm_act(mob/living/A, mob/living/D)
-	if(check_streak(A,D))
-		return TRUE
-	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, MELEE)
-	if(D.body_position == STANDING_UP)
-		D.visible_message(span_danger("[A] reprimands [D]!"), \
-					span_userdanger("You're slapped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, span_danger("You jab [D]!"))
-		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		D.apply_damage(rand(5,10), STAMINA, affecting, armor_block)
-		log_combat(A, D, "punched nonlethally")
-	if(D.body_position == LYING_DOWN)
-		D.visible_message(span_danger("[A] reprimands [D]!"), \
-					span_userdanger("You're manhandled by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, span_danger("You stomp [D]!"))
-		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-		D.apply_damage(rand(10,15), STAMINA, affecting, armor_block)
-		log_combat(A, D, "stomped nonlethally")
-	if(prob(D.getStaminaLoss()))
-		D.visible_message(span_warning("[D] sputters and recoils in pain!"), span_userdanger("You recoil in pain as you are jabbed in a nerve!"))
-		D.drop_all_held_items()
 	return TRUE
 
 //Krav Maga Gloves

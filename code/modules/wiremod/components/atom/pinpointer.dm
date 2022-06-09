@@ -5,8 +5,7 @@
  */
 /obj/item/circuit_component/pinpointer
 	display_name = "Proximity Pinpointer"
-	desc = "A component that returns the xyz co-ordinates of its entity input, as long as its in view."
-	category = "Entity"
+	display_desc = "A component that returns the xyz co-ordinates of its entity input, as long as its in view."
 
 	var/datum/port/input/target
 
@@ -19,7 +18,7 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/pinpointer/populate_ports()
+/obj/item/circuit_component/pinpointer/Initialize()
 	target = add_input_port("Target entity", PORT_TYPE_ATOM, FALSE)
 
 	x_pos = add_output_port("X", PORT_TYPE_NUMBER)
@@ -27,19 +26,24 @@
 	z_pos = add_output_port("Z", PORT_TYPE_NUMBER)
 	on_error = add_output_port("Failed", PORT_TYPE_SIGNAL)
 
+/obj/item/circuit_component/direction/Destroy()
+	input_port = null
+	output = null
+	return ..()
+
 /obj/item/circuit_component/pinpointer/input_received(datum/port/input/port)
 
-	if(isnull(target.value))
+	var/atom/object = target.input_value
+	if(!object)
 		x_pos.set_output(null)
 		y_pos.set_output(null)
 		z_pos.set_output(null)
 		on_error.set_output(COMPONENT_SIGNAL)
 		return
 
-	var/atom/target_entity = target.value
+	var/turf/location = get_turf(object)
 
-	if(is_in_sight(target_entity, get_location()) && IN_GIVEN_RANGE(get_location(), target_entity, max_range))
-		var/turf/location = get_turf(target_entity)
+	if(object.z != location.z || get_dist(location, object) > max_range)
 
 		x_pos.set_output(location?.x)
 		y_pos.set_output(location?.y)

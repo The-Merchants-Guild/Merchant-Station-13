@@ -1117,6 +1117,7 @@
 	singular_name = "reagent floor tile"
 	desc = "A tile made out of reagents."
 	icon_state = "tile_titanium" //fancy
+	inhand_icon_state = "tile-shuttle"
 	turf_type = /turf/open/floor/mineral/reagent
 	merge_type = /obj/item/stack/tile/mineral/reagent
 	mineralType = "reagent"

@@ -268,3 +268,36 @@
 	availability_prob = 10
 	price_min = 1200
 	price_max = 1800
+
+/datum/blackmarket_item/cybernetics/skull_gun
+	name = "BU-TAM resistor cybernetic"
+	desc = "This bad boy roots you in ground whenever you get shoved, doesn't come with muscle actuators so your legs will get tired after a while."
+	item = /obj/item/organ/cyberimp/brain/skull_gun
+	availability_prob = 15
+	price_min = 300
+	price_max = 600
+
+/datum/blackmarket_item/cybernetics/skull_gun
+	name = "BU-TAM resistor cybernetic"
+	desc = "This bad boy roots you in ground whenever you get shoved, doesn't come with muscle actuators so your legs will get tired after a while."
+	item = /obj/item/organ/cyberimp/brain/skull_gun
+	availability_prob = 15
+	price_min = 300
+	price_max = 600
+
+/datum/blackmarket_item/cybernetics/biothruster
+	name = "BU-TAM resistor cybernetic"
+	desc = "This bad boy roots you in ground whenever you get shoved, doesn't come with muscle actuators so your legs will get tired after a while."
+	item = /obj/item/organ/cyberimp/chest/biothruster
+	availability_prob = 15
+	price_min = 300
+	price_max = 600
+
+/datum/blackmarket_item/cybernetics/grappendix
+	name = "BU-TAM resistor cybernetic"
+	desc = "This bad boy roots you in ground whenever you get shoved, doesn't come with muscle actuators so your legs will get tired after a while."
+	item = /obj/item/organ/cyberimp/arm/item_set/gun/grappendix
+	availability_prob = 15
+	price_min = 300
+	price_max = 600
+

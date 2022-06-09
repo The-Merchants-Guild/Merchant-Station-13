@@ -163,14 +163,14 @@
 	qdel(chain)
 	return ..()
 
-/obj/item/autosurgeon/organ/skull_gun
+/obj/item/autosurgeon/organ/syndicate/skull_gun
 	uses = 1
 	starting_organ = /obj/item/organ/cyberimp/brain/skull_gun
 
-/obj/item/autosurgeon/organ/biothruster
+/obj/item/autosurgeon/organ/syndicate/biothruster
 	uses = 1
 	starting_organ = /obj/item/organ/cyberimp/chest/biothruster
 
-/obj/item/autosurgeon/organ/grappendix
+/obj/item/autosurgeon/organ/syndicate/grappendix
 	uses = 1
 	starting_organ = /obj/item/organ/cyberimp/arm/item_set/gun/grappendix

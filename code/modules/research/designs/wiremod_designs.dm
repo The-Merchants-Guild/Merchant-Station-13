@@ -163,6 +163,11 @@
 	id = "comp_direction"
 	build_path = /obj/item/circuit_component/direction
 
+/datum/design/component/pinpointer
+	name = "Pinpointer Component"
+	id = "comp_pinpointer"
+	build_path = /obj/item/circuit_component/pinpointer
+
 /datum/design/component/health
 	name = "Health Component"
 	id = "comp_health"
@@ -230,7 +235,7 @@
 	name = "To Entity Component"
 	id = "comp_toentity"
 	build_path = /obj/item/circuit_component/toentity
-	
+
 /datum/design/component/select_query
 	name = "Select Query Component"
 	id = "comp_select_query"
@@ -256,7 +261,7 @@
 	id = "comp_module"
 	build_path = /obj/item/circuit_component/module
 	build_type = IMPRINTER | COMPONENT_PRINTER
-	
+
 /datum/design/component/bci
 	category = list("Circuitry", "BCI Components")
 	build_type = IMPRINTER | COMPONENT_PRINTER

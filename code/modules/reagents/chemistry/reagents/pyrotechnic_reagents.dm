@@ -447,7 +447,7 @@
 				M.adjust_fire_stacks(-(6*reac_volume))
 	return ..()
 
-/datum/reagent/cryogenic_fluid/expose_turf(turf/T, reac_volume)
+/* /datum/reagent/cryogenic_fluid/expose_turf(turf/T, reac_volume)
 	..()
 	if (!istype(T))
 		return FALSE
@@ -462,7 +462,7 @@
 				qdel(hotspot)
 		if(reac_volume >= 6)
 			O.freon_gas_act() //freon in my pocket
-
+*/
 /datum/reagent/sparky
 	name = "Electrostatic substance"
 	description = "A charged substance that generates an electromagnetic field capable of interfering with light fixtures."

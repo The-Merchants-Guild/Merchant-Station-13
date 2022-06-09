@@ -208,6 +208,7 @@
 		"comp_concat_list",
 		"comp_delay",
 		"comp_direction",
+		"comp_pinpointer",
 		"comp_get_column",
 		"comp_gps",
 		"comp_health",

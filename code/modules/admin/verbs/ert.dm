@@ -647,7 +647,7 @@
 		//Give antag datum
 		var/datum/antagonist/ert/ert_antag
 
-		var/access_to_give = SSid_access.accesses_by_region[REGION_STATION] + list(ACCESS_CENT_LIVING, ACCESS_CENT_GENERAL)
+		var/access_to_give = SSid_access.accesses_by_region[REGION_ALL_STATION] + list(ACCESS_CENT_LIVING, ACCESS_CENT_GENERAL)
 
 		var/is_custom = istype(ERToption, /datum/ert/custom)
 

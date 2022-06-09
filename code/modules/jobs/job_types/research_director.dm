@@ -46,9 +46,8 @@
 /datum/outfit/job/rd
 	name = "Research Director"
 	jobtype = /datum/job/research_director
-	card_access = /datum/card_access/job/research_director
 
-	id = /obj/item/card/id/tier4
+	id = /obj/item/card/id/advanced/silver
 	belt = /obj/item/pda/heads/rd
 	ears = /obj/item/radio/headset/heads/rd
 	uniform = /obj/item/clothing/under/rank/rnd/research_director
@@ -65,6 +64,8 @@
 	skillchips = list(/obj/item/skillchip/job/research_director)
 
 	chameleon_extras = /obj/item/stamp/rd
+
+	id_trim = /datum/id_trim/job/research_director
 
 /datum/outfit/job/rd/rig
 	name = "Research Director (Hardsuit)"

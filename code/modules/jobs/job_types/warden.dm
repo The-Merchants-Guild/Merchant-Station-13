@@ -41,8 +41,6 @@
 /datum/outfit/job/warden
 	name = "Warden"
 	jobtype = /datum/job/warden
-	id = /obj/item/card/id/tier3
-	card_access = /datum/card_access/job/security/warden
 
 	belt = /obj/item/pda/warden
 	ears = /obj/item/radio/headset/headset_sec/alt
@@ -65,3 +63,5 @@
 	implants = list(/obj/item/implant/mindshield)
 
 	chameleon_extras = /obj/item/gun/ballistic/shotgun/automatic/combat/compact
+
+	id_trim = /datum/id_trim/job/warden

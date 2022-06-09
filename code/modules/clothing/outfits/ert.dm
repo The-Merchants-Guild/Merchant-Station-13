@@ -7,9 +7,7 @@
 
 /datum/outfit/centcom/ert
 	name = "ERT Common"
-	card_access = /datum/card_access/centcom/ert
 
-	id = /obj/item/card/id/centcom/ert
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	ears = /obj/item/radio/headset/headset_cent/alt
 	gloves = /obj/item/clothing/gloves/combat
@@ -34,8 +32,8 @@
 
 /datum/outfit/centcom/ert/commander
 	name = "ERT Commander"
-	card_access = /datum/card_access/centcom/ert
 
+	id = /obj/item/card/id/advanced/centcom/ert
 	suit = /obj/item/clothing/suit/space/hardsuit/ert
 	suit_store = /obj/item/gun/energy/e_gun
 	back = /obj/item/storage/backpack/ert
@@ -69,8 +67,8 @@
 
 /datum/outfit/centcom/ert/security
 	name = "ERT Security"
-	card_access = /datum/card_access/centcom/ert/security
 
+	id = /obj/item/card/id/advanced/centcom/ert/security
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/sec
 	suit_store = /obj/item/gun/energy/e_gun/stun
 	back = /obj/item/storage/backpack/ert/security
@@ -106,8 +104,8 @@
 
 /datum/outfit/centcom/ert/medic
 	name = "ERT Medic"
-	card_access = /datum/card_access/centcom/ert/medical
 
+	id = /obj/item/card/id/advanced/centcom/ert/medical
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/med
 	suit_store = /obj/item/gun/energy/e_gun
 	back = /obj/item/storage/backpack/ert/medical
@@ -147,8 +145,8 @@
 
 /datum/outfit/centcom/ert/engineer
 	name = "ERT Engineer"
-	card_access = /datum/card_access/centcom/ert/engineer
 
+	id = /obj/item/card/id/advanced/centcom/ert/engineer
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engi
 	suit_store = /obj/item/gun/energy/e_gun
 	back = /obj/item/storage/backpack/ert/engineer
@@ -186,7 +184,8 @@
 /datum/outfit/centcom/centcom_official
 	name = "CentCom Official"
 
-	id = /obj/item/card/id/centcom
+	id = /obj/item/card/id/advanced/centcom
+	id_trim = /datum/id_trim/centcom/official
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	back = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
@@ -252,8 +251,8 @@
 
 /datum/outfit/centcom/ert/chaplain
 	name = "ERT Chaplain"
-	card_access = /datum/card_access/centcom/ert/chaplain
 
+	id = /obj/item/card/id/advanced/centcom/ert/chaplain
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor // Chap role always gets this suit
 	suit_store = /obj/item/gun/energy/e_gun
 	back = /obj/item/storage/backpack/cultpack
@@ -284,8 +283,8 @@
 
 /datum/outfit/centcom/ert/janitor
 	name = "ERT Janitor"
-	card_access = /datum/card_access/centcom/ert/janitor
 
+	id = /obj/item/card/id/advanced/centcom/ert/janitor
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
 	back = /obj/item/storage/backpack/ert/janitor
 	backpack_contents = list(
@@ -325,8 +324,8 @@
 
 /datum/outfit/centcom/ert/clown
 	name = "ERT Clown"
-	card_access = /datum/card_access/centcom/ert/clown
 
+	id = /obj/item/card/id/advanced/centcom/ert/clown
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/clown
 	back = /obj/item/storage/backpack/ert/clown
 	backpack_contents = list(
@@ -356,9 +355,9 @@
 
 /datum/outfit/centcom/centcom_intern
 	name = "CentCom Intern"
-	card_access = /datum/card_access/centcom/intern
 
-	id = /obj/item/card/id/centcom
+	id = /obj/item/card/id/advanced/centcom
+	id_trim = /datum/id_trim/centcom/intern
 	uniform = /obj/item/clothing/under/rank/centcom/intern
 	back = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
@@ -393,7 +392,6 @@
 
 /datum/outfit/centcom/centcom_intern/leader
 	name = "CentCom Head Intern"
-	card_access = /datum/card_access/centcom/intern/head
 
 	suit = /obj/item/clothing/suit/armor/vest
 	suit_store = /obj/item/gun/ballistic/rifle/boltaction/brand_new
@@ -493,9 +491,9 @@
 
 /datum/outfit/centcom/death_commando
 	name = "Death Commando"
-	card_access = /datum/card_access/centcom/deathsquad
 
-	id = /obj/item/card/id/black
+	id = /obj/item/card/id/advanced/black/deathsquad
+	id_trim = /datum/id_trim/centcom/deathsquad
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
@@ -543,6 +541,7 @@
 /datum/outfit/centcom/ert/marine
 	name = "Marine Commander"
 
+	id = /obj/item/card/id/advanced/centcom/ert
 	suit = /obj/item/clothing/suit/armor/vest/marine
 	suit_store = /obj/item/gun/ballistic/automatic/wt550
 	back = /obj/item/shield/riot
@@ -565,8 +564,8 @@
 
 /datum/outfit/centcom/ert/marine/security
 	name = "Marine Heavy"
-	card_access = /datum/card_access/centcom/ert/security
 
+	id = /obj/item/card/id/advanced/centcom/ert/security
 	suit = /obj/item/clothing/suit/armor/vest/marine/security
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/grenade/smokebomb
@@ -585,8 +584,8 @@
 
 /datum/outfit/centcom/ert/marine/medic
 	name = "Marine Medic"
-	card_access = /datum/card_access/centcom/ert/medical
 
+	id = /obj/item/card/id/advanced/centcom/ert/medical
 	suit = /obj/item/clothing/suit/armor/vest/marine/medic
 	suit_store = /obj/item/storage/belt/holster/detective/full/ert
 	back = /obj/item/storage/backpack/ert/medical
@@ -614,8 +613,8 @@
 
 /datum/outfit/centcom/ert/marine/engineer
 	name = "Marine Engineer"
-	card_access = /datum/card_access/centcom/ert/engineer
 
+	id = /obj/item/card/id/advanced/centcom/ert/engineer
 	suit = /obj/item/clothing/suit/armor/vest/marine/engineer
 	suit_store = /obj/item/gun/ballistic/shotgun/lethal
 	mask = /obj/item/clothing/mask/cigarette/robustgold

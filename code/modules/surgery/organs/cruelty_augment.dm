@@ -10,7 +10,7 @@
 	var/projectile_type = /obj/projectile/bullet/c10mm
 	var/skull_damage = 7
 	var/brain_damage = 3
-	
+
 /obj/item/organ/cyberimp/brain/skull_gun/proc/fire()
 	var/obj/projectile/P = new projectile_type(owner.loc)
 	P.firer = owner
@@ -21,7 +21,7 @@
 	if (implanted)
 		implanted.apply_damage(skull_damage, BRUTE, BODY_ZONE_HEAD)
 		implanted.adjustOrganLoss(ORGAN_SLOT_BRAIN,  brain_damage)
-	
+
 /obj/item/organ/cyberimp/brain/skull_gun/emp_act()
 	fire()
 
@@ -81,11 +81,10 @@
 	else
 		to_chat(owner, span_warning("Something prevents you from dashing forward!"))
 
-
 /obj/item/organ/cyberimp/arm/item_set/gun/grappendix
 	name = "grappendix"
 	desc = "An additional external intestine used for climbing and swinging."
-	icon_icon = 'icons/hud/actions.dmi'
+	icon = 'icons/hud/actions.dmi'
 	icon_state = "biothruster"
 	encode_info = AUGMENT_NT_HIGHLEVEL
 	contents = newlist(/obj/item/gun/magic/grappendix)
@@ -120,7 +119,6 @@
 		else
 			to_chat(loc, span_notice("You prepare to extend a tentacle."))
 
-
 /obj/item/gun/magic/grappendix/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, span_warning("The [name] is not ready yet."))
 
@@ -132,7 +130,6 @@
 /obj/item/gun/magic/grappendix/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return (OXYLOSS)
-
 
 /obj/item/ammo_casing/magic/grappendix
 	name = "grappendix"
@@ -165,7 +162,7 @@
 
 /obj/projectile/grappendix/Destroy()
 	qdel(chain)
-	return ..()	
+	return ..()
 
 /obj/item/autosurgeon/organ/skull_gun
 	uses = 1

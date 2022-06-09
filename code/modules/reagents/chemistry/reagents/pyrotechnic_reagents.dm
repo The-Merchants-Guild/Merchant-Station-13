@@ -457,7 +457,7 @@
 		if(hotspot)
 			if(O.air)
 				var/datum/gas_mixture/G = O.air
-				G.temperature = 0
+				G.temperature = TCMB
 				G.react()
 				qdel(hotspot)
 		if(reac_volume >= 6)

@@ -655,7 +655,7 @@
 				radiation_pulse(T, 4, 8, 25, 0)
 
 			if(6)
-				T.atmos_spawn_air("water_vapor= 40 ;TEMP= 298")//janitor friendly
+				T.atmos_spawn_air("water_vapor=40;TEMP= 298")//janitor friendly
 	..()
 
 /datum/reagent/arclumin/on_mob_end_metabolize(mob/living/M)// so you don't remain at luminosity 3 forever

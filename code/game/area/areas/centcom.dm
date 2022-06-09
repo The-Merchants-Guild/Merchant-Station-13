@@ -113,6 +113,12 @@
 	name = "Thunderdome (Observer.)"
 	icon_state = "purple"
 
+/area/fabric_of_reality
+	name = "Tear in the Fabric of Reality"
+	requires_power = FALSE
+	has_gravity = TRUE
+	area_flags = NOTELEPORT | UNIQUE_AREA
+	var/turf/origin
 
 //ENEMY
 

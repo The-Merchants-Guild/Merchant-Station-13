@@ -84,16 +84,15 @@
 /obj/item/organ/cyberimp/arm/item_set/gun/grappendix
 	name = "grappendix"
 	desc = "An additional external intestine used for climbing and swinging."
-	icon = 'icons/hud/actions.dmi'
-	icon_state = "biothruster"
+	icon_state = "grappendix"
 	encode_info = AUGMENT_NT_HIGHLEVEL
 	contents = newlist(/obj/item/gun/magic/grappendix)
 
 /obj/item/gun/magic/grappendix
 	name = "grappendix launcher"
 	desc = "Fire out a sticky tentacles that grapples to surfaces and creatures, and pulls you towards them. Smooth, slick and strong."
-	icon = 'icons/obj/changeling_items.dmi'
-	icon_state = "tentacle"
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "grappendix"
 	inhand_icon_state = "tentacle"
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'

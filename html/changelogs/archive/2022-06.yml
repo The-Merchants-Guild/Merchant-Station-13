@@ -52,5 +52,11 @@
   - rscadd: The Hazardous Environments Suit has replaced the Prototype Hardsuit due
       to budget cuts.
 2022-06-09:
+  EtraIV:
+  - rscdel: Undid TCEO's ID rework.
+  - bugfix: Fixes wikibooks
+  Salex08:
+  - bugfix: self surgery on head works again
   karmaisblackandbluepilled:
   - bugfix: fixed the supermatter spear's in-hand sprites.
+  - bugfix: The Tesla is a thing to fear again.

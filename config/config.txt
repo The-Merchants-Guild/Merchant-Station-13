@@ -247,7 +247,7 @@ WEBCLIENT_ONLY_BYOND_MEMBERS
 # FORUMURL http://tgstation13.org/phpBB/index.php
 
 ## Wiki address
-# WIKIURL http://wiki.merchantstation.net/
+WIKIURL https://wiki.merchantstation.net/wiki
 
 ## Rules address
 # RULESURL http://wiki.merchantstation.net/wiki/Rules

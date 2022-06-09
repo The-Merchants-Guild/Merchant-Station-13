@@ -37,6 +37,9 @@
 	return ..()
 
 /obj/item/circuit_component/pinpointer/input_received(datum/port/input/port)
+	. = ..()
+	if(.)
+		return
 
 	var/atom/object = target.input_value
 

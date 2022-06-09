@@ -148,15 +148,15 @@
 			if(loaded && synthesis && reagent_analyse)
 				if(reagents.total_volume < 50)
 					to_chat(usr, "<span class='warning'>You need at least [SPECIAL_TRAIT_ADD_COST] units of [synthesis] to add a trait!</span>")
-					return FALSE
+					return
 
 				if(analyse_only)
 					to_chat(usr, "<span class='warning'>The machine is locked in analyse only mode, perhaps you are trying to modify the traits of a reagent directly?</span>")
-					return FALSE
+					return
 
 				if(LAZYLEN(special_traits) >= SPECIAL_TRAIT_MAXIMUM)
 					to_chat(usr, "<span class='warning'>[loaded] has too many special traits already!</span>")
-					return FALSE
+					return
 
 				var/obj/item/forged/R
 				if(istype(loaded, /obj/item/forged))
@@ -168,20 +168,18 @@
 				else if(istype(loaded, /obj/item/ammo_casing/forged))
 					var/obj/item/ammo_casing/forged/F = loaded
 					if(!F.loaded_projectile)//this has no bullet
-						return FALSE
+						return
 					R = F.loaded_projectile
 
 				if(!R)
-					return FALSE
+					return
 				for(var/I in synthesis.special_traits)
 					var/datum/special_trait/D = new I
 					if(locate(D) in R.special_traits)
-						to_chat(usr, "<span class='warning'>[R] already has that trait!</span>")
-						return FALSE
+						to_chat(usr, "<span class='warning'>[R] already has the [D] trait!</span>")
 					else
 						R.special_traits += D//doesn't work with lazyadd due to type mismatch (it checks for an explicitly initialized list)
 						R.speed += SPECIAL_TRAIT_ADD_SPEED_DEBUFF
 						D.on_apply(R, R.identifier)
 						reagents.remove_any(SPECIAL_TRAIT_ADD_COST)
 						to_chat(usr, "<span class='notice'>You add the trait [D] to [R]</span>")
-						return TRUE

@@ -14,7 +14,6 @@
 
 // BEGIN_INCLUDE
 #include "_maps\_basemap.dm"
-#include "_maps\map_files\debug\runtimestation.dmm"
 #include "code\_compile_options.dm"
 #include "code\world.dm"
 #include "code\__DEFINES\_click.dm"
@@ -3579,6 +3578,7 @@
 #include "code\modules\surgery\organs\appendix.dm"
 #include "code\modules\surgery\organs\ass.dm"
 #include "code\modules\surgery\organs\autosurgeon.dm"
+#include "code\modules\surgery\organs\cruelty_augment.dm"
 #include "code\modules\surgery\organs\ears.dm"
 #include "code\modules\surgery\organs\eyes.dm"
 #include "code\modules\surgery\organs\heart.dm"

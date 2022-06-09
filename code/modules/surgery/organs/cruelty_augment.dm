@@ -1,6 +1,6 @@
 /obj/item/organ/cyberimp/brain/skull_gun
 	name = "anti-drop implant"
-	desc = "This cybernetic brain implant will allow you to force your hand muscles to contract, preventing item dropping. Twitch ear to toggle."
+	desc = "Scoop up part of your skull and replace it with a mounted gun. Popular among completely braindead corporate mechs."
 	var/active = 0
 	var/list/stored_items = list()
 	implant_color = "#DE7E00"
@@ -27,6 +27,8 @@
 
 /datum/action/item_action/organ_action/skull_gun
 	name = "Fire Skull Gun"
+	icon_icon = 'icons/hud/actions.dmi'
+	button_icon_state = "skull_gun"
 
 /datum/action/item_action/organ_action/skull_gun/Trigger()
 	. = ..()
@@ -36,8 +38,7 @@
 
 /obj/item/organ/cyberimp/chest/biothruster
 	name = "biothruster implant"
-	desc = "An implantable set of thruster ports. They use the gas from environment or subject's internals for propulsion in zero-gravity areas. \
-	Unlike regular jetpacks, this device has no stabilization system."
+	desc = "Propel yourself forwards with a powerful jet of sticky liquid from holes on your back. This one uses the content of your stomach for fuel."
 	slot = ORGAN_SLOT_THRUSTERS
 	icon_state = "imp_jetpack"
 	implant_overlay = null
@@ -49,7 +50,9 @@
 	var/datum/effect_system/trail_follow/ion/ion_trail
 
 /datum/action/item_action/organ_action/biothruster
-	name = "Fire Skull Gun"
+	name = "Activate Biothruster"
+	icon_icon = 'icons/hud/actions.dmi'
+	button_icon_state = "biothruster"
 	var/cooldown = 2 SECONDS
 	var/on_cooldown
 	var/stomachcost = 15
@@ -72,7 +75,7 @@
 
 	var/atom/target = get_edge_target_turf(owner, owner.dir)
 	if (owner.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = FALSE))
-		playsound(src, 'sound/effects/splat.ogg', 50, TRUE, TRUE)
+		playsound(owner, 'sound/effects/splat.ogg', 50, TRUE, TRUE)
 		owner.visible_message(span_warning("[usr] dashes forward propelled by a stream of vomit from their back!"))
 		on_cooldown = addtimer(VARSET_CALLBACK(src, on_cooldown, null), cooldown , TIMER_STOPPABLE)
 	else
@@ -80,15 +83,16 @@
 
 
 /obj/item/organ/cyberimp/arm/item_set/gun/grappendix
-	name = "arm-mounted taser implant"
-	desc = "A variant of the arm cannon implant that fires electrodes and disabler shots. The cannon emerges from the subject's arm and remains inside when not in use."
-	icon_state = "arm_taser"
+	name = "grappendix"
+	desc = "An additional external intestine used for climbing and swinging."
+	icon_icon = 'icons/hud/actions.dmi'
+	icon_state = "biothruster"
 	encode_info = AUGMENT_NT_HIGHLEVEL
 	contents = newlist(/obj/item/gun/magic/grappendix)
 
 /obj/item/gun/magic/grappendix
-	name = "tentacle"
-	desc = "A fleshy tentacle that can stretch out and grab things or people."
+	name = "grappendix launcher"
+	desc = "Fire out a sticky tentacles that grapples to surfaces and creatures, and pulls you towards them. Smooth, slick and strong."
 	icon = 'icons/obj/changeling_items.dmi'
 	icon_state = "tentacle"
 	inhand_icon_state = "tentacle"
@@ -131,15 +135,14 @@
 
 
 /obj/item/ammo_casing/magic/grappendix
-	name = "tentacle"
-	desc = "A tentacle."
+	name = "grappendix"
 	projectile_type = /obj/projectile/grappendix
 	caliber = CALIBER_TENTACLE
 	icon_state = "tentacle_end"
 	firing_effect_type = null
 
 /obj/projectile/grappendix
-	name = "tentacle"
+	name = "grappendix"
 	icon_state = "tentacle_end"
 	pass_flags = PASSTABLE
 	damage = 0
@@ -167,12 +170,10 @@
 /obj/item/autosurgeon/organ/skull_gun
 	uses = 1
 	starting_organ = /obj/item/organ/cyberimp/brain/skull_gun
-	
 
 /obj/item/autosurgeon/organ/biothruster
 	uses = 1
 	starting_organ = /obj/item/organ/cyberimp/chest/biothruster
-	
 
 /obj/item/autosurgeon/organ/grappendix
 	uses = 1

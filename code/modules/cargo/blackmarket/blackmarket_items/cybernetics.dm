@@ -270,34 +270,26 @@
 	price_max = 1800
 
 /datum/blackmarket_item/cybernetics/skull_gun
-	name = "BU-TAM resistor cybernetic"
-	desc = "This bad boy roots you in ground whenever you get shoved, doesn't come with muscle actuators so your legs will get tired after a while."
+	name = "skull gun augmentation"
+	desc = "Let's face it, intelligence is not your forte. You're neither a scientist nor an engineer. Trade that excess mental capacity for extra fire power. Courstesy of Consumer Softproducts."
 	item = /obj/item/organ/cyberimp/brain/skull_gun
-	availability_prob = 15
-	price_min = 300
-	price_max = 600
-
-/datum/blackmarket_item/cybernetics/skull_gun
-	name = "BU-TAM resistor cybernetic"
-	desc = "This bad boy roots you in ground whenever you get shoved, doesn't come with muscle actuators so your legs will get tired after a while."
-	item = /obj/item/organ/cyberimp/brain/skull_gun
-	availability_prob = 15
-	price_min = 300
-	price_max = 600
+	availability_prob = 12
+	price_min = 700
+	price_max = 1200
 
 /datum/blackmarket_item/cybernetics/biothruster
-	name = "BU-TAM resistor cybernetic"
-	desc = "This bad boy roots you in ground whenever you get shoved, doesn't come with muscle actuators so your legs will get tired after a while."
+	name = "biothruster augmentation"
+	desc = "Healthy appetite and the speed of a top athlete? Why pick one when you can have both! Courstesy of Consumer Softproducts."
 	item = /obj/item/organ/cyberimp/chest/biothruster
-	availability_prob = 15
-	price_min = 300
-	price_max = 600
+	availability_prob = 8
+	price_min = 700
+	price_max = 1200
 
 /datum/blackmarket_item/cybernetics/grappendix
-	name = "BU-TAM resistor cybernetic"
-	desc = "This bad boy roots you in ground whenever you get shoved, doesn't come with muscle actuators so your legs will get tired after a while."
+	name = "grappendix augmentation"
+	desc = "Finally a use for that useless appendix of yours. Spiderman around with your lower intestine! Courstesy of Consumer Softproducts."
 	item = /obj/item/organ/cyberimp/arm/item_set/gun/grappendix
-	availability_prob = 15
-	price_min = 300
-	price_max = 600
+	availability_prob = 5
+	price_min = 700
+	price_max = 1200
 

@@ -60,3 +60,8 @@
   karmaisblackandbluepilled:
   - bugfix: fixed the supermatter spear's in-hand sprites.
   - bugfix: The Tesla is a thing to fear again.
+2022-06-10:
+  karmaisblackandbluepilled:
+  - rscadd: New sound effects for the HEV suit.
+  - rscadd: The old RD hardsuit, which was renamed to "prototype bomb disposal hardsuit",
+      now has a 1 in 5 chance of spawning in any EOD closet.

@@ -335,12 +335,21 @@
 			. = TRUE
 		if("spawnERT")
 			var/ERToption
+			message_admins("[key_name(holder)] is creating a CentCom response team...")
 			if(istype(selected_ERT_option, /datum/ert/custom))
 				ERToption = new /datum/ert/custom(TRUE)
 			else
-				ERToption = new selected_ERT_option
+				ERToption = selected_ERT_option
 			copy_settings_to_ERT_datum(ERToption)
-			spawn_ERT_team(ERToption)
+
+			if(spawn_ERT_team(ERToption))
+				message_admins("[key_name(holder)] created a CentCom response team.")
+				log_admin("[key_name(holder)] created a CentCom response team.")
+			else
+				message_admins("[key_name_admin(holder)] tried to create a CentCom response team. Unfortunately, there were not enough candidates available.")
+				log_admin("[key_name(holder)] failed to create a CentCom response team.")
+
+			SStgui.update_user_uis(holder.mob)
 			. = TRUE
 
 		/// Editing ///
@@ -383,17 +392,6 @@
 			if(!editing_ERT || !istype(ert))
 				return TRUE
 			if(params["newName"])
-				var/dupe = FALSE
-				for(var/datum/ert/custom/custom_ert in GLOB.custom_ert_datums)
-					if(custom_ert.name == params["newName"])
-						dupe = TRUE
-				for(var/datum/ert/custom/base_ert in GLOB.custom_ert_datums)
-					if(base_ert.name == params["newName"])
-						dupe = TRUE
-
-				if(dupe)
-					to_chat(holder, span_warning("Duplicate ERT names are not allowed. Please select a unique name."))
-					return TRUE
 				if(preview_images[ert.name]) // clean old preview images
 					preview_images[ert.name] = list()
 				ert.name = params["newName"]
@@ -716,6 +714,8 @@
 		for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
 			door.open()
 			CHECK_TICK
+
+	return teamSpawned
 
 
 #undef ERT_EXPERIENCED_LEADER_CHOOSE_TOP

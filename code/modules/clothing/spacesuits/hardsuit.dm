@@ -655,9 +655,9 @@
 				to_chat(M, "<span class='warning'>You feel the autoinjectors in the suit activate, filling you with medicine!</span>")
 				SEND_SOUND(M, sound('sound/effects/evacuate_area.ogg', volume = 50))
 				M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 7)
-				M.reagents.add_reagent(/datum/reagent/medicine/morphine, 3)
+				M.reagents.add_reagent(/datum/reagent/medicine/morphine, 2)
 				healing_on_cooldown = 1
-				addtimer(VARSET_CALLBACK(src, healing_on_cooldown, FALSE), 1800) //injects you with 7u of omnizine and 3u of morphine every 3 minutes if you're under 30 health.
+				addtimer(VARSET_CALLBACK(src, healing_on_cooldown, FALSE), 1800) //injects you with 7u of omnizine and 2u of morphine every 3 minutes if you're under 30 health.
 		return
 	return
 

@@ -1,0 +1,5 @@
+author: MACIEKBAKI
+delete-after: true
+changes:
+  - bugfix: Fixed admin ERT spawning for preset ERTs
+  - admin: Admin ERT spawning now gives the admin more feedback, like it did previously.

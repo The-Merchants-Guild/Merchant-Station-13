@@ -106,6 +106,11 @@
 #define TEAR_IN_REALITY_SINGULARITY_SIZE STAGE_FOUR
 
 /// Tear in reality, spawned by the veil render
+
+/obj/machinery/the_singularitygen/tear
+	energy = 201
+	creation_type = /obj/tear_in_reality
+
 /obj/tear_in_reality
 	name = "tear in the fabric of reality"
 	desc = "This isn't right."

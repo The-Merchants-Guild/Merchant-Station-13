@@ -626,7 +626,7 @@
 	/obj/item/hand_tele, /obj/item/aicard, /obj/item/gun/ballistic/automatic/wt550/*placeholder until someone adds the SMG1 in*/)
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 5, "bomb" = 100, "bio" = 100, "rad" = 80, "fire" = 40, "acid" = 80)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/HEVsuit
-	slowdown = 0 //less resistances but faster speed, might be imba idc
+	slowdown = 0.5 //less resistances but faster speed, might be imba idc
 	var/message_on_cooldown = 0
 	var/healing_on_cooldown = 0
 	var/heal_threshold = 15

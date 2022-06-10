@@ -625,7 +625,7 @@
 	/obj/item/hand_tele, /obj/item/aicard, /obj/item/gun/ballistic/automatic/wt550/*placeholder until someone adds the SMG1 in*/)
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 5, "bomb" = 100, "bio" = 100, "rad" = 80, "fire" = 40, "acid" = 80)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/HEVsuit
-	slowdown = 0 //less resistances but faster speed, might be imba idc
+	slowdown = 0.5 //less resistances but faster speed, might be imba idc
 	var/message_on_cooldown = 0
 	var/healing_on_cooldown = 0
 	var/heal_threshold = 15
@@ -657,9 +657,9 @@
 				to_chat(M, "<span class='warning'>You feel the autoinjectors in the suit activate, filling you with medicine!</span>")
 				SEND_SOUND(M, sound('sound/effects/evacuate_area.ogg', volume = 50))
 				M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 7)
-				M.reagents.add_reagent(/datum/reagent/medicine/morphine, 3)
+				M.reagents.add_reagent(/datum/reagent/medicine/morphine, 2)
 				healing_on_cooldown = 1
-				addtimer(VARSET_CALLBACK(src, healing_on_cooldown, FALSE), 1800) //injects you with 7u of omnizine and 3u of morphine every 3 minutes if you're under 30 health.
+				addtimer(VARSET_CALLBACK(src, healing_on_cooldown, FALSE), 1800) //injects you with 7u of omnizine and 2u of morphine every 3 minutes if you're under 30 health.
 		return
 	return
 

@@ -213,7 +213,7 @@
 	if (href_list["open_bci"])
 		parent.attack_ghost(usr)
 
-/datum/action/innate/bci_charge_action
+datum/action/innate/bci_charge_action
 	name = "Check BCI Charge"
 	check_flags = NONE
 	icon_icon = 'icons/obj/power.dmi'
@@ -226,15 +226,11 @@
 
 	src.circuit_component = circuit_component
 
-	//UpdateButtons()
-
-	START_PROCESSING(SSobj, src)
-
-/datum/action/innate/bci_charge_action/CreateButton()
-	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext_x = 2
 	button.maptext_y = 0
-	return button
+	update_maptext()
+
+	START_PROCESSING(SSobj, src)
 
 /datum/action/innate/bci_charge_action/Destroy()
 	circuit_component.charge_action = null
@@ -244,7 +240,7 @@
 
 	return ..()
 
-/datum/action/innate/bci_charge_action/Trigger(trigger_flags)
+/datum/action/innate/bci_charge_action/Trigger()
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 
 	if (isnull(cell))
@@ -254,14 +250,9 @@
 		to_chat(owner, span_info("You can recharge it by using a cyborg recharging station."))
 
 /datum/action/innate/bci_charge_action/process(delta_time)
-	//UpdateButtons()
+	update_maptext()
 
-/datum/action/innate/bci_charge_action/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
-	. = ..()
-	if(!.)
-		return
-	if(status_only)
-		return
+/datum/action/innate/bci_charge_action/proc/update_maptext()
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 	button.maptext = cell ? MAPTEXT("[cell.percent()]%") : ""
 

@@ -266,7 +266,7 @@
 /**
  * Override the say proc if they're mute
  */
-/obj/item/toy/mecha/say()
+/obj/item/toy/mecha/say(forced = null)
 	if(!quiet)
 		. = ..()
 

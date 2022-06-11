@@ -58,5 +58,6 @@
 		output_value.set_output(null)
 		return
 
-	log_admin_circuit("[parent.get_creator()] requested the variable '[var_name]' on [object].")
+	// LEFT IN AS TODO
+	//log_admin_circuit("[parent.get_creator()] requested the variable '[var_name]' on [object].")
 	output_value.set_output(object.vars[var_name])

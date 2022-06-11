@@ -560,6 +560,13 @@
 		ret += key
 	return ret
 
+/// Turns an associative list into a flat list of keys
+/proc/assoc_to_keys(list/input)
+	var/list/keys = list()
+	for(var/key in input)
+		keys += key
+	return keys
+
 /proc/compare_list(list/l,list/d)
 	if(!islist(l) || !islist(d))
 		return FALSE

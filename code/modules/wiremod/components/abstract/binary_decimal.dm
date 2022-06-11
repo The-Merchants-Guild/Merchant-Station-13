@@ -19,7 +19,7 @@
 	var/default_array_size = 8
 
 	var/min_size = 1 //Who in their right mind would use a 1-bit array for circuits anyway?
-	var/max_size = MAX_BITFIELD_SIZE
+	var/max_size = 24 // MAX_BITFIELD_SIZE
 
 	ui_buttons = list(
 		"plus" = "increase",

@@ -43,12 +43,12 @@
 #define COOLDOWN_CLOWNCAR_RANDOMNESS "clown_car_randomness"
 
 //circuit cooldowns
-
 #define COOLDOWN_CIRCUIT_SOUNDEMITTER "circuit_soundemitter"
 #define COOLDOWN_CIRCUIT_SPEECH "circuit_speech"
 #define COOLDOWN_CIRCUIT_PATHFIND_SAME "circuit_pathfind_same"
 #define COOLDOWN_CIRCUIT_PATHFIND_DIF "circuit_pathfind_different"
 #define COOLDOWN_CIRCUIT_TARGET_INTERCEPT "circuit_target_intercept"
+#define COOLDOWN_CIRCUIT_VIEW_SENSOR "circuit_view_sensor"
 
 //TIMER COOLDOWN MACROS
 

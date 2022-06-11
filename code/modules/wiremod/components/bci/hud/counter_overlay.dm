@@ -78,7 +78,7 @@
 		counter,
 		owner,
 	)
-	alt_appearance.show_to(owner)
+	alt_appearance.add_hud_to(owner)
 
 	counter_appearance = WEAKREF(alt_appearance)
 
@@ -103,7 +103,7 @@
 			number,
 			owner,
 		)
-		number_alt_appearance.show_to(owner)
+		number_alt_appearance.add_hud_to(owner)
 
 		numbers += WEAKREF(number_alt_appearance)
 

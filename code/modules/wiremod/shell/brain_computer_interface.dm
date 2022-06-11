@@ -226,7 +226,7 @@
 
 	src.circuit_component = circuit_component
 
-	UpdateButtons()
+	//UpdateButtons()
 
 	START_PROCESSING(SSobj, src)
 
@@ -254,7 +254,7 @@
 		to_chat(owner, span_info("You can recharge it by using a cyborg recharging station."))
 
 /datum/action/innate/bci_charge_action/process(delta_time)
-	UpdateButtons()
+	//UpdateButtons()
 
 /datum/action/innate/bci_charge_action/UpdateButton(atom/movable/screen/movable/action_button/button, status_only = FALSE, force = FALSE)
 	. = ..()

@@ -397,14 +397,15 @@
 	name = "Sparking mixture"
 	description = " A bubbling concoction of sparks and static electricity."
 	color = "#11BFAC"
+	var/S
 
 /datum/reagent/volt/on_mob_life(mob/living/M)
-	if(prob(20))
-		for(var/mob/living/T in view(M.loc,6))
-			M.Beam(T, icon_state="lightning[rand(1,12)]",time=5)
+	if(prob(25))
+		for(var/mob/living/T in view(6, M))
+			var/turf/S = get_ranged_target_turf(T, NORTH, 8)
+			S.Beam(T, icon_state="lightning[rand(1,12)]", time=5)
 			T.electrocute_act(15, "\a lightning from [M]")
 		playsound(M.loc, 'sound/magic/lightningbolt.ogg', 50, 1)
-		holder.remove_reagent(src.type,10, safety = 1)
 	..()
 
 /datum/reagent/cryogenic_fluid

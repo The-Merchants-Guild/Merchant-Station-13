@@ -90,12 +90,6 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 	if (CONFIG_GET(flag/log_adminchat))
 		WRITE_LOG(GLOB.world_game_log, "ADMIN: DSAY: [text]")
 
-/// Logging for admin actions on or with circuits
-/proc/log_admin_circuit(text)
-	GLOB.admin_log.Add(text)
-	if(CONFIG_GET(flag/log_admin))
-		WRITE_LOG(GLOB.world_game_log, "ADMIN: CIRCUIT: [text]")
-
 /* All other items are public. */
 /proc/log_game(text)
 	if (CONFIG_GET(flag/log_game))

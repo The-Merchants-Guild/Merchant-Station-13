@@ -64,3 +64,19 @@
 
 /// Called when an external object is loaded.
 #define COMSIG_MOVABLE_CIRCUIT_LOADED "movable_circuit_loaded"
+
+/// Called when a circuit receives a 'click' or 'middle click' event from a shell
+#define COMSIG_CIRCUIT_CLICKED "circuit_clicked"
+#define COMSIG_CIRCUIT_MIDDLE_CLICKED "circuit_middle_clicked"
+
+/// Called in /obj/structure/moneybot/add_money(). (to_add)
+#define COMSIG_MONEYBOT_ADD_MONEY "moneybot_add_money"
+
+/// Called in /obj/structure/dispenserbot/add_item(). (obj/item/to_add)
+#define COMSIG_DISPENSERBOT_ADD_ITEM "moneybot_add_item"
+
+/// Called in /obj/structure/dispenserbot/remove_item(). (obj/item/to_remove)
+#define COMSIG_DISPENSERBOT_REMOVE_ITEM "moneybot_remove_item"
+
+#define COMSIG_AIRLOCK_SHELL_ALLOWED "airlock_shell_try_allowed"
+	#define COMPONENT_AIRLOCK_SHELL_ALLOW (1<<0)

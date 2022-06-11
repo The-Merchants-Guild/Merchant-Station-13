@@ -3,7 +3,7 @@
 	desc = "An implant that can be placed in a user's head to control circuits using their brain."
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "bci"
-	visual = FALSE
+	//visual = FALSE // TODO
 	zone = BODY_ZONE_HEAD
 	w_class = WEIGHT_CLASS_TINY
 
@@ -404,7 +404,7 @@
 	if (!occupant || busy)
 		return
 
-	update_use_power(ACTIVE_POWER_USE)
+	//update_use_power(ACTIVE_POWER_USE) // TODO fix
 
 	var/locked_state = locked
 	locked = TRUE
@@ -415,7 +415,7 @@
 	addtimer(CALLBACK(src, .proc/complete_process, locked_state), 3 SECONDS)
 
 /obj/machinery/bci_implanter/proc/complete_process(locked_state)
-	update_use_power(IDLE_POWER_USE)
+	//update_use_power(IDLE_POWER_USE)
 	locked = locked_state
 	set_busy(FALSE)
 

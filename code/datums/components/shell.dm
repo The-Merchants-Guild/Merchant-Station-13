@@ -170,7 +170,7 @@
 
 	if(istype(item, /obj/item/inducer))
 		var/obj/item/inducer/inducer = item
-		INVOKE_ASYNC(inducer, /obj/item.proc/attack_atom, attached_circuit, attacker, list())
+		INVOKE_ASYNC(inducer, /obj/item.proc/attack_obj, attached_circuit, attacker, list())
 		return COMPONENT_NO_AFTERATTACK
 
 	if(attached_circuit)
@@ -287,7 +287,7 @@
 		return
 
 	if(power_used_in_minute > max_power_use_in_minute)
-		explosion(parent, light_impact_range = 1, explosion_cause = attached_circuit)
+		explosion(parent, light_impact_range = 1)//, explosion_cause = attached_circuit) // TODO
 		if(attached_circuit)
 			remove_circuit()
 		return

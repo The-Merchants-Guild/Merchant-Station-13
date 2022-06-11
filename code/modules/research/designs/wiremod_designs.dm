@@ -381,11 +381,6 @@
 	id = "comp_filter_list"
 	build_path = /obj/item/circuit_component/filter_list
 
-/datum/design/component/mod_action
-	name = "MOD Action Component"
-	id = "comp_mod_action"
-	build_path = /obj/item/circuit_component/equipment_action/mod
-
 /datum/design/component/id_getter
 	name = "ID Getter Component"
 	id = "comp_id_getter"

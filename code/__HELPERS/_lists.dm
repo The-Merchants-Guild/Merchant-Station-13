@@ -580,6 +580,25 @@
 
 	return TRUE
 
+#define LAZY_LISTS_OR(left_list, right_list)\
+	( length(left_list)\
+		? length(right_list)\
+			? (left_list | right_list)\
+			: left_list.Copy()\
+		: length(right_list)\
+			? right_list.Copy()\
+			: null\
+	)
+
+///Returns a list with items filtered from a list that can call callback
+/proc/special_list_filter(list/list_to_filter, datum/callback/condition)
+	if(!islist(list_to_filter) || !length(list_to_filter) || !istype(condition))
+		return list()
+	. = list()
+	for(var/i in list_to_filter)
+		if(condition.Invoke(i))
+			. |= i
+
 ///Returns a list with all weakrefs resolved
 /proc/recursive_list_resolve(list/list_to_resolve)
 	. = list()
@@ -603,12 +622,3 @@
 	else
 		return element
 
-#define LAZY_LISTS_OR(left_list, right_list)\
-	( length(left_list)\
-		? length(right_list)\
-			? (left_list | right_list)\
-			: left_list.Copy()\
-		: length(right_list)\
-			? right_list.Copy()\
-			: null\
-	)

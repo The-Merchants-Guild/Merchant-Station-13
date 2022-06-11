@@ -83,6 +83,6 @@
 	if(!user.Adjacent(source))
 		return
 	source.balloon_alert(user, "clicked extra button")
-	playsound(source, get_sfx(SFX_TERMINAL_TYPE), 25, FALSE)
+	//playsound(source, get_sfx(SFX_TERMINAL_TYPE), 25, FALSE) // TODO
 	entity.set_output(user)
 	right.set_output(COMPONENT_SIGNAL)

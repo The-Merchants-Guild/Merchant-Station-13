@@ -65,3 +65,12 @@
   - rscadd: New sound effects for the HEV suit.
   - rscadd: The old RD hardsuit, which was renamed to "prototype bomb disposal hardsuit",
       now has a 1 in 5 chance of spawning in any EOD closet.
+2022-06-11:
+  MACIEKBAKI:
+  - bugfix: 'DRM in NanoTrasen-Issue Prosthetic Legs:tm: (Patent Pending) has been
+      modified to allow station surgeons to perform organ manipulation on them.'
+  - bugfix: Fixed admin ERT spawning for preset ERTs
+  - admin: Admin ERT spawning now gives the admin more feedback, like it did previously.
+  karmaisblackandbluepilled:
+  - balance: The HEV Suit now injects you with less morphine. Hevsuit now slows you
+      down by a small amount.

@@ -580,6 +580,13 @@
 
 	return TRUE
 
+/proc/recursive_list_resolve(list/list_to_resolve)
+			. += list(recursive_list_resolve_element(element))
+
+///Helper for /proc/recursive_list_resolve
+/proc/recursive_list_resolve_element(element)
+	if(islist(element))
+
 #define LAZY_LISTS_OR(left_list, right_list)\
 	( length(left_list)\
 		? length(right_list)\

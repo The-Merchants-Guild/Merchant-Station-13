@@ -24,10 +24,7 @@
 			user = client.mob
 		else
 			return
-	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_preference(/datum/preference/toggle/tgui_input))
-		var/input_number = input(user, message, title, default) as null|num
-		return clamp(round_value ? round(input_number) : input_number, min_value, max_value)
+
 	var/datum/tgui_input_number/number_input = new(user, message, title, default, max_value, min_value, timeout, round_value)
 	number_input.ui_interact(user)
 	number_input.wait()
@@ -60,10 +57,7 @@
 			user = client.mob
 		else
 			return
-	// Client does NOT have tgui_input on: Returns regular input
-	if(!user.client.prefs.read_preference(/datum/preference/toggle/tgui_input))
-		var/input_number = input(user, message, title, default) as null|num
-		return clamp(round_value ? round(input_number) : input_number, min_value, max_value)
+
 	var/datum/tgui_input_number/async/number_input = new(user, message, title, default, max_value, min_value, callback, timeout, round_value)
 	number_input.ui_interact(user)
 

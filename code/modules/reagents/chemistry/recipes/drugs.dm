@@ -17,6 +17,10 @@
 	required_temp = 380
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DRUG
 
+/datum/chemical_reaction/flipout
+	results = list(/datum/reagent/drug/flipout = 3)
+	required_reagents = list(/datum/reagent/cryptobiolin = 1, /datum/reagent/lube = 1, /datum/reagent/toxin/mindbreaker = 1)
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_DRUG | REACTION_TAG_TOXIN | REACTION_TAG_DAMAGING
 /datum/chemical_reaction/methamphetamine
 	results = list(/datum/reagent/drug/methamphetamine = 4)
 	required_reagents = list(/datum/reagent/medicine/ephedrine = 1, /datum/reagent/iodine = 1, /datum/reagent/phosphorus = 1, /datum/reagent/hydrogen = 1)

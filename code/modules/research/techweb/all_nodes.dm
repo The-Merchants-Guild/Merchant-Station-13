@@ -274,6 +274,8 @@
 		"pandemic",
 		"plumbing_rcd_sci",
 		"soda_dispenser",
+		"lcass_pressure",
+		"lcass_centrifuge",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -296,6 +298,8 @@
 		"piercesyringe",
 		"plasmarefiller",
 		"smoke_machine",
+		"lcass_radioactive",
+		"lcass_bluespace",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	discount_experiments = list(/datum/experiment/scanning/random/material/meat = 4000) //Big discount to reinforce doing it.

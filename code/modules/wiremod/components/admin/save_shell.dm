@@ -55,8 +55,7 @@
 		return ..()
 
 	loaded_shell = new shell_type(drop_location())
-	// TODO
-	//log_admin_circuit("[parent.get_creator()] spawned in [shell_type] at [ADMIN_COORDJMP(loaded_shell)].")
+	log_admin_circuit("[parent.get_creator()] spawned in [shell_type] at [ADMIN_COORDJMP(loaded_shell)].")
 	if(!loaded_shell)
 		return
 	loaded_shell.datum_flags |= DF_VAR_EDITED

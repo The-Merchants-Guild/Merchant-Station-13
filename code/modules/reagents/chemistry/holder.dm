@@ -136,7 +136,6 @@
 	var/ui_reaction_index = 1
 	///If we're syncing with the beaker - so return reactions that are actively happening
 	var/ui_beaker_sync = FALSE
-	var/next_react = 0
 
 /datum/reagents/New(maximum=100, new_flags=0)
 	maximum_volume = maximum

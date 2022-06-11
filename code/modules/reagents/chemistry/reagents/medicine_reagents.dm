@@ -1588,7 +1588,7 @@
 				for(var/I in 1 to 30)
 					var/gibtype = pick(/obj/effect/decal/cleanable/blood/gibs/up, /obj/effect/decal/cleanable/blood/gibs/down, /obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/body, /obj/effect/decal/cleanable/blood/gibs/limb, /obj/effect/decal/cleanable/blood/gibs/core)
 					var/obj/effect/decal/cleanable/blood/gibs/G = new gibtype(T)
-					G.throw_at(get_edge_target_turf(T, pick(GLOB.alldirs)), rand(1,20), 1)
+					G.throw_at(get_edge_target_turf(T, pick(GLOB.alldirs)))
 
 				for(var/turf/C in oview(T, 8))
 					new /obj/effect/decal/cleanable/blood/splatter(C)

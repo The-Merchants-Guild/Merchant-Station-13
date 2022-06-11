@@ -504,7 +504,7 @@
 				for(var/i = 0, i < 4, i++)
 				step(M, pick(GLOB.cardinals))
 		if(prob(15))
-			M << "<span class='danger'>The flipping is so intense you begin to tire </span>"
+			M << "<span class='danger'>The flipping is so intense you begin to tire </span>" // I just noticed this uses << instead of any of the procs for talking to a player. This is funny so I'm not fixing it!
 			H.add_confusion(4)
 			M.adjustStaminaLoss(10)
 			H.transform *= -1

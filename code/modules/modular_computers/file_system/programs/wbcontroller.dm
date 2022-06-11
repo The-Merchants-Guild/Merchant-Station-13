@@ -36,7 +36,7 @@
 			return TRUE
 		if("PRG_setfilter") // what we replace with
 			var/newfilter = params["newFilter"]
-			mgr.word_filters[filterIndex].replace_phrase = strip_html(newfilter)
+			mgr.word_filters[filterIndex].replace_phrase = newfilter
 			return TRUE
 		if("PRG_toggleactive")
 			mgr.word_filters[filterIndex].active = !mgr.word_filters[filterIndex].active

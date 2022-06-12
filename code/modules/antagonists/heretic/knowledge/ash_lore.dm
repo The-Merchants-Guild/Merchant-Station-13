@@ -58,15 +58,6 @@
 		for(var/obj/effect/proc_holder/spell/targeted/touch/mansus_grasp/grasp in user.mind.spell_list)
 			grasp.charge_counter = min(round(grasp.charge_counter + grasp.charge_max * 0.75), grasp.charge_max) // refunds 75% of charge.
 
-/datum/eldritch_knowledge/ashen_eyes
-	name = "Ashen Eyes"
-	gain_text = "Piercing eyes, guide me through the mundane."
-	desc = "Allows you to craft thermal vision amulet by transmutating eyes with a glass shard."
-	cost = 1
-	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
-	required_atoms = list(/obj/item/organ/eyes,/obj/item/shard)
-	result_atoms = list(/obj/item/clothing/neck/eldritch_amulet)
-
 /datum/eldritch_knowledge/ash_mark
 	name = "Mark of Ash"
 	gain_text = "The Nightwatcher was a very particular man, always watching in the dead of night. But in spite of his duty, he regularly tranced through the manse with his blazing lantern held high."
@@ -133,55 +124,6 @@
 		var/mob/living/carbon/burn_victim = target
 		burn_victim.adjust_fire_stacks(1)
 		burn_victim.IgniteMob()
-
-/datum/eldritch_knowledge/curse/corrosion
-	name = "Curse of Corrosion"
-	gain_text = "Cursed land, cursed man, cursed mind."
-	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a pool of blood, a heart, left arm and a right arm, and an item that the victim touched  with their bare hands."
-	cost = 1
-	required_atoms = list(/obj/item/wirecutters,/obj/effect/decal/cleanable/vomit,/obj/item/organ/heart)
-	next_knowledge = list(
-		/datum/eldritch_knowledge/mad_mask,
-		/datum/eldritch_knowledge/spell/area_conversion
-	)
-	timer = 2 MINUTES
-
-/datum/eldritch_knowledge/curse/corrosion/curse(mob/living/chosen_mob)
-	. = ..()
-	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
-
-/datum/eldritch_knowledge/curse/corrosion/uncurse(mob/living/chosen_mob)
-	. = ..()
-	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
-
-/datum/eldritch_knowledge/curse/paralysis
-	name = "Curse of Paralysis"
-	gain_text = "Corrupt their flesh, make them bleed."
-	desc = "Curse someone for 5 minutes of inability to walk. Sacrifice a knife, a pool of blood, a pair of legs, a hatchet and an item that the victim touched with their bare hands. "
-	cost = 1
-	required_atoms = list(/obj/item/bodypart/l_leg,/obj/item/bodypart/r_leg,/obj/item/hatchet)
-	next_knowledge = list(/datum/eldritch_knowledge/mad_mask,/datum/eldritch_knowledge/summon/raw_prophet)
-	timer = 5 MINUTES
-
-/datum/eldritch_knowledge/curse/paralysis/curse(mob/living/chosen_mob)
-	. = ..()
-	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
-	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
-
-
-/datum/eldritch_knowledge/curse/paralysis/uncurse(mob/living/chosen_mob)
-	. = ..()
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
-
-
-/datum/eldritch_knowledge/spell/cleave
-	name = "Blood Cleave"
-	gain_text = "At first I didn't understand these instruments of war, but the priest told me to use them regardless. Soon, he said, I would know them well."
-	desc = "Gives AOE spell that causes heavy bleeding and blood loss."
-	cost = 1
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
-	next_knowledge = list(/datum/eldritch_knowledge/spell/entropic_plume,/datum/eldritch_knowledge/spell/flame_birth)
 
 /datum/eldritch_knowledge/final/ash_final
 	name = "Ashlord's Rite"

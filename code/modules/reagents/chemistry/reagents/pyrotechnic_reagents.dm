@@ -563,20 +563,19 @@
 	color = "#13BC5E"
 
 /datum/reagent/superboom/on_mob_life(mob/living/carbon/M)
-	if(M.m_intent == MOVE_INTENT_RUN && current_cycle <= 5)
+	if(prob(10) && current_cycle >=10) //This used to activate if the user ran. UNFORTUNATELY, due to some esoteric shitcode I genuinely cannot understand, tg creates a gas mixture runtime(?) if you try that. I don't know either.
 		var/location = get_turf(holder.my_atom)
 		var/datum/effect_system/reagents_explosion/e = new()
-		e.set_up(round(volume, 0.5), location, 0, 0, message = 0)
+		e.set_up(1 + round(volume*2, 0.5), location, 0, 0, message = 0)
 		e.start()
 	..()
 
 /datum/reagent/superboom/on_ex_act()
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/reagents_explosion/e = new()
-	e.set_up(round(volume, 0.5), location, 0, 0, message = 0)
+	e.set_up(1 + round(volume*2, 0.5), location, 0, 0, message = 0)
 	e.start()
 	holder.clear_reagents()
-	..()
 
 /datum/reagent/oxyplas//very rapidly heats people up then metabolises
 	name = "Plasminate"

@@ -64,6 +64,7 @@
 		SSnetworks.root_networks[network_id] = src
 
 	SSnetworks.networks[network_id] = src
+	networks[network_id] = src
 
 	SSnetworks.add_log("Network was created: [network_id]")
 

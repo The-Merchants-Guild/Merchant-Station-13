@@ -13,12 +13,6 @@
 	var/total_sacrifices = 0
 	var/ascended = FALSE
 
-/datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
-	give_equipment = FALSE
-	new_owner.add_antag_datum(src)
-	message_admins("[key_name_admin(admin)] has heresized [key_name_admin(new_owner)].")
-	log_admin("[key_name(admin)] has heresized [key_name(new_owner)].")
-
 /datum/antagonist/heretic/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	to_chat(owner, "<span class='warningplain'><font color=red><B>You are the Heretic!</B></font></span><br><B>The old ones gave you these tasks to fulfill:</B>")
@@ -60,32 +54,6 @@
 	on_death()
 
 	return ..()
-
-/datum/antagonist/heretic/proc/equip_cultist()
-	var/mob/living/carbon/heretic = owner.current
-	if(!istype(heretic))
-		return
-	. += ecult_give_item(/obj/item/forbidden_book, heretic)
-	. += ecult_give_item(/obj/item/living_heart, heretic)
-
-/datum/antagonist/heretic/proc/ecult_give_item(obj/item/item_path, mob/living/carbon/human/heretic)
-	var/list/slots = list(
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"left pocket" = ITEM_SLOT_LPOCKET,
-		"right pocket" = ITEM_SLOT_RPOCKET
-	)
-
-	var/T = new item_path(heretic)
-	var/item_name = initial(item_path.name)
-	var/where = heretic.equip_in_one_of_slots(T, slots)
-	if(!where)
-		to_chat(heretic, span_userdanger("Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1)."))
-		return FALSE
-	else
-		to_chat(heretic, span_danger("You have a [item_name] in your [where]."))
-		if(where == "backpack")
-			SEND_SIGNAL(heretic.back, COMSIG_TRY_STORAGE_SHOW, heretic)
-		return TRUE
 
 /datum/antagonist/heretic/process()
 
@@ -253,3 +221,91 @@
 	if(!cultie)
 		return FALSE
 	return cultie.total_sacrifices >= target_amount
+
+
+/*
+ * Admin Buttons for heretic
+ */
+
+/datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
+	give_equipment = FALSE
+	new_owner.add_antag_datum(src)
+	message_admins("[key_name_admin(admin)] has heresized [key_name_admin(new_owner)].")
+	log_admin("[key_name(admin)] has heresized [key_name(new_owner)].")
+
+/datum/antagonist/heretic/get_admin_commands()
+	. = ..()
+	.["Equip Cultist"] = CALLBACK(src, .proc/equip_cultist)
+	.["Add Heart Target (Marked Mob)"] = CALLBACK(src, .proc/equip_target_as_sacrifice)
+	.["Add Points"] = CALLBACK(src, .proc/add_points)
+
+
+/*
+ * Admin procs for heretic
+ */
+
+/datum/antagonist/heretic/proc/equip_cultist()
+	var/mob/living/carbon/heretic = owner.current
+	if(!istype(heretic))
+		return
+	. += ecult_give_item(/obj/item/forbidden_book, heretic)
+	. += ecult_give_item(/obj/item/living_heart, heretic)
+
+/datum/antagonist/heretic/proc/equip_target_as_sacrifice(mob/admin)
+	var/mob/living/carbon/heretic = owner.current
+	if(!istype(heretic))
+		return
+	if(!admin.client?.holder)
+		to_chat(admin, span_warning("You shouldn't be using this!"))
+		return
+	var/mob/living/carbon/human/new_target = admin.client?.holder.marked_datum
+	if(!istype(new_target))
+		to_chat(admin, span_warning("You need to mark a human to do this!"))
+		return
+
+	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
+		to_chat(owner.current, span_danger("The Mansus has modified your targets. Go find them!"))
+		to_chat(owner.current, span_danger("[new_target.real_name], the [new_target.mind?.assigned_role || "human"]."))
+	. += ecult_give_item(/obj/item/living_heart, heretic, new_target)
+
+/datum/antagonist/heretic/proc/add_points(mob/admin)
+	var/mob/living/carbon/heretic = owner.current
+	if(!istype(heretic))
+		return
+	if(!admin.client?.holder)
+		to_chat(admin, span_warning("You shouldn't be using this!"))
+		return
+	var/add_num = input(admin, "Add knowledge points", "Points", 0) as num|null
+	if(!add_num || QDELETED(src))
+		return
+
+	. += ecult_give_item(/obj/item/forbidden_book, heretic, FALSE, add_num)
+
+/datum/antagonist/heretic/proc/ecult_give_item(obj/item/item_path, mob/living/carbon/human/heretic, possible_target, add_points)
+	var/list/slots = list(
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_LPOCKET,
+		"right pocket" = ITEM_SLOT_RPOCKET
+	)
+	var/T = new item_path(heretic)
+	var/item_name = initial(item_path.name)
+	var/where
+	if(possible_target)
+		var/obj/item/living_heart/heart = new()
+		heart.target = possible_target
+		where = heretic.equip_in_one_of_slots(heart, slots)
+	else if(add_points)
+		var/obj/item/forbidden_book/book = new()
+		book.charge += add_points
+		where = heretic.equip_in_one_of_slots(book, slots)
+	else
+		where = heretic.equip_in_one_of_slots(T, slots)
+
+	if(!where)
+		to_chat(heretic, span_userdanger("Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1)."))
+		return FALSE
+	else
+		to_chat(heretic, span_danger("You have a [item_name] in your [where]."))
+		if(where == "backpack")
+			SEND_SIGNAL(heretic.back, COMSIG_TRY_STORAGE_SHOW, heretic)
+		return TRUE

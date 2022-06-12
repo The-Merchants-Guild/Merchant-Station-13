@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(wordblockers)
 		to_chat(owner, span_warning("An implant prevents you from speaking!"))
 		speech_args[SPEECH_MESSAGE] = ""
 		return
-	speech_args[SPEECH_MESSAGE] = newmsg
+	speech_args[SPEECH_MESSAGE] = strip_html(newmsg)
 
 
 
@@ -110,7 +110,7 @@ GLOBAL_LIST_EMPTY(wordblockers)
 	if(uppertext(message) == message) // I AM YELLING CAN YOU HEAR ME
 		t = uppertext(t)
 
-	return t
+	return strip_html(t)
 
 
 /datum/wordfilter_manager

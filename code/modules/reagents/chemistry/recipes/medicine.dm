@@ -353,10 +353,6 @@
 	required_reagents = list(/datum/reagent/medicine/coagulant/seraka_extract = 1, /datum/reagent/lye = 1)
 	reaction_tags = REACTION_TAG_EASY
 
-/datum/chemical_reaction/atropine
-	results = list(/datum/reagent/medicine/atropine = 5)
-	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/acetone = 1, /datum/reagent/diethylamine = 1, /datum/reagent/phenol = 1, /datum/reagent/toxin/acid = 1)
-	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_HEALING
 
 /datum/chemical_reaction/over_reactible/superzine//no longer requires heat due to annoying meth explosions
 	results = list(/datum/reagent/medicine/superzine = 6, /datum/reagent/dizinc = 2)

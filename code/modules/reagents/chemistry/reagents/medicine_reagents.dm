@@ -1600,34 +1600,6 @@
 				return ..()
 	..()
 
-/datum/reagent/medicine/atropine
-	name = "Atropine"
-	description = "If a patient is in critical condition, rapidly heals all damage types as well as regulating oxygen in the body. Excellent for stabilizing wounded patients."
-	reagent_state = LIQUID
-	color = "#000000"
-	metabolization_rate = 0.25 * REAGENTS_METABOLISM
-	overdose_threshold = 35
-
-/datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/M)
-	if(M.health <= M.crit_threshold)
-		M.adjustToxLoss(-2*REM, 0)
-		M.adjustBruteLoss(-2*REM, 0)
-		M.adjustFireLoss(-2*REM, 0)
-		M.adjustOxyLoss(-5*REM, 0)
-		. = 1
-	M.losebreath = 0
-	if(prob(20))
-		M.Dizzy(5)
-		M.Jitter(5)
-	..()
-
-/datum/reagent/medicine/atropine/overdose_process(mob/living/M)
-	M.adjustToxLoss(0.5*REM, 0)
-	. = 1
-	M.Dizzy(1)
-	M.Jitter(1)
-	..()
-
 /datum/reagent/medicine/superzine
 	name = "Superzine"
 	description = "An extremely effective muscle stimulant and stamina restorer."

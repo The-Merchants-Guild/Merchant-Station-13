@@ -250,7 +250,6 @@ GLOBAL_LIST_EMPTY(custom_ert_datums)
 	name = ert_data["name"]
 	rename_team = ert_data["rename_team"]
 	mission = ert_data["mission"]
-	mission = ert_data["mission"]
 	polldesc = ert_data["polldesc"]
 
 	opendoors = ert_data["opendoors"]
@@ -265,6 +264,8 @@ GLOBAL_LIST_EMPTY(custom_ert_datums)
 	var/datum/ert_antag_template/leadertemp = new
 	leadertemp.load_from(ert_data["leader_template"])
 	leader_template = leadertemp
+	// clear pre-defined templates if any exist (i.e. CC official)
+	grunt_templates = list()
 
 	for(var/temp in ert_data["grunt_templates"])
 		var/datum/ert_antag_template/grunttemp = new

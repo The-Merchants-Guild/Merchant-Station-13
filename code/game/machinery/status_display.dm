@@ -179,6 +179,10 @@
 	. = ..()
 	// register for radio system
 	SSradio.add_object(src, frequency)
+	// Circuit USB
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/status_display,
+	))
 
 /obj/machinery/status_display/evac/Destroy()
 	SSradio.remove_object(src,frequency)

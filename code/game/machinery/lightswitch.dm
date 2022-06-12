@@ -10,6 +10,12 @@
 	/// instead of the switch's location.
 	var/area/area = null
 
+/obj/machinery/light_switch/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/light_switch,
+	))
+
 /obj/machinery/light_switch/directional/north
 	dir = SOUTH
 	pixel_y = 26
@@ -62,12 +68,17 @@
 
 /obj/machinery/light_switch/interact(mob/user)
 	. = ..()
+	set_lights(!area.lightswitch)
 
-	area.lightswitch = !area.lightswitch
+/obj/machinery/light_switch/proc/set_lights(status)
+	if(area.lightswitch == status)
+		return
+	area.lightswitch = status
 	area.update_appearance()
 
-	for(var/obj/machinery/light_switch/L in area)
-		L.update_appearance()
+	for(var/obj/machinery/light_switch/light_switch in area)
+		light_switch.update_appearance()
+		SEND_SIGNAL(light_switch, COMSIG_LIGHT_SWITCH_SET, status)
 
 	area.power_change()
 

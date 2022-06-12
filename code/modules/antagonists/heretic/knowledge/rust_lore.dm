@@ -135,24 +135,6 @@
 	next_knowledge = list(/datum/eldritch_knowledge/final/rust_final,/datum/eldritch_knowledge/spell/cleave,/datum/eldritch_knowledge/summon/rusty)
 	route = PATH_RUST
 
-/datum/eldritch_knowledge/armor
-	name = "Armorer's Ritual"
-	desc = "You can now create Eldritch Armor using a table and a gas mask."
-	gain_text = "The Rusted Hills welcomed the Blacksmith in their generosity."
-	cost = 1
-	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/cold_snap)
-	required_atoms = list(/obj/structure/table,/obj/item/clothing/mask/gas)
-	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
-
-/datum/eldritch_knowledge/essence
-	name = "Priest's Ritual"
-	desc = "You can now transmute a tank of water and a glass shard into a bottle of eldritch water."
-	gain_text = "This is an old recipe. The Owl whispered it to me."
-	cost = 1
-	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift)
-	required_atoms = list(/obj/structure/reagent_dispensers/watertank,/obj/item/shard)
-	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
-
 /datum/eldritch_knowledge/final/rust_final
 	name = "Rustbringer's Oath"
 	desc = "Bring 3 corpses onto the transmutation rune. After you finish the ritual rust will now automatically spread from the rune. Your healing on rust is also tripled, while you become extremely more resillient."

@@ -206,32 +206,6 @@
 	)
 	route = PATH_FLESH
 
-/datum/eldritch_knowledge/summon/ashy
-	name = "Ashen Ritual"
-	gain_text = "I combined my principle of hunger with my desire for destruction. And the Nightwatcher knew my name."
-	desc = "You can now summon an Ash Man by transmutating a pile of ash, a head and a book."
-	cost = 1
-	required_atoms = list(/obj/effect/decal/cleanable/ash,/obj/item/bodypart/head,/obj/item/book)
-	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/ash_spirit
-	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/flame_birth)
-
-/datum/eldritch_knowledge/summon/rusty
-	name = "Rusted Ritual"
-	gain_text = "I combined my principle of hunger with my desire for corruption. And the Rusted Hills called my name."
-	desc = "You can now summon a Rust Walker by transmutating a vomit pool, a severed head and a book."
-	cost = 1
-	required_atoms = list(/obj/effect/decal/cleanable/vomit,/obj/item/book,/obj/item/bodypart/head)
-	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/rust_spirit
-	next_knowledge = list(/datum/eldritch_knowledge/spell/voidpull,/datum/eldritch_knowledge/spell/entropic_plume)
-
-/datum/eldritch_knowledge/spell/blood_siphon
-	name = "Blood Siphon"
-	gain_text = "No matter the man, we bleed all the same. That's what the Marshal told me."
-	desc = "You gain a spell that drains health from your enemies to restores your own."
-	cost = 1
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/blood_siphon
-	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/voidpull)
-
 /datum/eldritch_knowledge/final/flesh_final
 	name = "Priest's Final Hymn"
 	gain_text = "Men of this world. Hear me, for the time of the Lord of Arms has come! The Emperor of Flesh guides my army!"

@@ -28,7 +28,7 @@
 	//go fuck yourself if you think I'm using a SIGNAL FOR FUCKING EXAMINING
 	. = ..()
 	if(trueamount != 0)
-		. += "\n The Forge contains [span_blue("[trueamount]")] units of [span_blue("[currently_forging"])]"
+		. += "\n The Forge contains [span_blue("[trueamount]")] units of [span_blue("[currently_forging]")]"
 	else
 		. += "\n The Forge is empty."
 

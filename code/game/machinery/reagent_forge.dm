@@ -89,11 +89,11 @@
 									if(RR.type == currently_forging.type)
 										F.reagent_type = RR
 										F.assign_properties()
-										trueamount -= amount_needed //if this doesn't work I'm eating my own cock
 										break
 									else
 										qdel(RR)
 					. = TRUE
+				trueamount -= amount_needed
 				update_icon()
 				return .
 			else

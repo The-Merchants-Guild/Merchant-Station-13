@@ -176,9 +176,6 @@
 /obj/item/assembly/igniter,
 /turf/open/indestructible,
 /area/deathmatch)
-"uD" = (
-/turf/open/floor/plating,
-/area/deathmatch)
 "vB" = (
 /obj/machinery/light/small/directional/east,
 /turf/open/indestructible,
@@ -1370,7 +1367,7 @@ Hp
 cn
 aD
 aD
-uD
+Xb
 aD
 aD
 Ij
@@ -1398,7 +1395,7 @@ zd
 nQ
 aD
 EN
-Xb
+cn
 Xb
 Ij
 Ij

@@ -17,10 +17,10 @@
 	route = PATH_VOID
 
 /datum/eldritch_knowledge/base_void/recipe_snowflake_check(list/atoms, loc)
-	. = ..()
 	var/turf/open/turfie = loc
 	if(turfie.GetTemperature() > T0C)
 		return FALSE
+	return ..()
 
 /datum/eldritch_knowledge/void_grasp
 	name = "Grasp of Void"
@@ -169,48 +169,63 @@
 	///Reference to the ongoing voidstrom that surrounds the heretic
 	var/datum/weather/void_storm/storm
 
-/datum/eldritch_knowledge/final/void_final/on_finished_recipe(mob/living/user, list/atoms, loc)
-	var/mob/living/carbon/human/waltzing = user
-	waltzing.physiology.brute_mod *= 0.5
-	waltzing.physiology.burn_mod *= 0.5
-	ADD_TRAIT(waltzing, TRAIT_RESISTLOWPRESSURE, MAGIC_TRAIT)
-	waltzing.client?.give_award(/datum/award/achievement/misc/void_ascension, waltzing)
-	priority_announce("[generate_eldritch_text()] The nobleman of void [waltzing.real_name] has arrived, step along the Waltz that ends worlds! [generate_eldritch_text()]","[generate_eldritch_text()]", ANNOUNCER_SPANOMALIES)
+/datum/eldritch_knowledge/final/void_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	. = ..()
+	priority_announce("[generate_eldritch_text()] The nobleman of void [user.real_name] has arrived, step along the Waltz that ends worlds! [generate_eldritch_text()]","[generate_eldritch_text()]", ANNOUNCER_SPANOMALIES)
+	user.client?.give_award(/datum/award/achievement/misc/void_ascension, user)
+	ADD_TRAIT(user, TRAIT_RESISTLOWPRESSURE, MAGIC_TRAIT)
 
+	// Let's get this show on the road!
 	sound_loop = new(user, TRUE, TRUE)
-	return ..()
+	RegisterSignal(user, COMSIG_LIVING_LIFE, .proc/on_life)
+	RegisterSignal(user, COMSIG_LIVING_DEATH, .proc/on_death)
 
-/datum/eldritch_knowledge/final/void_final/on_death()
+/datum/eldritch_knowledge/final/void_final/on_lose(mob/user)
+	on_death() // Losing is pretty much dying. I think
+	RegisterSignal(user, list(COMSIG_LIVING_LIFE, COMSIG_LIVING_DEATH))
+
+/**
+ * Signal proc for [COMSIG_LIVING_LIFE].
+ *
+ * Any non-heretics nearby the heretic ([source])
+ * are constantly silenced and battered by the storm.
+ *
+ * Also starts storms in any area that doesn't have one.
+ */
+/datum/eldritch_knowledge/final/void_final/proc/on_life(mob/living/source, delta_time, times_fired)
+	SIGNAL_HANDLER
+
+	for(var/mob/living/carbon/close_carbon in view(5, source))
+		if(IS_HERETIC_OR_MONSTER(close_carbon))
+			continue
+		close_carbon.silent += 1
+		close_carbon.adjust_bodytemperature(-20)
+
+	var/turf/open/source_turf = get_turf(source)
+	if(!isopenturf(source_turf))
+		return
+	source_turf.TakeTemperature(-20)
+
+	var/area/source_area = get_area(source)
+
+	if(!storm)
+		storm = new /datum/weather/void_storm(list(source_turf.z))
+		storm.telegraph()
+
+	storm.area_type = source_area.type
+	storm.impacted_areas = list(source_area)
+	storm.update_areas()
+
+/**
+ * Signal proc for [COMSIG_LIVING_DEATH].
+ *
+ * Stop the storm when the heretic passes away.
+ */
+/datum/eldritch_knowledge/final/void_final/proc/on_death()
+	SIGNAL_HANDLER
+
 	if(sound_loop)
 		sound_loop.stop()
 	if(storm)
 		storm.end()
 		QDEL_NULL(storm)
-
-/datum/eldritch_knowledge/final/void_final/on_life(mob/user)
-	. = ..()
-	if(!finished)
-		return
-
-	for(var/mob/living/carbon/livies in spiral_range(7,user)-user)
-		if(IS_HERETIC_OR_MONSTER(livies))
-			return
-		livies.silent += 1
-		livies.adjust_bodytemperature(-20)
-
-	var/turf/turfie = get_turf(user)
-	if(!isopenturf(turfie))
-		return
-	var/turf/open/open_turfie = turfie
-	open_turfie.TakeTemperature(-20)
-
-	var/area/user_area = get_area(user)
-	var/turf/user_turf = get_turf(user)
-
-	if(!storm)
-		storm = new /datum/weather/void_storm(list(user_turf.z))
-		storm.telegraph()
-
-	storm.area_type = user_area.type
-	storm.impacted_areas = list(user_area)
-	storm.update_areas()

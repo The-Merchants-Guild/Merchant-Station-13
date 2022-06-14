@@ -74,28 +74,47 @@
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/rust_regen/on_gain(mob/user)
-	. = ..()
-	RegisterSignal(user,COMSIG_MOVABLE_MOVED,.proc/on_move)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(user, COMSIG_LIVING_LIFE, .proc/on_life)
 
-/datum/eldritch_knowledge/rust_regen/proc/on_move(mob/mover)
+/datum/eldritch_knowledge/rust_regen/on_lose(mob/user)
+	UnregisterSignal(user, list(COMSIG_MOVABLE_MOVED, COMSIG_LIVING_LIFE))
+
+/*
+ * Signal proc for [COMSIG_MOVABLE_MOVED].
+ *
+ * Checks if we should have stun resistance on the new turf.
+ */
+/datum/eldritch_knowledge/rust_regen/proc/on_move(mob/source, atom/old_loc, dir, forced, list/old_locs)
 	SIGNAL_HANDLER
 
-	var/atom/mover_turf = get_turf(mover)
+	var/atom/mover_turf = get_turf(source)
 	if(HAS_TRAIT(mover_turf, TRAIT_RUSTY))
-		ADD_TRAIT(mover,TRAIT_STUNRESISTANCE,type)
+		ADD_TRAIT(source, TRAIT_STUNRESISTANCE, type)
 		return
 
-	REMOVE_TRAIT(mover,TRAIT_STUNRESISTANCE,type)
+	REMOVE_TRAIT(source, TRAIT_STUNRESISTANCE, type)
 
-/datum/eldritch_knowledge/rust_regen/on_life(mob/user)
-	. = ..()
-	var/mob/living/living_user = user
-	living_user.adjustBruteLoss(-2, FALSE)
-	living_user.adjustFireLoss(-2, FALSE)
-	living_user.adjustToxLoss(-2, FALSE, forced = TRUE)
-	living_user.adjustOxyLoss(-0.5, FALSE)
-	living_user.adjustStaminaLoss(-2)
-	living_user.AdjustAllImmobility(-5)
+/**
+ * Signal proc for [COMSIG_LIVING_LIFE].
+ *
+ * Gradually heals the heretic ([source]) on rust,
+ * including stuns and stamina damage.
+ */
+/datum/eldritch_knowledge/rust_regen/proc/on_life(mob/living/source, delta_time, times_fired)
+	SIGNAL_HANDLER
+
+	var/turf/our_turf = get_turf(source)
+	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
+		return
+
+	source.adjustBruteLoss(-2, FALSE)
+	source.adjustFireLoss(-2, FALSE)
+	source.adjustToxLoss(-2, FALSE, forced = TRUE)
+	source.adjustOxyLoss(-0.5, FALSE)
+	source.adjustStaminaLoss(-2)
+	source.AdjustAllImmobility(-5)
+
 
 /datum/eldritch_knowledge/rust_mark
 	name = "Mark of Rust"
@@ -149,55 +168,83 @@
 
 /datum/eldritch_knowledge/final/rust_final
 	name = "Rustbringer's Oath"
-	desc = "Bring 3 corpses onto the transmutation rune. After you finish the ritual rust will now automatically spread from the rune. Your healing on rust is also tripled, while you become extremely more resillient."
-	gain_text = "Champion of rust. Corruptor of steel. Fear the dark for the Rustbringer has come! Rusted Hills, CALL MY NAME!"
+	desc = "The ascension ritual of the Path of Rust. \
+		Bring 3 corpses to a transumation rune on the bridge of the station to complete the ritual. \
+		When completed, the ritual site will endlessly spread rust onto any surface, stopping for nothing. \
+		Additionally, you will become extremely resilient on rust, healing at triple the rate \
+		and becoming immune to many effects and dangers."
+	gain_text = "Champion of rust. Corruptor of steel. Fear the dark, for the RUSTBRINGER has come! \
+		The Blacksmith forges ahead! Rusted Hills, CALL MY NAME! WITNESS MY ASCENSION!"
+	route = PATH_RUST
 	cost = 3
 	required_atoms = list(/mob/living/carbon/human)
-	route = PATH_RUST
-	var/list/conditional_immunities = list(TRAIT_STUNIMMUNE,TRAIT_SLEEPIMMUNE,TRAIT_PUSHIMMUNE,TRAIT_SHOCKIMMUNE,TRAIT_NOSLIPALL,TRAIT_RADIMMUNE,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_RESISTCOLD,TRAIT_RESISTHEAT,TRAIT_PIERCEIMMUNE,TRAIT_BOMBIMMUNE,TRAIT_NOBREATH)
-	///if this is set to true then immunities are active, if false then they are not active, simple as.
+	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
+	/// A static list of traits we give to the heretic when on rust.
+	var/static/list/conditional_immunities = list(
+		TRAIT_STUNIMMUNE,
+		TRAIT_SLEEPIMMUNE,
+		TRAIT_PUSHIMMUNE,
+		TRAIT_SHOCKIMMUNE,
+		TRAIT_NOSLIPALL,
+		TRAIT_RADIMMUNE,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHEAT,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_BOMBIMMUNE,
+		TRAIT_NOBREATH,
+		)
 
-/datum/eldritch_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/atoms, loc)
-	var/mob/living/carbon/human/H = user
-	H.physiology.brute_mod *= 0.5
-	H.physiology.burn_mod *= 0.5
-	H.client?.give_award(/datum/award/achievement/misc/rust_ascension, H)
-	RegisterSignal(H,COMSIG_MOVABLE_MOVED,.proc/on_move)
+/datum/eldritch_knowledge/final/rust_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	. = ..()
 	priority_announce("[generate_eldritch_text()] Fear the decay, for the Rustbringer, [user.real_name] has ascended! None shall escape the corrosion! [generate_eldritch_text()]","[generate_eldritch_text()]", ANNOUNCER_SPANOMALIES)
 	new /datum/rust_spread(loc)
-	return ..()
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(user, COMSIG_LIVING_LIFE, .proc/on_life)
+	user.client?.give_award(/datum/award/achievement/misc/rust_ascension, user)
 
-/datum/eldritch_knowledge/final/rust_final/proc/on_move(mob/mover)
+/**
+ * Signal proc for [COMSIG_MOVABLE_MOVED].
+ *
+ * Gives our heretic ([source]) buffs if they stand on rust.
+ */
+/datum/eldritch_knowledge/final/rust_final/proc/on_move(mob/source, atom/old_loc, dir, forced, list/old_locs)
 	SIGNAL_HANDLER
-	var/atom/mover_turf = get_turf(mover)
-	var/mover_on_rust = HAS_TRAIT(mover_turf, TRAIT_RUSTY)
 
-	//We check if we are currently standing on a rust tile, but the immunities are not active, if so apply immunities, set immunities_active to TRUE
-	if(mover_on_rust && !immunities_active)
-		for(var/trait in conditional_immunities)
-			ADD_TRAIT(mover,trait,type)
-		immunities_active = TRUE
+	// If we're on a rusty turf, and haven't given out our traits, buff our guy
+	var/turf/our_turf = get_turf(source)
+	if(HAS_TRAIT(our_turf, TRAIT_RUSTY))
+		if(!immunities_active)
+			for(var/trait in conditional_immunities)
+				ADD_TRAIT(source, trait, type)
+			immunities_active = TRUE
+
+	// If we're not on a rust turf, and we have given out our traits, nerf our guy
+	else
+		if(immunities_active)
+			for(var/trait in conditional_immunities)
+				REMOVE_TRAIT(source, trait, type)
+			immunities_active = FALSE
+
+/**
+ * Signal proc for [COMSIG_LIVING_LIFE].
+ *
+ * Gradually heals the heretic ([source]) on rust.
+ */
+/datum/eldritch_knowledge/final/rust_final/proc/on_life(mob/living/source, delta_time, times_fired)
+	SIGNAL_HANDLER
+
+	var/turf/our_turf = get_turf(source)
+	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
 
-	//We check if we are NOT standing on a rust tile, if so we check if immunities are active, if immunities are active then we de-apply them and set immunities to FALSE
-	if(!mover_on_rust && immunities_active)
-		for(var/trait in conditional_immunities)
-			REMOVE_TRAIT(mover,trait,type)
-		immunities_active = FALSE
-
-
-/datum/eldritch_knowledge/final/rust_final/on_life(mob/user)
-	. = ..()
-	var/turf/user_loc_turf = get_turf(user)
-	if(!HAS_TRAIT(user_loc_turf, TRAIT_RUSTY) || !isliving(user) || !finished)
-		return
-	var/mob/living/carbon/human/human_user = user
-	human_user.adjustBruteLoss(-4, FALSE)
-	human_user.adjustFireLoss(-4, FALSE)
-	human_user.adjustToxLoss(-4, FALSE, forced = TRUE)
-	human_user.adjustOxyLoss(-4, FALSE)
-	human_user.adjustStaminaLoss(-20)
+	source.adjustBruteLoss(-4, FALSE)
+	source.adjustFireLoss(-4, FALSE)
+	source.adjustToxLoss(-4, FALSE, forced = TRUE)
+	source.adjustOxyLoss(-4, FALSE)
+	source.adjustStaminaLoss(-20)
 
 /**
  * #Rust spread datum
@@ -207,9 +254,15 @@
  * Simple implementation of automatically growing entity
  */
 /datum/rust_spread
-	var/list/edge_turfs = list()
-	var/list/turfs = list()
+	/// The rate of spread every tick.
+	var/spread_per_sec = 6
+	/// The very center of the spread.
 	var/turf/centre
+	/// List of turfs at the edge of our rust (but not yet rusted).
+	var/list/edge_turfs = list()
+	/// List of all turfs we've afflicted.
+	var/list/rusted_turfs = list()
+	/// Static blacklist of turfs we can't spread to.
 	var/static/list/blacklisted_turfs = typecacheof(list(
 		/turf/open/indestructible,
 		/turf/closed/indestructible,
@@ -217,33 +270,32 @@
 		/turf/open/lava,
 		/turf/open/chasm
 	))
-	var/spread_per_sec = 6
-
 
 /datum/rust_spread/New(loc)
-	. = ..()
 	centre = get_turf(loc)
 	centre.rust_heretic_act()
-	turfs += centre
-	START_PROCESSING(SSprocessing,src)
+	rusted_turfs += centre
+	START_PROCESSING(SSprocessing, src)
 
 /datum/rust_spread/Destroy(force, ...)
-	STOP_PROCESSING(SSprocessing,src)
+	centre = null
+	edge_turfs.Cut()
+	rusted_turfs.Cut()
+	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
 /datum/rust_spread/process(delta_time)
-	var/spread_am = round(spread_per_sec * delta_time)
+	var/spread_amount = round(spread_per_sec * delta_time)
 
-	if(edge_turfs.len < spread_am)
+	if(length(edge_turfs) < spread_amount)
 		compile_turfs()
 
-	var/turf/rust_affected
-	for(var/i in 0 to spread_am)
-		if(!edge_turfs.len)
-			continue
-		rust_affected = pick(edge_turfs - turfs)
-		rust_affected.rust_heretic_act()
-		turfs += rust_affected
+	for(var/i in 0 to spread_amount)
+		if(!length(edge_turfs))
+			break
+		var/turf/afflicted_turf = pick_n_take(edge_turfs)
+		afflicted_turf.rust_heretic_act()
+		rusted_turfs |= afflicted_turf
 
 
 /**
@@ -252,19 +304,19 @@
  * Recreates all edge_turfs as well as normal turfs.
  */
 /datum/rust_spread/proc/compile_turfs()
-	edge_turfs = list()
-	var/list/removal_list = list()
-	var/max_dist = 1
-	for(var/atom/turfie as anything in turfs)
-		if(!HAS_TRAIT(turfie, TRAIT_RUSTY))
-			removal_list += turfie
-		max_dist = max(max_dist, get_dist(turfie,centre) +1)
-	turfs -= removal_list
-	for(var/turfie in spiral_range_turfs(max_dist,centre,FALSE))
+	edge_turfs.Cut()
 
-		if(turfie in turfs || is_type_in_typecache(turfie,blacklisted_turfs))
+	var/max_dist = 1
+	for(var/turf/found_turf as anything in rusted_turfs)
+		if(!HAS_TRAIT(found_turf, TRAIT_RUSTY))
+			rusted_turfs -= found_turf
+		max_dist = max(max_dist, get_dist(found_turf, centre) + 1)
+
+	for(var/turf/nearby_turf as anything in spiral_range_turfs(max_dist, centre, FALSE))
+		if(nearby_turf in rusted_turfs || is_type_in_typecache(nearby_turf, blacklisted_turfs))
 			continue
-		for(var/line_turfie_owo in getline(turfie,centre))
-			if(get_dist(turfie,line_turfie_owo) <= 1)
-				edge_turfs += turfie
+
+		for(var/turf/line_turf as anything in getline(nearby_turf, centre))
+			if(get_dist(nearby_turf, line_turf) <= 1)
+				edge_turfs |= nearby_turf
 		CHECK_TICK

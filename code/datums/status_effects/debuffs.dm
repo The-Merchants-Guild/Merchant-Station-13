@@ -439,7 +439,7 @@
 		var/mob/living/carbon/carbon_owner = owner
 		carbon_owner.adjustStaminaLoss(10 * repetitions)
 		carbon_owner.adjustFireLoss(5 * repetitions)
-		for(var/mob/living/carbon/victim in range(1, carbon_owner))
+		for(var/mob/living/carbon/victim in shuffle(1, carbon_owner))
 			if(IS_HERETIC(victim) || victim == carbon_owner)
 				continue
 			victim.apply_status_effect(type, repetitions - 1)

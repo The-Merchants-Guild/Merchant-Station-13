@@ -53,7 +53,7 @@
  *
  * This proc is called on SSprocess in eldritch cultist antag datum. SSprocess happens roughly every second
  */
-/datum/eldritch_knowledge/proc/on_life(mob/user)
+/datum/eldritch_knowledge/proc/on_research(mob/user)
 	return
 
 /**
@@ -64,12 +64,7 @@
 /datum/eldritch_knowledge/proc/recipe_snowflake_check(list/atoms, loc)
 	return TRUE
 
-/**
- * A proc that handles the code when the mob dies
- *
- * This proc is primarily used to end any soundloops when the heretic dies
- */
-/datum/eldritch_knowledge/proc/on_death(mob/user)
+/datum/eldritch_knowledge/proc/on_dead(mob/user)
 	return
 
 /**

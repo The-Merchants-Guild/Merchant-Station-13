@@ -30,27 +30,33 @@
 	route = PATH_VOID
 	next_knowledge = list(/datum/eldritch_knowledge/cold_snap)
 
-/datum/eldritch_knowledge/void_grasp/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
+/datum/eldritch_knowledge/void_grasp/on_gain(mob/user)
+	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, .proc/on_mansus_grasp)
+	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, .proc/on_eldritch_blade)
+
+/datum/eldritch_knowledge/void_grasp/on_lose(mob/user)
+	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
+
+/datum/eldritch_knowledge/void_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
+	SIGNAL_HANDLER
+
 	if(!iscarbon(target))
 		return
+
 	var/mob/living/carbon/carbon_target = target
-	var/turf/open/turfie = get_turf(carbon_target)
-	turfie.TakeTemperature(-20)
+	var/turf/open/target_turf = get_turf(carbon_target)
+	target_turf.TakeTemperature(-20)
 	carbon_target.adjust_bodytemperature(-40)
 	carbon_target.silent += 4
-	return TRUE
 
-/datum/eldritch_knowledge/void_grasp/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(!ishuman(target))
+/datum/eldritch_knowledge/void_grasp/proc/on_eldritch_blade(mob/living/user, mob/living/target)
+	SIGNAL_HANDLER
+
+	var/datum/status_effect/eldritch/mark = target.has_status_effect(/datum/status_effect/eldritch)
+	if(!istype(mark))
 		return
-	var/mob/living/carbon/human/victim = target
-	var/datum/status_effect/eldritch/effect = victim.has_status_effect(/datum/status_effect/eldritch/rust) || victim.has_status_effect(/datum/status_effect/eldritch/ash) || victim.has_status_effect(/datum/status_effect/eldritch/flesh)  || victim.has_status_effect(/datum/status_effect/eldritch/void)
-	if(!effect)
-		return
-	effect.on_effect()
-	victim.silent += 3
+
+	mark.on_effect()
 
 /datum/eldritch_knowledge/cold_snap
 	name = "Aristocrat's Way"
@@ -61,12 +67,10 @@
 	next_knowledge = list(/datum/eldritch_knowledge/void_cloak,/datum/eldritch_knowledge/void_mark,/datum/eldritch_knowledge/armor)
 
 /datum/eldritch_knowledge/cold_snap/on_gain(mob/user)
-	. = ..()
 	ADD_TRAIT(user, TRAIT_RESISTCOLD, MAGIC_TRAIT)
 	ADD_TRAIT(user, TRAIT_NOBREATH, MAGIC_TRAIT)
 
 /datum/eldritch_knowledge/cold_snap/on_lose(mob/user)
-	. = ..()
 	REMOVE_TRAIT(user, TRAIT_RESISTCOLD, MAGIC_TRAIT)
 	REMOVE_TRAIT(user, TRAIT_NOBREATH, MAGIC_TRAIT)
 
@@ -83,13 +87,16 @@
 	)
 	route = PATH_VOID
 
-/datum/eldritch_knowledge/void_mark/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(!isliving(target))
-		return
-	. = TRUE
-	var/mob/living/living_target = target
-	living_target.apply_status_effect(/datum/status_effect/eldritch/void)
+/datum/eldritch_knowledge/void_mark/on_gain(mob/user)
+	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, .proc/on_mansus_grasp)
+
+/datum/eldritch_knowledge/void_mark/on_lose(mob/user)
+	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
+
+/datum/eldritch_knowledge/void_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
+	SIGNAL_HANDLER
+
+	target.apply_status_effect(/datum/status_effect/eldritch/void)
 
 /datum/eldritch_knowledge/spell/void_phase
 	name = "Void Phase"
@@ -117,19 +124,25 @@
 	)
 	route = PATH_VOID
 
-/datum/eldritch_knowledge/void_blade_upgrade/on_ranged_attack_eldritch_blade(atom/target, mob/user, click_parameters)
-	. = ..()
-	if(!ishuman(target) || !iscarbon(user))
+/datum/eldritch_knowledge/void_blade_upgrade/on_gain(mob/user)
+	RegisterSignal(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK, .proc/on_ranged_eldritch_blade)
+
+/datum/eldritch_knowledge/void_blade_upgrade/on_lose(mob/user)
+	UnregisterSignal(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK)
+
+/datum/eldritch_knowledge/void_blade_upgrade/proc/on_ranged_eldritch_blade(mob/living/user, mob/living/target)
+	SIGNAL_HANDLER
+	if(!target.has_status_effect(/datum/status_effect/eldritch))
 		return
-	var/mob/living/carbon/carbon_human = user
-	var/mob/living/carbon/human/human_target = target
-	var/datum/status_effect/eldritch/effect = human_target.has_status_effect(/datum/status_effect/eldritch/rust) || human_target.has_status_effect(/datum/status_effect/eldritch/ash) || human_target.has_status_effect(/datum/status_effect/eldritch/flesh) || human_target.has_status_effect(/datum/status_effect/eldritch/void)
-	if(!effect)
-		return
-	var/dir = angle2dir(dir2angle(get_dir(user,human_target))+180)
-	carbon_human.forceMove(get_step(human_target,dir))
-	var/obj/item/melee/sickly_blade/blade = carbon_human.get_active_held_item()
-	blade.melee_attack_chain(carbon_human,human_target)
+
+	var/dir = angle2dir(dir2angle(get_dir(user, target)) + 180)
+	user.forceMove(get_step(target, dir))
+
+	INVOKE_ASYNC(src, .proc/follow_up_attack, user, target)
+
+/datum/eldritch_knowledge/void_blade_upgrade/proc/follow_up_attack(mob/living/user, mob/living/target)
+	var/obj/item/melee/sickly_blade/blade = user.get_active_held_item()
+	blade?.melee_attack_chain(user, target)
 
 /datum/eldritch_knowledge/spell/voidpull
 	name = "Void Pull"
@@ -162,7 +175,7 @@
 	waltzing.physiology.burn_mod *= 0.5
 	ADD_TRAIT(waltzing, TRAIT_RESISTLOWPRESSURE, MAGIC_TRAIT)
 	waltzing.client?.give_award(/datum/award/achievement/misc/void_ascension, waltzing)
-	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# The nobleman of void [waltzing.real_name] has arrived, step along the Waltz that ends worlds! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", ANNOUNCER_SPANOMALIES)
+	priority_announce("[generate_eldritch_text()] The nobleman of void [waltzing.real_name] has arrived, step along the Waltz that ends worlds! [generate_eldritch_text()]","[generate_eldritch_text()]", ANNOUNCER_SPANOMALIES)
 
 	sound_loop = new(user, TRUE, TRUE)
 	return ..()
@@ -180,7 +193,7 @@
 		return
 
 	for(var/mob/living/carbon/livies in spiral_range(7,user)-user)
-		if(IS_HERETIC_MONSTER(livies) || IS_HERETIC(livies))
+		if(IS_HERETIC_OR_MONSTER(livies))
 			return
 		livies.silent += 1
 		livies.adjust_bodytemperature(-20)

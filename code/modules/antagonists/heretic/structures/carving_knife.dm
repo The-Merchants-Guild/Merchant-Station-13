@@ -122,7 +122,7 @@
 	if(!isliving(AM))
 		return ..()
 	var/mob/living/living_mob = AM
-	if(living_mob == owner || IS_HERETIC(living_mob) || IS_HERETIC_MONSTER(living_mob))
+	if(living_mob == owner || IS_HERETIC_OR_MONSTER(living_mob))
 		return
 	return ..()
 

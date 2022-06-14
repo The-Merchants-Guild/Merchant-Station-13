@@ -1,7 +1,17 @@
 ///////////////
 ///Base lore///
 ///////////////
-GLOBAL_LIST_INIT(heretic_start_knowledge,list(/datum/eldritch_knowledge/spell/basic,/datum/eldritch_knowledge/living_heart,/datum/eldritch_knowledge/codex_cicatrix))
+GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
+
+/**
+ * Returns a list of all heretic knowledge TYPEPATHS
+ * that have route set to PATH_START.
+ */
+/proc/initialize_starting_knowledge()
+	. = list()
+	for(var/datum/eldritch_knowledge/knowledge as anything in subtypesof(/datum/eldritch_knowledge))
+		if(initial(knowledge.route) == PATH_START)
+			. += knowledge
 
 /datum/eldritch_knowledge/spell/basic
 	name = "Break of Dawn"
@@ -11,7 +21,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge,list(/datum/eldritch_knowledge/spell/ba
 	cost = 0
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
 	required_atoms = list(/obj/item/living_heart)
-	route = "Start"
+	route = PATH_START
 
 /datum/eldritch_knowledge/spell/basic/recipe_snowflake_check(list/atoms, loc)
 	. = ..()
@@ -77,7 +87,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge,list(/datum/eldritch_knowledge/spell/ba
 	cost = 0
 	required_atoms = list(/obj/item/organ/heart,/obj/effect/decal/cleanable/blood,/obj/item/food/grown/poppy)
 	result_atoms = list(/obj/item/living_heart)
-	route = "Start"
+	route = PATH_START
 
 /datum/eldritch_knowledge/codex_cicatrix
 	name = "Codex Cicatrix"
@@ -86,4 +96,4 @@ GLOBAL_LIST_INIT(heretic_start_knowledge,list(/datum/eldritch_knowledge/spell/ba
 	cost = 0
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/stack/sheet/animalhide/human,/obj/item/storage/book/bible,/obj/item/pen)
 	result_atoms = list(/obj/item/forbidden_book/ritual)
-	route = "Start"
+	route = PATH_START

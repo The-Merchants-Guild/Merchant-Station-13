@@ -60,7 +60,7 @@
 	humie.setMaxHealth(MUTE_MAX_HEALTH)
 	humie.health = MUTE_MAX_HEALTH // Voiceless dead are much tougher than ghouls
 	humie.become_husk()
-	humie.faction |= "heretics"
+	humie.faction |= FACTION_HERETIC
 	humie.apply_status_effect(/datum/status_effect/ghoul)
 
 	var/datum/antagonist/heretic_monster/heretic_monster = humie.mind.add_antag_datum(/datum/antagonist/heretic_monster)
@@ -89,51 +89,60 @@
 	var/list/spooky_scaries
 	route = PATH_FLESH
 
-/datum/eldritch_knowledge/flesh_grasp/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(!ishuman(target) || target == user)
+/datum/eldritch_knowledge/flesh_grasp/on_gain(mob/user)
+	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, .proc/on_mansus_grasp)
+	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, .proc/on_eldritch_blade)
+
+/datum/eldritch_knowledge/flesh_grasp/on_lose(mob/user)
+	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
+
+/datum/eldritch_knowledge/flesh_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
+	SIGNAL_HANDLER
+
+	if(target.stat != DEAD)
 		return
+
+	// Skeletons can't become husks, and monkeys are monkeys.
+	if(!ishuman(target) || isskeleton(target) || ismonkey(target))
+		target.balloon_alert(source, "invalid body!")
+		return COMPONENT_BLOCK_CHARGE_USE
+
 	var/mob/living/carbon/human/human_target = target
-	if(QDELETED(human_target) || human_target.stat != DEAD)
-		return
 	human_target.grab_ghost()
 	if(!human_target.mind || !human_target.client)
-		to_chat(user, span_warning("There is no soul connected to this body..."))
-		return
+		target.balloon_alert(source, "no soul!")
+		return COMPONENT_BLOCK_CHARGE_USE
 	if(HAS_TRAIT(human_target, TRAIT_HUSK))
-		to_chat(user, span_warning("You cannot revive a dead ghoul!"))
-		return
+		target.balloon_alert(source, "husked!")
+		return COMPONENT_BLOCK_CHARGE_USE
 	if(LAZYLEN(spooky_scaries) >= ghoul_amt)
-		to_chat(user, span_warning("Your patron cannot support more ghouls on this plane!"))
-		return
-	LAZYADD(spooky_scaries, human_target)
-	log_game("[key_name_admin(human_target)] has become a ghoul, their master is [user.real_name]")
-	//we change it to true only after we know they passed all the checks
-	. = TRUE
-	RegisterSignal(human_target,COMSIG_LIVING_DEATH,.proc/remove_ghoul)
+		target.balloon_alert(source, "at ghoul limit!")
+		return COMPONENT_BLOCK_CHARGE_USE
+
+	LAZYADD(spooky_scaries, WEAKREF(human_target))
+	log_game("[key_name(source)] created a ghoul, controlled by [key_name(human_target)].")
+	message_admins("[ADMIN_LOOKUPFLW(source)] created a ghuol, [ADMIN_LOOKUPFLW(human_target)].")
+
+	RegisterSignal(human_target, COMSIG_LIVING_DEATH, .proc/remove_ghoul)
 	human_target.revive(full_heal = TRUE, admin_revive = TRUE)
 	human_target.setMaxHealth(GHOUL_MAX_HEALTH)
 	human_target.health = GHOUL_MAX_HEALTH
-	human_target.become_husk()
+	human_target.become_husk(MAGIC_TRAIT)
 	human_target.apply_status_effect(/datum/status_effect/ghoul)
-	human_target.faction |= "heretics"
-	var/datum/antagonist/heretic_monster/heretic_monster = human_target.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	heretic_monster.set_owner(master)
+	human_target.faction |= FACTION_HERETIC
 
-/datum/eldritch_knowledge/flesh_grasp/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(!ishuman(target))
+	var/datum/antagonist/heretic_monster/heretic_monster = human_target.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+	heretic_monster.set_owner(source.mind)
+
+/datum/eldritch_knowledge/flesh_grasp/proc/on_eldritch_blade(mob/living/user, mob/living/target)
+	SIGNAL_HANDLER
+	if(!iscarbon(target) || user == target)
 		return
-	var/mob/living/carbon/human/human_target = target
-	var/datum/status_effect/eldritch/eldritch_effect = human_target.has_status_effect(/datum/status_effect/eldritch/rust) || human_target.has_status_effect(/datum/status_effect/eldritch/ash) || human_target.has_status_effect(/datum/status_effect/eldritch/flesh)  || human_target.has_status_effect(/datum/status_effect/eldritch/void)
-	if(eldritch_effect)
-		eldritch_effect.on_effect()
-		if(iscarbon(target))
-			var/mob/living/carbon/carbon_target = target
-			var/obj/item/bodypart/bodypart = pick(carbon_target.bodyparts)
-			var/datum/wound/slash/severe/crit_wound = new
-			crit_wound.apply_wound(bodypart)
+
+	var/mob/living/carbon/carbon_target = target
+	var/obj/item/bodypart/bodypart = pick(carbon_target.bodyparts)
+	var/datum/wound/slash/severe/crit_wound = new
+	crit_wound.apply_wound(bodypart)
 
 /datum/eldritch_knowledge/flesh_grasp/proc/remove_ghoul(datum/source)
 	SIGNAL_HANDLER
@@ -154,12 +163,17 @@
 	banned_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/ash_mark,/datum/eldritch_knowledge/void_mark)
 	route = PATH_FLESH
 
-/datum/eldritch_knowledge/flesh_mark/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(isliving(target))
-		. = TRUE
-		var/mob/living/living_target = target
-		living_target.apply_status_effect(/datum/status_effect/eldritch/flesh)
+/datum/eldritch_knowledge/flesh_mark/on_gain(mob/user)
+	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, .proc/on_mansus_grasp)
+
+/datum/eldritch_knowledge/flesh_mark/on_lose(mob/user)
+	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
+
+
+/datum/eldritch_knowledge/flesh_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
+	SIGNAL_HANDLER
+
+	target.apply_status_effect(/datum/status_effect/eldritch/flesh)
 
 /datum/eldritch_knowledge/flesh_blade_upgrade
 	name = "Bleeding Steel"
@@ -170,13 +184,21 @@
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/rust_blade_upgrade,/datum/eldritch_knowledge/void_blade_upgrade)
 	route = PATH_FLESH
 
-/datum/eldritch_knowledge/flesh_blade_upgrade/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/carbon_target = target
-		var/obj/item/bodypart/bodypart = pick(carbon_target.bodyparts)
-		var/datum/wound/slash/severe/crit_wound = new
-		crit_wound.apply_wound(bodypart)
+/datum/eldritch_knowledge/flesh_blade_upgrade/on_gain(mob/user)
+	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, .proc/on_eldritch_blade)
+
+/datum/eldritch_knowledge/flesh_blade_upgrade/on_lose(mob/user)
+	UnregisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK)
+
+/datum/eldritch_knowledge/flesh_blade_upgrade/proc/on_eldritch_blade(mob/living/user, mob/living/target)
+	SIGNAL_HANDLER
+	if(!iscarbon(target) || user == target)
+		return
+
+	var/mob/living/carbon/carbon_target = target
+	var/obj/item/bodypart/bodypart = pick(carbon_target.bodyparts)
+	var/datum/wound/slash/severe/crit_wound = new()
+	crit_wound.apply_wound(bodypart)
 
 /datum/eldritch_knowledge/summon/raw_prophet
 	name = "Raw Ritual"
@@ -216,7 +238,7 @@
 
 /datum/eldritch_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	. = ..()
-	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Ever coiling vortex. Reality unfolded. THE LORD OF ARMS, [user.real_name] has ascended! Fear the ever twisting hand! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", ANNOUNCER_SPANOMALIES)
+	priority_announce("[generate_eldritch_text()] Ever coiling vortex. Reality unfolded. THE LORD OF ARMS, [user.real_name] has ascended! Fear the ever twisting hand! [generate_eldritch_text()]","[generate_eldritch_text()]", ANNOUNCER_SPANOMALIES)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shed_human_form)
 	if(!ishuman(user))
 		return

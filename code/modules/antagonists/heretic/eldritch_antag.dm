@@ -1,5 +1,16 @@
+/*
+ * Simple helper to generate a string of
+ * garbled symbols up to [length] characters.
+ *
+ * Used in creating spooky-text for heretic ascension announcements.
+ */
+/proc/generate_eldritch_text(length = 25)
+	. = ""
+	for(var/i in 1 to length)
+		. += pick("!", "$", "^", "@", "&", "#", "*", "(", ")", "?")
+
 /datum/antagonist/heretic
-	name = "Heretic"
+	name = "\improper Heretic"
 	roundend_category = "Heretics"
 	antagpanel_category = "Heretic"
 	antag_moodlet = /datum/mood_event/heretics
@@ -122,7 +133,7 @@
 		current = mob_override
 	add_antag_hud(antag_hud_type, antag_hud_name, current)
 	handle_clown_mutation(current, mob_override ? null : "Ancient knowledge described in the book allows you to overcome your clownish nature, allowing you to use complex items effectively.")
-	current.faction |= "heretics"
+	current.faction |= FACTION_HERETIC
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -131,11 +142,7 @@
 		current = mob_override
 	remove_antag_hud(antag_hud_type, current)
 	handle_clown_mutation(current, removing = FALSE)
-	current.faction -= "heretics"
-
-/datum/antagonist/heretic/get_admin_commands()
-	. = ..()
-	.["Equip"] = CALLBACK(src,.proc/equip_cultist)
+	current.faction -= FACTION_HERETIC
 
 /datum/antagonist/heretic/roundend_report()
 	var/list/parts = list()

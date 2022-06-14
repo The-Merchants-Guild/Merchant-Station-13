@@ -24,27 +24,29 @@
 	))
 	route = PATH_RUST
 
-/datum/eldritch_knowledge/rust_fist/on_mansus_grasp(atom/target, mob/living/user, proximity_flag, click_parameters)
-	. = ..()
-	var/check = FALSE
-	if(ismob(target))
-		var/mob/living/mobster = target
-		if(!(mobster.mob_biotypes & MOB_ROBOTIC))
-			return FALSE
-		else
-			check = TRUE
-	if(user.combat_mode || check)
-		target.rust_heretic_act()
-		return TRUE
+/datum/eldritch_knowledge/rust_fist/on_gain(mob/user)
+	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, .proc/on_mansus_grasp)
+	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, .proc/on_eldritch_blade)
 
-/datum/eldritch_knowledge/rust_fist/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(ishuman(target))
-		var/mob/living/carbon/human/victim = target
-		var/datum/status_effect/eldritch/effect = victim.has_status_effect(/datum/status_effect/eldritch/rust) || victim.has_status_effect(/datum/status_effect/eldritch/ash) || victim.has_status_effect(/datum/status_effect/eldritch/flesh)  || victim.has_status_effect(/datum/status_effect/eldritch/void)
-		if(effect)
-			effect.on_effect()
-			victim.adjustOrganLoss(pick(ORGAN_SLOT_BRAIN,ORGAN_SLOT_EARS,ORGAN_SLOT_EYES,ORGAN_SLOT_LIVER,ORGAN_SLOT_LUNGS,ORGAN_SLOT_STOMACH,ORGAN_SLOT_HEART),25)
+/datum/eldritch_knowledge/rust_fist/on_lose(mob/user)
+	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
+
+/datum/eldritch_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, mob/living/target)
+	SIGNAL_HANDLER
+
+	if(!issilicon(target) && !(target.mob_biotypes & MOB_ROBOTIC))
+		return
+
+	target.rust_heretic_act()
+
+/datum/eldritch_knowledge/rust_fist/proc/on_eldritch_blade(mob/living/user, mob/living/target)
+	SIGNAL_HANDLER
+
+	var/datum/status_effect/eldritch/mark = target.has_status_effect(/datum/status_effect/eldritch)
+	if(!istype(mark))
+		return
+
+	mark.on_effect()
 
 /datum/eldritch_knowledge/spell/area_conversion
 	name = "Agressive Spread"
@@ -104,12 +106,16 @@
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_mark,/datum/eldritch_knowledge/flesh_mark,/datum/eldritch_knowledge/void_mark)
 	route = PATH_RUST
 
-/datum/eldritch_knowledge/rust_mark/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(isliving(target))
-		. = TRUE
-		var/mob/living/living_target = target
-		living_target.apply_status_effect(/datum/status_effect/eldritch/rust)
+/datum/eldritch_knowledge/rust_mark/on_gain(mob/user)
+	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, .proc/on_mansus_grasp)
+
+/datum/eldritch_knowledge/rust_mark/on_lose(mob/user)
+	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
+
+/datum/eldritch_knowledge/rust_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
+	SIGNAL_HANDLER
+
+	target.apply_status_effect(/datum/status_effect/eldritch/rust)
 
 /datum/eldritch_knowledge/rust_blade_upgrade
 	name = "Toxic Blade"
@@ -120,11 +126,17 @@
 	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/void_blade_upgrade)
 	route = PATH_RUST
 
-/datum/eldritch_knowledge/rust_blade_upgrade/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/carbon_target = target
-		carbon_target.reagents.add_reagent(/datum/reagent/eldritch, 5)
+/datum/eldritch_knowledge/rust_blade_upgrade/on_gain(mob/user)
+	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, .proc/on_eldritch_blade)
+
+/datum/eldritch_knowledge/rust_blade_upgrade/on_lose(mob/user)
+	UnregisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK)
+
+/datum/eldritch_knowledge/rust_blade_upgrade/proc/on_eldritch_blade(mob/living/user, mob/living/target)
+	SIGNAL_HANDLER
+
+	// No user == target check here, cause it's technically good for the heretic?
+	target.reagents?.add_reagent(/datum/reagent/eldritch, 5)
 
 /datum/eldritch_knowledge/spell/entropic_plume
 	name = "Entropic Plume"
@@ -152,7 +164,7 @@
 	H.physiology.burn_mod *= 0.5
 	H.client?.give_award(/datum/award/achievement/misc/rust_ascension, H)
 	RegisterSignal(H,COMSIG_MOVABLE_MOVED,.proc/on_move)
-	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Fear the decay, for the Rustbringer, [user.real_name] has ascended! None shall escape the corrosion! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", ANNOUNCER_SPANOMALIES)
+	priority_announce("[generate_eldritch_text()] Fear the decay, for the Rustbringer, [user.real_name] has ascended! None shall escape the corrosion! [generate_eldritch_text()]","[generate_eldritch_text()]", ANNOUNCER_SPANOMALIES)
 	new /datum/rust_spread(loc)
 	return ..()
 

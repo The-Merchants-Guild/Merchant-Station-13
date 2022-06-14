@@ -96,31 +96,6 @@
 			qdel(sacrificed)
 	return
 
-/**
- * Mansus grasp act
- *
- * Gives addtional effects to mansus grasp spell
- */
-/datum/eldritch_knowledge/proc/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
-	return FALSE
-
-
-/**
- * Sickly blade act
- *
- * Gives addtional effects to sickly blade weapon
- */
-/datum/eldritch_knowledge/proc/on_eldritch_blade(atom/target,mob/user,proximity_flag,click_parameters)
-	return
-
-/**
- * Sickly blade distant act
- *
- * Same as [/datum/eldritch_knowledge/proc/on_eldritch_blade] but works on targets that are not in proximity to you.
- */
-/datum/eldritch_knowledge/proc/on_ranged_attack_eldritch_blade(atom/target,mob/user,click_parameters)
-	return
-
 //////////////
 ///Subtypes///
 //////////////
@@ -129,7 +104,7 @@
 	var/obj/effect/proc_holder/spell/spell_to_add
 
 /datum/eldritch_knowledge/spell/on_gain(mob/user)
-	spell_to_add = new spell_to_add
+	spell_to_add = new spell_to_add()
 	user.mind.AddSpell(spell_to_add)
 	return ..()
 

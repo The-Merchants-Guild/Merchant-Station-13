@@ -132,6 +132,11 @@
 		if(first_transform && (IS_MONKEY_LEADER(affected_mob.mind) || prob(4)))
 			affected_mob.rabidgorillize()
 		else
+			affected_mob.revive(full_heal = TRUE)
+			affected_mob.regenerate_organs()
+			affected_mob.regenerate_limbs(TRUE)
+			affected_mob.restore_blood()
+			affected_mob.remove_all_embedded_objects()
 			affected_mob.monkeyize()
 			ADD_TRAIT(affected_mob, TRAIT_VENTCRAWLER_ALWAYS, type)
 			var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]

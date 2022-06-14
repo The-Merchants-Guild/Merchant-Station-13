@@ -1922,7 +1922,9 @@ GLOBAL_LIST_EMPTY(intento_players)
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "book"
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("sacrificed", "transmuted", "grasped", "cursed")
+	attack_verb = 
+	attack_verb_continuous = list("sacrifices", "transmutes", "graspes", "curses")
+	attack_verb_simple = list("sacrifice", "transmute", "grasp", "curse")
 	var/open = FALSE
 
 /obj/item/toy/eldrich_book/attack_self(mob/user)
@@ -1949,4 +1951,3 @@ GLOBAL_LIST_EMPTY(intento_players)
 /obj/item/storage/box/heretic_asshole/PopulateContents()
 	for(var/i in 1 to rand(1,4))
 		new /obj/item/toy/reality_pierce(src)
-

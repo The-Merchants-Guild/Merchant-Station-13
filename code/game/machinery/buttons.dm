@@ -162,6 +162,7 @@
 		return
 
 	if((machine_stat & (NOPOWER|BROKEN)))
+		playsound(src, 'sound/machines/buttons/button2.ogg', 100, 0)
 		return
 
 	if(device && device.next_activate > world.time)
@@ -169,9 +170,11 @@
 
 	if(!allowed(user))
 		to_chat(user, span_alert("Access Denied."))
+		playsound(src, 'sound/machines/buttons/button1.ogg', 100, 0)
 		flick("[skin]-denied", src)
 		return
 
+	playsound(src, pick('sound/machines/buttons/button3.ogg', 'sound/machines/buttons/button4.ogg', 'sound/machines/buttons/button5.ogg', 'sound/machines/buttons/button6.ogg', 'sound/machines/buttons/button7.ogg', 'sound/machines/buttons/button8.ogg', 'sound/machines/buttons/button9.ogg', 'sound/machines/buttons/button10.ogg', 'sound/machines/buttons/button11.ogg'), 100, 0)
 	use_power(5)
 	icon_state = "[skin]1"
 

@@ -9,7 +9,6 @@
 	description = "NT default research technologies."
 	// Default research tech, prevents bricking
 	design_ids = list(
-		"mech_shell",
 		"airlock_board",
 		"apc_control",
 		"basic_capacitor",
@@ -721,6 +720,7 @@
 	description = "Grants access to movable shells."
 	prereq_ids = list("adv_shells", "robotics")
 	design_ids = list(
+		"mech_shell",
 		"comp_pathfind",
 		"comp_pull",
 		"drone_shell",

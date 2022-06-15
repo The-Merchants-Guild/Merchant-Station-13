@@ -41935,6 +41935,18 @@
 /obj/machinery/light/directional/east,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
+"lSV" = (
+/obj/vehicle/sealed/mecha/working/ripley,
+/obj/item/integrated_circuit/loaded/hello_world,
+/obj/item/multitool/circuit{
+	pixel_y = 2;
+	pixel_x = -10
+	},
+/obj/item/circuit_component/view_sensor{
+	pixel_y = 12
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "lTG" = (
 /obj/structure/sign/painting/library{
 	pixel_y = 32
@@ -54739,9 +54751,6 @@
 /area/ai_monitored/aisat/exterior)
 "qbG" = (
 /obj/structure/table/wood,
-/obj/item/circuit_component/computer_vision{
-	pixel_x = -10
-	},
 /obj/item/integrated_circuit/loaded/speech_relay{
 	pixel_x = 6;
 	pixel_y = 7
@@ -96670,7 +96679,7 @@ rue
 bXE
 hLm
 rig
-bXE
+lSV
 dux
 slf
 bXE

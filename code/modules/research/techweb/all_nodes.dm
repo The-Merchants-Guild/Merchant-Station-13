@@ -9,7 +9,6 @@
 	description = "NT default research technologies."
 	// Default research tech, prevents bricking
 	design_ids = list(
-		"mech_shell",
 		"airlock_board",
 		"apc_control",
 		"basic_capacitor",
@@ -98,6 +97,7 @@
 	display_name = "Mechanical Exosuits"
 	description = "Mechanized exosuits that are several magnitudes stronger and more powerful than the average human."
 	design_ids = list(
+		"mech_shell",
 		"mech_hydraulic_clamp",
 		"mech_recharger",
 		"mecha_tracking",

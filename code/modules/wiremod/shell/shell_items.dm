@@ -71,7 +71,8 @@
 
 /obj/item/shell/mech
 	name = "mech interface assembly"
-	icon_state = "bci-open"
+	icon = 'icons/obj/module.dmi'
+	icon_state = "computer_vision"
 	desc = "A shell assembly that can permanently convert any mech into a circuit mech. It has a screw that just keeps turning in place. Odd."
 	shell_to_spawn = /obj/item/shell/mech
 

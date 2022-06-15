@@ -9,6 +9,7 @@
 	description = "NT default research technologies."
 	// Default research tech, prevents bricking
 	design_ids = list(
+		"mech_shell",
 		"airlock_board",
 		"apc_control",
 		"basic_capacitor",

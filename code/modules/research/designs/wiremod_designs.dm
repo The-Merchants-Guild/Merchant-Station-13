@@ -503,6 +503,18 @@
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	category = list("Circuitry", "Shells")
 
+/datum/design/mech_shell
+	name = "Mech Interface Assembly"
+	desc = "A shell assembly that can permanently convert any mech into a circuit mech."
+	id = "mech_shell"
+	materials = list(
+		/datum/material/glass = 2000,
+		/datum/material/iron = 6000,
+	)
+	build_path = /obj/item/shell/mech
+	build_type = PROTOLATHE | COMPONENT_PRINTER
+	category = list("Circuitry", "Shells")
+
 /datum/design/dispenser_shell
 	name = "Dispenser Shell"
 	desc = "A dispenser shell that can dispense items."

@@ -106,7 +106,8 @@
 	attack = null
 	target = null
 	change_equipment = null
-	attached_mech.remove_occupant(attacker)
+	if(attached_mech != null)
+		attached_mech.remove_occupant(attacker)
 	qdel(attacker)
 	return ..()
 

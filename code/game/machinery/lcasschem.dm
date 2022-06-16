@@ -176,7 +176,7 @@
 	var/intensity = 0
 	circuit = /obj/item/circuitboard/machine/bluespace
 
-/obj/machinery/chem/bluespace/proc/fuck(obj/item/reagent_containers/beaker)
+/obj/machinery/chem/bluespace/proc/recombobulate(obj/item/reagent_containers/beaker)
 	beaker.reagents.chem_bluespaced = 1
 	src.on = 0
 	src.crystal_amt -= 300
@@ -196,7 +196,7 @@
 			visible_message("<span class='notice'>A green light shows on \the [src].</span>")
 			icon_state = "blue_on"
 			playsound(src, 'sound/machines/ping.ogg', 50, 0)
-			addtimer(CALLBACK(src, .proc/fuck, beaker), 60)
+			addtimer(CALLBACK(src, .proc/recombobulate, beaker), 60)
 	else
 		audible_message("<span class='notice'>\The [src] pings in fury: showing the empty reactor indicator!</span>")
 		playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)

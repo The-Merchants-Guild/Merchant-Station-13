@@ -44,7 +44,7 @@
 
 	while(list_size < new_list_size)
 		list_size++
-		outputs += add_output_port("index [list_size]", list_options.value | PORT_TYPE_ANY)
+		outputs += add_output_port("index [list_size]", list_options.value || PORT_TYPE_ANY)
 
 	while(list_size > new_list_size)
 		list_size--

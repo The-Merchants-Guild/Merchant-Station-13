@@ -67,7 +67,7 @@ i
 	if(port == list_options)
 		var/new_datatype = list_options.value
 		input_list.set_datatype(PORT_TYPE_LIST(new_datatype))
-		for(var/datum/port/input/port_to_set as anything in entry_ports)
+		for(var/datum/port/output/port_to_set as anything in outputs)
 			port_to_set.set_datatype(new_datatype)
 
 /obj/item/circuit_component/spread/populate_ports()

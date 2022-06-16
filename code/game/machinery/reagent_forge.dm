@@ -16,13 +16,11 @@
 	light_range = 5
 	light_power = 1.5
 	light_color = LIGHT_COLOR_FIRE
-	var/operation = ""
 	var/datum/reagent/currently_forging //forge one mat at a time
 	var/processing = FALSE
-	var/efficiency = 1
-	var/datum/techweb/stored_research
 	var/list/currently_using = list()
 	var/trueamount = 0
+	var/timer = 0
 
 /obj/machinery/reagent_forge/examine(mob/user)
 	//go fuck yourself if you think I'm using a SIGNAL FOR FUCKING EXAMINING
@@ -59,6 +57,9 @@
 
 /obj/machinery/reagent_forge/interact(mob/user, special_state)
 	. = ..()
+	if(processing)
+		to_chat(user, span_danger("The machine is busy."))
+		return
 	var/action = tgui_alert(user, "What do you want to do?","Operate Reagent Forge", list("Create", "Dump"))
 	switch(action)
 		if("Create")
@@ -77,9 +78,13 @@
 				return FALSE
 			var/amount_needed = poopie.materials[/datum/material/custom] * amount
 			if(trueamount>=amount_needed)
+				visible_message(span_notice("The Forge starts processing your request."))
+				processing = TRUE
 				for(var/i in 1 to amount)
+					if(timer > world.time)
+						sleep(40) //this is funny, isn't it
 					if(poopie.build_path)
-						var/atom/A = new poopie.build_path(user.loc)
+						var/atom/A = new poopie.build_path(src.loc)
 						if(currently_forging)
 							if(istype(poopie, /datum/design/forge))
 								var/obj/item/forged/F = A
@@ -89,11 +94,14 @@
 									if(RR.type == currently_forging.type)
 										F.reagent_type = RR
 										F.assign_properties()
+										timer = world.time + 40
 										break
 									else
 										qdel(RR)
 					. = TRUE
 				trueamount -= amount_needed
+				processing = FALSE
+				playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 				update_icon()
 				return .
 			else

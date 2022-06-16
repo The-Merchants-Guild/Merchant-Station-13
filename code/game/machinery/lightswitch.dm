@@ -63,7 +63,6 @@
 /obj/machinery/light_switch/interact(mob/user)
 	. = ..()
 
-	playsound(src, 'sound/machines/buttons/lightswitch.ogg', 100, 0)
 	area.lightswitch = !area.lightswitch
 	area.update_appearance()
 
@@ -71,6 +70,7 @@
 		L.update_appearance()
 
 	area.power_change()
+	playsound(src, 'sound/machines/buttons/lightswitch.ogg', 100, 0)
 
 /obj/machinery/light_switch/power_change()
 	SHOULD_CALL_PARENT(FALSE)

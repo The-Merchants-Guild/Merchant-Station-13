@@ -1356,9 +1356,6 @@
 /// Sent from /obj/structure/industrial_lift/tram when it begins to travel. (obj/effect/landmark/tram/from_where, obj/effect/landmark/tram/to_where)
 #define COMSIG_TRAM_TRAVEL "tram_travel"
 
-/// Called in /obj/structure/moneybot/add_money(). (to_add)
-#define COMSIG_MONEYBOT_ADD_MONEY "moneybot_add_money"
-
 // Merger datum signals
 /// Called on the object being added to a merger group: (datum/merger/new_merger)
 #define COMSIG_MERGER_ADDING "comsig_merger_adding"

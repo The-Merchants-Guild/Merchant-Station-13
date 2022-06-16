@@ -283,6 +283,11 @@
 	id = "comp_select_query"
 	build_path = /obj/item/circuit_component/select
 
+/datum/design/component/list_spread
+	name = "List Spread Component"
+	id = "comp_list_spread"
+	build_path = /obj/item/circuit_component/spread
+
 /datum/design/component/pathfind
 	name = "Pathfinder"
 	id = "comp_pathfind"

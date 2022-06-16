@@ -247,6 +247,7 @@
 		"comp_reagents",
 		"comp_router",
 		"comp_select_query",
+		"comp_list_spread",
 		"comp_self",
 		"comp_set_variable_trigger",
 		"comp_soundemitter",

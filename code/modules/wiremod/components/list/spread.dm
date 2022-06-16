@@ -15,7 +15,7 @@
 	var/list/datum/port/output/outputs = list()
 
 	var/list_size = 0
-	var/default_list_size = 0
+	var/default_list_size = 1
 
 	var/max_list_size = 24
 
@@ -53,9 +53,21 @@
 		if("decrease")
 			set_list_size(list_size - 1)
 
+/obj/item/circuit_component/spread/Initialize()
+	. = ..()
+	input_list = add_input_port("List", PORT_TYPE_LIST(PORT_TYPE_ANY))
+
 /obj/item/circuit_component/spread/populate_ports()
 	set_list_size(default_list_size)
 
+/obj/item/circuit_component/list_literal/save_data_to_list(list/component_data)
+	. = ..()
+	component_data["list_size"] = list_size
+
+/obj/item/circuit_component/list_literal/load_data_from_list(list/component_data)
+	set_list_size(component_data["list_size"])
+
+	return ..()
 /obj/item/circuit_component/spread/input_received(datum/port/input/port)
 	. = ..()
 

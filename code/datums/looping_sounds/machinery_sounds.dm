@@ -121,7 +121,7 @@
 
 /datum/looping_sound/vendor
 	mid_sounds = list('sound/machines/vendmachine.ogg')
-	mid_length = 3.2 SECONDS
+	mid_length = 4.8 SECONDS
 	extra_range = -12
 	volume = 40
 	falloff_exponent = 4

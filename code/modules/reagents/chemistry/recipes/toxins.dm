@@ -358,6 +358,11 @@
 	required_temp = 430
 	centrifuge_recipe = TRUE
 
+/datum/chemical_reaction/isopropyl
+	results = list(/datum/reagent/consumable/ethanol/isopropyl = 5)
+	required_catalysts = list(/datum/reagent/aluminium = 1)
+	required_reagents = list(/datum/reagent/water = 6, /datum/reagent/carbon = 3)
+
 /datum/chemical_reaction/impalco
 	results = list(/datum/reagent/consumable/ethanol/impalco = 5)
 	required_reagents = list(/datum/reagent/toxin/aus = 2, /datum/reagent/consumable/ethanol = 3, /datum/reagent/drug/methamphetamine = 2)

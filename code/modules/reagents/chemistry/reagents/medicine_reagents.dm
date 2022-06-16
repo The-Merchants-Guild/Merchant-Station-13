@@ -1605,7 +1605,7 @@
 	description = "An extremely effective muscle stimulant and stamina restorer."
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	overdose_threshold = 40
+	overdose_threshold = 15
 
 /datum/reagent/medicine/superzine/on_mob_life(mob/living/M as mob)
 	if(prob(15))

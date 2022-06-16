@@ -27,10 +27,20 @@
 	. = ..()
 	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
 
-/datum/eldritch_knowledge/spell/cleave
-	name = "Blood Cleave"
-	gain_text = "At first I didn't understand these instruments of war, but the priest told me to use them regardless. Soon, he said, I would know them well."
-	desc = "Gives AOE spell that causes heavy bleeding and blood loss."
+/datum/eldritch_knowledge/summon/rusty
+	name = "Rusted Ritual"
+	gain_text = "I combined my principle of hunger with my desire for corruption. And the Rusted Hills called my name."
+	desc = "You can now summon a Rust Walker by transmutating a vomit pool, a severed head and a book."
 	cost = 1
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
-	next_knowledge = list(/datum/eldritch_knowledge/spell/entropic_plume,/datum/eldritch_knowledge/spell/flame_birth)
+	required_atoms = list(/obj/effect/decal/cleanable/vomit,/obj/item/book,/obj/item/bodypart/head)
+	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/rust_spirit
+	next_knowledge = list(/datum/eldritch_knowledge/spell/voidpull,/datum/eldritch_knowledge/spell/entropic_plume)
+
+/datum/eldritch_knowledge/summon/rusty/cleanup_atoms(list/selected_atoms)
+	var/obj/item/bodypart/head/ritual_head = locate() in selected_atoms
+	if(!ritual_head)
+		CRASH("[type] required a head bodypart, yet did not have one in selected_atoms when it reached cleanup_atoms.")
+
+	// Spill out any brains or stuff before we delete it.
+	ritual_head.drop_organs()
+	return ..()

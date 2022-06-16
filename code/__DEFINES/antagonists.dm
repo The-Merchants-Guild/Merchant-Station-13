@@ -68,6 +68,13 @@
 #define PATH_RUST "Rust"
 #define PATH_FLESH "Flesh"
 #define PATH_VOID "Void"
+#define PATH_BLADE "Blade"
+
+/// Checks if the passed mob can become a heretic ghoul.
+/// - Must be a human (type, not species)
+/// - Skeletons cannot be husked (they are snowflaked instead of having a trait)
+/// - Monkeys are monkeys, not quite human (balance reasons)
+#define IS_VALID_GHOUL_MOB(mob) (ishuman(mob) && !isskeleton(mob) && !ismonkey(mob))
 
 /// Forces the blob to place the core where they currently are, ignoring any checks.
 #define BLOB_FORCE_PLACEMENT -1

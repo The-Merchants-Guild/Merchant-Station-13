@@ -16,10 +16,17 @@
 	inhand_icon_state = "mansus"
 	catchphrase = "R'CH T'H TR'TH!"
 	on_use_sound = 'sound/items/welder.ogg'
+	//For the Sharpening Edge Path in Blade
+	var/obj/item/sharpener/eldritch/eldritch_whetstone = new()
 
 /obj/item/melee/touch_attack/mansus_fist/ignition_effect(atom/to_light, mob/user)
 	. = span_notice("[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with eldritch energies. Fucking badass!")
 	use_charge(user)
+
+//Signal for the Sharpening Edge gets the Listener from /datum/eldritch_knowledge/proc/on_gain(mob/user)
+/obj/item/melee/touch_attack/mansus_fist/attackby(obj/item/I, mob/user, params)
+	if(SEND_SIGNAL(user, COMSIG_HERETIC_BLADE_MANIPULATION, src) & COMPONENT_SHARPEN)
+		eldritch_whetstone.activate(user, I)
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag || !isliving(target) || !IS_HERETIC(user) || target == user)

@@ -13,6 +13,9 @@
 	#define COMPONENT_USE_CHARGE (1<<0)
 
 /// From /obj/item/melee/sickly_blade/afterattack (with proximity) : (mob/living/source, mob/living/target)
+#define COMSIG_HERETIC_BLADE_MANIPULATION "manipulate_blade"
+	#define COMPONENT_SHARPEN (1<<0)
+/// From /obj/item/melee/sickly_blade/afterattack (with proximity) : (mob/living/source, mob/living/target)
 #define COMSIG_HERETIC_BLADE_ATTACK "blade_attack"
 /// From /obj/item/melee/sickly_blade/afterattack (without proximity) : (mob/living/source, mob/living/target)
 #define COMSIG_HERETIC_RANGED_BLADE_ATTACK "ranged_blade_attack"

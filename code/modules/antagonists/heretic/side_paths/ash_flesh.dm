@@ -3,7 +3,10 @@
 	gain_text = "Piercing eyes, guide me through the mundane."
 	desc = "Allows you to craft thermal vision amulet by transmutating eyes with a glass shard."
 	cost = 1
-	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
+	next_knowledge = list(
+		/datum/eldritch_knowledge/spell/ashen_shift,
+		/datum/eldritch_knowledge/limited_amount/flesh_ghoul
+		)
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/shard)
 	result_atoms = list(/obj/item/clothing/neck/eldritch_amulet)
 
@@ -35,3 +38,12 @@
 	required_atoms = list(/obj/effect/decal/cleanable/ash,/obj/item/bodypart/head,/obj/item/book)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/ash_spirit
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/flame_birth)
+
+/datum/eldritch_knowledge/summon/ashy/cleanup_atoms(list/selected_atoms)
+	var/obj/item/bodypart/head/ritual_head = locate() in selected_atoms
+	if(!ritual_head)
+		CRASH("[type] required a head bodypart, yet did not have one in selected_atoms when it reached cleanup_atoms.")
+
+	// Spill out any brains or stuff before we delete it.
+	ritual_head.drop_organs()
+	return ..()

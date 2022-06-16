@@ -17,7 +17,13 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	name = "Break of Dawn"
 	desc = "Starts your journey in the Mansus. Allows you to select a target using a living heart on a transmutation rune."
 	gain_text = "Another day at a meaningless job. You feel a shimmer around you, as a realization of something strange in your backpack unfolds. You look at it, unknowingly opening a new chapter in your life."
-	next_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh,/datum/eldritch_knowledge/base_void)
+	next_knowledge = list(
+		/datum/eldritch_knowledge/starting/base_ash,
+		/datum/eldritch_knowledge/starting/base_blade,
+		/datum/eldritch_knowledge/starting/base_flesh,
+		/datum/eldritch_knowledge/starting/base_rust,
+		/datum/eldritch_knowledge/starting/base_void,
+		)
 	cost = 0
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
 	required_atoms = list(/obj/item/living_heart)
@@ -85,7 +91,11 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	desc = "Allows you to create additional living hearts, using a heart, a pool of blood and a poppy. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you an additional charge in the book."
 	gain_text = "The Gates of Mansus open up to your mind."
 	cost = 0
-	required_atoms = list(/obj/item/organ/heart,/obj/effect/decal/cleanable/blood,/obj/item/food/grown/poppy)
+	required_atoms = list(
+		/obj/item/organ/heart = 1,
+		/obj/effect/decal/cleanable/blood = 1,
+		/obj/item/food/grown/poppy = 1
+		)
 	result_atoms = list(/obj/item/living_heart)
 	route = PATH_START
 
@@ -94,6 +104,11 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	desc = "Allows you to create a spare Codex Cicatrix if you have lost one, using a bible, human skin, a pen and a pair of eyes."
 	gain_text = "Their hand is at your throat, yet you see Them not."
 	cost = 0
-	required_atoms = list(/obj/item/organ/eyes,/obj/item/stack/sheet/animalhide/human,/obj/item/storage/book/bible,/obj/item/pen)
+	required_atoms = list(
+		/obj/item/organ/eyes = 1,
+		/obj/item/stack/sheet/animalhide/human = 1,
+		/obj/item/storage/book/bible = 1,
+		/obj/item/pen = 1
+		)
 	result_atoms = list(/obj/item/forbidden_book/ritual)
 	route = PATH_START

@@ -1,12 +1,23 @@
-/datum/eldritch_knowledge/base_rust
+/datum/eldritch_knowledge/starting/base_rust
 	name = "Blacksmith's Tale"
 	desc = "Opens up the Path of Rust to you. Allows you to transmute a kitchen knife, or its derivatives, with any trash item into a Rusty Blade."
 	gain_text = "'Let me tell you a story', said the Blacksmith, as he gazed deep into his rusty blade."
-	banned_knowledge = list(/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh,/datum/eldritch_knowledge/final/ash_final,/datum/eldritch_knowledge/final/flesh_final,/datum/eldritch_knowledge/final/void_final,/datum/eldritch_knowledge/base_void)
+	banned_knowledge = list(
+		/datum/eldritch_knowledge/starting/base_flesh,
+		/datum/eldritch_knowledge/starting/base_ash,
+		/datum/eldritch_knowledge/starting/base_void,
+		/datum/eldritch_knowledge/starting/base_blade,
+		/datum/eldritch_knowledge/final/flesh_final,
+		/datum/eldritch_knowledge/final/ash_final,
+		/datum/eldritch_knowledge/final/void_final,
+		/datum/eldritch_knowledge/final/blade_final,
+	)
 	next_knowledge = list(/datum/eldritch_knowledge/rust_fist)
-	required_atoms = list(/obj/item/kitchen/knife,/obj/item/trash)
+	required_atoms = list(
+		/obj/item/kitchen/knife = 1,
+		/obj/item/trash = 1
+		)
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
-	cost = 1
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/rust_fist
@@ -48,26 +59,13 @@
 
 	mark.on_effect()
 
-/datum/eldritch_knowledge/spell/area_conversion
-	name = "Agressive Spread"
-	desc = "Spreads rust to nearby surfaces. Already rusted surfaces are destroyed."
-	gain_text = "All wise men know well not to touch the Bound King."
-	cost = 1
-	spell_to_add = /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
-	next_knowledge = list(
-		/datum/eldritch_knowledge/rust_blade_upgrade,
-		/datum/eldritch_knowledge/curse/corrosion,
-		/datum/eldritch_knowledge/crucible
-	)
-	route = PATH_RUST
-
 /datum/eldritch_knowledge/rust_regen
 	name = "Leeching Walk"
 	desc = "Passively heals you and provides stun resistance when you are on rusted tiles."
 	gain_text = "The strength was unparalleled, unnatural. The Blacksmith was smiling."
 	cost = 1
 	next_knowledge = list(
-		/datum/eldritch_knowledge/rust_mark,
+		/datum/eldritch_knowledge/mark/rust_mark,
 		/datum/eldritch_knowledge/armor,
 		/datum/eldritch_knowledge/essence,
 	)
@@ -115,45 +113,47 @@
 	source.adjustStaminaLoss(-2)
 	source.AdjustAllImmobility(-5)
 
-
-/datum/eldritch_knowledge/rust_mark
+/datum/eldritch_knowledge/mark/rust_mark
 	name = "Mark of Rust"
 	desc = "Your Mansus Grasp now applies the Mark of Rust on hit. Attack the afflicted with your Sickly Blade to detonate the mark. Upon detonation, the Mark of Rust has a chance to deal between 0 to 200 damage to 75% of your enemy's held items."
 	gain_text = "Rusted Hills help those in dire need at a cost."
-	cost = 2
+	banned_knowledge = list(
+		/datum/eldritch_knowledge/mark/flesh_mark,
+		/datum/eldritch_knowledge/mark/ash_mark,
+		/datum/eldritch_knowledge/mark/void_mark,
+		/datum/eldritch_knowledge/mark/blade_mark,
+	)
 	next_knowledge = list(/datum/eldritch_knowledge/spell/area_conversion)
-	banned_knowledge = list(/datum/eldritch_knowledge/ash_mark,/datum/eldritch_knowledge/flesh_mark,/datum/eldritch_knowledge/void_mark)
+	route = PATH_RUST
+	mark_type = /datum/status_effect/eldritch/rust
+
+/datum/eldritch_knowledge/spell/area_conversion
+	name = "Agressive Spread"
+	desc = "Spreads rust to nearby surfaces. Already rusted surfaces are destroyed."
+	gain_text = "All wise men know well not to touch the Bound King."
+	cost = 1
+	spell_to_add = /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
+	next_knowledge = list(
+		/datum/eldritch_knowledge/blade_upgrade/rust,
+		/datum/eldritch_knowledge/curse/corrosion,
+		/datum/eldritch_knowledge/crucible
+	)
 	route = PATH_RUST
 
-/datum/eldritch_knowledge/rust_mark/on_gain(mob/user)
-	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, .proc/on_mansus_grasp)
-
-/datum/eldritch_knowledge/rust_mark/on_lose(mob/user)
-	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
-
-/datum/eldritch_knowledge/rust_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
-	SIGNAL_HANDLER
-
-	target.apply_status_effect(/datum/status_effect/eldritch/rust)
-
-/datum/eldritch_knowledge/rust_blade_upgrade
+/datum/eldritch_knowledge/blade_upgrade/rust
 	name = "Toxic Blade"
 	gain_text = "The Blade will guide you through the flesh, should you let it."
 	desc = "Your blade of choice will now poison your enemies on hit."
-	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/spell/entropic_plume)
-	banned_knowledge = list(/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/void_blade_upgrade)
+	banned_knowledge = list(
+		/datum/eldritch_knowledge/blade_upgrade/flesh,
+		/datum/eldritch_knowledge/blade_upgrade/ash,
+		/datum/eldritch_knowledge/blade_upgrade/void,
+		/datum/eldritch_knowledge/blade_upgrade/blade,
+	)
 	route = PATH_RUST
 
-/datum/eldritch_knowledge/rust_blade_upgrade/on_gain(mob/user)
-	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, .proc/on_eldritch_blade)
-
-/datum/eldritch_knowledge/rust_blade_upgrade/on_lose(mob/user)
-	UnregisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK)
-
-/datum/eldritch_knowledge/rust_blade_upgrade/proc/on_eldritch_blade(mob/living/user, mob/living/target)
-	SIGNAL_HANDLER
-
+/datum/eldritch_knowledge/blade_upgrade/rust/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	// No user == target check here, cause it's technically good for the heretic?
 	target.reagents?.add_reagent(/datum/reagent/eldritch, 5)
 
@@ -163,7 +163,11 @@
 	gain_text = "Messengers of Hope, fear the Rustbringer!"
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
-	next_knowledge = list(/datum/eldritch_knowledge/final/rust_final,/datum/eldritch_knowledge/spell/cleave,/datum/eldritch_knowledge/summon/rusty)
+	next_knowledge = list(
+		/datum/eldritch_knowledge/final/rust_final,
+		/datum/eldritch_knowledge/summon/rusty,
+		/datum/eldritch_knowledge/rifle,
+		)
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/final/rust_final
@@ -176,8 +180,6 @@
 	gain_text = "Champion of rust. Corruptor of steel. Fear the dark, for the RUSTBRINGER has come! \
 		The Blacksmith forges ahead! Rusted Hills, CALL MY NAME! WITNESS MY ASCENSION!"
 	route = PATH_RUST
-	cost = 3
-	required_atoms = list(/mob/living/carbon/human)
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
 	/// A static list of traits we give to the heretic when on rust.

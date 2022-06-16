@@ -71,6 +71,7 @@
 	STOP_PROCESSING(SSprocessing, src)
 
 	on_death()
+	UnregisterSignal(owner, COMSIG_HERETIC_BLADE_MANIPULATION)
 
 	return ..()
 
@@ -218,6 +219,20 @@
 	return researched_knowledge
 
 ////////////////
+//   Summon   //
+////////////////
+
+/datum/objective/heretic_summon
+	name = "summon monsters"
+	target_amount = 2
+	explanation_text = "Summon 2 monsters from the Mansus into this realm."
+	/// The total number of summons the objective owner has done
+	var/num_summoned = 0
+
+/datum/objective/heretic_summon/check_completion()
+	return completed || (num_summoned >= target_amount)
+
+////////////////
 // Objectives //
 ////////////////
 
@@ -252,7 +267,7 @@
 	. = ..()
 	.["Equip Cultist"] = CALLBACK(src, .proc/equip_cultist)
 	.["Add Heart Target (Marked Mob)"] = CALLBACK(src, .proc/equip_target_as_sacrifice)
-	.["Add Points"] = CALLBACK(src, .proc/add_points)
+	.["Give Knowledge Points"] = CALLBACK(src, .proc/add_points)
 
 
 /*
@@ -294,7 +309,7 @@
 	if(!add_num || QDELETED(src))
 		return
 
-	. += ecult_give_item(/obj/item/forbidden_book, heretic, FALSE, add_num)
+	. += ecult_give_item(/obj/item/forbidden_book/ritual, heretic, FALSE, add_num)
 
 /datum/antagonist/heretic/proc/ecult_give_item(obj/item/item_path, mob/living/carbon/human/heretic, possible_target, add_points)
 	var/list/slots = list(
@@ -310,7 +325,7 @@
 		heart.target = possible_target
 		where = heretic.equip_in_one_of_slots(heart, slots)
 	else if(add_points)
-		var/obj/item/forbidden_book/book = new()
+		var/obj/item/forbidden_book/ritual/book = new()
 		book.charge += add_points
 		where = heretic.equip_in_one_of_slots(book, slots)
 	else

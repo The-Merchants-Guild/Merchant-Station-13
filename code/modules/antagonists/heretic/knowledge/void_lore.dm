@@ -1,22 +1,24 @@
-/datum/eldritch_knowledge/base_void
+/datum/eldritch_knowledge/starting/base_void
 	name = "Glimmer of Winter"
 	desc = "Opens up the path of void to you. Allows you to transmute a knife in a sub-zero temperature into a void blade."
 	gain_text = "I feel a shimmer in the air, atmosphere around me gets colder. I feel my body realizing the emptiness of existance. Something's watching me"
 	banned_knowledge = list(
-		/datum/eldritch_knowledge/base_ash,
-		/datum/eldritch_knowledge/base_flesh,
-		/datum/eldritch_knowledge/final/ash_final,
+		/datum/eldritch_knowledge/starting/base_flesh,
+		/datum/eldritch_knowledge/starting/base_ash,
+		/datum/eldritch_knowledge/starting/base_rust,
+		/datum/eldritch_knowledge/starting/base_blade,
 		/datum/eldritch_knowledge/final/flesh_final,
-		/datum/eldritch_knowledge/base_rust,
-		/datum/eldritch_knowledge/final/rust_final
+		/datum/eldritch_knowledge/final/ash_final,
+		/datum/eldritch_knowledge/final/rust_final,
+		/datum/eldritch_knowledge/final/blade_final,
 	)
 	next_knowledge = list(/datum/eldritch_knowledge/void_grasp)
-	required_atoms = list(/obj/item/kitchen/knife)
+	required_atoms = list(/obj/item/kitchen/knife = 1)
 	result_atoms = list(/obj/item/melee/sickly_blade/void)
 	cost = 1
 	route = PATH_VOID
 
-/datum/eldritch_knowledge/base_void/recipe_snowflake_check(list/atoms, loc)
+/datum/eldritch_knowledge/starting/base_void/recipe_snowflake_check(list/atoms, loc)
 	var/turf/open/turfie = loc
 	if(turfie.GetTemperature() > T0C)
 		return FALSE
@@ -64,7 +66,11 @@
 	gain_text = "I found a thread of cold breath. It lead me to a strange shrine, all made of crystals. Translucent and white, a depiction of a nobleman stood before me."
 	cost = 1
 	route = PATH_VOID
-	next_knowledge = list(/datum/eldritch_knowledge/void_cloak,/datum/eldritch_knowledge/void_mark,/datum/eldritch_knowledge/armor)
+	next_knowledge = list(
+		/datum/eldritch_knowledge/void_cloak,
+		/datum/eldritch_knowledge/mark/void_mark,
+		/datum/eldritch_knowledge/limited_amount/risen_corpse,
+		)
 
 /datum/eldritch_knowledge/cold_snap/on_gain(mob/user)
 	ADD_TRAIT(user, TRAIT_RESISTCOLD, MAGIC_TRAIT)
@@ -74,29 +80,19 @@
 	REMOVE_TRAIT(user, TRAIT_RESISTCOLD, MAGIC_TRAIT)
 	REMOVE_TRAIT(user, TRAIT_NOBREATH, MAGIC_TRAIT)
 
-/datum/eldritch_knowledge/void_mark
+/datum/eldritch_knowledge/mark/void_mark
 	name = "Mark of Void"
 	gain_text = "A gust of wind? Maybe a shimmer in the air. Presence is overwhelming, my senses betrayed me, my mind is my enemy."
 	desc = "Your mansus grasp now applies mark of void status effect. To proc the mark, use your sickly blade on the marked. Mark of void when procced lowers the victims body temperature significantly."
-	cost = 2
-	next_knowledge = list(/datum/eldritch_knowledge/spell/void_phase)
 	banned_knowledge = list(
-		/datum/eldritch_knowledge/rust_mark,
-		/datum/eldritch_knowledge/ash_mark,
-		/datum/eldritch_knowledge/flesh_mark
+		/datum/eldritch_knowledge/mark/flesh_mark,
+		/datum/eldritch_knowledge/mark/ash_mark,
+		/datum/eldritch_knowledge/mark/rust_mark,
+		/datum/eldritch_knowledge/mark/blade_mark,
 	)
+	next_knowledge = list(/datum/eldritch_knowledge/spell/void_phase)
 	route = PATH_VOID
-
-/datum/eldritch_knowledge/void_mark/on_gain(mob/user)
-	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, .proc/on_mansus_grasp)
-
-/datum/eldritch_knowledge/void_mark/on_lose(mob/user)
-	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
-
-/datum/eldritch_knowledge/void_mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
-	SIGNAL_HANDLER
-
-	target.apply_status_effect(/datum/status_effect/eldritch/void)
+	mark_type = /datum/status_effect/eldritch/void
 
 /datum/eldritch_knowledge/spell/void_phase
 	name = "Void Phase"
@@ -106,43 +102,35 @@
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_blink
 	next_knowledge = list(
 		/datum/eldritch_knowledge/rune_carver,
-		/datum/eldritch_knowledge/crucible,
-		/datum/eldritch_knowledge/void_blade_upgrade
+		/datum/eldritch_knowledge/spell/blood_siphon,
+		/datum/eldritch_knowledge/blade_upgrade/void,
 	)
 	route = PATH_VOID
 
-/datum/eldritch_knowledge/void_blade_upgrade
+/datum/eldritch_knowledge/blade_upgrade/void
 	name = "Seeking blade"
 	gain_text = "Fleeting memories, fleeting feet. I can mark my way with the frozen blood upon the snow. Covered and forgotten."
 	desc = "You can now use your blade on a distant marked target to move to them and attack them."
-	cost = 2
-	next_knowledge = list(/datum/eldritch_knowledge/spell/voidpull)
 	banned_knowledge = list(
-		/datum/eldritch_knowledge/ash_blade_upgrade,
-		/datum/eldritch_knowledge/flesh_blade_upgrade,
-		/datum/eldritch_knowledge/rust_blade_upgrade
+		/datum/eldritch_knowledge/blade_upgrade/flesh,
+		/datum/eldritch_knowledge/blade_upgrade/ash,
+		/datum/eldritch_knowledge/blade_upgrade/rust,
+		/datum/eldritch_knowledge/blade_upgrade/blade,
 	)
+	next_knowledge = list(/datum/eldritch_knowledge/spell/voidpull)
 	route = PATH_VOID
 
-/datum/eldritch_knowledge/void_blade_upgrade/on_gain(mob/user)
-	RegisterSignal(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK, .proc/on_ranged_eldritch_blade)
-
-/datum/eldritch_knowledge/void_blade_upgrade/on_lose(mob/user)
-	UnregisterSignal(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK)
-
-/datum/eldritch_knowledge/void_blade_upgrade/proc/on_ranged_eldritch_blade(mob/living/user, mob/living/target)
-	SIGNAL_HANDLER
+/datum/eldritch_knowledge/blade_upgrade/void/do_ranged_effects(mob/living/user, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(!target.has_status_effect(/datum/status_effect/eldritch))
 		return
 
 	var/dir = angle2dir(dir2angle(get_dir(user, target)) + 180)
 	user.forceMove(get_step(target, dir))
 
-	INVOKE_ASYNC(src, .proc/follow_up_attack, user, target)
+	INVOKE_ASYNC(src, .proc/follow_up_attack, user, target, blade)
 
-/datum/eldritch_knowledge/void_blade_upgrade/proc/follow_up_attack(mob/living/user, mob/living/target)
-	var/obj/item/melee/sickly_blade/blade = user.get_active_held_item()
-	blade?.melee_attack_chain(user, target)
+/datum/eldritch_knowledge/blade_upgrade/void/proc/follow_up_attack(mob/living/user, mob/living/target, obj/item/melee/sickly_blade/blade)
+	blade.melee_attack_chain(user, target)
 
 /datum/eldritch_knowledge/spell/voidpull
 	name = "Void Pull"
@@ -152,8 +140,8 @@
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/void_pull
 	next_knowledge = list(
 		/datum/eldritch_knowledge/final/void_final,
-		/datum/eldritch_knowledge/spell/blood_siphon,
-		/datum/eldritch_knowledge/summon/rusty
+		/datum/eldritch_knowledge/spell/cleave,
+		/datum/eldritch_knowledge/summon/maid_in_mirror,
 	)
 	route = PATH_VOID
 
@@ -161,8 +149,6 @@
 	name = "Waltz at the End of Time"
 	desc = "Bring 3 corpses onto the transmutation rune. After you finish the ritual you will automatically silence people around you and will summon a snow storm around you."
 	gain_text = "The world falls into darkness. I stand in an empty plane, small flakes of ice fall from the sky. Aristocrat stand before me, he motions to me. We will play a waltz to the whispers of dying reality, as the world is destroyed before our eyes."
-	cost = 3
-	required_atoms = list(/mob/living/carbon/human)
 	route = PATH_VOID
 	///soundloop for the void theme
 	var/datum/looping_sound/void_loop/sound_loop

@@ -213,7 +213,7 @@
 	if (href_list["open_bci"])
 		parent.attack_ghost(usr)
 
-datum/action/innate/bci_charge_action
+/datum/action/innate/bci_charge_action
 	name = "Check BCI Charge"
 	check_flags = NONE
 	icon_icon = 'icons/obj/power.dmi'

@@ -9,7 +9,7 @@
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	///Input list
-	var/datum/port/input/input_port
+	var/datum/port/input/input_list
 
 	///List of output ports
 	var/list/datum/port/output/outputs = list()
@@ -55,3 +55,17 @@
 
 /obj/item/circuit_component/spread/populate_ports()
 	set_list_size(default_list_size)
+
+/obj/item/circuit_component/spread/input_received(datum/port/input/port)
+	. = ..()
+
+	if(.)
+		return
+
+	for(var/i = 1 to list_size)
+		var/datum/port/output/oi = outputs[i]
+		if(length(input_list) < i)
+			oi.set_output(null)
+		else
+			oi.set_output(input_list[i])
+

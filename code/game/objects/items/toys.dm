@@ -1932,6 +1932,7 @@ GLOBAL_LIST_EMPTY(intento_players)
 
 /obj/item/toy/eldrich_book/update_icon()
 	icon_state = open ? "book_open" : "book"
+	..()
 
 /*
  * Fake tear

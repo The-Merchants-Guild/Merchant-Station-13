@@ -196,7 +196,8 @@
 	if(!chosen_item)
 		return FALSE
 
-	chosen_item.AddElement(/datum/element/eldritch_curse, CALLBACK(src, .proc/curse), CALLBACK(src, .proc/uncurse))
+	chosen_item.AddElement(/datum/element/eldritch_curse, timer, CALLBACK(src, .proc/curse), CALLBACK(src, .proc/uncurse))
+	to_chat(user, span_warning("[chosen_item] has been cursed with [name]"))
 
 	return TRUE
 

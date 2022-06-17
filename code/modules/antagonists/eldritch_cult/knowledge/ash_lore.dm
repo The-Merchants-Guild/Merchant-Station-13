@@ -137,7 +137,7 @@
 /datum/eldritch_knowledge/curse_item/corrosion
 	name = "Curse of Corrosion"
 	gain_text = "Cursed land, cursed man, cursed mind."
-	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a pool of blood, a heart, left arm and a right arm, and an item that the victim touched  with their bare hands."
+	desc = "Curse an item to inflict the curse of corrosion to whoever it touches it. The curse will inflict vomiting and major organ damage for 2 minutes. Using a wirecutter, a pool of blood, a heart and the item you want to curse."
 	cost = 1
 	required_atoms = list(/obj/item/wirecutters,/obj/effect/decal/cleanable/vomit,/obj/item/organ/heart)
 	next_knowledge = list(
@@ -157,7 +157,7 @@
 /datum/eldritch_knowledge/curse_item/paralysis
 	name = "Curse of Paralysis"
 	gain_text = "Corrupt their flesh, make them bleed."
-	desc = "Curse someone for 5 minutes of inability to walk. Sacrifice a knife, a pool of blood, a pair of legs, a hatchet and an item that the victim touched with their bare hands. "
+	desc = "Curse an item to inflict the curse of paralysis to whoever it touches it. The curse will make its victim unable to walk for 5 minutes. Sacrifice a pair of legs, a hatchet and the item you want to curse."
 	cost = 1
 	required_atoms = list(/obj/item/bodypart/l_leg,/obj/item/bodypart/r_leg,/obj/item/hatchet)
 	next_knowledge = list(/datum/eldritch_knowledge/mad_mask,/datum/eldritch_knowledge/summon/raw_prophet)

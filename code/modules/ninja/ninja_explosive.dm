@@ -29,6 +29,8 @@
 
 /obj/item/grenade/c4/ninja/detonate(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	//Since we already did the checks in afterattack, the denonator must be a ninja with the bomb objective.
 	if(!detonator)
 		return

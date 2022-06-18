@@ -123,6 +123,6 @@
 	mid_sounds = list('sound/machines/vendmachine.ogg')
 	mid_length = 4.8 SECONDS
 	extra_range = -12
-	volume = 20
+	volume = 50
 	falloff_exponent = 5
 	falloff_distance = 1

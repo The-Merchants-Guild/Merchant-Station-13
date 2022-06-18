@@ -1,5 +1,5 @@
 /obj/machinery/reagent_material_manipulator
-	name = "material manipulation machine"
+	name = "\proper the material manipulation machine"
 	desc = "A high tech machine that can both analyse material traits and combine material traits with each other."
 	icon_state = "circuit_imprinter"
 	icon = 'icons/obj/machines/research.dmi'
@@ -23,7 +23,7 @@
 		return ..()
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>You can't load the [I] while it's opened!</span>")
+		to_chat(user, span_warning("You can't load the [I] while it's opened!"))
 		return
 
 	var/obj/item/forged/R //since all forged weapons have the same vars/procs this lets it compile as the actual type is assigned at runtime during this proc
@@ -36,21 +36,21 @@
 				var/datum/reagent/S = X
 
 				if(!S.can_forge)
-					to_chat(user, "<span class='warning'>[S] cannot be added!</span>")
+					to_chat(user, span_warning("[S] cannot be added!"))
 					return
 
 				if(synthesis && S.type != synthesis.type)
-					to_chat(user, "<span class='warning'>[src] already has a reagent of a different type, remove it before adding something else!</span>")
+					to_chat(user, span_warning("[src] already has a reagent of a different type, remove it before adding something else!"))
 					return
 
 				if(W.reagents.total_volume && reagents.total_volume < reagents.maximum_volume)
-					to_chat(user, "You add [S] to the machine!")
+					to_chat(user, span_notice("You add [S] to the machine."))
 					W.reagents.trans_to(src, W.reagents.total_volume)
 					for(var/RS in reagents.reagent_list)
 						synthesis = RS
 					return
 		else
-			to_chat(user, "<span class='warning'>[src] only accepts one type of reagent at a time!</span>")
+			to_chat(user, span_warning("[src] only accepts one type of reagent at a time!"))
 			return
 
 
@@ -71,7 +71,7 @@
 			return
 
 		if(!F.caliber)
-			to_chat(user, "<span class='warning'>[I] needs to be shaped to a caliber before it can be added!</span>")
+			to_chat(user, span_warning("[I] needs to be shaped to a caliber before it can be added!"))
 			return
 
 		var/obj/projectile/bullet/forged/FB = F.loaded_projectile
@@ -79,7 +79,7 @@
 		is_bullet = TRUE
 
 	if(loaded)
-		to_chat(user, "<span class='warning'>[src] is full!</span>")
+		to_chat(user, span_warning("[src] is full!"))
 		return
 
 	if(R && R.reagent_type)//we move it out of their hands and store it as a 'ghost' object
@@ -115,7 +115,7 @@
 
 /obj/machinery/reagent_material_manipulator/interact(mob/user)
 	. = ..()
-	var/warning = tgui_alert(user, "How would you like to operate the machine?","Operate Reagent Manipulator", list("Eject Weapon", "Flash freeze reagents", "Add Trait",))
+	var/warning = tgui_alert(user, "How would you like to operate the machine?","Operate Reagent Manipulator", list("Eject Weapon", "Flash freeze reagents", "Add Trait"))
 	switch(warning)
 		if("Eject Weapon")
 			if(loaded)
@@ -123,7 +123,7 @@
 				loaded.invisibility = initial(loaded.invisibility)
 				loaded.mouse_opacity = initial(loaded.mouse_opacity)
 				loaded.anchored = initial(loaded.anchored)
-				to_chat(usr, "<span class='notice'>You eject [loaded]</span>")
+				to_chat(usr, span_notice("You eject [loaded]."))
 				loaded = null
 				reagent_analyse = null
 				special_traits = null
@@ -139,7 +139,7 @@
 				Sr.name = "solidified [synthesis.name]"
 				Sr.add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 				Sr.color = synthesis.color
-				to_chat(usr, "<span class='notice'>[synthesis] is flash frozen and dispensed out of the machine in the form of a solid bar!</span>")
+				to_chat(usr, span_notice("[synthesis] is flash frozen and dispensed out of the machine in the form of a solid bar!"))
 				synthesis = null
 				reagents.clear_reagents()
 				return TRUE
@@ -147,15 +147,15 @@
 		if("Add Trait")
 			if(loaded && synthesis && reagent_analyse)
 				if(reagents.total_volume < 50)
-					to_chat(usr, "<span class='warning'>You need at least [SPECIAL_TRAIT_ADD_COST] units of [synthesis] to add a trait!</span>")
+					to_chat(usr, span_warning("You need at least [SPECIAL_TRAIT_ADD_COST] units of [synthesis] to add a trait!"))
 					return
 
 				if(analyse_only)
-					to_chat(usr, "<span class='warning'>The machine is locked in analyse only mode, perhaps you are trying to modify the traits of a reagent directly?</span>")
+					to_chat(usr, span_warning("The machine is locked in analyse only mode, perhaps you are trying to modify the traits of a reagent directly?"))
 					return
 
 				if(LAZYLEN(special_traits) >= SPECIAL_TRAIT_MAXIMUM)
-					to_chat(usr, "<span class='warning'>[loaded] has too many special traits already!</span>")
+					to_chat(usr, span_warning("[loaded] has too many special traits already!"))
 					return
 
 				var/obj/item/forged/R
@@ -176,10 +176,10 @@
 				for(var/I in synthesis.special_traits)
 					var/datum/special_trait/D = new I
 					if(locate(D) in R.special_traits)
-						to_chat(usr, "<span class='warning'>[R] already has the [D] trait!</span>")
+						to_chat(usr, span_warning("[R] already has the [D] trait!"))
 					else
 						R.special_traits += D//doesn't work with lazyadd due to type mismatch (it checks for an explicitly initialized list)
 						R.speed += SPECIAL_TRAIT_ADD_SPEED_DEBUFF
 						D.on_apply(R, R.identifier)
 						reagents.remove_any(SPECIAL_TRAIT_ADD_COST)
-						to_chat(usr, "<span class='notice'>You add the trait [D] to [R]</span>")
+						to_chat(usr, span_notice("You add the trait [D] to [R]."))

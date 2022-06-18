@@ -20,7 +20,6 @@
 	var/processing = FALSE
 	var/list/currently_using = list()
 	var/trueamount = 0
-	var/timer = 0
 
 /obj/machinery/reagent_forge/examine(mob/user)
 	//go fuck yourself if you think I'm using a SIGNAL FOR FUCKING EXAMINING
@@ -36,12 +35,12 @@
 		if(R.reagent_type)
 			var/datum/reagent/RE = R.reagent_type
 			if(!initial(RE.can_forge))
-				to_chat(user, "<span class='warning'>[initial(RE.name)] cannot be forged!</span>")
+				to_chat(user, span_warning("[initial(RE.name)] cannot be forged!"))
 				return
 			if(!currently_forging || !currently_forging.type)
 				//OBSERVE NOW AS I DO SOMETHING **STUPID**
 				trueamount += R.amount*MINERAL_MATERIAL_AMOUNT
-				to_chat(user, "<span class='notice'>You add [R] to [src]</span>")
+				to_chat(user, span_notice("You add [R] to [src]"))
 				qdel(R)
 				currently_forging = new R.reagent_type.type
 				return
@@ -49,10 +48,10 @@
 			if(currently_forging && currently_forging.type && R.reagent_type.type == currently_forging.type)//preventing unnecessary references from being made
 				trueamount += R.amount*MINERAL_MATERIAL_AMOUNT
 				qdel(R)
-				to_chat(user, "<span class='notice'>You add [R] to [src]</span>")
+				to_chat(user, span_notice("You add [R] to [src]."))
 				return
 			else
-				to_chat(user, "<span class='notice'>[currently_forging] is currently being forged, either remove or use it before adding a different material</span>")//if null is currently being forged comes up i'm gonna scree
+				to_chat(user, span_notice("[currently_forging] is currently being forged, either remove or use it before adding a different material."))//if null is currently being forged comes up i'm gonna scree
 				return
 
 /obj/machinery/reagent_forge/interact(mob/user, special_state)
@@ -77,35 +76,16 @@
 			if(!loc)
 				return FALSE
 			var/amount_needed = poopie.materials[/datum/material/custom] * amount
-			if(trueamount>=amount_needed)
+			if(trueamount >= amount_needed)
 				visible_message(span_notice("The Forge starts processing your request."))
 				processing = TRUE
 				for(var/i in 1 to amount)
-					if(timer > world.time)
-						sleep(40) //this is funny, isn't it
-					if(poopie.build_path)
-						var/atom/A = new poopie.build_path(src.loc)
-						if(currently_forging)
-							if(istype(poopie, /datum/design/forge))
-								var/obj/item/forged/F = A
-								var/paths = subtypesof(/datum/reagent)
-								for(var/path in paths)
-									var/datum/reagent/RR = new path
-									if(RR.type == currently_forging.type)
-										F.reagent_type = RR
-										F.assign_properties()
-										timer = world.time + 40
-										break
-									else
-										qdel(RR)
-					. = TRUE
+					addtimer(CALLBACK(src, .proc/create_item, poopie, i == amount), (i-1) * 4 SECONDS)
 				trueamount -= amount_needed
-				processing = FALSE
-				playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
-				update_icon()
+				. = TRUE
 				return .
 			else
-				visible_message("<span class='warning'>The low material indicator flashes on [src]!</span>")
+				visible_message(span_warning("The low material indicator flashes on [src]!"))
 				playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
 
 		if("Dump")
@@ -113,4 +93,24 @@
 				trueamount = 0
 				currently_forging = null
 			else
-				visible_message("<span class='warning'>Dump what, exactly? The Forge is empty!</span>")
+				visible_message(span_warning("Dump what, exactly? The Forge is empty!"))
+
+/obj/machinery/reagent_forge/proc/create_item(datum/design/forge/forged_design, lastitem)
+	if(forged_design.build_path)
+		var/atom/A = new forged_design.build_path(src.loc)
+		if(currently_forging)
+			if(istype(forged_design, /datum/design/forge))
+				var/obj/item/forged/F = A
+				var/paths = subtypesof(/datum/reagent)
+				for(var/path in paths)
+					var/datum/reagent/RR = new path
+					if(RR.type == currently_forging.type)
+						F.reagent_type = RR
+						F.assign_properties()
+						break
+					else
+						qdel(RR)
+	if(lastitem)
+		processing = FALSE
+		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
+		update_icon()

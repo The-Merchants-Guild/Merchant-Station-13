@@ -1,6 +1,6 @@
 /obj/machinery/reagent_sheet
 	name = "\improper reagent refinery"
-	desc = "Smelts and refines solid reagents into ingots- useable by the forge."
+	desc = "Smelts and refines solid reagents into ingots usable by the forge."
 	icon_state = "furnace"
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	density = TRUE

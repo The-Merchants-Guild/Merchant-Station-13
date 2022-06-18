@@ -80,7 +80,7 @@
 				visible_message(span_notice("The forge starts processing your request."))
 				processing = TRUE
 				for(var/i in 1 to amount)
-					addtimer(CALLBACK(src, .proc/create_item, poopie, i == amount), (i-1) * 4 SECONDS)
+					addtimer(CALLBACK(src, .proc/create_item, poopie, i == amount), i * 4 SECONDS)
 				trueamount -= amount_needed
 				. = TRUE
 				return .

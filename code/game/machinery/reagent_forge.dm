@@ -1,5 +1,5 @@
 /obj/machinery/reagent_forge
-	name = "material forge"
+	name = "\proper the material forge"
 	desc = "A bulky machine that can smelt practically any material in existence."
 	icon = 'icons/obj/3x3.dmi'
 	icon_state = "arc_forge"
@@ -25,9 +25,9 @@
 	//go fuck yourself if you think I'm using a SIGNAL FOR FUCKING EXAMINING
 	. = ..()
 	if(trueamount != 0)
-		. += "\n The Forge contains [span_blue("[trueamount]")] units of [span_blue("[currently_forging]")]"
+		. += "\n The forge contains [span_blue("[trueamount]")] units of [span_blue("[currently_forging]")]"
 	else
-		. += "\n The Forge is empty."
+		. += "\n The forge is empty."
 
 /obj/machinery/reagent_forge/attackby(obj/item/stack/sheet/mineral/reagent/I, mob/living/carbon/human/user)
 	if(istype(I, /obj/item/stack/sheet/mineral/reagent))
@@ -77,7 +77,7 @@
 				return FALSE
 			var/amount_needed = poopie.materials[/datum/material/custom] * amount
 			if(trueamount >= amount_needed)
-				visible_message(span_notice("The Forge starts processing your request."))
+				visible_message(span_notice("The forge starts processing your request."))
 				processing = TRUE
 				for(var/i in 1 to amount)
 					addtimer(CALLBACK(src, .proc/create_item, poopie, i == amount), (i-1) * 4 SECONDS)
@@ -93,7 +93,7 @@
 				trueamount = 0
 				currently_forging = null
 			else
-				visible_message(span_warning("Dump what, exactly? The Forge is empty!"))
+				visible_message(span_warning("Dump what, exactly? The forge is empty!"))
 
 /obj/machinery/reagent_forge/proc/create_item(datum/design/forge/forged_design, lastitem)
 	if(forged_design.build_path)

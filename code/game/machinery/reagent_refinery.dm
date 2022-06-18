@@ -1,5 +1,5 @@
 /obj/machinery/reagent_sheet
-	name = "Reagent Refinery"
+	name = "\improper reagent refinery"
 	desc = "Smelts and refines solid reagents into ingots- useable by the forge."
 	icon_state = "furnace"
 	icon = 'icons/obj/machines/mining_machines.dmi'
@@ -23,33 +23,33 @@
 /obj/machinery/reagent_sheet/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Outputting <b>[end_volume/20]</b> ingot(s) after <b>[work_time*0.1]</b> seconds of processing.</span>"
+		. += span_notice("The status display reads: Outputting <b>[end_volume/20]</b> ingot(s) after <b>[work_time*0.1]</b> seconds of processing.")
 
 /obj/machinery/reagent_sheet/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/food/solid_reagent) && !panel_open)
 		if(!is_operational && BROKEN)
-			to_chat(user, "<span class='warning'>[src] is broken!</span>")
+			to_chat(user, span_warning("[src] is broken!"))
 			return
 		if(working)
-			to_chat(user, "<span class='warning'>[src] is busy!</span>")
+			to_chat(user, span_warning("[src] is busy!"))
 			return
 		else
 			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
 			if(!isarea(a))
 				return
 			if(a.power_equip == 0) // There's no APC in this area, don't try to cheat power!
-				to_chat(user, "<span class='warning'>[src] seems to be powered off!</span>")
+				to_chat(user, span_warning("[src] seems to be powered off!"))
 				return
 			if(!user.transferItemToLoc(I,src) && !I.reagents)
-				to_chat(user, "<span class='alert'>[src] rejects [I]</span>")
+				to_chat(user, span_alert("[src] rejects [I]."))
 				return
 			working = I
 			var/chem_material = working.reagents.total_volume * end_volume
 			use_power = working.reagents.total_volume
 			updateUsrDialog()
-			addtimer(CALLBACK(src, /obj/machinery/reagent_sheet/proc/create_sheets, chem_material), work_time)
-			to_chat(user, "<span class='notice'>You add [working] to [src]</span>")
-			visible_message("<span class='notice'>[src] activates!</span>")
+			addtimer(CALLBACK(src, .proc/create_sheets, chem_material), work_time)
+			to_chat(user, span_notice("You add [working] to [src]."))
+			visible_message(span_notice("[src] activates!"))
 		if(!in_range(src, working) || !user.Adjacent(src))
 			return
 	else
@@ -71,7 +71,7 @@
 /obj/machinery/reagent_sheet/proc/create_sheets(amount)
 	var/sheet_amount = max(round(amount / MINERAL_MATERIAL_AMOUNT), 1)
 	var/obj/item/stack/sheet/mineral/reagent/RS = new(get_turf(src))
-	visible_message("<span class='notice'>[src] finishes processing</span>")
+	visible_message(span_notice("[src] finishes processing."))
 	playsound(src, 'sound/machines/ping.ogg', 50, 0)
 	RS.amount = sheet_amount
 	for(var/path in subtypesof(/datum/reagent))

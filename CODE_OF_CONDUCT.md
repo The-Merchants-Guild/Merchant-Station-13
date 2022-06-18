@@ -2,7 +2,7 @@
 
 ## Overview
 
-Having been encouraged by clients to adopt a written code of conduct, the Merchant Station 13 developers elected to govern their interactions with each other, with their clients, and with the larger Merchant Station 13 user community in accordance with the "instruments of good works" from chapter 4 of [https://en.wikipedia.org/wiki/Rule_of_Saint_Benedict|The Rule of St. Benedict]. This code of conduct has proven its mettle in thousands of diverse communities for over 1,500 years, and has served as a baseline for many civil law codes since the time of Charlemagne.
+Having been encouraged by clients to adopt a written code of conduct, the Merchant Station 13 developers elected to govern their interactions with each other, with their clients, and with the larger Merchant Station 13 user community in accordance with the "instruments of good works" from chapter 4 of [The Rule of St. Benedict](https://en.wikipedia.org/wiki/Rule_of_Saint_Benedict). This code of conduct has proven its mettle in thousands of diverse communities for over 1,500 years, and has served as a baseline for many civil law codes since the time of Charlemagne.
 
 This rule is strict, and none are able to comply perfectly. Grace is readily granted for minor transgressions. All are encouraged to follow this rule closely, as in so doing they may expect to live happier, healthier, and more productive lives. The entire rule is good and wholesome, and yet we make no enforcement of the more introspective aspects.
 

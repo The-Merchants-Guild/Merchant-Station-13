@@ -5,7 +5,8 @@
  */
 /obj/item/circuit_component/module
 	display_name = "Module"
-	display_desc = "A component that has other components within it, acting like a function. Use it in your hand to control the amount of input and output ports it has, as well as being able to access the integrated circuit contained inside."
+	desc = "A component that has other components within it, acting like a function. Use it in your hand to control the amount of input and output ports it has, as well as being able to access the integrated circuit contained inside."
+	category = "Abstract"
 
 	var/obj/item/integrated_circuit/module/internal_circuit
 
@@ -17,17 +18,47 @@
 
 	var/port_limit = 10
 
+	ui_buttons = list(
+		"edit" = "action"
+	)
+
 /obj/item/integrated_circuit/module
-	var/obj/item/circuit_component/attached_module
+	var/obj/item/circuit_component/module/attached_module
 
 /obj/item/integrated_circuit/module/ui_host(mob/user)
-	. = ..()
-	if(. == src)
-		return attached_module
+	if(attached_module)
+		return attached_module.ui_host()
+	return ..()
 
 /obj/item/integrated_circuit/module/set_display_name(new_name)
 	. = ..()
 	attached_module.display_name = new_name
+	attached_module.name = "module ([new_name])"
+
+/obj/item/integrated_circuit/module/load_component(type)
+	if(!attached_module)
+		return ..()
+
+	if(ispath(type, /obj/item/circuit_component/module_input))
+		return attached_module.input_component
+
+	if(ispath(type, /obj/item/circuit_component/module_output))
+		return attached_module.output_component
+
+	return ..()
+
+/obj/item/integrated_circuit/module/add_component(obj/item/circuit_component/to_add, mob/living/user)
+	if(to_add.circuit_flags & CIRCUIT_FLAG_REFUSE_MODULE)
+		balloon_alert(user, "doesn't fit into module!")
+		return
+	. = ..()
+	if(attached_module)
+		attached_module.circuit_size += to_add.circuit_size
+
+/obj/item/integrated_circuit/module/remove_component(obj/item/circuit_component/to_remove)
+	if(attached_module)
+		attached_module.circuit_size -= to_remove.circuit_size
+	return ..()
 
 /obj/item/integrated_circuit/module/Destroy()
 	attached_module = null
@@ -35,7 +66,7 @@
 
 /obj/item/circuit_component/module_input
 	display_name = "Input"
-	display_desc = "A component that receives data from the module it is attached to"
+	desc = "A component that receives data from the module it is attached to"
 
 	removable = FALSE
 
@@ -48,15 +79,14 @@
 
 /obj/item/circuit_component/module_output
 	display_name = "Output"
-	display_desc = "A component that outputs data to the module it is attached to."
+	desc = "A component that outputs data to the module it is attached to."
 
 	removable = FALSE
 
 	/// The currently attached module
 	var/obj/item/circuit_component/module/attached_module
 
-/obj/item/circuit_component/module_output/input_received(datum/port/input/port)
-	. = ..()
+/obj/item/circuit_component/module_output/pre_input_received(datum/port/input/port)
 	if(!port)
 		return
 	// We don't check the parent here because frankly, we don't care. We only sync our input with the module's output
@@ -64,23 +94,22 @@
 	if(!port_to_update)
 		CRASH("[port.type] doesn't have a linked port in [type]!")
 
-	port_to_update.set_output(port.input_value)
+	port_to_update.set_output(port.value)
 
-/obj/item/circuit_component/module/input_received(datum/port/input/port)
-	. = ..()
+/obj/item/circuit_component/module/pre_input_received(datum/port/input/port)
 	if(!port)
 		return
 	var/datum/port/output/port_to_update = linked_ports[port]
 	if(!port_to_update)
 		CRASH("[port.type] doesn't have a linked port in [type]!")
 
-	port_to_update.set_output(port.input_value)
+	port_to_update.set_output(port.value)
 
 /obj/item/circuit_component/module_output/Destroy()
 	attached_module = null
 	return ..()
 
-/obj/item/circuit_component/module/Initialize()
+/obj/item/circuit_component/module/Initialize(mapload)
 	. = ..()
 	internal_circuit = new(src)
 	internal_circuit.attached_module = src
@@ -88,7 +117,7 @@
 	input_component = new(internal_circuit)
 	input_component.attached_module = src
 	internal_circuit.add_component(input_component)
-	input_component.rel_x = 400
+	input_component.rel_x = 0
 	input_component.rel_y = 200
 
 	output_component = new(internal_circuit)
@@ -96,6 +125,49 @@
 	internal_circuit.add_component(output_component)
 	output_component.rel_x = 400
 	output_component.rel_y = 200
+
+/obj/item/circuit_component/module/save_data_to_list(list/component_data)
+	. = ..()
+	component_data["integrated_circuit"] = internal_circuit.convert_to_json()
+
+	var/list/input_data = list()
+	for(var/datum/port/input/input_port as anything in input_ports)
+		input_data += list(list(
+			"name" = input_port.name,
+			"type" = input_port.datatype,
+		))
+
+	var/list/output_data = list()
+	for(var/datum/port/output/output_port as anything in output_ports)
+		output_data += list(list(
+			"name" = output_port.name,
+			"type" = output_port.datatype,
+		))
+
+	component_data["input_ports"] = input_data
+	component_data["output_ports"] = output_data
+
+/obj/item/circuit_component/module/load_data_from_list(list/component_data)
+	. = ..()
+
+	var/list/input_ports = component_data["input_ports"]
+	for(var/list/port_data as anything in input_ports)
+		add_and_link_input_port(port_data["name"], port_data["type"])
+
+	var/list/output_ports = component_data["output_ports"]
+	for(var/list/port_data as anything in output_ports)
+		add_and_link_output_port(port_data["name"], port_data["type"])
+
+	if(component_data["integrated_circuit"])
+		internal_circuit.load_circuit_data(component_data["integrated_circuit"])
+
+/obj/item/circuit_component/module/proc/add_and_link_input_port(name, type)
+	var/datum/port/new_port = add_input_port(name, type)
+	linked_ports[new_port] = input_component.add_output_port(name, type)
+
+/obj/item/circuit_component/module/proc/add_and_link_output_port(name, type)
+	var/datum/port/new_port = output_component.add_input_port(name, type)
+	linked_ports[new_port] = add_output_port(name, type)
 
 /obj/item/circuit_component/module/add_to(obj/item/integrated_circuit/added_to)
 	. = ..()
@@ -155,7 +227,7 @@
 
 /obj/item/circuit_component/module/ui_static_data(mob/user)
 	. = list()
-	.["global_port_types"] = GLOB.wiremod_types
+	.["global_port_types"] = GLOB.wiremod_basic_types
 
 /obj/item/circuit_component/module/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/circuit_component))
@@ -177,8 +249,7 @@
 		if("add_input_port")
 			if(length(input_ports) > port_limit)
 				return
-			var/datum/port/new_port = add_input_port("Input Port", PORT_TYPE_ANY)
-			linked_ports[new_port] = input_component.add_output_port("Input Port", PORT_TYPE_ANY)
+			add_and_link_input_port("Input Port", PORT_TYPE_ANY)
 			. = TRUE
 		if("remove_input_port")
 			var/port_id = text2num(params["port_id"])
@@ -192,8 +263,7 @@
 		if("add_output_port")
 			if(length(output_ports) > port_limit)
 				return
-			var/datum/port/new_port = output_component.add_input_port("Output Port", PORT_TYPE_ANY)
-			linked_ports[new_port] = add_output_port("Output Port", PORT_TYPE_ANY)
+			add_and_link_output_port("Output Port", PORT_TYPE_ANY)
 			. = TRUE
 		if("remove_output_port")
 			var/port_id = text2num(params["port_id"])
@@ -226,7 +296,7 @@
 
 			if(action == "set_port_type")
 				var/type = params["port_type"]
-				if(!(type in GLOB.wiremod_types))
+				if(!(type in GLOB.wiremod_basic_types))
 					return
 				component_port.set_datatype(type)
 				internal_component_port.set_datatype(type)
@@ -243,6 +313,9 @@
 		SStgui.update_uis(internal_circuit)
 
 #undef WITHIN_RANGE
+
+/obj/item/circuit_component/module/ui_perform_action(mob/user, action)
+	interact(user)
 
 /obj/item/circuit_component/module/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

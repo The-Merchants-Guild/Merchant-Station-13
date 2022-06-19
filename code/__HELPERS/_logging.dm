@@ -69,6 +69,13 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 	if (CONFIG_GET(flag/log_admin))
 		WRITE_LOG(GLOB.world_game_log, "ADMIN: [text]")
 
+/// Logging for admin actions on or with circuits
+/proc/log_admin_circuit(text)
+	GLOB.admin_log.Add(text)
+	if(CONFIG_GET(flag/log_admin))
+		WRITE_LOG(GLOB.world_game_log, "ADMIN: CIRCUIT: [text]")
+
+
 /proc/log_admin_private(text)
 	GLOB.admin_log.Add(text)
 	if (CONFIG_GET(flag/log_admin))
@@ -82,7 +89,6 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 /proc/log_dsay(text)
 	if (CONFIG_GET(flag/log_adminchat))
 		WRITE_LOG(GLOB.world_game_log, "ADMIN: DSAY: [text]")
-
 
 /* All other items are public. */
 /proc/log_game(text)
@@ -244,6 +250,8 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 /proc/log_perf(list/perf_info)
 	. = "[perf_info.Join(",")]\n"
 	WRITE_LOG_NO_FORMAT(GLOB.perf_log, .)
+
+
 
 /**
  * Appends a tgui-related log entry. All arguments are optional.

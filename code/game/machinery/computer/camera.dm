@@ -58,7 +58,7 @@
 
 /obj/item/circuit_component/security_console_clickintercept
 	display_name = "Security Console Click Interceptor"
-	display_desc = "Allows the interception of mouse clicks on a camera console. Warning: may break space and time."
+	desc = "Allows the interception of mouse clicks on a camera console. Warning: may break space and time."
 	//circuit_flags = CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The GPS coordinates (no Z)

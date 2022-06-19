@@ -5,60 +5,30 @@
  */
 /obj/item/circuit_component/concat
 	display_name = "Concatenate"
-	display_desc = "A component that combines strings."
+	desc = "A component that combines strings."
+	category = "String"
 
 	/// The amount of input ports to have
 	var/input_port_amount = 4
+
+	var/list/datum/port/input/concat_ports = list()
 
 	/// The result from the output
 	var/datum/port/output/output
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/concat/populate_options()
-	var/static/component_options = list(2, 3, 4, 5, 6, 7, 8, 9, 10)
-	options = component_options
-
-/obj/item/circuit_component/concat/Initialize()
-	. = ..()
-
-	input_port_amount = current_option
+/obj/item/circuit_component/concat/populate_ports()
 	for(var/port_id in 1 to input_port_amount)
 		var/letter = ascii2text(text2ascii("A") + (port_id-1))
-		add_input_port(letter, PORT_TYPE_STRING)
+		concat_ports += add_input_port(letter, PORT_TYPE_STRING)
 
 	output = add_output_port("Output", PORT_TYPE_STRING)
 
-/obj/item/circuit_component/concat/Destroy()
-	output = null
-	return ..()
-
 /obj/item/circuit_component/concat/input_received(datum/port/input/port)
-	. = ..()
-
-	if(input_port_amount != current_option)
-		
-		if(input_port_amount > current_option)
-			while (input_port_amount > current_option)
-				var/o = input_ports[input_port_amount--]
-				remove_input_port(o)
-		
-		if(input_port_amount < current_option)
-			input_ports -= trigger_input
-			while (current_option > input_port_amount)
-				add_input_port(ascii2text(text2ascii("A") + input_port_amount++), PORT_TYPE_STRING)
-			input_ports += trigger_input //this ensures the Triggered output is always the last one
-
-		input_port_amount = current_option
-
-	if(.)
-		return
 
 	var/result = ""
-	var/list/ports = input_ports.Copy()
-	ports -= trigger_input
-
-	for(var/datum/port/input/input_port as anything in ports)
-		var/value = input_port.input_value
+	for(var/datum/port/input/input_port as anything in concat_ports)
+		var/value = input_port.value
 		if(isnull(value))
 			continue
 

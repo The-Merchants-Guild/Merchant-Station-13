@@ -1,6 +1,6 @@
 /obj/item/circuit_component/mech_movement
 	display_name = "Mech Movement"
-	display_desc = "The movement interface with an mech."
+	desc = "The movement interface with an mech."
 
 	/// Called when attack_hand is called on the shell.
 	var/obj/vehicle/sealed/mecha/attached_mech
@@ -70,7 +70,7 @@
 
 /obj/item/circuit_component/mech_equipment
 	display_name = "Mech Equipment"
-	display_desc = "The equipment interface with an mech."
+	desc = "The equipment interface with an mech."
 
 	/// Called when attack_hand is called on the shell.
 	var/obj/vehicle/sealed/mecha/combat/attached_mech
@@ -106,7 +106,8 @@
 	attack = null
 	target = null
 	change_equipment = null
-	attached_mech.remove_occupant(attacker)
+	if(attached_mech != null)
+		attached_mech.remove_occupant(attacker)
 	qdel(attacker)
 	return ..()
 
@@ -118,7 +119,7 @@
 	if(!attached_mech)
 		return
 	if(COMPONENT_TRIGGERED_BY(attack, port))
-		var/atom/tgt = target.input_value
+		var/atom/tgt = target.value
 		if(!tgt)
 			return
 		attached_mech.on_mouseclick(attacker, tgt, "")
@@ -142,4 +143,3 @@
 			else
 				attached_mech.selected = available_equipment[number+1]
 			return
-	

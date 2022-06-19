@@ -52,6 +52,10 @@
 	myarea = get_area(src)
 	LAZYADD(myarea.firealarms, src)
 
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/firealarm,
+	))
+
 	AddElement(/datum/element/atmos_sensitive, mapload)
 	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, .proc/check_security_level)
 
@@ -166,6 +170,7 @@
 	playsound(loc, 'goon/sound/machinery/FireAlarm.ogg', 75)
 	if(user)
 		log_game("[user] triggered a fire alarm at [COORD(src)]")
+	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_TRIGGER)
 
 /obj/machinery/firealarm/proc/reset(mob/user)
 	if(!is_operational)
@@ -174,6 +179,7 @@
 	area.firereset()
 	if(user)
 		log_game("[user] reset a fire alarm at [COORD(src)]")
+	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_RESET)
 
 /obj/machinery/firealarm/attack_hand(mob/user, list/modifiers)
 	if(buildstage != 2)

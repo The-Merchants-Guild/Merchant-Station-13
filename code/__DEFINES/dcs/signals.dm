@@ -950,6 +950,8 @@
 #define COMSIG_MOB_FIRED_GUN "mob_fired_gun"
 ///called in /obj/item/gun/process_fire (user, target, params, zone_override)
 #define COMSIG_GUN_FIRED "gun_fired"
+///called in /obj/item/gun/process_chamber (src)
+#define COMSIG_GUN_CHAMBER_PROCESSED "gun_chamber_processed"
 ///called in /obj/item/gun/ballistic/process_chamber (casing)
 #define COMSIG_CASING_EJECTED "casing_ejected"
 
@@ -1342,70 +1344,17 @@
 /// Sent on exoscan failure/manual interruption: ()
 #define COMSIG_EXOSCAN_INTERRUPTED "exoscan_interrupted"
 
-// Component signals
-/// From /datum/port/output/set_output: (output_value)
-#define COMSIG_PORT_SET_OUTPUT "port_set_output"
-/// From /datum/port/input/set_input: (input_value)
-#define COMSIG_PORT_SET_INPUT "port_set_input"
-/// Sent when a port calls disconnect(). From /datum/port/disconnect: ()
-#define COMSIG_PORT_DISCONNECT "port_disconnect"
-/// Sent on the output port when an input port registers on it: (datum/port/input/registered_port)
-#define COMSIG_PORT_OUTPUT_CONNECT "port_output_connect"
-
-/// Sent when a [/obj/item/circuit_component] is added to a circuit.
-#define COMSIG_CIRCUIT_ADD_COMPONENT "circuit_add_component"
-	/// Cancels adding the component to the circuit.
-	#define COMPONENT_CANCEL_ADD_COMPONENT (1<<0)
-
 // extensible machine
 /// Sent when a [/datum/component/extensible_machine] extends a machine.
 #define COMSIG_EXTEND_MACHINE "extend_machine"
 /// Sent when an extension created by [/datum/component/extensible_machine] is destroyed.
 #define COMSIG_EXTENSION_BROKE "extension_broke"
 
-/// Sent when a [/obj/item/circuit_component] is added to a circuit manually, by putting the item inside directly.
-/// Accepts COMPONENT_CANCEL_ADD_COMPONENT.
-#define COMSIG_CIRCUIT_ADD_COMPONENT_MANUALLY "circuit_add_component_manually"
-
-/// Sent when a circuit is removed from its shell
-#define COMSIG_CIRCUIT_SHELL_REMOVED "circuit_shell_removed"
-
-/// Sent to [/obj/item/circuit_component] when it is removed from a circuit. (/obj/item/integrated_circuit)
-#define COMSIG_CIRCUIT_COMPONENT_REMOVED "circuit_component_removed"
-
-/// Called when the integrated circuit's cell is set.
-#define COMSIG_CIRCUIT_SET_CELL "circuit_set_cell"
-
-/// Called when the integrated circuit is turned on or off.
-#define COMSIG_CIRCUIT_SET_ON "circuit_set_on"
-
-/// Called when the integrated circuit's shell is set.
-#define COMSIG_CIRCUIT_SET_SHELL "circuit_set_shell"
-
-/// Called when a circuit receives a 'click' or 'middle click' event from a shell
-#define COMSIG_CIRCUIT_CLICKED "circuit_clicked"
-#define COMSIG_CIRCUIT_MIDDLE_CLICKED "circuit_middle_clicked"
-
-/// Sent to an atom when a [/obj/item/usb_cable] attempts to connect to something. (/obj/item/usb_cable/usb_cable, /mob/user)
-#define COMSIG_ATOM_USB_CABLE_TRY_ATTACH "usb_cable_try_attach"
-	/// Attaches the USB cable to the atom. If the USB cables moves away, it will disconnect.
-	#define COMSIG_USB_CABLE_ATTACHED (1<<0)
-
-	/// Attaches the USB cable to a circuit. Producers of this are expected to set the usb_cable's
-	/// `attached_circuit` variable.
-	#define COMSIG_USB_CABLE_CONNECTED_TO_CIRCUIT (1<<1)
-
-	/// Cancels the attack chain, but without performing any other action.
-	#define COMSIG_CANCEL_USB_CABLE_ATTACK (1<<2)
-
 /// Sent from /obj/structure/industrial_lift/tram when its travelling status updates. (travelling)
 #define COMSIG_TRAM_SET_TRAVELLING "tram_set_travelling"
 
 /// Sent from /obj/structure/industrial_lift/tram when it begins to travel. (obj/effect/landmark/tram/from_where, obj/effect/landmark/tram/to_where)
 #define COMSIG_TRAM_TRAVEL "tram_travel"
-
-/// Called in /obj/structure/moneybot/add_money(). (to_add)
-#define COMSIG_MONEYBOT_ADD_MONEY "moneybot_add_money"
 
 // Merger datum signals
 /// Called on the object being added to a merger group: (datum/merger/new_merger)
@@ -1431,3 +1380,25 @@
 #define COMSIG_MIAMI_CURED_DISORDER "miami_cured"
 #define COMSIG_MIAMI_START_SPREE "miami_start_spree"
 #define COMSIG_MIAMI_END_SPREE "miami_end_spree"
+
+/// Called when a techweb design is researched (datum/design/researched_design, custom)
+#define COMSIG_TECHWEB_ADD_DESIGN "techweb_add_design"
+
+/// Called when a techweb design is removed (datum/design/removed_design, custom)
+#define COMSIG_TECHWEB_REMOVE_DESIGN "techweb_remove_design"
+
+/// Called when somebody passes through a scanner gate and it triggers
+#define COMSIG_SCANGATE_PASS_TRIGGER "scangate_pass_trigger"
+
+/// Called when somebody passes through a scanner gate and it does not trigger
+#define COMSIG_SCANGATE_PASS_NO_TRIGGER "scangate_pass_no_trigger"
+
+/// Called when something passes through a scanner gate shell
+#define COMSIG_SCANGATE_SHELL_PASS "scangate_shell_pass"
+
+/// from /obj/machinery/light_switch/set_lights(), sent to every switch in the area: (status)
+#define COMSIG_LIGHT_SWITCH_SET "light_switch_set"
+
+/// from /obj/machinery/fire_alarm/reset(), /obj/machinery/fire_alarm/alarm(): (status)
+#define COMSIG_FIREALARM_ON_TRIGGER "firealarm_trigger"
+#define COMSIG_FIREALARM_ON_RESET "firealarm_reset"

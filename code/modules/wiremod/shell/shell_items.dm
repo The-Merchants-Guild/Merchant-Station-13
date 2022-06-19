@@ -53,14 +53,26 @@
 	shell_to_spawn = /obj/machinery/door/airlock/shell
 	screw_delay = 10 SECONDS
 
+/obj/item/shell/dispenser
+	name = "circuit dispenser assembly"
+	icon_state = "setup_drone_arms-open"
+	shell_to_spawn = /obj/structure/dispenser_bot
+
 /obj/item/shell/bci
 	name = "brain-computer interface assembly"
 	icon_state = "bci-open"
-	shell_to_spawn = /obj/item/organ/cyberimp/bci
+	shell_to_spawn = /obj/item/organ/internal/cyberimp/bci
+
+/obj/item/shell/scanner_gate
+	name = "scanner gate assembly"
+	icon = 'icons/obj/machines/scangate.dmi'
+	icon_state = "scangate_black_open"
+	shell_to_spawn = /obj/structure/scanner_gate_shell
 
 /obj/item/shell/mech
 	name = "mech interface assembly"
-	icon_state = "bci-open"
+	icon = 'icons/obj/module.dmi'
+	icon_state = "computer_vision"
 	desc = "A shell assembly that can permanently convert any mech into a circuit mech. It has a screw that just keeps turning in place. Odd."
 	shell_to_spawn = /obj/item/shell/mech
 
@@ -84,7 +96,6 @@
 	)
 	target.name += "-Circuitix"
 	qdel(src)
-
 
 /obj/item/shell/mech/screwdriver_act(mob/living/user, obj/item/tool)
 	user.visible_message(span_notice("[user] begins screwing [src]."), span_notice("You begin screwing [src]."))

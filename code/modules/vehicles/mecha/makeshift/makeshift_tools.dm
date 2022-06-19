@@ -1,8 +1,10 @@
 /obj/item/mecha_parts/mecha_equipment/drill/makeshift
 	name = "Makeshift exosuit drill"
 	desc = "Cobbled together from likely stolen parts, this drill is nowhere near as effective as the real deal."
-	equip_cooldown = 60 //Its slow as shit
-	force = 10 //Its not very strong
+//Its slow as shit
+	equip_cooldown = 60
+//Its not very strong
+	force = 10
 	drill_delay = 15
 
 /obj/item/mecha_parts/mecha_equipment/drill/makeshift/can_attach(obj/vehicle/sealed/mecha/M as obj)
@@ -39,46 +41,46 @@
 	resistance_flags = FIRE_PROOF
 	trigger_guard = TRIGGER_GUARD_NORMAL
 	light_system = MOVABLE_LIGHT
-	//light is always on
+//light is always on
 	light_on = TRUE
 	range = MECHA_MELEE|MECHA_RANGED
 	var/status = FALSE
-	//its always on ready to be ignited
+//its always on ready to be ignited
 	var/lit = TRUE
 	//cooldown
 	var/operating = FALSE
 	var/obj/item/weldingtool/weldtool = null
 	var/obj/item/assembly/igniter/igniter = null
 	var/obj/item/tank/internals/plasma/ptank = null
-	//it always comes with the full parts
+//it always comes with the full parts
 	var/create_full = TRUE
 	var/create_with_tank = FALSE
 	var/igniter_type = /obj/item/assembly/igniter
 	var/acti_sound = 'sound/items/welderactivate.ogg'
 	var/deac_sound = 'sound/items/welderdeactivate.ogg'
 
-						//Can only fit in the lockermech
+//Can only fit in the lockermech
 /obj/item/mecha_parts/mecha_equipment/flamethrower/can_attach(obj/vehicle/sealed/mecha/M as obj)
 	if(istype(M, /obj/vehicle/sealed/mecha/makeshift))
 		return TRUE
 	return FALSE
 
-				/* Code for handling modified flamethrower ignition */
+/* Code for handling modified flamethrower ignition */
 
-		//modified flamethrower can only be ignited with a mech -> action() makes sure of that
+//modified flamethrower can only be ignited with a mech -> action() makes sure of that
 /obj/item/mecha_parts/mecha_equipment/flamethrower/action(mob/source, atom/target, params)
 	if(!action_checks(target) || get_dist(chassis, target)>3)
 		return
 	if(ishuman(source))
-		//does he have permission to trigger the gun?
+//does he have permission to trigger the gun?
 		if(!can_trigger_gun(source))
 			return
-	//does he have pacifism?
+//does he have pacifism?
 	if(HAS_TRAIT(source, TRAIT_PACIFISM))
 		to_chat(source, span_warning("You can't bring yourself to fire \the [src]! You don't want to risk harming anyone..."))
 		return
 	if(target)
-		var/turflist = getline(source, target)
+		var/turflist = getline(loc, target)
 		log_combat(source, target, "flamethrowered", src)
 		flame_turf(turflist)
 
@@ -93,21 +95,21 @@
 	operating = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/flamethrower/proc/default_ignite_mecha(turf/target, release_amount = 0.05)
-	//Transfer 5% of current tank air contents to turf
+//Transfer 5% of current tank air contents to turf
 	var/datum/gas_mixture/tank_mix = ptank.return_air()
 	var/datum/gas_mixture/air_transfer = tank_mix.remove_ratio(release_amount)
 
 	if(air_transfer.gases[/datum/gas/plasma])
 		air_transfer.gases[/datum/gas/plasma][MOLES] *= 5
 	target.assume_air(air_transfer)
-	//Burn it based on transfered gas
+//Burn it based on transfered gas
 	target.hotspot_expose((tank_mix.temperature*2) + 380,500)
-	//location.hotspot_expose(1000,500,1)
+//location.hotspot_expose(1000,500,1)
 
 //I dont know what this does?
 /obj/item/mecha_parts/mecha_equipment/flamethrower/process()
 	var/turf/location = loc
-	//start a fire if possible
+//start a fire if possible
 	if(isturf(location))
 		igniter.flamethrower_process_mecha(location)
 
@@ -185,7 +187,7 @@
 		update_appearance()
 
 /obj/item/mecha_parts/mecha_equipment/flamethrower/attackby(obj/item/W, mob/user, params)
-	//only takes the plasma tank apart
+//only takes the plasma tank apart
 	if(W.tool_behaviour == TOOL_WRENCH)
 		var/turf/T = get_turf(src)
 		if(ptank)

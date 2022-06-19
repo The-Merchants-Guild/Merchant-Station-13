@@ -145,6 +145,16 @@
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/syringegun
+	name = "Syringe Gun"
+	desc = "A spring loaded rifle designed to fit syringes, used to incapacitate unruly patients from a distance."
+	id = "syringegun"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000)
+	build_path = /obj/item/gun/syringe
+	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/rapidsyringe
 	name = "Rapid Syringe Gun"
 	desc = "A gun that fires many syringes."

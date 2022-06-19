@@ -274,6 +274,7 @@
 		"pandemic",
 		"plumbing_rcd_sci",
 		"soda_dispenser",
+		"syringegun",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 

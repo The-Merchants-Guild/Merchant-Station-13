@@ -100,7 +100,6 @@
 
 /datum/reagent/proto
 	special_traits = list(SPECIAL_TRAIT_FIRE)
-commented out until the Lcasschem pr goes through
 /datum/reagent/clf3
 	special_traits = list(SPECIAL_TRAIT_FIRE)
 

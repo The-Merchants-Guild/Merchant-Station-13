@@ -1,0 +1,11 @@
+author: karmaisblackandbluepilled
+delete-after: true
+changes:
+  - rscadd: Added the Reagent Forge and assorted weapons such as the Mace or Hammer.
+      Depending on which reagent you used, the weapons will have a different trait.
+  - rscadd: Added the Material Manipulator, that lets you add multiple traits from
+      a reagent to an already forged weapon, so you can have an acidic explosive sharp
+      radioactive sword.
+  - rscadd: Added all the machines to the active maps. It's left of atmospherics on
+      Metastation, in the construction area on icebox, above the chapel on Kilo and
+      above hydroponics on Deltastation.

@@ -516,7 +516,6 @@
 	description = "A fetid concoction often huffed or drank by vagrants and bums. High dosages have... interesting effects."
 	color = "#602101" // rgb: 96, 33, 1
 	overdose_threshold = 100
-	addiction_threshold = 50 // doesn't do shit though
 
 /datum/reagent/drug/pupupipi/on_mob_life(mob/living/M)
 	if(prob(5))
@@ -529,7 +528,7 @@
 
 /datum/reagent/drug/pupupipi/overdose_process(mob/living/carbon/human/H)
 	CHECK_DNA_AND_SPECIES(H)
-	H.setBrainLoss(30)
+	H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 30)
 	if(ishuman(H))
 		to_chat(H, "<span class= 'userdanger'>Oh shit!</span>")
 		H.set_species(/datum/species/krokodil_addict)

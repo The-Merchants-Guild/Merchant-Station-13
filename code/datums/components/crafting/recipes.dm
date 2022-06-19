@@ -1187,7 +1187,7 @@
 				/obj/item/paper = 5, //Cause paper is the best for making a mech airtight obviously
 				/obj/item/flashlight = 1) //For the mech light
 	tool_behaviors = list(TOOL_WIRECUTTER, TOOL_WELDER, TOOL_SCREWDRIVER)
-	time = 20 SECONDS
+	time = 15 SECONDS
 	category = CAT_ROBOT
 
 /datum/crafting_recipe/lockermechdrill
@@ -1216,7 +1216,7 @@
 	reqs = list(/obj/item/gun/ballistic/revolver = 1,
 				/obj/item/stack/rods = 4,
 				/obj/item/stack/cable_coil = 5)
-	tool_behaviors = list(TOOL_SCREWDRIVER)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	time = 5 SECONDS
 	category = CAT_ROBOT
 
@@ -1236,7 +1236,7 @@
 	reqs = list(/obj/item/flamethrower,
 				/obj/item/stack/rods = 4,
 				/obj/item/stack/cable_coil = 5)
-	tool_behaviors =  list(TOOL_SCREWDRIVER)
+	tool_behaviors =  list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	time = 5 SECONDS
 	category = CAT_ROBOT
 
@@ -1247,8 +1247,8 @@
 	reqs = list(/obj/item/stack/sheet/cardboard = 5,
 				/obj/item/stack/sheet/iron = 2,
 				/obj/item/ammo_casing/a357 = 7)
-	tool_behaviors = list(TOOL_SCREWDRIVER)
-	time = 5 SECONDS
+	tool_behaviors = list(TOOL_WIRECUTTER)
+	time = 2 SECONDS
 	category = CAT_ROBOT
 
 /datum/crafting_recipe/lockermechvolverammo_38
@@ -1258,8 +1258,8 @@
 				/obj/item/stack/sheet/iron = 2,
 				/obj/item/ammo_casing/c38 = 7,
 				/obj/)
-	tool_behaviors = list(TOOL_SCREWDRIVER)
-	time = 5 SECONDS
+	tool_behaviors = list(TOOL_WIRECUTTER)
+	time = 2 SECONDS
 	category = CAT_ROBOT
 
 #undef CRAFTING_MACHINERY_CONSUME

@@ -1206,7 +1206,7 @@
 	reqs = list(/obj/item/stack/cable_coil = 5,
 				/obj/item/stack/sheet/iron = 2,
 				/obj/item/wirecutters = 1) //Don't ask, its just for the grabby grabby thing
-	tool_behaviors = list(TOOL_SCREWDRIVER)
+	tool_behaviors = list(TOOL_CROWBAR)
 	time = 5 SECONDS
 	category = CAT_ROBOT
 

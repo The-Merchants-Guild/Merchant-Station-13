@@ -551,3 +551,6 @@ RATCAP 64
 
 ## Maximum fine for a citation
 MAXFINE 2000
+
+## How old the account should be to not automatically get banned. Defaults to 20
+ACCOUNTAGE 7

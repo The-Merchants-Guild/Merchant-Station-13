@@ -19,3 +19,16 @@ GLOBAL_LIST_INIT(countries,icon_states('icons/flags.dmi'))  //BLYAAAAAAAAAAAAAAT
 		return "[icon2html('icons/flags.dmi', world, country_code)]"
 	else
 		return "[icon2html('icons/flags.dmi', world, "unknown")]"
+
+/client/New()
+	. = ..()
+	spawn if(src)
+		if(src.account_age < CONFIG_GET(number/accountage))
+			var/list/ban = list()
+			log_access("Account too new: [src.ckey] automatically banned.")
+			message_admins("[src.ckey] has been banned due to his account being too new: [src.account_age] days")
+			to_chat(src, span_userdanger("Your account is too new to join this server. Join the discord server to get access!"))
+			world.SetConfig("ban",src.ckey,list2stickyban(ban))
+			ban = stickyban2list(list2stickyban(ban))
+			SSstickyban.cache[src.ckey] = ban
+			QDEL_IN(src, 1)

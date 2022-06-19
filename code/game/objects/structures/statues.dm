@@ -254,6 +254,36 @@
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "venus"
 
+/obj/structure/statue/sandstone/asstue
+	name = "giant stone ass"
+	desc = "A reminder of an era long gone by."
+	icon = 'icons/obj/statue.dmi'
+	icon_state = "asstue"
+	impressiveness = 60
+
+/obj/structure/statue/sandstone/asstue/proc/toot()
+	playsound(src, 'sound/effects/fart.ogg', 100, 1)
+
+/obj/structure/statue/sandstone/asstue/Bumped(atom/movable/AM)
+	toot()
+	..()
+
+/obj/structure/statue/sandstone/asstue/attackby(obj/item/W, mob/user, params)
+	toot()
+	return ..()
+
+/obj/structure/statue/sandstone/asstue/attack_hand(mob/user)
+	toot()
+	. = ..()
+
+/obj/structure/statue/sandstone/asstue/attack_paw(mob/user)
+	toot()
+	..()
+
+/obj/structure/statue/sandstone/asstue/deconstruct(disassembled = TRUE)
+	playsound(src, 'sound/effects/superfart.ogg', 200, 1)
+	..()
+
 /////////////////////snow/////////////////////////////////////////
 
 /obj/structure/statue/snow

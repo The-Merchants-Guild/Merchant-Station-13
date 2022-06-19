@@ -1179,15 +1179,13 @@
 	name = "Locker Mech"
 	result = /obj/vehicle/sealed/mecha/makeshift
 	reqs = list(/obj/item/stack/cable_coil = 20,
-				/obj/item/stack/sheet/iron = 10,
+				/obj/item/stack/sheet/iron = 16,
 				/obj/item/storage/toolbox = 2, // For feet
 				/obj/item/tank/internals/oxygen = 1, // For air
 				/obj/item/electronics/airlock = 1, //You are stealing the motors from airlocks
 				/obj/item/extinguisher = 1, //For bastard pnumatics
 				/obj/item/paper = 5, //Cause paper is the best for making a mech airtight obviously
-				/obj/item/flashlight = 1, //For the mech light
-				/obj/item/stack/rods = 4, //to mount the equipment
-				/obj/item/chair = 2) //For legs
+				/obj/item/flashlight = 1) //For the mech light
 	tool_behaviors = list(TOOL_WIRECUTTER, TOOL_WELDER, TOOL_SCREWDRIVER)
 	time = 20 SECONDS
 	category = CAT_ROBOT

@@ -648,6 +648,14 @@
 	},
 /obj/structure/closet/secure_closet/chemical,
 /obj/item/radio/headset/headset_med,
+/obj/item/book/manual/wiki/chemistry{
+	pixel_x = 8
+	},
+/obj/item/book/manual/wiki/plumbing{
+	pixel_x = 5
+	},
+/obj/item/book/manual/wiki/grenades,
+/obj/item/hand_labeler,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "ada" = (
@@ -15173,6 +15181,7 @@
 	c_tag = "Chemistry Lab North";
 	network = list("ss13","medbay")
 	},
+/obj/machinery/chem/bluespace,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "bJI" = (
@@ -33700,7 +33709,6 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/machinery/chem_mass_spec,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "kGK" = (
@@ -39629,12 +39637,8 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/book/manual/wiki/grenades,
-/obj/item/book/manual/wiki/plumbing{
-	pixel_x = 5
-	},
-/obj/item/book/manual/wiki/chemistry{
-	pixel_x = 8
+/obj/machinery/chem/centrifuge{
+	pixel_y = 4
 	},
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
@@ -40446,6 +40450,7 @@
 	},
 /obj/machinery/light/directional/west,
 /obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/uranium,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "orw" = (
@@ -44464,13 +44469,13 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
 /obj/machinery/light/directional/north,
 /obj/machinery/button/door/directional/west{
 	id = "chemistry_shutters2";
 	name = "Chemistry Shutter Control";
 	req_access_txt = "69"
 	},
+/obj/machinery/chem/radioactive,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "qEg" = (
@@ -55168,7 +55173,9 @@
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable,
 /obj/structure/table,
-/obj/item/hand_labeler,
+/obj/machinery/chem/pressure{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "wEo" = (

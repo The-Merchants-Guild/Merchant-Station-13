@@ -13632,6 +13632,16 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/grenades,
+/obj/item/book/manual/wiki/chemistry{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/toy/figure/chemist,
+/obj/item/clipboard{
+	pixel_x = -3;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/dark,
 /area/medical/pharmacy)
 "aRV" = (
@@ -13700,19 +13710,12 @@
 /area/science/robotics/mechbay)
 "aSi" = (
 /obj/structure/table/glass,
-/obj/item/clipboard{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/book/manual/wiki/chemistry{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/book/manual/wiki/grenades,
-/obj/item/toy/figure/chemist,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/machinery/chem/pressure{
+	pixel_y = 7
 	},
 /turf/open/floor/iron/dark,
 /area/medical/pharmacy)
@@ -14400,13 +14403,6 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "aTW" = (
 /obj/structure/table/glass,
-/obj/item/folder/white,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_x = -6
-	},
-/obj/item/reagent_containers/syringe,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -14415,6 +14411,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/machinery/chem/centrifuge{
+	pixel_y = 4
 	},
 /turf/open/floor/iron/dark,
 /area/medical/pharmacy)
@@ -15503,7 +15502,7 @@
 "aXN" = (
 /obj/machinery/igniter/incinerator_toxmix,
 /mob/living/simple_animal/chicken{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=1,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
 	desc = "A timeless classic.";
 	name = "Kentucky"
 	},
@@ -48160,6 +48159,7 @@
 	network = list("ss13","medbay")
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/chem/radioactive,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/chemistry)
 "glp" = (
@@ -57495,6 +57495,10 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/item/clothing/head/welding,
 /obj/machinery/light/directional/north,
+/obj/item/plunger,
+/obj/item/plunger,
+/obj/item/stack/ducts/fifty,
+/obj/item/stack/ducts/fifty,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/chemistry)
 "kpw" = (
@@ -65277,10 +65281,6 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/stack/ducts/fifty,
-/obj/item/stack/ducts/fifty,
-/obj/item/plunger,
-/obj/item/plunger,
 /obj/structure/sign/departments/chemistry{
 	pixel_x = 32
 	},
@@ -65293,6 +65293,9 @@
 	id = "chem_lockdown";
 	name = "chemistry lockdown control";
 	req_access_txt = "5; 69"
+	},
+/obj/machinery/chem/pressure{
+	pixel_y = 7
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/chemistry)
@@ -74366,7 +74369,7 @@
 	},
 /obj/item/reagent_containers/food/drinks/beer{
 	desc = "A station exclusive. Consumption may result in seizures, blindness, drunkenness, or even death.";
-	list_reagents = list(/datum/reagent/consumable/ethanol/thirteenloko = 30);
+	list_reagents = list(/datum/reagent/consumable/ethanol/thirteenloko=30);
 	name = "Kilo-Kocktail";
 	pixel_x = 5;
 	pixel_y = 5
@@ -81156,6 +81159,14 @@
 	dir = 1
 	},
 /obj/machinery/light_switch/directional/south,
+/obj/item/reagent_containers/glass/bottle/epinephrine{
+	pixel_x = -6
+	},
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/folder/white,
+/obj/item/reagent_containers/syringe,
+/obj/item/stack/sheet/mineral/uranium,
 /turf/open/floor/iron/dark,
 /area/medical/pharmacy)
 "uxV" = (
@@ -82980,7 +82991,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/chem_mass_spec,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/pharmacy)
 "vnk" = (
@@ -89798,6 +89808,16 @@
 	},
 /turf/open/floor/iron,
 /area/engineering/break_room)
+"yhX" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/chem/bluespace,
+/turf/open/floor/iron/showroomfloor,
+/area/medical/chemistry)
 "yid" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/shutters{
@@ -104537,7 +104557,7 @@ amA
 amA
 aAJ
 cAg
-mqV
+yhX
 cMd
 cMe
 cMo

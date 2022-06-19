@@ -18958,6 +18958,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
+"cvV" = (
+/obj/effect/landmark/start/hangover,
+/turf/open/floor/iron/grimy,
+/area/hallway/secondary/entry)
 "cvX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -39703,7 +39707,7 @@
 /obj/item/folder/blue,
 /obj/item/clothing/under/rank/centcom/commander,
 /obj/item/clothing/head/centhat{
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0);
+	armor = list("melee"=0,"bullet"=0,"laser"=0,"energy"=0,"bomb"=0,"bio"=0,"rad"=0);
 	desc = "A replica hat of a Central Commander's attire. It has a small tag on it saying, 'It's good to be emperor.'";
 	name = "Replica CentCom hat"
 	},
@@ -43140,7 +43144,7 @@
 	},
 /obj/item/reagent_containers/food/drinks/beer{
 	desc = "Whatever it is, it reeks of foul, putrid froth.";
-	list_reagents = list(/datum/reagent/consumable/ethanol/bacchus_blessing = 15);
+	list_reagents = list(/datum/reagent/consumable/ethanol/bacchus_blessing=15);
 	name = "Delta-Down";
 	pixel_x = 5;
 	pixel_y = 5
@@ -45540,7 +45544,7 @@
 /obj/item/folder/red,
 /obj/item/toy/gun,
 /obj/item/clothing/head/beret/sec{
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0);
+	armor = list("melee"=0,"bullet"=0,"laser"=0,"energy"=0,"bomb"=0,"bio"=0,"rad"=0);
 	desc = "A replica beret resembling that of a special operations officer under Nanotrasen.";
 	name = "replica officer's beret"
 	},
@@ -73583,7 +73587,9 @@
 /area/medical/surgery)
 "nVc" = (
 /obj/machinery/holopad,
-/obj/effect/landmark/start/hangover,
+/obj/structure/statue/sandstone/asstue{
+	anchored = 1
+	},
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
 "nVk" = (
@@ -152102,7 +152108,7 @@ akN
 abf
 ams
 mIm
-aom
+cvV
 apn
 aqq
 abf

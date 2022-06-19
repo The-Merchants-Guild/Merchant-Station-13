@@ -36504,6 +36504,17 @@
 /obj/effect/landmark/start/detective,
 /turf/open/floor/carpet,
 /area/security/detectives_office)
+"mgk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
+/obj/structure/statue/sandstone/asstue{
+	anchored = 1
+	},
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "mgw" = (
 /obj/effect/landmark/blobstart,
 /obj/structure/disposalpipe/segment{
@@ -70626,7 +70637,7 @@ xAh
 aqc
 aqc
 aqc
-aqc
+mgk
 atP
 aqc
 buX

@@ -126,3 +126,8 @@
 	required_reagents = list(/datum/reagent/drug/maint/sludge = 6 , /datum/reagent/toxin/acid/nitracid = 1 , /datum/reagent/consumable/enzyme = 1)
 	required_catalysts = list(/datum/reagent/acetone_oxide = 5)
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DRUG | REACTION_TAG_ORGAN | REACTION_TAG_DAMAGING
+
+/datum/chemical_reaction/pupupipi
+	results = list(/datum/reagent/drug/pupupipi = 4)
+	required_reagents = list(/datum/reagent/fuel = 3, /datum/reagent/consumable/nutriment = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DRUG

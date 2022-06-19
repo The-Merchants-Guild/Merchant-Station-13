@@ -74,12 +74,11 @@
 /datum/reagent/uranium/radium
 	special_traits = list(SPECIAL_TRAIT_RADIOACTIVE)
 
-/*/datum/reagent/toxin/radgoop
+/datum/reagent/toxin/radgoop
 	special_traits  = list(SPECIAL_TRAIT_RADIOACTIVE)
 
 /datum/reagent/arclumin
 	special_traits  = list(SPECIAL_TRAIT_RADIOACTIVE, SPECIAL_TRAIT_MAGNETIC)
-commented out until the Lcasschem pr goes through, also I don't know why arclumin was defined here twice and I don't care either*/
 //BOUNCY
 
 /datum/reagent/lube
@@ -93,7 +92,7 @@ commented out until the Lcasschem pr goes through, also I don't know why arclumi
 
 //PYROTECHNICS
 
-/*/datum/reagent/dizinc
+/datum/reagent/dizinc
 	special_traits = list(SPECIAL_TRAIT_FIRE)
 
 /datum/reagent/oxyplas
@@ -101,7 +100,7 @@ commented out until the Lcasschem pr goes through, also I don't know why arclumi
 
 /datum/reagent/proto
 	special_traits = list(SPECIAL_TRAIT_FIRE)
-commented out until the Lcasschem pr goes through*/
+commented out until the Lcasschem pr goes through
 /datum/reagent/clf3
 	special_traits = list(SPECIAL_TRAIT_FIRE)
 
@@ -123,12 +122,12 @@ commented out until the Lcasschem pr goes through*/
 
 //EXPLOSIVES
 
-/*/datum/reagent/superboom
+/datum/reagent/superboom
 	special_traits = list(SPECIAL_TRAIT_EXPLOSIVE)
 
 /datum/reagent/toxin/sazide
 	special_traits = list(SPECIAL_TRAIT_EXPLOSIVE)
-commented out until the Lcasschem pr goes through*/
+
 /datum/reagent/nitroglycerin
 	special_traits = list(SPECIAL_TRAIT_EXPLOSIVE)
 
@@ -155,12 +154,11 @@ commented out until the Lcasschem pr goes through*/
 /datum/reagent/bluespace
 	special_traits = list(SPECIAL_TRAIT_UNSTABLE)
 
-/*/datum/reagent/arclumin
+/datum/reagent/arclumin
 	special_traits = list(SPECIAL_TRAIT_UNSTABLE)
 
 /datum/reagent/drug/flipout
 	special_traits = list(SPECIAL_TRAIT_FLUIDIC)
-	commented out until the Lcasschem pr goes through*/
 
 /datum/reagent/colorful_reagent
 	special_traits = list(SPECIAL_TRAIT_FLUIDIC)

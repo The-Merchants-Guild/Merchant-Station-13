@@ -1,3 +1,14 @@
+//exists because otherwise material_ref throws a MASSIVE shit
+/datum/material/custom
+	name = "custom material"
+	desc = "You aren't supposed to see this"
+	color = "#000000"
+	sheet_type = /obj/item/stack/sheet/mineral/reagent
+	init_flags = MATERIAL_INIT_BESPOKE
+	categories = list(MAT_CATEGORY_ITEM_MATERIAL=TRUE)
+	value_per_unit = 0
+	id = "reagent"
+
 ///Has no special properties.
 /datum/material/iron
 	name = "iron"

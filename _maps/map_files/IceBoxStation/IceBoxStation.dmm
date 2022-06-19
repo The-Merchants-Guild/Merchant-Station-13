@@ -6301,7 +6301,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "aFy" = (
-/obj/structure/closet/crate,
 /obj/effect/landmark/blobstart,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
@@ -25146,9 +25145,7 @@
 /turf/open/floor/iron,
 /area/science/storage)
 "fHo" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/item/wirecutters,
+/obj/machinery/reagent_material_manipulator,
 /turf/open/floor/plating,
 /area/construction)
 "fHs" = (
@@ -29491,11 +29488,12 @@
 /turf/open/floor/iron/cafeteria,
 /area/command/heads_quarters/rd)
 "igE" = (
-/obj/structure/closet/toolcloset,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},
+/obj/structure/closet/toolcloset/partscloset,
+/obj/item/circuitboard/machine/reagent_sheet,
 /turf/open/floor/iron,
 /area/construction)
 "ihd" = (
@@ -43056,9 +43054,8 @@
 /turf/open/floor/iron,
 /area/service/theater)
 "pMK" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/seven,
-/turf/open/floor/plating,
+/obj/structure/frame/machine,
+/turf/open/floor/iron,
 /area/construction)
 "pMR" = (
 /obj/structure/extinguisher_cabinet/directional/south,
@@ -47908,8 +47905,11 @@
 /turf/open/floor/plating,
 /area/construction)
 "szo" = (
-/obj/structure/frame/machine,
-/turf/open/floor/plating,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/reagent_forge,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
 /area/construction)
 "szE" = (
 /obj/structure/kitchenspike,
@@ -53637,8 +53637,6 @@
 	},
 /area/engineering/break_room)
 "vKy" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/four,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/poster/random{
 	pixel_y = 32
@@ -84550,9 +84548,9 @@ hRG
 fms
 ufF
 nUy
-pMK
+bNJ
 tbx
-siE
+szo
 bLC
 cCf
 bNI
@@ -85322,7 +85320,7 @@ hRG
 hRG
 nUy
 sdo
-szo
+bNJ
 cxc
 dAw
 rYd
@@ -85835,7 +85833,7 @@ cYD
 hRG
 fwY
 nUy
-cCd
+pMK
 ewE
 rOx
 cCd

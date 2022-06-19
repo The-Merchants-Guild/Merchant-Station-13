@@ -2,6 +2,7 @@
 	name = "experimental holotool"
 	desc = "A highly experimental holographic tool projector."
 	icon = 'icons/obj/objects.dmi'
+	worn_icon_state = "holotool"
 	inhand_icon_state = "holotool"
 	icon_state = "holotool"
 	damtype = BURN

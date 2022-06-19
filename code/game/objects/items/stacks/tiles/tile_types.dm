@@ -1111,3 +1111,39 @@
 
 /obj/item/stack/tile/emissive_test/white/sixty
 	amount = 60
+
+/obj/item/stack/tile/mineral/reagent
+	name = "reagent tile"
+	singular_name = "reagent floor tile"
+	desc = "A tile made out of reagents."
+	icon_state = "tile_titanium" //fancy
+	inhand_icon_state = "tile-shuttle"
+	turf_type = /turf/open/floor/mineral/reagent
+	merge_type = /obj/item/stack/tile/mineral/reagent
+	mineralType = "reagent"
+	var/datum/reagent/reagent_type
+
+/obj/item/stack/tile/mineral/reagent/split_stack(mob/user, amount)
+	var/obj/item/stack/tile/mineral/reagent/F = new(user, amount, FALSE)
+
+	user.put_in_hands(F)
+	F.reagent_type = reagent_type
+	F.name = "[reagent_type.name] ingots"
+	F.singular_name = "[reagent_type.name] ingot"
+	F.add_atom_colour(reagent_type.color, FIXED_COLOUR_PRIORITY)
+	use(amount, TRUE)
+
+/obj/item/stack/tile/mineral/reagent/place_tile(turf/open/T)
+	.=..()
+	var/turf/open/floor/mineral/reagent/F = .
+	F.reagent_type = src.reagent_type
+	F.name = "[reagent_type.name] floor"
+	F.add_atom_colour(reagent_type.color, FIXED_COLOUR_PRIORITY)
+
+/obj/item/stack/tile/mineral/reagent/merge(obj/item/stack/S, limit) //Merge src into S, as much as possible
+	if(!istype(S, /obj/item/stack/tile/mineral/reagent))
+		return
+	var/obj/item/stack/tile/mineral/reagent/R = S
+	if(!R.reagent_type || !reagent_type || R.reagent_type.type != reagent_type.type) //amusingly this can cause a stack to consume itself, let's not allow that.
+		return
+	. = ..()

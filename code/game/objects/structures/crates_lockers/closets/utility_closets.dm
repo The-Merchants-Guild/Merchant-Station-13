@@ -120,6 +120,13 @@
 	if(prob(40))
 		new /obj/item/clothing/head/hardhat(src)
 
+/obj/structure/closet/toolcloset/partscloset
+	desc = "It's a storage unit for tools and parts."
+
+/obj/structure/closet/toolcloset/partscloset/PopulateContents()
+	. = ..()
+	new /obj/item/storage/box/stockparts/basic(src)
+
 
 /*
  * Radiation Closet

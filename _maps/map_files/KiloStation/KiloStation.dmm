@@ -1065,12 +1065,9 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
 /obj/item/bedsheet/brown,
 /turf/open/floor/plating,
-/area/maintenance/fore)
+/area/construction)
 "adB" = (
 /obj/machinery/computer/telecomms/monitor,
 /obj/effect/turf_decal/bot,
@@ -1229,7 +1226,7 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
-/area/maintenance/fore)
+/area/construction)
 "aeb" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
@@ -2607,7 +2604,7 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/maintenance/fore)
+/area/construction)
 "ahY" = (
 /obj/machinery/door/airlock/external{
 	name = "Abandoned External Airlock"
@@ -2730,16 +2727,14 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/fore)
 "aiC" = (
-/obj/structure/grille,
-/obj/structure/barricade/wooden,
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /obj/structure/cable,
+/obj/machinery/door/airlock/engineering{
+	name = "Construction Area";
+	req_access_txt = "32"
+	},
 /turf/open/floor/iron/dark,
-/area/maintenance/fore)
+/area/construction)
 "aiD" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -3121,8 +3116,9 @@
 /obj/machinery/light/small/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/medical/gauze,
+/obj/item/toy/clockwork_watch,
 /turf/open/floor/plating,
-/area/maintenance/fore)
+/area/construction)
 "ajI" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -5647,19 +5643,14 @@
 /area/maintenance/fore)
 "aqn" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/rack,
 /obj/item/crowbar/red,
 /obj/item/restraints/handcuffs,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/revolver{
-	pixel_y = 32
-	},
-/obj/structure/grille/broken,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/maintenance/fore)
+/area/construction)
 "aqo" = (
 /obj/effect/landmark/start/psychologist,
 /turf/open/floor/carpet,
@@ -15815,6 +15806,10 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/lobby)
+"aYF" = (
+/obj/structure/sign/poster/official/no_erp,
+/turf/closed/wall,
+/area/construction)
 "aYH" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -20396,10 +20391,11 @@
 "bpk" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/frame/machine,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
-/area/maintenance/fore)
+/area/construction)
 "bpl" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -33896,13 +33892,9 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "cmo" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/sign/warning/electricshock{
-	pixel_y = 32
-	},
 /obj/structure/cable,
 /turf/open/floor/plating,
-/area/maintenance/fore)
+/area/construction)
 "cmp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -35218,16 +35210,12 @@
 /area/hallway/primary/aft)
 "cra" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "Abandoned Cell";
-	name = "Abandoned Cell"
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
 	},
 /obj/structure/cable,
 /turf/open/floor/iron/dark,
-/area/maintenance/fore)
+/area/construction)
 "crb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office{
@@ -36048,7 +36036,7 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
-/area/maintenance/fore)
+/area/construction)
 "cuf" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
@@ -36455,7 +36443,7 @@
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/maintenance/fore)
+/area/construction)
 "cvd" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -37633,7 +37621,7 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/maintenance/fore)
+/area/construction)
 "czj" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -37950,15 +37938,9 @@
 /turf/closed/wall/r_wall/rust,
 /area/medical/chemistry)
 "cAr" = (
-/obj/structure/table,
-/obj/machinery/recharger,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/the_griffin{
-	pixel_x = 32
-	},
 /turf/open/floor/iron/dark,
-/area/maintenance/fore)
+/area/construction)
 "cAs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
@@ -37992,9 +37974,9 @@
 	},
 /area/maintenance/fore)
 "cAH" = (
-/obj/structure/sign/departments/security,
+/obj/structure/sign/departments/engineering,
 /turf/closed/wall,
-/area/maintenance/fore)
+/area/construction)
 "cAT" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -41194,6 +41176,11 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/dark,
 /area/engineering/break_room)
+"dda" = (
+/obj/structure/closet/toolcloset/partscloset,
+/obj/item/circuitboard/machine/reagent_sheet,
+/turf/open/floor/plating,
+/area/construction)
 "ddk" = (
 /obj/structure/cable,
 /obj/structure/flora/ausbushes/sparsegrass{
@@ -42199,6 +42186,9 @@
 	luminosity = 2
 	},
 /area/ai_monitored/turret_protected/ai_upload)
+"dEd" = (
+/turf/closed/wall,
+/area/construction)
 "dEf" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -49978,6 +49968,9 @@
 /obj/effect/landmark/start/research_director,
 /turf/open/floor/iron/showroomfloor,
 /area/command/heads_quarters/rd)
+"hdQ" = (
+/turf/closed/wall/rust,
+/area/construction)
 "hdT" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -52583,13 +52576,10 @@
 /area/cargo/warehouse)
 "inX" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/frame/computer{
-	anchored = 1
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/status_display/evac/directional/north,
+/obj/machinery/reagent_forge,
 /turf/open/floor/iron/dark,
-/area/maintenance/fore)
+/area/construction)
 "iog" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -56261,13 +56251,9 @@
 /area/maintenance/starboard/aft)
 "jRP" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/frame/computer{
-	anchored = 1
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom/directional/north,
 /turf/open/floor/iron/dark,
-/area/maintenance/fore)
+/area/construction)
 "jRQ" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
@@ -66079,6 +66065,12 @@
 	},
 /turf/open/floor/iron,
 /area/engineering/atmos)
+"ofp" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/construction)
 "ofB" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -66584,12 +66576,11 @@
 /area/security/prison)
 "opx" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/punching_bag,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/noticeboard/directional/east,
+/obj/machinery/reagent_material_manipulator,
 /turf/open/floor/plating,
-/area/maintenance/fore)
+/area/construction)
 "opH" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -67957,7 +67948,7 @@
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/maintenance/fore)
+/area/construction)
 "oUy" = (
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/structure/cable,
@@ -75574,14 +75565,10 @@
 /turf/open/floor/iron/dark,
 /area/service/bar)
 "sdO" = (
-/obj/structure/table,
 /obj/machinery/light/small/directional/east,
-/obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/suit/armor/vest,
-/obj/item/clothing/neck/stethoscope,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/dark,
-/area/maintenance/fore)
+/area/construction)
 "sdR" = (
 /obj/item/beacon,
 /turf/open/floor/iron/dark,
@@ -88565,6 +88552,9 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /turf/open/floor/iron,
 /area/service/hydroponics)
+"xFb" = (
+/turf/open/floor/plating,
+/area/construction)
 "xFp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
@@ -113777,7 +113767,7 @@ aeu
 aeu
 aeu
 aeu
-aeu
+dEd
 oLl
 oLl
 wWK
@@ -114034,11 +114024,11 @@ aaa
 aeu
 aeu
 aeu
-aeu
-adH
+dEd
+xFb
 adA
 ajG
-adH
+dEd
 abN
 akx
 cDE
@@ -114291,11 +114281,11 @@ aaa
 aeU
 aeu
 aeu
-aeu
-adH
+dEd
+xFb
 aea
 czi
-adQ
+hdQ
 cAF
 aky
 adH
@@ -114547,13 +114537,13 @@ aaa
 aeU
 aeu
 aeu
-aeu
-aeu
-adQ
+dEd
+dEd
+xFb
 cmo
 cra
-adH
-adH
+dEd
+dEd
 ahE
 cBc
 cAF
@@ -114804,13 +114794,13 @@ aaa
 aUz
 aeu
 aeu
-aeu
-aeu
-adH
+dEd
+xFb
+xFb
 aqn
 cud
 oTZ
-adQ
+hdQ
 akE
 adQ
 cBf
@@ -115061,9 +115051,9 @@ aaa
 aeU
 aeu
 aeu
-aeu
-aeu
-adQ
+dEd
+xFb
+xFb
 inX
 cvc
 ahX
@@ -115318,11 +115308,11 @@ aaa
 aeu
 aeu
 aeu
-aeu
-aeu
-adH
+dEd
+xFb
+xFb
 jRP
-cDh
+ofp
 bpk
 cAH
 cAT
@@ -115575,13 +115565,13 @@ aaa
 aeu
 aeu
 aeu
-aeu
-aeu
-adQ
+dEd
+xFb
+xFb
 cAr
 sdO
 opx
-adQ
+hdQ
 bsf
 aln
 cBc
@@ -115832,13 +115822,13 @@ aaa
 aaa
 aeu
 aeu
-aeu
-aeu
-adQ
-adH
-adQ
-adH
-adH
+aYF
+xFb
+xFb
+xFb
+xFb
+dda
+dEd
 bxN
 alo
 tFu
@@ -116089,13 +116079,13 @@ aaa
 aaa
 aaa
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-adH
+dEd
+dEd
+dEd
+dEd
+dEd
+dEd
+dEd
 pth
 crI
 crW

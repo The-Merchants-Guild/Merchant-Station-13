@@ -68,3 +68,6 @@
 #define MATERIAL_SLOWDOWN_PLASTEEL (0.05)
 /// The slowdown value of one [MINERAL_MATERIAL_AMOUNT] of alien alloy.
 #define MATERIAL_SLOWDOWN_ALIEN_ALLOY (0.1)
+
+//hrnghhhh reagent bars
+#define MAT_REAGENT "$reagent"

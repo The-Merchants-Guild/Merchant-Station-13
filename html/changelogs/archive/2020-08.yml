@@ -1075,7 +1075,7 @@
   Melbert:
   - tweak: You can now remove items from food storage by clicking on them on grab
       intent.
-  - code_imp: Componentizes food storage from food/snacks/store.
+  - code_imp: Componentizes food storage from food/store.
   TiviPlus:
   - refactor: A bunch of 1 and 0 use the true/false define now and changed up a bunch
       of returns

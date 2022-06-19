@@ -6896,12 +6896,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/central)
-"bfu" = (
-/obj/item/wrench,
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
-/obj/effect/landmark/start/hangover,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "bfJ" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /turf/open/floor/iron/dark,
@@ -9653,13 +9647,7 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/commons/toilet/auxiliary)
-"bLW" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "bLX" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -9669,7 +9657,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bLZ" = (
-/obj/structure/closet/cardboard,
+/obj/machinery/reagent_material_manipulator,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bMr" = (
@@ -9830,12 +9818,6 @@
 "bOX" = (
 /turf/closed/wall/r_wall,
 /area/medical/coldroom)
-"bPj" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "bPl" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
@@ -15031,12 +15013,11 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "cXa" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Storage Room";
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
+/obj/machinery/door/airlock/engineering{
+	name = "Construction Area";
+	req_access_txt = "32"
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "cXd" = (
@@ -36434,6 +36415,8 @@
 	pixel_x = 3;
 	pixel_y = -4
 	},
+/obj/structure/closet/toolcloset/partscloset,
+/obj/item/circuitboard/machine/reagent_sheet,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "kbs" = (
@@ -39151,8 +39134,8 @@
 /turf/open/floor/iron,
 /area/construction/storage_wing)
 "kWX" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plating,
+/obj/structure/sign/departments/engineering,
+/turf/closed/wall,
 /area/maintenance/starboard)
 "kXd" = (
 /obj/effect/decal/cleanable/dirt,
@@ -56931,8 +56914,7 @@
 /turf/open/floor/iron/dark,
 /area/service/chapel/main)
 "qOd" = (
-/obj/effect/mapping_helpers/simple_pipes/general/visible,
-/obj/machinery/meter,
+/obj/machinery/reagent_forge,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "qOn" = (
@@ -60707,6 +60689,7 @@
 /area/service/cafeteria)
 "rWp" = (
 /obj/item/clothing/suit/hazardvest,
+/obj/structure/frame/machine,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "rWr" = (
@@ -70511,12 +70494,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/commons/fitness/recreation)
-"vcS" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "vdD" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
@@ -119776,10 +119753,10 @@ jMk
 rSR
 boY
 alq
-bLZ
-bLW
+apc
+apc
 qOd
-bPj
+apc
 pqR
 alq
 bPn
@@ -120034,8 +120011,8 @@ jMk
 jMk
 atm
 aqr
-kWX
-vcS
+apc
+apc
 apc
 rWp
 alq
@@ -120292,7 +120269,7 @@ qBn
 atm
 bLX
 pnb
-bfu
+iAD
 pxD
 iAD
 jod
@@ -120553,7 +120530,7 @@ apc
 aqq
 rID
 bUy
-alq
+kWX
 waS
 uHb
 qkN
@@ -120806,9 +120783,9 @@ fjA
 atm
 kbp
 bPm
-kWX
+apc
 rBn
-bVE
+bLZ
 jMk
 jMk
 vTw

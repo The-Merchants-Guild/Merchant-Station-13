@@ -1,0 +1,5 @@
+author: OrangeDecay
+delete-after: true
+changes:
+  - balance: Silver and Regular id cards now have same access limits.
+  - balance: Removed limits on chameleon card.

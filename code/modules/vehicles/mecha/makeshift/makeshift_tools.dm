@@ -107,14 +107,14 @@
 //I dont know what this does?
 /obj/item/mecha_parts/mecha_equipment/flamethrower/process()
 	var/turf/location = loc
-	 //start a fire if possible
+	//start a fire if possible
 	if(isturf(location))
 		igniter.flamethrower_process_mecha(location)
 
 /obj/item/assembly/igniter/proc/flamethrower_process_mecha(turf/open/location)
 	location.hotspot_expose(heat,2)
 
-				/* Handles the items in the modified flamethrower */
+/* Handles the items in the modified flamethrower */
 /obj/item/mecha_parts/mecha_equipment/flamethrower/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)

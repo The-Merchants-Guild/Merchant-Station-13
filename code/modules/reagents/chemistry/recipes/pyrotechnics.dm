@@ -680,10 +680,10 @@
 		return
 	holder.remove_reagent(/datum/reagent/sboom, created_volume)
 
-/*/datum/chemical_reaction/reagent_explosion/superboom_explosion//and when heated slightly
+/datum/chemical_reaction/reagent_explosion/superboom_explosion//and when heated slightly
 	required_reagents = list(/datum/reagent/superboom = 1)
 	required_temp = 315
-	strengthdiv = 0.5*/
+	strengthdiv = 1
 
 /datum/chemical_reaction/reagent_explosion/sazide//explodes on creation
 	results = list(/datum/reagent/toxin/sazide = 4)

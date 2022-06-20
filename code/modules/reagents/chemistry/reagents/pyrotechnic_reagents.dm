@@ -512,7 +512,6 @@
 /datum/reagent/hexamine/on_mob_life(mob/living/M)
 	M.adjust_fire_stacks(3)//increases burn time
 	..()
-	return TRUE
 
 /datum/reagent/hexamine/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	M.adjust_fire_stacks(min(reac_volume/2, 10))//much more effective on the outside

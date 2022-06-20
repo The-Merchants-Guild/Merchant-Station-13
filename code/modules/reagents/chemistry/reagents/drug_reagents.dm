@@ -511,7 +511,7 @@
 	..()
 	return
 
-/datum/reagent/drug/pupupipi
+/*/datum/reagent/drug/pupupipi
 	name = "Sweet Brown"
 	description = "A fetid concoction often huffed or drank by vagrants and bums. High dosages have... interesting effects."
 	color = "#602101" // rgb: 96, 33, 1
@@ -533,3 +533,4 @@
 		to_chat(H, "<span class= 'userdanger'>Oh shit!</span>")
 		H.set_species(/datum/species/krokodil_addict)
 	..()
+*/

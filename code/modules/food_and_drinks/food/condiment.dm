@@ -216,7 +216,7 @@
 
 /obj/item/reagent_containers/food/condiment/soymilk
 	name = "soy milk"
-	desc = "It's soy milk. White and nutritious goodness!"
+	desc = "It's soy milk. Contains estrogen."
 	icon_state = "soymilk"
 	inhand_icon_state = "carton"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'

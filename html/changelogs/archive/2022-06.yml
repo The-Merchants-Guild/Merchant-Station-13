@@ -90,3 +90,9 @@
   - rscadd: Added all the machines to the active maps. It's left of atmospherics on
       Metastation, in the construction area on icebox, above the chapel on Kilo and
       above hydroponics on Deltastation.
+2022-06-20:
+  OrangeDecay:
+  - balance: Silver and Regular id cards now have same access limits.
+  - balance: Removed limits on chameleon card.
+  karmaisblackandbluepilled:
+  - rscadd: Added the Asstue.

@@ -557,7 +557,7 @@
 	description = "Hmm , needs more nitrogen!"
 	color = "#13BC5E"
 
-/*/datum/reagent/superboom//oh boy
+/datum/reagent/superboom//oh boy
 	name = "N-amino azidotetrazole"
 	description = "An absurdly unstable chemical prone to causing gigantic explosions when even slightly disturbed. Only an idiot would attempt to create this."
 	color = "#13BC5E"
@@ -575,7 +575,7 @@
 	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(1 + round(volume*2, 0.5), location, 0, 0, message = 0)
 	e.start()
-	holder.clear_reagents()*/
+	holder.clear_reagents()
 
 /datum/reagent/oxyplas//very rapidly heats people up then metabolises
 	name = "Plasminate"

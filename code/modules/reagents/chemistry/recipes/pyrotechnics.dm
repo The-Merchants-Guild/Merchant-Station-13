@@ -672,6 +672,7 @@
 	required_reagents = list(/datum/reagent/sboom = 3, /datum/reagent/ammonia = 3, /datum/reagent/dizinc = 2)
 	required_catalysts = list(/datum/reagent/toxin/tabun_pb = 1)
 	required_temp = 310
+	modifier = 1
 	required_pressure = TRUE
 	strengthdiv = 1
 

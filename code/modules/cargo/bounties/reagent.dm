@@ -172,8 +172,7 @@
 		/datum/reagent/medicine/rezadone,\
 		/datum/reagent/toxin/zombiepowder,\
 		/datum/reagent/toxin/ghoulpowder,\
-		/datum/reagent/mulligan, \
-		/datum/reagent/toxin/skewium)
+		/datum/reagent/mulligan)
 
 	var/reagent_type = pick(possible_reagents)
 	wanted_reagent = new reagent_type

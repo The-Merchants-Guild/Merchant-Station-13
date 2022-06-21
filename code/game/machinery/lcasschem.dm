@@ -270,22 +270,22 @@
 /obj/machinery/chem/pressure/examine(mob/user)
 	. = ..()
 	if(beaker)
-		. += "The [beaker] is currently [beaker.reagents.chem_pressurized ? "pressurized" : "unpressurized"]."
+		. += "[beaker] is currently [beaker.reagents.chem_pressurized ? "pressurized" : "unpressurized"]."
 
 /obj/machinery/chem/radioactive/examine(mob/user)
 	. = ..()
 	if(beaker)
-		. += "The [beaker] is currently [beaker.reagents.chem_irradiated ? "irradiated" : "radiation free"]."
+		. += "[beaker] is currently [beaker.reagents.chem_irradiated ? "irradiated" : "radiation free"]."
 
 /obj/machinery/chem/bluespace/examine(mob/user)
 	. = ..()
 	if(beaker)
-		. += "The [beaker] is currently [beaker.reagents.chem_bluespaced ? "recombobulated" : "uncombobulated"]."
+		. += "[beaker] is currently [beaker.reagents.chem_bluespaced ? "recombobulated" : "uncombobulated"]."
 
 /obj/machinery/chem/centrifuge/examine(mob/user)
 	. = ..()
 	if(beaker)
-		. += "The [beaker] is currently [beaker.reagents.chem_centrifuged ? "mixed, somehow" : "still"]."
+		. += "[beaker] is currently [beaker.reagents.chem_centrifuged ? "mixed, somehow" : "still"]."
 
 
 // Failure proc

@@ -69,7 +69,7 @@
 	return ..()
 
 /obj/machinery/chem/pressure//This used heater code before. Not anymore
-	name = "Pressurized reaction chamber"
+	name = "\improper pressurized reaction chamber"
 	desc = "Creates high pressures to suit certain reaction conditions"
 	icon_state = "press"
 	circuit = /obj/item/circuitboard/machine/pressure
@@ -91,28 +91,29 @@
 
 /obj/machinery/chem/pressure/interact(mob/user)
 	. = ..()
-	var/warning = tgui_alert(user, "How would you like to operate the machine?","Operate Pressurized reaction chamber", list("Pressurize", "Depressurize",))
-	switch(warning)
-		if("Pressurize")
-			if(beaker)
-				if(beaker.reagents)
-					visible_message("<span class='notice'>[src] begins to pressurize its contents!</span>")
-					on = 1
-					addtimer(CALLBACK(src, .proc/pressurize, beaker), 60)
-		if("Depressurize")
-			if(beaker)
-				if(beaker.list_reagents)
-					visible_message("<span class='notice'>[src] begins to pressurize its contents!</span>")
-					on = 1
-					addtimer(CALLBACK(src, .proc/depressurize, beaker), 60)
+	if(on)
+		to_chat(user, span_danger("The machine is busy."))
+		return
+	if(beaker)
+		var/warning = tgui_alert(user, "How would you like to operate the machine?","Operate Pressurized reaction chamber", list("Pressurize", "Depressurize",))
+		switch(warning)
+			if("Pressurize")
+				visible_message("<span class='notice'>[src] begins to pressurize its contents!</span>")
+				on = 1
+				addtimer(CALLBACK(src, .proc/pressurize, beaker), 60)
 
+			if("Depressurize")
+				visible_message("<span class='notice'>[src] begins to pressurize its contents!</span>")
+				on = 1
+				addtimer(CALLBACK(src, .proc/depressurize, beaker), 60)
+	else
+		failure()
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /obj/machinery/chem/radioactive//break up in action dust I walk my brow and I strut my
-	name = "Radioactive molecular reassembler"
+	name = "\improper radioactive molecular reassembler"
 	desc = "A mystical machine that changes molecules directly on the level of bonding."
 	icon_state = "radio"
 	var/material_amt = 0 //requires uranium in order to function
-	var/target_radioactivity = 0
 	circuit = /obj/item/circuitboard/machine/radioactive
 
 /obj/machinery/chem/radioactive/proc/irradiate(obj/item/reagent_containers/A)
@@ -131,27 +132,30 @@
 
 /obj/machinery/chem/radioactive/interact(mob/user)
 	. = ..()
-	var/warning = tgui_alert(user, "How would you like to operate the machine?","Operate Radioactive molecular reassembler", list("Irradiate", "Scrub Radioactive Materials",))
-	switch(warning)
-		if("Irradiate")
-			if(material_amt >= 100)
-				if(beaker)
+	if(on)
+		to_chat(user, span_danger("The machine is busy."))
+		return
+	if(beaker)
+		var/warning = tgui_alert(user, "How would you like to operate the machine?","Operate Radioactive molecular reassembler", list("Irradiate", "Scrub Radioactive Materials",))
+		switch(warning)
+			if("Irradiate")
+				if(material_amt >= 100)
 					on = TRUE
 					visible_message("<span class='notice'>A green light shows on \the [src].</span>")
 					icon_state = "radio_on"
 					playsound(src, 'sound/machines/ping.ogg', 50, 0)
 					addtimer(CALLBACK(src, .proc/irradiate, beaker), 60)
-
-			else
-				audible_message("<span class='notice'>\The [src] pings in fury: showing the empty reactor indicator!.</span>")
-				playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
-		if("Scrub Radioactive Materials")
-			if(beaker)
+				else
+					audible_message("<span class='notice'>\The [src] pings in fury: showing the empty reactor indicator!.</span>")
+					playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
+			if("Scrub Radioactive Materials")
 				on = TRUE
 				visible_message("<span class='notice'> A blue light shows on \the [src].</span>")
 				icon_state = "radio_on"
 				playsound(src, 'sound/machines/ping.ogg', 50, 0)
 				addtimer(CALLBACK(src, .proc/scrub, beaker), 60)
+	else
+		failure()
 
 /obj/machinery/chem/radioactive/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/uranium))
@@ -169,7 +173,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /obj/machinery/chem/bluespace
-	name = "Bluespace recombobulator"
+	name = "\improper bluespace recombobulator"
 	desc = "Forget changing molecules, this thing changes the laws of physics itself in order to produce chemicals."
 	icon_state = "blue"
 	var/crystal_amt = 0
@@ -190,6 +194,9 @@
 
 /obj/machinery/chem/bluespace/interact(mob/user)
 	. = ..()
+	if(on)
+		to_chat(user, span_danger("The machine is busy."))
+		return
 	if(crystal_amt >= 100)
 		if(beaker)
 			on = TRUE
@@ -197,6 +204,8 @@
 			icon_state = "blue_on"
 			playsound(src, 'sound/machines/ping.ogg', 50, 0)
 			addtimer(CALLBACK(src, .proc/recombobulate, beaker), 60)
+		else
+			failure()
 	else
 		audible_message("<span class='notice'>\The [src] pings in fury: showing the empty reactor indicator!</span>")
 		playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
@@ -216,7 +225,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /obj/machinery/chem/centrifuge
-	name = "Centrifuge"
+	name = "\improper centrifuge"
 	desc = "Spins chemicals at high speeds to seperate them"
 	icon_state = "cent_off"
 	circuit = /obj/item/circuitboard/machine/centrifuge
@@ -227,14 +236,59 @@
 	icon_state = "cent_off"
 	visible_message("<span class='notice'> The [src] finishes its centrifuging cycle.</span>")
 
+/obj/machinery/chem/centrifuge/proc/stabilize(obj/item/reagent_containers/beaker)
+	beaker.reagents.chem_centrifuged = 0
+	src.on = 0
+	icon_state = "cent_off"
+	visible_message("<span class='notice'> The [src] finishes its stabilization cycle.</span>")
+
 /obj/machinery/chem/centrifuge/interact(mob/user)
 	. = ..()
+	if(on)
+		to_chat(user, span_danger("The machine is busy."))
+		return
 	if(beaker)
-		on = TRUE
-		visible_message("<span class='notice'>A green light shows on \the [src].</span>")
-		icon_state = "cent_on"
-		playsound(src, 'sound/machines/ping.ogg', 50, 0)
-		addtimer(CALLBACK(src, .proc/centrifuge, beaker), 60)
+		var/warning = tgui_alert(user, "How would you like to operate the machine?","Operate Centrifuge", list("Mix", "Stabilize Materials",))
+		switch(warning)
+			if("Mix")
+				on = TRUE
+				visible_message("<span class='notice'>A green light shows on \the [src].</span>")
+				icon_state = "cent_on"
+				playsound(src, 'sound/machines/ping.ogg', 50, 0)
+				addtimer(CALLBACK(src, .proc/centrifuge, beaker), 60)
+			if("Stabilize Materials")
+				on = TRUE
+				visible_message("<span class='notice'>A green light shows on \the [src].</span>")
+				icon_state = "cent_on"
+				playsound(src, 'sound/machines/ping.ogg', 50, 0)
+				addtimer(CALLBACK(src, .proc/stabilize, beaker), 60)
 	else
-		audible_message("<span class='notice'>\The [src] pings in fury: showing the empty chamber indicator! Add a beaker in!</span>")
-		playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)
+		failure()
+
+// Examine procs
+
+/obj/machinery/chem/pressure/examine(mob/user)
+	. = ..()
+	if(beaker)
+		. += "The [beaker] is currently [beaker.reagents.chem_pressurized ? "pressurized" : "unpressurized"]."
+
+/obj/machinery/chem/radioactive/examine(mob/user)
+	. = ..()
+	if(beaker)
+		. += "The [beaker] is currently [beaker.reagents.chem_irradiated ? "irradiated" : "radiation free"]."
+
+/obj/machinery/chem/bluespace/examine(mob/user)
+	. = ..()
+	if(beaker)
+		. += "The [beaker] is currently [beaker.reagents.chem_bluespaced ? "recombobulated" : "uncombobulated"]."
+
+/obj/machinery/chem/centrifuge/examine(mob/user)
+	. = ..()
+	if(beaker)
+		. += "The [beaker] is currently [beaker.reagents.chem_centrifuged ? "mixed, somehow" : "still"]."
+
+
+// Failure proc
+/obj/machinery/chem/proc/failure()
+	audible_message("<span class='notice'>\The [src] pings in fury: showing the empty chamber indicator! Add a beaker in!</span>")
+	playsound(src, 'sound/machines/buzz-two.ogg', 60, 0)

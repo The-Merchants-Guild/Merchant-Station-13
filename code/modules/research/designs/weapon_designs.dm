@@ -57,7 +57,7 @@
 	build_path = /obj/item/ammo_casing/shotgun/laser
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-	
+
 /datum/design/shotgun_dart/sec
 	id = "sec_dart"
 	build_type = PROTOLATHE
@@ -145,6 +145,16 @@
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/syringegun
+	name = "Syringe Gun"
+	desc = "A spring loaded rifle designed to fit syringes, used to incapacitate unruly patients from a distance."
+	id = "syringegun"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000)
+	build_path = /obj/item/gun/syringe
+	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/rapidsyringe
 	name = "Rapid Syringe Gun"
 	desc = "A gun that fires many syringes."
@@ -153,7 +163,7 @@
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000)
 	build_path = /obj/item/gun/syringe/rapidsyringe
 	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL //uwu
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/temp_gun
 	name = "Temperature Gun"

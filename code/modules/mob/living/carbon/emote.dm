@@ -145,7 +145,7 @@
 	var/datum/gas_mixture/stank = new
 	var/amount
 	if(is_super_fart)
-		amount = rand(20,21)
+		amount = rand(20,25)
 	else
 		amount = rand(1,5)
 	ADD_GAS(/datum/gas/miasma, stank.gases)

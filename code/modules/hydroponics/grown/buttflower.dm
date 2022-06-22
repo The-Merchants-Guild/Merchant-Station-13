@@ -5,6 +5,7 @@
 	icon_state = "seed-butt"
 	species = "butt"
 	plantname = "Replica Butt Flower"
+	genes = list(/datum/plant_gene/trait/gas_production)
 	product = /obj/item/food/grown/buttflower
 	lifespan = 25
 	endurance = 10

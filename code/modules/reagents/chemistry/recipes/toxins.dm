@@ -346,12 +346,6 @@
 	reaction_flags = REACTION_PH_VOL_CONSTANT
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DAMAGING | REACTION_TAG_TOXIN | REACTION_TAG_OTHER
 
-/datum/chemical_reaction/skewium
-	results = list(/datum/reagent/toxin/skewium = 5)
-	required_reagents = list(/datum/reagent/toxin/rotatium = 2, /datum/reagent/toxin/plasma = 2, /datum/reagent/impedrezene = 3, /datum/reagent/uranium = 2)
-	mix_message = "<span class='danger'>Wow! it turns out if you mix rotatium with some plasma and other shit, it gets even worse!</span>"
-	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_DAMAGING | REACTION_TAG_TOXIN | REACTION_TAG_OTHER
-
 /datum/chemical_reaction/aus
 	results = list(/datum/reagent/toxin/aus = 6)
 	required_reagents = list(/datum/reagent/medicine/ephedrine = 4, /datum/reagent/consumable/ethanol = 2, /datum/reagent/lithium = 2)

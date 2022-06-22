@@ -1481,6 +1481,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	illegal_tech = FALSE
 	surplus_nullcrates = 0
 
+/datum/uplink_item/device_tools/syndicate_teleporter
+	name = "Experimental Syndicate Teleporter"
+	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
+			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
+			but if that emergency teleport fails, it will kill you instantly. \
+			Has 4 charges, recharges automatically. Warranty voided if exposed to EMP."
+	item = /obj/item/storage/box/syndie_kit/teleporter
+	cost = 8
+
 /datum/uplink_item/device_tools/frame
 	name = "F.R.A.M.E. PDA Cartridge"
 	desc = "When inserted into a personal digital assistant, this cartridge gives you five PDA viruses which \

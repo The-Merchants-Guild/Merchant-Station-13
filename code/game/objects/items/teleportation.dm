@@ -312,7 +312,7 @@
 
 #undef PORTAL_LOCATION_DANGEROUS
 #undef PORTAL_DANGEROUS_EDGE_LIMIT
-	
+
 /*
  * Syndicate Teleporter
  */
@@ -322,7 +322,7 @@
 	desc = "A Syndicate reverse-engineered version of the Nanotrasen portable handheld teleporter. It uses bluespace technology to translocate users, but lacks the advanced safety features of its counterpart. Warranty voided if exposed to an electromagnetic pulse."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi_tele"
-	item_state = "electronic"
+	inhand_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	throwforce = 5
@@ -373,10 +373,9 @@
 	if(!charges)
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
-		
+
 	var/turf/current_location = get_turf(user)
-	var/area/current_area = current_location.loc
-	if(!current_location || current_area.noteleport || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
+	if(!current_location || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 
@@ -427,7 +426,7 @@
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	to_chat(user, "<span class='userdanger'>You teleport into the wall, the teleporter tries to save you, but-</span>")
 	destination.ex_act(2) //Destroy the wall
-	user.gib()
+	user.gib(FALSE,FALSE,FALSE,FALSE)
 
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf

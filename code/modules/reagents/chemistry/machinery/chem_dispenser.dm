@@ -37,6 +37,7 @@
 	var/working_state = "dispenser_working"
 	var/nopower_state = "dispenser_nopower"
 	var/has_panel_overlay = TRUE
+	var/macroresolution = 1
 	var/obj/item/reagent_containers/beaker = null
 	//dispensable_reagents is copypasted in plumbing synthesizers. Please update accordingly. (I didn't make it global because that would limit custom chem dispensers)
 	var/list/dispensable_reagents = list(
@@ -222,6 +223,7 @@
 		data["beakerCurrentpH"] = null
 
 	var/chemicals[0]
+	var/recipes[0]
 	var/is_hallucinating = FALSE
 	if(user.hallucinating())
 		is_hallucinating = TRUE
@@ -233,7 +235,9 @@
 				chemname = "[pick_list_replacements("hallucination.json", "chemicals")]"
 			chemicals.Add(list(list("title" = chemname, "id" = ckey(temp.name), "pH" = temp.ph, "pHCol" = convert_ph_to_readable_color(temp.ph))))
 	data["chemicals"] = chemicals
-	data["recipes"] = saved_recipes
+	for(var/recipe in saved_recipes)
+		recipes.Add(list(recipe))
+	data["recipes"] = recipes
 
 	data["recordingRecipe"] = recording_recipe
 	data["recipeReagents"] = list()
@@ -288,33 +292,27 @@
 			replace_beaker(usr)
 			. = TRUE
 		if("dispense_recipe")
-			if(!is_operational || QDELETED(cell))
+			if(!is_operational)
 				return
-
-			var/list/chemicals_to_dispense = saved_recipes[params["recipe"]]
-			if(!LAZYLEN(chemicals_to_dispense))
-				return
-			for(var/key in chemicals_to_dispense)
-				var/reagent = GLOB.name2reagent[translate_legacy_chem_id(key)]
-				var/dispense_amount = chemicals_to_dispense[key]
-				if(!dispensable_reagents.Find(reagent))
-					return
-				if(!recording_recipe)
-					if(!beaker)
-						return
-
-					var/datum/reagents/holder = beaker.reagents
-					var/to_dispense = max(0, min(dispense_amount, holder.maximum_volume - holder.total_volume))
-					if(!to_dispense)
-						continue
-					if(!cell?.use(to_dispense / powerefficiency))
-						say("Not enough energy to complete operation!")
-						return
-					holder.add_reagent(reagent, to_dispense, reagtemp = dispensed_temperature)
-					work_animation()
-				else
-					recording_recipe[key] += dispense_amount
-			. = TRUE
+			var/recipe_to_use = params["recipe"]
+			var/list/chemicals_to_dispense = process_recipe_list(recipe_to_use)
+			for(var/key in chemicals_to_dispense) // i suppose you could edit the list locally before passing it
+				var/list/keysplit = splittext(key," ")
+				var/r_id = GLOB.name2reagent[translate_legacy_chem_id(keysplit[1])]
+				if(beaker && dispensable_reagents.Find(r_id)) // but since we verify we have the reagent, it'll be fine
+					var/datum/reagents/R = beaker.reagents
+					var/free = R.maximum_volume - R.total_volume
+					var/rounded = is_resolution(chemicals_to_dispense[key]) ? chemicals_to_dispense[key] : round(chemicals_to_dispense[key], macroresolution)
+					var/actual = min(rounded, (cell.charge * powerefficiency)*10, free)
+					if(actual)
+						if(!cell.use(abs(actual) / powerefficiency))
+							say("Not enough energy to complete operation!")
+							return
+						if(actual > 0)
+							R.add_reagent(r_id, actual)
+						if(actual < 0)
+							R.remove_reagent(r_id, abs(actual))
+						work_animation()
 		if("clear_recipes")
 			if(!is_operational)
 				return
@@ -325,8 +323,32 @@
 		if("record_recipe")
 			if(!is_operational)
 				return
-			recording_recipe = list()
-			. = TRUE
+			var/name = stripped_input(usr,"Name","What do you want to name this recipe?", "Recipe", MAX_NAME_LEN)
+			var/recipe = stripped_input(usr,"Recipe","Insert recipe with chem IDs")
+			if(!usr.canUseTopic(src, !issilicon(usr)))
+				return
+			if(name && recipe)
+				var/list/first_process = splittext(recipe, ";")
+				if(!LAZYLEN(first_process))
+					return
+				var/resmismatch = FALSE
+				for(var/reagents in first_process)
+					var/list/reagent = splittext(reagents, "=")
+					var/amt = text2num(reagent[2]) || 0
+					var/reagent_id = GLOB.name2reagent[translate_legacy_chem_id(reagent[1])]
+					if(dispensable_reagents.Find(reagent_id) || (reagent_id && amt < 0))
+						if (!resmismatch && !check_macro_part(reagents))
+							resmismatch = TRUE
+						continue
+					else
+						var/chemid = reagent[1]
+						visible_message("<span class='warning'>[src] buzzes.</span>", "<span class='italics'>You hear a faint buzz.</span>")
+						to_chat(usr, "<span class='danger'>[src] cannot find Chemical ID: <b>[chemid]</b>!</span>")
+						playsound(src, 'sound/machines/buzz-two.ogg', 50, 1)
+						return
+				if (resmismatch && alert("[src] is not yet capable of replicating this recipe with the precision it needs, do you want to save it anyway?",, "Yes","No") == "No")
+					return
+				saved_recipes += list(list("recipe_name" = name, "contents" = recipe))
 		if("save_recording")
 			if(!is_operational)
 				return
@@ -354,6 +376,31 @@
 		if("reaction_lookup")
 			if(beaker)
 				beaker.reagents.ui_interact(usr)
+
+/obj/machinery/chem_dispenser/proc/check_macro(macro)
+	for (var/reagent in splittext(trim(macro), ";"))
+		if (!check_macro_part(reagent))
+			return FALSE
+	return TRUE
+
+/obj/machinery/chem_dispenser/proc/check_macro_part(var/part, var/res = macroresolution)
+	var/detail = splittext(part, "=")
+	return is_resolution(text2num(detail[2]), res)
+
+/obj/machinery/chem_dispenser/proc/is_resolution(var/amt, var/res = macroresolution)
+	. = FALSE
+	for(var/i in 5 to macroresolution step -1)
+		if(amt % i == 0)
+			return TRUE
+
+/obj/machinery/chem_dispenser/proc/process_recipe_list(var/list/recipe)
+	var/list/key_list = list()
+	var/list/final_list = list()
+	var/list/first_process = splittext(recipe["contents"], ";")
+	for(var/reagents in first_process)
+		var/list/splitreagent = splittext(reagents, "=")
+		final_list += list(avoid_assoc_duplicate_keys(splitreagent[1],key_list) = text2num(splitreagent[2]))
+	return final_list
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/living/user, params)
 	if(default_unfasten_wrench(user, I))
@@ -403,6 +450,7 @@
 /obj/machinery/chem_dispenser/RefreshParts()
 	recharge_amount = initial(recharge_amount)
 	var/newpowereff = 0.0666666
+	macroresolution = 5
 	for(var/obj/item/stock_parts/cell/P in component_parts)
 		cell = P
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
@@ -410,6 +458,8 @@
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_amount *= C.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		if (M.rating > 1)
+			macroresolution -= M.rating		//5 for t1, 3 for t2, 2 for t3, 1 for t4
 		if (M.rating > 3)
 			dispensable_reagents |= upgrade_reagents
 	powerefficiency = round(newpowereff, 0.01)

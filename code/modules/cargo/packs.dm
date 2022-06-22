@@ -1350,6 +1350,21 @@
 		var/item = pick(contains)
 		new item(C)
 
+/datum/supply_pack/medical/cruelty
+	name = "Consumer Softproducts Augmnents"
+	desc = "Reward your top employees with a subscription models to our augmentations. The hardware will be retrieved at the end of the service, and the user will be cloned to work for our corporation till their debt is paid."
+	cost = CARGO_CRATE_VALUE * 5
+	contraband = TRUE
+	contains = list(/obj/item/organ/cyberimp/brain/skull_gun,
+					/obj/item/organ/cyberimp/chest/biothruster,
+					/obj/item/organ/cyberimp/arm/item_set/gun/grappendix)
+	var/norgans = 4
+
+/datum/supply_pack/medical/cruelty/fill(obj/structure/closet/crate/C)
+	for(var/i in 1 to norgans)
+		var/item = pick(contains)
+		new item(C)
+
 /datum/supply_pack/medical/surgery
 	name = "Surgical Supplies Crate"
 	desc = "Do you want to perform surgery, but don't have one of those fancy shmancy degrees? Just get started with this crate containing a medical duffelbag, Sterilizine spray and collapsible roller bed."

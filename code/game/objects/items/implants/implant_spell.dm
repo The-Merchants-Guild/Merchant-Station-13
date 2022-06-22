@@ -12,7 +12,7 @@
 				<b>Name:</b> Spell Implant<BR>
 				<b>Life:</b> 4 hours after death of host<BR>
 				<b>Implant Details:</b> <BR>
-				<b>Function:</b> [spell ? "Allows a non-wizard to cast [spell] as if they were a wizard." : "None"]"}
+				<b>Function:</b> [spell ? "Allows a non-wizard to cast [spell.name] as if they were a wizard." : "None"]"}
 	return dat
 
 /obj/item/implant/spell/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)

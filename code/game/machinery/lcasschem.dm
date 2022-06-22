@@ -70,7 +70,7 @@
 
 /obj/machinery/chem/pressure//This used heater code before. Not anymore
 	name = "\improper pressurized reaction chamber"
-	desc = "Creates high pressures to suit certain reaction conditions"
+	desc = "Creates high pressures to suit certain reaction conditions."
 	icon_state = "press"
 	circuit = /obj/item/circuitboard/machine/pressure
 

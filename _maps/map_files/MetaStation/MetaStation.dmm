@@ -70392,6 +70392,9 @@
 /area/medical/medbay/central)
 "vaT" = (
 /obj/structure/cable,
+/obj/structure/statue/sandstone/asstue{
+	anchored = 1
+	},
 /turf/open/floor/iron/goonplaque,
 /area/hallway/primary/port)
 "vaY" = (

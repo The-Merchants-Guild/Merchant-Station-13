@@ -18958,6 +18958,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
+"cvV" = (
+/obj/effect/landmark/start/hangover,
+/turf/open/floor/iron/grimy,
+/area/hallway/secondary/entry)
 "cvX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -73568,7 +73572,9 @@
 /area/medical/surgery)
 "nVc" = (
 /obj/machinery/holopad,
-/obj/effect/landmark/start/hangover,
+/obj/structure/statue/sandstone/asstue{
+	anchored = 1
+	},
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
 "nVk" = (
@@ -152087,7 +152093,7 @@ akN
 abf
 ams
 mIm
-aom
+cvV
 apn
 aqq
 abf

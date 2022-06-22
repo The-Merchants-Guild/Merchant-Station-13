@@ -242,7 +242,7 @@
 	taste_description = "soy milk"
 	glass_icon_state = "glass_white"
 	glass_name = "glass of soy milk"
-	glass_desc = "White and nutritious soy goodness!"
+	glass_desc = "Even looking at this degrades your body."
 	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/soymilk/on_mob_life(mob/living/carbon/M, delta_time, times_fired)

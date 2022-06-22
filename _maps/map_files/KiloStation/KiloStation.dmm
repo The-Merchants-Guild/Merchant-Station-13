@@ -27385,6 +27385,9 @@
 	},
 /obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
+/obj/structure/statue/sandstone/asstue{
+	anchored = 1
+	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "bUd" = (

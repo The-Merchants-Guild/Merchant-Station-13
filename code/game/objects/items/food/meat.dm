@@ -98,7 +98,7 @@
 
 /obj/item/food/tofu
 	name = "tofu"
-	desc = "We all love tofu."
+	desc = "Tastes like meat, as long as you've forgotten what meat tastes like."
 	icon_state = "tofu"
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 2)
 	tastes = list("tofu" = 1)
@@ -563,7 +563,7 @@
 
 /obj/item/food/kebab/tofu
 	name = "tofu-kebab"
-	desc = "Vegan meat, on a stick."
+	desc = "Vegan so-called meat, on a stick."
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 15)
 	tastes = list("tofu" = 3, "metal" = 1)
 	foodtypes = VEGETABLES

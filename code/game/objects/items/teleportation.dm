@@ -375,7 +375,8 @@
 		return
 
 	var/turf/current_location = get_turf(user)
-	if(!current_location || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
+	var/area/current_area = current_location.loc
+	if(!current_location || !(current_area.area_flags & NOTELEPORT) || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 
@@ -426,7 +427,9 @@
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	to_chat(user, "<span class='userdanger'>You teleport into the wall, the teleporter tries to save you, but-</span>")
 	destination.ex_act(2) //Destroy the wall
-	user.gib(FALSE,FALSE,FALSE,FALSE)
+	if (iscarbon(user))
+		var/mob/living/carbon/cuser = user
+		cuser.gib(FALSE,FALSE,FALSE,FALSE)
 
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf

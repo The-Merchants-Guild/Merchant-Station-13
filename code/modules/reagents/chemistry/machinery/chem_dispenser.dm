@@ -85,7 +85,6 @@
 		/datum/reagent/toxin
 	)
 
-	var/list/recording_recipe
 
 	var/list/saved_recipes = list()
 
@@ -239,7 +238,6 @@
 		recipes.Add(list(recipe))
 	data["recipes"] = recipes
 
-	data["recordingRecipe"] = recording_recipe
 	data["recipeReagents"] = list()
 	if(beaker?.reagents.ui_reaction_id)
 		var/datum/chemical_reaction/reaction = get_chemical_reaction(beaker.reagents.ui_reaction_id)
@@ -265,23 +263,20 @@
 			if(!is_operational || QDELETED(cell))
 				return
 			var/reagent_name = params["reagent"]
-			if(!recording_recipe)
-				var/reagent = GLOB.name2reagent[reagent_name]
-				if(beaker && dispensable_reagents.Find(reagent))
+			var/reagent = GLOB.name2reagent[reagent_name]
+			if(beaker && dispensable_reagents.Find(reagent))
 
-					var/datum/reagents/holder = beaker.reagents
-					var/to_dispense = max(0, min(amount, holder.maximum_volume - holder.total_volume))
-					if(!cell?.use(to_dispense / powerefficiency))
-						say("Not enough energy to complete operation!")
-						return
-					holder.add_reagent(reagent, to_dispense, reagtemp = dispensed_temperature)
+				var/datum/reagents/holder = beaker.reagents
+				var/to_dispense = max(0, min(amount, holder.maximum_volume - holder.total_volume))
+				if(!cell?.use(to_dispense / powerefficiency))
+					say("Not enough energy to complete operation!")
+					return
+				holder.add_reagent(reagent, to_dispense, reagtemp = dispensed_temperature)
 
-					work_animation()
-			else
-				recording_recipe[reagent_name] += amount
+				work_animation()
 			. = TRUE
 		if("remove")
-			if(!is_operational || recording_recipe)
+			if(!is_operational)
 				return
 			var/amount = text2num(params["amount"])
 			if(beaker && (amount in beaker.possible_transfer_amounts))
@@ -320,10 +315,10 @@
 			if(yesno == "Yes")
 				saved_recipes = list()
 			. = TRUE
-		if("record_recipe")
+		if("record_recipe") //I'm not renaming this lol
 			if(!is_operational)
 				return
-			var/name = stripped_input(usr,"Name","What do you want to name this recipe?", "Recipe", MAX_NAME_LEN)
+			var/name = stripped_input(usr,"Name","What do you want to name this recipe?(This is broken)", "Recipe", MAX_NAME_LEN)
 			var/recipe = stripped_input(usr,"Recipe","Insert recipe with chem IDs")
 			if(!usr.canUseTopic(src, !issilicon(usr)))
 				return
@@ -349,30 +344,6 @@
 				if (resmismatch && alert("[src] is not yet capable of replicating this recipe with the precision it needs, do you want to save it anyway?",, "Yes","No") == "No")
 					return
 				saved_recipes += list(list("recipe_name" = name, "contents" = recipe))
-		if("save_recording")
-			if(!is_operational)
-				return
-			var/name = stripped_input(usr,"Name","What do you want to name this recipe?", "Recipe", MAX_NAME_LEN)
-			if(!usr.canUseTopic(src, !issilicon(usr)))
-				return
-			if(saved_recipes[name] && tgui_alert(usr, "\"[name]\" already exists, do you want to overwrite it?",, list("Yes", "No")) == "No")
-				return
-			if(name && recording_recipe)
-				for(var/reagent in recording_recipe)
-					var/reagent_id = GLOB.name2reagent[translate_legacy_chem_id(reagent)]
-					if(!dispensable_reagents.Find(reagent_id))
-						visible_message(span_warning("[src] buzzes."), span_hear("You hear a faint buzz."))
-						to_chat(usr, "<span class ='danger'>[src] cannot find <b>[reagent]</b>!</span>")
-						playsound(src, 'sound/machines/buzz-two.ogg', 50, TRUE)
-						return
-				saved_recipes[name] = recording_recipe
-				recording_recipe = null
-				. = TRUE
-		if("cancel_recording")
-			if(!is_operational)
-				return
-			recording_recipe = null
-			. = TRUE
 		if("reaction_lookup")
 			if(beaker)
 				beaker.reagents.ui_interact(usr)
@@ -383,17 +354,17 @@
 			return FALSE
 	return TRUE
 
-/obj/machinery/chem_dispenser/proc/check_macro_part(var/part, var/res = macroresolution)
+/obj/machinery/chem_dispenser/proc/check_macro_part(part, res = macroresolution)
 	var/detail = splittext(part, "=")
 	return is_resolution(text2num(detail[2]), res)
 
-/obj/machinery/chem_dispenser/proc/is_resolution(var/amt, var/res = macroresolution)
+/obj/machinery/chem_dispenser/proc/is_resolution(amt, res = macroresolution)
 	. = FALSE
 	for(var/i in 5 to macroresolution step -1)
 		if(amt % i == 0)
 			return TRUE
 
-/obj/machinery/chem_dispenser/proc/process_recipe_list(var/list/recipe)
+/obj/machinery/chem_dispenser/proc/process_recipe_list(list/recipe)
 	var/list/key_list = list()
 	var/list/final_list = list()
 	var/list/first_process = splittext(recipe["contents"], ";")

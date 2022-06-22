@@ -296,14 +296,12 @@
 		return TRUE
 	return FALSE
 
-/obj/effect/decal/cleanable/blood
-	plane = -1
-
 /obj/effect/decal/cleanable/blood/hitsplatter
 	name = "blood splatter"
 	pass_flags = PASSTABLE | PASSGRILLE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "hitsplatter1"
+	plane = -1
 	random_icon_states = list("hitsplatter1", "hitsplatter2", "hitsplatter3")
 	var/turf/prev_loc
 	var/mob/living/blood_source

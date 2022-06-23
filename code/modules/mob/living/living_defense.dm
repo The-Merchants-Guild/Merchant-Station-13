@@ -462,4 +462,7 @@
 	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_MOB, src, reagents, methods, volume_modifier, show_message, touch_protection)
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
-		. |= R.expose_mob(src, methods, reagents[R], show_message, touch_protection)
+		if(methods == VAPOR)
+			var/mob/living/L = src
+			touch_protection = L.get_permeability_protection()
+		R.expose_mob(src, methods, R.volume * volume_modifier, show_message, touch_protection)

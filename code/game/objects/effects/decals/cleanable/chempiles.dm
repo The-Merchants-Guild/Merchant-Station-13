@@ -7,8 +7,8 @@ GLOBAL_LIST_EMPTY(chempiles)
 	mergeable_decal = FALSE
 
 /obj/effect/decal/cleanable/chempile/examine(mob/user)
-	..()
-	to_chat(user, "It contains:")
+	. = ..()
+	to_chat(user, "It contains:")//this is so fucking funny I don't want to fix it
 	if(reagents.reagent_list.len)
 		if(user.can_see_reagents()) //Show each individual reagent
 			for(var/datum/reagent/R in reagents.reagent_list)
@@ -22,7 +22,6 @@ GLOBAL_LIST_EMPTY(chempiles)
 		to_chat(user, "Nothing.")
 
 /obj/effect/decal/cleanable/chempile/Initialize()
-	RegisterSignal(src, COMSIG_MOVABLE_CROSS, .proc/on_cross)
 	GLOB.chempiles += src
 	if(reagents && reagents.total_volume)
 		if(reagents.total_volume < 5)
@@ -36,20 +35,24 @@ GLOBAL_LIST_EMPTY(chempiles)
 /obj/effect/decal/cleanable/chempile/ex_act()
 	qdel(src)
 
-/obj/effect/decal/cleanable/chempile/proc/on_cross(mob/mover)
-	SIGNAL_HANDLER
-	if(isliving(mover))
-		var/mob/living/M = mover
-		var/protection = 1
-		for(var/obj/item/I in M.get_equipped_items())
-			if(I.body_parts_covered & FEET)
-				protection = I.permeability_coefficient
-		if(reagents && reagents.total_volume >= 1)	//No transfer if there's less than 1u total
-			reagents.trans_to(M, 2, protection)
-			CHECK_TICK
-			for(var/datum/reagent/R in reagents.reagent_list)
-				if(R.volume < 0.2)
-					reagents.remove_reagent(R)	//Should remove most stray cases of microdosages that may get through without compromising chempiles with lots of mixes in them
+/obj/effect/decal/cleanable/chempile/on_entered(datum/source, atom/movable/AM)
+	. = ..()
+	to_chat(world, span_alert("SOMETHING CROSSED [AM]"))
+	if(!isliving(AM))
+		return
+	var/mob/living/M = AM
+	to_chat(world, span_alert("SOMETHING CROSSED [M]"))
+	var/protection = 1
+	for(var/obj/item/clothing/shoes/I in M.get_equipped_items())
+		if(I.body_parts_covered & FEET)
+			protection = I.permeability_coefficient
+	if(reagents && reagents.total_volume >= 1)	//No transfer if there's less than 1u total
+		reagents.trans_to(M, 2, protection)
+		to_chat(world, span_alert("SOMETHING CROSSED AND SHIDDED"))
+		//CHECK_TICK this was used to prevent lag. TG blocks using stoplag in procs that have sleep. Lol.
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.volume < 0.2)
+				reagents.remove_reagent(R)	//Should remove most stray cases of microdosages that may get through without compromising chempiles with lots of mixes in them
 
 /obj/effect/decal/cleanable/chempile/fire_act(exposed_temperature, exposed_volume)
 	if(reagents && reagents.chem_temp)

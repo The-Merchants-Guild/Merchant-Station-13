@@ -64,16 +64,14 @@
 GLOBAL_LIST_EMPTY(vapour)
 /obj/effect/particle_effect/vapour
 	name = "vapour"
-	icon = 'icons/effects/96x96.dmi'
+	icon = 'icons/effects/32x32.dmi'
 	icon_state = "smoke"
-	pixel_x = -32
-	pixel_y = -32
 	alpha = 50
 	opacity = 0
 	layer = FLY_LAYER
 	anchored = TRUE
 	animate_movement = 0
-	var/datum/reagent/reagent_type//much simpler than having it actually store and transfer
+	var/datum/reagent/reagent_type //much simpler than having it actually store and transfer
 	var/obj/effect/particle_effect/vapour/master/VM
 	var/reac_count = 0//running tally of the amount of inter gas reactions that have occured
 	var/spread_cooldown = 0

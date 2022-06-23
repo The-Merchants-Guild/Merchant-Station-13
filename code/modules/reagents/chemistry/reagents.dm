@@ -318,7 +318,7 @@ Primarily used in reagents/reaction_agents
 				if(c.reagents)
 					if(touch_msg)
 						c.add_fingerprint(touch_mob)
-					c.reagents.add_reagent("[src.type]", volume)
+					c.reagents.add_reagent(src.type, volume)
 					var/mixcolor = mix_color_from_reagents(c.reagents.reagent_list)
 					c.add_atom_colour(mixcolor, FIXED_COLOUR_PRIORITY)
 					if(c.reagents && c.reagents.total_volume < 5 & NO_REACT)
@@ -329,7 +329,7 @@ Primarily used in reagents/reaction_agents
 			if(C.reagents)
 				if(touch_msg)
 					C.add_fingerprint(touch_mob)
-				C.reagents.add_reagent("[src.type]", volume)
+				C.reagents.add_reagent(src.type, volume)
 				var/mixcolor = mix_color_from_reagents(C.reagents.reagent_list)
 				C.add_atom_colour(mixcolor, FIXED_COLOUR_PRIORITY)
 
@@ -339,13 +339,13 @@ Primarily used in reagents/reaction_agents
 				if(SR.reagents && SR.reagent_type == src.type && SR.reagents.total_volume < 200)
 					if(touch_msg)
 						SR.add_fingerprint(touch_mob)
-					SR.reagents.add_reagent("[src.type]", volume)
+					SR.reagents.add_reagent(src.type, volume)
 					return TRUE
 
 			var/obj/item/reagent_containers/food/solid_reagent/Sr = new /obj/item/reagent_containers/food/solid_reagent(T)
 			if(touch_msg)
 				Sr.add_fingerprint(touch_mob)
-			Sr.reagents.add_reagent("[src.type]", volume)
+			Sr.reagents.add_reagent(src.type, volume)
 			Sr.reagent_type = src.type
 			Sr.name = "solidified [src]"
 			Sr.add_atom_colour(src.color, FIXED_COLOUR_PRIORITY)

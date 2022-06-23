@@ -37,18 +37,15 @@ GLOBAL_LIST_EMPTY(chempiles)
 
 /obj/effect/decal/cleanable/chempile/on_entered(datum/source, atom/movable/AM)
 	. = ..()
-	to_chat(world, span_alert("SOMETHING CROSSED [AM]"))
 	if(!isliving(AM))
 		return
 	var/mob/living/M = AM
-	to_chat(world, span_alert("SOMETHING CROSSED [M]"))
 	var/protection = 1
 	for(var/obj/item/clothing/shoes/I in M.get_equipped_items())
 		if(I.body_parts_covered & FEET)
 			protection = I.permeability_coefficient
 	if(reagents && reagents.total_volume >= 1)	//No transfer if there's less than 1u total
 		reagents.trans_to(M, 2, protection)
-		to_chat(world, span_alert("SOMETHING CROSSED AND SHIDDED"))
 		//CHECK_TICK this was used to prevent lag. TG blocks using stoplag in procs that have sleep. Lol.
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.volume < 0.2)

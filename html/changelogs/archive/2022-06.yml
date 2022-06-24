@@ -112,3 +112,11 @@
       market uplink
   karmaisblackandbluepilled:
   - bugfix: Fixed the description of forge bullet casings.
+2022-06-24:
+  MartialArtist:
+  - balance: Krav Maga disarms work like normal disarms now.
+  - bugfix: Improved Krav Maga chat messages for being unable to use moves while incapacitated.
+  karmaisblackandbluepilled:
+  - rscadd: Chemnades leave their empty nade casing behind if it didn't get blown
+      up by the reaction.
+  - bugfix: BP nades should work again.

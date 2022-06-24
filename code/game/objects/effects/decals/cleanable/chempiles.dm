@@ -1,3 +1,5 @@
+///HIPPIESTATION MARCHES ON.
+
 GLOBAL_LIST_EMPTY(chempiles)
 /obj/effect/decal/cleanable/chempile
 	name = "chemicals"

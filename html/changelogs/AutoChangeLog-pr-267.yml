@@ -1,0 +1,5 @@
+author: MartialArtist
+delete-after: true
+changes:
+  - balance: Krav Maga disarms work like normal disarms now.
+  - bugfix: Improved Krav Maga chat messages for being unable to use moves while incapacitated.

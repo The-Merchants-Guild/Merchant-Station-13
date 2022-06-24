@@ -16,6 +16,8 @@
 
 /obj/item/grenade/clusterbuster/detonate(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	update_mob()
 	var/numspawned = rand(min_spawned,max_spawned)
 	var/again = 0

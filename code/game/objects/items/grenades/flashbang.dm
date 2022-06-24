@@ -8,6 +8,8 @@
 
 /obj/item/grenade/flashbang/detonate(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	update_mob()
 	var/flashbang_turf = get_turf(src)
 	if(!flashbang_turf)
@@ -58,6 +60,10 @@
 	shrapnel_radius = 12
 
 /obj/item/grenade/stingbang/detonate(mob/living/lanced_by)
+	if(dud_flags)
+		active = FALSE
+		update_appearance()
+		return FALSE
 	if(iscarbon(loc))
 		var/mob/living/carbon/C = loc
 		var/obj/item/bodypart/B = C.get_holding_bodypart_of_item(src)
@@ -67,6 +73,8 @@
 			B.dismember()
 
 	. = ..()
+	if(!.)
+		return
 
 	update_mob()
 	var/flashbang_turf = get_turf(src)
@@ -121,6 +129,8 @@
 /obj/item/grenade/primer/detonate(mob/living/lanced_by)
 	shrapnel_radius = round(rots / rots_per_mag)
 	. = ..()
+	if(!.)
+		return
 	qdel(src)
 
 /obj/item/grenade/primer/stingbang

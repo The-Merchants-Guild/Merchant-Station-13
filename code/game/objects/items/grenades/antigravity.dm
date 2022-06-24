@@ -9,6 +9,8 @@
 
 /obj/item/grenade/antigravity/detonate(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	update_mob()
 
 	for(var/turf/T in view(range,src))

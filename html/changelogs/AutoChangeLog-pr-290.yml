@@ -1,0 +1,6 @@
+author: karmaisblackandbluepilled
+delete-after: true
+changes:
+  - rscadd: Chemnades leave their empty nade casing behind if it didn't get blown
+      up by the reaction.
+  - bugfix: BP nades should work again.

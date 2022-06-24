@@ -129,7 +129,7 @@
 
 /obj/item/radio/headset/syndicate/alt/nano/MouseDrop(obj/over_object, src_location, over_location)
 	var/mob/M = usr
-	if((!istype(over_object, /obj/screen)) && usr.canUseTopic(src))
+	if((!istype(over_object, /atom/movable/screen)) && usr.canUseTopic(src))
 		return attack_self(M)
 	return ..()
 
@@ -747,36 +747,14 @@
 		Wearer.verbs -= help_verb
 
 /obj/item/clothing/suit/space/hardsuit/nano/proc/bootSequence()
-	if(helmet)
+	if(!helmet)
 		return //fuck you dreamchecker
-	helmet.display_visor_message("Crynet - UEFI v1.32 Syndicate Systems")
-	spawn(10)
-	helmet.display_visor_message("P.O.S.T. Commencing...")
-	spawn(30)
+	helmet.display_visor_message("Crynet - UEFI v1.32 Syndicate Systems\n P.O.S.T. Commencing...\n Memory test: 6144MB OK(Installed Memory: 6144MB)\n Onboard equipment test: OK \n Telecommunications systems: OK \n Checking environment sensors, standby... \n Life signs systems: OK\n Loading default configuration, standby...\n Successful. Have a safe and secure day.")
 	playsound(usr, 'sound/machines/beep.ogg', 50, FALSE)
-	helmet.display_visor_message("Memory test: 6144MB OK(Installed Memory: 6144MB)")
-	spawn(10)
-	helmet.display_visor_message("Onboard equipment test: OK")
-	spawn(10)
-	helmet.display_visor_message("Telecommunications systems: OK")
-	spawn(10)
-	helmet.display_visor_message("Checking environment sensors, standby...")
-	spawn(20)
 	healthon = TRUE
-	helmet.display_visor_message("Life signs systems: OK")
-	spawn(5)
 	atmoson = TRUE
-	helmet.display_visor_message("Atmospheric sensors: OK")
-	spawn(5)
 	cellon = TRUE
-	helmet.display_visor_message("Power sensor: OK")
-	spawn(5)
 	radon = TRUE
-	helmet.display_visor_message("Geiger counter: OK")
-	spawn(5)
-	helmet.display_visor_message("Loading default configuration, standby...")
-	spawn(25)
-	helmet.display_visor_message("Successful. Have a safe and secure day.")
 	shutdown = FALSE
 	toggle_mode(NANO_ARMOR)
 
@@ -1129,7 +1107,7 @@
 		Wearer.filters = filter(type="blur",size=1)
 		animate(Wearer, alpha = 40, time = stealth_cloak_in)
 
-/obj/item/storage/box/syndie_kit/nanosuitLK
+/obj/item/storage/box/syndie_kit/nanosuit
 	name = "\improper Crynet Systems kit"
 	desc = "Maximum Death."
 

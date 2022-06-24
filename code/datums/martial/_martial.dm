@@ -136,7 +136,7 @@
 		D.visible_message("<span class='danger'>[A] has knocked [D] down!!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] down!</span>")
 		D.apply_effect(40, EFFECT_KNOCKDOWN, armor_block)
-		D.say(GLOB.hit_appends, forced = "punched in the fucking mouth")
+		D.say(pick(GLOB.hit_appends))
 	else if(!(D.mobility_flags & MOBILITY_STAND))
-		D.say(GLOB.hit_appends, forced = "punched in the fucking mouth")
+		D.say(pick(GLOB.hit_appends))
 	return 1

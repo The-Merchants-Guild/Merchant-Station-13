@@ -956,7 +956,7 @@
 			if(check_streak(A,D))
 				return TRUE
 		else if(prob(35))
-			cleeve_attack(A,D)
+			cleeve_attack(A,D) //DOUBLE ATTACK AAAA
 			return FALSE
 	D.visible_message("<span class='danger'>[A] [quick?"quick":""] [picked_hit_type] [D]!</span>", \
 					"<span class='userdanger'>[A] [quick?"quick":""] [picked_hit_type] you!</span>")
@@ -972,7 +972,7 @@
 	D.apply_damage(bonus_damage, BRUTE)
 	return TRUE
 
-/datum/martial_art/nanosuit/disarm_act(mob/living/carbon/human/A, mob/living/carbon/D)
+/datum/martial_art/nanosuit/disarm_act(mob/living/carbon/human/A, mob/living/carbon/D) //THAT'S RIGHT BABY, OLD DISARMS ARE BACK
 	var/obj/item/I = null
 	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 	if(prob(70) && D != A)

@@ -417,6 +417,10 @@
 		update_hair()
 		update_body_parts()
 		update_mutations_overlay()// no lizard with human hulk overlay please.
+	if(is_banned_from(ckey, CATBAN) && !istype(dna.species, /datum/species/human/felinid/tarajan))
+		set_species(/datum/species/human/felinid/tarajan, icon_update=1) // can't escape hell
+	if(is_banned_from(ckey, CLUWNEBAN) && !dna.check_mutation(CLUWNEMUT))
+		dna.add_mutation(CLUWNEMUT) // you can't escape hell
 
 
 /mob/proc/has_dna()

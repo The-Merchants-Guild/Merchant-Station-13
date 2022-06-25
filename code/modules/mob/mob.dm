@@ -1007,6 +1007,9 @@
 ///Can the mob use Topic to interact with machines
 /mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE, need_hands = FALSE, floor_okay=FALSE)
 	return
+///Is the mob in crit?
+/mob/living/proc/InCritical()
+	return (health <= crit_threshold && (stat == SOFT_CRIT || stat == UNCONSCIOUS))
 
 ///Can this mob use storage
 /mob/proc/canUseStorage()

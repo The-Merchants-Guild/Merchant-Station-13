@@ -49,7 +49,6 @@ SUBSYSTEM_DEF(job)
 		CRASH("set_overflow_role failed | new_overflow_role: [isnull(new_overflow_role) ? "null" : new_overflow_role]")
 	var/cap = CONFIG_GET(number/overflow_cap)
 
-	new_overflow.allow_bureaucratic_error = FALSE
 	new_overflow.spawn_positions = cap
 	new_overflow.total_positions = cap
 
@@ -134,6 +133,9 @@ SUBSYSTEM_DEF(job)
 	for(var/mob/dead/new_player/player in unassigned)
 		if(is_banned_from(player.ckey, job.title) || QDELETED(player))
 			JobDebug("FOC isbanned failed, Player: [player]")
+			continue
+		if((is_banned_from(player.ckey, CLUWNEBAN) || is_banned_from(player.ckey, CATBAN) || is_banned_from(player.ckey, CRABBAN)) && job.title != overflow_role)
+			JobDebug("FOC isbanned failed (cat/clown ban), Player: [player]")
 			continue
 		if(!job.player_old_enough(player.client))
 			JobDebug("FOC player not old enough, Player: [player]")
@@ -303,6 +305,8 @@ SUBSYSTEM_DEF(job)
 		AssignRole(player, GetJobType(overflow_role))
 		overflow_candidates -= player
 	JobDebug("DO, AC1 end")
+
+	FillBannedPosition() // cat/clowns can only play as the overflow role, assistant by default.
 
 	//Select one head
 	JobDebug("DO, Running Head Check")
@@ -699,7 +703,13 @@ SUBSYSTEM_DEF(job)
 
 	centcom_jobs = list("Central Command","VIP Guest","Custodian","Thunderdome Overseer","CentCom Official","Medical Officer","Research Officer", \
 		"Special Ops Officer","Admiral","CentCom Commander","CentCom Bartender","Private Security Force")
-		
+
 /datum/controller/subsystem/job/proc/assign_priority_positions()
 	for(var/mob/new_player in dynamic_forced_occupations)
 		AssignRole(new_player, GetJob(dynamic_forced_occupations[new_player]))
+
+/datum/controller/subsystem/job/proc/FillBannedPosition()
+	for(var/p in unassigned)
+		var/mob/dead/new_player/player = p
+		if(is_banned_from(player.ckey, CLUWNEBAN) || is_banned_from(player.ckey, CATBAN) || is_banned_from(player.ckey, CRABBAN))
+			AssignRole(player, overflow_role)

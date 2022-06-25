@@ -86,6 +86,8 @@
 					'sound/creatures/monkey/monkey_screech_5.ogg',
 					'sound/creatures/monkey/monkey_screech_6.ogg',
 					'sound/creatures/monkey/monkey_screech_7.ogg')
+	else if(is_species(user, /datum/species/human/felinid/tarajan))
+		return 'sound/voice/cat.ogg'
 
 
 /datum/emote/living/carbon/human/scream/screech //If a human tries to screech it'll just scream.

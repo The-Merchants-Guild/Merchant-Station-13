@@ -57,7 +57,7 @@
 	if(!uses)
 		to_chat(user, span_warning("This spawner is out of charges!"))
 		return
-	if(is_banned_from(user.key, banType))
+	if(is_banned_from(user.key, banType) || is_banned_from(user.ckey, list(CATBAN,CLUWNEBAN,CRABBAN)))
 		to_chat(user, span_warning("You are jobanned!"))
 		return
 	if(!allow_spawn(user))

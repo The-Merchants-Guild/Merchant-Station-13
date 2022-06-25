@@ -81,6 +81,8 @@
 /datum/dna/proc/remove_mutation(mutation_type)
 	SEND_SIGNAL(holder, COMSIG_CARBON_LOSE_MUTATION, mutation_type)
 	return force_lose(get_mutation(mutation_type))
+	if(is_banned_from(holder.ckey, CLUWNEBAN) && !check_mutation(CLUWNEMUT))
+		add_mutation(CLUWNEMUT) // you can't escape hell
 
 /datum/dna/proc/check_mutation(mutation_type)
 	return get_mutation(mutation_type)
@@ -356,6 +358,8 @@
 		generate_dna_blocks()
 	features = random_features()
 	unique_features = generate_unique_features()
+	if(is_banned_from(holder.ckey, CLUWNEBAN) && !check_mutation(CLUWNEMUT))
+		add_mutation(CLUWNEMUT) // you can't escape hell
 
 
 /datum/dna/stored //subtype used by brain mob's stored_dna

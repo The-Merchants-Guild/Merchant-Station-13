@@ -268,7 +268,7 @@
 	status_effect_type = /datum/status_effect/wound/burn/moderate
 	flesh_damage = 5
 	scar_keyword = "burnmoderate"
-	tox_damage_multiplier = .2
+	tox_damage_multiplier = 0.2
 
 /datum/wound/burn/severe
 	name = "Third Degree Burns"
@@ -285,7 +285,7 @@
 	infestation_rate = 0.07 // appx 9 minutes to reach sepsis without any treatment
 	flesh_damage = 12.5
 	scar_keyword = "burnsevere"
-	tox_damage_multiplier = .3
+	tox_damage_multiplier = 0.3
 
 /datum/wound/burn/critical
 	name = "Catastrophic Burns"
@@ -303,4 +303,4 @@
 	infestation_rate = 0.075 // appx 4.33 minutes to reach sepsis without any treatment
 	flesh_damage = 20
 	scar_keyword = "burncritical"
-	tox_damage_multiplier = .4
+	tox_damage_multiplier = 0.4

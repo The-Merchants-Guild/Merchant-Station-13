@@ -289,6 +289,7 @@
 		if("dispense_recipe")
 			if(!is_operational || QDELETED(cell))
 				return
+			to_chat(world, span_announce("[params["recipe"]]"))
 			var/recipe_to_use = params["recipe"]
 			var/list/chemicals_to_dispense = process_recipe_list(recipe_to_use)
 			if(!LAZYLEN(chemicals_to_dispense))
@@ -366,10 +367,10 @@
 		if(amt % i == 0)
 			return TRUE
 
-/obj/machinery/chem_dispenser/proc/process_recipe_list(list/recipe)
+/obj/machinery/chem_dispenser/proc/process_recipe_list(recipe)
 	var/list/key_list = list()
 	var/list/final_list = list()
-	var/list/first_process = splittext(recipe, ";")
+	var/list/first_process = splittext(saved_recipes[recipe], ";")
 	for(var/reagents in first_process)
 		var/list/splitreagent = splittext(reagents, "=")
 		final_list[avoid_assoc_duplicate_keys(splitreagent[1], key_list)] = text2num(splitreagent[2])

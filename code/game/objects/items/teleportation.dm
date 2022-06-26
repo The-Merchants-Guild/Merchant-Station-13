@@ -340,7 +340,7 @@
 
 /obj/item/teleporter/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
+	. += span_notice("[src] has [charges] out of [max_charges] charges left.")
 
 /obj/item/teleporter/attack_self(mob/user)
 	..()
@@ -362,22 +362,22 @@
 	if(prob(50 / severity))
 		if(istype(loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/user = loc
-			to_chat(user, "<span class='danger'>[src] buzzes and activates!</span>")
+			to_chat(user, span_danger("[src] buzzes and activates!"))
 			attempt_teleport(user, TRUE) //EMP Activates a teleport with no safety.
 		else
-			visible_message("<span class='warning'>[src] activates and blinks out of existence!</span>")
+			visible_message(span_warning("[src] activates and blinks out of existence!"))
 			do_sparks(2, 1, src)
 			qdel(src)
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
 	if(!charges)
-		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
+		to_chat(user, span_warning("[src] is still recharging."))
 		return
 
 	var/turf/current_location = get_turf(user)
 	var/area/current_area = current_location.loc
 	if(!current_location || !(current_area.area_flags & NOTELEPORT) || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
-		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
+		to_chat(user, span_notice("\The [src] is malfunctioning."))
 		return
 
 	var/mob/living/carbon/C = user
@@ -425,7 +425,7 @@
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 	playsound(destination, "sparks", 50, TRUE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
-	to_chat(user, "<span class='userdanger'>You teleport into the wall, the teleporter tries to save you, but-</span>")
+	to_chat(user, span_userdanger("You teleport into the wall, the teleporter tries to save you, but-"))
 	destination.ex_act(2) //Destroy the wall
 	if (iscarbon(user))
 		var/mob/living/carbon/cuser = user
@@ -435,7 +435,7 @@
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf
 		M.apply_damage(20, BRUTE)
 		M.Paralyze(30)
-		to_chat(M, "<span class='userdanger'>[user] teleports into you, knocking you to the floor with the bluespace wave!</span>")
+		to_chat(M, span_userdanger("[user] teleports into you, knocking you to the floor with the bluespace wave!"))
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"

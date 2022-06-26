@@ -205,7 +205,7 @@
  * will not be seen as initalized (this can lead to all sorts of strange behaviour, like
  * the item being completely unclickable)
  *
- * You must not sleep in this proc, or any subprocs
+ * You must not sleep in this proc, or any subprocs KILL YOURSELF
  *
  * Any parameters from new are passed through (excluding loc), naturally if you're loading from a map
  * there are no other arguments

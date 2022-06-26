@@ -256,12 +256,12 @@
 		user.visible_message(span_danger("[user] snaps [victim]'s dislocated [limb.name] back into place!"), span_notice("You snap [victim]'s dislocated [limb.name] back into place!"), ignored_mobs=victim)
 		to_chat(victim, span_userdanger("[user] snaps your dislocated [limb.name] back into place!"))
 		victim.emote("scream")
-		limb.receive_damage(brute=20, wound_bonus=CANT_WOUND)
+		limb.receive_damage(brute=10, wound_bonus=CANT_WOUND)
 		qdel(src)
 	else
 		user.visible_message(span_danger("[user] wrenches [victim]'s dislocated [limb.name] around painfully!"), span_danger("You wrench [victim]'s dislocated [limb.name] around painfully!"), ignored_mobs=victim)
 		to_chat(victim, span_userdanger("[user] wrenches your dislocated [limb.name] around painfully!"))
-		limb.receive_damage(brute=10, wound_bonus=CANT_WOUND)
+		limb.receive_damage(brute=5, wound_bonus=CANT_WOUND)
 		chiropractice(user)
 
 /// If someone is snapping our dislocated joint into a fracture by hand with an aggro grab and harm or disarm intent
@@ -275,11 +275,11 @@
 		user.visible_message(span_danger("[user] snaps [victim]'s dislocated [limb.name] with a sickening crack!"), span_danger("You snap [victim]'s dislocated [limb.name] with a sickening crack!"), ignored_mobs=victim)
 		to_chat(victim, span_userdanger("[user] snaps your dislocated [limb.name] with a sickening crack!"))
 		victim.emote("scream")
-		limb.receive_damage(brute=25, wound_bonus=30)
+		limb.receive_damage(brute=12, wound_bonus=30)
 	else
 		user.visible_message(span_danger("[user] wrenches [victim]'s dislocated [limb.name] around painfully!"), span_danger("You wrench [victim]'s dislocated [limb.name] around painfully!"), ignored_mobs=victim)
 		to_chat(victim, span_userdanger("[user] wrenches your dislocated [limb.name] around painfully!"))
-		limb.receive_damage(brute=10, wound_bonus=CANT_WOUND)
+		limb.receive_damage(brute=5, wound_bonus=CANT_WOUND)
 		malpractice(user)
 
 
@@ -293,10 +293,10 @@
 		return
 
 	if(victim == user)
-		limb.receive_damage(brute=15, wound_bonus=CANT_WOUND)
+		limb.receive_damage(brute=7, wound_bonus=CANT_WOUND)
 		victim.visible_message(span_danger("[user] finishes resetting [victim.p_their()] [limb.name]!"), span_userdanger("You reset your [limb.name]!"))
 	else
-		limb.receive_damage(brute=10, wound_bonus=CANT_WOUND)
+		limb.receive_damage(brute=5, wound_bonus=CANT_WOUND)
 		user.visible_message(span_danger("[user] finishes resetting [victim]'s [limb.name]!"), span_nicegreen("You finish resetting [victim]'s [limb.name]!"), ignored_mobs=victim)
 		to_chat(victim, span_userdanger("[user] resets your [limb.name]!"))
 
@@ -315,8 +315,8 @@
 	occur_text = "sprays chips of bone and develops a nasty looking bruise"
 
 	severity = WOUND_SEVERITY_SEVERE
-	interaction_efficiency_penalty = 2
-	limp_slowdown = 6
+	interaction_efficiency_penalty = 1.2
+	limp_slowdown = 3
 	threshold_minimum = 60
 	threshold_penalty = 30
 	treatable_by = list(/obj/item/stack/sticky_tape/surgical, /obj/item/stack/medical/bone_gel)
@@ -324,9 +324,9 @@
 	scar_keyword = "bluntsevere"
 	brain_trauma_group = BRAIN_TRAUMA_MILD
 	trauma_cycle_cooldown = 1.5 MINUTES
-	internal_bleeding_chance = 40
+	internal_bleeding_chance = 15
 	wound_flags = (BONE_WOUND | ACCEPTS_GAUZE | MANGLES_BONE)
-	regen_ticks_needed = 120 // ticks every 2 seconds, 240 seconds, so roughly 4 minutes default
+	regen_ticks_needed = 80 // ticks every 2 seconds, 240 seconds, so roughly 4 minutes default
 
 /// Compound Fracture (Critical Blunt)
 /datum/wound/blunt/critical
@@ -337,8 +337,8 @@
 	occur_text = "cracks apart, exposing broken bones to open air"
 
 	severity = WOUND_SEVERITY_CRITICAL
-	interaction_efficiency_penalty = 4
-	limp_slowdown = 9
+	interaction_efficiency_penalty = 1.5
+	limp_slowdown = 6
 	sound_effect = 'sound/effects/wounds/crack2.ogg'
 	threshold_minimum = 115
 	threshold_penalty = 50
@@ -348,9 +348,9 @@
 	scar_keyword = "bluntcritical"
 	brain_trauma_group = BRAIN_TRAUMA_SEVERE
 	trauma_cycle_cooldown = 2.5 MINUTES
-	internal_bleeding_chance = 60
+	internal_bleeding_chance = 25
 	wound_flags = (BONE_WOUND | ACCEPTS_GAUZE | MANGLES_BONE)
-	regen_ticks_needed = 240 // ticks every 2 seconds, 480 seconds, so roughly 8 minutes default
+	regen_ticks_needed = 160 // ticks every 2 seconds, 480 seconds, so roughly 8 minutes default
 
 // doesn't make much sense for "a" bone to stick out of your head
 /datum/wound/blunt/critical/apply_wound(obj/item/bodypart/L, silent, datum/wound/old_wound, smited)

@@ -30,12 +30,14 @@
 
 	/// Once we reach infestation beyond WOUND_INFESTATION_SEPSIS, we get this many warnings before the limb is completely paralyzed (you'd have to ignore a really bad burn for a really long time for this to happen)
 	var/strikes_to_lose_limb = 3
+	
+	var/tox_damage_multiplier = 1
 
 
 /datum/wound/burn/handle_process(delta_time, times_fired)
 	. = ..()
 	if(strikes_to_lose_limb == 0) // we've already hit sepsis, nothing more to do
-		victim.adjustToxLoss(0.25 * delta_time)
+		victim.adjustToxLoss(0.25 * delta_time * tox_damage_multiplier)
 		if(DT_PROB(0.5, delta_time))
 			victim.visible_message(span_danger("The infection on the remnants of [victim]'s [limb.name] shift and bubble nauseatingly!"), span_warning("You can feel the infection on the remnants of your [limb.name] coursing through your veins!"), vision_distance = COMBAT_MESSAGE_RANGE)
 		return
@@ -79,7 +81,7 @@
 		if(0 to WOUND_INFECTION_MODERATE)
 		if(WOUND_INFECTION_MODERATE to WOUND_INFECTION_SEVERE)
 			if(DT_PROB(15, delta_time))
-				victim.adjustToxLoss(0.2)
+				victim.adjustToxLoss(0.2 * tox_damage_multiplier)
 				if(prob(6))
 					to_chat(victim, span_warning("The blisters on your [limb.name] ooze a strange pus..."))
 		if(WOUND_INFECTION_SEVERE to WOUND_INFECTION_CRITICAL)
@@ -94,7 +96,7 @@
 				return
 
 			if(DT_PROB(10, delta_time))
-				victim.adjustToxLoss(0.5)
+				victim.adjustToxLoss(0.5 * tox_damage_multiplier)
 
 		if(WOUND_INFECTION_CRITICAL to WOUND_INFECTION_SEPTIC)
 			if(!disabling)
@@ -110,9 +112,9 @@
 			if(DT_PROB(2.48, delta_time))
 				if(prob(20))
 					to_chat(victim, span_warning("You contemplate life without your [limb.name]..."))
-					victim.adjustToxLoss(0.75)
+					victim.adjustToxLoss(0.75 * tox_damage_multiplier)
 				else
-					victim.adjustToxLoss(1)
+					victim.adjustToxLoss(1 * tox_damage_multiplier)
 
 		if(WOUND_INFECTION_SEPTIC to INFINITY)
 			if(DT_PROB(0.5 * infestation, delta_time))
@@ -266,6 +268,7 @@
 	status_effect_type = /datum/status_effect/wound/burn/moderate
 	flesh_damage = 5
 	scar_keyword = "burnmoderate"
+	tox_damage_multiplier = .2
 
 /datum/wound/burn/severe
 	name = "Third Degree Burns"
@@ -282,6 +285,7 @@
 	infestation_rate = 0.07 // appx 9 minutes to reach sepsis without any treatment
 	flesh_damage = 12.5
 	scar_keyword = "burnsevere"
+	tox_damage_multiplier = .3
 
 /datum/wound/burn/critical
 	name = "Catastrophic Burns"
@@ -299,3 +303,4 @@
 	infestation_rate = 0.075 // appx 4.33 minutes to reach sepsis without any treatment
 	flesh_damage = 20
 	scar_keyword = "burncritical"
+	tox_damage_multiplier = .4

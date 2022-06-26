@@ -37,7 +37,7 @@
 /datum/wound/burn/handle_process(delta_time, times_fired)
 	. = ..()
 	if(strikes_to_lose_limb == 0) // we've already hit sepsis, nothing more to do
-		victim.adjustToxLoss(0.25 * delta_time * tox_damage_multiplier)
+		victim.adjustToxLoss(0.25 * delta_time * src.tox_damage_multiplier)
 		if(DT_PROB(0.5, delta_time))
 			victim.visible_message(span_danger("The infection on the remnants of [victim]'s [limb.name] shift and bubble nauseatingly!"), span_warning("You can feel the infection on the remnants of your [limb.name] coursing through your veins!"), vision_distance = COMBAT_MESSAGE_RANGE)
 		return
@@ -81,7 +81,7 @@
 		if(0 to WOUND_INFECTION_MODERATE)
 		if(WOUND_INFECTION_MODERATE to WOUND_INFECTION_SEVERE)
 			if(DT_PROB(15, delta_time))
-				victim.adjustToxLoss(0.2 * tox_damage_multiplier)
+				victim.adjustToxLoss(0.2 * src.tox_damage_multiplier)
 				if(prob(6))
 					to_chat(victim, span_warning("The blisters on your [limb.name] ooze a strange pus..."))
 		if(WOUND_INFECTION_SEVERE to WOUND_INFECTION_CRITICAL)
@@ -96,7 +96,7 @@
 				return
 
 			if(DT_PROB(10, delta_time))
-				victim.adjustToxLoss(0.5 * tox_damage_multiplier)
+				victim.adjustToxLoss(0.5 * src.tox_damage_multiplier)
 
 		if(WOUND_INFECTION_CRITICAL to WOUND_INFECTION_SEPTIC)
 			if(!disabling)
@@ -112,9 +112,9 @@
 			if(DT_PROB(2.48, delta_time))
 				if(prob(20))
 					to_chat(victim, span_warning("You contemplate life without your [limb.name]..."))
-					victim.adjustToxLoss(0.75 * tox_damage_multiplier)
+					victim.adjustToxLoss(0.75 * src.tox_damage_multiplier)
 				else
-					victim.adjustToxLoss(1 * tox_damage_multiplier)
+					victim.adjustToxLoss(1 * src.tox_damage_multiplier)
 
 		if(WOUND_INFECTION_SEPTIC to INFINITY)
 			if(DT_PROB(0.5 * infestation, delta_time))

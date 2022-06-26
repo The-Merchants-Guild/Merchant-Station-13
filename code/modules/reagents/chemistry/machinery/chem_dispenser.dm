@@ -222,7 +222,7 @@
 		data["beakerCurrentpH"] = null
 
 	var/chemicals[0]
-	var/recipes[0]
+	var/list/recipes = list()
 	var/is_hallucinating = FALSE
 	if(user.hallucinating())
 		is_hallucinating = TRUE
@@ -291,6 +291,8 @@
 				return
 			var/recipe_to_use = params["recipe"]
 			var/list/chemicals_to_dispense = process_recipe_list(recipe_to_use)
+			if(!LAZYLEN(chemicals_to_dispense))
+				return
 			for(var/key in chemicals_to_dispense) // i suppose you could edit the list locally before passing it
 				var/list/keysplit = splittext(key," ")
 				var/r_id = GLOB.name2reagent[translate_legacy_chem_id(keysplit[1])]
@@ -300,7 +302,7 @@
 					var/rounded = is_resolution(chemicals_to_dispense[key]) ? chemicals_to_dispense[key] : round(chemicals_to_dispense[key], macroresolution)
 					var/actual = min(rounded, (cell.charge * powerefficiency)*10, free)
 					if(actual)
-						if(!cell.use(abs(actual) / powerefficiency))
+						if(!cell?.use(abs(actual) / powerefficiency))
 							say("Not enough energy to complete operation!")
 							return
 						if(actual > 0)
@@ -318,7 +320,7 @@
 		if("record_recipe") //I'm not renaming this lol
 			if(!is_operational)
 				return
-			var/name = stripped_input(usr,"Name","What do you want to name this recipe?(This is broken)", "Recipe", MAX_NAME_LEN)
+			var/name = stripped_input(usr,"Name","What do you want to name this recipe?", "Recipe", MAX_NAME_LEN)
 			var/recipe = stripped_input(usr,"Recipe","Insert recipe with chem IDs")
 			if(!usr.canUseTopic(src, !issilicon(usr)))
 				return
@@ -343,7 +345,7 @@
 						return
 				if (resmismatch && alert("[src] is not yet capable of replicating this recipe with the precision it needs, do you want to save it anyway?",, "Yes","No") == "No")
 					return
-				saved_recipes += list(list("recipe_name" = name, "contents" = recipe))
+				saved_recipes[name] = recipe
 		if("reaction_lookup")
 			if(beaker)
 				beaker.reagents.ui_interact(usr)
@@ -367,10 +369,10 @@
 /obj/machinery/chem_dispenser/proc/process_recipe_list(list/recipe)
 	var/list/key_list = list()
 	var/list/final_list = list()
-	var/list/first_process = splittext(recipe["contents"], ";")
+	var/list/first_process = splittext(recipe, ";")
 	for(var/reagents in first_process)
 		var/list/splitreagent = splittext(reagents, "=")
-		final_list += list(avoid_assoc_duplicate_keys(splitreagent[1],key_list) = text2num(splitreagent[2]))
+		final_list[avoid_assoc_duplicate_keys(splitreagent[1], key_list)] = text2num(splitreagent[2])
 	return final_list
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/living/user, params)

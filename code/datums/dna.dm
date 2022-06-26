@@ -80,8 +80,6 @@
 
 /datum/dna/proc/remove_mutation(mutation_type)
 	SEND_SIGNAL(holder, COMSIG_CARBON_LOSE_MUTATION, mutation_type)
-	if(is_banned_from(holder.ckey, CLUWNEBAN) && !check_mutation(CLUWNEMUT))
-		add_mutation(CLUWNEMUT) // you can't escape hell
 	return force_lose(get_mutation(mutation_type))
 
 /datum/dna/proc/check_mutation(mutation_type)

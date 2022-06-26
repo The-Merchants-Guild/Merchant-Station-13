@@ -530,7 +530,7 @@
 		return
 	owner.dna.add_mutation(CLOWNMUT)
 	owner.dna.add_mutation(EPILEPSY)
-	owner.setOrganLoss(ORGAN_SLOT_BRAIN, 190) //this was 200 but I think we have braindeath enabled
+	owner.setOrganLoss(ORGAN_SLOT_BRAIN, 120) //this was 200 but I think we have braindeath enabled
 
 	var/mob/living/carbon/human/H = owner
 
@@ -551,8 +551,8 @@
 	owner.equip_to_slot_or_del(new /obj/item/storage/backpack/clown(owner), ITEM_SLOT_BACK) // ditto
 
 /datum/mutation/human/cluwne/on_life()
-	if((prob(15) && owner.IsUnconscious()))
-		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 200) // there I changed it to setBrainLoss
+	if((prob(15) && !owner.IsUnconscious()))
+		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 195)
 		switch(rand(1, 6))
 			if(1)
 				owner.say("HONK", forced = "cluwne")

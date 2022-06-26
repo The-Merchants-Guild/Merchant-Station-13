@@ -551,6 +551,8 @@
 	owner.equip_to_slot_or_del(new /obj/item/storage/backpack/clown(owner), ITEM_SLOT_BACK) // ditto
 
 /datum/mutation/human/cluwne/on_losing(mob/living/carbon/human/owner)
+	sleep(40) //lol I hope this doesn't cause bad things
+	to_chat(owner, span_warning("As you start feeling your body return to normalcy, the Gods strike you again and turn you back into your new form!"))
 	owner.adjust_fire_stacks(1)
 	owner.IgniteMob()
 	owner.dna.add_mutation(CLUWNEMUT)

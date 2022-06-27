@@ -285,7 +285,7 @@
 	infestation_rate = 0.02 // appx 9 minutes to reach sepsis without any treatment
 	flesh_damage = 12.5
 	scar_keyword = "burnsevere"
-	tox_damage_multiplier = 0.3
+	tox_damage_multiplier = 0.66
 
 /datum/wound/burn/critical
 	name = "Catastrophic Burns"
@@ -303,4 +303,4 @@
 	infestation_rate = 0.025 // appx 4.33 minutes to reach sepsis without any treatment
 	flesh_damage = 20
 	scar_keyword = "burncritical"
-	tox_damage_multiplier = 0.4
+	tox_damage_multiplier = 0.8

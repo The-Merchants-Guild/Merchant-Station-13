@@ -366,7 +366,7 @@
 /obj/machinery/chem_dispenser/proc/process_recipe_list(recipe)
 	var/list/key_list = list()
 	var/list/final_list = list()
-	var/list/first_process = splittext(saved_recipes[recipe], ";")
+	var/list/first_process = splittext(recipe, ";")
 	for(var/reagents in first_process)
 		var/list/splitreagent = splittext(reagents, "=")
 		final_list[avoid_assoc_duplicate_keys(splitreagent[1], key_list)] = text2num(splitreagent[2])

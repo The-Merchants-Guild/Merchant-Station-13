@@ -222,7 +222,6 @@
 		data["beakerCurrentpH"] = null
 
 	var/chemicals[0]
-	var/list/recipes = list()
 	var/is_hallucinating = FALSE
 	if(user.hallucinating())
 		is_hallucinating = TRUE
@@ -234,9 +233,7 @@
 				chemname = "[pick_list_replacements("hallucination.json", "chemicals")]"
 			chemicals.Add(list(list("title" = chemname, "id" = ckey(temp.name), "pH" = temp.ph, "pHCol" = convert_ph_to_readable_color(temp.ph))))
 	data["chemicals"] = chemicals
-	for(var/recipe in saved_recipes)
-		recipes.Add(list(recipe))
-	data["recipes"] = recipes
+	data["recipes"] = saved_recipes
 
 	data["recipeReagents"] = list()
 	if(beaker?.reagents.ui_reaction_id)
@@ -289,7 +286,6 @@
 		if("dispense_recipe")
 			if(!is_operational || QDELETED(cell))
 				return
-			to_chat(world, span_announce("[params["recipe"]]"))
 			var/recipe_to_use = params["recipe"]
 			var/list/chemicals_to_dispense = process_recipe_list(recipe_to_use)
 			if(!LAZYLEN(chemicals_to_dispense))

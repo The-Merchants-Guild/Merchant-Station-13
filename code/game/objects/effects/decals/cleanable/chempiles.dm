@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(chempiles)
 /obj/effect/decal/cleanable/chempile/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))//copypaste scoop code so I can nerf it to halve effectiveness
 		if(src.reagents && I.reagents)
-			. = 1 //so the containers don't splash their content on the src while scooping.
+			. = TRUE //so the containers don't splash their content on the src while scooping.
 			if(!src.reagents.total_volume)
 				to_chat(user, "<span class='notice'>[src] isn't thick enough to scoop up!</span>")
 				return

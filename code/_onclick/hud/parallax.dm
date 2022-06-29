@@ -12,6 +12,8 @@
 		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/planet(null, C.view)
 		if(SSparallax.random_layer)
 			C.parallax_layers_cached += new SSparallax.random_layer
+		var/random_galaxy = pick(/atom/movable/screen/parallax_layer/galaxy, /atom/movable/screen/parallax_layer/galaxy/variant2, /atom/movable/screen/parallax_layer/galaxy/variant3, /atom/movable/screen/parallax_layer/galaxy/variant4)
+		C.parallax_layers_cached += new random_galaxy(null, C.view)
 		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/layer_3(null, C.view)
 
 	C.parallax_layers = C.parallax_layers_cached.Copy()
@@ -294,6 +296,34 @@
 
 /atom/movable/screen/parallax_layer/random/asteroids
 	icon_state = "asteroids"
+
+/atom/movable/screen/parallax_layer/galaxy
+	blend_mode = BLEND_OVERLAY
+	absolute = TRUE
+	layer = 4
+	speed = 1
+	icon_state = "galaxy"
+	offset_x = 120
+	offset_y = 120
+
+/atom/movable/screen/parallax_layer/galaxy/variant2
+	icon_state = "galaxy2"
+
+/atom/movable/screen/parallax_layer/galaxy/variant3
+	icon_state = "galaxy3"
+
+/atom/movable/screen/parallax_layer/galaxy/variant4
+	icon_state = "galaxy4"
+
+/atom/movable/screen/parallax_layer/galaxy/update_o()
+	return //Shit wont move
+
+/atom/movable/screen/parallax_layer/galaxy/update_status(mob/M)
+	var/turf/T = get_turf(M)
+	if(!is_reserved_level(T.z))
+		invisibility = 0
+	else
+		invisibility = INVISIBILITY_ABSTRACT
 
 /atom/movable/screen/parallax_layer/planet
 	icon_state = "planet"

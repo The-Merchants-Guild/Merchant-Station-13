@@ -172,7 +172,7 @@
 	///ds between parallax updates
 	var/parallax_throttle = 0
 	var/parallax_movedir = 0
-	var/parallax_layers_max = 4
+	var/parallax_layers_max = 5
 	var/parallax_animate_timer
 	///Are we locking our movement input?
 	var/movement_locked = FALSE

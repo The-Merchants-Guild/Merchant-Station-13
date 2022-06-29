@@ -1436,7 +1436,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(prob(I.force * 2)) //blood spatter!
 				bloody = TRUE
 				var/turf/location = H.loc
-				if(prob(50))	//hippie start -- add blood splattering to walls and stuff
+				if(prob(50))
 					var/obj/effect/decal/cleanable/blood/hitsplatter/B = new(H.loc)
 					B.add_blood_DNA(H.return_blood_DNA())
 					B.blood_source = H

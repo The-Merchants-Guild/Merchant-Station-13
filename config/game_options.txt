@@ -553,4 +553,4 @@ RATCAP 64
 MAXFINE 2000
 
 ## How old the account should be to not automatically get banned. Defaults to 20
-ACCOUNTAGE 7
+ACCOUNTAGE 20

@@ -120,3 +120,14 @@
   - rscadd: Chemnades leave their empty nade casing behind if it didn't get blown
       up by the reaction.
   - bugfix: BP nades should work again.
+2022-06-29:
+  eeSPee:
+  - rscadd: Midround Antag Patient Zero Random Event
+  - rscadd: Syndicate teleporter in uplinks
+  karmaisblackandbluepilled:
+  - rscadd: Farts now smell quite badly! Don't get pink eye!
+  - rscadd: Buttplants now have a specific odour to them.
+  - rscadd: Buttplants are now actually purchasable from a hacked Plant Vendor.
+  - rscadd: Wet floor slips stun you like every other slip now.
+  - rscadd: Lube tiles make you slip from other lube tiles, making it possible to
+      get chainlubed.

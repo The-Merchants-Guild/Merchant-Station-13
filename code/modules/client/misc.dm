@@ -19,3 +19,12 @@ GLOBAL_LIST_INIT(countries,icon_states('icons/flags.dmi'))  //BLYAAAAAAAAAAAAAAT
 		return "[icon2html('icons/flags.dmi', world, country_code)]"
 	else
 		return "[icon2html('icons/flags.dmi', world, "unknown")]"
+
+/client/New()
+	. = ..()
+	spawn if(src)
+		if(src.account_age < CONFIG_GET(number/accountage))
+			log_access("Account too new: [src.ckey] automatically kicked.")
+			message_admins("[src.ckey] has been kicked due to his account being too new: [src.account_age] days")
+			to_chat(src, span_userdanger("Your account is too new to join this server. Come back in [CONFIG_GET(number/accountage) - src.account_age] days!"))
+			QDEL_IN(src, 1)

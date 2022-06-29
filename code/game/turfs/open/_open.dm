@@ -241,6 +241,8 @@
 			lube |= SLIDE_ICE
 
 		if(lube&SLIDE)
+			if(C.force_moving)
+				qdel(C.force_moving)
 			new /datum/forced_movement(C, get_ranged_target_turf(C, olddir, 4), 1, FALSE, CALLBACK(C, /mob/living/carbon/.proc/spin, 1, 1))
 		else if(lube&SLIDE_ICE)
 			if(C.force_moving) //If we're already slipping extend it

@@ -13,9 +13,6 @@
 	key_third_person = "farts"
 
 /datum/emote/living/carbon/fart/run_emote(mob/living/carbon/user, params)
-	. = ..()
-	if (!.)
-		return
 	var/fartsound = 'sound/effects/fart.ogg'
 	var/blowass = prob(user.lose_butt) //Used to determine if the person blows his ass off this time, prevents having to use two forloops for the turf mobs.
 	var/bloodkind = /obj/effect/decal/cleanable/blood
@@ -28,7 +25,7 @@
 		return
 
 
-	for(var/mob/living/M in get_turf(user))
+	for(var/mob/living/M in range(0, user))
 		if(M == user)
 			continue
 		if(blowass)
@@ -138,8 +135,24 @@
 			user.visible_message("<span class='warning'><b>[user]</b> blows their ass off!</span>", "<span class='warning'>Holy shit, your butt flies off in an arc!</span>")
 		else
 			user.nutrition = max(user.nutrition - rand(2, 10), NUTRITION_LEVEL_STARVING)
+		. = ..()
+		spawnfartgas(user, 0)
 		if(!ishuman(user)) //nonhumans don't have the message appear for some reason
 			user.visible_message("<b>[user]</b> [message]")
+
+/proc/spawnfartgas(mob/living/carbon/user, is_super_fart)
+	var/turf/fartturf = get_turf(user)
+	var/datum/gas_mixture/stank = new
+	var/amount
+	if(is_super_fart)
+		amount = rand(20,25)
+	else
+		amount = rand(1,5)
+	ADD_GAS(/datum/gas/miasma, stank.gases)
+	stank.gases[/datum/gas/miasma][MOLES] = amount //amount of gas spawned
+	stank.temperature = BODYTEMP_NORMAL  //otherwise we have gas below 2.7K which will break our lag generator
+	fartturf.assume_air(stank)
+	fartturf.air_update_turf()
 
 /datum/emote/living/carbon/human/superfart
 	key = "superfart"
@@ -180,7 +193,9 @@
 		for(var/i in 1 to 10)
 			playsound(user, 'sound/effects/fart.ogg', 100, 1, 5)
 			sleep(1)
+			spawnfartgas(user, 0)
 		playsound(user, 'sound/effects/fartmassive.ogg', 75, 1, 5)
+		spawnfartgas(user, 1)
 		var/datum/component/storage/STR = B.GetComponent(/datum/component/storage)
 
 		if(STR)

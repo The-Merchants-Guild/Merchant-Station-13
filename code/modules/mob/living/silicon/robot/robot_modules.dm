@@ -275,7 +275,7 @@
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/iron/base/cyborg,
 		/obj/item/stack/cable_coil,
-		/obj/item/holosign_creator/atmos
+		/obj/item/holosign_creator/atmos/borg
 		)
 	radio_channels = list(RADIO_CHANNEL_ENGINEERING)
 	emag_modules = list(/obj/item/borg/stun)

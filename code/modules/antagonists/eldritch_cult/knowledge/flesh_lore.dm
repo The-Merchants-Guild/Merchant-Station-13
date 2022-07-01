@@ -188,7 +188,7 @@
 	next_knowledge = list(
 		/datum/eldritch_knowledge/flesh_blade_upgrade,
 		/datum/eldritch_knowledge/rune_carver,
-		/datum/eldritch_knowledge/curse/paralysis
+		/datum/eldritch_knowledge/curse_item/paralysis
 	)
 	route = PATH_FLESH
 

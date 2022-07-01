@@ -95,9 +95,9 @@
 	result_atoms = list(/obj/item/clothing/mask/void_mask)
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/clothing/mask,/obj/item/candle)
 	next_knowledge = list(
-		/datum/eldritch_knowledge/curse/corrosion,
+		/datum/eldritch_knowledge/curse_item/corrosion,
 		/datum/eldritch_knowledge/ash_blade_upgrade,
-		/datum/eldritch_knowledge/curse/paralysis
+		/datum/eldritch_knowledge/curse_item/paralysis
 	)
 	route = PATH_ASH
 
@@ -134,10 +134,10 @@
 		burn_victim.adjust_fire_stacks(1)
 		burn_victim.IgniteMob()
 
-/datum/eldritch_knowledge/curse/corrosion
+/datum/eldritch_knowledge/curse_item/corrosion
 	name = "Curse of Corrosion"
 	gain_text = "Cursed land, cursed man, cursed mind."
-	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a pool of blood, a heart, left arm and a right arm, and an item that the victim touched  with their bare hands."
+	desc = "Curse an item to inflict the curse of corrosion to whoever it touches it. The curse will inflict vomiting and major organ damage for 2 minutes. Using a wirecutter, a pool of blood, a heart and the item you want to curse."
 	cost = 1
 	required_atoms = list(/obj/item/wirecutters,/obj/effect/decal/cleanable/vomit,/obj/item/organ/heart)
 	next_knowledge = list(
@@ -146,30 +146,30 @@
 	)
 	timer = 2 MINUTES
 
-/datum/eldritch_knowledge/curse/corrosion/curse(mob/living/chosen_mob)
+/datum/eldritch_knowledge/curse_item/corrosion/curse(mob/living/chosen_mob)
 	. = ..()
 	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
 
-/datum/eldritch_knowledge/curse/corrosion/uncurse(mob/living/chosen_mob)
+/datum/eldritch_knowledge/curse_item/corrosion/uncurse(mob/living/chosen_mob)
 	. = ..()
 	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
 
-/datum/eldritch_knowledge/curse/paralysis
+/datum/eldritch_knowledge/curse_item/paralysis
 	name = "Curse of Paralysis"
 	gain_text = "Corrupt their flesh, make them bleed."
-	desc = "Curse someone for 5 minutes of inability to walk. Sacrifice a knife, a pool of blood, a pair of legs, a hatchet and an item that the victim touched with their bare hands. "
+	desc = "Curse an item to inflict the curse of paralysis to whoever it touches it. The curse will make its victim unable to walk for 5 minutes. Sacrifice a pair of legs, a hatchet and the item you want to curse."
 	cost = 1
 	required_atoms = list(/obj/item/bodypart/l_leg,/obj/item/bodypart/r_leg,/obj/item/hatchet)
 	next_knowledge = list(/datum/eldritch_knowledge/mad_mask,/datum/eldritch_knowledge/summon/raw_prophet)
 	timer = 5 MINUTES
 
-/datum/eldritch_knowledge/curse/paralysis/curse(mob/living/chosen_mob)
+/datum/eldritch_knowledge/curse_item/paralysis/curse(mob/living/chosen_mob)
 	. = ..()
 	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
 	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
 
 
-/datum/eldritch_knowledge/curse/paralysis/uncurse(mob/living/chosen_mob)
+/datum/eldritch_knowledge/curse_item/paralysis/uncurse(mob/living/chosen_mob)
 	. = ..()
 	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
 	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)

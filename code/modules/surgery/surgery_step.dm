@@ -63,6 +63,8 @@
 /datum/surgery_step/proc/initiate(mob/living/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	// Only followers of Asclepius have the ability to use Healing Touch and perform miracle feats of surgery.
 	// Prevents people from performing multiple simultaneous surgeries unless they're holding a Rod of Asclepius.
+	if(user==target && target_zone==BODY_ZONE_HEAD)
+		return TRUE
 
 	surgery.step_in_progress = TRUE
 	var/speed_mod = 1

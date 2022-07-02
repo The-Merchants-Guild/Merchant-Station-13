@@ -71,6 +71,8 @@
 /datum/outfit/job/cook
 	name = "Cook"
 	jobtype = /datum/job/cook
+	card_access = /datum/card_access/job/cook
+
 	belt = /obj/item/pda/cook
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chef
@@ -82,8 +84,6 @@
 		/obj/item/choice_beacon/ingredient = 1
 	)
 	skillchips = list(/obj/item/skillchip/job/chef)
-
-	id_trim = /datum/id_trim/job/cook
 
 /datum/outfit/job/cook/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

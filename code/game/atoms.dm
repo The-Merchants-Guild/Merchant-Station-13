@@ -1580,8 +1580,6 @@
 			log_mecha(log_text)
 		if(LOG_SHUTTLE)
 			log_shuttle(log_text)
-		if(LOG_WORDFILTER)
-			log_wordfilter(log_text)
 		else
 			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
 			log_game(log_text)
@@ -1734,7 +1732,7 @@
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, AM, levels)
 
 /// Sets the custom materials for an item.
-/atom/proc/set_custom_materials(list/materials, multiplier = 1) 
+/atom/proc/set_custom_materials(list/materials, multiplier = 1)
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
 		for(var/i in custom_materials)
 			var/datum/material/custom_material = GET_MATERIAL_REF(i)

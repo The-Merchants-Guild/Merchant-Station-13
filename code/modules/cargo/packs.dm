@@ -185,7 +185,7 @@
 	name = "NULL_ENTRY"
 	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE@&!*() "
 	hidden = TRUE
-	cost = CARGO_CRATE_VALUE * 100
+	cost = CARGO_CRATE_VALUE * 30
 	contains = list()
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
@@ -1350,21 +1350,6 @@
 		var/item = pick(contains)
 		new item(C)
 
-/datum/supply_pack/medical/cruelty
-	name = "Consumer Softproducts Augmnents"
-	desc = "Reward your top employees with a subscription models to our augmentations. The hardware will be retrieved at the end of the service, and the user will be cloned to work for our corporation till their debt is paid."
-	cost = CARGO_CRATE_VALUE * 5
-	contraband = TRUE
-	contains = list(/obj/item/organ/cyberimp/brain/skull_gun,
-					/obj/item/organ/cyberimp/chest/biothruster,
-					/obj/item/organ/cyberimp/arm/item_set/gun/grappendix)
-	var/norgans = 4
-
-/datum/supply_pack/medical/cruelty/fill(obj/structure/closet/crate/C)
-	for(var/i in 1 to norgans)
-		var/item = pick(contains)
-		new item(C)
-
 /datum/supply_pack/medical/surgery
 	name = "Surgical Supplies Crate"
 	desc = "Do you want to perform surgery, but don't have one of those fancy shmancy degrees? Just get started with this crate containing a medical duffelbag, Sterilizine spray and collapsible roller bed."
@@ -1769,7 +1754,7 @@
 	name = "Silver ID Card Crate"
 	desc = "Did we forget to hire any Heads of Staff? Recruit your own with this high value ID card capable of holding advanced levels of access in a handy wallet-sized form factor"
 	cost = CARGO_CRATE_VALUE * 7
-	contains = list(/obj/item/card/id/advanced/silver)
+	contains = list(/obj/item/card/id/tier3)
 	crate_name = "silver id card crate"
 
 /datum/supply_pack/service/emptycrate

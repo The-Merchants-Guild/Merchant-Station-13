@@ -250,9 +250,6 @@
 	var/power = modifier + round(created_volume/strengthdiv, 1)
 	if(power > 0)
 		var/turf/T = get_turf(holder.my_atom)
-		if(isorgan(holder.my_atom) && !T) // bandaid fix since get_turf doesn't work on organs in the body
-			var/obj/item/organ/curorgan = holder.my_atom
-			T = get_turf(curorgan.owner)
 		var/inside_msg
 		if(ismob(holder.my_atom))
 			var/mob/M = holder.my_atom

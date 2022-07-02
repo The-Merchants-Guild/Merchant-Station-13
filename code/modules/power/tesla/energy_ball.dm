@@ -124,7 +124,7 @@
 /obj/energy_ball/proc/handle_energy()
 	if(energy >= energy_to_raise)
 		energy_to_lower = energy_to_raise - 20
-		energy_to_raise = energy_to_raise * 1.02//I raff
+		energy_to_raise = energy_to_raise * 1.25
 
 		playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, TRUE, extrarange = 30)
 		addtimer(CALLBACK(src, .proc/new_mini_ball), 100)

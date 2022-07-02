@@ -1,721 +1,229 @@
-//if we want an experienced leader, select top X and pick from them
+/// If we spawn an ERT with the "choose experienced leader" option, select the leader from the top X playtimes
 #define ERT_EXPERIENCED_LEADER_CHOOSE_TOP 3
 
 // CENTCOM RESPONSE TEAM
 
-/client/proc/summon_ert()
-	set category = "Admin.Fun"
-	set name = "Summon ERT"
-	set desc = "Summons an emergency response team."
+/datum/admins/proc/makeERTTemplateModified(list/settings)
+	. = settings
+	var/datum/ert/newtemplate = settings["mainsettings"]["template"]["value"]
+	if (isnull(newtemplate))
+		return
+	if (!ispath(newtemplate))
+		newtemplate = text2path(newtemplate)
+	newtemplate = new newtemplate
+	.["mainsettings"]["teamsize"]["value"] = newtemplate.teamsize
+	.["mainsettings"]["mission"]["value"] = newtemplate.mission
+	.["mainsettings"]["polldesc"]["value"] = newtemplate.polldesc
+	.["mainsettings"]["open_armory"]["value"] = newtemplate.opendoors ? "Yes" : "No"
+	.["mainsettings"]["leader_experience"]["value"] = newtemplate.leader_experience ? "Yes" : "No"
+	.["mainsettings"]["random_names"]["value"] = newtemplate.random_names ? "Yes" : "No"
+	.["mainsettings"]["spawn_admin"]["value"] = newtemplate.spawn_admin ? "Yes" : "No"
 
-	new /datum/ert_maker(src)
 
-/datum/ert_maker
-	var/static/list/datum/ert/ERT_options = subtypesof(/datum/ert)
-	var/datum/ert/selected_ERT_option = null // What have we selected?
-	var/client/holder // client of whoever is using this datum
-
-	var/datum/antagonist/ert/leader_antag = null
-	var/list/datum/antagonist/ert/grunt_antags = list()
-
-	var/teamsize = 5
-	var/mission = "Assist the station." // The ERT's mission.
-	var/polldesc = "a code !CODER ERROR! Nanotrasen Emergency Response Team." // Ghost popup text
-	var/rename_team = "Emergency Response Team" // Custom team name.
-	var/enforce_human = TRUE // Enforce human authority?
-	var/open_armory = TRUE
-	var/random_names = TRUE // Give ERT random names? [Assignment] [Name] i.e. "Security Officer Enderly"
-	var/spawn_admin = FALSE // Spawn the admin as a centcom commander to brief the team?
-	var/leader_experience = TRUE // Pick experienced leader? (by playtime, I think)
-	var/give_cyberimps = FALSE // Give the ERT their default cybernetic implants?
-	var/spawn_mechs = FALSE // Give the ERT mechs?
-	var/mech_amount = 5
-
-	var/list/preview_images = list()
-	var/selected_direction = SOUTH
-	var/selected_preview_role = null // So we can preview more than just the leader
-	var/editing_ERT = FALSE
-
-/datum/ert_maker/New(user)
-	if(user)
-		setup(user)
-
-/datum/ert_maker/proc/setup(user) // user can be a mob or client
-	if (istype(user, /client))
-		var/client/user_client = user
-		holder = user_client // it's a client, assign to holder
-	else
-		var/mob/user_mob = user
-		holder = user_mob.client
-
-	var/ertDefault = ERT_options[1]
-
-	selected_ERT_option = new ertDefault // So we have SOMETHING selected
-	load_settings_from_ERT_datum(selected_ERT_option)
-	selected_preview_role = initial(selected_ERT_option.leader_role.role)
-	ui_interact(holder.mob)
-
-/datum/ert_maker/proc/load_settings_from_ERT_datum(datum/ert/ERT_datum)
-	teamsize = ERT_datum.teamsize
-	mission = ERT_datum.mission
-	polldesc = ERT_datum.polldesc
-	rename_team = ERT_datum.rename_team
-	enforce_human = CONFIG_GET(flag/enforce_human_authority)
-	open_armory = ERT_datum.opendoors
-	random_names = ERT_datum.random_names
-	spawn_admin = ERT_datum.spawn_admin
-	leader_experience = ERT_datum.leader_experience
-	spawn_mechs = ERT_datum.spawn_mechs
-	leader_antag = ERT_datum.leader_role
-	grunt_antags = ERT_datum.roles
-
-/datum/ert_maker/proc/copy_settings_to_ERT_datum(datum/ert/ERT_datum)
-	ERT_datum.teamsize = teamsize
-	ERT_datum.mission = mission
-	ERT_datum.polldesc = polldesc
-	ERT_datum.rename_team = rename_team
-	ERT_datum.enforce_human = enforce_human
-	ERT_datum.opendoors = open_armory
-	ERT_datum.random_names = random_names
-	ERT_datum.spawn_admin = spawn_admin
-	ERT_datum.leader_experience = leader_experience
-	ERT_datum.spawn_mechs = spawn_mechs
-	if(!istype(ERT_datum, /datum/ert/custom))
-		ERT_datum.leader_role = leader_antag
-		ERT_datum.roles = grunt_antags
-	else if(istype(selected_ERT_option, /datum/ert/custom) && istype(ERT_datum, /datum/ert/custom))
-		var/datum/ert/custom/ert = ERT_datum
-		var/datum/ert/custom/selected = selected_ERT_option
-		ert.leader_template = selected.leader_template
-		ert.grunt_templates = selected.grunt_templates
-
-/// proc below copy-pasted from old ERT spawner
-/datum/ert_maker/proc/equipAntagOnDummy(mob/living/carbon/human/dummy/mannequin, antag)
-	var/to_remove = mannequin.get_equipped_items(TRUE)
-	for(var/I in to_remove)
+/datum/admins/proc/equipAntagOnDummy(mob/living/carbon/human/dummy/mannequin, datum/antagonist/antag)
+	for(var/I in mannequin.get_equipped_items(TRUE))
 		qdel(I)
 	if (ispath(antag, /datum/antagonist/ert))
 		var/datum/antagonist/ert/ert = antag
 		mannequin.equipOutfit(initial(ert.outfit), TRUE)
-	else if (istype(antag, /datum/ert_antag_template))
-		var/datum/ert_antag_template/ert = antag
-		mannequin.equipOutfit(ert.antag_outfit, TRUE)
 
-/datum/ert_maker/proc/generate_ERT_preview_images()
-	if(!holder)
-		return
+/datum/admins/proc/makeERTPreviewIcon(list/settings)
+	// Set up the dummy for its photoshoot
+	var/mob/living/carbon/human/dummy/mannequin = generate_or_wait_for_human_dummy(DUMMY_HUMAN_SLOT_ADMIN)
 
-	// We will generate the preview icon
-	// and then cache it
+	var/prefs = settings["mainsettings"]
+	var/datum/ert/template = prefs["template"]["value"]
+	if (isnull(template))
+		return null
+	if (!ispath(template))
+		template = text2path(prefs["template"]["value"]) // new text2path ... doesn't compile in 511
 
-	if(preview_images[selected_ERT_option.name] && !istype(selected_ERT_option, /datum/ert/custom))
-		return // already generated
+	template = new template
+	var/datum/antagonist/ert/ert = template.leader_role
 
-	preview_images[selected_ERT_option.name] = list()
+	equipAntagOnDummy(mannequin, ert)
 
-	var/roles = list()
-	if(istype(selected_ERT_option, /datum/ert/custom))
-		var/datum/ert/custom/custom = selected_ERT_option
-		roles += custom.leader_template
-		roles += custom.grunt_templates
+	COMPILE_OVERLAYS(mannequin)
+	CHECK_TICK
+	var/icon/preview_icon = icon('icons/effects/effects.dmi', "nothing")
+	preview_icon.Scale(48+32, 16+32)
+	CHECK_TICK
+	mannequin.setDir(NORTH)
+	var/icon/stamp = getFlatIcon(mannequin)
+	CHECK_TICK
+	preview_icon.Blend(stamp, ICON_OVERLAY, 25, 17)
+	CHECK_TICK
+	mannequin.setDir(WEST)
+	stamp = getFlatIcon(mannequin)
+	CHECK_TICK
+	preview_icon.Blend(stamp, ICON_OVERLAY, 1, 9)
+	CHECK_TICK
+	mannequin.setDir(SOUTH)
+	stamp = getFlatIcon(mannequin)
+	CHECK_TICK
+	preview_icon.Blend(stamp, ICON_OVERLAY, 49, 1)
+	CHECK_TICK
+	preview_icon.Scale(preview_icon.Width() * 2, preview_icon.Height() * 2) // Scaling here to prevent blurring in the browser.
+	CHECK_TICK
+	unset_busy_human_dummy(DUMMY_HUMAN_SLOT_ADMIN)
+	return preview_icon
+
+/datum/admins/proc/makeEmergencyresponseteam(datum/ert/ertemplate = null)
+	if (ertemplate)
+		ertemplate = new ertemplate
 	else
-		roles += selected_ERT_option.leader_role
-		roles += selected_ERT_option.roles
+		ertemplate = new /datum/ert/centcom_official
 
-	for(var/role in roles)
+	var/list/settings = list(
+		"preview_callback" = CALLBACK(src, .proc/makeERTPreviewIcon),
+		"mainsettings" = list(
+		"template" = list("desc" = "Template", "callback" = CALLBACK(src, .proc/makeERTTemplateModified), "type" = "datum", "path" = "/datum/ert", "subtypesonly" = TRUE, "value" = ertemplate.type),
+		"teamsize" = list("desc" = "Team Size", "type" = "number", "value" = ertemplate.teamsize),
+		"mission" = list("desc" = "Mission", "type" = "string", "value" = ertemplate.mission),
+		"polldesc" = list("desc" = "Ghost poll description", "type" = "string", "value" = ertemplate.polldesc),
+		"enforce_human" = list("desc" = "Enforce human authority", "type" = "boolean", "value" = "[(CONFIG_GET(flag/enforce_human_authority) ? "Yes" : "No")]"),
+		"open_armory" = list("desc" = "Open armory doors", "type" = "boolean", "value" = "[(ertemplate.opendoors ? "Yes" : "No")]"),
+		"leader_experience" = list("desc" = "Pick an experienced leader", "type" = "boolean", "value" = "[(ertemplate.leader_experience ? "Yes" : "No")]"),
+		"random_names" = list("desc" = "Randomize names", "type" = "boolean", "value" = "[(ertemplate.random_names ? "Yes" : "No")]"),
+		"spawn_admin" = list("desc" = "Spawn yourself as briefing officer", "type" = "boolean", "value" = "[(ertemplate.spawn_admin ? "Yes" : "No")]")
+		)
+	)
 
-		// Set up dummy. Set it up for every role
-		// because I had issues with mob/living/carbon/human/get_equipped_items
-		// (returned null list for some reason)
-		var/mob/living/carbon/human/dummy/mannequin = new /mob/living/carbon/human/dummy
-		// Wait for dummy proc does not work above;
-		// freezes TGUI window, leaving white screen
+	var/list/prefreturn = presentpreflikepicker(usr,"Customize ERT", "Customize ERT", Button1="Ok", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
 
-		var/template = role
+	if (isnull(prefreturn))
+		return FALSE
 
-		var/role_name = "placeholder"
+	if (prefreturn["button"] == 1)
+		var/list/prefs = settings["mainsettings"]
 
+		var/templtype = prefs["template"]["value"]
+		if (!ispath(prefs["template"]["value"]))
+			templtype = text2path(prefs["template"]["value"]) // new text2path ... doesn't compile in 511
 
-		// real yandev coding
-		if(istype(template, /datum/antagonist/ert))
-			var/datum/antagonist/ert/temp = template
-			role_name = temp.role
-		else if(ispath(template, /datum/antagonist/ert))
-			var/datum/antagonist/ert/temp = template
-			role_name = initial(temp.role)
-		else if(istype(template, /datum/ert_antag_template))
-			var/datum/ert_antag_template/temp = template
-			role_name = temp.role
+		if (ertemplate.type != templtype)
+			ertemplate = new templtype
 
-		if(role_name in preview_images[selected_ERT_option.name])
-			continue
-		equipAntagOnDummy(mannequin, template)
+		ertemplate.teamsize = prefs["teamsize"]["value"]
+		ertemplate.mission = prefs["mission"]["value"]
+		ertemplate.polldesc = prefs["polldesc"]["value"]
+		ertemplate.enforce_human = prefs["enforce_human"]["value"] == "Yes" // these next 5 are effectively toggles
+		ertemplate.opendoors = prefs["open_armory"]["value"] == "Yes"
+		ertemplate.leader_experience = prefs["leader_experience"]["value"] == "Yes"
+		ertemplate.random_names = prefs["random_names"]["value"] == "Yes"
+		ertemplate.spawn_admin = prefs["spawn_admin"]["value"] == "Yes"
 
-		COMPILE_OVERLAYS(mannequin)
+		var/list/spawnpoints = GLOB.emergencyresponseteamspawn
+		var/index = 0
 
-		var/list/cached_icons = list()
-		for(var/direction in GLOB.cardinals) // All four directions, in case the admin wants to rotate his preview
-			var/icon/preview = getFlatIcon(mannequin, direction)
-			cached_icons[dir2text(direction)] = icon2base64(preview)
-
-		preview_images[selected_ERT_option.name][role_name] = cached_icons
-
-		qdel(mannequin)
-
-
-
-/datum/ert_maker/ui_state(mob/user)
-	return GLOB.admin_state // generally admin-only thing
-
-/datum/ert_maker/proc/save_ERT_to_file()
-	if(!istype(selected_ERT_option, /datum/ert/custom))
-		return
-	var/datum/ert/custom/custom = selected_ERT_option
-	custom.save_to_file(holder.mob)
-	SStgui.update_user_uis(holder.mob)
-
-/datum/ert_maker/proc/load_ERT_from_file()
-	var/ert_file = input(holder.mob, "Pick ERT json file:", "File") as null|file
-	if(!ert_file)
-		return
-	var/filedata = file2text(ert_file)
-	var/json = json_decode(filedata)
-	if(!json)
-		to_chat(holder.mob, span_warning("JSON decode error."))
-		return
-	var/datum/ert/custom/C = new
-	if(!C.load_from(json))
-		to_chat(holder.mob, span_warning("Malformed/Outdated file."))
-		return
-	set_selected_ERT(C)
-	SStgui.update_user_uis(holder.mob)
-
-
-/datum/ert_maker/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "ErtMaker")
-		ui.open()
-
-/datum/ert_maker/proc/make_antag_data(antag)
-	. = list()
-	if(ispath(antag, /datum/antagonist/ert))
-		var/datum/antagonist/ert/antagonist = antag
-		.["role"] = initial(antagonist.role)
-		.["path"] = "[antagonist]"
-		.["outfit"] = initial(antagonist.outfit)
-		.["plasmaOutfit"] = initial(antagonist.plasmaman_outfit)
-		.["mech"] = initial(antagonist.mech)
-	else if (istype(antag, /datum/ert_antag_template))
-		var/datum/ert_antag_template/antagonist = antag
-		.["role"] = antagonist.role
-		.["ref"] = "[REF(antagonist)]"
-		.["outfit"] = antagonist.antag_outfit
-		.["plasmaOutfit"] = antagonist.plasmaman_outfit
-		.["mech"] = antagonist.mech
-
-/datum/ert_maker/ui_data(mob/user)
-	var/list/data = list()
-
-	// Make ERT options.
-	var/list/ert_options_text = list()
-	for (var/option in ERT_options)
-		if (!ispath(option, /datum/ert) || ispath(option, /datum/ert/custom))
-			continue
-		var/datum/ert/ert = option
-		var/list/ert_data = list()
-		ert_data["name"] = initial(ert.name)
-		ert_data["path"] = "[ert]"
-
-		ert_options_text += list(ert_data)
-
-
-	data["ERT_options"] = ert_options_text
-	var/list/custom_ERT_options = list()
-	for(var/option in GLOB.custom_ert_datums)
-		if(!istype(option, /datum/ert/custom)) // how?
-			continue
-		var/datum/ert/custom/ert = option
-		var/list/ert_data = list()
-		ert_data["name"] = ert.name
-		ert_data["path"] = "[ert]"
-		ert_data["ref"] = "[REF(ert)]"
-		custom_ERT_options += list(ert_data)
-
-	data["custom_ERT_options"] = custom_ERT_options
-	data["custom_datum"] = "[/datum/ert/custom]"
-
-	var/list/selected_ERT_data = list()
-
-	selected_ERT_data = list()
-	selected_ERT_data["name"] = selected_ERT_option.name
-	selected_ERT_data["path"] = "[selected_ERT_option.type]"
-	if(istype(selected_ERT_option, /datum/ert/custom))
-		var/datum/ert/custom/ert = selected_ERT_option
-		selected_ERT_data["leaderAntag"] = make_antag_data(ert.leader_template)
-		selected_ERT_data["memberAntags"] = list()
-		for(var/role in ert.grunt_templates)
-			selected_ERT_data["memberAntags"] += list(make_antag_data(role))
-	else
-		selected_ERT_data["leaderAntag"] = make_antag_data(leader_antag)
-		selected_ERT_data["memberAntags"] = list()
-		for(var/role in grunt_antags)
-			selected_ERT_data["memberAntags"] += list(make_antag_data(role))
-
-	// Check if we generated the images already.
-	if(!(selected_ERT_option.name in preview_images) \
-	|| !(selected_preview_role in preview_images[selected_ERT_option.name]) \
-	|| !(dir2text(selected_direction) in preview_images[selected_ERT_option.name][selected_preview_role]))
-		generate_ERT_preview_images() // No, generate them
-	selected_ERT_data["previewIcon"] = preview_images[selected_ERT_option.name][selected_preview_role][dir2text(selected_direction)]
-
-	data["selected_ERT_option"] = selected_ERT_data
-	data["selected_preview_role"] = selected_preview_role
-	data["editing_mode"] = editing_ERT
-
-	data["teamsize"] = teamsize
-	data["mech_amount"] = mech_amount
-	data["mission"] = mission
-	data["polldesc"] = polldesc
-	data["rename_team"] = rename_team
-	data["enforce_human"] = enforce_human
-	data["open_armory"] = open_armory
-	data["spawn_admin"] = spawn_admin
-	data["leader_experience"] = leader_experience
-	data["spawn_mechs"] = spawn_mechs
-	return data
-
-/datum/ert_maker/proc/set_selected_ERT(responseTeam)
-	if(!istype(responseTeam, /datum/ert))
-		return
-	selected_ERT_option = responseTeam
-
-	load_settings_from_ERT_datum(selected_ERT_option)
-	// Set our selected preview role to the leader of the selected datum
-	selected_preview_role = initial(selected_ERT_option.leader_role.role)
-
-	if(istype(responseTeam, /datum/ert/custom))
-		var/datum/ert/custom/ert = responseTeam
-		selected_preview_role = ert.leader_template.role
-
-	if(!(selected_ERT_option.name in preview_images)\
-	|| !(selected_preview_role in preview_images[selected_ERT_option.name])\
-	|| !(dir2text(selected_direction) in preview_images[selected_ERT_option.name][selected_preview_role]))
-		generate_ERT_preview_images()
-
-	SStgui.update_user_uis(holder.mob)
-
-/datum/ert_maker/ui_act(action, params)
-	. = ..()
-	if(.)
-		return
-	switch(action)
-		/// Base ERT stuff ///
-		if("pickERT")
-			if(params["selectedERT"]) // Selected by path.
-				var/selected_path = text2path(params["selectedERT"])
-
-				set_selected_ERT(new selected_path)
-
-			if(params["selectedREF"]) // Selected custom ERT.
-				var/datum/ert/custom/ert = locate(params["selectedREF"])
-				if(ert)
-					set_selected_ERT(ert)
-				else
-					to_chat(holder, span_warning("Unable to locate that ERT. Notify a coder."))
-
-			. = TRUE
-		if("rotatePreview")
-			selected_direction = turn(selected_direction, 90*params["direction"])
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-		if("pickPreviewRole")
-			selected_preview_role = params["newPreviewRole"]
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-		if("spawnERT")
-			var/ERToption
-			message_admins("[key_name(holder)] is creating a CentCom response team...")
-			if(istype(selected_ERT_option, /datum/ert/custom))
-				ERToption = new /datum/ert/custom(TRUE)
+		if(ertemplate.spawn_admin)
+			if(isobserver(usr))
+				var/mob/living/carbon/human/admin_officer = new (spawnpoints[1])
+				var/chosen_outfit = usr.client?.prefs?.brief_outfit
+				usr.client.prefs.safe_transfer_prefs_to(admin_officer, is_antag = TRUE)
+				admin_officer.equipOutfit(chosen_outfit)
+				admin_officer.key = usr.key
 			else
-				ERToption = selected_ERT_option
-			copy_settings_to_ERT_datum(ERToption)
+				to_chat(usr, "<span class='warning'>Could not spawn you in as briefing officer as you are not a ghost!</spawn>")
 
-			if(spawn_ERT_team(ERToption))
-				message_admins("[key_name(holder)] created a CentCom response team.")
-				log_admin("[key_name(holder)] created a CentCom response team.")
-			else
-				message_admins("[key_name_admin(holder)] tried to create a CentCom response team. Unfortunately, there were not enough candidates available.")
-				log_admin("[key_name(holder)] failed to create a CentCom response team.")
+		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [ertemplate.polldesc]?", "deathsquad")
+		var/teamSpawned = FALSE
 
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
+		if(candidates.len == 0)
+			return FALSE
 
-		/// Editing ///
-		if("editSelectedERT")
-			//Do not allow editing of the base ERTs. Instead,
-			//We will clone them.
-			var/datum/ert/custom/custom_to_edit
-			if(!istype(selected_ERT_option, /datum/ert/custom))
-				var/prompt = tgui_alert(holder.mob, "Unable to edit [selected_ERT_option]. Would you like to duplicate it and work on the duplicate?", "Editing",list("Ok", "Cancel"))
-				if(prompt == "Ok")
-					custom_to_edit = selected_ERT_option.copy_vars_to_custom_ERT_datum()
-					set_selected_ERT(custom_to_edit)
-					editing_ERT = TRUE
-			else
-				editing_ERT = !editing_ERT
+		//Pick the (un)lucky players
+		var/numagents = min(ertemplate.teamsize,candidates.len)
 
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
+		//Create team
+		var/datum/team/ert/ert_team = new ertemplate.team ()
+		if(ertemplate.rename_team)
+			ert_team.name = ertemplate.rename_team
 
-		if("deleteSelectedERT")
-			var/datum/ert/custom/ert = selected_ERT_option
-			if(editing_ERT || !istype(ert))
-				return TRUE
-			GLOB.custom_ert_datums -= ert
-			// GC should handle the rest, I think?
-			set_selected_ERT(new ERT_options[1])
+		//Assign team objective
+		var/datum/objective/missionobj = new ()
+		missionobj.team = ert_team
+		missionobj.explanation_text = ertemplate.mission
+		missionobj.completed = TRUE
+		ert_team.objectives += missionobj
+		ert_team.mission = missionobj
 
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
+		var/mob/dead/observer/earmarked_leader
+		var/leader_spawned = FALSE // just in case the earmarked leader disconnects or becomes unavailable, we can try giving leader to the last guy to get chosen
 
-		if("addNewERT") // I mean you *can* just copy via edit up there but /shrug
-			var/datum/ert/custom/custom = new
-			custom.name = "Custom ERT"
-			set_selected_ERT(custom)
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
+		if(ertemplate.leader_experience)
+			var/list/candidate_living_exps = list()
+			for(var/i in candidates)
+				var/mob/dead/observer/potential_leader = i
+				candidate_living_exps[potential_leader] = potential_leader.client?.get_exp_living(TRUE)
 
-		if("setSelectedName")
-			var/datum/ert/custom/ert = selected_ERT_option
-			if(!editing_ERT || !istype(ert))
-				return TRUE
-			if(params["newName"])
-				if(preview_images[ert.name]) // clean old preview images
-					preview_images[ert.name] = list()
-				ert.name = params["newName"]
-
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-
-		if("setAntagOutfit")
-			var/datum/ert/custom/ert = selected_ERT_option
-			if(!editing_ERT || !istype(ert))
-				return TRUE
-			var/datum/outfit/new_outfit
-			var/alertresult = tgui_alert(holder.mob, "Do you want a custom outfit, or a preset?", "Outfit Select", list("Preset", "Custom", "Cancel"))
-			if(alertresult == "Preset")
-				new_outfit = tgui_input_list(holder.mob, "Select an outfit.", "Outfit Select", subtypesof(/datum/outfit))
-			else if (alertresult == "Custom")
-				if(GLOB.custom_outfits.len > 0)
-					new_outfit = tgui_input_list(holder.mob, "Select an outfit.", "Outfit Select", GLOB.custom_outfits)
-				else
-					to_chat(holder, span_warning("No custom outfits detected. Create one with the outfit manager."))
-			else
-				return TRUE
-			if(istype(new_outfit) || ispath(new_outfit))
-				var/num = params["antagNum"]
-				if(num == 0)
-					if(params["plasmaman_outfit"])
-						ert.leader_template.plasmaman_outfit = new_outfit
-					else
-						ert.leader_template.antag_outfit = new_outfit
-					preview_images[selected_ERT_option.name][ert.leader_template.role] = null
-				else if(ert.grunt_templates[num])
-					if(params["plasmaman_outfit"])
-						ert.grunt_templates[num].plasmaman_outfit = new_outfit
-					else
-						ert.grunt_templates[num].antag_outfit = new_outfit
-					preview_images[selected_ERT_option.name][ert.grunt_templates[num].role] = null
-
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-
-		if("setAntagMech")
-			var/datum/ert/custom/ert = selected_ERT_option
-			if(!editing_ERT || !istype(ert))
-				return TRUE
-			var/obj/vehicle/sealed/mecha/new_mech = tgui_input_list(holder.mob, "Select a mech.", "Mech Select", subtypesof(/obj/vehicle/sealed/mecha))
-			if(ispath(new_mech))
-				var/num = params["antagNum"]
-				if(num == 0)
-					ert.leader_template.mech = new_mech
-				else if(ert.grunt_templates[num])
-					ert.grunt_templates[num].mech = new_mech
-
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-
-		if("setAntagRole")
-			var/datum/ert/custom/ert = selected_ERT_option
-			if(!editing_ERT || !istype(ert))
-				return TRUE
-			if(params["newRole"])
-				var/num = params["antagNum"]
-				if(num == 0)
-					if(selected_preview_role == ert.leader_template.role)
-						selected_preview_role = params["newRole"]
-					ert.leader_template.role = params["newRole"]
-				else if(ert.grunt_templates[num])
-					if(selected_preview_role == ert.grunt_templates[num].role)
-						selected_preview_role = params["newRole"]
-					ert.grunt_templates[num].role = params["newRole"]
-
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-
-		if("addAntagonist")
-			var/datum/ert/custom/ert = selected_ERT_option
-			if(!editing_ERT || !istype(ert))
-				return TRUE
-
-			ert.grunt_templates.Add(new /datum/ert_antag_template)
-
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-
-		if("removeAntagonist")
-			var/datum/ert/custom/ert = selected_ERT_option
-			if(!editing_ERT || !istype(ert))
-				return TRUE
-
-			var/num = params["antagNum"]
-			if(num && (num > 1))
-				if(ert.grunt_templates[num])
-					ert.grunt_templates.Cut(num, num+1)
-
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-
-		/// Customization ///
-		if("setTeamName")
-			if(editing_ERT && istype(selected_ERT_option, /datum/ert/custom))
-				selected_ERT_option.rename_team = params["new_value"]
-			rename_team = params["new_value"]
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-		if("setMission")
-			if(editing_ERT && istype(selected_ERT_option, /datum/ert/custom))
-				selected_ERT_option.mission = params["new_value"]
-			mission = params["new_value"]
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-		if("setPollDesc")
-			if(editing_ERT && istype(selected_ERT_option, /datum/ert/custom))
-				selected_ERT_option.polldesc = params["new_value"]
-			polldesc = params["new_value"]
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-		if("setTeamSize")
-			if(editing_ERT && istype(selected_ERT_option, /datum/ert/custom))
-				selected_ERT_option.teamsize = min(text2num(params["new_value"]), 1)
-			teamsize = params["new_value"]
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-		if("setMechAmount")
-			if(editing_ERT && istype(selected_ERT_option, /datum/ert/custom))
-				selected_ERT_option.mech_amount = min(text2num(params["new_value"]), 0)
-			mech_amount = params["new_value"]
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-
-		/// Toggles ///
-		if("enforceHuman")
-			if(editing_ERT && istype(selected_ERT_option, /datum/ert/custom))
-				selected_ERT_option.enforce_human = !enforce_human // Edit the ERT
-				enforce_human = !enforce_human // Edit us
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-		if("openArmory")
-			if(editing_ERT && istype(selected_ERT_option, /datum/ert/custom))
-				selected_ERT_option.opendoors = !open_armory
-			open_armory = !open_armory
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-		if("randomNames")
-			if(editing_ERT && istype(selected_ERT_option, /datum/ert/custom))
-				selected_ERT_option.random_names = !random_names
-			random_names = !random_names
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-		if("spawnAdmin")
-			if(editing_ERT && istype(selected_ERT_option, /datum/ert/custom))
-				selected_ERT_option.spawn_admin = !spawn_admin
-			spawn_admin = !spawn_admin
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-		if("leaderExperience")
-			if(editing_ERT && istype(selected_ERT_option, /datum/ert/custom))
-				selected_ERT_option.leader_experience = !leader_experience
-			leader_experience = !leader_experience
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-		if("spawnMechs")
-			if(editing_ERT && istype(selected_ERT_option, /datum/ert/custom))
-				selected_ERT_option.spawn_mechs = !spawn_mechs
-			spawn_mechs = !spawn_mechs
-			SStgui.update_user_uis(holder.mob)
-			. = TRUE
-
-		/// Debug ///
-		if("vv")
-			holder.debug_variables(src)
-			. = TRUE
-		if("vvERT")
-			holder.debug_variables(selected_ERT_option)
-			. = TRUE
-
-		if("saveToFile")
-			save_ERT_to_file()
-			. = TRUE
-		if("loadFromFile")
-			load_ERT_from_file()
-			. = TRUE
-
-/datum/ert_maker/ui_close(mob/user)
-	qdel(src)
-
-// Mostly copy pasted from the pre-rewrite ERT verb
-/datum/ert_maker/proc/spawn_ERT_team(datum/ert/ERToption)
-	var/list/spawnpoints = GLOB.emergencyresponseteamspawn
-	var/index = 0
-	if(spawn_admin)
-		if(isobserver(holder.mob))
-			var/mob/living/carbon/human/admin_officer = new (spawnpoints[1])
-			var/outfit = holder?.prefs?.brief_outfit
-			usr.client.prefs.safe_transfer_prefs_to(admin_officer, is_antag = TRUE)
-			admin_officer.equipOutfit(outfit)
-			admin_officer.key = holder.key
+			candidate_living_exps = sortList(candidate_living_exps, cmp=/proc/cmp_numeric_dsc)
+			if(candidate_living_exps.len > ERT_EXPERIENCED_LEADER_CHOOSE_TOP)
+				candidate_living_exps = candidate_living_exps.Cut(ERT_EXPERIENCED_LEADER_CHOOSE_TOP+1) // pick from the top ERT_EXPERIENCED_LEADER_CHOOSE_TOP contenders in playtime
+			earmarked_leader = pick(candidate_living_exps)
 		else
-			to_chat(holder, span_warning("Could not spawn you in as briefing officer as you are not a ghost!"))
+			earmarked_leader = pick(candidates)
 
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [ERToption.polldesc]?", "deathsquad")
-	var/teamSpawned = FALSE
-	if(candidates.len == 0)
-		return
+		while(numagents && candidates.len)
+			var/spawnloc = spawnpoints[index+1]
+			//loop through spawnpoints one at a time
+			index = (index + 1) % spawnpoints.len
+			var/mob/dead/observer/chosen_candidate = earmarked_leader || pick(candidates) // this way we make sure that our leader gets chosen
+			candidates -= chosen_candidate
+			if(!chosen_candidate?.key)
+				continue
 
-	var/numagents = min(teamsize,candidates.len)
-	var/nummechs = min(mech_amount, numagents)
+			//Spawn the body
+			var/mob/living/carbon/human/ert_operative = new ertemplate.mobtype(spawnloc)
+			chosen_candidate.client.prefs.safe_transfer_prefs_to(ert_operative, is_antag = TRUE)
+			ert_operative.key = chosen_candidate.key
 
-	var/datum/team/ert/ert_team = new ERToption.team()
-	if(rename_team)
-		ert_team.name = rename_team
+			if(ertemplate.enforce_human || !(ert_operative.dna.species.changesource_flags & ERT_SPAWN)) // Don't want any exploding plasmemes
+				ert_operative.set_species(/datum/species/human)
 
-	var/datum/objective/missionobj = new()
-	missionobj.team = ert_team
-	missionobj.explanation_text = ERToption.mission
-	missionobj.completed = TRUE
-	ert_team.objectives += missionobj
-	ert_team.mission = missionobj
+			//Give antag datum
+			var/datum/antagonist/ert/ert_antag
 
-	var/mob/dead/observer/earmarked_leader
-	var/leader_spawned = FALSE // just in case the earmarked leader disconnects or becomes unavailable, we can try giving leader to the last guy to get chosen
+			if((chosen_candidate == earmarked_leader) || (numagents == 1 && !leader_spawned))
+				ert_antag = new ertemplate.leader_role ()
+				earmarked_leader = null
+				leader_spawned = TRUE
+			else
+				ert_antag = ertemplate.roles[WRAP(numagents,1,length(ertemplate.roles) + 1)]
+				ert_antag = new ert_antag ()
+			ert_antag.random_names = ertemplate.random_names
 
-	if(leader_experience)
-		var/list/candidate_living_exps = list()
-		for(var/i in candidates)
-			var/mob/dead/observer/potential_leader = i
-			candidate_living_exps[potential_leader] = potential_leader.client?.get_exp_living(TRUE)
+			ert_operative.mind.add_antag_datum(ert_antag,ert_team)
+			ert_operative.mind.set_assigned_role(SSjob.GetJobType(ert_antag.ert_job_path))
 
-		candidate_living_exps = sortList(candidate_living_exps, cmp=/proc/cmp_numeric_dsc)
-		if(candidate_living_exps.len > ERT_EXPERIENCED_LEADER_CHOOSE_TOP)
-			candidate_living_exps = candidate_living_exps.Cut(ERT_EXPERIENCED_LEADER_CHOOSE_TOP+1) // pick from the top ERT_EXPERIENCED_LEADER_CHOOSE_TOP contenders in playtime
-		earmarked_leader = pick(candidate_living_exps)
+			//Logging and cleanup
+			log_game("[key_name(ert_operative)] has been selected as an [ert_antag.name]")
+			numagents--
+			teamSpawned++
+
+		if (teamSpawned)
+			message_admins("[ertemplate.polldesc] has spawned with the mission: [ertemplate.mission]")
+
+		//Open the Armory doors
+		if(ertemplate.opendoors)
+			for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
+				door.open()
+				CHECK_TICK
+		return TRUE
+
+	return
+
+/client/proc/summon_ert()
+	set category = "Admin.Fun"
+	set name = "Summon ERT"
+	set desc = "Summons an emergency response team"
+
+	message_admins("[key_name(usr)] is creating a CentCom response team...")
+	if(holder?.makeEmergencyresponseteam())
+		message_admins("[key_name(usr)] created a CentCom response team.")
+		log_admin("[key_name(usr)] created a CentCom response team.")
 	else
-		earmarked_leader = pick(candidates)
-
-	while(numagents && candidates.len)
-		var/spawnloc = spawnpoints[index+1]
-		//loop through spawnpoints one at a time
-		index = (index + 1) % spawnpoints.len
-		var/mob/dead/observer/chosen_candidate = earmarked_leader || pick(candidates) // this way we make sure that our leader gets chosen
-		candidates -= chosen_candidate
-		if(!chosen_candidate?.key)
-			continue
-
-		//Spawn the body
-		var/mob/living/carbon/human/ert_operative = new ERToption.mobtype(spawnloc)
-		chosen_candidate.client.prefs.safe_transfer_prefs_to(ert_operative, is_antag = TRUE)
-		ert_operative.key = chosen_candidate.key
-
-		if(enforce_human || !(ert_operative.dna.species.changesource_flags & ERT_SPAWN)) // Don't want any exploding plasmemes
-			ert_operative.set_species(/datum/species/human)
-
-		//Give antag datum
-		var/datum/antagonist/ert/ert_antag
-
-		var/access_to_give = SSid_access.accesses_by_region[REGION_ALL_STATION] + list(ACCESS_CENT_LIVING, ACCESS_CENT_GENERAL)
-
-		var/is_custom = istype(ERToption, /datum/ert/custom)
-
-
-		if((chosen_candidate == earmarked_leader) || (numagents == 1 && !leader_spawned))
-			ert_antag = new ERToption.leader_role()
-			earmarked_leader = null
-			leader_spawned = TRUE
-			if(is_custom)
-				access_to_give += SSid_access.accesses_by_region[REGION_CENTCOM]
-				var/datum/ert/custom/c = ERToption
-				ert_antag.role = c.leader_template.role
-				ert_antag.outfit = c.leader_template.antag_outfit
-				ert_antag.plasmaman_outfit = c.leader_template.plasmaman_outfit
-				ert_antag.mech = c.leader_template.mech
-		else
-			ert_antag = ERToption.roles[WRAP(numagents,1,length(ERToption.roles) + 1)]
-			ert_antag = new ert_antag ()
-			if(is_custom)
-				var/datum/ert/custom/c = ERToption
-				var/gruntnum = WRAP(numagents,1,length(c.grunt_templates) + 1)
-				ert_antag.role = c.grunt_templates[gruntnum].role
-				ert_antag.outfit = c.grunt_templates[gruntnum].antag_outfit
-				ert_antag.plasmaman_outfit = c.grunt_templates[gruntnum].plasmaman_outfit
-				ert_antag.mech = c.grunt_templates[gruntnum].mech
-		ert_antag.random_names = ERToption.random_names
-
-
-		ert_operative.mind.add_antag_datum(ert_antag,ert_team)
-		ert_operative.mind.set_assigned_role(SSjob.GetJobType(ert_antag.ert_job_path))
-
-		//Logging and cleanup
-		log_game("[key_name(ert_operative)] has been selected as an [ert_antag.name]")
-		numagents--
-		teamSpawned++
-
-		var/obj/item/card/id/id_card = ert_operative.get_idcard()
-		if(is_custom && id_card)
-			id_card.access = access_to_give
-			id_card.assignment = ert_antag.role
-			id_card.update_label()
-
-		if(spawn_mechs && (nummechs > 0))
-			var/mech_to_spawn = null
-			if(ert_antag.mech)
-				mech_to_spawn = ert_antag.mech
-
-			if(mech_to_spawn)
-				var/obj/vehicle/sealed/mecha/spawned_mech = new mech_to_spawn(spawnloc)
-				var/obj/item/storage/backpack/bag = locate() in ert_operative.contents
-				if(bag)
-					for(var/obj/item/item in ert_operative.held_items)
-						// Move held items to bag
-						// otherwise it'd be dropped on the floor (cooln't)
-						item.forceMove(bag)
-
-				spawned_mech.moved_inside(ert_operative)
-
-			nummechs--
-
-	if (teamSpawned)
-		message_admins("[ERToption.polldesc] has spawned with the mission: [ERToption.mission]")
-
-	//Open the Armory doors
-	if(ERToption.opendoors)
-		for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
-			door.open()
-			CHECK_TICK
-
-	return teamSpawned
-
+		message_admins("[key_name_admin(usr)] tried to create a CentCom response team. Unfortunately, there were not enough candidates available.")
+		log_admin("[key_name(usr)] failed to create a CentCom response team.")
 
 #undef ERT_EXPERIENCED_LEADER_CHOOSE_TOP

@@ -336,4 +336,4 @@
 
 /obj/item/food/butterdog/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 80, paralyze=80)
+	AddComponent(/datum/component/slippery, 80)

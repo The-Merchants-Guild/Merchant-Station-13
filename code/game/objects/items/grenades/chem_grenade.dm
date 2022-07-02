@@ -6,8 +6,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 2
 	var/stage = GRENADE_EMPTY
-	var/list/obj/item/reagent_containers/beakers = list()
-	var/list/allowed_containers = list(/obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/food/drinks/waterbottle)
+	var/list/obj/item/reagent_containers/glass/beakers = list()
+	var/list/allowed_containers = list(/obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle)
 	var/list/banned_containers = list(/obj/item/reagent_containers/glass/beaker/bluespace) //Containers to exclude from specific grenade subtypes
 	var/affected_area = 3
 	var/ignition_temp = 10 // The amount of heat added to the reagents when this grenade goes off.
@@ -32,9 +32,9 @@
 	if(user.can_see_reagents())
 		if(beakers.len)
 			. += span_notice("You scan the grenade and detect the following reagents:")
-			for(var/obj/item/reagent_containers/B in beakers)
-				for(var/datum/reagent/R in B.reagents.reagent_list)
-					. += span_notice("[R.volume] units of [R.name] in the [B.name].")
+			for(var/obj/item/reagent_containers/glass/G in beakers)
+				for(var/datum/reagent/R in G.reagents.reagent_list)
+					. += span_notice("[R.volume] units of [R.name] in the [G.name].")
 			if(beakers.len == 1)
 				. += span_notice("You detect no second beaker in the grenade.")
 		else
@@ -180,8 +180,8 @@
 
 	. = ..()
 	var/list/datum/reagents/reactants = list()
-	for(var/obj/item/reagent_containers/B in beakers)
-		reactants += B.reagents
+	for(var/obj/item/reagent_containers/glass/G in beakers)
+		reactants += G.reagents
 
 	var/turf/detonation_turf = get_turf(src)
 
@@ -219,9 +219,8 @@
 
 	for(var/obj/item/slime_extract/S in beakers)
 		if(S.Uses)
-			for(var/obj/item/reagent_containers/B in beakers)
-				if(!istype(B, /obj/item/slime_extract))
-					B.reagents.trans_to(S, B.reagents.total_volume)
+			for(var/obj/item/reagent_containers/glass/G in beakers)
+				G.reagents.trans_to(S, G.reagents.total_volume)
 
 			//If there is still a core (sometimes it's used up)
 			//and there are reagents left, behave normally,
@@ -229,9 +228,8 @@
 
 			if(S)
 				if(S.reagents && S.reagents.total_volume)
-					for(var/obj/item/reagent_containers/B in beakers)
-						if(!istype(B, /obj/item/slime_extract))
-							S.reagents.trans_to(B, S.reagents.total_volume)
+					for(var/obj/item/reagent_containers/glass/G in beakers)
+						S.reagents.trans_to(G, S.reagents.total_volume)
 				else
 					S.forceMove(get_turf(src))
 					no_splash = TRUE

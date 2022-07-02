@@ -284,17 +284,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		log_uplink("- [key_name(user)] received [goods] from [src]")
 		if(U.purchase_log)
 			U.purchase_log.LogPurchase(goods, I, 0)
-
-	var/list/surplus_items = list(/obj/item/toy/plush/goatplushie/angry, /obj/item/clothing/shoes/crowbar, /obj/item/grown/bananapeel/lube, /obj/item/mop/advanced/energy,
-	/mob/living/simple_animal/pet/gondola, /obj/item/blood_debt_granter)
-	var/item_count = rand(0,5)
-	while(item_count)
-		var/surplus_item = pick(surplus_items)
-		item_count -= 1
-		new surplus_item(C) // lovushka jokera
 	return C
-
-
 
 /datum/uplink_item/bundles_tc/random
 	name = "Random Item"
@@ -1220,7 +1210,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			from other identification cards. In addition, they can be forged to display a new assignment, name and trim. \
 			This can be done an unlimited amount of times. Some Syndicate areas and devices can only be accessed \
 			with these cards."
-	item = /obj/item/card/id/advanced/chameleon
+	item = /obj/item/card/id/chameleon
 	cost = 2
 
 /datum/uplink_item/stealthy_tools/ai_detector
@@ -2145,14 +2135,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 30 //Theres a good chance this will end up in surplus crates, so its a great way to add a little spice to any meme round.
 
 
-/datum/uplink_item/role_restricted/vibroblade
+/datum/uplink_item/dangerous/vibroblade
 	name = "High Frequency Blade"
 	desc = "An electric katana that weakens the molecular bonds of whatever it touches. Perfect for slicing off the limbs of your coworkers. \
 	Avoid using a multitool on it."
 	item = /obj/item/storage/belt/hfblade
 	cost = 15
-	surplus = 5
-	restricted_roles = list("Roboticist", "Research Director")
+	surplus = 15
 
 /datum/uplink_item/dangerous/wrestling
 	name = "Wrestling Set"

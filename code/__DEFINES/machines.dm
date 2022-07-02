@@ -194,5 +194,3 @@
 #define AIRALARM_BUILD_NO_WIRES 1
 /// Air alarm has all components but isn't completed
 #define AIRALARM_BUILD_COMPLETE 2
-
-#define REAGENT_FORGE	256//smelts reagent materials to make designs

@@ -29,7 +29,6 @@
 	var/rustle_sound = TRUE //play rustle sound on interact.
 	var/allow_quick_empty = FALSE //allow empty verb which allows dumping on the floor of everything inside quickly.
 	var/allow_quick_gather = FALSE //allow toggle mob verb which toggles collecting all items from a tile.
-	var/insert_while_closed = TRUE //user can insert items into storage by clicking on it without opening its inventory, else inventory has to be opened first
 
 	var/collection_mode = COLLECT_EVERYTHING
 
@@ -633,8 +632,6 @@
 		if(M && !stop_messages)
 			host.add_fingerprint(M)
 			to_chat(M, span_warning("[host] seems to be locked!"))
-		return FALSE
-	if(!insert_while_closed && !(M in is_using))
 		return FALSE
 	if(real_location.contents.len >= max_items)
 		if(!stop_messages)

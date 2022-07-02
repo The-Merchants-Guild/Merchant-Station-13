@@ -98,8 +98,6 @@
 
 /datum/config_entry/flag/log_shuttle // log shuttle related actions, ie shuttle computers, shuttle manipulator, emergency console
 
-/datum/config_entry/flag/log_wordfilter // word filter implant message filtering/blocking
-
 /datum/config_entry/flag/log_timers_on_bucket_reset // logs all timers in buckets on automatic bucket reset (Useful for timer debugging)
 
 /datum/config_entry/flag/allow_admin_ooccolor // Allows admins with relevant permissions to have their own ooc colour
@@ -222,13 +220,13 @@
 /datum/config_entry/string/banappeals
 
 /datum/config_entry/string/wikiurl
-	default = "https://wiki.merchantstation.net/wiki"
+	default = "http://wiki.merchantstation.net/w"
 
 /datum/config_entry/string/discordurl
 	default = "https://discord.gg/2YYfU3ZanD"
 
 /datum/config_entry/string/rulesurl
-	default = "https://wiki.merchantstation.net/wiki/Rules"
+	default = "http://wiki.merchantstation.net/wiki/Rules"
 
 /datum/config_entry/string/githuburl
 	default = "https://www.github.com/The-Merchants-Guild/Merchant-Station-13"

@@ -14,7 +14,6 @@
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/centcom/ert/security
 	var/datum/outfit/plasmaman_outfit = /datum/outfit/plasmaman/centcom_official
-	var/obj/vehicle/sealed/mecha/mech = /obj/vehicle/sealed/mecha/working/ripley
 	var/role = "Security Officer"
 	var/list/name_source
 	var/random_names = TRUE
@@ -110,7 +109,6 @@
 	name = "Deathsquad Trooper"
 	outfit = /datum/outfit/centcom/death_commando
 	plasmaman_outfit = /datum/outfit/plasmaman/centcom_commander
-	mech = /obj/vehicle/sealed/mecha/working/ripley/deathripley/real
 	role = "Trooper"
 	rip_and_tear = TRUE
 
@@ -380,11 +378,18 @@
 	outfit = /datum/outfit/centcom/ert/marine/medic
 	role = "Medical Officer"
 
-/datum/antagonist/ert/custom
-	role = "Code Purple Responder"
-	outfit = /datum/outfit/centcom/centcom_official
+/datum/antagonist/ert/revenger/hulk
+	role = "Hulk"
+	outfit = /datum/outfit/revenger/hulk
 
-/datum/antagonist/ert/custom/leader
-	role = "Code Purple Responder"
-	leader = TRUE
-	outfit = /datum/outfit/centcom/centcom_official
+/datum/antagonist/ert/revenger/nano
+	role = "Nano Guy"
+	outfit = /datum/outfit/revenger/nano
+
+/datum/antagonist/ert/revenger/cap
+	role = "Captain Nanotrasen"
+	outfit = /datum/outfit/revenger/captain
+
+/datum/antagonist/ert/revenger/thor
+	role = "Thor"
+	outfit = /datum/outfit/revenger/thor

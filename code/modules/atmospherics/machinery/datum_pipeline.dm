@@ -149,7 +149,7 @@
 /datum/pipeline/proc/merge(datum/pipeline/parent_pipeline)
 	if(parent_pipeline == src)
 		return
-	if(!parent_pipeline)
+	if(!parent_pipeline) //THIS RUNTIMED SO MUCH HOLY FUCK REEEEEEEE
 		return
 	air.volume += parent_pipeline.air.volume
 	members.Add(parent_pipeline.members)

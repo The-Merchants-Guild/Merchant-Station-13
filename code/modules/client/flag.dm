@@ -2,7 +2,7 @@
 	. = ..()
 	spawn if(src)
 		src.country = ip2country(address)
-		if(country == "BR")
+		if(country == "Brazil")
 			message_admins("<span class='adminnotice'>[key_name_admin(src)] is a Brazilian!</span>")
 
 /proc/ip2country(ipaddr)

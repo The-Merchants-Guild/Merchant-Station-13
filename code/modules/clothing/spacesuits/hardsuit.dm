@@ -527,16 +527,16 @@
 
 	//Research Director hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/rd
-	name = "prototype bomb disposal hardsuit helmet"
-	desc = "A prototype helmet designed for handling dangerous materials in a low pressure environment."
+	name = "prototype hardsuit helmet"
+	desc = "A prototype helmet designed for research in a hazardous, low pressure environment. Scientific data flashes across the visor."
 	icon_state = "hardsuit0-rd"
 	hardsuit_type = "rd"
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 20, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80, WOUND = 15)
 	var/explosion_detection_dist = 21
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SCAN_REAGENTS | SNUG_FIT
+	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize()
 	. = ..()
@@ -566,128 +566,16 @@
 	display_visor_message("Explosion detected! Epicenter: [devastation_range], Outer: [heavy_impact_range], Shock: [light_impact_range]")
 
 /obj/item/clothing/suit/space/hardsuit/rd
-	name = "prototype bomb disposal hardsuit"
-	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives."
+	name = "prototype hardsuit"
+	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives and dangerous research materials."
 	icon_state = "hardsuit-rd"
 	inhand_icon_state = "hardsuit-rd"
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector,
+	/obj/item/hand_tele, /obj/item/aicard)
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 20, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80, WOUND = 15)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd
-
-/obj/item/clothing/head/helmet/space/hardsuit/HEVsuit
-	name = "\improper HEV Suit helmet"
-	desc = "A Hazardous Environment Helmet. It fits snug over the suit and has a heads-up display for researchers. The flashlight seems broken, which is fitting considering this whole suit was made before the start of the milennium."
-	icon_state = "hev"
-	icon = 'icons/obj/clothing/hats.dmi'
-	inhand_icon_state = "hev"
-	resistance_flags = ACID_PROOF | FIRE_PROOF
-	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 5, "bomb" = 100, "bio" = 100, "rad" = 80, "fire" = 40, "acid" = 80)
-	var/explosion_detection_dist = 21
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SCAN_REAGENTS | SNUG_FIT
-	actions_types = list(/datum/action/item_action/toggle_research_scanner)
-
-/obj/item/clothing/head/helmet/space/hardsuit/HEVsuit/Initialize()
-	. = ..()
-	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, .proc/sense_explosion)
-
-/obj/item/clothing/head/helmet/space/hardsuit/HEVsuit/equipped(mob/living/carbon/human/user, slot)
-	..()
-	if (slot == ITEM_SLOT_HEAD)
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.add_hud_to(user)
-
-/obj/item/clothing/head/helmet/space/hardsuit/HEVsuit/dropped(mob/living/carbon/human/user)
-	..()
-	if (user.head == src)
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.remove_hud_from(user)
-
-/obj/item/clothing/head/helmet/space/hardsuit/HEVsuit/proc/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range,
-		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
-	var/turf/T = get_turf(src)
-	if(T.z != epicenter.z)
-		return
-	if(get_dist(epicenter, T) > explosion_detection_dist)
-		return
-	display_visor_message("Explosion detected! Epicenter: [devastation_range], Outer: [heavy_impact_range], Shock: [light_impact_range]")
-
-/obj/item/clothing/suit/space/hardsuit/HEVsuit
-	icon_state = "hev"
-	name = "\improper HEV Suit"
-	desc = "A Hazardous Environment suit, often called the Hazard suit. It was designed to protect scientists from the blunt trauma, radiation, energy discharge that hazardous materials might produce or entail. Fits you like a glove."
-	inhand_icon_state = "hev"
-	resistance_flags = ACID_PROOF | FIRE_PROOF
-	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector,
-	/obj/item/hand_tele, /obj/item/aicard, /obj/item/gun/ballistic/automatic/wt550/*placeholder until someone adds the SMG1 in*/)
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 5, "bomb" = 100, "bio" = 100, "rad" = 80, "fire" = 40, "acid" = 80)
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/HEVsuit
-	slowdown = 0.5 //less resistances but faster speed, might be imba idc
-	var/message_on_cooldown = 0
-	var/healing_on_cooldown = 0
-	var/heal_threshold = 15
-	var/health_scan
-	var/injection_amount = 5
-	var/firstpickup = TRUE //find where I got this idea from
-
-
-/obj/item/clothing/suit/space/hardsuit/HEVsuit/process() //this whole proc is a disaster.
-
-	var/atom/A = src
-	for(A, A && !ismob(A), A=A.loc);
-	// like get_turf(), but for mobs.
-	var/mob/living/M = A
-
-	if(M)
-		health_scan = M.health
-		if(!message_on_cooldown)
-			if(M.getBruteLoss() >= 30 && M.getBruteLoss() <= 59)
-				messagemob(M, "Warning! Minor lacerations detected.", 'sound/effects/minor_lacerations.ogg')
-			else if(M.getBruteLoss() >= 60)
-				messagemob(M, "Warning! Major lacerations detected!", 'sound/effects/major_lacerations.ogg')
-			else if(round((M.blood_volume / BLOOD_VOLUME_NORMAL)*100) <= 80)
-				messagemob(M, "Warning! Blood loss detected.", 'sound/effects/blood_loss.ogg')
-			else if(health_scan <= 30)
-				messagemob(M, "Vital signs are dropping!", 'sound/effects/vital_signs.ogg')
-		if(health_scan <= 40)
-			if(!healing_on_cooldown)
-				to_chat(M, "<span class='warning'>You feel the autoinjectors in the suit activate, filling you with medicine!</span>")
-				SEND_SOUND(M, sound('sound/effects/evacuate_area.ogg', volume = 50))
-				M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 7)
-				M.reagents.add_reagent(/datum/reagent/medicine/morphine, 2)
-				healing_on_cooldown = 1
-				addtimer(VARSET_CALLBACK(src, healing_on_cooldown, FALSE), 1800) //injects you with 7u of omnizine and 2u of morphine every 3 minutes if you're under 30 health.
-		return
-	return
-
-/obj/item/clothing/suit/space/hardsuit/HEVsuit/proc/messagemob(mob/living/user, messagesent, soundsent)
-	SEND_SOUND(user, sound(soundsent, volume = 50))
-	to_chat(user, span_warning("You hear a tinny voice speak from your suit: [messagesent]"))
-	message_on_cooldown = 1
-	addtimer(VARSET_CALLBACK(src, message_on_cooldown, FALSE), 600)
-	sleep(20) //afaik using sleep isn't a good idea, but this should theoretically prevent the lines from overlapping
-
-
-
-/obj/item/clothing/suit/space/hardsuit/HEVsuit/equipped(mob/user, slot) //No limits to SHIT code.
-	. = ..()
-	if(!ishuman(user))
-		return
-	if(slot == ITEM_SLOT_OCLOTHING)
-		if(!firstpickup)
-			SEND_SOUND(user, sound('sound/effects/hevsuit_pickup.ogg', volume = 50))
-		else
-			firstpickup = FALSE
-			SEND_SOUND(user, sound('sound/effects/hevsuit_logon.ogg', volume = 50))
-			SEND_SOUND(user, sound('sound/effects/hazardous_environments.ogg', volume = 50))
-	START_PROCESSING(SSobj, src)
-	return
-/obj/item/clothing/suit/space/hardsuit/HEVsuit/dropped(mob/user, slot)
-	. = ..()
-	STOP_PROCESSING(SSobj, src)
 
 	//Security hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/security

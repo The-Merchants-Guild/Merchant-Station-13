@@ -98,7 +98,7 @@
 
 /obj/item/food/tofu
 	name = "tofu"
-	desc = "Tastes like meat, as long as you've forgotten what meat tastes like."
+	desc = "We all love tofu."
 	icon_state = "tofu"
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 2)
 	tastes = list("tofu" = 1)
@@ -524,7 +524,7 @@
 
 /obj/item/food/meatclown/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 30, paralyze=30)
+	AddComponent(/datum/component/slippery, 30)
 
 /obj/item/food/lasagna
 	name = "Lasagna"
@@ -563,7 +563,7 @@
 
 /obj/item/food/kebab/tofu
 	name = "tofu-kebab"
-	desc = "Vegan so-called meat, on a stick."
+	desc = "Vegan meat, on a stick."
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 15)
 	tastes = list("tofu" = 3, "metal" = 1)
 	foodtypes = VEGETABLES

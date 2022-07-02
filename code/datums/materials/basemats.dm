@@ -1,14 +1,3 @@
-//exists because otherwise material_ref throws a MASSIVE shit
-/datum/material/custom
-	name = "custom material"
-	desc = "You aren't supposed to see this"
-	color = "#000000"
-	sheet_type = /obj/item/stack/sheet/mineral/reagent
-	init_flags = MATERIAL_INIT_BESPOKE
-	categories = list(MAT_CATEGORY_ITEM_MATERIAL=TRUE)
-	value_per_unit = 0
-	id = "reagent"
-
 ///Has no special properties.
 /datum/material/iron
 	name = "iron"
@@ -182,7 +171,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 /datum/material/bananium/on_applied(atom/source, amount, material_flags)
 	. = ..()
 	source.LoadComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1), 50, falloff_exponent = 20)
-	source.AddComponent(/datum/component/slippery, min(amount / 10, 80), paralyze=min(amount / 10, 80))
+	source.AddComponent(/datum/component/slippery, min(amount / 10, 80))
 
 /datum/material/bananium/on_removed(atom/source, amount, material_flags)
 	. = ..()

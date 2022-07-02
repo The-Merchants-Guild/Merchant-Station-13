@@ -907,7 +907,12 @@
 /obj/machinery/disposal/delivery_chute,
 /turf/open/indestructible,
 /area/deathmatch)
+"NY" = (
+/obj/machinery/the_singularitygen,
+/turf/open/indestructible,
+/area/deathmatch)
 "Pg" = (
+/obj/machinery/field/generator/anchored,
 /obj/machinery/light/no_nightlight/directional/north,
 /turf/open/indestructible,
 /area/deathmatch)
@@ -1286,7 +1291,7 @@ zl
 cA
 HL
 ai
-cA
+NY
 Rk
 ai
 ai

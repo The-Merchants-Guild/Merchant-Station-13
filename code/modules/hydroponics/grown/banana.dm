@@ -143,4 +143,4 @@
 
 /obj/item/grown/bananapeel/specialpeel/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 40, paralyze=40)
+	AddComponent(/datum/component/slippery, 40)

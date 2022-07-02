@@ -274,7 +274,6 @@
 		"pandemic",
 		"plumbing_rcd_sci",
 		"soda_dispenser",
-		"syringegun",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -297,7 +296,6 @@
 		"piercesyringe",
 		"plasmarefiller",
 		"smoke_machine",
-		"rapidsyringe",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	discount_experiments = list(/datum/experiment/scanning/random/material/meat = 4000) //Big discount to reinforce doing it.
@@ -759,7 +757,6 @@
 	prereq_ids = list("biotech", "datatheory")
 	design_ids = list(
 		"skill_station",
-		"ci-wordblock"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
@@ -2020,6 +2017,7 @@
 		"donksoft_refill",
 		"donksofttoyvendor",
 		"largecrossbow",
+		"rapidsyringe",
 		"suppressor",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)

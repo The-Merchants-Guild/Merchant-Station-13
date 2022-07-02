@@ -51,13 +51,10 @@
 	message_mime = "acts out a scream!"
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
-	cooldown = 0 //if we're gonna make screaming do oxyloss, you might as well be allowed to spam it
-	audio_cooldown = 0 //ditto
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
 	LAZYINITLIST(user.alternate_screams)
 	if(LAZYLEN(user.alternate_screams))
-		user.adjustOxyLoss(user.scream_oxyloss)
 		return pick(user.alternate_screams)
 	if(!ishuman(user))
 		return
@@ -65,7 +62,6 @@
 	if(H.mind?.miming)
 		return
 	if(ishumanbasic(H) || isfelinid(H))
-		user.adjustOxyLoss(user.scream_oxyloss)
 		if(user.gender == FEMALE)
 			return pick('sound/voice/human/femalescream_1.ogg', 'sound/voice/human/femalescream_2.ogg', 'sound/voice/human/femalescream_3.ogg', 'sound/voice/human/femalescream_4.ogg', 'sound/voice/human/femalescream_5.ogg')
 		else
@@ -86,7 +82,6 @@
 					'sound/creatures/monkey/monkey_screech_5.ogg',
 					'sound/creatures/monkey/monkey_screech_6.ogg',
 					'sound/creatures/monkey/monkey_screech_7.ogg')
-
 
 /datum/emote/living/carbon/human/scream/screech //If a human tries to screech it'll just scream.
 	key = "screech"

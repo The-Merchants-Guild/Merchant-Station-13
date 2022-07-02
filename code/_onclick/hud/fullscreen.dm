@@ -191,3 +191,9 @@
 
 /atom/movable/screen/fullscreen/blood_tracker
 	layer = BELOW_MOB_LAYER
+
+/atom/movable/screen/fullscreen/thanos_snap
+	show_when_dead = TRUE
+	icon = 'icons/hud/screen_full.dmi'
+	icon_state = "snap"
+	layer = ABOVE_SPLASHSCREEN_LAYER

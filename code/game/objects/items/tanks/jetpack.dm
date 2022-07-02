@@ -58,7 +58,7 @@
 
 
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
-	if(!allow_thrust(0.01, user))
+	if(!allow_thrust(0.01, user) && !istype(src, /obj/item/tank/jetpack/ganypack)) //probably a better way of doing this but lol
 		return FALSE
 	on = TRUE
 	icon_state = "[initial(icon_state)]-on"

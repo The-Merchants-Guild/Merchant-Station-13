@@ -30,6 +30,9 @@
 		return ..()
 
 /obj/machinery/telecomms/ui_interact(mob/user, datum/tgui/ui)
+	if(is_ganymede(user))
+		to_chat(user, "<span class='warning'>Your enormous hands can't possibly fiddle with that!</span>")
+		return
 	operator = user
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

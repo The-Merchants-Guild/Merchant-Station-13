@@ -31,6 +31,9 @@
 	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/atmospherics/components/binary/volume_pump/CtrlClick(mob/user)
+	if(is_ganymede(user))
+		to_chat(user, "<span class='danger'>\The [src] is too small for your big hands to adjust!</span>")
+		return
 	if(can_interact(user))
 		on = !on
 		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
@@ -38,6 +41,9 @@
 	return ..()
 
 /obj/machinery/atmospherics/components/binary/volume_pump/AltClick(mob/user)
+	if(is_ganymede(user))
+		to_chat(user, "<span class='danger'>\The [src] is too small for your big hands to adjust!</span>")
+		return
 	if(can_interact(user))
 		transfer_rate = MAX_TRANSFER_RATE
 		investigate_log("was set to [transfer_rate] L/s by [key_name(user)]", INVESTIGATE_ATMOS)
@@ -121,6 +127,9 @@
 	radio_connection.post_signal(src, signal)
 
 /obj/machinery/atmospherics/components/binary/volume_pump/ui_interact(mob/user, datum/tgui/ui)
+	if(is_ganymede(user))
+		to_chat(user, "<span class='danger'>\The [src] is too small for your big hands to adjust!</span>")
+		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AtmosPump", name)

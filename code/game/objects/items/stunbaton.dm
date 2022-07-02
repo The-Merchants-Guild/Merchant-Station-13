@@ -192,6 +192,10 @@
 		..()
 		return
 
+	if(is_ganymede(user))
+		user.visible_message("<span class='danger'>[user] accidentally crushes [src] in their hand!</span>")
+		qdel(src)
+		return
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/L = M

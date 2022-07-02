@@ -232,4 +232,10 @@
 	yeeted_person.throw_at(T, 10, 6, the_hulk, TRUE, TRUE)
 	log_combat(the_hulk, yeeted_person, "has thrown by tail")
 
+/datum/mutation/human/hulk/revenger
+	mutadone_proof = TRUE
+
+/datum/mutation/human/hulk/revenger/on_life()
+	return
+
 #undef HULK_TAILTHROW_STEPS

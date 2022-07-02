@@ -17,6 +17,7 @@
 	alpha = 125
 	var/check_anti_magic = FALSE
 	var/check_holy = FALSE
+	var/start_sound = 'sound/magic/timeparadox2.ogg'
 
 /obj/effect/timestop/Initialize(mapload, radius, time, list/immune_atoms, start = TRUE) //Immune atoms assoc list atom = TRUE
 	. = ..()
@@ -32,17 +33,20 @@
 	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.parasites)
 		if(G.summoner && locate(/obj/effect/proc_holder/spell/aoe_turf/timestop) in G.summoner.mind.spell_list) //It would only make sense that a person's stand would also be immune.
 			immune[G] = TRUE
+	for(var/mob/living/L in GLOB.player_list)
+		if((locate(/obj/item/badmin_stone) in L) || (locate(/obj/item/badmin_gauntlet) in L)) //stone holders are not affected
+			immune[L] = TRUE
 	if(start)
 		INVOKE_ASYNC(src, .proc/timestop)
 
 /obj/effect/timestop/Destroy()
 	QDEL_NULL(chronofield)
-	playsound(src, 'sound/magic/timeparadox2.ogg', 75, TRUE, frequency = -1) //reverse!
+	playsound(src, start_sound, 75, TRUE, frequency = -1) //reverse! || customizable sound
 	return ..()
 
 /obj/effect/timestop/proc/timestop()
 	target = get_turf(src)
-	playsound(src, 'sound/magic/timeparadox2.ogg', 75, TRUE, -1)
+	playsound(src, start_sound, 75, 1, -1) // customizable sound
 	chronofield = make_field(/datum/proximity_monitor/advanced/timestop, list("current_range" = freezerange, "host" = src, "immune" = immune, "check_anti_magic" = check_anti_magic, "check_holy" = check_holy))
 	QDEL_IN(src, duration)
 

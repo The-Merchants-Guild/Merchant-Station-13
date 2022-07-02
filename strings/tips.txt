@@ -248,6 +248,9 @@ When crafting most items, you can either manually combine parts or use the craft
 Suit storage units not only remove blood and dirt from clothing, but also radiation!
 Remote devices will work when used through cameras. For example: Bluespace RPEDs and door remotes.
 You can light a cigar on a supermatter crystal.
+As Thanos, you can switch which stone you're tracking by clicking on the pinpointer at the top right!
+As Thanos, your Super Jump has a shadow, so people CAN see where you're going!
+PROTIP: To defeat Thanos, shoot at him until he dies
 Using sticky tape on items can make them stick to people and walls! Be careful, grenades might stick to your hand during the moment of truth!
 In a pinch, stripping yourself naked will give you a sizeable resistance to being tackled. What do you value more, your freedom or your dignity?
 Wearing riot armor makes you significantly more effective at performing tackle takedowns, but will use extra stamina with each leap! It will also significantly protect you from other tackles!

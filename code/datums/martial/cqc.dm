@@ -118,6 +118,8 @@
 		return TRUE
 
 /datum/martial_art/cqc/grab_act(mob/living/A, mob/living/D)
+	if(!isliving(D))
+		return
 	if(A!=D && can_use(A)) // A!=D prevents grabbing yourself
 		add_to_streak("G",D)
 		if(check_streak(A,D)) //if a combo is made no grab upgrade is done
@@ -136,6 +138,8 @@
 		return FALSE
 
 /datum/martial_art/cqc/harm_act(mob/living/A, mob/living/D)
+	if(!isliving(D))
+		return
 	if(!can_use(A))
 		return FALSE
 	add_to_streak("H",D)
@@ -145,7 +149,7 @@
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC", "Big Boss")
 	var/bonus_damage = 13
-	if(D.body_position == LYING_DOWN)
+	if(D.body_position == LYING_DOWN) //why does this runtime if D is meant to be a living mob why does it trigger on doors reeee
 		bonus_damage += 5
 		picked_hit_type = "stomp"
 	D.apply_damage(bonus_damage, BRUTE)
@@ -168,6 +172,8 @@
 	return TRUE
 
 /datum/martial_art/cqc/disarm_act(mob/living/A, mob/living/D)
+	if(!isliving(D))
+		return
 	if(!can_use(A))
 		return FALSE
 	add_to_streak("D",D)

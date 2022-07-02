@@ -283,6 +283,7 @@ GLOBAL_LIST_INIT(organ_process_order, list(
 #define SPECIES_SNAIL "snail"
 #define SPECIES_SYNTH "synth"
 #define SPECIES_SYNTH_MILITARY "military_synth"
+#define SPECIES_GANYMEDIAN "ganymedian"
 
 //Defines for Golem Species IDs
 #define SPECIES_GOLEM "iron golem"

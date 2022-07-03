@@ -137,12 +137,12 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		victim.dropItemToGround(I)
 
 	var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionnaire)
-	victim.equip_to_slot_or_del(new hat(H), ITEM_SLOT_HEAD)
-	victim.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), ITEM_SLOT_ICLOTHING)
-	victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), ITEM_SLOT_FEET)
-	victim.put_in_hands(new /obj/item/shield/riot/roman(H), TRUE)
-	victim.put_in_hands(new /obj/item/claymore(H), TRUE)
-	victim.equip_to_slot_or_del(new /obj/item/spear(H), ITEM_SLOT_BACK)
+	victim.equip_to_slot_or_del(new hat(victim), ITEM_SLOT_HEAD)
+	victim.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(victim), ITEM_SLOT_ICLOTHING)
+	victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(victim), ITEM_SLOT_FEET)
+	victim.put_in_hands(new /obj/item/shield/riot/roman(victim), TRUE)
+	victim.put_in_hands(new /obj/item/claymore(victim), TRUE)
+	victim.equip_to_slot_or_del(new /obj/item/spear(victim), ITEM_SLOT_BACK)
 
 /obj/item/lich_sword/proc/ActivateDoom(mob/living/boner = usr)
 	GLOB.gauntlet_snapped = TRUE

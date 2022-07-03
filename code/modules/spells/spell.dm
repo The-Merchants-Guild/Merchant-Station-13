@@ -207,8 +207,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		/obj/item/clothing/head/helmet/space/hardsuit/wizard,
 		/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 		/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard,
-		/obj/item/clothing/head/ganymedian,
-		/obj/item/clothing/suit/ganymedian))
+		/obj/item/clothing/head/lich,
+		/obj/item/clothing/suit/lich))
 
 		if(clothes_req) //clothes check
 			if(!is_type_in_typecache(H.wear_suit, casting_clothes))

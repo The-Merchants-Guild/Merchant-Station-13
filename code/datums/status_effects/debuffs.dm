@@ -1087,10 +1087,10 @@
 
 /datum/status_effect/badmin_stone/tick()
 	var/has_other_stone = FALSE
-	if(istype(stone.loc, /obj/item/badmin_gauntlet))
+	if(istype(stone.loc, /obj/item/lich_sword))
 		return
 	for(var/obj/item/badmin_stone/IS in owner.GetAllContents())
-		if(IS != stone && !istype(IS.loc, /obj/item/badmin_gauntlet))
+		if(IS != stone && !istype(IS.loc, /obj/item/lich_sword))
 			has_other_stone = TRUE
 	if(!has_other_stone)
 		return

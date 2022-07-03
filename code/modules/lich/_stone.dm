@@ -2,7 +2,7 @@
 
 /obj/item/badmin_stone
 	name = "Generic Stone"
-	icon = 'icons/obj/infinity.dmi'
+	icon = 'icons/obj/lich.dmi'
 	icon_state = "stone"
 	w_class = WEIGHT_CLASS_SMALL
 	var/mob/living/current_holder
@@ -32,7 +32,7 @@
 	AddComponent(/datum/component/stationloving, TRUE)
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
-	aura_overlay = mutable_appearance('icons/obj/infinity.dmi', "aura", -MUTATIONS_LAYER)
+	aura_overlay = mutable_appearance('icons/obj/lich.dmi', "aura", -MUTATIONS_LAYER)
 	aura_overlay.color = color
 	notify_ghosts("\The [src] has been formed!",
 		enter_link="<a href=?src=[REF(src)];orbit=1>(Click to orbit)</a>",
@@ -116,7 +116,7 @@
 	UpdateHolder()
 
 /obj/item/badmin_stone/proc/UpdateHolder()
-	if(istype(loc, /obj/item/badmin_gauntlet))
+	if(istype(loc, /obj/item/lich_sword))
 		return //gauntlet handles this from now on
 	var/mob/living/new_holder = GetHolder()
 	var/mob/living/new_aura_holder = GetAuraHolder()
@@ -152,7 +152,7 @@
 			aura_holder = null
 
 /obj/item/badmin_stone/proc/GiveStatusEffect(mob/living/target)
-	if(istype(loc, /obj/item/badmin_gauntlet))
+	if(istype(loc, /obj/item/lich_sword))
 		return
 	var/list/effects = target.has_status_effect_list(/datum/status_effect/badmin_stone)
 	var/datum/status_effect/badmin_stone/M
@@ -176,7 +176,7 @@
 /obj/item/badmin_stone/afterattack(atom/target, mob/living/carbon/user, proximity_flag, click_parameters)
 	if(!isliving(user))
 		return
-	if(istype(target, /obj/item/badmin_gauntlet))
+	if(istype(target, /obj/item/lich_sword))
 		return
 	var/list/modifiers = params2list(click_parameters)
 	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !user.combat_mode)
@@ -216,7 +216,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /obj/effect/proc_holder/spell/self/infinity
-	action_icon = 'icons/obj/infinity.dmi'
+	action_icon = 'icons/obj/lich.dmi'
 	human_req = FALSE // because a monkey with an infinity stone is funny
 	clothes_req = FALSE
 	staff_req = FALSE
@@ -224,7 +224,7 @@
 	invocation_type = "none"
 
 /obj/effect/proc_holder/spell/targeted/infinity //copypaste from shadowling
-	action_icon = 'icons/obj/infinity.dmi'
+	action_icon = 'icons/obj/lich.dmi'
 	ranged_mousepointer = 'icons/effects/mouse_pointers/cult_target.dmi'
 	human_req = FALSE
 	clothes_req = FALSE

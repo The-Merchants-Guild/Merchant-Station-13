@@ -83,22 +83,22 @@
 /obj/effect/proc_holder/spell/spacetime_dist/supermatter_stone
 	name = "Supermatter Stone: Reality Distortion"
 	desc = "Bend reality until it's unrecognizable for a short time."
-	action_icon = 'icons/obj/infinity.dmi'
+	action_icon = 'icons/obj/lich.dmi'
 	action_icon_state = "reality"
 	clothes_req = FALSE
 	human_req = FALSE
 	staff_req = FALSE
 	invocation_type = "none"
-	action_icon = 'icons/obj/infinity.dmi'
+	action_icon = 'icons/obj/lich.dmi'
 	action_background_icon_state = "sm"
-	action_background_icon = 'icons/obj/infinity.dmi'
+	action_background_icon = 'icons/obj/lich.dmi'
 
 /obj/effect/proc_holder/spell/targeted/infinity/delamination
 	name = "Supermatter Stone: Delamination!"
 	desc = "After 3 seconds, put a marker on someone, which will EXPLODE after 15 seconds!"
-	action_icon = 'icons/obj/infinity.dmi'
+	action_icon = 'icons/obj/lich.dmi'
 	action_background_icon_state = "sm"
-	action_background_icon = 'icons/obj/infinity.dmi'
+	action_background_icon = 'icons/obj/lich.dmi'
 
 /obj/effect/proc_holder/spell/targeted/infinity/delamination/InterceptClickOn(mob/living/caller, params, atom/t)
 	. = ..()
@@ -194,9 +194,9 @@
 	desc = "Charge up an arc of supermatter-amped electricity"
 	action_icon = 'icons/obj/supermatter.dmi'
 	action_icon_state = "darkmatter_shard"
-	action_background_icon = 'icons/obj/infinity.dmi'
+	action_background_icon = 'icons/obj/lich.dmi'
 	action_background_icon_state = "sm"
-	action_background_icon = 'icons/obj/infinity.dmi'
+	action_background_icon = 'icons/obj/lich.dmi'
 	human_req = FALSE
 	clothes_req = FALSE
 	staff_req = FALSE

@@ -2,7 +2,6 @@
 
 GLOBAL_VAR_INIT(gauntlet_snapped, FALSE)
 GLOBAL_VAR_INIT(gauntlet_equipped, FALSE)
-GLOBAL_VAR_INIT(revengers_autocalled, FALSE)
 GLOBAL_LIST_INIT(badmin_stones, list(SYNDIE_STONE, BLUESPACE_STONE, SUPERMATTER_STONE, LAG_STONE, CLOWN_STONE, GHOST_STONE))
 GLOBAL_LIST_INIT(badmin_stone_types, list(
 		SYNDIE_STONE = /obj/item/badmin_stone/syndie,
@@ -43,14 +42,13 @@ GLOBAL_LIST_INIT(badmin_stone_weights, list(
 	))
 GLOBAL_VAR_INIT(telescroll_time, 0)
 
-/obj/item/badmin_gauntlet
-	name = "Badmin Gauntlet"
-	icon = 'icons/obj/infinity.dmi'
-	/*
+/obj/item/lich_sword
+	name = "Sword of the Lich"
+	icon = 'icons/obj/lich.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi' */
-	icon_state = "gauntlet"
-	worn_icon_state = null // need a new in-hand
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	icon_state = "sword"
+	inhand_icon_state = "lichsword"
 	force = 25
 	armour_penetration = 70
 	var/badmin = FALSE
@@ -58,7 +56,6 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	var/flash_index = 1
 	var/locked_on = FALSE
 	var/stone_mode = null
-	var/ert_canceled = FALSE
 	var/list/stones = list()
 	var/list/hand_spells = list()
 	var/datum/martial_art/cqc/martial_art
@@ -66,12 +63,12 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	var/mob/living/carbon/last_aura_holder
 	var/hnnnnnnnnngh = FALSE
 
-/obj/item/badmin_gauntlet/Initialize()
+/obj/item/lich_sword/Initialize()
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	AddComponent(/datum/component/spell_catalyst)
 	martial_art = new
-	flashy_aura = mutable_appearance('icons/obj/infinity.dmi', "aura", -MUTATIONS_LAYER)
+	flashy_aura = mutable_appearance('icons/obj/lich.dmi', "aura", -MUTATIONS_LAYER)
 	update_icon()
 	hand_spells += new /obj/effect/proc_holder/spell/self/infinity/regenerate
 	hand_spells += new /obj/effect/proc_holder/spell/self/infinity/shockwave
@@ -79,11 +76,11 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	hand_spells += new /obj/effect/proc_holder/spell/self/infinity/gauntlet_jump
 	hand_spells += new /obj/effect/proc_holder/spell/self/infinity/armor
 
-/obj/item/badmin_gauntlet/Destroy()
+/obj/item/lich_sword/Destroy()
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/badmin_gauntlet/process()
+/obj/item/lich_sword/process()
 	if(!FullyAssembled())
 		return
 	if(world.time < next_flash)
@@ -102,54 +99,56 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	flash_index = index + 1
 	next_flash = world.time + (hnnnnnnnnngh ? 1 : 5)
 
-/obj/item/badmin_gauntlet/examine(mob/user)
+/obj/item/lich_sword/examine(mob/user)
 	. = ..()
 	for(var/obj/item/badmin_stone/IS in stones)
 		. += "<span class='bold notice'>[IS.name] mode:</span>"
 		for(var/A in IS.ability_text)
 			. += "<span class='notice'>[A]</span>"
 
-/obj/item/badmin_gauntlet/ex_act(severity, target)
+/obj/item/lich_sword/ex_act(severity, target)
 	return
 
-/obj/item/badmin_gauntlet/proc/GetStone(stone_type)
+/obj/item/lich_sword/proc/GetStone(stone_type)
 	for(var/obj/item/badmin_stone/I in stones)
 		if(I.stone_type == stone_type)
 			return I
 	return
 
-/obj/item/badmin_gauntlet/proc/DoSnap(mob/living/snapee)
-	var/dust_time = rand(5 SECONDS, 10 SECONDS)
+/obj/item/lich_sword/proc/DoSnap(mob/living/bonefied)
+	var/boner_time = rand(5 SECONDS, 10 SECONDS)
 	if(prob(25))
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, snapee, "<span class='danger'>You don't feel so good...</span>"), dust_time - 3 SECONDS)
-	addtimer(CALLBACK(src, .proc/Dustify, snapee), dust_time)
+		addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, bonefied, "<span class='danger'>You feel calcium overtake you as you lose your mind...</span>"), boner_time - 3 SECONDS)
+	addtimer(CALLBACK(src, .proc/boneify, bonefied), boner_time)
 
-/obj/item/badmin_gauntlet/proc/Dustify(mob/living/victim)
-	var/dust_sound = pick(
-		'sound/effects/snap/snap1.wav',
-		'sound/effects/snap/snap2.wav',
-		'sound/effects/snap/snap3.wav',
-		'sound/effects/snap/snap4.wav',
-		'sound/effects/snap/snap5.wav',
-		'sound/effects/snap/snap6.wav')
-	playsound(victim, dust_sound, 100, TRUE)
-	var/obj/effect/snap_rt/snap_effect = new(victim.loc, REF(victim))
-	UNLINT(victim.filters += filter(type="displace", size=256, render_source="*snap[REF(victim)]"))
-	animate(victim, alpha=0, time=20, easing=(EASE_IN | SINE_EASING))
-	sleep(5)
-	victim.spawn_dust(TRUE)
-	sleep(15)
-	victim.death(TRUE)
-	if(victim.buckled)
-		victim.buckled.unbuckle_mob(victim, force = TRUE)
-	qdel(snap_effect)
-	QDEL_IN(victim, 5)
+/obj/item/lich_sword/proc/boneify(mob/living/victim)
+	playsound(victim, 'sound/effects/rattlemebones.ogg', 100, TRUE)
+	for(var/mob/dead/observer/ghost in GLOB.dead_mob_list) //excludes new players
+		if(ghost.mind && ghost.mind.current == victim && ghost.client)  //the dead mobs list can contain clientless mobs
+			ghost.reenter_corpse()
+			break
+	if(!victim.mind || !victim.client)
+		return
+	victim.set_species(/datum/species/skeleton, icon_update=0)
+	victim.revive(full_heal = TRUE, admin_revive = TRUE)
+	to_chat(victim, "[span_userdanger("You have been revived by ")]<B>The Lich King!</B>")
+	to_chat(victim, span_userdanger("Wrack and ruin upon the living, it is time to bring forth doom!"))
+	for(var/obj/item/I in victim)
+		victim.dropItemToGround(I)
 
-/obj/item/badmin_gauntlet/proc/DoTheSnap(mob/living/snapper = usr)
+	var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionnaire)
+	victim.equip_to_slot_or_del(new hat(H), ITEM_SLOT_HEAD)
+	victim.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), ITEM_SLOT_ICLOTHING)
+	victim.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), ITEM_SLOT_FEET)
+	victim.put_in_hands(new /obj/item/shield/riot/roman(H), TRUE)
+	victim.put_in_hands(new /obj/item/claymore(H), TRUE)
+	victim.equip_to_slot_or_del(new /obj/item/spear(H), ITEM_SLOT_BACK)
+
+/obj/item/lich_sword/proc/ActivateDoom(mob/living/boner = usr)
 	GLOB.gauntlet_snapped = TRUE
-	if(snapper.stat == SOFT_CRIT)
-		snapper.say("You should've gone for the head...", forced = "badmin gauntlet")
-	snapper.visible_message("<span class='userdanger'>[snapper] raises their Badmin Gauntlet into the air, and... <i>snap.</i></span>")
+	if(boner.stat == SOFT_CRIT)
+		boner.say("You should've gone for the crown...", forced = "sword of the lich")
+	boner.visible_message("<span class='userdanger'>[boner] raises their sword into the air, and releases overwhelming necromantic power!</span>")
 	SEND_SOUND(world, sound('sound/effects/SNAPP.ogg'))
 	for(var/mob/M in GLOB.mob_list)
 		if(isliving(M))
@@ -158,7 +157,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 			addtimer(CALLBACK(L, /mob/living.proc/clear_fullscreen, "thanos_snap"), 35)
 	var/list/eligible_mobs = list()
 	for(var/mob/living/L in GLOB.mob_living_list)
-		if(L.stat == DEAD || L == snapper)
+		if(L.stat == DEAD || L == boner)
 			continue
 		eligible_mobs += L
 	var/players_to_wipe = max(FLOOR(eligible_mobs.len/2, 1), 1)
@@ -167,9 +166,9 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		var/mob/living/L = pick_n_take(eligible_mobs)
 		DoSnap(L)
 	INVOKE_ASYNC(src, .proc/TotallyFine)
-	log_game("[key_name(snapper)] snapped, wiping out [players_to_wipe] players.")
-	message_admins("[key_name(snapper)] snapped, wiping out [players_to_wipe] players.")
-/obj/item/badmin_gauntlet/proc/TotallyFine()
+	log_game("[key_name(boner)] snapped, wiping out [players_to_wipe] players.")
+	message_admins("[key_name(boner)] snapped, wiping out [players_to_wipe] players.")
+/obj/item/lich_sword/proc/TotallyFine()
 	sleep(10 SECONDS)
 	priority_announce("A power surge of unseen proportions has been detected in your sector. Event has been flagged DEVASTATION-CLASS.\n\
 						Approximate Power: %$!#ERROR Joules\n\
@@ -186,7 +185,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	sleep(9 SECONDS)
 	Cinematic(CINEMATIC_LICH, world, CALLBACK(GLOBAL_PROC,/proc/ending_helper))
 
-/obj/item/badmin_gauntlet/proc/GetWeightedChances(list/job_list, list/blacklist)
+/obj/item/lich_sword/proc/GetWeightedChances(list/job_list, list/blacklist)
 	var/list/jobs = list()
 	var/list/weighted_list = list()
 	for(var/A in job_list)
@@ -196,7 +195,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 			weighted_list[M.current] = job_list[M.assigned_role]
 	return weighted_list
 
-/obj/item/badmin_gauntlet/proc/MakeStonekeepers(mob/living/current_user)
+/obj/item/lich_sword/proc/MakeStonekeepers(mob/living/current_user)
 	var/list/has_a_stone = list(current_user)
 	for(var/stone in GLOB.badmin_stones)
 		var/list/to_get_stones = GetWeightedChances(GLOB.badmin_stone_weights[stone], has_a_stone)
@@ -227,20 +226,20 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 			L.equip_to_slot(IS, ITEM_SLOT_BACKPACK)
 
 
-/obj/item/badmin_gauntlet/proc/FullyAssembled()
+/obj/item/lich_sword/proc/FullyAssembled()
 	ADD_TRAIT(src, TRAIT_NODROP, GAUNTLET_TRAIT)
 	for(var/stone in GLOB.badmin_stones)
 		if(!GetStone(stone))
 			return FALSE
 	return TRUE
 
-/obj/item/badmin_gauntlet/proc/GetStoneColor(stone_type)
+/obj/item/lich_sword/proc/GetStoneColor(stone_type)
 	var/obj/item/badmin_stone/IS = GetStone(stone_type)
 	if(IS && istype(IS))
 		return IS.color
 	return "#DC143C" //crimson by default
 
-/obj/item/badmin_gauntlet/proc/OnEquip(mob/living/user)
+/obj/item/lich_sword/proc/OnEquip(mob/living/user)
 	for(var/obj/effect/proc_holder/spell/A in hand_spells)
 		user.AddSpell(A)
 	user.AddComponent(/datum/component/stationloving)
@@ -254,7 +253,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		user.mind.announce_objectives()
 	user.move_resist = INFINITY
 
-/obj/item/badmin_gauntlet/proc/OnUnquip(mob/living/user)
+/obj/item/lich_sword/proc/OnUnquip(mob/living/user)
 	user.cut_overlay(flashy_aura)
 	var/datum/component/stationloving/stationloving = user.GetComponent(/datum/component/stationloving)
 	if(stationloving)
@@ -264,19 +263,19 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	user.move_resist = initial(user.move_resist)
 	TakeAbilities(user)
 
-/obj/item/badmin_gauntlet/pickup(mob/user)
+/obj/item/lich_sword/pickup(mob/user)
 	. = ..()
 	if(locked_on && isliving(user))
 		visible_message("<span class='danger'>The Badmin Gauntlet attaches to [user]'s hand!.</span>")
 		OnEquip(user)
 
-/obj/item/badmin_gauntlet/dropped(mob/user)
+/obj/item/lich_sword/dropped(mob/user)
 	. = ..()
 	if(locked_on && isliving(user))
 		visible_message("<span class='danger'>The Badmin Gauntlet falls off of [user].</span>")
 		OnUnquip(user)
 
-/obj/item/badmin_gauntlet/proc/TakeAbilities(mob/living/user)
+/obj/item/lich_sword/proc/TakeAbilities(mob/living/user)
 	for(var/obj/item/badmin_stone/IS in stones)
 		IS.RemoveAbilities(user, TRUE)
 		IS.TakeVisualEffects(user)
@@ -290,7 +289,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		martial_art.remove(user)
 
 // warning: contains snowflake code for syndie stone
-/obj/item/badmin_gauntlet/proc/GiveAbilities(mob/living/user)
+/obj/item/lich_sword/proc/GiveAbilities(mob/living/user)
 	var/obj/item/badmin_stone/syndie = GetStone(SYNDIE_STONE)
 	if(!syndie)
 		for(var/obj/effect/proc_holder/spell/A in hand_spells)
@@ -313,38 +312,34 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 			if(stone_mode != SYNDIE_STONE)
 				IS.GiveAbilities(user, TRUE)
 
-/obj/item/badmin_gauntlet/proc/UpdateAbilities(mob/living/user)
+/obj/item/lich_sword/proc/UpdateAbilities(mob/living/user)
 	TakeAbilities(user)
 	GiveAbilities(user)
 
-/obj/item/badmin_gauntlet/update_icon()
+/obj/item/lich_sword/update_icon()
 	. = ..()
 	cut_overlays()
 	var/index = 1
-	if(stone_mode)
-		var/image/veins = image(icon = 'icons/obj/infinity.dmi', icon_state = "glow-overlay")
-		veins.color = GetStoneColor(stone_mode)
-		add_overlay(veins)
 	for(var/obj/item/badmin_stone/IS in stones)
 		var/I = index
 		if(IS.stone_type == stone_mode)
 			I = 0
-		var/image/O = image(icon = 'icons/obj/infinity.dmi', icon_state = "[I]-stone")
+		var/image/O = image(icon = 'icons/obj/lich.dmi', icon_state = "[I]-stone")
 		O.color = IS.color
 		add_overlay(O)
 		index++
 
 
-/obj/item/badmin_gauntlet/proc/AttackThing(mob/user, atom/target, proximity_flag)
+/obj/item/lich_sword/proc/AttackThing(mob/user, atom/target, proximity_flag)
 	. = FALSE
 	if(istype(target, /obj/item/badmin_stone))
 		. = TRUE
 		if(!locked_on)
-			to_chat(user, "<span class='notice'>You need to wear the gauntlet first.</span>")
+			to_chat(user, "<span class='notice'>You need to link the Sword with the Crown first.</span>")
 			return TRUE
 		var/obj/item/badmin_stone/IS = target
 		if(!GetStone(IS.stone_type))
-			user.visible_message("<span class='danger bold'>[user] drops the [IS] into the Badmin Gauntlet.</span>")
+			user.visible_message("<span class='danger bold'>[user] drops the [IS] into the Crown of Bones.</span>")
 			if(IS.stone_type == SYNDIE_STONE)
 				force = 27.5
 			IS.forceMove(src)
@@ -410,7 +405,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		user.visible_message("<span class='danger'>[user] smashes [T]!<span>")
 		T.take_damage(INFINITY)
 
-/obj/item/badmin_gauntlet/afterattack(atom/target, mob/living/carbon/user, proximity_flag, click_parameters)
+/obj/item/lich_sword/afterattack(atom/target, mob/living/carbon/user, proximity_flag, click_parameters)
 	if(!locked_on)
 		return ..()
 	if(!isliving(user))
@@ -439,7 +434,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	else if(!user.combat_mode)
 		IS.HelpEvent(target, user, proximity_flag)
 
-/obj/item/badmin_gauntlet/proc/clash_with_gods(god)
+/obj/item/lich_sword/proc/clash_with_gods(god)
 	if(!istype(loc, /mob/living/carbon))
 		return
 	if(istype(god, /obj/narsie))
@@ -464,7 +459,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		sound_to_playing_players('sound/effects/SNAP.ogg')
 	qdel(god)
 
-/obj/item/badmin_gauntlet/attack_self(mob/living/user)
+/obj/item/lich_sword/attack_self(mob/living/user)
 	if(!istype(user))
 		return
 	if(!locked_on)
@@ -477,24 +472,22 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 				locked_on = TRUE
 				if(ishuman(user))
 					var/mob/living/carbon/human/H = user
-					H.set_species(/datum/species/ganymede)
+					H.set_species(/datum/species/lich)
 					H.dropItemToGround(H.wear_suit)
 					H.dropItemToGround(H.w_uniform)
 					H.dropItemToGround(H.head)
 					H.dropItemToGround(H.back)
 					H.dropItemToGround(H.shoes)
-					var/obj/item/clothing/head/ganymedian/GH = new(get_turf(user))
-					var/obj/item/clothing/suit/ganymedian/GS = new(get_turf(user))
-					var/obj/item/clothing/under/ganymedian/GJ = new(get_turf(user))
-					var/obj/item/clothing/shoes/ganymedian/Gs = new(get_turf(user))
-					var/obj/item/tank/jetpack/ganypack/GP = new(get_turf(user))
+					var/obj/item/clothing/head/lich/GH = new(get_turf(user))
+					var/obj/item/clothing/suit/lich/GS = new(get_turf(user))
+					var/obj/item/clothing/under/lich/GJ = new(get_turf(user))
+					var/obj/item/clothing/shoes/lich/Gs = new(get_turf(user))
 					var/obj/item/teleportation_scroll/TS = new(get_turf(user))
 					H.equip_to_appropriate_slot(GJ)
 					H.equip_to_appropriate_slot(GH)
 					H.equip_to_appropriate_slot(GS)
 					H.equip_to_appropriate_slot(Gs)
 					H.equip_to_appropriate_slot(TS)
-					H.equip_to_slot(GP, ITEM_SLOT_BACK)
 				GLOB.gauntlet_equipped = TRUE
 				for(var/obj/item/spellbook/SB in world)
 					if(SB.owner == user)
@@ -503,8 +496,8 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 				if(!badmin)
 					if(LAZYLEN(GLOB.wizardstart))
 						user.forceMove(pick(GLOB.wizardstart))
-					priority_announce("A Wizard has declared that he will wipe out half the universe with the Badmin Gauntlet!\n\
-						Stones have been scattered across the station. Protect anyone who holds one!\n\
+					priority_announce("A Wizard has found the Crown of Bones and is attempting to turn everyone into their thrall!\n\
+						Stones of power have been scattered across the station. Protect anyone who holds one!\n\
 						We've allocated a large amount of resources to you, for protecting the Stones:\n\
 						Cargo has been given $50k to spend\n\
 						Science has been given 50k techpoints, and a large amount of minerals.\n\
@@ -575,17 +568,17 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 					CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), 30 MINUTES))
 					to_chat(user, "<span class='notice bold'>You need to wait 10 minutes before teleporting to the station.</span>")
 				to_chat(user, "<span class='notice bold'>You can click on the pinpointer at the top right to track a stone.</span>")
-				to_chat(user, "<span class='notice bold'>Examine a stone/the gauntlet to see what each intent does.</span>")
+				to_chat(user, "<span class='notice bold'>Examine a stone/the crown to see what each intent does.</span>")
 				to_chat(user, "<span class='notice bold'>You can smash walls, tables, grilles, windows, and safes on COMBAT mode.</span>")
 				to_chat(user, "<span class='notice bold'>Be warned -- you may be mocked if you kill innocents, that does not bring balance!</span>")
-				visible_message("<span class='danger bold'>The badmin gauntlet clamps to [user]'s hand!</span>")
+				visible_message("<span class='danger bold'>The Sword of the Lich forces [user]'s hand around it!</span>")
 				user.mind.RemoveAllSpells()
 				UpdateAbilities(user)
 				OnEquip(user)
 				if(!badmin)
 					MakeStonekeepers(user)
 			else
-				to_chat(user, "<span class='danger'>You do not have an empty hand for the Badmin Gauntlet.</span>")
+				to_chat(user, "<span class='danger'>You do not have an empty hand for the Sword of the Lich.</span>")
 		return
 	if(!LAZYLEN(stones))
 		to_chat(user, "<span class='danger'>You have no stones yet.</span>")
@@ -596,7 +589,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		IM.color = I.color
 		gauntlet_radial[I.stone_type] = IM
 	if(!GetStone(SYNDIE_STONE))
-		gauntlet_radial["none"] = image(icon = 'icons/obj/infinity.dmi', icon_state = "none")
+		gauntlet_radial["none"] = image(icon = 'icons/obj/lich.dmi', icon_state = "none")
 	var/chosen = show_radial_menu(user, src, gauntlet_radial)
 	if(chosen)
 		if(chosen == "none")
@@ -606,17 +599,8 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		UpdateAbilities(user)
 		update_icon()
 
-/obj/item/badmin_gauntlet/Topic(href, list/href_list)
-	. = ..()
-	if(href_list["cancel"])
-		if(!check_rights(R_ADMIN) || ert_canceled) // no href exploits for you, karma!
-			return
-		message_admins("[key_name_admin(usr)] cancelled the automatic Revengers ERT.")
-		log_admin_private("[key_name(usr)] cancelled the automatic Revengers ERT.")
-		ert_canceled = TRUE
 
-
-/*/obj/item/badmin_gauntlet/proc/CallRevengers()
+/*/obj/item/lich_sword/proc/CallRevengers()
 	if(ert_canceled)
 		return
 	message_admins("The Revengers ERT has been auto-called.")
@@ -627,7 +611,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	var/teamSpawned = FALSE
 */
 
-/obj/item/badmin_gauntlet/attackby(obj/item/I, mob/living/user, params)
+/obj/item/lich_sword/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/badmin_stone))
 		if(!locked_on)
 			to_chat(user, "<span class='notice'>You need to wear the gauntlet first.</span>")
@@ -651,7 +635,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 			return
 	return ..()
 
-/obj/item/badmin_gauntlet/proc/FullPowerSequence(mob/living/thanos)
+/obj/item/lich_sword/proc/FullPowerSequence(mob/living/thanos)
 	thanos.emote("scream")
 	hnnnnnnnnngh = TRUE
 	if(do_after_mob(thanos, src, 5 SECONDS, TRUE))
@@ -660,7 +644,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 			to_chat(thanos, "<span class='big danger'>You died while absorbing the power of the Badmin Stones. Too bad!</span>")
 			return
 		if(thanos.stat == SOFT_CRIT)
-			DoTheSnap(thanos)
+			ActivateDoom(thanos)
 			return
 		thanos.AddSpell(new /obj/effect/proc_holder/spell/self/infinity/snap)
 	else
@@ -905,7 +889,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 
 /obj/effect/dummy/phased_mob/spell_jaunt/infinity
 	name = "shadow"
-	icon = 'icons/obj/infinity.dmi'
+	icon = 'icons/obj/lich.dmi'
 	icon_state = "shadow"
 	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF | LAVA_PROOF
 	invisibility = 0
@@ -937,13 +921,13 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	stat_allowed = TRUE
 
 /obj/effect/proc_holder/spell/self/infinity/snap/cast(list/targets, mob/living/user)
-	var/obj/item/badmin_gauntlet/IG = locate() in user
+	var/obj/item/lich_sword/IG = locate() in user
 	if(!IG || !istype(IG))
 		return
 	var/prompt = alert("Are you REALLY sure you'd like to erase half of all life in the universe?", "SNAP?", "YES!", "No")
 	if(prompt == "YES!" && !QDELETED(src))
 		IG.hand_spells -= src
-		IG.DoTheSnap(user)
+		IG.ActivateDoom(user)
 		user.mob_spell_list -= src
 
 /////////////////////////////////////////////
@@ -989,10 +973,10 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 
 
 
-/obj/item/badmin_gauntlet/for_badmins
+/obj/item/lich_sword/for_badmins
 	badmin = TRUE
 
-/obj/item/badmin_gauntlet/for_badmins/assembled/Initialize()
+/obj/item/lich_sword/for_badmins/assembled/Initialize()
 	. = ..()
 	for(var/stone in subtypesof(/obj/item/badmin_stone))
 		var/obj/item/badmin_stone/BS = new stone(src)
@@ -1006,14 +990,14 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 // cool misc effects
 
 /obj/structure/destructible/clockwork/massive/ratvar/process()
-	for(var/obj/item/badmin_gauntlet/BG in world)
+	for(var/obj/item/lich_sword/BG in world)
 		if(iscarbon(BG.loc) && BG.FullyAssembled())
 			BG.clash_with_gods(src)
 			return
 	return ..()
 
 /obj/narsie/process()
-	for(var/obj/item/badmin_gauntlet/BG in world)
+	for(var/obj/item/lich_sword/BG in world)
 		if(iscarbon(BG.loc) && BG.FullyAssembled())
 			BG.clash_with_gods(src)
 			return

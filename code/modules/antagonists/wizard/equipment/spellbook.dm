@@ -594,20 +594,20 @@
 	to_chat(user, span_notice("You have cast summon guns!"))
 	return TRUE
 
-/datum/spellbook_entry/item/badmin_gauntlet
+/datum/spellbook_entry/item/lich_sword
 	name = "Badmin Gauntlet"
 	desc = "A gauntlet capable of holding the Badmin Stones. Wearing this will trigger a war declaration! Before you wear it, you can refund it by hitting it against the spellbook. You cannot buy this if you have bought anything else! \
 		Requires 27+ crew."
-	item_path = /obj/item/badmin_gauntlet
+	item_path = /obj/item/lich_sword
 	category = "Rituals"
 	cost = 10
 
-/datum/spellbook_entry/item/badmin_gauntlet/IsAvailable()
+/datum/spellbook_entry/item/lich_sword/IsAvailable()
 	if(!..())
 		return FALSE
 	return !GLOB.gauntlet_equipped
 
-/datum/spellbook_entry/item/badmin_gauntlet/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
+/datum/spellbook_entry/item/lich_sword/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	return ..() && !book.gauntlet_flag && (GLOB.Debug2 || GLOB.joined_player_list.len >= 27)
 
 /datum/spellbook_entry/summon/magic
@@ -734,14 +734,14 @@
 		to_chat(user, span_warning("You can't refund anything!"))
 		return
 
-	if(istype(O, /obj/item/badmin_gauntlet))
-		var/obj/item/badmin_gauntlet/IG = O
+	if(istype(O, /obj/item/lich_sword))
+		var/obj/item/lich_sword/IG = O
 		if(IG.locked_on)
 			to_chat(user, "<span class='notice'>You've put the gauntlet on already. No turning back now.</span>")
 			return
 		to_chat(user, "<span class='notice'>On second thought, wiping out half the universe is possibly a bad idea. You refund your points.</span>")
 		src.uses += 10
-		for(var/datum/spellbook_entry/item/badmin_gauntlet/I in entries)
+		for(var/datum/spellbook_entry/item/lich_sword/I in entries)
 			if(!isnull(I.limit))
 				I.limit++
 		qdel(O)

@@ -115,9 +115,9 @@
 	name = "Ghost Stone: The Chariot"
 	desc = "Open up an unconscious soul to ghosts, ripe for the stealing! They are not loyal to you, however."
 	action_icon_state = "chariot"
-	action_icon = 'icons/obj/infinity.dmi'
+	action_icon = 'icons/obj/lich.dmi'
 	action_background_icon_state = "ghost"
-	action_background_icon = 'icons/obj/infinity.dmi'
+	action_background_icon = 'icons/obj/lich.dmi'
 	charge_max = 200
 
 /obj/effect/proc_holder/spell/targeted/infinity/chariot/InterceptClickOn(mob/living/caller, params, atom/t)
@@ -175,7 +175,7 @@
 	name = "Ghost Stone: Heaven's Fortress"
 	desc = "Summon a massive fortress to keep people in, and keep them out."
 	action_icon_state = "fortress"
-	action_background_icon = 'icons/obj/infinity.dmi'
+	action_background_icon = 'icons/obj/lich.dmi'
 	action_background_icon_state = "ghost"
 	charge_max = 1200
 
@@ -189,7 +189,7 @@
 	name = "Ghost Stone: Soulscreech"
 	desc = "A loud screech that interacts with people's souls in varying ways."
 	action_icon_state = "reeeeee"
-	action_background_icon = 'icons/obj/infinity.dmi'
+	action_background_icon = 'icons/obj/lich.dmi'
 	action_background_icon_state = "ghost"
 	charge_max = 900
 	sound = 'sound/effects/horror_scream.ogg'
@@ -230,7 +230,7 @@
 	name = "Ghost Stone: Scrying Detachment"
 	desc = "Detach your soul from your body, going into the realm of the ghosts."
 	action_icon_state = "scrying"
-	action_background_icon = 'icons/obj/infinity.dmi'
+	action_background_icon = 'icons/obj/lich.dmi'
 	action_background_icon_state = "ghost"
 
 /obj/effect/proc_holder/spell/self/infinity/scrying_orb/cast(list/targets, mob/user)
@@ -242,9 +242,9 @@
 	name = "Ghost Stone: Cluwne Rise"
 	desc = "Rise a corpse as a subservient, magical cluwne. You may only have 1 magical cluwne alive."
 	action_icon_state = "cluwnerise"
-	action_icon = 'icons/obj/infinity.dmi'
+	action_icon = 'icons/obj/lich.dmi'
 	action_background_icon_state = "ghost"
-	action_background_icon = 'icons/obj/infinity.dmi'
+	action_background_icon = 'icons/obj/lich.dmi'
 	charge_max = 900
 	var/list/cluwnes = list() // one cluwne per user
 
@@ -274,7 +274,7 @@
 		H.AddSpell(new /obj/effect/proc_holder/spell/targeted/turf_teleport/blink/infinity_cluwne)
 		H.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/infinity_cluwne)
 		H.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl)
-		if(locate(/obj/item/badmin_gauntlet) in caller)
+		if(locate(/obj/item/lich_sword) in caller)
 			H.add_atom_colour("#FFDF00", FIXED_COLOUR_PRIORITY)
 		else
 			H.add_atom_colour("#e429f2", FIXED_COLOUR_PRIORITY)
@@ -292,9 +292,9 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item/spellpacket/sandmans_dust
 	name = "Ghost Stone: Sandman's Dust"
 	desc = "Gives you dust capable of knocking out most people."
-	action_icon = 'icons/obj/infinity.dmi'
+	action_icon = 'icons/obj/lich.dmi'
 	action_icon_state = "sandman"
-	action_background_icon = 'icons/obj/infinity.dmi'
+	action_background_icon = 'icons/obj/lich.dmi'
 	action_background_icon_state = "ghost"
 	invocation = "POCKET SAND"
 	invocation_type = "shout"
@@ -334,7 +334,7 @@
 	if(!..())
 		if(isliving(hit_atom))
 			var/mob/living/M = hit_atom
-			if(locate(/obj/item/badmin_gauntlet) in M)
+			if(locate(/obj/item/lich_sword) in M)
 				to_chat("<span class='danger'>[src] hits you, and you feel dizzy...</span>")
 				M.set_dizziness(75)
 				for(var/obj/effect/proc_holder/spell/S in M.mob_spell_list)

@@ -16,7 +16,7 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		var/obj/O = L.get_active_held_item()
-		if(O && !istype(O, /obj/item/badmin_stone) && !istype(O, /obj/item/badmin_gauntlet) && L.dropItemToGround(O))
+		if(O && !istype(O, /obj/item/badmin_stone) && !istype(O, /obj/item/lich_sword) && L.dropItemToGround(O))
 			L.visible_message("<span class='danger'>[L]'s [O] disappears from their hands!</span>", "<span class='danger'>Our [O] disappears!</span>")
 			O.forceMove(get_turf(user))
 			user.equip_to_slot(O, ITEM_SLOT_BACKPACK)
@@ -52,7 +52,7 @@
 	name = "Bluespace Stone: Portal Shield"
 	desc = "Summon a portal shield which sends all projectiles into nullspace. Lasts for 15 seconds, or 5 hits."
 	charge_max = 200
-	action_background_icon = 'icons/obj/infinity.dmi'
+	action_background_icon = 'icons/obj/lich.dmi'
 	action_background_icon_state = "bluespace"
 
 /obj/effect/proc_holder/spell/self/infinity/bluespace_stone_shield/cast(list/targets, mob/user = usr)
@@ -72,7 +72,7 @@
 	invocation_type = "none"
 	action_icon_state = "jaunt"
 	action_background_icon_state = "bluespace"
-	action_background_icon = 'icons/obj/infinity.dmi'
+	action_background_icon = 'icons/obj/lich.dmi'
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/bluespace_stone/cast(list/targets,mob/user = usr)
 	for(var/mob/living/target in targets)
@@ -85,7 +85,7 @@
 
 /obj/item/shield/bluespace_stone
 	name = "bluespace energy shield"
-	icon = 'icons/obj/infinity.dmi'
+	icon = 'icons/obj/lich.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	icon_state = "portalshield"

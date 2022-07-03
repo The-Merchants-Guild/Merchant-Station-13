@@ -429,9 +429,9 @@
 		set_light_flags(light_flags)
 
 
-/obj/item/organ/eyes/night_vision/alien/ganymede
+/obj/item/organ/eyes/night_vision/alien/lich
 	name = "ganymedian eyes"
-	desc = "The eyes of a Ganymedian, a legendary alien race."
+	desc = "The eyes of a lich, radiating with malice."
 /obj/item/organ/eyes/moth
 	name = "moth eyes"
 	desc = "These eyes seem to have increased sensitivity to bright light, with no improvement to low light vision."

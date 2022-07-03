@@ -34,7 +34,7 @@
 		if(G.summoner && locate(/obj/effect/proc_holder/spell/aoe_turf/timestop) in G.summoner.mind.spell_list) //It would only make sense that a person's stand would also be immune.
 			immune[G] = TRUE
 	for(var/mob/living/L in GLOB.player_list)
-		if((locate(/obj/item/badmin_stone) in L) || (locate(/obj/item/badmin_gauntlet) in L)) //stone holders are not affected
+		if((locate(/obj/item/badmin_stone) in L) || (locate(/obj/item/lich_sword) in L)) //stone holders are not affected
 			immune[L] = TRUE
 	if(start)
 		INVOKE_ASYNC(src, .proc/timestop)

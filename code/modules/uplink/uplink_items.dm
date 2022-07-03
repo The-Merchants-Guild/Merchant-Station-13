@@ -2177,11 +2177,3 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 //one of these days I'll start placing these in their correct place
 //not today
-/datum/uplink_item/dangerous/nanosuit
-	name = "CryNet Nanosuit"
-	desc = "Become a posthuman warrior. The items cannot be taken off once you wear them and alerts the crew of your position if equipped on station."
-	item = /obj/item/storage/box/syndie_kit/nanosuit
-	cost = 20
-	surplus = 5 //originally 10% because yoyobatty is insane
-	cant_discount = TRUE
-	purchasable_from = UPLINK_TRAITORS //imagine how fucking asscancer it'd be if nukies could get this lmao

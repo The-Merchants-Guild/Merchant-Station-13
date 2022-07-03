@@ -13,6 +13,3 @@
 
 /datum/movespeed_modifier/berserk
 	multiplicative_slowdown = -0.2
-
-/datum/movespeed_modifier/nanosuit
-	multiplicative_slowdown = -1

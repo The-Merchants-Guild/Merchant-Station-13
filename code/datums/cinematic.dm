@@ -286,10 +286,10 @@ Narsie()
 	-> Cinematic(CULT,world)
 */
 
-/datum/cinematic/thanos
-	id = CINEMATIC_THANOS
+/datum/cinematic/lich
+	id = CINEMATIC_LICH
 
-/datum/cinematic/thanos/content()
+/datum/cinematic/lich/content()
 	screen.icon = 'icons/effects/station_explosion.dmi'
 	flick("intro_thanosnuke",screen)
 	sleep(1.5 SECONDS)

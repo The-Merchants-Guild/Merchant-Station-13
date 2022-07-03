@@ -166,7 +166,6 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	for(var/i = 1 to players_to_wipe)
 		var/mob/living/L = pick_n_take(eligible_mobs)
 		DoSnap(L)
-	_CallRevengers()
 	INVOKE_ASYNC(src, .proc/TotallyFine)
 	log_game("[key_name(snapper)] snapped, wiping out [players_to_wipe] players.")
 	message_admins("[key_name(snapper)] snapped, wiping out [players_to_wipe] players.")
@@ -185,7 +184,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	sleep(76 SECONDS)
 	SEND_SOUND(world, sound('sound/machines/alarm.ogg'))
 	sleep(9 SECONDS)
-	Cinematic(CINEMATIC_THANOS, world, CALLBACK(GLOBAL_PROC,/proc/ending_helper))
+	Cinematic(CINEMATIC_LICH, world, CALLBACK(GLOBAL_PROC,/proc/ending_helper))
 
 /obj/item/badmin_gauntlet/proc/GetWeightedChances(list/job_list, list/blacklist)
 	var/list/jobs = list()
@@ -573,7 +572,6 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 							new /obj/effect/pod_landingzone(get_turf(pick(bridge_tiles)), ai_pod)
 					GLOB.telescroll_time = world.time + 10 MINUTES
 					addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice bold'>You can now teleport to the station.</span>"), 10 MINUTES)
-					addtimer(CALLBACK(src, .proc/_CallRevengers), 25 MINUTES)
 					CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), 30 MINUTES))
 					to_chat(user, "<span class='notice bold'>You need to wait 10 minutes before teleporting to the station.</span>")
 				to_chat(user, "<span class='notice bold'>You can click on the pinpointer at the top right to track a stone.</span>")
@@ -617,13 +615,8 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		log_admin_private("[key_name(usr)] cancelled the automatic Revengers ERT.")
 		ert_canceled = TRUE
 
-/obj/item/badmin_gauntlet/proc/_CallRevengers()
-	if(GLOB.revengers_autocalled)
-		return
-	message_admins("Revengers ERT being auto-called in 15 seconds (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>)")
-	addtimer(CALLBACK(src, .proc/CallRevengers), 15 SECONDS)
 
-/obj/item/badmin_gauntlet/proc/CallRevengers()
+/*/obj/item/badmin_gauntlet/proc/CallRevengers()
 	if(ert_canceled)
 		return
 	message_admins("The Revengers ERT has been auto-called.")
@@ -632,68 +625,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	var/datum/ert/revengers/ertemplate = new
 	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be an Revenger?", "deathsquad", null)
 	var/teamSpawned = FALSE
-
-	if(candidates.len > 0)
-		//Pick the (un)lucky players
-		var/numagents = min(ertemplate.teamsize,candidates.len)
-
-		//Create team
-		var/datum/team/ert/ert_team = new ertemplate.team
-		if(ertemplate.rename_team)
-			ert_team.name = ertemplate.rename_team
-
-		//Asign team objective
-		var/datum/objective/missionobj = new
-		missionobj.team = ert_team
-		missionobj.explanation_text = ertemplate.mission
-		missionobj.completed = TRUE
-		ert_team.objectives += missionobj
-		ert_team.mission = missionobj
-
-		var/list/spawnpoints = GLOB.emergencyresponseteamspawn
-		while(numagents && candidates.len)
-			if (numagents > spawnpoints.len)
-				numagents--
-				continue // This guy's unlucky, not enough spawn points, we skip him.
-			var/spawnloc = spawnpoints[numagents]
-			var/mob/dead/observer/chosen_candidate = pick(candidates)
-			candidates -= chosen_candidate
-			if(!chosen_candidate.key)
-				continue
-
-			//Spawn the body
-			var/mob/living/carbon/human/ERTOperative = new ertemplate.mobtype(spawnloc)
-			chosen_candidate.client.prefs.safe_transfer_prefs_to(ERTOperative)
-			ERTOperative.key = chosen_candidate.key
-
-			ERTOperative.set_species(/datum/species/human)
-
-			//Give antag datum
-			var/datum/antagonist/ert/ert_antag
-
-			if(numagents == 1)
-				ert_antag = new ertemplate.leader_role
-			else
-				ert_antag = ertemplate.roles[WRAP(numagents,1,length(ertemplate.roles) + 1)]
-				ert_antag = new ert_antag
-
-			ERTOperative.mind.add_antag_datum(ert_antag,ert_team)
-			ERTOperative.mind.assigned_role = ert_antag.name
-
-			//Logging and cleanup
-			log_game("[key_name(ERTOperative)] has been selected as an [ert_antag.name]")
-			numagents--
-			teamSpawned++
-
-		if (teamSpawned)
-			message_admins("Revengers ERT has auto-spawned with the mission: [ertemplate.mission]")
-			GLOB.revengers_autocalled = TRUE
-
-		//Open the Armory doors
-		if(ertemplate.opendoors)
-			for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
-				door.open()
-				CHECK_TICK
+*/
 
 /obj/item/badmin_gauntlet/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/badmin_stone))
@@ -770,7 +702,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 					if(M.magpulse)
 						to_chat(L, "<span class='notice'>You stay upright due to your stable footing!</span>")
 						continue
-				if(istype(H.shoes, /obj/item/clothing/shoes/combat/swat) || istype(H.shoes, /obj/item/clothing/shoes/combat/coldres/nanojump))
+				if(istype(H.shoes, /obj/item/clothing/shoes/combat/swat))
 					to_chat(L, "<span class='notice'>You stay upright due to your stable footing!</span>")
 					continue
 			L.visible_message("<span class='danger'>[L] is knocked down by a shockwave!</span>", "<span class='danger bold'>A shockwave knocks you off your feet!</span>")

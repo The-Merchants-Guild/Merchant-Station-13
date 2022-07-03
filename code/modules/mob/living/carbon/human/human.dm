@@ -543,10 +543,6 @@
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
 		if(..(I, cuff_break = FAST_CUFFBREAK ))
 			dropItemToGround(I)
-	else if(is_ganymede(src))
-		if(..(I, cuff_break = INSTANT_CUFFBREAK))
-			visible_message("<span class='danger'>[src] snaps [I] in half!</span>")
-			qdel(I)
 	else
 		if(..())
 			dropItemToGround(I)

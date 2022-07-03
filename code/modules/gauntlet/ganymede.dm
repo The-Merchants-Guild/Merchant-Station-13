@@ -126,18 +126,6 @@
 
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
-	if(super_leaping || is_ganymede(src))
+	if(super_leaping)
 		return
 	return ..()
-
-/datum/component/chasm/droppable(atom/movable/AM)
-	. = ..()
-	if(is_ganymede(AM))
-		return FALSE
-
-/proc/is_ganymede(A)
-	if(ishuman(A))
-		var/mob/living/carbon/human/H = A
-		if(H.dna && istype(H.dna.species, /datum/species/ganymede))
-			return TRUE
-	return FALSE

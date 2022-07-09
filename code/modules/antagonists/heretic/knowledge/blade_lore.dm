@@ -325,7 +325,7 @@
 		at a target, dealing damage and causing bleeding."
 	gain_text = "His arts were those that ensured an ending."
 	next_knowledge = list(
-		/datum/eldritch_knowledge/summon/maid_in_mirror,
+		/datum/eldritch_knowledge/summon/maid_in_the_mirror,
 		/datum/eldritch_knowledge/final/blade_final,
 		/datum/eldritch_knowledge/rifle,
 	)

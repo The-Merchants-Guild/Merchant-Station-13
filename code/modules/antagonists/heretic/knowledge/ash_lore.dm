@@ -163,13 +163,10 @@
 	)
 
 /datum/eldritch_knowledge/final/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	. = ..()
 	priority_announce("[generate_eldritch_text()] Fear the blaze, for the Ashlord, [user.real_name] has ascended! The flames shall consume all! [generate_eldritch_text()]","[generate_eldritch_text()]", ANNOUNCER_SPANOMALIES)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/fire_cascade/big)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/fire_sworn)
-	var/mob/living/carbon/human/ascendant = user
-	ascendant.physiology.brute_mod *= 0.5
-	ascendant.physiology.burn_mod *= 0.5
-	ascendant.client?.give_award(/datum/award/achievement/misc/ash_ascension, ascendant)
+	user.client?.give_award(/datum/award/achievement/misc/ash_ascension, user)
 	for(var/trait in trait_list)
 		ADD_TRAIT(user, trait, MAGIC_TRAIT)
-	return ..()

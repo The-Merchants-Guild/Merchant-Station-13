@@ -75,6 +75,22 @@
 
 	return ..()
 
+/*
+ * Get a list of all rituals this heretic can invoke on a rune.
+ * Iterates over all of our knowledge and, if we can invoke it, adds it to our list.
+ *
+ * Returns an associated list of [knowledge name] to [knowledge datum] sorted by knowledge priority.
+*/
+/datum/antagonist/heretic/proc/get_rituals()
+	var/list/rituals = list()
+	for(var/knowledge_index in researched_knowledge)
+		var/datum/eldritch_knowledge/knowledge = researched_knowledge[knowledge_index]
+		if(!knowledge.can_be_invoked(src))
+			continue
+		rituals[knowledge.name] = knowledge
+
+	return sortTim(rituals, /proc/cmp_eldritch_knowledge, associative = TRUE)
+
 /datum/antagonist/heretic/process()
 
 	if(owner.current.stat == DEAD)

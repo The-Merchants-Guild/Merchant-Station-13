@@ -45,7 +45,7 @@
 		return TRUE
 
 	if(currently_aiming)
-		to_chat(user, span_warning("Already aiming!"))
+		user.balloon_alert(user, "Already aiming!")
 		return FALSE
 
 	var/distance = get_dist(user, target)
@@ -54,7 +54,7 @@
 	if(distance <= min_distance || !isliving(target))
 		return TRUE
 
-	to_chat(user, span_warning("taking aim..."))
+	user.balloon_alert(user, "taking aim...")
 	user.playsound_local(get_turf(user), 'sound/weapons/gun/general/chunkyrack.ogg', 100, TRUE)
 
 	var/image/reticle = image(
@@ -85,7 +85,7 @@
 		viewer.client?.images -= reticle
 
 	if(!.)
-		to_chat(user, span_warning("interrupted!"))
+		user.balloon_alert(user, "interrupted!")
 
 	return .
 

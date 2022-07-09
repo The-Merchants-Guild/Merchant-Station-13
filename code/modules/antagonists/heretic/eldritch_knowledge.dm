@@ -15,23 +15,19 @@
 	var/gain_text = ""
 	///Cost of knowledge in souls
 	var/cost = 0
+	/// The priority of the knowledge. Higher priority knowledge appear higher in the ritual list.
+	/// Number itself is completely arbitrary. Does not need to be set for non-ritual knowledge.
+	var/priority = 0
 	///Next knowledge in the research tree
 	var/list/next_knowledge = list()
 	///What knowledge is incompatible with this. This will simply make it impossible to research knowledges that are in banned_knowledge once this gets researched.
 	var/list/banned_knowledge = list()
 	///Used with rituals, how many items this needs
-	var/list/required_atoms = list()
+	var/list/required_atoms
 	///What do we get out of this
 	var/list/result_atoms = list()
-	///What path is this on defaults to "Side"
-	var/route = PATH_SIDE
-
-/datum/eldritch_knowledge/New()
-	. = ..()
-	var/list/temp_list
-	for(var/atom/required_atom as anything in required_atoms)
-		temp_list += list(typesof(required_atom))
-	required_atoms = temp_list
+	///Set to null
+	var/route
 
 /**
  * What happens when this is assigned to an antag datum
@@ -57,23 +53,54 @@
 //See Register
 /datum/eldritch_knowledge/proc/allow_to_sharp(mob/user)
 	return COMPONENT_SHARPEN
-/**
- * Special check for recipes
- *
- * If you are adding a more complex summoning or something that requires a special check that parses through all the atoms in an area override this.
- */
-/datum/eldritch_knowledge/proc/recipe_snowflake_check(list/atoms, loc)
-	return TRUE
 
 /datum/eldritch_knowledge/proc/on_dead(mob/user)
 	return
 
 /**
- * What happens once the recipe is succesfully finished
+ * Determines if a heretic can actually attempt to invoke the knowledge as a ritual.
+ * By default, we can only invoke knowledge with rituals associated.
  *
- * By default this proc creates atoms from result_atoms list. Override this is you want something else to happen.
+ * Return TRUE to have the ritual show up in the rituals list, FALSE otherwise.
+*/
+/datum/eldritch_knowledge/proc/can_be_invoked(datum/antagonist/heretic/invoker)
+	return !!LAZYLEN(required_atoms)
+
+/**
+ * Special check for rituals.
+ * Called before any of the required atoms are checked.
+ *
+ * If you are adding a more complex summoning,
+ * or something that requires a special check
+ * that parses through all the atoms,
+ * you should override this.
+ *
+ * Arguments
+ * * user - the mob doing the ritual
+ * * atoms - a list of all atoms being checked in the ritual.
+ * * selected_atoms - an empty list(!) instance passed in by the ritual. You can add atoms to it in this proc.
+ * * loc - the turf the ritual's occuring on
+ *
+ * Returns: TRUE, if the ritual will continue, or FALSE, if the ritual is skipped / cancelled
+*/
+/datum/eldritch_knowledge/proc/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+	return TRUE
+
+/**
+ * Called whenever the knowledge's associated ritual is completed successfully.
+ *
+ * Creates atoms from types in result_atoms.
+ * Override this is you want something else to happen.
+ * This CAN sleep, such as for summoning rituals which poll for ghosts.
+ *
+ * Arguments
+ * * user - the mob who did the  ritual
+ * * selected_atoms - an list of atoms chosen as a part of this ritual.
+ * * loc - the turf the ritual's occuring on
+ *
+ * Returns: TRUE, if the ritual should cleanup afterwards, or FALSE, to avoid calling cleanup after.
  */
-/datum/eldritch_knowledge/proc/on_finished_recipe(mob/living/user, list/atoms, loc)
+/datum/eldritch_knowledge/proc/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	if(!length(result_atoms))
 		return FALSE
 	for(var/result in result_atoms)
@@ -81,16 +108,39 @@
 	return TRUE
 
 /**
- * Used atom cleanup
+ * Called after on_finished_recipe returns TRUE
+ * and a ritual was successfully completed.
  *
- * Overide this proc if you dont want ALL ATOMS to be destroyed. useful in many situations.
+ * Goes through and cleans up (deletes)
+ * all atoms in the selected_atoms list.
+ *
+ * Remove atoms from the selected_atoms
+ * (either in this proc or in on_finished_recipe)
+ * to NOT have certain atoms deleted on cleanup.
+ *
+ * Arguments
+ * * selected_atoms - a list of all atoms we intend on destroying.
  */
-/datum/eldritch_knowledge/proc/cleanup_atoms(list/atoms)
-	for(var/atom/sacrificed as anything in atoms)
-		if(!isliving(sacrificed))
-			atoms -= sacrificed
-			qdel(sacrificed)
-	return
+/datum/eldritch_knowledge/proc/cleanup_atoms(list/selected_atoms)
+	SHOULD_CALL_PARENT(TRUE)
+
+	for(var/atom/sacrificed as anything in selected_atoms)
+		if(isliving(sacrificed))
+			continue
+		if(istype(sacrificed, /obj/item/living_heart))
+			continue
+		if(isstack(sacrificed))
+			var/obj/item/stack/sac_stack = sacrificed
+			var/how_much_to_use = 0
+			for(var/requirement in required_atoms)
+				if(istype(sacrificed, requirement))
+					how_much_to_use = min(required_atoms[requirement], sac_stack.amount)
+					break
+			sac_stack.use(how_much_to_use)
+			continue
+
+		selected_atoms -= sacrificed
+		qdel(sacrificed)
 
 
 //////////////
@@ -136,7 +186,7 @@
 			LAZYREMOVE(created_items, ref)
 
 	if(LAZYLEN(created_items) >= limit)
-		to_chat(user, span_warning("Ritual failed, at limit!"))
+		user.balloon_alert(user, "ritual failed, at limit!")
 		return FALSE
 
 	return TRUE
@@ -148,6 +198,7 @@
 	return TRUE
 
 /datum/eldritch_knowledge/starting
+	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	cost = 1
 
 /datum/eldritch_knowledge/mark
@@ -261,13 +312,16 @@
 	var/list/fingerprints = list()
 	var/list/dna = list()
 
-/datum/eldritch_knowledge/curse/recipe_snowflake_check(list/atoms, loc)
+/datum/eldritch_knowledge/curse/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	fingerprints = list()
 	for(var/atom/requirements as anything in atoms)
 		fingerprints |= requirements.return_fingerprints()
 	listclearnulls(fingerprints)
-	if(fingerprints.len == 0)
+// No fingerprints? No ritual
+	if(!length(fingerprints))
+		user.balloon_alert(user, "ritual failed, no fingerprints!")
 		return FALSE
+
 	return TRUE
 
 /datum/eldritch_knowledge/curse/on_finished_recipe(mob/living/user,list/atoms,loc)
@@ -315,7 +369,7 @@
 	message_admins("A [summoned.name] is being summoned by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(summoned)].")
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [summoned.real_name]?", ROLE_HERETIC, FALSE, 10 SECONDS, summoned)
 	if(!LAZYLEN(candidates))
-		to_chat(user, span_warning("Ritual failed, no ghosts!"))
+		user.balloon_alert(user, "ritual failed, no ghosts!")
 		animate(summoned, 0.5 SECONDS, alpha = 0)
 		QDEL_IN(summoned, 0.6 SECONDS)
 		return FALSE
@@ -343,10 +397,16 @@
 //Ascension knowledge
 /datum/eldritch_knowledge/final
 	var/finished = FALSE
+	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)
 	cost = 3
 
-/datum/eldritch_knowledge/final/recipe_snowflake_check(list/atoms, loc, selected_atoms)
+/datum/eldritch_knowledge/final/can_be_invoked(datum/antagonist/heretic/invoker)
+	if(invoker.ascended)
+		return FALSE
+	return TRUE
+
+/datum/eldritch_knowledge/final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(finished)
 		return FALSE
 	var/counter = 0
@@ -357,14 +417,19 @@
 			return TRUE
 	return FALSE
 
-/datum/eldritch_knowledge/final/on_finished_recipe(mob/living/user, list/atoms, loc)
-	finished = TRUE
-	var/datum/antagonist/heretic/ascension = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	ascension.ascended = TRUE
+/datum/eldritch_knowledge/final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
+	heretic_datum.ascended = TRUE
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		human_user.physiology.brute_mod *= 0.5
+		human_user.physiology.burn_mod *= 0.5
 	return TRUE
 
 /datum/eldritch_knowledge/final/cleanup_atoms(list/selected_atoms)
-	. = ..()
-	for(var/mob/living/carbon/human/sacrifices in selected_atoms)
-		selected_atoms -= sacrifices
-		sacrifices.gib()
+	for(var/mob/living/carbon/human/sacrifice in selected_atoms)
+		selected_atoms -= sacrifice
+		sacrifice.gib()
+
+	return ..()

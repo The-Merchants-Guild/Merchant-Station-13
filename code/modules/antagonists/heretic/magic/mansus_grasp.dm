@@ -26,6 +26,15 @@
 //Signal for the Sharpening Edge gets the Listener from /datum/eldritch_knowledge/proc/on_gain(mob/user)
 /obj/item/melee/touch_attack/mansus_fist/attackby(obj/item/I, mob/user, params)
 	if(SEND_SIGNAL(user, COMSIG_HERETIC_BLADE_MANIPULATION, src) & COMPONENT_SHARPEN)
+		if(istype(I,/obj/item/nullrod/))
+			var/mob/living/carbon/Cuser = user
+			var/obj/item/bodypart/holding_bodypart = Cuser.get_holding_bodypart_of_item(src)
+			to_chat(user, span_warning("You attempted to sharpen a holy weapon!"))
+			explosion(src, devastation_range = -1, heavy_impact_range = -2, light_impact_range = 1, flame_range = 1, flash_range = 1)
+			playsound(user, hitsound, 25, TRUE)
+			holding_bodypart.dismember(BURN)
+			Cuser.adjustFireLoss(20)
+			return
 		eldritch_whetstone.activate(user, I)
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)

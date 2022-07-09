@@ -124,14 +124,15 @@
 		// We'll select any valid bodies here. If they're clientless, we'll give them a new one.
 		selected_atoms += body
 		return TRUE
-	to_chat(user, span_warning("Ritual failed, no valid body!"))
+
+	user.balloon_alert(user, "ritual failed, no valid body!")
 	return FALSE
 
 /datum/eldritch_knowledge/limited_amount/flesh_ghoul/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/mob/living/carbon/human/soon_to_be_ghoul = locate() in selected_atoms
 	if(QDELETED(soon_to_be_ghoul)) // No body? No ritual
 		stack_trace("[type] reached on_finished_recipe without a human in selected_atoms to make a ghoul out of.")
-		to_chat(user, span_warning("Ritual failed, no valid body!"))
+		user.balloon_alert(user, "ritual failed, no valid body!")
 		return FALSE
 
 	soon_to_be_ghoul.grab_ghost()
@@ -140,7 +141,7 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
 		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?", ROLE_HERETIC, ROLE_HERETIC, 5 SECONDS, soon_to_be_ghoul)
 		if(!LAZYLEN(candidates))
-			to_chat(user, span_warning("Ritual failed, no ghosts!"))
+			user.balloon_alert(user, "ritual failed, no ghosts!")
 			return FALSE
 
 		var/mob/dead/observer/chosen_candidate = pick(candidates)
@@ -255,16 +256,12 @@
 	desc = "Bring 3 bodies onto a transmutation rune to shed your human form and ascend to untold power."
 	route = PATH_FLESH
 
-/datum/eldritch_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/atoms, loc)
+/datum/eldritch_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	priority_announce("[generate_eldritch_text()] Ever coiling vortex. Reality unfolded. THE LORD OF ARMS, [user.real_name] has ascended! Fear the ever twisting hand! [generate_eldritch_text()]","[generate_eldritch_text()]", ANNOUNCER_SPANOMALIES)
+	priority_announce("[generate_eldritch_text()] Ever coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, [user.real_name] has ascended! Fear the ever twisting hand! [generate_eldritch_text()]", "[generate_eldritch_text()]", ANNOUNCER_SPANOMALIES)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shed_human_form)
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/lord_of_arms = user
-	lord_of_arms.physiology.brute_mod *= 0.5
-	lord_of_arms.physiology.burn_mod *= 0.5
-	lord_of_arms.client?.give_award(/datum/award/achievement/misc/flesh_ascension, lord_of_arms)
+	user.client?.give_award(/datum/award/achievement/misc/flesh_ascension, user)
+
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/datum/eldritch_knowledge/limited_amount/flesh_grasp/grasp_ghoul = heretic_datum.get_knowledge(/datum/eldritch_knowledge/limited_amount/flesh_grasp)
 	grasp_ghoul.limit *= 3

@@ -141,7 +141,7 @@
 	next_knowledge = list(
 		/datum/eldritch_knowledge/final/void_final,
 		/datum/eldritch_knowledge/spell/cleave,
-		/datum/eldritch_knowledge/summon/maid_in_mirror,
+		/datum/eldritch_knowledge/summon/maid_in_the_mirror,
 	)
 	route = PATH_VOID
 

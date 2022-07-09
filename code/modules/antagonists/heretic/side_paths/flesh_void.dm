@@ -5,7 +5,12 @@
 	cost = 1
 	next_knowledge = list(/datum/eldritch_knowledge/limited_amount/flesh_ghoul,/datum/eldritch_knowledge/cold_snap)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/void)
-	required_atoms = list(/obj/item/shard,/obj/item/clothing/suit,/obj/item/bedsheet)
+	required_atoms = list(
+		/obj/item/shard = 1,
+		/obj/item/clothing/suit = 1,
+		/obj/item/bedsheet = 1,
+		)
+	route = PATH_SIDE
 
 /datum/eldritch_knowledge/spell/blood_siphon
 	name = "Blood Siphon"
@@ -14,6 +19,7 @@
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/blood_siphon
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/voidpull)
+	route = PATH_SIDE
 
 /datum/eldritch_knowledge/spell/cleave
 	name = "Blood Cleave"
@@ -22,3 +28,4 @@
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
 	next_knowledge = list(/datum/eldritch_knowledge/spell/entropic_plume,/datum/eldritch_knowledge/spell/flame_birth)
+	route = PATH_SIDE

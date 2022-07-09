@@ -70,6 +70,9 @@
 #define PATH_VOID "Void"
 #define PATH_BLADE "Blade"
 
+/// A define used in ritual priority for heretics.
+#define MAX_KNOWLEDGE_PRIORITY 100
+
 /// Checks if the passed mob can become a heretic ghoul.
 /// - Must be a human (type, not species)
 /// - Skeletons cannot be husked (they are snowflaked instead of having a trait)

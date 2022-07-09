@@ -25,26 +25,29 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		/datum/eldritch_knowledge/starting/base_void,
 		)
 	cost = 0
+	priority = MAX_KNOWLEDGE_PRIORITY - 1 // Sacrifice will be the most important
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
 	required_atoms = list(/obj/item/living_heart)
 	route = PATH_START
 
-/datum/eldritch_knowledge/spell/basic/recipe_snowflake_check(list/atoms, loc)
+/datum/eldritch_knowledge/spell/basic/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	. = ..()
 	for(var/obj/item/living_heart/heart in atoms)
 		if(!heart.target)
+			selected_atoms += heart
 			return TRUE
 		if(heart.target in atoms)
+			selected_atoms += heart
 			return TRUE
 	return FALSE
 
-/datum/eldritch_knowledge/spell/basic/on_finished_recipe(mob/living/user, list/atoms, loc)
+/datum/eldritch_knowledge/spell/basic/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = TRUE
 	var/mob/living/carbon/carbon_user = user
-	for(var/obj/item/living_heart/heart in atoms)
+	for(var/obj/item/living_heart/heart in selected_atoms)
 
 		if(heart.target && heart.target.stat == DEAD)
-			to_chat(carbon_user,span_danger("Your patrons accepts your offer.."))
+			user.balloon_alert(user, "Your patrons accepts your offer..")
 			var/mob/living/carbon/human/current_target = heart.target
 			current_target.gib()
 			heart.target = null
@@ -79,18 +82,17 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 			heart.target = targets[input(user,"Choose your next target","Target") in targets]
 			qdel(temp_objective)
 			if(heart.target)
-				to_chat(user,span_warning("Your new target has been selected, go and sacrifice [heart.target.real_name]!"))
+				user.balloon_alert(user, "Your new target has been selected, go and sacrifice [heart.target.real_name]!")
 			else
-				to_chat(user, span_warning("target could not be found for living heart."))
-
-/datum/eldritch_knowledge/spell/basic/cleanup_atoms(list/atoms)
-	return
+				user.balloon_alert(user, "Target could not be found for living heart.")
+				return FALSE
 
 /datum/eldritch_knowledge/living_heart
 	name = "Living Heart"
 	desc = "Allows you to create additional living hearts, using a heart, a pool of blood and a poppy. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you an additional charge in the book."
 	gain_text = "The Gates of Mansus open up to your mind."
 	cost = 0
+	priority = MAX_KNOWLEDGE_PRIORITY - 2 // Knowing how to remake your heart is important
 	required_atoms = list(
 		/obj/item/organ/heart = 1,
 		/obj/effect/decal/cleanable/blood = 1,
@@ -104,6 +106,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	desc = "Allows you to create a spare Codex Cicatrix if you have lost one, using a bible, human skin, a pen and a pair of eyes."
 	gain_text = "Their hand is at your throat, yet you see Them not."
 	cost = 0
+	priority = MAX_KNOWLEDGE_PRIORITY - 3 // Not as important as making a heart or sacrificing, but important enough.
 	required_atoms = list(
 		/obj/item/organ/eyes = 1,
 		/obj/item/stack/sheet/animalhide/human = 1,

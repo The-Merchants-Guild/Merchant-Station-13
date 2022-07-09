@@ -15,7 +15,7 @@
 /obj/effect/proc_holder/spell/targeted/void_pull/cast(list/targets, mob/user)
 	. = ..()
 	for(var/mob/living/living_mob in range(1,user)-user)
-		if(IS_HERETIC(living_mob) || IS_HERETIC_MONSTER(living_mob))
+		if(IS_HERETIC_OR_MONSTER(living_mob))
 			continue
 		living_mob.adjustBruteLoss(30)
 

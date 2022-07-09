@@ -15,23 +15,19 @@
 	var/gain_text = ""
 	///Cost of knowledge in souls
 	var/cost = 0
+	/// The priority of the knowledge. Higher priority knowledge appear higher in the ritual list.
+	/// Number itself is completely arbitrary. Does not need to be set for non-ritual knowledge.
+	var/priority = 0
 	///Next knowledge in the research tree
 	var/list/next_knowledge = list()
 	///What knowledge is incompatible with this. This will simply make it impossible to research knowledges that are in banned_knowledge once this gets researched.
 	var/list/banned_knowledge = list()
 	///Used with rituals, how many items this needs
-	var/list/required_atoms = list()
+	var/list/required_atoms
 	///What do we get out of this
 	var/list/result_atoms = list()
-	///What path is this on defaults to "Side"
-	var/route = PATH_SIDE
-
-/datum/eldritch_knowledge/New()
-	. = ..()
-	var/list/temp_list
-	for(var/atom/required_atom as anything in required_atoms)
-		temp_list += list(typesof(required_atom))
-	required_atoms = temp_list
+	///Set to null
+	var/route
 
 /**
  * What happens when this is assigned to an antag datum
@@ -40,6 +36,8 @@
  */
 /datum/eldritch_knowledge/proc/on_gain(mob/user)
 	to_chat(user, span_warning("[gain_text]"))
+	if(route == PATH_BLADE)
+		RegisterSignal(user, COMSIG_HERETIC_BLADE_MANIPULATION, .proc/allow_to_sharp)
 	return
 /**
  * What happens when you loose this
@@ -48,36 +46,61 @@
  */
 /datum/eldritch_knowledge/proc/on_lose(mob/user)
 	return
-/**
- * What happens every tick
- *
- * This proc is called on SSprocess in eldritch cultist antag datum. SSprocess happens roughly every second
- */
-/datum/eldritch_knowledge/proc/on_life(mob/user)
+
+/datum/eldritch_knowledge/proc/on_research(mob/user)
+	return
+
+//See Register
+/datum/eldritch_knowledge/proc/allow_to_sharp(mob/user)
+	return COMPONENT_SHARPEN
+
+/datum/eldritch_knowledge/proc/on_dead(mob/user)
 	return
 
 /**
- * Special check for recipes
+ * Determines if a heretic can actually attempt to invoke the knowledge as a ritual.
+ * By default, we can only invoke knowledge with rituals associated.
  *
- * If you are adding a more complex summoning or something that requires a special check that parses through all the atoms in an area override this.
- */
-/datum/eldritch_knowledge/proc/recipe_snowflake_check(list/atoms, loc)
+ * Return TRUE to have the ritual show up in the rituals list, FALSE otherwise.
+*/
+/datum/eldritch_knowledge/proc/can_be_invoked(datum/antagonist/heretic/invoker)
+	return !!LAZYLEN(required_atoms)
+
+/**
+ * Special check for rituals.
+ * Called before any of the required atoms are checked.
+ *
+ * If you are adding a more complex summoning,
+ * or something that requires a special check
+ * that parses through all the atoms,
+ * you should override this.
+ *
+ * Arguments
+ * * user - the mob doing the ritual
+ * * atoms - a list of all atoms being checked in the ritual.
+ * * selected_atoms - an empty list(!) instance passed in by the ritual. You can add atoms to it in this proc.
+ * * loc - the turf the ritual's occuring on
+ *
+ * Returns: TRUE, if the ritual will continue, or FALSE, if the ritual is skipped / cancelled
+*/
+/datum/eldritch_knowledge/proc/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	return TRUE
 
 /**
- * A proc that handles the code when the mob dies
+ * Called whenever the knowledge's associated ritual is completed successfully.
  *
- * This proc is primarily used to end any soundloops when the heretic dies
- */
-/datum/eldritch_knowledge/proc/on_death(mob/user)
-	return
-
-/**
- * What happens once the recipe is succesfully finished
+ * Creates atoms from types in result_atoms.
+ * Override this is you want something else to happen.
+ * This CAN sleep, such as for summoning rituals which poll for ghosts.
  *
- * By default this proc creates atoms from result_atoms list. Override this is you want something else to happen.
+ * Arguments
+ * * user - the mob who did the  ritual
+ * * selected_atoms - an list of atoms chosen as a part of this ritual.
+ * * loc - the turf the ritual's occuring on
+ *
+ * Returns: TRUE, if the ritual should cleanup afterwards, or FALSE, to avoid calling cleanup after.
  */
-/datum/eldritch_knowledge/proc/on_finished_recipe(mob/living/user, list/atoms, loc)
+/datum/eldritch_knowledge/proc/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	if(!length(result_atoms))
 		return FALSE
 	for(var/result in result_atoms)
@@ -85,41 +108,40 @@
 	return TRUE
 
 /**
- * Used atom cleanup
+ * Called after on_finished_recipe returns TRUE
+ * and a ritual was successfully completed.
  *
- * Overide this proc if you dont want ALL ATOMS to be destroyed. useful in many situations.
- */
-/datum/eldritch_knowledge/proc/cleanup_atoms(list/atoms)
-	for(var/atom/sacrificed as anything in atoms)
-		if(!isliving(sacrificed))
-			atoms -= sacrificed
-			qdel(sacrificed)
-	return
-
-/**
- * Mansus grasp act
+ * Goes through and cleans up (deletes)
+ * all atoms in the selected_atoms list.
  *
- * Gives addtional effects to mansus grasp spell
- */
-/datum/eldritch_knowledge/proc/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
-	return FALSE
-
-
-/**
- * Sickly blade act
+ * Remove atoms from the selected_atoms
+ * (either in this proc or in on_finished_recipe)
+ * to NOT have certain atoms deleted on cleanup.
  *
- * Gives addtional effects to sickly blade weapon
+ * Arguments
+ * * selected_atoms - a list of all atoms we intend on destroying.
  */
-/datum/eldritch_knowledge/proc/on_eldritch_blade(atom/target,mob/user,proximity_flag,click_parameters)
-	return
+/datum/eldritch_knowledge/proc/cleanup_atoms(list/selected_atoms)
+	SHOULD_CALL_PARENT(TRUE)
 
-/**
- * Sickly blade distant act
- *
- * Same as [/datum/eldritch_knowledge/proc/on_eldritch_blade] but works on targets that are not in proximity to you.
- */
-/datum/eldritch_knowledge/proc/on_ranged_attack_eldritch_blade(atom/target,mob/user,click_parameters)
-	return
+	for(var/atom/sacrificed as anything in selected_atoms)
+		if(isliving(sacrificed))
+			continue
+		if(istype(sacrificed, /obj/item/living_heart))
+			continue
+		if(isstack(sacrificed))
+			var/obj/item/stack/sac_stack = sacrificed
+			var/how_much_to_use = 0
+			for(var/requirement in required_atoms)
+				if(istype(sacrificed, requirement))
+					how_much_to_use = min(required_atoms[requirement], sac_stack.amount)
+					break
+			sac_stack.use(how_much_to_use)
+			continue
+
+		selected_atoms -= sacrificed
+		qdel(sacrificed)
+
 
 //////////////
 ///Subtypes///
@@ -128,8 +150,13 @@
 /datum/eldritch_knowledge/spell
 	var/obj/effect/proc_holder/spell/spell_to_add
 
+/datum/eldritch_knowledge/spell/Destroy(force, ...)
+	if(istype(spell_to_add))
+		QDEL_NULL(spell_to_add)
+	return ..()
+
 /datum/eldritch_knowledge/spell/on_gain(mob/user)
-	spell_to_add = new spell_to_add
+	spell_to_add = new spell_to_add()
 	user.mind.AddSpell(spell_to_add)
 	return ..()
 
@@ -137,18 +164,164 @@
 	user.mind.RemoveSpell(spell_to_add)
 	return ..()
 
+/*
+ * A knowledge subtype for knowledge that can only
+ * have a limited amount of it's resulting atoms
+ * created at once.
+ */
+/datum/eldritch_knowledge/limited_amount
+	/// The limit to how many items we can create at once.
+	var/limit = 1
+	/// A list of weakrefs to all items we've created.
+	var/list/datum/weakref/created_items
+
+/datum/eldritch_knowledge/limited_amount/Destroy(force, ...)
+	LAZYCLEARLIST(created_items)
+	return ..()
+
+/datum/eldritch_knowledge/limited_amount/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+	for(var/datum/weakref/ref as anything in created_items)
+		var/atom/real_thing = ref.resolve()
+		if(QDELETED(real_thing))
+			LAZYREMOVE(created_items, ref)
+
+	if(LAZYLEN(created_items) >= limit)
+		user.balloon_alert(user, "ritual failed, at limit!")
+		return FALSE
+
+	return TRUE
+
+/datum/eldritch_knowledge/limited_amount/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	for(var/result in result_atoms)
+		var/atom/created_thing = new result(loc)
+		LAZYADD(created_items, WEAKREF(created_thing))
+	return TRUE
+
+/datum/eldritch_knowledge/starting
+	priority = MAX_KNOWLEDGE_PRIORITY - 5
+	cost = 1
+
+/datum/eldritch_knowledge/mark
+	cost = 2
+	/// The status effect typepath we apply on people on mansus grasp.
+	var/datum/status_effect/eldritch/mark_type
+
+/datum/eldritch_knowledge/mark/on_gain(mob/user)
+	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, .proc/on_mansus_grasp)
+	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, .proc/on_eldritch_blade)
+
+/datum/eldritch_knowledge/mark/on_lose(mob/user)
+	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
+
+/**
+ * Signal proc for [COMSIG_HERETIC_MANSUS_GRASP_ATTACK].
+ *
+ * Whenever we cast mansus grasp on someone, apply our mark.
+ */
+/datum/eldritch_knowledge/mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
+	SIGNAL_HANDLER
+
+	create_mark(source, target)
+
+/**
+ * Signal proc for [COMSIG_HERETIC_BLADE_ATTACK].
+ *
+ * Whenever we attack someone with our blade, attempt to trigger any marks on them.
+ */
+/datum/eldritch_knowledge/mark/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+	SIGNAL_HANDLER
+
+	trigger_mark(source, target)
+
+/**
+ * Creates the mark status effect on our target.
+ * This proc handles the instatiate and the application of the station effect,
+ * and returns the /datum/status_effect instance that was made.
+ *
+ * Can be overriden to set or pass in additional vars of the status effect.
+ */
+/datum/eldritch_knowledge/mark/proc/create_mark(mob/living/source, mob/living/target)
+	return target.apply_status_effect(mark_type)
+
+/**
+ * Handles triggering the mark on the target.
+ *
+ * If there is no mark, returns FALSE. Returns TRUE if a mark was triggered.
+ */
+/datum/eldritch_knowledge/mark/proc/trigger_mark(mob/living/source, mob/living/target)
+	var/datum/status_effect/eldritch/mark = target.has_status_effect(/datum/status_effect/eldritch)
+	if(!istype(mark))
+		return FALSE
+
+	mark.on_effect()
+	return TRUE
+
+/*
+ * A knowledge subtype for heretic knowledge that
+ * upgrades their sickly blade, either on melee or range.
+ *
+ * A heretic can only learn one /blade_upgrade type knowledge.
+ */
+/datum/eldritch_knowledge/blade_upgrade
+	cost = 2
+
+/datum/eldritch_knowledge/blade_upgrade/on_gain(mob/user)
+	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, .proc/on_eldritch_blade)
+	RegisterSignal(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK, .proc/on_ranged_eldritch_blade)
+
+/datum/eldritch_knowledge/blade_upgrade/on_lose(mob/user)
+	UnregisterSignal(user, list(COMSIG_HERETIC_BLADE_ATTACK, COMSIG_HERETIC_RANGED_BLADE_ATTACK))
+
+
+/**
+ * Signal proc for [COMSIG_HERETIC_BLADE_ATTACK].
+ *
+ * Apply any melee effects from hitting someone with our blade.
+ */
+/datum/eldritch_knowledge/blade_upgrade/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+	SIGNAL_HANDLER
+
+	do_melee_effects(source, target, blade)
+
+/**
+ * Signal proc for [COMSIG_HERETIC_RANGED_BLADE_ATTACK].
+ *
+ * Apply any ranged effects from hitting someone with our blade.
+ */
+/datum/eldritch_knowledge/blade_upgrade/proc/on_ranged_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+	SIGNAL_HANDLER
+
+	do_ranged_effects(source, target, blade)
+
+/**
+ * Overridable proc that invokes special effects
+ * whenever the heretic attacks someone in melee with their heretic blade.
+ */
+/datum/eldritch_knowledge/blade_upgrade/proc/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+	return
+
+/**
+ * Overridable proc that invokes special effects
+ * whenever the heretic clicks on someone at range with their heretic blade.
+ */
+/datum/eldritch_knowledge/blade_upgrade/proc/do_ranged_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+	return
+
 /datum/eldritch_knowledge/curse
 	var/timer = 5 MINUTES
 	var/list/fingerprints = list()
 	var/list/dna = list()
 
-/datum/eldritch_knowledge/curse/recipe_snowflake_check(list/atoms, loc)
+/datum/eldritch_knowledge/curse/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	fingerprints = list()
 	for(var/atom/requirements as anything in atoms)
 		fingerprints |= requirements.return_fingerprints()
 	listclearnulls(fingerprints)
-	if(fingerprints.len == 0)
+// No fingerprints? No ritual
+	if(!length(fingerprints))
+		user.balloon_alert(user, "ritual failed, no fingerprints!")
 		return FALSE
+
 	return TRUE
 
 /datum/eldritch_knowledge/curse/on_finished_recipe(mob/living/user,list/atoms,loc)
@@ -177,35 +350,63 @@
 /datum/eldritch_knowledge/curse/proc/uncurse(mob/living/chosen_mob)
 	return
 
+/*
+ * A knowledge subtype lets the heretic summon a monster with the ritual.
+ */
 /datum/eldritch_knowledge/summon
-	//Mob to summon
+	/// Typepath of a mob to summon when we finish the recipe.
 	var/mob/living/mob_to_summon
 
-/datum/eldritch_knowledge/summon/on_finished_recipe(mob/living/user, list/atoms, loc)
-	//we need to spawn the mob first so that we can use it in pollCandidatesForMob, we will move it from nullspace down the code
+/datum/eldritch_knowledge/summon/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/mob/living/summoned = new mob_to_summon(loc)
-	message_admins("[summoned.name] is being summoned by [user.real_name] in [loc]")
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [summoned.real_name]", ROLE_HERETIC, FALSE, 100, summoned)
+	// Fade in the summon while the ghost poll is ongoing.
+	// Also don't let them mess with the summon while waiting
+	summoned.alpha = 0
+	summoned.notransform = TRUE
+	summoned.move_resist = MOVE_FORCE_OVERPOWERING
+	animate(summoned, 10 SECONDS, alpha = 155)
+
+	message_admins("A [summoned.name] is being summoned by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(summoned)].")
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [summoned.real_name]?", ROLE_HERETIC, FALSE, 10 SECONDS, summoned)
 	if(!LAZYLEN(candidates))
-		to_chat(user,span_warning("No ghost could be found..."))
-		qdel(summoned)
+		user.balloon_alert(user, "ritual failed, no ghosts!")
+		animate(summoned, 0.5 SECONDS, alpha = 0)
+		QDEL_IN(summoned, 0.6 SECONDS)
 		return FALSE
+
 	var/mob/dead/observer/picked_candidate = pick(candidates)
-	log_game("[key_name_admin(picked_candidate)] has taken control of ([key_name_admin(summoned)]), their master is [user.real_name]")
+	// Ok let's make them an interactable mob now, since we got a ghost
+	summoned.alpha = 255
+	summoned.notransform = FALSE
+	summoned.move_resist = initial(summoned.move_resist)
+
 	summoned.ghostize(FALSE)
 	summoned.key = picked_candidate.key
-	summoned.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-	var/datum/antagonist/heretic_monster/heretic_monster = summoned.mind.has_antag_datum(/datum/antagonist/heretic_monster)
-	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	heretic_monster.set_owner(master)
+
+	log_game("[key_name(user)] created a [summoned.name], controlled by [key_name(picked_candidate)].")
+	message_admins("[ADMIN_LOOKUPFLW(user)] created a [summoned.name], [ADMIN_LOOKUPFLW(summoned)].")
+
+	var/datum/antagonist/heretic_monster/heretic_monster = summoned.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+	heretic_monster.set_owner(user.mind)
+
+	var/datum/objective/heretic_summon/summon_objective = locate() in user.mind.get_all_objectives()
+	summon_objective?.num_summoned++
+
 	return TRUE
 
 //Ascension knowledge
 /datum/eldritch_knowledge/final
-
 	var/finished = FALSE
+	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
+	required_atoms = list(/mob/living/carbon/human = 3)
+	cost = 3
 
-/datum/eldritch_knowledge/final/recipe_snowflake_check(list/atoms, loc, selected_atoms)
+/datum/eldritch_knowledge/final/can_be_invoked(datum/antagonist/heretic/invoker)
+	if(invoker.ascended)
+		return FALSE
+	return TRUE
+
+/datum/eldritch_knowledge/final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(finished)
 		return FALSE
 	var/counter = 0
@@ -216,14 +417,19 @@
 			return TRUE
 	return FALSE
 
-/datum/eldritch_knowledge/final/on_finished_recipe(mob/living/user, list/atoms, loc)
-	finished = TRUE
-	var/datum/antagonist/heretic/ascension = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	ascension.ascended = TRUE
+/datum/eldritch_knowledge/final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
+	heretic_datum.ascended = TRUE
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		human_user.physiology.brute_mod *= 0.5
+		human_user.physiology.burn_mod *= 0.5
 	return TRUE
 
-/datum/eldritch_knowledge/final/cleanup_atoms(list/atoms)
-	. = ..()
-	for(var/mob/living/carbon/human/sacrifices in atoms)
-		atoms -= sacrifices
-		sacrifices.gib()
+/datum/eldritch_knowledge/final/cleanup_atoms(list/selected_atoms)
+	for(var/mob/living/carbon/human/sacrifice in selected_atoms)
+		selected_atoms -= sacrifice
+		sacrifice.gib()
+
+	return ..()

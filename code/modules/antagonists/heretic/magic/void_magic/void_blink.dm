@@ -29,12 +29,12 @@
 	new /obj/effect/temp_visual/voidout(targeted_turf)
 
 	for(var/mob/living/living_mob in range(1,user)-user)
-		if(IS_HERETIC(living_mob) || IS_HERETIC_MONSTER(living_mob))
+		if(IS_HERETIC_OR_MONSTER(living_mob))
 			continue
 		living_mob.adjustBruteLoss(40)
 
 	for(var/mob/living/living_mob in range(1,targeted_turf)-user)
-		if(IS_HERETIC(living_mob) || IS_HERETIC_MONSTER(living_mob))
+		if(IS_HERETIC_OR_MONSTER(living_mob))
 			continue
 		living_mob.adjustBruteLoss(40)
 

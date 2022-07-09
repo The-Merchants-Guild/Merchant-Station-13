@@ -1,7 +1,19 @@
+/*
+ * Simple helper to generate a string of
+ * garbled symbols up to [length] characters.
+ *
+ * Used in creating spooky-text for heretic ascension announcements.
+ */
+/proc/generate_eldritch_text(length = 25)
+	. = ""
+	for(var/i in 1 to length)
+		. += pick("!", "$", "^", "@", "&", "#", "*", "(", ")", "?")
+
 /datum/antagonist/heretic
-	name = "Heretic"
+	name = "\improper Heretic"
 	roundend_category = "Heretics"
 	antagpanel_category = "Heretic"
+	ui_name = "AntagInfoHeretic"
 	antag_moodlet = /datum/mood_event/heretics
 	job_rank = ROLE_HERETIC
 	antag_hud_type = ANTAG_HUD_HERETIC
@@ -12,6 +24,13 @@
 	var/list/researched_knowledge = list()
 	var/total_sacrifices = 0
 	var/ascended = FALSE
+
+/datum/antagonist/heretic/ui_static_data(mob/user)
+	var/list/data = list()
+	data["total_sacrifices"] = total_sacrifices
+	data["ascended"] = ascended
+	data["objectives"] = get_objectives()
+	return data
 
 /datum/antagonist/heretic/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
@@ -52,8 +71,25 @@
 	STOP_PROCESSING(SSprocessing, src)
 
 	on_death()
+	UnregisterSignal(owner, COMSIG_HERETIC_BLADE_MANIPULATION)
 
 	return ..()
+
+/*
+ * Get a list of all rituals this heretic can invoke on a rune.
+ * Iterates over all of our knowledge and, if we can invoke it, adds it to our list.
+ *
+ * Returns an associated list of [knowledge name] to [knowledge datum] sorted by knowledge priority.
+*/
+/datum/antagonist/heretic/proc/get_rituals()
+	var/list/rituals = list()
+	for(var/knowledge_index in researched_knowledge)
+		var/datum/eldritch_knowledge/knowledge = researched_knowledge[knowledge_index]
+		if(!knowledge.can_be_invoked(src))
+			continue
+		rituals[knowledge.name] = knowledge
+
+	return sortTim(rituals, /proc/cmp_eldritch_knowledge, associative = TRUE)
 
 /datum/antagonist/heretic/process()
 
@@ -62,7 +98,7 @@
 
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/eldritch_knowledge/knowledge = researched_knowledge[knowledge_index]
-		knowledge.on_life(owner.current)
+		knowledge.on_research(owner.current)
 
 ///What happens to the heretic once he dies, used to remove any custom perks
 /datum/antagonist/heretic/proc/on_death()
@@ -70,7 +106,7 @@
 
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/eldritch_knowledge/knowledge = researched_knowledge[knowledge_index]
-		knowledge.on_death(owner.current)
+		knowledge.on_dead(owner.current)
 
 /datum/antagonist/heretic/proc/forge_primary_objectives()
 	var/list/assasination = list()
@@ -122,7 +158,7 @@
 		current = mob_override
 	add_antag_hud(antag_hud_type, antag_hud_name, current)
 	handle_clown_mutation(current, mob_override ? null : "Ancient knowledge described in the book allows you to overcome your clownish nature, allowing you to use complex items effectively.")
-	current.faction |= "heretics"
+	current.faction |= FACTION_HERETIC
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -131,11 +167,7 @@
 		current = mob_override
 	remove_antag_hud(antag_hud_type, current)
 	handle_clown_mutation(current, removing = FALSE)
-	current.faction -= "heretics"
-
-/datum/antagonist/heretic/get_admin_commands()
-	. = ..()
-	.["Equip"] = CALLBACK(src,.proc/equip_cultist)
+	current.faction -= FACTION_HERETIC
 
 /datum/antagonist/heretic/roundend_report()
 	var/list/parts = list()
@@ -203,6 +235,20 @@
 	return researched_knowledge
 
 ////////////////
+//   Summon   //
+////////////////
+
+/datum/objective/heretic_summon
+	name = "summon monsters"
+	target_amount = 2
+	explanation_text = "Summon 2 monsters from the Mansus into this realm."
+	/// The total number of summons the objective owner has done
+	var/num_summoned = 0
+
+/datum/objective/heretic_summon/check_completion()
+	return completed || (num_summoned >= target_amount)
+
+////////////////
 // Objectives //
 ////////////////
 
@@ -237,7 +283,7 @@
 	. = ..()
 	.["Equip Cultist"] = CALLBACK(src, .proc/equip_cultist)
 	.["Add Heart Target (Marked Mob)"] = CALLBACK(src, .proc/equip_target_as_sacrifice)
-	.["Add Points"] = CALLBACK(src, .proc/add_points)
+	.["Give Knowledge Points"] = CALLBACK(src, .proc/add_points)
 
 
 /*
@@ -279,7 +325,7 @@
 	if(!add_num || QDELETED(src))
 		return
 
-	. += ecult_give_item(/obj/item/forbidden_book, heretic, FALSE, add_num)
+	. += ecult_give_item(/obj/item/forbidden_book/ritual, heretic, FALSE, add_num)
 
 /datum/antagonist/heretic/proc/ecult_give_item(obj/item/item_path, mob/living/carbon/human/heretic, possible_target, add_points)
 	var/list/slots = list(
@@ -295,7 +341,7 @@
 		heart.target = possible_target
 		where = heretic.equip_in_one_of_slots(heart, slots)
 	else if(add_points)
-		var/obj/item/forbidden_book/book = new()
+		var/obj/item/forbidden_book/ritual/book = new()
 		book.charge += add_points
 		where = heretic.equip_in_one_of_slots(book, slots)
 	else

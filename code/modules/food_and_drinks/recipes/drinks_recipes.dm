@@ -687,7 +687,5 @@
 	mix_message = "The mixture turns a deep golden hue."
 
 /datum/chemical_reaction/justicar_juice
-	name = "Justicars Juice"
-	id = /datum/reagent/consumable/ethanol/coggernac
 	results = list(/datum/reagent/consumable/ethanol/coggernac = 4)
 	required_reagents = list(/datum/reagent/consumable/lemonjuice = 1, /datum/reagent/consumable/ethanol/cognac = 1, /datum/reagent/iron = 1, /datum/reagent/consumable/ethanol/tequila_sunrise = 1)

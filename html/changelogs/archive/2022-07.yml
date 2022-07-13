@@ -31,3 +31,10 @@
   - bugfix: Ash mark now deals the correct amount of damage and no longer gets stuck
       bouncing between the same two targets.
   - balance: Ash mark is significantly stronger due to this fix.
+2022-07-13:
+  karmaisblackandbluepilled:
+  - rscadd: 'Universe firmware update: Tear in Fabric of Reality accessible using
+      bags of holding.'
+  - rscadd: Changed the sounds of a lot of things, such as walking on normal tiles,
+      opening doors and pressing on buttons to be more classic.
+  - rscadd: Added a background hum to vending machines.

@@ -245,6 +245,11 @@
 
 	return null
 
+//Return either pick(list) or null if list is not of type /list or is empty
+/proc/safepick(list/L)
+	if(LAZYLEN(L))
+		return pick(L)
+
 /// Pick a random element from the list and remove it from the list.
 /proc/pick_n_take(list/L)
 	RETURN_TYPE(L[_].type)

@@ -91,13 +91,12 @@
 
 
 /datum/looping_sound/server
-	mid_sounds = list('sound/machines/tcomms/tcomms_mid1.ogg'=1,'sound/machines/tcomms/tcomms_mid2.ogg'=1,'sound/machines/tcomms/tcomms_mid3.ogg'=1,'sound/machines/tcomms/tcomms_mid4.ogg'=1,\
-										'sound/machines/tcomms/tcomms_mid5.ogg'=1,'sound/machines/tcomms/tcomms_mid6.ogg'=1,'sound/machines/tcomms/tcomms_mid7.ogg'=1)
+	mid_sounds = list('sound/machines/tcomms/tcomms_mid1.ogg'=1,'sound/machines/tcomms/tcomms_mid2.ogg'=1)
 	mid_length = 1.8 SECONDS
 	extra_range = -11
 	falloff_distance = 1
 	falloff_exponent = 5
-	volume = 50
+	volume = 100//these sound files are quiet for some reason
 
 /datum/looping_sound/computer
 	start_sound = 'sound/machines/computer/computer_start.ogg'
@@ -119,3 +118,11 @@
 	volume = 40
 	falloff_distance = 5
 	falloff_exponent = 20
+
+/datum/looping_sound/vendor
+	mid_sounds = list('sound/machines/vendmachine.ogg')
+	mid_length = 4.8 SECONDS
+	extra_range = -12
+	volume = 50
+	falloff_exponent = 5
+	falloff_distance = 1

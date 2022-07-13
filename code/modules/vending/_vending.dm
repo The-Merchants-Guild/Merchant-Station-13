@@ -67,6 +67,7 @@
 	var/purchase_message_cooldown
 	///The ref of the last mob to shop with us
 	var/last_shopper
+	var/datum/looping_sound/vendor/soundloop
 	var/free_for_same_department = FALSE
 	var/tilted = FALSE
 	var/tiltable = TRUE
@@ -211,12 +212,14 @@
 		onstation = circuit.onstation //if it was constructed outside mapload, sync the vendor up with the circuit's var so you can't bypass price requirements by moving / reconstructing it off station.
 	Radio = new /obj/item/radio(src)
 	Radio.listening = 0
+	soundloop = new(src,  TRUE)
 
 /obj/machinery/vending/Destroy()
 	QDEL_NULL(wires)
 	QDEL_NULL(coin)
 	QDEL_NULL(bill)
 	QDEL_NULL(Radio)
+	QDEL_NULL(soundloop)
 	return ..()
 
 /obj/machinery/vending/can_speak()

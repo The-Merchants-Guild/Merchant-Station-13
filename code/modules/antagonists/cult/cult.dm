@@ -418,6 +418,8 @@
 			return FALSE
 		if(specific_cult?.is_sacrifice_target(M.mind))
 			return FALSE
+		if(is_servant_of_ratvar(M))
+			return FALSE
 		if(M.mind.enslaved_to && !IS_CULTIST(M.mind.enslaved_to))
 			return FALSE
 		if(M.mind.unconvertable)

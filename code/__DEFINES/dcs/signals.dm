@@ -178,6 +178,10 @@
 #define COMSIG_ATOM_RAD_ACT "atom_rad_act"
 ///from base of atom/narsie_act(): ()
 #define COMSIG_ATOM_NARSIE_ACT "atom_narsie_act"
+//! from base of atom/ratvar_act(): ()
+#define COMSIG_ATOM_RATVAR_ACT "atom_ratvar_act"	
+//! from base of atom/eminence_act(): ()
+#define COMSIG_ATOM_EMINENCE_ACT "atom_eminence_act"
 ///from base of atom/rcd_act(): (/mob, /obj/item/construction/rcd, passed_mode)
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"
 ///from base of atom/singularity_pull(): (/datum/component/singularity, current_size)
@@ -724,6 +728,9 @@
 #define COMSIG_LIVING_SLAM_TABLE "living_slam_table"
 ///from /obj/item/slapper/attack_obj(): (source=obj/structure/table/slammed_table, mob/living/slammer)
 #define COMSIG_TABLE_SLAMMED "table_slammed"
+
+// /datum/component/clockwork_trap signals
+#define COMSIG_CLOCKWORK_SIGNAL_RECIEVED "clock_recieved"
 
 // /obj signals
 

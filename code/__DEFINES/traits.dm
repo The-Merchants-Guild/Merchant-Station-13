@@ -354,6 +354,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// `do_teleport` will not allow this atom to teleport
 #define TRAIT_NO_TELEPORT "no-teleport"
 
+//Affected by a stargazer
+#define TRAIT_STARGAZED	"stargazed"	
+
 /// Trait used by fugu glands to avoid double buffing
 #define TRAIT_FUGU_GLANDED "fugu_glanded"
 
@@ -639,6 +642,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define FROSTMINER_ENRAGE_TRAIT "frostminer-enrage"
 #define NO_GRAVITY_TRAIT "no-gravity"
 #define LEAPER_BUBBLE_TRAIT "leaper-bubble"
+#define HOLYWATER_TRAIT "holywater"
+#define VANGUARD_TRAIT "vanguard"
+#define STARGAZER_TRAIT "stargazer"
 /// sticky nodrop sounds like a bad soundcloud rapper's name
 #define STICKY_NODROP "sticky-nodrop"
 #define SKILLCHIP_TRAIT "skillchip"
@@ -682,6 +688,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Pacifism trait given by stabilized light pink extracts.
 #define STABILIZED_LIGHT_PINK_TRAIT "stabilized_light_pink"
 #define ANTI_DROP_IMPLANT_TRAIT "antidrop_implant"
+
 
 /**
 * Trait granted by [/mob/living/carbon/Initialize] and

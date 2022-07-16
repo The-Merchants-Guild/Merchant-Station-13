@@ -154,6 +154,8 @@
 /// deep crimson
 #define LIGHT_COLOR_BLOOD_MAGIC "#D00000"
 
+#define LIGHT_COLOR_CLOCKWORK 	"#BE8700"
+
 /* These ones aren't a direct colour like the ones above, because nothing would fit */
 /// Warm orange color, leaning strongly towards yellow. rgb(250, 160, 25)
 #define LIGHT_COLOR_FIRE       "#FAA019"

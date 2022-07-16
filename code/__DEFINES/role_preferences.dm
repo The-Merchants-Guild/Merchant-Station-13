@@ -18,6 +18,7 @@
 #define ROLE_ALIEN "Xenomorph"
 #define ROLE_PAI "pAI"
 #define ROLE_CULTIST "Cultist"
+#define ROLE_SERVANT_OF_RATVAR	"Servant of Ratvar"
 #define ROLE_HERETIC "Heretic"
 #define ROLE_BLOB "Blob"
 #define ROLE_NINJA "Space Ninja"
@@ -95,6 +96,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ALIEN = 0,
 	ROLE_PAI = 0,
 	ROLE_CULTIST = 14,
+	ROLE_SERVANT_OF_RATVAR = 14,
 	ROLE_BLOB = 0,
 	ROLE_NINJA = 0,
 	ROLE_OBSESSED = 0,

@@ -132,3 +132,5 @@ GLOBAL_LIST_INIT(announcer_keys, list(
 	ANNOUNCER_SHUTTLERECALLED,
 	ANNOUNCER_SPANOMALIES,
 ))
+
+#define REEBE list('sound/ambience/ambireebe1.ogg', 'sound/ambience/ambireebe2.ogg', 'sound/ambience/ambireebe3.ogg')

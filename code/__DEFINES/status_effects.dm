@@ -61,6 +61,8 @@
 
 #define STATUS_EFFECT_PACIFY /datum/status_effect/pacify //the affected is pacified, preventing direct hostile actions
 
+#define STATUS_EFFECT_INTERDICTION /datum/status_effect/interdiction //! The affected is inside the range of an interdiction lens
+
 #define STATUS_EFFECT_CHOKINGSTRAND /datum/status_effect/strandling //Choking Strand
 
 #define STATUS_EFFECT_HISWRATH /datum/status_effect/his_wrath //His Wrath.

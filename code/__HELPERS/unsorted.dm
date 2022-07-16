@@ -1522,3 +1522,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			stack_trace("WARNING! podspawn vareditting \"[variable_name]\" to \"[variable_value]\" was rejected by the pod!")
 	new /obj/effect/pod_landingzone(landing_location, pod)
 	return pod
+
+/// Find an active ai with the least borgs. 
+/proc/select_active_ai_with_fewest_borgs()
+	var/mob/living/silicon/ai/selected
+	var/list/active = active_ais()
+	for(var/mob/living/silicon/ai/A in active)
+		if((!selected || (selected.connected_robots.len > A.connected_robots.len)) && !is_servant_of_ratvar(A))
+			selected = A

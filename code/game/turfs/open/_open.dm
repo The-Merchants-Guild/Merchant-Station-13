@@ -113,6 +113,20 @@
 	planetary_atmos = TRUE
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 
+/turf/open/indestructible/clock_spawn_room //currently ONLY used in the tear in reality, in the future who knows :v)
+	name = "cogmetal floor"
+	desc = "Brass plating that gently radiates heat. For some reason, it reminds you of blood."
+	icon_state = "reebe"
+	baseturfs = /turf/open/indestructible/clock_spawn_room
+	footstep = FOOTSTEP_PLATING
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+/turf/open/indestructible/clock_spawn_room/tear
+	name = "numeric floor"
+	desc = "Brass-coloured plating that shifts and moves around, strands of numbers coarsing through it."
+
 /turf/open/indestructible/boss/air
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 

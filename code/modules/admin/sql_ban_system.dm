@@ -314,6 +314,7 @@
 				ROLE_SYNDICATE,
 				ROLE_TRAITOR,
 				ROLE_WIZARD,
+				ROLE_SERVANT_OF_RATVAR,
 			),
 		)
 		for(var/department in long_job_lists)

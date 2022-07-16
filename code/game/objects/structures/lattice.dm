@@ -96,6 +96,9 @@
 		C.deconstruct()
 	..()
 
+/obj/structure/lattice/catwalk/ratvar_act()
+	new /obj/structure/lattice/catwalk/clockwork(loc)
+
 /obj/structure/lattice/lava
 	name = "heatproof support lattice"
 	desc = "A specialized support beam for building across lava. Watch your step."

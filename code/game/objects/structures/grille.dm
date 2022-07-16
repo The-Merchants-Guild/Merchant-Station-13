@@ -50,6 +50,13 @@
 	if(!anchored)
 		. += span_notice("The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.")
 
+/obj/structure/grille/ratvar_act()
+	if(broken)
+		new /obj/structure/grille/ratvar/broken(src.loc)
+	else
+		new /obj/structure/grille/ratvar(src.loc)
+	qdel(src)
+
 /obj/structure/grille/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
 		if(RCD_DECONSTRUCT)

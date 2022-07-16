@@ -215,6 +215,11 @@
 /obj/machinery/door/window/narsie_act()
 	add_atom_colour("#7D1919", FIXED_COLOUR_PRIORITY)
 
+/obj/machinery/door/window/ratvar_act()
+	var/obj/machinery/door/window/clockwork/C = new(loc, dir)
+	C.name = name
+	qdel(src)
+
 /obj/machinery/door/window/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	return (exposed_temperature > T0C + (reinf ? 1600 : 800))
 
@@ -510,3 +515,73 @@
 	dir = SOUTH
 	icon_state = "rightsecure"
 	base_state = "rightsecure"
+
+/obj/machinery/door/window/clockwork
+	name = "brass windoor"
+	desc = "A thin door with translucent brass paneling."
+	icon_state = "clockwork"
+	base_state = "clockwork"
+	shards = 0
+	rods = 0
+	max_integrity = 50
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	var/made_glow = FALSE
+
+/obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)
+	. = ..()
+	for(var/i in 1 to 2)
+		debris += new/obj/item/clockwork/alloy_shards/medium/gear_bit/large(src)
+
+/obj/machinery/door/window/clockwork/setDir(direct)
+	if(!made_glow)
+		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/door/window(get_turf(src))
+		E.setDir(direct)
+		made_glow = TRUE
+	..()
+
+/obj/machinery/door/window/clockwork/Destroy()
+	return ..()
+
+/obj/machinery/door/window/clockwork/emp_act(severity)
+	if(prob(80/severity))
+		open()
+
+/obj/machinery/door/window/clockwork/hasPower()
+	return TRUE //yup that's power all right
+
+/obj/machinery/door/window/clockwork/allowed(mob/M)
+	if(is_servant_of_ratvar(M))
+		return TRUE
+	return FALSE
+
+/obj/machinery/door/window/clockwork/narsie_act()
+	take_damage(rand(30, 60), BRUTE)
+	if(src)
+		var/previouscolor = color
+		color = "#960000"
+		animate(src, color = previouscolor, time = 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+
+/obj/machinery/door/window/clockwork/attackby(obj/item/I, mob/living/user, params)
+
+	if(operating)
+		return
+
+	add_fingerprint(user)
+	if(!(flags_1&NODECONSTRUCT_1))
+		if(I.tool_behaviour == TOOL_SCREWDRIVER)
+			I.play_tool_sound(src)
+			panel_open = !panel_open
+			to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [name].</span>")
+			return
+
+		if(I.tool_behaviour == TOOL_CROWBAR)
+			if(panel_open && !density && !operating)
+				user.visible_message("[user] begins to deconstruct [name].", \
+									 "<span class='notice'>You start to deconstruct from the [name]...</span>")
+				if(I.use_tool(src, user, 40, volume=50))
+					if(panel_open && !density && !operating && loc)
+						qdel(src)
+				return
+	return ..()

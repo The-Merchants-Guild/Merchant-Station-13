@@ -12,11 +12,11 @@
 
 /datum/antagonist/cult/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-    add_verb(wner.current, /mob/living/proc/what_am_i)
+	add_verb(owner.current, /mob/living/proc/what_am_i)
 
 /datum/antagonist/cult/remove_innate_effects(mob/living/mob_override)
 	. = ..()
-    remove_verb(owner.current, /mob/living/proc/what_am_i)
+	remove_verb(owner.current, /mob/living/proc/what_am_i)
 
 /datum/antagonist/hunter/greet()
 	. = ..()

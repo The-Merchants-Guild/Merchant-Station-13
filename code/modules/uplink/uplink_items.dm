@@ -1933,6 +1933,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list("Chaplain")
 	surplus = 5 //Very low chance to get it in a surplus crate even without being the chaplain
 
+/datum/uplink_item/role_restricted/hunter_demon_kit
+	name = "Demonologist kit"
+	desc = "A kit, containing a blood orb and a ritual dagger. You need to activate the blood orb on the station z-level, in a place with air.\
+	You need to spill your blood on the orb when it is activated to summon a demon. Then you will need to periodically choose targets for the demon to hunt,\
+	and spill additional blood on the orb, to maintain your control over the demon. \
+	To spill your blood on the orb, you need to click it with a knife while not on harm intent. To choose a target you need to click it with your empty hand."
+	item = /obj/item/storage/box/syndie_kit/hunter_demon_kit
+	cost = 15
+	restricted_roles = list("Chaplain", "Curator")
+	surplus = 0
+
 /datum/uplink_item/role_restricted/explosive_hot_potato
 	name = "Exploding Hot Potato"
 	desc = "A potato rigged with explosives. On activation, a special mechanism is activated that prevents it from being dropped. \

@@ -4,9 +4,6 @@
 	desc = "A large, armored creature emmitting unholy energies."
 	speak_emote = list("declares")
 	emote_hear = list("wails","screeches")
-	response_help  = "thinks better of touching"
-	response_disarm = "flails at"
-	response_harm   = "punches"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "horror"
 	icon_living = "horror"

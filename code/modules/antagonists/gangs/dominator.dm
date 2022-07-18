@@ -1,5 +1,5 @@
 #define DOM_BLOCKED_SPAM_CAP 6
-#define DOM_REQUIRED_TURFS 30
+#define DOM_REQUIRED_TURFS 23
 #define DOM_HULK_HITS_REQUIRED 10
 
 /obj/machinery/dominator
@@ -65,7 +65,7 @@
 		icon_state = "dominator-broken"
 
 /obj/machinery/dominator/examine(mob/user)
-	..()
+	. = ..()
 	if(machine_stat & BROKEN)
 		return
 

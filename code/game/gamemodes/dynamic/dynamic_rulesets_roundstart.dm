@@ -399,7 +399,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//               REVS                 //
+//                   REVS                   //
 //                                          //
 //////////////////////////////////////////////
 
@@ -505,9 +505,9 @@
 /datum/dynamic_ruleset/roundstart/gangs/pre_execute()
 	. = ..()
 	var/gangs_to_create = 4
-	if(prob(num_players()) && num_players() > 1.5*required_candidates)
+	if(prob(num_players()) && population > 1.5*required_candidates)
 		gangs_to_create++
-	if(prob(num_players()) && num_players() > 2*required_candidates)
+	if(prob(num_players()) && population > 2*required_candidates)
 		gangs_to_create++
 	gangs_to_create = min(gangs_to_create, GLOB.possible_gangs.len)
 
@@ -520,7 +520,7 @@
 		candidates -= boss
 		assigned += boss
 		boss.special_role = ROLE_GANG
-		boss.restricted_roles = restricted_jobs
+		boss.restricted_roles = restricted_roles
 
 	if(assigned.len < 1) //Need at least one gangs
 		return

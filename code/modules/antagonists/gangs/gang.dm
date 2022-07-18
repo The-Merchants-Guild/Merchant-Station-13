@@ -507,6 +507,11 @@
 	var/diff = domination_time - world.time
 	return round(diff * 0.1)
 
+/proc/is_gangster(mob/M) // Gangster Checks
+	return M?.mind?.has_antag_datum(/datum/antagonist/gang)
+
+/proc/is_gang_boss(mob/M)
+	return M?.mind?.has_antag_datum(/datum/antagonist/gang/boss)
 
 #undef MAXIMUM_RECALLS
 #undef INFLUENCE_INTERVAL

@@ -488,22 +488,65 @@
 //                                          //
 //////////////////////////////////////////////
 
-
-
 /datum/dynamic_ruleset/roundstart/gangs
 	name = "Gangs"
 	persistent = TRUE
 	antag_flag = ROLE_GANG
 	protected_roles = list("Prisoner", "Head of Personnel")
 	restricted_roles = list("Cyborg", "AI", "Security Officer", "Warden", "Detective", "Head of Security", "Captain")
-	required_candidates = 6 
+	required_candidates = 4
 	weight = 2
-	cost = 30
+	cost = 40
 	requirements = list(101,101,101,101,101,70,40,10,10,10)
 	flags = HIGHLANDER_RULESET
 	minimum_players = 36
 	antag_cap = list(6,6,6,6,6,6,6,6,6,6)
 
+/datum/dynamic_ruleset/roundstart/gangs/pre_execute()
+	. = ..()
+	var/gangs_to_create = 4
+	if(prob(num_players()) && num_players() > 1.5*required_candidates)
+		gangs_to_create++
+	if(prob(num_players()) && num_players() > 2*required_candidates)
+		gangs_to_create++
+	gangs_to_create = min(gangs_to_create, GLOB.possible_gangs.len)
+
+	for(var/i in 1 to gangs_to_create)
+		if(!candidates.len)
+			break
+
+		//Now assign a boss for the gang
+		var/datum/mind/boss = pick_n_take(candidates)
+		candidates -= boss
+		assigned += boss
+		boss.special_role = ROLE_GANG
+		boss.restricted_roles = restricted_jobs
+
+	if(gangboss_candidates.len < 1) //Need at least one gangs
+		return
+
+	return TRUE
+
+/datum/dynamic_ruleset/roundstart/gangs/execute()
+	. = ..()
+	for(var/i in assigned)
+		var/datum/mind/M = i
+		var/datum/antagonist/gang/boss/B = new()
+		M.add_antag_datum(B)
+		B.equip_gang()
+
+/datum/dynamic_ruleset/roundstart/gangs/round_result()
+	..()
+	var/didGangsWin = FALSE
+	for(var/datum/team/gang/G in GLOB.gangs)
+		if(G.winner)
+			didGangsWin = TRUE
+			break
+
+	if(didGangsWin)
+		SSticker.mode_result = "win - gangs dominated the station"
+	else
+		SSticker.mode_result = "loss - security stopped gangs from dominating the station"
 
 // Admin only rulesets. The threat requirement is 101 so it is not possible to roll them.
 

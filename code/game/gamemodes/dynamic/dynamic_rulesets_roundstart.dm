@@ -502,10 +502,10 @@
 	minimum_players = 36
 	antag_cap = list(6,6,6,6,6,6,6,6,6,6)
 
-/datum/dynamic_ruleset/roundstart/gangs/pre_execute()
+/datum/dynamic_ruleset/roundstart/gangs/pre_execute(population)
 	. = ..()
 	var/gangs_to_create = 4
-	if(prob(num_players()) && population > 1.5*required_candidates)
+	if(prob(population) && population > 1.5*required_candidates)
 		gangs_to_create++
 	if(prob(num_players()) && population > 2*required_candidates)
 		gangs_to_create++

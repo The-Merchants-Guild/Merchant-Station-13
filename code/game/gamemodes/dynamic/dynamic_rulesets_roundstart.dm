@@ -507,7 +507,7 @@
 	var/gangs_to_create = 4
 	if(prob(population) && population > 1.5*required_candidates)
 		gangs_to_create++
-	if(prob(num_players()) && population > 2*required_candidates)
+	if(prob(population) && population > 2*required_candidates)
 		gangs_to_create++
 	gangs_to_create = min(gangs_to_create, GLOB.possible_gangs.len)
 

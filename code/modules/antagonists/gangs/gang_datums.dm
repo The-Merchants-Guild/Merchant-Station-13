@@ -52,12 +52,6 @@ GLOBAL_LIST_EMPTY(gangs)
 	inner_outfits = list(/obj/item/clothing/under/color/green)
 	outer_outfits = list(/obj/item/clothing/suit/poncho/green)
 
-/datum/team/gang/omni
-	name = "Omni"
-	color = "#008080"
-	inner_outfits = list(/obj/item/clothing/under/color/teal)
-	outer_outfits = list(/obj/item/clothing/suit/studentuni)
-
 /datum/team/gang/newton
 	name = "Newton"
 	color = "#A52A2A"
@@ -91,7 +85,7 @@ GLOBAL_LIST_EMPTY(gangs)
 /datum/team/gang/tunnel
 	name = "Tunnel"
 	color = "#FF00FF"
-	inner_outfits = list(/obj/item/clothing/under/villain)
+	inner_outfits = list(/obj/item/clothing/under/costume/villain)
 	outer_outfits = list(/obj/item/clothing/suit/poncho/ponchoshame)
 
 /datum/team/gang/diablo
@@ -126,13 +120,13 @@ GLOBAL_LIST_EMPTY(gangs)
 /datum/team/gang/h
 	name = "H"
 	color = "#993333"
-	inner_outfits = list(/obj/item/clothing/under/rank/psyche)
-	outer_outfits = list(/obj/item/clothing/suit/yogs/jesus) // perfect
+	inner_outfits = list(/obj/item/clothing/under/suit/black)
+	outer_outfits = list(/obj/item/clothing/suit/jesus) // perfect
 
 /datum/team/gang/rigatonifamily
 	name = "Rigatoni family"
 	color = "#cc9900" // p a s t a colored
-	inner_outfits = list(/obj/item/clothing/under/rank/chef)
+	inner_outfits = list(/obj/item/clothing/under/rank/civilian/chef)
 	outer_outfits = list(/obj/item/clothing/suit/apron/chef)
 
 /datum/team/gang/weed

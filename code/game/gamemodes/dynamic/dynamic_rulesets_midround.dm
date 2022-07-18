@@ -232,10 +232,10 @@
 
 //////////////////////////////////////////////
 //                                          //
-//                 FAMILIES                 //
+//                 GANGS                    //
 //                                          //
 //////////////////////////////////////////////
-
+/*
 /datum/dynamic_ruleset/midround/families
 	name = "Family Head Aspirants"
 	persistent = TRUE
@@ -298,6 +298,7 @@
 
 /datum/dynamic_ruleset/midround/families/round_result()
 	return handler.set_round_result_analogue()
+*/
 
 //////////////////////////////////////////////
 //                                          //

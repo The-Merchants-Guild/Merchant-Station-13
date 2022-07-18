@@ -484,9 +484,11 @@
 
 //////////////////////////////////////////////
 //                                          //
-//                 FAMILIES                 //
+//                 GANGS                    //
 //                                          //
 //////////////////////////////////////////////
+
+/*
 
 /datum/dynamic_ruleset/roundstart/families
 	name = "Families"
@@ -524,6 +526,8 @@
 
 /datum/dynamic_ruleset/roundstart/families/round_result()
 	return handler.set_round_result_analogue()
+
+*/
 
 // Admin only rulesets. The threat requirement is 101 so it is not possible to roll them.
 

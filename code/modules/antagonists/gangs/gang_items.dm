@@ -144,7 +144,6 @@
 /obj/item/storage/belt/military/gang
 	name = "badass belt"
 	icon_state = "gangbelt"
-	item_state = "gang"
 	desc = "The belt buckle simply reads 'BAMF'."
 
 ///////////////////
@@ -184,7 +183,7 @@
 	name = "Sawn-Off Improvised Shotgun"
 	id = "sawn"
 	cost = 6
-	item_path = /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn
+	item_path = /obj/item/gun/ballistic/shotgun/doublebarrel/sawn
 
 /datum/gang_item/weapon/ammo/improvised_ammo
 	name = "Box of Buckshot"
@@ -251,13 +250,13 @@
 	name = "C4 Explosive"
 	id = "c4"
 	cost = 7
-	item_path = /obj/item/grenade/plastic/c4
+	item_path = /obj/item/grenade/c4
 
 /datum/gang_item/equipment/frag
 	name = "Fragmentation Grenade"
 	id = "frag nade"
 	cost = 18
-	item_path = /obj/item/grenade/syndieminibomb/concussion/frag
+	item_path = /obj/item/grenade/frag
 
 /datum/gang_item/equipment/implant_breaker
 	name = "Implant Breaker"

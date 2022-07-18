@@ -40,7 +40,7 @@
 	return ..()
 
 /obj/item/gangtool/attack_self(mob/user)
-	..()
+	. = ..()
 	if (!can_use(user))
 		return
 	var/datum/antagonist/gang/boss/L = user.mind.has_antag_datum(/datum/antagonist/gang/boss)
@@ -124,6 +124,7 @@
 	attack_self(usr)
 
 /obj/item/gangtool/update_icon()
+	. = ..()
 	overlays.Cut()
 	var/image/I = new(icon, "[icon_state]-overlay")
 	if(gang)

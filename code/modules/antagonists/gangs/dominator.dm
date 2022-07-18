@@ -48,6 +48,7 @@
 	return (max_integrity - integrity_failure) / DOM_HULK_HITS_REQUIRED
 
 /obj/machinery/dominator/update_icon()
+	. = ..()
 	cut_overlays()
 	if(!(machine_stat & BROKEN))
 		icon_state = "dominator-active"
@@ -132,6 +133,7 @@
 
 
 /obj/machinery/dominator/obj_break(damage_flag)
+	. = ..()
 	if(!(machine_stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
 		set_broken()
 

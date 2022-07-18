@@ -199,8 +199,6 @@
 	inhand_icon_state = "gun"
 	worn_icon_state = "gun"
 	weapon_weight = WEAPON_MEDIUM
-	slot_flags &= ~ITEM_SLOT_BACK 
-	slot_flags |= ITEM_SLOT_BELT 
 	recoil = SAWN_OFF_RECOIL
 
 /obj/item/gun/ballistic/shotgun/hook

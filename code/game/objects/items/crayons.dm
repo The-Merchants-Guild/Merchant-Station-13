@@ -329,6 +329,12 @@
 	else if(drawing in graffiti|oriented)
 		temp = "graffiti"
 
+	var/gang_check = hippie_gang_check(user,target) // yogs start -- gang check and temp setting
+	if(!gang_check) 
+		return
+	else if(gang_check == "gang graffiti")
+		temp = gang_check
+
 	var/graf_rot
 	if(drawing in oriented)
 		switch(user.dir)
@@ -360,20 +366,23 @@
 	if(paint_mode == PAINT_LARGE_HORIZONTAL)
 		wait_time *= 3
 
+	if(gang)
+		instant = FALSE
+
 	if(!instant)
 		if(!do_after(user, 50, target = target))
 			return
-
-	var/charges_used = use_charges(user, cost)
-	if(!charges_used)
-		return
-	. = charges_used
 
 	if(length(text_buffer))
 		drawing = text_buffer[1]
 
 
 	var/list/turf/affected_turfs = list()
+
+	if(gang)
+		if(gang_final(user, target, affected_turfs))
+			return
+		actually_paints = FALSE
 
 	if(actually_paints)
 		var/obj/effect/decal/cleanable/crayon/C
@@ -412,6 +421,11 @@
 	if(post_noise)
 		audible_message(span_hear("You hear spraying."))
 		playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
+
+	var/charges_used = use_charges(user, cost)
+	if(!charges_used)
+		return
+	. = charges_used
 
 	var/fraction = min(1, . / reagents.maximum_volume)
 	if(affected_turfs.len)

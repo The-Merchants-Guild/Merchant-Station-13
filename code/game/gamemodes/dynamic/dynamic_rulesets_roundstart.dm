@@ -522,7 +522,7 @@
 		boss.special_role = ROLE_GANG
 		boss.restricted_roles = restricted_jobs
 
-	if(gangboss_candidates.len < 1) //Need at least one gangs
+	if(assigned.len < 1) //Need at least one gangs
 		return
 
 	return TRUE

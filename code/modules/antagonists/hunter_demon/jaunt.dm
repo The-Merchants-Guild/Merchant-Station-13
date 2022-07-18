@@ -34,7 +34,7 @@
 		return
 	forceMove(turfo)
 	client.eye = src
-	if(location && istype(location, obj/effect/dummy/phased_mob))
+	if(location && istype(location, /obj/effect/dummy/phased_mob))
 		qdel(location)
 	visible_message(span_warning("<B>[src] warps into reality!</B>"))
 	exit_blood_effect()
@@ -51,7 +51,7 @@
 		turfo = get_turf(src)
 	forceMove(turfo)
 	client.eye = src
-	if(location && istype(location, obj/effect/dummy/phased_mob))
+	if(location && istype(location, /obj/effect/dummy/phased_mob))
 		qdel(location)
 	visible_message(span_warning("<B>[src] warps into reality!</B>"))
 	exit_blood_effect()

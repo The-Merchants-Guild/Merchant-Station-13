@@ -39,9 +39,9 @@
 							You may use the \"Jaunt\" ability to disappear from reality and move to almost any place! \
 							You can return to the mortal plane only when near the orb that you were summoned from, or near your hunter target. \
 							Your target is chosen through your orb by your master, if a current binding ritual is in place. Otherwise, you can use the orb to pick a target for yourself! \
-             	 			Your orb has two blood counters: one that stands for blood, obtained through the blood ritual that your master uses to bind you and sustain you,\
-              				and a summary blood counter, which is obtained by you attacking humans AND by the blood ritual. This pool is used to heal you.\
-              				While not near the orb or your target you are slower, and will lose health. If you successfully kill 8 targets, you will ascend, unbinding you from the orb forever!</B>"
+			 	 			Your orb has two blood counters: one that stands for blood, obtained through the blood ritual that your master uses to bind you and sustain you,\
+			  				and a summary blood counter, which is obtained by you attacking humans AND by the blood ritual. This pool is used to heal you.\
+			  				While not near the orb or your target you are slower, and will lose health. If you successfully kill 8 targets, you will ascend, unbinding you from the orb forever!</B>"
 	del_on_death = 1
 	deathmessage = "collapses, as its bond with the mortal plain dissipates!"
 	var/obj/structure/bloody_orb/orb

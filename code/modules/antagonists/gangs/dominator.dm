@@ -47,9 +47,6 @@
 /obj/machinery/dominator/hulk_damage()
 	return (max_integrity - integrity_failure) / DOM_HULK_HITS_REQUIRED
 
-/obj/machinery/dominator/tesla_act()
-	qdel(src)
-
 /obj/machinery/dominator/update_icon()
 	cut_overlays()
 	if(!(machine_stat & BROKEN))
@@ -100,11 +97,11 @@
 			if(!warned && (time_remaining < 180))
 				warned = TRUE
 				var/area/domloc = get_area(loc)
-				gang.message_gangtools("Less than 3 minutes remains in hostile takeover. Defend your dominator at [domloc.map_name]!")
+				gang.message_gangtools("Less than 3 minutes remains in hostile takeover. Defend your dominator at [domloc]!")
 				for(var/G in GLOB.gangs)
 					var/datum/team/gang/tempgang = G
 					if(tempgang != gang)
-						tempgang.message_gangtools("WARNING: [gang.name] Gang takeover imminent. Their dominator at [domloc.map_name] must be destroyed!",1,1)
+						tempgang.message_gangtools("WARNING: [gang.name] Gang takeover imminent. Their dominator at [domloc] must be destroyed!",1,1)
 		else
 			Cinematic(CINEMATIC_MALF,world)
 			gang.winner = TRUE
@@ -177,7 +174,7 @@
 			return 0
 
 		var/area/A = get_area(loc)
-		var/locname = A.map_name
+		var/locname = A.name
 
 		gang = tempgang
 		gang.dom_attempts --

@@ -2,9 +2,9 @@
 /obj/item/gangtool
 	name = "suspicious device"
 	desc = "A strange device of sorts. Hard to really make out what it actually does if you don't know how to operate it."
-	icon = 'yogstation/icons/obj/device.dmi'
+	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool"
-	item_state = "radio"
+	inhand_icon_state == "radio"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	throwforce = 0
@@ -193,8 +193,7 @@
 	for(var/mob/Player in GLOB.player_list)
 		if(Player.mind && Player.stat != DEAD && !isnewplayer(Player) && !isbrain(Player) && Player.client)
 			living_crew += Player
-	var/malc = CONFIG_GET(number/midround_antag_life_check)
-	if(living_crew.len / GLOB.joined_player_list.len <= malc) //Shuttle cannot be recalled if too many people died
+	if(living_crew.len <= GLOB.joined_player_list.len / 4) //Shuttle cannot be recalled if too many people died
 		to_chat(user, "<span class='warning'>[icon2html(src, user)]Error: Station communication systems compromised. Unable to establish connection.</span>")
 		recalling = FALSE
 		return

@@ -7,6 +7,9 @@
 // You also need to make a gang graffiti, that will go in crayondecal.dmi inside our icons(not tg's), with the same name of the gang it's assigned to. Nothing else,just the icon.
 // Those are all required. If one is missed, stuff could break.
 
+GLOBAL_LIST_INIT(possible_gangs, subtypesof(/datum/team/gang))
+GLOBAL_LIST_EMPTY(gangs)
+
 /datum/team/gang/clandestine
 	name = "Clandestine"
 	color = "#FF0000"

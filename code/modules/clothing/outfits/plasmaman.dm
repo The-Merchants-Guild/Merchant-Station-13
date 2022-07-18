@@ -126,6 +126,13 @@
 	gloves = /obj/item/clothing/gloves/color/plasmaman/white
 	head = /obj/item/clothing/head/helmet/space/plasmaman/white
 
+/datum/outfit/plasmaman/arms
+	name = "Arms Dealer Plasmaman"
+
+	uniform = /obj/item/clothing/under/plasmaman/security
+	gloves = /obj/item/clothing/gloves/color/plasmaman/black
+	head = /obj/item/clothing/head/helmet/space/plasmaman/white
+
 /datum/outfit/plasmaman/chef
 	name = "Chef Plasmaman"
 

@@ -50,6 +50,8 @@
 #define ACCESS_CMO 40
 #define ACCESS_QM 41
 #define ACCESS_COURT 42
+/// Only Arms Dealer has access to it
+#define ACCESS_GUNSHOP 43
 #define ACCESS_SURGERY 45
 #define ACCESS_THEATRE 46
 #define ACCESS_RESEARCH 47
@@ -366,6 +368,7 @@
 	ACCESS_LIBRARY, \
 	ACCESS_THEATRE, \
 	ACCESS_LAWYER, \
+	ACCESS_GUNSHOP, \
 )
 /// Name for the Security region.
 #define REGION_SECURITY "Security"

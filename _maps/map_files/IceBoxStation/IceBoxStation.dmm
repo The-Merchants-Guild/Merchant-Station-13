@@ -7171,6 +7171,7 @@
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aKt" = (
@@ -7354,6 +7355,7 @@
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aLP" = (
@@ -7423,6 +7425,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aMj" = (
@@ -7981,6 +7984,14 @@
 	},
 /turf/open/floor/plating/asteroid/snow/icemoon,
 /area/icemoon/surface/outdoors)
+"aQD" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/structure/cable,
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "aQE" = (
 /turf/open/floor/plating,
 /area/hallway/secondary/exit)
@@ -8467,9 +8478,6 @@
 /turf/open/floor/iron/white,
 /area/science/mixing)
 "aVu" = (
-/obj/structure/sign/warning/electricshock{
-	pixel_y = 32
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -8480,6 +8488,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aVv" = (
@@ -8492,6 +8501,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "aVE" = (
@@ -9735,9 +9745,11 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "beX" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
-/turf/open/floor/iron,
-/area/hallway/primary/central)
+/obj/structure/table/wood,
+/obj/item/gun/ballistic/rifle/boltaction,
+/obj/item/ammo_box/a762,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "beZ" = (
 /obj/machinery/mineral/stacking_unit_console{
 	machinedir = 8
@@ -20539,6 +20551,11 @@
 	dir = 1
 	},
 /area/engineering/atmos)
+"cOr" = (
+/obj/structure/cable,
+/obj/effect/landmark/start/arms_dealer,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "cOw" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -21621,6 +21638,18 @@
 /obj/machinery/status_display/evac/directional/north,
 /turf/open/floor/iron/white,
 /area/science/research)
+"dwE" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/button/door/directional/west{
+	id = "arms_dealer";
+	name = "shutter exterior access";
+	req_access_txt = "43"
+	},
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "dwF" = (
 /obj/item/trash/sosjerky,
 /turf/open/floor/plating,
@@ -21641,6 +21670,13 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ai_monitored/command/storage/eva)
+"dxN" = (
+/obj/machinery/computer/cargo{
+	dir = 1
+	},
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "dxU" = (
 /obj/structure/chair/stool/directional/north,
 /obj/machinery/camera{
@@ -21780,6 +21816,15 @@
 "dCr" = (
 /turf/open/floor/iron,
 /area/cargo/storage)
+"dCE" = (
+/obj/machinery/button/door/directional/south{
+	name = "interior shutter access";
+	req_access_txt = "43";
+	id = "arms_dealer"
+	},
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "dCY" = (
 /obj/effect/landmark/start/security_officer,
 /obj/effect/turf_decal/tile/red{
@@ -23632,6 +23677,11 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/aft)
+"eHM" = (
+/obj/machinery/light/small/directional/west,
+/obj/structure/shelf/ammo,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "eHN" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/auto_name/south,
@@ -24009,6 +24059,21 @@
 /obj/machinery/light/directional/east,
 /turf/open/openspace,
 /area/service/hydroponics)
+"eUY" = (
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/door/airlock/gold{
+	name = "gunshop airlock";
+	req_access_txt = "43"
+	},
+/obj/machinery/door/poddoor/shutters/window{
+	id = "arms_dealer";
+	name = "gunshop shutters"
+	},
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "eVp" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/atmos,
@@ -24455,6 +24520,15 @@
 	icon_state = "platingdmg2"
 	},
 /area/maintenance/fore/secondary)
+"fhM" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/window{
+	id = "arms_dealer";
+	name = "gunshop shutters"
+	},
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/hallway/primary/central)
 "fif" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -30027,6 +30101,9 @@
 "izL" = (
 /turf/closed/wall,
 /area/command/bridge)
+"izZ" = (
+/turf/closed/wall/r_wall,
+/area/service/gunshop)
 "iAf" = (
 /obj/structure/closet/boxinggloves,
 /obj/machinery/light/directional/north,
@@ -31752,6 +31829,25 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /turf/open/floor/iron/dark,
 /area/security/interrogation)
+"jAm" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/window{
+	id = "arms_dealer";
+	name = "gunshop shutters"
+	},
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/item/pen,
+/obj/machinery/door/window/brigdoor/southleft{
+	req_access_txt = "43";
+	name = "Arms Dealer's Desk"
+	},
+/obj/machinery/door/window/northright,
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/hallway/primary/central)
 "jAn" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/bot,
@@ -34989,6 +35085,15 @@
 	},
 /turf/open/floor/carpet,
 /area/command/heads_quarters/hop)
+"lsL" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/window{
+	id = "arms_dealer";
+	name = "gunshop shutters"
+	},
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/hallway/primary/central)
 "lsV" = (
 /obj/item/mop,
 /obj/item/reagent_containers/glass/bucket,
@@ -35353,6 +35458,10 @@
 /obj/item/storage/book/bible,
 /turf/open/floor/iron/dark,
 /area/service/chapel/main)
+"lCd" = (
+/obj/structure/cable,
+/turf/closed/wall/r_wall,
+/area/service/gunshop)
 "lCe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/south,
@@ -35427,6 +35536,12 @@
 	dir = 6
 	},
 /area/science/research)
+"lDD" = (
+/obj/structure/shelf/helmet,
+/obj/structure/cable,
+/obj/machinery/light/small/directional/east,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "lDE" = (
 /obj/machinery/conveyor/inverted{
 	dir = 6;
@@ -38206,6 +38321,14 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"nbk" = (
+/obj/effect/landmark/event_spawn,
+/obj/structure/cable,
+/obj/structure/chair/office{
+	dir = 8
+	},
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "nbp" = (
 /obj/structure/cable,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
@@ -39926,6 +40049,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "oaB" = (
@@ -40225,6 +40349,13 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/cargo/office)
+"ojZ" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "oku" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 8
@@ -42825,6 +42956,11 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/construction)
+"pGN" = (
+/obj/machinery/light/small/directional/west,
+/obj/structure/shelf/gun,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "pHb" = (
 /obj/machinery/light/directional/north,
 /obj/effect/turf_decal/stripes/corner{
@@ -45218,6 +45354,10 @@
 /obj/machinery/light/directional/south,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"rap" = (
+/obj/structure/sign/poster/contraband/c20r,
+/turf/closed/wall/r_wall,
+/area/service/gunshop)
 "raE" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=AftH";
@@ -45533,6 +45673,10 @@
 /obj/machinery/shieldgen,
 /turf/open/floor/plating,
 /area/engineering/engine_smes)
+"rlz" = (
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "rlS" = (
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 4
@@ -46634,6 +46778,10 @@
 "rLU" = (
 /turf/open/floor/iron,
 /area/engineering/atmos)
+"rMa" = (
+/obj/structure/sign/departments/arms_dealer,
+/turf/closed/wall/r_wall,
+/area/service/gunshop)
 "rMb" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -46929,6 +47077,15 @@
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/cargo/sorting)
+"rVK" = (
+/obj/machinery/light/small/directional/east,
+/obj/machinery/camera{
+	c_tag = "Gunshop";
+	dir = 8
+	},
+/obj/structure/shelf/armor,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "rWx" = (
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
@@ -51938,6 +52095,13 @@
 	},
 /turf/open/floor/iron,
 /area/service/hydroponics)
+"uFd" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/cable,
+/turf/open/floor/iron,
+/area/hallway/primary/central)
 "uFn" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -54885,6 +55049,14 @@
 	},
 /turf/open/floor/iron,
 /area/engineering/atmos)
+"wtQ" = (
+/obj/machinery/vending/donksofttoyvendor{
+	req_access_txt = "43"
+	},
+/obj/machinery/power/apc/auto_name/south,
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "wub" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Engineering";
@@ -54971,6 +55143,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/effect/landmark/start/hangover,
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "wyt" = (
@@ -55890,6 +56063,11 @@
 "wXS" = (
 /turf/closed/wall/r_wall,
 /area/command/heads_quarters/hop)
+"wZo" = (
+/obj/structure/chair/office,
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "wZp" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
@@ -57748,6 +57926,18 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
 /turf/open/floor/iron,
 /area/commons/locker)
+"ybK" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/window{
+	id = "arms_dealer";
+	name = "gunshop shutters"
+	},
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/hallway/primary/central)
 "ybV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -88373,9 +88563,9 @@ jES
 jfd
 boP
 aJn
-aJq
+bBi
 dRb
-aOE
+uFd
 eCl
 uTV
 oMm
@@ -88630,7 +88820,7 @@ tTw
 jfd
 boP
 aJn
-aLY
+swA
 swA
 oak
 rup
@@ -88887,9 +89077,9 @@ whN
 jfd
 aJw
 aJw
-beX
+uAz
 iEH
-aOE
+uFd
 aJn
 boP
 rup
@@ -89146,9 +89336,9 @@ aJv
 aKG
 aMg
 icV
-aOE
-aJn
-boP
+rMa
+izZ
+izZ
 rup
 rFl
 bED
@@ -89403,10 +89593,10 @@ aJy
 aJy
 aMj
 wyl
-oQH
-aJn
-boP
-rup
+fhM
+pGN
+beX
+eHM
 rup
 rup
 kVY
@@ -89660,10 +89850,10 @@ sSV
 aKo
 aLO
 gWZ
-aOE
-aJn
-boP
-boP
+ybK
+rlz
+nbk
+dCE
 rup
 idY
 hPk
@@ -89917,11 +90107,11 @@ eIL
 eIL
 nzV
 mUH
-aOE
-aJn
-boP
-boP
-izL
+jAm
+rlz
+cOr
+wtQ
+rup
 lSx
 vfg
 lSx
@@ -90174,11 +90364,11 @@ saj
 eIL
 aLQ
 bUm
-aOE
-aJn
-boP
-boP
-aJw
+lsL
+rlz
+wZo
+dxN
+lCd
 aVu
 aXd
 aYE
@@ -90431,11 +90621,11 @@ rqA
 eIL
 jSE
 ova
-aOE
-aJn
-boP
-boP
-aJn
+lsL
+rVK
+rlz
+lDD
+lCd
 aVv
 ayD
 jkG
@@ -90688,11 +90878,11 @@ rqA
 eIL
 vsR
 ova
-aOE
-aJn
-aJn
-aJn
-aJn
+lsL
+rap
+eUY
+lCd
+lCd
 aJs
 ayJ
 tWP
@@ -90945,11 +91135,11 @@ hax
 eIL
 aJq
 ova
-aJq
-aJr
-aJr
-aJr
-aJr
+bBi
+ojZ
+aQD
+dwE
+ojZ
 aJr
 aXh
 aYG

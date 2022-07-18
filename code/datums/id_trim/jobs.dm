@@ -300,6 +300,14 @@
 	config_job = "lawyer"
 	template_access = list(ACCESS_CAPTAIN, ACCESS_HOP, ACCESS_HOS, ACCESS_CHANGE_IDS)
 
+/datum/id_trim/job/arms_dealer
+	assignment = "Arms Dealer"
+	trim_state = "trim_arms_dealer"
+	full_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GUNSHOP)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GUNSHOP)
+	config_job = "arms_dealer"
+	template_access = list(ACCESS_CAPTAIN, ACCESS_HOP, ACCESS_CHANGE_IDS)
+
 /datum/id_trim/job/medical_doctor
 	assignment = "Medical Doctor"
 	trim_state = "trim_medicaldoctor"

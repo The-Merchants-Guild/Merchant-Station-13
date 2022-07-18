@@ -4140,6 +4140,15 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/brig)
+"amb" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/structure/cable,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
+	},
+/turf/open/floor/iron/dark,
+/area/hallway/primary/aft)
 "amc" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -20292,6 +20301,17 @@
 	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
+"boL" = (
+/obj/effect/landmark/event_spawn,
+/obj/structure/cable,
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
+	},
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "boM" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
@@ -22886,6 +22906,12 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/dark,
 /area/security/detectives_office)
+"bCf" = (
+/obj/structure/shelf/helmet,
+/obj/machinery/light/small/directional/east,
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "bCg" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -23655,11 +23681,8 @@
 	},
 /area/maintenance/port)
 "bGf" = (
-/obj/structure/closet/cardboard,
-/obj/structure/grille/broken,
-/obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plating,
-/area/maintenance/aft)
+/turf/closed/wall/r_wall,
+/area/service/gunshop)
 "bGg" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -23893,10 +23916,12 @@
 	},
 /area/maintenance/port)
 "bGU" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/grille,
-/turf/open/floor/plating,
-/area/maintenance/aft)
+/obj/machinery/computer/cargo{
+	dir = 1
+	},
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "bGW" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -26988,6 +27013,10 @@
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/rust,
 /area/maintenance/starboard/aft)
+"bSK" = (
+/obj/structure/sign/departments/arms_dealer,
+/turf/closed/wall/r_wall,
+/area/service/gunshop)
 "bSL" = (
 /obj/structure/sign/warning/securearea{
 	name = "EMERGENCY STORAGE"
@@ -34832,6 +34861,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "cpQ" = (
@@ -34859,10 +34894,14 @@
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "cpS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/maintenance/aft)
+/obj/machinery/light/small/directional/east,
+/obj/machinery/camera{
+	c_tag = "Gunshop";
+	dir = 8
+	},
+/obj/structure/shelf/armor,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "cpU" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -34879,6 +34918,12 @@
 	},
 /obj/structure/cable,
 /obj/effect/turf_decal/box,
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "cpV" = (
@@ -34901,6 +34946,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "cpX" = (
@@ -35668,24 +35714,22 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/disposal)
 "csp" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
+/obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/window{
+	id = "arms_dealer";
+	name = "gunshop shutters"
 	},
-/obj/machinery/camera{
-	c_tag = "Aft Hallway Security Firelock";
-	dir = 1;
-	name = "aft camera"
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
+	dir = 10
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
 	},
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/iron,
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
 /area/hallway/primary/aft)
 "csq" = (
 /obj/machinery/door/window/westleft{
@@ -37308,18 +37352,19 @@
 	},
 /area/maintenance/port/fore)
 "cya" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/window{
+	id = "arms_dealer";
+	name = "gunshop shutters"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
+	dir = 10
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
 	},
-/turf/open/floor/iron,
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
 /area/hallway/primary/aft)
 "cyb" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -37779,19 +37824,19 @@
 /turf/open/floor/iron/dark,
 /area/security/processing)
 "czA" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
+	dir = 10
 	},
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/maintenance/aft)
 "czD" = (
 /obj/structure/disposalpipe/junction{
 	dir = 8
@@ -38070,14 +38115,13 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "cBr" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
+/obj/machinery/vending/donksofttoyvendor{
+	req_access_txt = "43"
 	},
-/obj/structure/grille/broken,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plating,
-/area/maintenance/aft)
+/obj/machinery/power/apc/auto_name/south,
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "cBv" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/plating/asteroid,
@@ -38836,12 +38880,16 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
 "cFC" = (
-/obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/window{
+	id = "arms_dealer";
+	name = "gunshop shutters"
 	},
-/obj/effect/turf_decal/caution/stand_clear,
-/turf/open/floor/iron/dark,
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
+	},
+/obj/structure/cable,
+/turf/open/floor/plating,
 /area/hallway/primary/aft)
 "cFE" = (
 /obj/structure/plasticflaps/opaque,
@@ -41918,6 +41966,11 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/ai_monitored/command/storage/eva)
+"dvJ" = (
+/obj/machinery/light/small/directional/west,
+/obj/structure/shelf/ammo,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "dvN" = (
 /turf/open/floor/plating/asteroid/lowpressure,
 /area/space/nearstation)
@@ -44056,6 +44109,15 @@
 	},
 /turf/open/floor/iron,
 /area/security/office)
+"exC" = (
+/obj/structure/cable,
+/obj/machinery/button/door/directional/south{
+	name = "interior shutter access";
+	req_access_txt = "43";
+	id = "arms_dealer"
+	},
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "exZ" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/yellow,
@@ -55222,12 +55284,13 @@
 "jtw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/loot_site_spawner,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 10
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 10
 	},
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 10
+	},
+/obj/structure/cable,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -55608,16 +55671,16 @@
 /turf/open/floor/iron,
 /area/maintenance/disposal/incinerator)
 "jBX" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/office,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
-	dir = 4
+	dir = 10
 	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
+	},
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "jCZ" = (
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/plating{
@@ -58611,6 +58674,23 @@
 	},
 /turf/open/floor/iron,
 /area/command/bridge)
+"kJg" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
+	},
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
+	dir = 10
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "kJM" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral,
@@ -58788,14 +58868,29 @@
 /turf/open/floor/carpet/blue,
 /area/command/heads_quarters/hop)
 "kOa" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/window{
+	id = "arms_dealer";
+	name = "gunshop shutters"
+	},
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/item/pen,
+/obj/machinery/door/window/brigdoor/southleft{
+	req_access_txt = "43";
+	name = "Arms Dealer's Desk"
+	},
+/obj/machinery/door/window/northright,
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
 	},
 /obj/structure/cable,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
-/turf/open/floor/iron,
+/turf/open/floor/wood/tile,
 /area/hallway/primary/aft)
 "kOu" = (
 /obj/effect/turf_decal/tile/brown{
@@ -60763,16 +60858,16 @@
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "lIu" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
+/obj/effect/landmark/start/arms_dealer,
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
-	dir = 5
+	dir = 10
 	},
 /obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
 	dir = 5
 	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "lIv" = (
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/red,
@@ -64069,19 +64164,13 @@
 /turf/open/floor/iron,
 /area/cargo/warehouse)
 "ngz" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/window{
+	id = "arms_dealer";
+	name = "gunshop shutters"
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/light/directional/south,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/iron,
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
 /area/hallway/primary/aft)
 "ngG" = (
 /obj/effect/turf_decal/bot,
@@ -65902,6 +65991,10 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/engineering/break_room)
+"oaN" = (
+/obj/structure/cable,
+/turf/closed/wall,
+/area/maintenance/aft)
 "oaW" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -67792,6 +67885,10 @@
 	luminosity = 2
 	},
 /area/ai_monitored/turret_protected/ai_upload)
+"oQD" = (
+/obj/structure/cable,
+/turf/closed/wall,
+/area/hallway/primary/aft)
 "oRa" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -70505,6 +70602,13 @@
 	dir = 1
 	},
 /area/hallway/primary/port)
+"pRO" = (
+/obj/structure/table/wood,
+/obj/item/gun/ballistic/rifle/boltaction,
+/obj/item/ammo_box/a762,
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "pSf" = (
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/simple_pipes/cyan/visible,
@@ -71810,18 +71914,6 @@
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/lowpressure,
 /area/space/nearstation)
-"qvw" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/machinery/firealarm/directional/south,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "qvG" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
@@ -73322,6 +73414,24 @@
 	},
 /turf/open/floor/iron,
 /area/engineering/atmos)
+"rfw" = (
+/obj/machinery/door/airlock/gold{
+	name = "gunshop airlock";
+	req_access_txt = "43"
+	},
+/obj/machinery/door/poddoor/shutters/window{
+	id = "arms_dealer";
+	name = "gunshop shutters"
+	},
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
+	},
+/obj/structure/cable,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "rfy" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Chemistry";
@@ -75257,6 +75367,25 @@
 	},
 /turf/open/floor/iron/dark,
 /area/commons/fitness/recreation)
+"rYC" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
+	},
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
+	dir = 10
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "rYN" = (
 /obj/machinery/firealarm/directional/east,
 /obj/effect/turf_decal/tile/neutral{
@@ -78646,19 +78775,11 @@
 /turf/open/floor/iron/dark,
 /area/cargo/miningoffice)
 "tyX" = (
-/obj/structure/grille/broken,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/directional/west,
+/obj/structure/shelf/gun,
 /obj/structure/cable,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/maintenance/aft)
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "tzf" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/caution/stand_clear,
@@ -79073,6 +79194,16 @@
 /obj/structure/sign/warning/docking,
 /turf/closed/wall/rust,
 /area/cargo/miningoffice)
+"tIk" = (
+/obj/structure/cable,
+/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
+	},
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "tIy" = (
 /obj/structure/sign/departments/holy,
 /turf/closed/wall/rust,
@@ -79994,6 +80125,11 @@
 /obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
 	dir = 5
 	},
+/obj/machinery/button/door/directional/west{
+	name = "exterior shutter access";
+	id = "arms_dealer";
+	req_access_txt = "43"
+	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "tZz" = (
@@ -80460,6 +80596,10 @@
 /obj/structure/reagent_dispensers/peppertank/directional/south,
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/medical)
+"uir" = (
+/obj/structure/sign/poster/contraband/c20r,
+/turf/closed/wall/r_wall,
+/area/service/gunshop)
 "uiw" = (
 /obj/structure/chair{
 	dir = 1
@@ -86500,14 +86640,12 @@
 /turf/open/floor/iron/dark,
 /area/command/heads_quarters/captain)
 "wOr" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
 /obj/structure/cable,
-/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2,
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4,
-/turf/open/floor/iron/dark,
-/area/maintenance/aft)
+/obj/effect/mapping_helpers/simple_pipes/scrubbers/hidden/layer2{
+	dir = 5
+	},
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "wOA" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -115383,7 +115521,7 @@ bBk
 clK
 chd
 cpW
-axF
+oQD
 axF
 bBB
 bFa
@@ -115640,10 +115778,10 @@ bBk
 ckW
 cpd
 ngz
-bFa
+bSK
 bGf
-bRT
-bET
+bGf
+bGf
 idD
 jnU
 nVD
@@ -115895,12 +116033,12 @@ nPa
 arr
 abT
 cFB
-ceS
+amb
 cFC
-bFa
-bFa
-bFS
-bFa
+tyX
+pRO
+dvJ
+prS
 rko
 nVD
 mMV
@@ -116154,10 +116292,10 @@ aaY
 ckX
 cpN
 csp
-bFa
-cnz
-bGG
-bET
+wOr
+boL
+exC
+prS
 idD
 lHG
 sko
@@ -116411,10 +116549,10 @@ axF
 upD
 dAr
 kOa
-wOr
+tIk
 lIu
 cBr
-bFa
+prS
 rko
 xHX
 tmq
@@ -116668,10 +116806,10 @@ ckJ
 clA
 cpU
 cya
-bFa
+tIk
 jBX
 bGU
-bET
+prS
 iVw
 cVb
 vdS
@@ -116924,11 +117062,11 @@ ffq
 axF
 clB
 bEA
-qvw
-bFa
-tyX
-bEV
-qxq
+ngz
+cpS
+tIk
+bCf
+prS
 qxq
 eWh
 lib
@@ -117181,11 +117319,11 @@ axF
 axF
 clK
 csc
-cnG
-bFa
-jBX
-cpS
-iVw
+ngz
+uir
+rfw
+bGf
+prS
 ind
 ewf
 jQk
@@ -117437,9 +117575,9 @@ cbR
 dJB
 cbR
 cmE
-bEA
+rYC
+kJg
 czA
-bFa
 jtw
 tZo
 qxq
@@ -117697,7 +117835,7 @@ bEA
 bEA
 vJJ
 bET
-bFa
+oaN
 uWu
 iVw
 geM

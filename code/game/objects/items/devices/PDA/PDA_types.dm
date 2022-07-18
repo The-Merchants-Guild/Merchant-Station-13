@@ -195,6 +195,11 @@
 	greyscale_colors = "#6f6192#f7e062"
 	ttone = "objection"
 
+/obj/item/pda/arms
+	name = "arms dealer PDA"
+	greyscale_colors = "#cc4242#330000"
+	inserted_item = /obj/item/pen/fountain
+
 /obj/item/pda/botanist
 	name = "botanist PDA"
 	greyscale_config = /datum/greyscale_config/pda/stripe_thick

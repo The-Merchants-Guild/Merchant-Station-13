@@ -28,10 +28,9 @@
 		return
 	forceMove(turfo)
 	client.eye = src
+	SEND_SIGNAL(src, COMSIG_LIVING_AFTERPHASEIN, B)
 	visible_message(span_warning("<B>[src] warps into reality!</B>"))
 	exit_blood_effect()
-	qdel(holder)
-	holder = null
 	phased = FALSE
 	return 1
 
@@ -39,9 +38,8 @@
 	var/turf/turfo = get_turf(src)
 	forceMove(turfo)
 	client.eye = src
+	SEND_SIGNAL(src, COMSIG_LIVING_AFTERPHASEIN, B)
 	visible_message(span_warning("<B>[src] warps into reality!</B>"))
 	exit_blood_effect()
-	qdel(holder)
-	holder = null
 	phased = FALSE
 	return 1

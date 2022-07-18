@@ -11,9 +11,9 @@
 	src.visible_message(span_warning("[src] warps out of the reality!"))
 	playsound(get_turf(src), 'sound/magic/enter_blood.ogg', 50, 1, -1)
 	var/obj/effect/dummy/phased_mob/holder = new /obj/effect/dummy/phased_mob(mobloc)
-	src.ExtinguishMob()
-	src.holder = holder
-	src.forceMove(holder)
+	ExtinguishMob()
+	holder = holder
+	forceMove(holder)
 	return 1
 
 /mob/living/simple_animal/hostile/hunter/exit_blood_effect()
@@ -30,8 +30,8 @@
 	src.client.eye = src
 	src.visible_message(span_warning("<B>[src] warps into reality!</B>"))
 	exit_blood_effect()
-	qdel(src.holder)
-	src.holder = null
+	qdel(holder)
+	holder = null
 	phased = FALSE
 	return 1
 
@@ -41,7 +41,7 @@
 	src.client.eye = src
 	src.visible_message(span_warning("<B>[src] warps into reality!</B>"))
 	exit_blood_effect()
-	qdel(src.holder)
-	src.holder = null
+	qdel(holder)
+	holder = null
 	phased = FALSE
 	return 1

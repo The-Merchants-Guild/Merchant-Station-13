@@ -4,13 +4,19 @@
 	desc = "A large, armored creature emmitting unholy energies."
 	speak_emote = list("declares")
 	emote_hear = list("wails","screeches")
+	response_help_continuous = "thinks better of touching"
+	response_help_simple = "think better of touching"
+	response_disarm_continuous = "flails at"
+	response_disarm_simple = "flail at"
+	response_harm_continuous = "punches"
+	response_harm_simple = "punch"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "horror"
 	icon_living = "horror"
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	speed = -0.15
-	a_intent = INTENT_HARM
+	combat_mode = TRUE
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/magic/demon_attack1.ogg'
@@ -19,7 +25,8 @@
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	faction = list("slaughter")
-	attacktext = "rips and tears"
+	attack_verb_continuous = "rips apart"
+	attack_verb_simple = "rip apart"
 	maxHealth = 150
 	health = 150
 	healable = 0

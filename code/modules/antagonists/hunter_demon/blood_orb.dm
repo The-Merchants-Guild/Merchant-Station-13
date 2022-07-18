@@ -16,7 +16,7 @@
 	var/mob/living/carbon/human/H = user
 	if(!H)
 		return
-	if(istype(I, /obj/item/kitchen/knife) && H.a_intent != INTENT_HARM)
+	if(istype(I, /obj/item/kitchen/knife) && H.combat_mode != TRUE)
 		if(!demon)
 			if(!(NOBLOOD in H.dna.species.species_traits))
 				visible_message(span_danger("[H] begins to spill his blood on the [src]!"), \

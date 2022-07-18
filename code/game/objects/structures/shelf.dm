@@ -1,7 +1,7 @@
 #define SHELF_UNANCHORED 0
 #define SHELF_ANCHORED 1
 
-/* Shelfs
+/* Shelves
  *
  * Contains:
  * Guns
@@ -16,7 +16,7 @@
 
 /obj/structure/shelf
 	name = "Shelf"
-	icon = 'icons/obj/shelfs.dmi'
+	icon = 'icons/obj/shelves.dmi'
 	icon_state = "shelf"
 	base_icon_state = "shelf"
 	desc = "A great place for storing items."
@@ -145,7 +145,7 @@
 	return ..()
 
 /obj/structure/shelf/gun
-	name = "Gunshelf"
+	name = "Gun Shelf"
 	desc = "A great place for storing guns"
 	item = "gun"
 	allowed = /obj/item/gun
@@ -160,7 +160,7 @@
 	)
 
 /obj/structure/shelf/ammo
-	name = "Ammoshelf"
+	name = "Ammo Shelf"
 	desc = "A great place for storing ammo"
 	item = "ammo"
 	max = 30
@@ -181,7 +181,7 @@
 	)
 
 /obj/structure/shelf/armor
-	name = "Armorshelf"
+	name = "Armor Shelf"
 	desc = "A great place for storing armors"
 	item = "armor"
 	allowed = /obj/item/clothing/suit/armor
@@ -196,7 +196,7 @@
 	)
 
 /obj/structure/shelf/helmet
-	name = "Helmetshelf"
+	name = "Helmet Shelf"
 	desc = "A great place for storing helmets"
 	item = "helmet"
 	allowed = /obj/item/clothing/head/helmet

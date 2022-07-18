@@ -11,7 +11,7 @@
 	src.visible_message(span_warning("[src] warps out of the reality!"))
 	playsound(get_turf(src), 'sound/magic/enter_blood.ogg', 50, 1, -1)
 	var/obj/effect/dummy/phased_mob/holder = new /obj/effect/dummy/phased_mob(mobloc)
-	ExtinguishMob()
+	extinguish_mob()
 	holder = holder
 	forceMove(holder)
 	return 1
@@ -27,8 +27,8 @@
 	if(!do_after(src, 3 SECONDS, target = turfo))
 		return
 	forceMove(turfo)
-	src.client.eye = src
-	src.visible_message(span_warning("<B>[src] warps into reality!</B>"))
+	client.eye = src
+	visible_message(span_warning("<B>[src] warps into reality!</B>"))
 	exit_blood_effect()
 	qdel(holder)
 	holder = null
@@ -38,8 +38,8 @@
 /mob/living/simple_animal/hostile/hunter/proc/instaphasein()
 	var/turf/turfo = get_turf(src)
 	forceMove(turfo)
-	src.client.eye = src
-	src.visible_message(span_warning("<B>[src] warps into reality!</B>"))
+	client.eye = src
+	visible_message(span_warning("<B>[src] warps into reality!</B>"))
 	exit_blood_effect()
 	qdel(holder)
 	holder = null

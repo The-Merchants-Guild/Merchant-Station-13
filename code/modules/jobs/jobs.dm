@@ -43,6 +43,7 @@ GLOBAL_LIST_INIT(service_positions, list(
 	"Curator",
 	"Psychologist",
 	"Lawyer",
+	"Arms Dealer",
 	"Chaplain",
 	"Clown",
 	"Mime",

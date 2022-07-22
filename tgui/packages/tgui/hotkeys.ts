@@ -199,7 +199,7 @@ export const setupHotKeys = () => {
  * @param callback The function to call whenever a key event occurs
  * @returns A callback to stop listening
  */
- export const listenForKeyEvents = (
+export const listenForKeyEvents = (
   callback: (key: KeyEvent) => void,
 ): () => void => {
   keyListeners.push(callback);

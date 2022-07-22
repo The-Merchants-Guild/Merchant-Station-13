@@ -1,4 +1,4 @@
-import { Component, createRef } from "inferno";
+import { Component, createRef } from 'inferno';
 import { resolveAsset } from "../assets";
 import { Box } from "./Box";
 
@@ -70,7 +70,7 @@ export class BodyZoneSelector
   ref = createRef<HTMLDivElement>();
   state: BodyZoneSelectorState = {
     hoverZone: null,
-  };
+  }
 
   render() {
     const { hoverZone } = this.state;

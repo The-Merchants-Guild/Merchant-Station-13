@@ -29,9 +29,7 @@ class SurgeryInitiatorInner extends Component<
   SurgeryInitiatorData,
   SurgeryInitiatorInnerState
 > {
-  state = {
-    selectedSurgeryIndex: 0,
-  };
+  selectedSurgeryIndex = 0
 
   componentDidMount() {
     this.updateSelectedSurgeryIndexState();

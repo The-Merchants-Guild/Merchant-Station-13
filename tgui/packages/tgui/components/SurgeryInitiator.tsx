@@ -31,7 +31,7 @@ class SurgeryInitiatorInner extends Component<
 > {
   state = {
     selectedSurgeryIndex: 0,
-  }
+  };
 
   componentDidMount() {
     this.updateSelectedSurgeryIndexState();

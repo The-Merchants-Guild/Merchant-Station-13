@@ -68,9 +68,9 @@ export class BodyZoneSelector
   extends Component<BodyZoneSelectorProps, BodyZoneSelectorState>
 {
   ref = createRef<HTMLDivElement>();
-  state: BodyZoneSelectorState = {
+  BodyZoneSelectorState = {
     hoverZone: null,
-  }
+  };
 
   render() {
     const { hoverZone } = this.state;

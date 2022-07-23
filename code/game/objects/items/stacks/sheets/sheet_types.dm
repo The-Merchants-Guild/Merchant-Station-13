@@ -240,6 +240,14 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 		new /datum/stack_recipe("pew (right)", /obj/structure/chair/pew/right, 3, one_per_turf = TRUE, on_floor = TRUE)
 		)),
 	null, \
+	null, \
+	new/datum/stack_recipe_list("shelf", list(
+		new /datum/stack_recipe("shelf (gun)", /obj/structure/shelf/gun, 6, time = 15, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("shelf (ammo)", /obj/structure/shelf/ammo, 6, time = 15, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("shelf (armor)", /obj/structure/shelf/armor, 6, time = 15, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("shelf (helmet)", /obj/structure/shelf/helmet, 6, time = 15, one_per_turf = TRUE, on_floor = TRUE)
+		)),
+	null, \
 	))
 
 /obj/item/stack/sheet/mineral/wood

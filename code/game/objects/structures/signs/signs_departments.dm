@@ -114,6 +114,13 @@
 	icon_state = "lawyer"
 	is_editable = TRUE
 
+/obj/structure/sign/departments/arms_dealer
+	name = "\improper Gunshop sign"
+	sign_change_name = "Department - Gunshop"
+	desc = "A sign labelling an area where the Gunshop is, negotiate with the Arms Dealer to buy gun or armor."
+	icon_state = "arms dealer"
+	is_editable = TRUE
+
 ///////SUPPLY
 
 /obj/structure/sign/departments/cargo

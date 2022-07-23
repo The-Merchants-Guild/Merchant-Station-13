@@ -712,7 +712,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/service/theater
 	name = "Theater"
-	icon_state = "Theater"
+	icon_state = "theatre"
 	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/service/theater/abandoned
@@ -752,6 +752,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/service/library/abandoned
 	name = "Abandoned Library"
 	icon_state = "abandoned_library"
+
+/area/service/gunshop
+	name = "Gunshop"
+	icon_state = "gunshop"
+	area_flags = CULT_PERMITTED | BLOBS_ALLOWED | UNIQUE_AREA
+	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
 
 /area/service/chapel
 	icon_state = "chapel"

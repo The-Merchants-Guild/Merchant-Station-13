@@ -1293,7 +1293,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
 
-		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
 		var/targeted_zone = ran_zone(user.zone_selected)
 		var/obj/item/bodypart/affecting = target.get_bodypart(check_zone(targeted_zone))
 

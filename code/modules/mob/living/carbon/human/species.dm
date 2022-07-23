@@ -1328,9 +1328,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			target.dismembering_strike(user, affecting.body_zone)
 
 		if(targeted_zone == BODY_ZONE_PRECISE_GROIN) //Ball punching gives target bad mood, but deal 0.75x damage.
-			target.visible_message(span_danger("[user] [atk_verb] [target]'s balls!"), \
-							span_userdanger("Your balls got [atk_verb]ed by [user]!"), span_hear("You hear [target]'s balls pop!"), COMBAT_MESSAGE_RANGE, user)
-			to_chat(user, span_danger("You [atk_verb] [target]'s balls!"))
+			target.visible_message(span_danger("[user] [atk_verb] [target]'s groin!"), \
+							span_userdanger("Your groin got [atk_verb]ed by [user]!"))
+			to_chat(user, span_danger("You [atk_verb] [target]'s groin!"))
 			if(target.stat != DEAD)
 				SEND_SIGNAL(target, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/cbt)
 			damage *= 0.75

@@ -193,11 +193,6 @@
 
 /obj/item/organ/heart/nanite/Remove(mob/living/carbon/M, special = FALSE)
 	active = FALSE
-	if(initial(uses) == 1)
-		uses = initial(uses)
-	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.remove_from_hud(owner)
-	clear_mind_control()
 	. = ..()
 
 /obj/item/organ/heart/nanite/Insert(mob/living/carbon/M, special = FALSE)

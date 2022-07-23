@@ -1,0 +1,4 @@
+author: Salex08
+delete-after: true
+changes:
+  - bugfix: gun shop spawns in delta and kilo like it was supposed to

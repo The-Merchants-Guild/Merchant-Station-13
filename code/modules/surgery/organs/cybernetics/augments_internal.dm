@@ -209,7 +209,7 @@
 	active = FALSE
 	. = ..()
 
-/obj/item/organ/heart/gland/on_life(delta_time, times_fired)
+/obj/item/organ/heart/nanite/on_life(delta_time, times_fired)
 	if(!active || used || !ishuman(owner) || isandroid(owner))
 		return
 	if(DT_PROB(4, delta_time))

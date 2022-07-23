@@ -217,7 +217,7 @@
 		owner.say(pick("Beep, boop", "beep, beep!", "Boop...bop"), forced = "nanite heart")
 	if(start_time + rebuild_duration < world.time)
 		to_chat(owner, span_userdanger("You feel your limbs and organs twist, as you turn into an android!"))
-		owner.emote(scream)
+		owner.emote("scream")
 		owner.Unconscious(2 SECONDS)
 		sleep(1 SECONDS)
 		owner.set_species(/datum/species/android)

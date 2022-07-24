@@ -45,3 +45,6 @@
   Salex08:
   - rscadd: new occupation Arms Dealer
   - rscadd: new shelfs for storing weaponry
+2022-07-24:
+  Salex08:
+  - bugfix: gun shop spawns in delta and kilo like it was supposed to

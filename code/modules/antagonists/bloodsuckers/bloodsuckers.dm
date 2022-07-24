@@ -174,7 +174,7 @@
 /datum/antagonist/bloodsucker/farewell()
 	to_chat(owner.current, span_userdanger("<FONT size = 3>With a snap, your curse has ended. You are no longer a Bloodsucker. You live once more!</FONT>"))
 	// Refill with Blood so they don't instantly die.
-	owner.current.blood_volume = max(owner.current.blood_volume, BLOOD_VOLUME_NORMAL(owner.current))
+	owner.current.blood_volume = max(owner.current.blood_volume, BLOOD_VOLUME_NORMAL)
 
 /datum/antagonist/bloodsucker/proc/add_objective(datum/objective/added_objective)
 	objectives += added_objective
@@ -655,9 +655,9 @@
 		return
 	var/valuecolor
 	if(owner.current.hud_used && owner.current.hud_used.blood_display)
-		if(owner.current.blood_volume > BLOOD_VOLUME_SAFE(owner.current))
+		if(owner.current.blood_volume > BLOOD_VOLUME_SAFE)
 			valuecolor = "#FFDDDD"
-		else if(owner.current.blood_volume > BLOOD_VOLUME_BAD(owner.current))
+		else if(owner.current.blood_volume > BLOOD_VOLUME_BAD)
 			valuecolor = "#FFAAAA"
 		owner.current.hud_used.blood_display.update_counter(owner.current.blood_volume, valuecolor)
 	if(owner.current.hud_used && owner.current.hud_used.vamprank_display)

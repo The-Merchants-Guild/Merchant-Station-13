@@ -32,9 +32,12 @@
 	icon_dead = "batform"
 	icon_gib = "batform"
 	speed = -2
-	response_help = "touches"
-	response_disarm = "flails at"
-	response_harm = "punches"
+	response_help_continuous = "touches"
+	response_help_simple = "touch"
+	response_disarm_continuous = "flails at"
+	response_disarm_simple = "flail at"
+	response_harm_continuous = "punches"
+	response_harm_simple = "punch"
 	speak_chance = 0
 	maxHealth = 800
 	health = 800
@@ -42,8 +45,9 @@
 	harm_intent_damage = 20
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	attacktext = "violently mawls"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 5)
+	attack_verb_continuous = "violently mawls"
+	attack_verb_simple = "violently mawl"
+	butcher_results = list(/obj/item/food/meat/slab = 5)
 	faction = list("hostile", "bloodhungry")
 	attack_sound = 'sound/weapons/slash.ogg'
 	obj_damage = 50
@@ -62,9 +66,12 @@
 	icon_dead = "bat_dead"
 	icon_gib = "bat_dead"
 	move_to_delay = 2
-	response_help = "touches"
-	response_disarm = "flails at"
-	response_harm = "punches"
+	response_help_continuous = "touches"
+	response_help_simple = "touch"
+	response_disarm_continuous = "flails at"
+	response_disarm_simple = "flail at"
+	response_harm_continuous = "punches"
+	response_harm_simple = "punch"
 	speak_chance = 0
 	maxHealth = 700
 	health = 700
@@ -72,12 +79,13 @@
 	harm_intent_damage = 20
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	attacktext = "bites"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 3)
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	butcher_results = list(/obj/item/food/meat/slab = 3)
 	faction = list("hostile", "bloodhungry")
 	attack_sound = 'sound/weapons/bite.ogg'
 	obj_damage = 35
-	pass_flags = PASSTABLE | PASSCOMPUTER
+	pass_flags = PASSTABLE | PASSMACHINE
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	mob_size = MOB_SIZE_LARGE
 	movement_type = FLYING

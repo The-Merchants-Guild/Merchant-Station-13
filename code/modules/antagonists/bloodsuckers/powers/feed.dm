@@ -275,11 +275,11 @@
 
 	// Blood Remaining? (Carbons/Humans only)
 	else if(!IS_BLOODSUCKER(feed_target))
-		if(feed_target.blood_volume <= BLOOD_VOLUME_BAD(feed_target) && warning_target_bloodvol > BLOOD_VOLUME_BAD(feed_target))
+		if(feed_target.blood_volume <= BLOOD_VOLUME_BAD && warning_target_bloodvol > BLOOD_VOLUME_BAD)
 			to_chat(owner, span_danger("Your victim's blood is fatally low!"))
-		else if(feed_target.blood_volume <= BLOOD_VOLUME_OKAY(feed_target) && warning_target_bloodvol > BLOOD_VOLUME_OKAY(feed_target))
+		else if(feed_target.blood_volume <= BLOOD_VOLUME_OKAY && warning_target_bloodvol > BLOOD_VOLUME_OKAY)
 			to_chat(owner, span_danger("Your victim's blood is dangerously low."))
-		else if(feed_target.blood_volume <= BLOOD_VOLUME_SAFE(feed_target) && warning_target_bloodvol > BLOOD_VOLUME_SAFE(feed_target))
+		else if(feed_target.blood_volume <= BLOOD_VOLUME_SAFE && warning_target_bloodvol > BLOOD_VOLUME_SAFE)
 			to_chat(owner, span_danger("Your victim's blood is at an unsafe level."))
 		warning_target_bloodvol = feed_target.blood_volume // If we had a warning to give, it's been given by now.
 	// Full?

@@ -5,7 +5,7 @@
 	var/static/list/clans = list(
 		CLAN_GANGREL,
 		//CLAN_LASOMBRA,
-        "None",
+		"None",
 	)
 	var/list/options = list()
 	options = clans

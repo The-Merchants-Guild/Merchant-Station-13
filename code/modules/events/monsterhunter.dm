@@ -9,16 +9,14 @@
  * 	- Ect.
  */
 
-/// The default, for Bloodsucker rounds.
 /datum/round_event_control/bloodsucker_hunters
 	name = "Spawn Monster Hunter - Bloodsucker"
 	typepath = /datum/round_event/bloodsucker_hunters
 	max_occurrences = 1 // We have to see how Bloodsuckers are in game to decide if having more than 1 is beneficial.
-	weight = 2000
+	weight = 10
 	min_players = 10
 	earliest_start = 35 MINUTES
 	alert_observers = FALSE
-	gamemode_whitelist = list("bloodsucker","traitorsucker","dynamic")
 
 /datum/round_event/bloodsucker_hunters
 	fakeable = FALSE
@@ -53,16 +51,14 @@
 		announce_to_ghosts(all_players)
 		break
 
-/// Randomly spawned Monster hunters during TraitorChangeling, Changeling, Heretic and Cult rounds.
 /datum/round_event_control/monster_hunters
 	name = "Spawn Monster Hunter"
 	typepath = /datum/round_event/monster_hunters
 	max_occurrences = 1
-	weight = 7
+	weight = 4
 	min_players = 10
 	earliest_start = 25 MINUTES
 	alert_observers = TRUE
-	gamemode_whitelist = list("traitorchan","changeling","heresy","cult","clockwork_cult","dynamic")
 
 /datum/round_event/monster_hunters
 	fakeable = FALSE
@@ -70,7 +66,7 @@
 
 /datum/round_event/monster_hunters/start()
 	for(var/mob/living/carbon/human/all_players in GLOB.player_list)
-		if(iscultist(all_players) || IS_HERETIC(all_players) || iswizard(all_players) || is_servant_of_ratvar(all_players) || all_players.mind.has_antag_datum(/datum/antagonist/changeling))
+		if( IS_CULTIST(all_players) || IS_HERETIC(all_players) || IS_WIZARD(all_players) || all_players.mind.has_antag_datum(/datum/antagonist/changeling))
 			message_admins("MONSTERHUNTER NOTICE: Monster Hunters found a valid Monster.")
 			cancel_me = FALSE
 			break
@@ -90,7 +86,7 @@
 		if(!SSjob.GetJob(all_players.mind.assigned_role) || (all_players.mind.assigned_role in GLOB.security_positions))
 			continue
 		/// Bobux no IS_CHANGELING
-		if(IS_HERETIC(all_players) || iscultist(all_players) || iswizard(all_players) || is_servant_of_ratvar(all_players) || all_players.mind.has_antag_datum(/datum/antagonist/changeling))
+		if(IS_HERETIC(all_players) || IS_CULTIST(all_players) || IS_WIZARD(all_players) || all_players.mind.has_antag_datum(/datum/antagonist/changeling))
 			continue
 		if(!all_players.getorgan(/obj/item/organ/brain))
 			continue

@@ -29,7 +29,7 @@
 	result = /obj/structure/closet/crate/coffin/meatcoffin
 	tool_behaviors = list(TOOL_WELDER, TOOL_WRENCH)
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/meat/slab = 5,
+		/obj/item/food/meat/slab = 5,
 		/obj/item/restraints/handcuffs/cable = 1,
 	)
 	time = 15 SECONDS

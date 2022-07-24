@@ -253,7 +253,7 @@
 /datum/objective/bloodsucker/monsterhunter/check_completion()
 	var/list/datum/mind/monsters = list()
 	for(var/mob/living/players in GLOB.alive_mob_list)
-		if(IS_HERETIC(players) || IS_BLOODSUCKER(players) || iscultist(players) || is_wizard(players) || is_servant_of_ratvar(players))
+		if(IS_HERETIC(players) || IS_BLOODSUCKER(players) || IS_CULTIST(players) || IS_WIZARD(players))
 			monsters += players
 		if(players?.mind?.has_antag_datum(/datum/antagonist/changeling))
 			monsters += players

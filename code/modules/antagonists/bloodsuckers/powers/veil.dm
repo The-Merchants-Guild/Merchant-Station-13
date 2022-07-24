@@ -63,7 +63,7 @@
 	prev_features = user.dna.features
 
 	// Change Appearance
-	randomize_human(H)
+	randomize_human(user)
 	//user.eye_color = random_eye_color()
 	if(prev_disfigured)
 		REMOVE_TRAIT(user, TRAIT_DISFIGURED, null)

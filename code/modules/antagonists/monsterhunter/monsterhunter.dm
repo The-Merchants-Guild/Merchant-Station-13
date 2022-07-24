@@ -129,7 +129,7 @@
 	for(var/mob/living/carbon/all_carbons in GLOB.alive_mob_list)
 		if(all_carbons != owner && all_carbons.mind)
 			var/datum/mind/carbon_minds = all_carbons.mind
-			if(IS_HERETIC(all_carbons) || IS_BLOODSUCKER(all_carbons) || iscultist(all_carbons) || is_servant_of_ratvar(all_carbons) || is_wizard(all_carbons))
+			if(IS_HERETIC(all_carbons) || IS_BLOODSUCKER(all_carbons) || IS_CULTIST(all_carbons) || IS_WIZARD(all_carbons))
 				monsters += carbon_minds
 			if(carbon_minds.has_antag_datum(/datum/antagonist/changeling))
 				monsters += carbon_minds

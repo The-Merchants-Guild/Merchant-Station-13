@@ -12,7 +12,6 @@
 	if(user != target)
 		target.grabbedby(user)
 		user.grab_state = GRAB_AGGRESSIVE
-		restraining = TRUE
 		return TRUE
 	..()
 
@@ -61,7 +60,7 @@
 	ADD_TRAIT(owner, TRAIT_DEAF, FRENZY_TRAIT)
 	if(user.IsAdvancedToolUser())
 		was_tooluser = TRUE
-		ADD_TRAIT(owner, TRAIT_MONKEYLIKE, SPECIES_TRAIT)
+		REMOVE_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER, SPECIES_TRAIT)
 	owner.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.4, blacklisted_movetypes=(FLYING|FLOATING))
 	bloodsuckerdatum.frenzygrab.teach(user, TRUE)
 	owner.add_client_colour(/datum/client_colour/cursed_heart_blood)
@@ -81,7 +80,7 @@
 	REMOVE_TRAIT(owner, TRAIT_MUTE, FRENZY_TRAIT)
 	REMOVE_TRAIT(owner, TRAIT_DEAF, FRENZY_TRAIT)
 	if(was_tooluser)
-		REMOVE_TRAIT(owner, TRAIT_MONKEYLIKE, SPECIES_TRAIT)
+		ADD_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER, SPECIES_TRAIT)
 		was_tooluser = FALSE
 	owner.remove_movespeed_modifier(type)
 	bloodsuckerdatum.frenzygrab.remove(user)

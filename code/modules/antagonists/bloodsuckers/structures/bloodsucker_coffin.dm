@@ -206,11 +206,7 @@
 		var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
 		if(!bloodsuckerdatum)
 			return FALSE
-		if(!bloodsuckerdatum.coffin && !resident)
-			switch(input("Do you wish to claim this as your coffin? [get_area(src)] will be your lair, and you will learn to craft new structures.","Claim Lair") in list("Yes", "No"))
-				if("Yes")
-					ClaimCoffin(user)
-			LockMe(user)
+		LockMe(user)
 		bloodsuckerdatum.SpendRank()
 		/// You're in a Coffin, everything else is done, you're likely here to heal. Let's offer them the oppertunity to do so.
 		bloodsuckerdatum.Check_Begin_Torpor()
@@ -248,14 +244,26 @@
 		LockMe(user, !locked)
 		return
 
-	if(user == resident && user.Adjacent(src))
-		switch(input("Do you wish to unclaim your coffin?","Unclaim Lair") in list("Yes", "No"))
-			if("Yes")
-				UnclaimCoffin(TRUE)
-				LockMe(user)
-			if("No")
+	if(user.Adjacent(src))
+		if(user == resident && user.Adjacent(src))
+			switch(input("Do you wish to unclaim your coffin?","Unclaim Lair") in list("Yes", "No"))
+				if("Yes")
+					UnclaimCoffin(TRUE)
+					LockMe(user)
+				if("No")
+					return
+		else 
+			var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
+			if(!bloodsuckerdatum)
 				return
+			if(!bloodsuckerdatum.coffin && !resident)
+				switch(input("Do you wish to claim this as your coffin? [get_area(src)] will be your lair, and you will learn to craft new structures.","Claim Lair") in list("Yes", "No"))
+					if("Yes")
+						ClaimCoffin(user)
+					if("No")
+						return
 	return TRUE
+
 /obj/structure/closet/crate/proc/LockMe(mob/user, inLocked = TRUE)
 	if(user == resident)
 		if(!broken)

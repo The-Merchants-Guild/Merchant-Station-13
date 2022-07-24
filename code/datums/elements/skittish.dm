@@ -21,7 +21,7 @@
 	if(scooby.stat != CONSCIOUS || scooby.m_intent != MOVE_INTENT_RUN)
 		return
 
-	if(!istype(target, /obj/structure/closet) || istype(target, /obj/structure/closet/crate/coffin))
+	if(!istype(target, /obj/structure/closet))
 		return
 
 	var/obj/structure/closet/closet = target

@@ -230,11 +230,11 @@
 	if(owner.current.blood_volume >= FRENZY_THRESHOLD_EXIT && frenzied)
 		owner.current.remove_status_effect(STATUS_EFFECT_FRENZY)
 	// BLOOD_VOLUME_BAD: [224] - Jitter
-	if(owner.current.blood_volume < BLOOD_VOLUME_BAD(owner.current) && prob(0.5) && !HAS_TRAIT(owner.current, TRAIT_NODEATH) && !HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
+	if(owner.current.blood_volume < BLOOD_VOLUME_BAD && prob(0.5) && !HAS_TRAIT(owner.current, TRAIT_NODEATH) && !HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
 		owner.current.Jitter(3)
 	// BLOOD_VOLUME_SURVIVE: [122] - Blur Vision
-	if(owner.current.blood_volume < BLOOD_VOLUME_SURVIVE(owner.current))
-		owner.current.blur_eyes(8 - 8 * (owner.current.blood_volume / BLOOD_VOLUME_BAD(owner.current)))
+	if(owner.current.blood_volume < BLOOD_VOLUME_SURVIVE)
+		owner.current.blur_eyes(8 - 8 * (owner.current.blood_volume / BLOOD_VOLUME_BAD))
 
 	// The more blood, the better the Regeneration, get too low blood, and you enter Frenzy.
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = owner.has_antag_datum(/datum/antagonist/bloodsucker)
@@ -244,11 +244,11 @@
 				return
 			qdel(owner.current)
 		enter_frenzy()
-	else if(owner.current.blood_volume < BLOOD_VOLUME_BAD(owner.current))
+	else if(owner.current.blood_volume < BLOOD_VOLUME_BAD)
 		additional_regen = 0.1
-	else if(owner.current.blood_volume < BLOOD_VOLUME_OKAY(owner.current))
+	else if(owner.current.blood_volume < BLOOD_VOLUME_OKAY)
 		additional_regen = 0.2
-	else if(owner.current.blood_volume < BLOOD_VOLUME_NORMAL(owner.current))
+	else if(owner.current.blood_volume < BLOOD_VOLUME_NORMAL)
 		additional_regen = 0.3
 	else if(owner.current.blood_volume < BS_BLOOD_VOLUME_MAX_REGEN)
 		additional_regen = 0.4

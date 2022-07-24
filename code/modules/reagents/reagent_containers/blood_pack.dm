@@ -28,7 +28,6 @@
 		// Safety: In case you spam clicked the blood bag on yourself, and it is now empty (below will divide by zero)
 		if(reagents.total_volume <= 0)
 			return
-		var/gulp_size = 5
 		if(IS_BLOODSUCKER(user))
 			var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
 			bloodsuckerdatum.AddBloodVolume(5)

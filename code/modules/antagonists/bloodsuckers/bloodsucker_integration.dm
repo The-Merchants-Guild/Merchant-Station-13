@@ -144,15 +144,15 @@
 	if(!bloodsuckerdatum)
 		return BLOODSUCKER_HIDE_BLOOD
 	// Blood level too low to be hidden?
-	if(blood_volume <= BLOOD_VOLUME_BAD(user) || bloodsuckerdatum.frenzied)
+	if(blood_volume <= BLOOD_VOLUME_BAD || bloodsuckerdatum.frenzied)
 		return BLOODSUCKER_HIDE_BLOOD
 	// Special check: Nosferatu will always be Pale Death
 	if(HAS_TRAIT(src, TRAIT_MASQUERADE))
 		return BLOODSUCKER_HIDE_BLOOD
 	switch(blood_volume)
-		if(BLOOD_VOLUME_OKAY(user) to BLOOD_VOLUME_SAFE(user))
+		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 			return "[p_they(TRUE)] [p_have()] pale skin.\n"
-		if(BLOOD_VOLUME_BAD(user) to BLOOD_VOLUME_OKAY(user))
+		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
 			return "<b>[p_they(TRUE)] look[p_s()] like pale death.</b>\n"
 	// If a Bloodsucker is malnourished, AND if his temperature matches his surroundings (aka he hasn't fed recently and looks COLD)
 //	return blood_volume < BLOOD_VOLUME_OKAY // && !(bodytemperature <= get_temperature() + 2)

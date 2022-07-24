@@ -108,26 +108,18 @@
 	if(!do_mob(user, user, 10 SECONDS, 1))
 		return
 	switch(bloodsuckerdatum.total_blood_drank)
-		if(0 to 500)
-			if(iscatperson(user))
+		if(0 to 1500)
+			if(isfelinid(user))
 				user.set_species(/datum/species/lizard)
 				playsound(user.loc, 'sound/voice/lizard/hiss.ogg', 50)
 			else
 				user.set_species(/datum/species/human/felinid)
-				playsound(user.loc, 'sound/voice/feline/meow1.ogg', 50)
+				playsound(user.loc, 'sound/effects/meow1.ogg', 50)
 				if(DIGITIGRADE in user_species.species_traits)
 					user_species.species_traits -= DIGITIGRADE
 			user_species.punchdamagehigh += 5.0 //stronk
 			user_species.armor += 30
 			to_chat(user, span_notice("You aren't strong enough to morph into something stronger! But you do certainly feel more feral and stronger than before."))
-		if(500 to 1000)
-			user.set_species(/datum/species/gorilla)
-			to_chat(owner, span_notice("You transform into a gorrila-ey beast, you feel stronger!"))
-			playsound(user.loc, 'sound/creatures/gorilla.ogg', 50)
-			if(DIGITIGRADE in user_species.species_traits)
-				user_species.species_traits -= DIGITIGRADE
-			user_species.punchdamagehigh += 7.5 //very stronk
-			user_species.armor += 35
 		if(1500 to INFINITY)
 			var/mob/living/simple_animal/hostile/bloodsucker/giantbat/gb
 			if(!gb || gb.stat == DEAD)
@@ -241,23 +233,25 @@
 	to_chat(user, span_warning("You fire a blood bolt!"))
 	user.changeNext_move(CLICK_CD_RANGE)
 	user.newtonian_move(get_dir(target_atom, user))
-	var/obj/item/projectile/magic/arcane_barrage/bloodsucker/magic_9ball = new(user.loc)
+	var/obj/projectile/magic/arcane_barrage/bloodsucker/magic_9ball = new(user.loc)
 	magic_9ball.bloodsucker_power = src
 	magic_9ball.firer = user
 	magic_9ball.def_zone = ran_zone(user.zone_selected)
 	magic_9ball.preparePixelProjectile(target_atom, user)
-	INVOKE_ASYNC(magic_9ball, /obj/item/projectile.proc/fire)
+	INVOKE_ASYNC(magic_9ball, /obj/projectile.proc/fire)
 	playsound(user, 'sound/magic/wand_teleport.ogg', 60, TRUE)
 	PowerActivatedSuccessfully()
 
-/obj/item/projectile/magic/arcane_barrage/bloodsucker
+/obj/projectile/magic/bloodsucker
 	name = "blood bolt"
 	icon_state = "bloodbolt"
 	damage_type = BURN
+	nodamage = FALSE
 	damage = 30
+	hitsound = 'sound/weapons/barragespellhit.ogg'
 	var/datum/action/bloodsucker/targeted/bloodbolt/bloodsucker_power
 
-/obj/item/projectile/magic/arcane_barrage/bloodsucker/on_hit(target)
+/obj/projectile/magic/arcane_barrage/bloodsucker/on_hit(target)
 	if(ismob(target))
 		qdel(src)
 		if(iscarbon(target))

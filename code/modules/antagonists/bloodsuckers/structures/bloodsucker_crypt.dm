@@ -334,7 +334,8 @@
 	if(use_lock || !has_buckled_mobs())
 		return FALSE
 	var/mob/living/carbon/buckled_carbons = pick(buckled_mobs)
-	if(user.combat_mode == TRUE)
+	var/mob/living/L = user
+	if(L.combat_mode == TRUE)
 		if(istype(bloodsuckerdatum))
 			unbuckle_mob(buckled_carbons)
 			return FALSE

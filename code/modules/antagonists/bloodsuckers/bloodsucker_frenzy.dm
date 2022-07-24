@@ -58,7 +58,7 @@
 	// Give the other Frenzy effects
 	ADD_TRAIT(owner, TRAIT_MUTE, FRENZY_TRAIT)
 	ADD_TRAIT(owner, TRAIT_DEAF, FRENZY_TRAIT)
-	if(user.IsAdvancedToolUser())
+	if(HAS_TRAIT_FROM(user, TRAIT_ADVANCEDTOOLUSER, SPECIES_TRAIT))
 		was_tooluser = TRUE
 		REMOVE_TRAIT(owner, TRAIT_ADVANCEDTOOLUSER, SPECIES_TRAIT)
 	owner.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.4, blacklisted_movetypes=(FLYING|FLOATING))

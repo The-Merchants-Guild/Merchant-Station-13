@@ -17,8 +17,8 @@
 	// Identity Vars
 	var/prev_gender
 	var/prev_skin_tone
-	var/prev_hair_style
-	var/prev_facial_hair_style
+	var/prev_hairstyle
+	var/prev_facial_hairstyle
 	var/prev_hair_color
 	var/prev_facial_hair_color
 	var/prev_underwear
@@ -51,8 +51,8 @@
 	// Store Prev Appearance
 	prev_gender = user.gender
 	prev_skin_tone = user.skin_tone
-	prev_hair_style = user.hair_style
-	prev_facial_hair_style = user.facial_hair_style
+	prev_hairstyle = user.hairstyle
+	prev_facial_hairstyle = user.facial_hairstyle
 	prev_hair_color = user.hair_color
 	prev_facial_hair_color = user.facial_hair_color
 	prev_underwear = user.underwear
@@ -89,8 +89,8 @@
 	// Revert Appearance
 	user.gender = prev_gender
 	user.skin_tone = prev_skin_tone
-	user.hair_style = prev_hair_style
-	user.facial_hair_style = prev_facial_hair_style
+	user.hairstyle = prev_hairstyle
+	user.facial_hairstyle = prev_facial_hairstyle
 	user.hair_color = prev_hair_color
 	user.facial_hair_color = prev_facial_hair_color
 	user.underwear = prev_underwear

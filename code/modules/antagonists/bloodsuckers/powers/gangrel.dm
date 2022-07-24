@@ -241,7 +241,7 @@
 	to_chat(user, span_warning("You fire a blood bolt!"))
 	user.changeNext_move(CLICK_CD_RANGE)
 	user.newtonian_move(get_dir(target_atom, user))
-	var/obj/projectile/magic/arcane_barrage/bloodsucker/magic_9ball = new(user.loc)
+	var/obj/projectile/magic/bloodsucker/magic_9ball = new(user.loc)
 	magic_9ball.bloodsucker_power = src
 	magic_9ball.firer = user
 	magic_9ball.def_zone = ran_zone(user.zone_selected)
@@ -259,7 +259,7 @@
 	hitsound = 'sound/weapons/barragespellhit.ogg'
 	var/datum/action/bloodsucker/targeted/bloodbolt/bloodsucker_power
 
-/obj/projectile/magic/arcane_barrage/bloodsucker/on_hit(target)
+/obj/projectile/magic/bloodsucker/on_hit(target)
 	if(ismob(target))
 		qdel(src)
 		if(iscarbon(target))

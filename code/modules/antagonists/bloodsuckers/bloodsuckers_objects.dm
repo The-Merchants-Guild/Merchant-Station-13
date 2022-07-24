@@ -37,7 +37,7 @@
 	START_PROCESSING(SSobj, src)
 	..()
 
-/obj/item/restraints/legcuffs/beartrap/bloodsucker/Crossed(AM as mob|obj)
+/obj/item/restraints/legcuffs/beartrap/bloodsucker/spring_trap(datum/source, AM as mob|obj)
 	var/mob/living/carbon/human/user = AM
 	if(armed && (IS_BLOODSUCKER(user) || IS_VASSAL(user)))
 		to_chat(user, span_notice("You gracefully step over the blood puddle and avoid triggering the trap"))

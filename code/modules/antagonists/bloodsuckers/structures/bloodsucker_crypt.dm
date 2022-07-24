@@ -82,8 +82,7 @@
 	icon_state = "bloodaltar"
 	density = TRUE
 	anchored = FALSE
-	climbable = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = PASSTABLE | LETPASSTHROW
 	can_buckle = FALSE
 	var/task_completed = FALSE
 	var/sacrifices = 0
@@ -98,6 +97,10 @@
 	Hunter_desc = "This is a blood altar, where monsters usually practice a sort of bounty system to advanced their powers.\n\
 		They normally sacrifice hearts or blood in exchange for these ranks, forcing them to move out of their lair.\n\
 		It can only be used twice per night and it needs to be interacted it to be claimed, making bloodsuckers come back twice a night."
+
+/obj/structure/bloodsucker/bloodaltar/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/climbable)
 
 /obj/structure/bloodsucker/bloodaltar/bolt()
 	. = ..()
@@ -236,7 +239,7 @@
 
 /obj/structure/bloodsucker/vassalrack/deconstruct(disassembled = TRUE)
 	. = ..()
-	new /obj/item/stack/sheet/metal(src.loc, 4)
+	new /obj/item/stack/sheet/iron(src.loc, 4)
 	new /obj/item/stack/rods(loc, 4)
 	qdel(src)
 
@@ -331,7 +334,7 @@
 	if(use_lock || !has_buckled_mobs())
 		return FALSE
 	var/mob/living/carbon/buckled_carbons = pick(buckled_mobs)
-	if(user.a_intent == INTENT_HELP)
+	if(user.combat_mode == TRUE)
 		if(istype(bloodsuckerdatum))
 			unbuckle_mob(buckled_carbons)
 			return FALSE
@@ -620,7 +623,7 @@
 			toggle()
 			return
 		var/mob/living/carbon/target = pick(buckled_mobs)
-		if(target.stat >= DEAD || user.a_intent == INTENT_HELP)
+		if(target.stat >= DEAD || user.combat_mode == FALSE)
 			unbuckle_mob(target)
 			return
 		if(user.blood_volume >= 150)

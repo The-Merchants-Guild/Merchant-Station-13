@@ -46,7 +46,7 @@
 	breakout_time = 30 SECONDS
 	pryLidTimer = 20 SECONDS
 	resistance_flags = NONE
-	material_drop = /obj/item/stack/sheet/metal
+	material_drop = /obj/item/stack/sheet/iron
 	material_drop_amount = 2
 	armor = list(MELEE = 50, BULLET = 20, LASER = 30, ENERGY = 0, BOMB = 50, BIO = 0, FIRE = 70, ACID = 60)
 
@@ -60,7 +60,7 @@
 	breakout_time = 35 SECONDS
 	pryLidTimer = 35 SECONDS
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
-	material_drop = /obj/item/stack/sheet/metal
+	material_drop = /obj/item/stack/sheet/iron
 	material_drop_amount = 2
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 100, BIO = 0, FIRE = 100, ACID = 100)
 
@@ -74,7 +74,7 @@
 	close_sound = 'sound/effects/footstep/slime1.ogg'
 	breakout_time = 25 SECONDS
 	pryLidTimer = 20 SECONDS
-	material_drop = /obj/item/reagent_containers/food/snacks/meat/slab
+	material_drop = /obj/item/food/meat/slab
 	material_drop_amount = 3
 	armor = list(MELEE = 70, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 70, BIO = 0, FIRE = 70, ACID = 60)
 
@@ -88,7 +88,7 @@
 	close_sound = 'sound/effects/pressureplate.ogg'
 	breakout_time = 25 SECONDS
 	pryLidTimer = 30 SECONDS
-	material_drop = /obj/item/stack/sheet/metal
+	material_drop = /obj/item/stack/sheet/iron
 	armor = list(MELEE = 40, BULLET = 15, LASER = 50, ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 70, ACID = 60)
 
 //////////////////////////////////////////////

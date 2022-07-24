@@ -694,11 +694,11 @@
 	cost = 10
 	scaling_cost = 9
 	requirements = list(10,10,10,10,10,10,10,10,10,10)
-	antag_cap = list("denominator" = 24)
+	antag_cap = list(1,1,1,2,2,2,2,2,3,3)
 
 /datum/dynamic_ruleset/roundstart/bloodsucker/pre_execute(population)
 	. = ..()
-	var/num_bloodsuckers = get_antag_cap(population) * (scaled_times + 1)
+	var/num_bloodsuckers = antag_cap[indice_pop] * (scaled_times + 1)
 
 	for(var/i = 1 to num_bloodsuckers)
 		if(candidates.len <= 0)

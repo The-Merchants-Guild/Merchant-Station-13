@@ -21,7 +21,7 @@
 	if(scooby.stat != CONSCIOUS || scooby.m_intent != MOVE_INTENT_RUN)
 		return
 
-	if(!istype(target, /obj/structure/closet))
+	if(!istype(target, /obj/structure/closet) || istype(target, /obj/structure/closet/crate/coffin))
 		return
 
 	var/obj/structure/closet/closet = target
@@ -34,7 +34,7 @@
 
 	if(!closet.opened)
 		if(closet.locked)
-			closet.togglelock(scooby, silent = TRUE)
+			return
 		if(!closet.open(scooby))
 			// No message if unable to open, since this is on Bump, spammy potential
 			return

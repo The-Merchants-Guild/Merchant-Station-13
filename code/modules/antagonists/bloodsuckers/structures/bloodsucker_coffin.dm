@@ -14,7 +14,7 @@
 		owner.teach_crafting_recipe(/datum/crafting_recipe/staketrap)
 		owner.teach_crafting_recipe(/datum/crafting_recipe/woodenducky)
 		owner.teach_crafting_recipe(/datum/crafting_recipe/bloodaltar)
-		to_chat(owner, span_danger("You learned new recipes - You can view them in the Structure and Weaponry section of the crafting menu!"))
+		to_chat(owner, span_danger("You learned new recipes - You can view them in the Tribal and Weaponry section of the crafting menu!"))
 	// This is my Lair
 	coffin = claimed
 	lair = get_area(claimed)
@@ -244,24 +244,29 @@
 		LockMe(user, !locked)
 		return
 
+	var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
+	if(!bloodsuckerdatum)
+		return
 	if(user.Adjacent(src))
-		if(user == resident && user.Adjacent(src))
+		if(user == resident)
 			switch(input("Do you wish to unclaim your coffin?","Unclaim Lair") in list("Yes", "No"))
 				if("Yes")
 					UnclaimCoffin(TRUE)
 					LockMe(user)
 				if("No")
 					return
-		else 
-			var/datum/antagonist/bloodsucker/bloodsuckerdatum = user.mind.has_antag_datum(/datum/antagonist/bloodsucker)
-			if(!bloodsuckerdatum)
-				return
-			if(!bloodsuckerdatum.coffin && !resident)
+		else if(!resident) 
+			if(!bloodsuckerdatum.coffin)
 				switch(input("Do you wish to claim this as your coffin? [get_area(src)] will be your lair, and you will learn to craft new structures.","Claim Lair") in list("Yes", "No"))
 					if("Yes")
 						ClaimCoffin(user)
 					if("No")
 						return
+			else
+				to_chat(user, span_warning("You already have claimed a coffin! You need to unclaim your old one in order to be able to claim a new one!"))
+		else 
+			to_chat(user, warning("[src] already belongs to another bloodsucker."))
+
 	return TRUE
 
 /obj/structure/closet/crate/proc/LockMe(mob/user, inLocked = TRUE)

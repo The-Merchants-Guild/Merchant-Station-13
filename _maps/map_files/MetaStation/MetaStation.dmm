@@ -6379,14 +6379,6 @@
 /area/hallway/secondary/entry)
 "bad" = (
 /obj/structure/table/glass,
-/obj/item/folder/white{
-	pixel_y = 2
-	},
-/obj/item/screwdriver{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/radio/headset/headset_med,
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/tile/yellow{
@@ -6399,9 +6391,9 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/item/hand_labeler,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
+/obj/machinery/chem/pressure{
+	pixel_y = 7
+	},
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "baf" = (
@@ -11870,7 +11862,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/machinery/chem_mass_spec,
+/obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "cmE" = (
@@ -12476,6 +12468,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/machinery/chem/bluespace,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "cuy" = (
@@ -16816,6 +16809,16 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/aft)
+"dvw" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/chem/radioactive,
+/turf/open/floor/iron/white,
+/area/medical/chemistry)
 "dvC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
@@ -23220,7 +23223,6 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "fuY" = (
-/obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "fvc" = (
@@ -24630,6 +24632,14 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/item/stack/package_wrap,
+/obj/item/hand_labeler,
+/obj/item/screwdriver{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "fRN" = (
@@ -45219,6 +45229,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	pixel_y = 10
 	},
+/obj/item/stack/sheet/mineral/uranium,
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "mVP" = (
@@ -77810,9 +77821,10 @@
 /obj/machinery/airalarm/directional/south,
 /obj/structure/cable,
 /obj/structure/table/glass,
-/obj/item/clothing/glasses/science,
-/obj/item/clothing/glasses/science,
 /obj/machinery/power/apc/auto_name/west,
+/obj/machinery/chem/centrifuge{
+	pixel_y = 4
+	},
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
 "xwd" = (
@@ -104751,7 +104763,7 @@ vne
 wHY
 rAF
 rAF
-cus
+dvw
 cmB
 cmB
 cmB

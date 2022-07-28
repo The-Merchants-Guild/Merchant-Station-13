@@ -274,6 +274,8 @@
 		"pandemic",
 		"plumbing_rcd_sci",
 		"soda_dispenser",
+		"lcass_pressure",
+		"lcass_centrifuge",
 		"syringegun",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
@@ -297,6 +299,8 @@
 		"piercesyringe",
 		"plasmarefiller",
 		"smoke_machine",
+		"lcass_radioactive",
+		"lcass_bluespace",
 		"rapidsyringe",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)

@@ -473,3 +473,64 @@
 
 	M.adjustToxLoss(5 * REM * delta_time)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 3 * REM * delta_time)
+
+/datum/reagent/drug/flipout
+	name = "Flipout"
+	description = "A chemical compound that causes uncontrolled and extremely violent flipping."
+	color = "#ff33cc" // rgb: 255, 51, 204
+	overdose_threshold = 40
+	addiction_types = list(/datum/addiction/flipout = 15)
+
+
+/datum/reagent/drug/flipout/on_mob_life(mob/living/M)
+	var/high_message = pick("You have the uncontrollable, all consuming urge to FLIP!.", "You feel as if you are flipping to a higher plane of existence.", "You just can't stop FLIPPING.")
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(prob(80))
+			H.SpinAnimation(10,1)
+		if(prob(10))
+			M << "<span class='notice'>[high_message].</span>"
+
+	..()
+	return
+
+/datum/reagent/drug/flipout/overdose_process(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.SpinAnimation(16,100)
+		if(prob(70))
+			H.Dizzy(20)
+			if((M.mobility_flags & MOBILITY_MOVE) && !istype(M.loc, /atom/movable))
+				for(var/i = 0, i < 4, i++)
+				step(M, pick(GLOB.cardinals))
+		if(prob(15))
+			M << "<span class='danger'>The flipping is so intense you begin to tire </span>" // I just noticed this uses << instead of any of the procs for talking to a player. This is funny so I'm not fixing it!
+			H.add_confusion(4)
+			M.adjustStaminaLoss(10)
+			H.transform *= -1
+	..()
+	return
+
+/*/datum/reagent/drug/pupupipi
+	name = "Sweet Brown"
+	description = "A fetid concoction often huffed or drank by vagrants and bums. High dosages have... interesting effects."
+	color = "#602101" // rgb: 96, 33, 1
+	overdose_threshold = 100
+
+/datum/reagent/drug/pupupipi/on_mob_life(mob/living/M)
+	if(prob(5))
+		var/high_message = pick("You need mo' o' dat sweet brown juice...", "Your guts tingle...", "You feel lightheaded...")
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+	M.Jitter(30)
+	if(prob(15)) //once every six-ish ticks. is that ok?
+		M.emote("burp")
+	..()
+
+/datum/reagent/drug/pupupipi/overdose_process(mob/living/carbon/human/H)
+	CHECK_DNA_AND_SPECIES(H)
+	H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 30)
+	if(ishuman(H))
+		to_chat(H, "<span class= 'userdanger'>Oh shit!</span>")
+		H.set_species(/datum/species/krokodil_addict)
+	..()
+*/

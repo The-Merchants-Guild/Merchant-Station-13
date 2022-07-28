@@ -588,3 +588,159 @@
 	required_reagents = list(/datum/reagent/consumable/ethanol/planet_cracker = 1, /datum/reagent/consumable/ethanol/triumphal_arch = 1)
 	strengthdiv = 20
 	mix_message = "<span class='boldannounce'>The two patriotic drinks instantly reject each other!</span>"
+
+/datum/chemical_reaction/over_reactible
+	var/exothermic_gain = 0
+	var/overpressure_threshold = FALSE
+	var/can_overheat = FALSE
+	var/can_overpressure = FALSE
+
+/datum/chemical_reaction/proc/over_reaction(datum/reagents/holder, created_volume)
+
+	var/location = get_turf(holder.my_atom)
+	var/datum/effect_system/smoke_spread/chem/S = new
+	S.attach(location)
+	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
+	if(S)
+		S.set_up(holder, 4, location, 0)
+		S.start()
+	if(holder)
+		holder.clear_reagents()
+
+/datum/chemical_reaction/over_reactible/on_reaction(datum/reagents/holder, created_volume)
+	..()
+	holder.chem_temp += exothermic_gain
+
+	if(can_overheat == TRUE && holder.chem_temp >= overheat_temp)
+		over_reaction(holder)
+	if(can_overpressure == TRUE && holder.chem_pressurized >= overpressure_threshold)
+		over_reaction(holder, created_volume)
+
+/datum/chemical_reaction/sparky
+	results = list(/datum/reagent/sparky = 6, /datum/reagent/toxin/radgoop = 4)
+	required_reagents = list(/datum/reagent/uranium = 4, /datum/reagent/carbon = 2)
+	required_temp = 400
+	required_radioactivity = TRUE
+	reaction_tags = REACTION_TAG_HARD
+
+/datum/chemical_reaction/over_reactible/dizinc
+	results = list(/datum/reagent/dizinc = 2)
+	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/consumable/ethanol = 2)
+	required_temp = 290
+	is_cold_recipe = TRUE
+	can_overheat = TRUE
+	overheat_temp = 310
+	exothermic_gain = 30
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DANGEROUS
+
+/datum/chemical_reaction/over_reactible/hexamine
+	results = list(/datum/reagent/hexamine = 5)
+	required_reagents = list(/datum/reagent/ammonia = 3, /datum/reagent/carbon = 3)
+	required_catalysts = list(/datum/reagent/iron = 1)
+	required_temp = 230
+	required_pressure = TRUE
+	is_cold_recipe = TRUE
+	exothermic_gain = 25
+	can_overheat = TRUE
+	overheat_temp = 245
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_DANGEROUS
+
+/datum/chemical_reaction/over_reactible/impvolt
+	results = list(/datum/reagent/impvolt = 4, /datum/reagent/emit_on = 2)
+	required_reagents = list(/datum/reagent/sparky = 4, /datum/reagent/teslium = 2)
+	required_temp = 290
+	is_cold_recipe = TRUE
+	bluespace_recipe = TRUE
+	can_overheat = TRUE
+	overheat_temp = 310
+	exothermic_gain = 20
+	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_DAMAGING
+
+/datum/chemical_reaction/emit
+	results = list(/datum/reagent/emit = 8, /datum/reagent/uranium/radium = 2)
+	required_reagents = list(/datum/reagent/uranium = 2, /datum/reagent/sparky = 4, /datum/reagent/volt = 2)
+	bluespace_recipe = TRUE
+	reaction_tags = REACTION_TAG_HARD
+/datum/chemical_reaction/emit_on
+	results = list(/datum/reagent/emit_on = 1)
+	required_reagents = list(/datum/reagent/emit = 1)
+	required_temp = 400
+	reaction_tags = REACTION_TAG_HARD | REACTION_TAG_DANGEROUS | REACTION_TAG_DAMAGING
+
+/datum/chemical_reaction/reagent_explosion/superboom//explodes on creation
+	results = list(/datum/reagent/superboom = 4)
+	required_reagents = list(/datum/reagent/sboom = 3, /datum/reagent/ammonia = 3, /datum/reagent/dizinc = 2)
+	required_catalysts = list(/datum/reagent/toxin/tabun_pb = 1)
+	required_temp = 310
+	modifier = 1
+	required_pressure = TRUE
+	strengthdiv = 1
+
+/datum/chemical_reaction/reagent_explosion/superboom/on_reaction(datum/reagents/holder, created_volume)//not if stabilising agent is present
+	if(holder.has_reagent(/datum/reagent/stabilizing_agent) && holder.chem_pressurized < 1)
+		return
+	holder.remove_reagent(/datum/reagent/sboom, created_volume)
+
+/datum/chemical_reaction/reagent_explosion/superboom_explosion //and when heated slightly
+	required_reagents = list(/datum/reagent/superboom = 1)
+	required_temp = 330
+	strengthdiv = 1
+	modifier = 0
+
+/datum/chemical_reaction/reagent_explosion/sazide//explodes on creation
+	results = list(/datum/reagent/toxin/sazide = 4)
+	required_reagents = list(/datum/reagent/toxin/acid/hydrazine = 1, /datum/reagent/toxin/acid = 1, /datum/reagent/nitrogen = 1, /datum/reagent/consumable/ethanol = 1)
+	centrifuge_recipe = TRUE
+	strengthdiv = 8
+
+/datum/chemical_reaction/reagent_explosion/sazide/on_reaction(datum/reagents/holder, created_volume)//not if stabilising agent is present
+	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
+		return
+	holder.remove_reagent(/datum/reagent/toxin/sazide, created_volume)
+
+/datum/chemical_reaction/over_reactible/oxyplas
+	results = list(/datum/reagent/oxyplas = 4, /datum/reagent/hydrogen = 4)
+	required_catalysts = list(/datum/reagent/iron = 2)
+	required_reagents = list(/datum/reagent/toxin/plasma = 5, /datum/reagent/water = 3)
+	required_temp = 340
+	can_overheat = TRUE
+	overheat_temp = 370
+
+/datum/chemical_reaction/over_reactible/proto
+	results = list(/datum/reagent/proto = 2, /datum/reagent/toxin/radgoop = 6)
+	required_reagents = list(/datum/reagent/oxyplas = 2, /datum/reagent/hexamine = 3)
+	required_temp = 320
+	required_radioactivity = TRUE
+	can_overheat = TRUE
+	overheat_temp = 340
+
+/datum/chemical_reaction/over_reactible/proto
+	results = list(/datum/reagent/proto = 2, /datum/reagent/toxin/radgoop = 6)
+	required_reagents = list(/datum/reagent/oxyplas = 2, /datum/reagent/hexamine = 3)
+	required_temp = 320
+	required_radioactivity = TRUE
+	can_overheat = TRUE
+	overheat_temp = 340
+
+/datum/chemical_reaction/arclumin //arc lumin had a great impact on hippiestation and the car had a great impact on him
+	results = list(/datum/reagent/arclumin = 2)
+	required_reagents = list(/datum/reagent/teslium = 2, /datum/reagent/toxin/rotatium = 2, /datum/reagent/liquid_dark_matter = 2, /datum/reagent/colorful_reagent = 2) //difficult
+	required_catalysts = list(/datum/reagent/toxin/plasma = 1)
+	required_temp = 400
+	mix_message = "<span class='danger'>In a blinding flash of light, a glowing frothing solution forms and begins discharging!</span>"
+	mix_sound = 'sound/effects/pray_chaplain.ogg'//truly a miracle
+
+/datum/chemical_reaction/arclumin/on_reaction(datum/reagents/holder)//so bright it flashbangs
+	var/location = get_turf(holder.my_atom)
+	for(var/mob/living/carbon/C in get_hearers_in_view(3, location))
+		if(C.flash_act())
+			if(get_dist(C, location) < 2)
+				C.Knockdown(50)
+			else
+				C.Stun(50)
+
+/datum/chemical_reaction/hydrazine
+	results = list(/datum/reagent/toxin/acid/hydrazine = 4)
+	required_reagents = list(/datum/reagent/toxin/bleach = 1, /datum/reagent/ammonia = 1)
+	required_temp = 430
+	mix_message = "A furiously fuming oily liquid is produced!"

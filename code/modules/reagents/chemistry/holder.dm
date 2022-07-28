@@ -131,6 +131,7 @@
 	var/ui_reaction_index = 1
 	///If we're syncing with the beaker - so return reactions that are actively happening
 	var/ui_beaker_sync = FALSE
+	var/next_react = 0
 
 /datum/reagents/New(maximum=100, new_flags=0)
 	maximum_volume = maximum
@@ -764,6 +765,7 @@
 /// Handle any reactions possible in this holder
 /// Also UPDATES the reaction list
 /// High potential for infinite loopsa if you're editing this.
+/// Will I edit this to something worse for no reason? Absolutely my n-word.
 /datum/reagents/proc/handle_reactions()
 	if(QDELING(src))
 		CRASH("[my_atom] is trying to handle reactions while being flagged for deletion. It presently has [length(reagent_list)] number of reactants in it. If that is over 0 then something terrible happened.")
@@ -788,6 +790,42 @@
 	LAZYNULL(failed_but_capable_reactions)
 
 	. = 0
+	for(var/reagent in cached_reagents)
+		var/datum/reagent/R = reagent
+
+		var/turf/T = get_turf(cached_my_atom)
+		switch(R.reagent_state)//evaluating state of matter
+			if(GAS)
+				if(chem_temp < R.boiling_point)
+					R.reagent_state = LIQUID
+					if(!is_type_in_typecache(cached_my_atom, GLOB.no_reagent_message_typecache) && SSticker.HasRoundStarted())
+						for(var/mob/M in viewers(3, T))
+							to_chat(M, ("<span class='notice'>[icon2html(cached_my_atom, viewers(cached_my_atom))] The vapour condenses into a liquid!</span>"))
+
+			if(SOLID)
+				if(chem_temp > R.melting_point)
+					R.reagent_state = LIQUID
+					if(!is_type_in_typecache(cached_my_atom, GLOB.no_reagent_message_typecache) && SSticker.HasRoundStarted())
+						for(var/mob/M in viewers(3, T))
+							to_chat(M, ("<span class='notice'>[icon2html(cached_my_atom, viewers(cached_my_atom))] The solid chemicals melt into a liquid!</span>"))
+							//for(var/i = 1; i <= cached_reagents.len; i++)
+							//	message_admins("[cached_reagents[i]] melted into liquid of atom [my_atom] located in [my_atom.loc]")
+							///For debug purposes, feel free to uncomment in future. (YoYoBatty)
+
+			if(LIQUID)
+				if(!is_type_in_typecache(R, GLOB.statechange_reagent_blacklist)) //Reagent states are interchangeable, so one blacklist to rule them all.
+					if(chem_temp > R.boiling_point && !is_type_in_typecache(R, GLOB.vaporchange_reagent_blacklist))
+						R.reagent_state = GAS
+						if(!is_type_in_typecache(cached_my_atom, GLOB.no_reagent_message_typecache) && SSticker.HasRoundStarted())
+							for(var/mob/M in viewers(4, T))
+								to_chat(M, ("<span class='notice'>[icon2html(cached_my_atom, viewers(cached_my_atom))] The solution rapidly boils into a vapour!</span>"))
+
+					else if(chem_temp < R.melting_point && !is_type_in_typecache(R, GLOB.solidchange_reagent_blacklist))
+						R.reagent_state = SOLID
+						if(!is_type_in_typecache(cached_my_atom, GLOB.no_reagent_message_typecache) && SSticker.HasRoundStarted())
+							for(var/mob/M in viewers(3, T))
+								to_chat(M, ("<span class='notice'>[icon2html(cached_my_atom, viewers(cached_my_atom))] The solution solidifies!</span>"))
+
 	var/list/possible_reactions = list()
 	for(var/datum/reagent/reagent as anything in cached_reagents)
 		for(var/datum/chemical_reaction/reaction as anything in cached_reactions[reagent.type]) // Was a big list but now it should be smaller since we filtered it with our reagent id

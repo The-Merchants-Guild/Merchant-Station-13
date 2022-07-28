@@ -621,9 +621,15 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		return
 
 	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_TURF, src, reagents, methods, volume_modifier, show_message)
+	var/datum/cached_my_atom = source.my_atom
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
-		. |= R.expose_turf(src, reagents[R])
+		if(R.reagent_state != SOLID)
+			R.expose_turf(src, R.volume * volume_modifier, show_message)
+		if(world.time >= source.next_react)
+			R.handle_state_change(src, R.volume, cached_my_atom)
+			if(methods == VAPOR)
+				source.next_react = world.time + 1
 
 /**
  * Called when this turf is being washed. Washing a turf will also wash any mopable floor decals

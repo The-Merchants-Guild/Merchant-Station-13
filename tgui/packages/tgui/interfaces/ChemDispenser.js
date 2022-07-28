@@ -83,7 +83,7 @@ export const ChemDispenser = (props, context) => {
                 <Button
                   icon="circle"
                   disabled={!data.isBeakerLoaded}
-                  content="Record"
+                  content="Add recipe"
                   onClick={() => act('record_recipe')} />
               )}
               {recording && (
@@ -111,7 +111,7 @@ export const ChemDispenser = (props, context) => {
                 lineHeight={1.75}
                 content={recipe.name}
                 onClick={() => act('dispense_recipe', {
-                  recipe: recipe.name,
+                  recipe: recipe.contents,
                 })} />
             ))}
             {recipes.length === 0 && (

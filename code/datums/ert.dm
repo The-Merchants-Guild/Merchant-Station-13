@@ -64,22 +64,22 @@
 		polldesc = "a Code [code] Nanotrasen Emergency Response Team"
 
 /datum/ert/blue
-	name = "Code Blue ERT"
+	name = "\improper Code Blue ERT"
 	opendoors = FALSE
 	code = "Blue"
 
 /datum/ert/amber
-	name = "Code Amber ERT"
+	name = "\improper Code Amber ERT"
 	code = "Amber"
 
 /datum/ert/red
-	name = "Code Red ERT"
+	name = "\improper Code Red ERT"
 	leader_role = /datum/antagonist/ert/commander/red
 	roles = list(/datum/antagonist/ert/security/red, /datum/antagonist/ert/medic/red, /datum/antagonist/ert/engineer/red)
 	code = "Red"
 
 /datum/ert/deathsquad
-	name = "Deathsquad"
+	name = "\improper Deathsquad"
 	roles = list(/datum/antagonist/ert/deathsquad)
 	leader_role = /datum/antagonist/ert/deathsquad/leader
 	rename_team = "Deathsquad"
@@ -88,7 +88,7 @@
 	polldesc = "an elite Nanotrasen Strike Team"
 
 /datum/ert/marine
-	name = "Marine Squad"
+	name = "\improper Marine Squad"
 	leader_role = /datum/antagonist/ert/marine
 	roles = list(/datum/antagonist/ert/marine/security, /datum/antagonist/ert/marine/engineer, /datum/antagonist/ert/marine/medic)
 	rename_team = "Marine Squad"
@@ -96,7 +96,7 @@
 	opendoors = FALSE
 
 /datum/ert/centcom_official
-	name = "Centcom Official"
+	name = "\improper Centcom Official"
 	code = "Green"
 	teamsize = 1
 	opendoors = FALSE
@@ -146,7 +146,7 @@
 	rename_team = "Unarmed Horde of Interns"
 
 /datum/ert/erp
-	name = "Code Rainbow ERP"
+	name = "\improper Code Rainbow ERP"
 	roles = list(/datum/antagonist/ert/security/party, /datum/antagonist/ert/clown/party, /datum/antagonist/ert/engineer/party, /datum/antagonist/ert/janitor/party)
 	leader_role = /datum/antagonist/ert/commander/party
 	opendoors = FALSE

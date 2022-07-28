@@ -31,6 +31,7 @@
 	var/spawn_mechs = FALSE // Give the ERT mechs?
 	var/mech_amount = 5
 
+	var/generate_preview = TRUE
 	var/list/preview_images = list()
 	var/selected_direction = SOUTH
 	var/selected_preview_role = null // So we can preview more than just the leader
@@ -39,6 +40,8 @@
 /datum/ert_maker/New(user)
 	if(user)
 		setup(user)
+	else
+		generate_preview = FALSE
 
 /datum/ert_maker/proc/setup(user) // user can be a mob or client
 	if (istype(user, /client))
@@ -262,12 +265,13 @@
 		for(var/role in grunt_antags)
 			selected_ERT_data["memberAntags"] += list(make_antag_data(role))
 
-	// Check if we generated the images already.
-	if(!(selected_ERT_option.name in preview_images) \
-	|| !(selected_preview_role in preview_images[selected_ERT_option.name]) \
-	|| !(dir2text(selected_direction) in preview_images[selected_ERT_option.name][selected_preview_role]))
-		generate_ERT_preview_images() // No, generate them
-	selected_ERT_data["previewIcon"] = preview_images[selected_ERT_option.name][selected_preview_role][dir2text(selected_direction)]
+	if(generate_preview)
+		// Check if we generated the images already.
+		if(!(selected_ERT_option.name in preview_images) \
+		|| !(selected_preview_role in preview_images[selected_ERT_option.name]) \
+		|| !(dir2text(selected_direction) in preview_images[selected_ERT_option.name][selected_preview_role]))
+			generate_ERT_preview_images() // No, generate them
+		selected_ERT_data["previewIcon"] = preview_images[selected_ERT_option.name][selected_preview_role][dir2text(selected_direction)]
 
 	data["selected_ERT_option"] = selected_ERT_data
 	data["selected_preview_role"] = selected_preview_role
@@ -292,16 +296,17 @@
 
 	load_settings_from_ERT_datum(selected_ERT_option)
 	// Set our selected preview role to the leader of the selected datum
-	selected_preview_role = initial(selected_ERT_option.leader_role.role)
+	if(generate_preview)
+		selected_preview_role = initial(selected_ERT_option.leader_role.role)
 
-	if(istype(responseTeam, /datum/ert/custom))
-		var/datum/ert/custom/ert = responseTeam
-		selected_preview_role = ert.leader_template.role
+		if(istype(responseTeam, /datum/ert/custom))
+			var/datum/ert/custom/ert = responseTeam
+			selected_preview_role = ert.leader_template.role
 
-	if(!(selected_ERT_option.name in preview_images)\
-	|| !(selected_preview_role in preview_images[selected_ERT_option.name])\
-	|| !(dir2text(selected_direction) in preview_images[selected_ERT_option.name][selected_preview_role]))
-		generate_ERT_preview_images()
+		if(!(selected_ERT_option.name in preview_images)\
+		|| !(selected_preview_role in preview_images[selected_ERT_option.name])\
+		|| !(dir2text(selected_direction) in preview_images[selected_ERT_option.name][selected_preview_role]))
+			generate_ERT_preview_images()
 
 	SStgui.update_user_uis(holder.mob)
 
@@ -577,10 +582,10 @@
 	qdel(src)
 
 // Mostly copy pasted from the pre-rewrite ERT verb
-/datum/ert_maker/proc/spawn_ERT_team(datum/ert/ERToption)
+/datum/ert_maker/proc/spawn_ERT_team(datum/ert/ERToption = selected_ERT_option)
 	var/list/spawnpoints = GLOB.emergencyresponseteamspawn
 	var/index = 0
-	if(spawn_admin)
+	if(spawn_admin && holder)
 		if(isobserver(holder.mob))
 			var/mob/living/carbon/human/admin_officer = new (spawnpoints[1])
 			var/outfit = holder?.prefs?.brief_outfit

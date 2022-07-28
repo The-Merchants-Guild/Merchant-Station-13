@@ -3,6 +3,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 #define KEYCARD_RED_ALERT "Red Alert"
 #define KEYCARD_EMERGENCY_MAINTENANCE_ACCESS "Emergency Maintenance Access"
 #define KEYCARD_BSA_UNLOCK "Bluespace Artillery Unlock"
+#define KEYCARD_ERT_REQUEST "Emergency Response Team"
 
 /obj/machinery/keycard_auth
 	name = "Keycard Authentication Device"
@@ -63,6 +64,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	data["red_alert"] = (seclevel2num(get_security_level()) >= SEC_LEVEL_RED) ? 1 : 0
 	data["emergency_maint"] = GLOB.emergency_access
 	data["bsa_unlock"] = GLOB.bsa_unlock
+	data["ert_available"] = (world.time >= SSstrike_team.next_call_time)
 	return data
 
 /obj/machinery/keycard_auth/ui_status(mob/user)
@@ -82,6 +84,10 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 		if("red_alert")
 			if(!event_source)
 				sendEvent(KEYCARD_RED_ALERT)
+				. = TRUE
+		if("ert_request")
+			if(!event_source)
+				sendEvent(KEYCARD_ERT_REQUEST)
 				. = TRUE
 		if("emergency_maint")
 			if(!event_source)
@@ -134,6 +140,8 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 			make_maint_all_access()
 		if(KEYCARD_BSA_UNLOCK)
 			toggle_bluespace_artillery()
+		if(KEYCARD_ERT_REQUEST)
+			SSstrike_team.attempt_ert_creation(SSsecurity_level.current_level)
 
 GLOBAL_VAR_INIT(emergency_access, FALSE)
 /proc/make_maint_all_access()

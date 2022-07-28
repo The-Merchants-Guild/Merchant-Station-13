@@ -2078,3 +2078,15 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			continue
 
 		current_part.change_bodypart(species_part)
+
+/obj/item/bodypart/var/should_draw_autistic = FALSE
+
+/mob/living/carbon/proc/draw_autistic_parts(undo = FALSE)
+	if(!undo)
+		for(var/O in bodyparts)
+			var/obj/item/bodypart/B = O
+			B.should_draw_autistic = TRUE
+	else
+		for(var/O in bodyparts)
+			var/obj/item/bodypart/B = O
+			B.should_draw_autistic = FALSE

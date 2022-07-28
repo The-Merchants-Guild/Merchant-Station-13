@@ -205,7 +205,7 @@
  * will not be seen as initalized (this can lead to all sorts of strange behaviour, like
  * the item being completely unclickable)
  *
- * You must not sleep in this proc, or any subprocs
+ * You must not sleep in this proc, or any subprocs KILL YOURSELF
  *
  * Any parameters from new are passed through (excluding loc), naturally if you're loading from a map
  * there are no other arguments
@@ -217,7 +217,7 @@
  * * [/turf/open/space/proc/Initialize]
  */
 /atom/proc/Initialize(mapload, ...)
-	SHOULD_NOT_SLEEP(TRUE)
+	//SHOULD_NOT_SLEEP(TRUE) kill yourself
 	SHOULD_CALL_PARENT(TRUE)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
@@ -1734,7 +1734,7 @@
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, AM, levels)
 
 /// Sets the custom materials for an item.
-/atom/proc/set_custom_materials(list/materials, multiplier = 1) 
+/atom/proc/set_custom_materials(list/materials, multiplier = 1)
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
 		for(var/i in custom_materials)
 			var/datum/material/custom_material = GET_MATERIAL_REF(i)

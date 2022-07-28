@@ -2135,3 +2135,15 @@
 		if(!check_rights(R_ADMIN))
 			return
 		GLOB.interviews.ui_interact(usr)
+
+/datum/admins/proc/transform_on_jobban(mob/M, list/joblist)
+	if(joblist.len && (CATBAN in joblist) && ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.set_species(/datum/species/human/felinid/tarajan, icon_update=1) // can't escape hell
+	if(joblist.len && (CLUWNEBAN in joblist) && ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.cluwneify()
+	if(joblist.len && (CRABBAN in joblist) && iscarbon(M))
+		var/mob/living/carbon/C = M
+		C.unequip_everything()
+		C.change_mob_type(/mob/living/simple_animal/crab, null, C.real_name, TRUE)

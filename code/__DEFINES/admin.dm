@@ -22,6 +22,11 @@
 /// used to remove jobbans
 #define BANTYPE_ANY_JOB 9
 
+/// the funny bans
+#define CLUWNEBAN	"Cluwne ban"
+#define CATBAN		"Cat ban"
+#define CRABBAN		"Crab Ban"
+
 //Admin Permissions
 #define R_BUILD (1<<0)
 #define R_ADMIN (1<<1)

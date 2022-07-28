@@ -290,6 +290,8 @@
 		return JOB_UNAVAILABLE_PLAYTIME
 	if(latejoin && !job.special_check_latejoin(client))
 		return JOB_UNAVAILABLE_GENERIC
+	if(is_banned_from(src.ckey, list(CLUWNEBAN,CATBAN,CRABBAN)) && rank != SSjob.overflow_role)
+		return JOB_UNAVAILABLE_BANNED
 	return JOB_AVAILABLE
 
 /mob/dead/new_player/proc/AttemptLateSpawn(rank)

@@ -314,6 +314,9 @@
 				ROLE_SYNDICATE,
 				ROLE_TRAITOR,
 				ROLE_WIZARD,
+				CATBAN,
+				CLUWNEBAN,
+				CRABBAN
 			),
 		)
 		for(var/department in long_job_lists)
@@ -560,6 +563,7 @@
 		send2adminchat("BAN ALERT","[kn] [msg]")
 	if(player_ckey)
 		create_message("note", player_ckey, admin_ckey, note_reason, null, null, 0, 0, null, 0, severity)
+		transform_on_jobban(get_mob_by_key(player_ckey), roles_to_ban) //for cat/cluwne/crabbans
 	var/client/C = GLOB.directory[player_ckey]
 	var/datum/admin_help/AH = admin_ticket_log(player_ckey, "[kna] [msg]")
 	var/appeal_url = "No ban appeal url set!"

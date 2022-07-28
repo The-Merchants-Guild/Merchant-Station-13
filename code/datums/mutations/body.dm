@@ -530,7 +530,7 @@
 		return
 	owner.dna.add_mutation(CLOWNMUT)
 	owner.dna.add_mutation(EPILEPSY)
-	owner.setOrganLoss(ORGAN_SLOT_BRAIN, 190) //this was 200 but I think we have braindeath enabled
+	owner.setOrganLoss(ORGAN_SLOT_BRAIN, 120) //this was 200 but I think we have braindeath enabled
 
 	var/mob/living/carbon/human/H = owner
 
@@ -550,23 +550,12 @@
 	owner.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/white(owner), ITEM_SLOT_GLOVES) // this is purely for cosmetic purposes incase they aren't wearing anything in that slot
 	owner.equip_to_slot_or_del(new /obj/item/storage/backpack/clown(owner), ITEM_SLOT_BACK) // ditto
 
-/datum/mutation/human/cluwne/on_life()
-	if((prob(15) && owner.IsUnconscious()))
-		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 200) // there I changed it to setBrainLoss
-		switch(rand(1, 6))
-			if(1)
-				owner.say("HONK", forced = "cluwne")
-			if(2 to 5)
-				owner.emote("scream")
-			if(6)
-				owner.Stun(1)
-				owner.Knockdown(20)
-				owner.Jitter(500)
-
 /datum/mutation/human/cluwne/on_losing(mob/living/carbon/human/owner)
-	owner.adjust_fire_stacks(1)
-	owner.IgniteMob()
-	owner.dna.add_mutation(CLUWNEMUT)
+	spawn(40) //lol I hope this doesn't cause bad things
+		to_chat(owner, span_warning("As you start feeling your body return to normalcy, the Gods strike you again and turn you back into your new form!"))
+		owner.adjust_fire_stacks(1)
+		owner.IgniteMob()
+		owner.dna.add_mutation(CLUWNEMUT)
 
 /mob/living/carbon/human/proc/cluwneify()
 	dna.add_mutation(CLUWNEMUT)
@@ -590,3 +579,14 @@
 		var/y_offset = owner.pixel_y + rand(-1,1)
 		animate(owner, pixel_x = x_offset, pixel_y = y_offset, time = 1)
 		animate(owner, pixel_x = x_offset_old, pixel_y = y_offset_old, time = 1)
+	if((prob(15) && !owner.IsUnconscious()))
+		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 195)
+		switch(rand(1, 6))
+			if(1)
+				owner.say("HONK", forced = "cluwne")
+			if(2 to 5)
+				owner.emote("scream")
+			if(6)
+				owner.Stun(1)
+				owner.Knockdown(20)
+				owner.Jitter(500)

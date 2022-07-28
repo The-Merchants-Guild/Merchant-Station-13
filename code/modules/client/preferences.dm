@@ -695,7 +695,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 
 			for (var/special_role in GLOB.special_roles)
-				if(is_banned_from(user.ckey, special_role))
+				if(is_banned_from(user.ckey, special_role) || is_banned_from(user.ckey, list(special_role, CATBAN, CLUWNEBAN)))
 					dat += "<b>Be [capitalize(special_role)]:</b> <a href='?_src_=prefs;bancheck=[special_role]'>BANNED</a><br>"
 				else
 					var/days_remaining = null
@@ -918,6 +918,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			lastJob = job
 			if(is_banned_from(user.ckey, rank))
 				HTML += "<font color=red>[rank]</font></td><td><a href='?_src_=prefs;bancheck=[rank]'> BANNED</a></td></tr>"
+				continue
+			if(is_banned_from(user.ckey, list(CLUWNEBAN, CATBAN, CRABBAN)) && rank != SSjob.overflow_role)
+				HTML += "<font color=red>[rank]</font></td><td><a href='?_src_=prefs;jobbancheck=[rank]'> BANNED</a></td></tr>"
 				continue
 			var/required_playtime_remaining = job.required_playtime_remaining(user.client)
 			if(required_playtime_remaining)

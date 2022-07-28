@@ -809,7 +809,7 @@
 		img.pixel_y = px_y
 	add_overlay(standing)
 
-//Gives you a proper icon appearance for the dismembered limb
+//Gives you a proper icon appearance for the dismembered limb; also for limbs drawn on carbons. Because fuck you, phil235 was lying. 
 /obj/item/bodypart/proc/get_limb_icon(dropped)
 	icon_state = "" //to erase the default sprite, we're building the visual aspects of the bodypart through overlays alone.
 

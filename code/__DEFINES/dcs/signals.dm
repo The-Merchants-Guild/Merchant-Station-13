@@ -1451,3 +1451,13 @@
 #define COMSIG_MIAMI_CURED_DISORDER "miami_cured"
 #define COMSIG_MIAMI_START_SPREE "miami_start_spree"
 #define COMSIG_MIAMI_END_SPREE "miami_end_spree"
+
+/// From /datum/surgery/New(): (datum/surgery/surgery, surgery_location (body zone), obj/item/bodypart/targeted_limb)
+#define COMSIG_MOB_SURGERY_STARTED "mob_surgery_started"
+
+/// From /datum/surgery_step/success(): (datum/surgery_step/step, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results)
+#define COMSIG_MOB_SURGERY_STEP_SUCCESS "mob_surgery_step_success"
+
+/// From /atom/movable/screen/zone_sel/proc/set_selected_zone.
+/// Fires when the user has changed their selected body target.
+#define COMSIG_MOB_SELECTED_ZONE_SET "mob_set_selected_zone"

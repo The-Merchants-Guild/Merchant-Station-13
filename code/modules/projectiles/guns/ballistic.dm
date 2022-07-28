@@ -321,7 +321,7 @@
 		if (!magazine)
 			insert_magazine(user, AM)
 		else
-			if (tac_reloads)
+			if (tac_reloads || HAS_TRAIT(user, TRAIT_TACRELOAD))
 				eject_magazine(user, FALSE, AM)
 			else
 				to_chat(user, span_notice("There's already a [magazine_wording] in \the [src]."))

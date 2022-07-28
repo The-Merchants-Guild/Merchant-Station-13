@@ -39,7 +39,7 @@
 #define ROLE_DEATHSQUAD "Deathsquad"
 #define ROLE_LAVALAND "Lavaland"
 #define ROLE_INTERNAL_AFFAIRS "Internal Affairs Agent"
-#define ROLE_FAMILIES "Familes Antagonists"
+#define ROLE_GANG "gangster"
 
 #define ROLE_POSITRONIC_BRAIN "Positronic Brain"
 #define ROLE_FREE_GOLEM "Free Golem"
@@ -104,8 +104,8 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ABDUCTOR = 0,
 	ROLE_INTERNAL_AFFAIRS = 0,
 	ROLE_SENTIENCE = 0,
-	ROLE_FAMILIES = 0,
 	ROLE_HERETIC = 0,
+	ROLE_GANG = 14,
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection

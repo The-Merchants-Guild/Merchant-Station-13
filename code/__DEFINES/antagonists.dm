@@ -204,3 +204,7 @@ GLOBAL_LIST_INIT(normal_employers, list(
 
 /// Checks if the given mob is a head revolutionary.
 #define IS_HEAD_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev/head))
+
+#define NOT_DOMINATING			-1
+#define MAX_LEADERS_GANG		3
+#define INITIAL_DOM_ATTEMPTS	3 

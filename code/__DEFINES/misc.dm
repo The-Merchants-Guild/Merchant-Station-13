@@ -548,3 +548,7 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 
 /// Emoji icon set
 #define EMOJI_SET 'icons/emoji.dmi'
+
+//Endgame Results
+#define GANG_LOSS 6
+#define GANG_TAKEOVER 7 

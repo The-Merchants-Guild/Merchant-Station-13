@@ -48,6 +48,15 @@
 		if(deconverted)
 			if(prob(1) || SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 				target.say("I'm out! I quit! Whose kidneys are these?", forced = "They're out! They quit! Whose kidneys do they have?")
+		if(target.mind.has_antag_datum(/datum/antagonist/gang/boss))
+			if(!silent)
+				target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You feel something interfering with your mental conditioning, but you resist it!</span>")
+			removed(target, 1)
+			qdel(src)
+			return FALSE
+		target.mind.remove_antag_datum(/datum/antagonist/gang)
+		if(!silent)
+			to_chat(target, "<span class='notice'>You feel a sense of peace and security. You are now protected from brainwashing.</span>")
 		return TRUE
 	return FALSE
 

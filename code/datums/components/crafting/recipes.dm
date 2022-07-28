@@ -1199,5 +1199,92 @@
 	time = 40 SECONDS
 	category = CAT_MISC
 
+/datum/crafting_recipe/lockermech
+	name = "Locker Mech"
+	result = /obj/vehicle/sealed/mecha/makeshift
+	reqs = list(/obj/item/stack/cable_coil = 20,
+				/obj/item/stack/sheet/iron = 16,
+				/obj/item/storage/toolbox = 2, // For feet
+				/obj/item/tank/internals/oxygen = 1, // For air
+				/obj/item/electronics/airlock = 1, //You are stealing the motors from airlocks
+				/obj/item/extinguisher = 1, //For bastard pnumatics
+				/obj/item/paper = 5, //Cause paper is the best for making a mech airtight obviously
+				/obj/item/flashlight = 1) //For the mech light
+	tool_behaviors = list(TOOL_WIRECUTTER, TOOL_WELDER, TOOL_SCREWDRIVER)
+	time = 15 SECONDS
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/lockermechdrill
+	name = "Makeshift exosuit drill"
+	result = /obj/item/mecha_parts/mecha_equipment/drill/makeshift
+	reqs = list(/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/surgicaldrill = 1)
+	tool_behaviors = list(TOOL_SCREWDRIVER)
+	time = 5 SECONDS
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/lockermechclamp
+	name = "Makeshift exosuit clamp"
+	result = /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/makeshift
+	reqs = list(/obj/item/stack/cable_coil = 5,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/wirecutters = 1) //Don't ask, its just for the grabby grabby thing
+	tool_behaviors = list(TOOL_CROWBAR)
+	time = 5 SECONDS
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/lockermechvolver
+	name = "Makeshift mech revolver .357"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/mech_revolver
+	reqs = list(/obj/item/gun/ballistic/revolver = 1,
+				/obj/item/stack/rods = 4,
+				/obj/item/stack/cable_coil = 5)
+	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	time = 5 SECONDS
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/lockermechvolver_38
+	name = "Makeshift mech revolver .38"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/mech_revolver_38
+	reqs = list(/obj/item/gun/ballistic/revolver = 1,
+				/obj/item/stack/rods = 4,
+				/obj/item/stack/cable_coil = 5)
+	tool_behaviors = list(TOOL_SCREWDRIVER)
+	time = 5 SECONDS
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/lockerflamethrower
+	name = "Modified Flamethrower"
+	result = /obj/item/mecha_parts/mecha_equipment/flamethrower
+	reqs = list(/obj/item/flamethrower,
+				/obj/item/stack/rods = 4,
+				/obj/item/stack/cable_coil = 5)
+	tool_behaviors =  list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	time = 5 SECONDS
+	category = CAT_ROBOT
+
+
+/datum/crafting_recipe/lockermechvolverammo
+	name = "Makeshift mech revolver ammo packet for .357"
+	result = /obj/item/mecha_ammo/mech_revolver
+	reqs = list(/obj/item/stack/sheet/cardboard = 5,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/ammo_casing/a357 = 7)
+	tool_behaviors = list(TOOL_WIRECUTTER)
+	time = 2 SECONDS
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/lockermechvolverammo_38
+	name = "Makeshift mech revolver ammo packet for .38"
+	result = /obj/item/mecha_ammo/mech_revolver_38
+	reqs = list(/obj/item/stack/sheet/cardboard = 5,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/ammo_casing/c38 = 7,
+				/obj/)
+	tool_behaviors = list(TOOL_WIRECUTTER)
+	time = 2 SECONDS
+	category = CAT_ROBOT
+
 #undef CRAFTING_MACHINERY_CONSUME
 #undef CRAFTING_MACHINERY_USE

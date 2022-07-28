@@ -311,6 +311,44 @@
 	harmful = TRUE
 	ammo_type = "lmg"
 
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/mech_revolver
+	name = "\improper .357 mechvolver"
+	desc = "A revolver, rebuild to fit in a mech. Uses .357 ammo."
+	icon_state = "revolver"
+	equip_cooldown = 10
+	projectile = /obj/projectile/bullet/a357
+	projectiles = 7
+	projectiles_cache = 7
+	projectiles_cache_max = 14
+	projectiles_per_shot = 1
+	projectile_delay = 1
+	harmful = TRUE
+	ammo_type = "mech_revolver"
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/mech_revolver/can_attach(obj/vehicle/sealed/mecha/M as obj)
+	if(istype(M, /obj/vehicle/sealed/mecha/makeshift))
+		return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/mech_revolver_38
+	name = "\improper .38 mechvolver"
+	desc = "A revolver, rebuild to fit in a mech. Uses .38 ammo."
+	icon_state = "detective"
+	equip_cooldown = 10
+	projectile = /obj/projectile/bullet/c38
+	projectiles = 7
+	projectiles_cache = 7
+	projectiles_cache_max = 14
+	projectiles_per_shot = 1
+	projectile_delay = 1
+	harmful = TRUE
+	ammo_type = "mech_revolver_38"
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/mech_revolver_38/can_attach(obj/vehicle/sealed/mecha/M as obj)
+	if(istype(M, /obj/vehicle/sealed/mecha/makeshift))
+		return TRUE
+	return FALSE
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "\improper SRM-8 missile rack"
 	desc = "A weapon for combat exosuits. Launches light-explosive kinetic missiles."

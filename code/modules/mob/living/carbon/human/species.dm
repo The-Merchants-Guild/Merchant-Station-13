@@ -1293,7 +1293,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
 
-		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
+		var/targeted_zone = ran_zone(user.zone_selected)
+		var/obj/item/bodypart/affecting = target.get_bodypart(check_zone(targeted_zone))
 
 		var/miss_chance = 100//calculate the odds that a punch misses entirely. considers stamina and brute damage of the puncher. punches miss by default to prevent weird cases
 		if(user.dna.species.punchdamagelow)
@@ -1324,6 +1325,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		if(user.limb_destroyer)
 			target.dismembering_strike(user, affecting.body_zone)
+
+		if(targeted_zone == BODY_ZONE_PRECISE_GROIN) //Ball punching gives target bad mood, but deal 0.75x damage.
+			target.visible_message(span_danger("[user] [atk_verb] [target]'s groin!"), \
+							span_userdanger("Your groin got [atk_verb]ed by [user]!"))
+			to_chat(user, span_danger("You [atk_verb] [target]'s groin!"))
+			if(target.stat != DEAD)
+				SEND_SIGNAL(target, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/cbt)
+			damage *= 0.75
 
 		if(atk_effect == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
 			target.apply_damage(damage*1.5, user.dna.species.attack_type, affecting, armor_block)

@@ -353,3 +353,8 @@
 	description = "<span class='boldwarning'>I can hardly breathe with all this HERESY going on!</span>\n"
 	mood_change = -5
 	timeout = 5 MINUTES
+
+/datum/mood_event/cbt
+	description = span_boldwarning("MY GROIN!!!\n")
+	mood_change = -3
+	timeout = 10 SECONDS 

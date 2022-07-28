@@ -239,6 +239,7 @@
 		"comp_toentity",
 		"comp_tonumber",
 		"comp_tostring",
+		"comp_pathfind",
 		"comp_typecheck",
 		"compact_remote_shell",
 		"component_printer",

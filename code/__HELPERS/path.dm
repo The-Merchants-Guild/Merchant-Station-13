@@ -18,7 +18,7 @@
  * * exclude: If we want to avoid a specific turf, like if we're a mulebot who already got blocked by some turf
  * * skip_first: Whether or not to delete the first item in the path. This would be done because the first item is the starting tile, which can break movement for some creatures.
  */
-/proc/get_path_to(caller, end, max_distance = 30, mintargetdist, id=null, simulated_only = TRUE, turf/exclude, skip_first=TRUE)
+/proc/get_path_to(caller, end, max_distance = 30, mintargetdist, id=null, simulated_only = TRUE, turf/exclude, skip_first=TRUE, use_diags=TRUE)
 	if(!caller || !get_turf(end))
 		return
 
@@ -28,7 +28,7 @@
 		l = SSpathfinder.mobs.getfree(caller)
 
 	var/list/path
-	var/datum/pathfind/pathfind_datum = new(caller, end, id, max_distance, mintargetdist, simulated_only, exclude)
+	var/datum/pathfind/pathfind_datum = new(caller, end, id, max_distance, mintargetdist, simulated_only, exclude, use_diags)
 	path = pathfind_datum.search()
 	qdel(pathfind_datum)
 
@@ -120,8 +120,10 @@
 	var/simulated_only
 	/// A specific turf we're avoiding, like if a mulebot is being blocked by someone t-posing in a doorway we're trying to get through
 	var/turf/avoid
+	// Should we use diagonals in pathfinding? Set to FALSE if we are pathfinding for a mob or object that can only go on the four cardinals (like mechs)
+	var/use_diags = TRUE
 
-/datum/pathfind/New(atom/movable/caller, atom/goal, id, max_distance, mintargetdist, simulated_only, avoid)
+/datum/pathfind/New(atom/movable/caller, atom/goal, id, max_distance, mintargetdist, simulated_only, avoid, use_diags)
 	src.caller = caller
 	end = get_turf(goal)
 	open = new /datum/heap(/proc/HeapPathWeightCompare)
@@ -131,6 +133,7 @@
 	src.mintargetdist = mintargetdist
 	src.simulated_only = simulated_only
 	src.avoid = avoid
+	src.use_diags = use_diags
 
 /**
  * search() is the proc you call to kick off and handle the actual pathfinding, and kills the pathfind datum instance when it's done.
@@ -165,8 +168,9 @@
 		for(var/scan_direction in list(EAST, WEST, NORTH, SOUTH))
 			lateral_scan_spec(current_turf, scan_direction, current_processed_node)
 
-		for(var/scan_direction in list(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
-			diag_scan_spec(current_turf, scan_direction, current_processed_node)
+		if(use_diags)
+			for(var/scan_direction in list(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
+				diag_scan_spec(current_turf, scan_direction, current_processed_node)
 
 		CHECK_TICK
 
@@ -234,7 +238,8 @@
 		if(parent_node && parent_node.number_tiles + steps_taken > max_distance)
 			return
 
-		var/interesting = FALSE // have we found a forced neighbor that would make us add this turf to the open list?
+		// if we aren't using diagonals in general, then we need to be able to find all direct paths as interesting
+		var/interesting = !use_diags // have we found a forced neighbor that would make us add this turf to the open list?
 
 		switch(heading)
 			if(NORTH)

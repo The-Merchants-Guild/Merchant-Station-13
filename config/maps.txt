@@ -46,5 +46,10 @@ map runtimestation
 	#default
 endmap
 
+map ministation
+	minplayers 0
+	votable
+endmap
+
 map multiz_debug
 endmap

@@ -722,6 +722,17 @@
 	id = "cybernetic_eyes_improved"
 	build_path = /obj/item/organ/eyes/robotic
 
+/datum/design/nanite_heart
+	name = "Nanite heart"
+	desc = "A robotic implant, that rebuilds human beings into androids."
+	id = "nanite_heart"
+	build_path = /obj/item/organ/heart/nanite
+	build_type = PROTOLATHE | MECHFAB
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL 
+	materials = list(/datum/material/iron = 4000, /datum/material/glass = 1750, /datum/material/gold = 1500)
+	category = list("Cybernetics", "Medical Designs")
+	construction_time = 1 MINUTES
+
 /////////////////////
 ///Surgery Designs///
 /////////////////////

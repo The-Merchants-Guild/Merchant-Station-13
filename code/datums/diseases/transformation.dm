@@ -114,6 +114,7 @@
 	agent = "Kongey Vibrion M-909"
 	new_form = /mob/living/carbon/human/species/monkey
 	bantype = ROLE_MONKEY
+	var/first_transform = TRUE
 
 
 	stage1 = list()
@@ -127,15 +128,27 @@
 	if(affected_mob.mind && !IS_INFECTED_MONKEY(affected_mob.mind))
 		affected_mob.mind.add_antag_datum(/datum/antagonist/monkey)
 		affected_mob.monkeyize()
-		ADD_TRAIT(affected_mob, TRAIT_VENTCRAWLER_ALWAYS, type)
-
+	if(affected_mob && ishuman(affected_mob))
+		if(first_transform && (IS_MONKEY_LEADER(affected_mob.mind) || prob(4)))
+			affected_mob.rabidgorillize()
+		else
+			affected_mob.revive(full_heal = TRUE)
+			affected_mob.regenerate_organs()
+			affected_mob.regenerate_limbs(TRUE)
+			affected_mob.restore_blood()
+			affected_mob.remove_all_embedded_objects()
+			affected_mob.monkeyize()
+			ADD_TRAIT(affected_mob, TRAIT_VENTCRAWLER_ALWAYS, type)
+			var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+			H.add_hud_to(affected_mob)
+	first_transform = FALSE
 
 /datum/disease/transformation/jungle_fever/stage_act(delta_time, times_fired)
-	. = ..()
-	if(!.)
-		return
-
+	..()
 	switch(stage)
+		if(1)
+			var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+			H.add_hud_to(affected_mob)
 		if(2)
 			if(DT_PROB(1, delta_time))
 				to_chat(affected_mob, span_notice("Your [pick("back", "arm", "leg", "elbow", "head")] itches."))
@@ -150,6 +163,8 @@
 
 /datum/disease/transformation/jungle_fever/cure()
 	affected_mob.mind.remove_antag_datum(/datum/antagonist/monkey)
+	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	H.remove_hud_from(affected_mob)
 	..()
 
 /datum/disease/transformation/jungle_fever/monkeymode

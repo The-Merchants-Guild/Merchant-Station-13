@@ -2183,3 +2183,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	item = /obj/item/grenade/spawnergrenade/gremlin
 	surplus = 30
+
+//one of these days I'll start placing these in their correct place
+//not today

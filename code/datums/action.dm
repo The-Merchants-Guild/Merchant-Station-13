@@ -557,6 +557,7 @@
 	check_flags = NONE
 	background_icon_state = "bg_spell"
 
+
 /datum/action/spell_action/New(Target)
 	..()
 	var/obj/effect/proc_holder/S = target
@@ -565,6 +566,7 @@
 	desc = S.desc
 	icon_icon = S.action_icon
 	button_icon_state = S.action_icon_state
+	button_icon = S.action_background_icon
 	background_icon_state = S.action_background_icon_state
 	button.name = name
 
@@ -780,3 +782,9 @@
 	target.layer = old_layer
 	target.plane = old_plane
 	current_button.appearance_cache = target.appearance
+
+/datum/action/item_action/dusting_implant
+	check_flags =  NONE
+	name = "Activate Dusting Implant"
+	icon_icon = 'icons/effects/blood.dmi'
+	button_icon_state = "remains"

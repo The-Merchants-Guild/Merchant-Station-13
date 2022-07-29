@@ -578,12 +578,15 @@
 	layer = 0
 	on = TRUE
 	anchored = TRUE
+	var/range = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	///Boolean that switches when a full color flip ends, so the light can appear in all colors.
 	var/even_cycle = FALSE
 	///Base light_range that can be set on Initialize to use in smooth light range expansions and contractions.
 	var/base_light_range = 4
 
+/obj/item/flashlight/spotlight/staticlight
+	light_system = STATIC_LIGHT
 
 /obj/item/flashlight/spotlight/Initialize(mapload, _light_range, _light_power, _light_color)
 	. = ..()

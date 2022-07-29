@@ -548,3 +548,11 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 
 /// Emoji icon set
 #define EMOJI_SET 'icons/emoji.dmi'
+
+//thanos
+#define BLUESPACE_STONE "bluespace stone"
+#define SUPERMATTER_STONE "supermatter stone"
+#define CLOWN_STONE "clown stone"
+#define LAG_STONE "lag stone"
+#define GHOST_STONE "ghost stone"
+#define SYNDIE_STONE "syndie stone"

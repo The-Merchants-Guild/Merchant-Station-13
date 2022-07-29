@@ -13,6 +13,7 @@
 	var/action_icon = 'icons/mob/actions/actions_spells.dmi'
 	var/action_icon_state = "spell_default"
 	var/action_background_icon_state = "bg_spell"
+	var/action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	var/base_action = /datum/action/spell_action
 	var/datum/weakref/owner
 
@@ -120,6 +121,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/holder_var_amount = 20 //same. The amount adjusted with the mob's var when the spell is used
 
 	var/clothes_req = TRUE //see if it requires clothes
+	var/staff_req = FALSE //used to check if a spell requires a staff
 	var/cult_req = FALSE //SPECIAL SNOWFLAKE clothes required for cult only spells
 	var/human_req = FALSE //spell can only be cast by humans
 	var/nonabstract_req = FALSE //spell can only be cast by mobs that are physical entities
@@ -152,6 +154,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_spell"
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	base_action = /datum/action/spell_action/spell
 
 /obj/effect/proc_holder/spell/proc/cast_check(skipcharge = 0,mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
@@ -203,7 +206,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		/obj/item/clothing/head/wizard,
 		/obj/item/clothing/head/helmet/space/hardsuit/wizard,
 		/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
-		/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
+		/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard,
+		/obj/item/clothing/head/lich,
+		/obj/item/clothing/suit/lich))
 
 		if(clothes_req) //clothes check
 			if(!is_type_in_typecache(H.wear_suit, casting_clothes))
@@ -211,6 +216,15 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 				return FALSE
 			if(!is_type_in_typecache(H.head, casting_clothes))
 				to_chat(H, span_warning("You don't feel strong enough without your hat!"))
+				return FALSE
+		if(staff_req)
+			var/catalyst_found = FALSE
+			for(var/obj/O in H.held_items)
+				if(O.GetComponent(/datum/component/spell_catalyst))
+					catalyst_found = TRUE
+					break
+			if(!catalyst_found)
+				to_chat(H, "<span class='notice'>I don't feel strong enough without my staff.</span>")
 				return FALSE
 		if(cult_req) //CULT_REQ CLOTHES CHECK
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/magusred) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/cult))

@@ -106,5 +106,8 @@
 	/// Can other carbons be shoved into this one to make it fall?
 	var/can_be_shoved_into = FALSE
 
+	/// Can this mob bloodcrawl while holding items?
+	var/bloodcrawl_allow_items = FALSE
+
 
 	COOLDOWN_DECLARE(bleeding_message_cd)

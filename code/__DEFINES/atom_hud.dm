@@ -93,6 +93,9 @@
 #define QUIRK_HUD_POLISH		27
 #define QUIRK_HUD_UKRAINIAN		28
 
+#define ANTAG_HUD_BLOODSUCKER   29
+#define ANTAG_HUD_MHUNTER       30
+
 // Notification action types
 #define NOTIFY_JUMP "jump"
 #define NOTIFY_ATTACK "attack"

@@ -34,7 +34,7 @@
 
 	if(!closet.opened)
 		if(closet.locked)
-			closet.togglelock(scooby, silent = TRUE)
+			return
 		if(!closet.open(scooby))
 			// No message if unable to open, since this is on Bump, spammy potential
 			return

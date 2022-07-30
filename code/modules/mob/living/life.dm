@@ -13,6 +13,8 @@
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, delta_time, times_fired)
 
+	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, delta_time, times_fired)
+
 	if (client)
 		var/turf/T = get_turf(src)
 		if(!T)

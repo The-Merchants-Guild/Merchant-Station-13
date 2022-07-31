@@ -1,7 +1,7 @@
 //Originally coded for Hippiestation by ghost, a deleted github account. Rip Bozo, will not be missed.
 
-GLOBAL_VAR_INIT(gauntlet_snapped, FALSE)
-GLOBAL_VAR_INIT(gauntlet_equipped, FALSE)
+GLOBAL_VAR_INIT(lich_won, FALSE)
+GLOBAL_VAR_INIT(crown_activated, FALSE)
 GLOBAL_LIST_INIT(badmin_stones, list(SYNDIE_STONE, BLUESPACE_STONE, SUPERMATTER_STONE, LAG_STONE, CLOWN_STONE, GHOST_STONE))
 GLOBAL_LIST_INIT(badmin_stone_types, list(
 		SYNDIE_STONE = /obj/item/badmin_stone/syndie,
@@ -42,6 +42,30 @@ GLOBAL_LIST_INIT(badmin_stone_weights, list(
 	))
 GLOBAL_VAR_INIT(telescroll_time, 0)
 
+/obj/item/clothing/head/lich
+	name = "Crown of Bones"
+	desc = "An unholy crown fashioned out of the bones of sinners. It radiates dark energies."
+	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	icon_state = "lich"
+	worn_icon_state = "lich"
+	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | LARGE_WORN_ICON
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	heat_protection = HEAD
+	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
+	var/thesword
+	var/activated = FALSE
+	var/list/stones = list()
+	armor = list("melee" = 50, "bullet" = 65, "laser" = 65, "energy" = 45, "bomb" = 100, "bio" = 30, "rad" = 30, "fire" = 70, "acid" = 30)
+
+/obj/item/clothing/head/lich/equipped(mob/user, slot)
+	if(slot == ITEM_SLOT_HEAD)
+		ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+		item_flags |= DROPDEL
+	return ..()
+
 /obj/item/lich_sword
 	name = "Sword of the Lich"
 	icon = 'icons/obj/lich.dmi'
@@ -56,12 +80,14 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	var/flash_index = 1
 	var/locked_on = FALSE
 	var/stone_mode = null
+	var/thecrown
 	var/list/stones = list()
 	var/list/hand_spells = list()
 	var/datum/martial_art/cqc/martial_art
 	var/mutable_appearance/flashy_aura
 	var/mob/living/carbon/last_aura_holder
 	var/hnnnnnnnnngh = FALSE
+
 
 /obj/item/lich_sword/Initialize()
 	. = ..()
@@ -101,7 +127,10 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 
 /obj/item/lich_sword/examine(mob/user)
 	. = ..()
-	for(var/obj/item/badmin_stone/IS in stones)
+	if(!thecrown)
+		return
+	var/obj/item/clothing/head/lich/arse = thecrown
+	for(var/obj/item/badmin_stone/IS in arse.stones)
 		. += "<span class='bold notice'>[IS.name] mode:</span>"
 		for(var/A in IS.ability_text)
 			. += "<span class='notice'>[A]</span>"
@@ -110,12 +139,15 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	return
 
 /obj/item/lich_sword/proc/GetStone(stone_type)
-	for(var/obj/item/badmin_stone/I in stones)
+	if(!thecrown)
+		return
+	var/obj/item/clothing/head/lich/arse = thecrown
+	for(var/obj/item/badmin_stone/I in arse.stones)
 		if(I.stone_type == stone_type)
 			return I
 	return
 
-/obj/item/lich_sword/proc/DoSnap(mob/living/bonefied)
+/obj/item/lich_sword/proc/LichWin(mob/living/bonefied)
 	var/boner_time = rand(5 SECONDS, 10 SECONDS)
 	if(prob(25))
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, bonefied, "<span class='danger'>You feel calcium overtake you as you lose your mind...</span>"), boner_time - 3 SECONDS)
@@ -129,10 +161,12 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 			break
 	if(!victim.mind || !victim.client)
 		return
+	victim.adjustOxyLoss(300) //it kills you, waits, then revives you
+	sleep(30)
 	victim.set_species(/datum/species/skeleton, icon_update=0)
 	victim.revive(full_heal = TRUE, admin_revive = TRUE)
-	to_chat(victim, "[span_userdanger("You have been revived by ")]<B>The Lich King!</B>")
-	to_chat(victim, span_userdanger("Wrack and ruin upon the living, it is time to bring forth doom!"))
+	to_chat(victim, "[span_userdanger("You have been revived by the ")]<B>Lich King!</B>")
+	to_chat(victim, span_userdanger("Wrack and ruin upon the living, time to bring forth doom!"))
 	for(var/obj/item/I in victim)
 		victim.dropItemToGround(I)
 
@@ -145,9 +179,9 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	victim.equip_to_slot_or_del(new /obj/item/spear(victim), ITEM_SLOT_BACK)
 
 /obj/item/lich_sword/proc/ActivateDoom(mob/living/boner = usr)
-	GLOB.gauntlet_snapped = TRUE
+	GLOB.lich_won = TRUE
 	if(boner.stat == SOFT_CRIT)
-		boner.say("You should've gone for the crown...", forced = "sword of the lich")
+		boner.say("You should've gone for the crown...", forced = "crown of the lich")
 	boner.visible_message("<span class='userdanger'>[boner] raises their sword into the air, and releases overwhelming necromantic power!</span>")
 	SEND_SOUND(world, sound('sound/effects/SNAPP.ogg'))
 	for(var/mob/M in GLOB.mob_list)
@@ -164,7 +198,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	to_chat(world, "<span class='userdanger italics'>You feel as if something big has happened.</span>")
 	for(var/i = 1 to players_to_wipe)
 		var/mob/living/L = pick_n_take(eligible_mobs)
-		DoSnap(L)
+		LichWin(L)
 	INVOKE_ASYNC(src, .proc/TotallyFine)
 	log_game("[key_name(boner)] snapped, wiping out [players_to_wipe] players.")
 	message_admins("[key_name(boner)] snapped, wiping out [players_to_wipe] players.")
@@ -227,7 +261,6 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 
 
 /obj/item/lich_sword/proc/FullyAssembled()
-	ADD_TRAIT(src, TRAIT_NODROP, GAUNTLET_TRAIT)
 	for(var/stone in GLOB.badmin_stones)
 		if(!GetStone(stone))
 			return FALSE
@@ -253,11 +286,13 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		user.mind.announce_objectives()
 	user.move_resist = INFINITY
 
-/obj/item/lich_sword/proc/OnUnquip(mob/living/user)
+/obj/item/lich_sword/proc/OnUnquip(mob/living/user) //why is this named "unquip"
 	user.cut_overlay(flashy_aura)
 	var/datum/component/stationloving/stationloving = user.GetComponent(/datum/component/stationloving)
 	if(stationloving)
 		user.TakeComponent(stationloving)
+	if(hand_spells.len == 0)
+		return
 	for(var/obj/effect/proc_holder/spell/A in hand_spells)
 		user.mob_spell_list -= A
 	user.move_resist = initial(user.move_resist)
@@ -265,9 +300,10 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 
 /obj/item/lich_sword/pickup(mob/user)
 	. = ..()
-	if(locked_on && isliving(user))
-		visible_message("<span class='danger'>The Badmin Gauntlet attaches to [user]'s hand!.</span>")
-		OnEquip(user)
+	var/obj/item/I = user.get_item_by_slot(ITEM_SLOT_HEAD)
+	if(locked_on && isliving(user) && !istype(I, /obj/item/clothing/head/lich))
+		visible_message("<span class='danger'>You feel like a lot of power went through this thing, but whatever sourced it is now broken or dormant.</span>")
+		locked_on = FALSE
 
 /obj/item/lich_sword/dropped(mob/user)
 	. = ..()
@@ -329,8 +365,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		add_overlay(O)
 		index++
 
-
-/obj/item/lich_sword/proc/AttackThing(mob/user, atom/target, proximity_flag)
+/obj/item/lich_sword/proc/AttackThing(mob/living/user, atom/target, proximity_flag)
 	. = FALSE
 	if(istype(target, /obj/item/badmin_stone))
 		. = TRUE
@@ -349,7 +384,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 				stationloving.RemoveComponent()
 			UpdateAbilities(user)
 			update_icon()
-			if(FullyAssembled() && !GLOB.gauntlet_snapped)
+			if(FullyAssembled() && !GLOB.lich_won)
 				user.visible_message("<span class='userdanger'>A massive surge of power begins to course through [user]. You feel as though your very existence is in danger!</span>",
 					"<span class='danger bold'>The power from all the Badmin Stones begin to course through you!</span>")
 				INVOKE_ASYNC(src, .proc/FullPowerSequence, user)
@@ -406,10 +441,132 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		T.take_damage(INFINITY)
 
 /obj/item/lich_sword/afterattack(atom/target, mob/living/carbon/user, proximity_flag, click_parameters)
-	if(!locked_on)
-		return ..()
 	if(!isliving(user))
 		return ..()
+	if(!locked_on)
+		if(istype(target, /obj/item/clothing/head/lich))
+			var/obj/item/clothing/head/lich/guh = target
+			var/prompt = alert("Would you like to truly wear the Badmin Gauntlet? You will be unable to remove it!", "Confirm", "Yes", "No")
+			if (prompt == "Yes")
+				if(locked_on)
+					return
+				user.dropItemToGround(src)
+				if(user.put_in_hands(src))
+					locked_on = TRUE
+					thecrown = target
+					guh.thesword = src
+					if(ishuman(user))
+						var/mob/living/carbon/human/H = user
+						H.set_species(/datum/species/lich)
+						H.dropItemToGround(H.wear_suit)
+						H.dropItemToGround(H.w_uniform)
+						H.dropItemToGround(H.head)
+						H.dropItemToGround(H.back)
+						H.dropItemToGround(H.shoes)
+						var/obj/item/clothing/suit/lich/GS = new(get_turf(user))
+						var/obj/item/clothing/under/lich/GJ = new(get_turf(user))
+						var/obj/item/clothing/shoes/lich/Gs = new(get_turf(user))
+						var/obj/item/teleportation_scroll/TS = new(get_turf(user))
+						H.equip_to_appropriate_slot(GJ)
+						H.equip_to_appropriate_slot(thecrown)
+						H.equip_to_appropriate_slot(GS)
+						H.equip_to_appropriate_slot(Gs)
+						H.equip_to_appropriate_slot(TS)
+					GLOB.crown_activated = TRUE
+					guh.activated = TRUE
+					for(var/obj/item/spellbook/SB in world)
+						if(SB.owner == user)
+							qdel(SB)
+					user.apply_status_effect(/datum/status_effect/agent_pinpointer/gauntlet)
+					if(!badmin)
+						if(LAZYLEN(GLOB.wizardstart))
+							user.forceMove(pick(GLOB.wizardstart))
+						priority_announce("A Wizard has found the Crown of Bones and is attempting to turn everyone into their thrall!\n\
+							Stones of power have been scattered across the station. Protect anyone who holds one!\n\
+							We've allocated a large amount of resources to you, for protecting the Stones:\n\
+							Cargo has been given $50k to spend\n\
+							Science has been given 50k techpoints, and a large amount of minerals.\n\
+							In addition, we've moved your Artifical Intelligence unit to your Bridge, and reinforced your telecommunications machinery.", title = "Declaration of War", sound = 'sound/misc/wizard_wardec.ogg')
+						// give cargo/sci money
+						var/datum/bank_account/cargo_moneys = SSeconomy.get_dep_account(ACCOUNT_CAR)
+						var/datum/bank_account/sci_moneys = SSeconomy.get_dep_account(ACCOUNT_SCI)
+						if(cargo_moneys)
+							cargo_moneys.adjust_money(50000)
+						if(sci_moneys)
+							sci_moneys.adjust_money(50000)
+							SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, 50000)
+						// give sci materials
+						var/obj/structure/closet/supplypod/bluespacepod/sci_pod = new()
+						sci_pod.explosionSize = list(0,0,0,0)
+						var/list/materials_to_give_science = list(/obj/item/stack/sheet/iron,
+							/obj/item/stack/sheet/plasteel,
+							/obj/item/stack/sheet/mineral/diamond,
+							/obj/item/stack/sheet/mineral/uranium,
+							/obj/item/stack/sheet/mineral/titanium,
+							/obj/item/stack/sheet/mineral/plasma,
+							/obj/item/stack/sheet/mineral/gold,
+							/obj/item/stack/sheet/mineral/silver,
+							/obj/item/stack/sheet/glass,
+							/obj/item/stack/ore/bluespace_crystal/artificial)
+						for(var/mat in materials_to_give_science)
+							var/obj/item/stack/sheet/S = new mat(sci_pod)
+							S.amount = 50
+							S.update_icon()
+						var/list/sci_tiles = list()
+						for(var/turf/T in get_area_turfs(/area/science/lab))
+							if(!T.density)
+								var/clear = TRUE
+								for(var/obj/O in T)
+									if(O.density)
+										clear = FALSE
+										break
+								if(clear)
+									sci_tiles += T
+						if(LAZYLEN(sci_tiles))
+							new /obj/effect/pod_landingzone(get_turf(pick(sci_tiles)), sci_pod)
+						// make telecomms machinery invincible
+						for(var/obj/machinery/telecomms/TC in world)
+							if(istype(get_area(TC), /area/tcommsat))
+								TC.resistance_flags |= INDESTRUCTIBLE
+						for(var/obj/machinery/power/apc/APC in world)
+							if(istype(get_area(APC), /area/tcommsat))
+								APC.resistance_flags |= INDESTRUCTIBLE
+						// move ai(s) to bridge
+						var/list/bridge_tiles = list()
+						for(var/turf/T in get_area_turfs(/area/command))
+							if(!T.density)
+								var/clear = TRUE
+								for(var/obj/O in T)
+									if(O.density)
+										clear = FALSE
+										break
+								if(clear)
+									bridge_tiles += T
+						if(LAZYLEN(bridge_tiles))
+							for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
+								var/obj/structure/closet/supplypod/bluespacepod/ai_pod = new
+								AI.forceMove(ai_pod)
+								AI.move_resist = MOVE_FORCE_NORMAL
+								new /obj/effect/pod_landingzone(get_turf(pick(bridge_tiles)), ai_pod)
+						GLOB.telescroll_time = world.time + 10 MINUTES
+						addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice bold'>You can now teleport to the station.</span>"), 10 MINUTES)
+						CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), 30 MINUTES))
+						to_chat(user, "<span class='notice bold'>You need to wait 10 minutes before teleporting to the station.</span>")
+					to_chat(user, "<span class='notice bold'>You can click on the pinpointer at the top right to track a stone.</span>")
+					to_chat(user, "<span class='notice bold'>Examine a stone/the crown to see what each intent does.</span>")
+					to_chat(user, "<span class='notice bold'>You can smash walls, tables, grilles, windows, and safes on COMBAT mode.</span>")
+					to_chat(user, "<span class='notice bold'>Be warned -- you may be mocked if you kill innocents, that does not bring balance!</span>")
+					visible_message("<span class='danger bold'>The Sword of the Lich forces [user]'s hand around it!</span>")
+					user.mind.RemoveAllSpells()
+					UpdateAbilities(user)
+					OnEquip(user)
+					if(!badmin)
+						MakeStonekeepers(user)
+				else
+					to_chat(user, "<span class='danger'>You do not have an empty hand for the Sword of the Lich.</span>")
+			return
+		else
+			return ..()
 	var/obj/item/badmin_stone/IS = GetStone(stone_mode)
 	var/list/modifiers = params2list(click_parameters)
 	if(!IS || !istype(IS))
@@ -459,147 +616,6 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 		sound_to_playing_players('sound/effects/SNAP.ogg')
 	qdel(god)
 
-/obj/item/lich_sword/attack_self(mob/living/user)
-	if(!istype(user))
-		return
-	if(!locked_on)
-		var/prompt = alert("Would you like to truly wear the Badmin Gauntlet? You will be unable to remove it!", "Confirm", "Yes", "No")
-		if (prompt == "Yes")
-			if(locked_on)
-				return
-			user.dropItemToGround(src)
-			if(user.put_in_hands(src))
-				locked_on = TRUE
-				if(ishuman(user))
-					var/mob/living/carbon/human/H = user
-					H.set_species(/datum/species/lich)
-					H.dropItemToGround(H.wear_suit)
-					H.dropItemToGround(H.w_uniform)
-					H.dropItemToGround(H.head)
-					H.dropItemToGround(H.back)
-					H.dropItemToGround(H.shoes)
-					var/obj/item/clothing/head/lich/GH = new(get_turf(user))
-					var/obj/item/clothing/suit/lich/GS = new(get_turf(user))
-					var/obj/item/clothing/under/lich/GJ = new(get_turf(user))
-					var/obj/item/clothing/shoes/lich/Gs = new(get_turf(user))
-					var/obj/item/teleportation_scroll/TS = new(get_turf(user))
-					H.equip_to_appropriate_slot(GJ)
-					H.equip_to_appropriate_slot(GH)
-					H.equip_to_appropriate_slot(GS)
-					H.equip_to_appropriate_slot(Gs)
-					H.equip_to_appropriate_slot(TS)
-				GLOB.gauntlet_equipped = TRUE
-				for(var/obj/item/spellbook/SB in world)
-					if(SB.owner == user)
-						qdel(SB)
-				user.apply_status_effect(/datum/status_effect/agent_pinpointer/gauntlet)
-				if(!badmin)
-					if(LAZYLEN(GLOB.wizardstart))
-						user.forceMove(pick(GLOB.wizardstart))
-					priority_announce("A Wizard has found the Crown of Bones and is attempting to turn everyone into their thrall!\n\
-						Stones of power have been scattered across the station. Protect anyone who holds one!\n\
-						We've allocated a large amount of resources to you, for protecting the Stones:\n\
-						Cargo has been given $50k to spend\n\
-						Science has been given 50k techpoints, and a large amount of minerals.\n\
-						In addition, we've moved your Artifical Intelligence unit to your Bridge, and reinforced your telecommunications machinery.", title = "Declaration of War", sound = 'sound/misc/wizard_wardec.ogg')
-					// give cargo/sci money
-					var/datum/bank_account/cargo_moneys = SSeconomy.get_dep_account(ACCOUNT_CAR)
-					var/datum/bank_account/sci_moneys = SSeconomy.get_dep_account(ACCOUNT_SCI)
-					if(cargo_moneys)
-						cargo_moneys.adjust_money(50000)
-					if(sci_moneys)
-						sci_moneys.adjust_money(50000)
-						SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, 50000)
-					// give sci materials
-					var/obj/structure/closet/supplypod/bluespacepod/sci_pod = new()
-					sci_pod.explosionSize = list(0,0,0,0)
-					var/list/materials_to_give_science = list(/obj/item/stack/sheet/iron,
-						/obj/item/stack/sheet/plasteel,
-						/obj/item/stack/sheet/mineral/diamond,
-						/obj/item/stack/sheet/mineral/uranium,
-						/obj/item/stack/sheet/mineral/titanium,
-						/obj/item/stack/sheet/mineral/plasma,
-						/obj/item/stack/sheet/mineral/gold,
-						/obj/item/stack/sheet/mineral/silver,
-						/obj/item/stack/sheet/glass,
-						/obj/item/stack/ore/bluespace_crystal/artificial)
-					for(var/mat in materials_to_give_science)
-						var/obj/item/stack/sheet/S = new mat(sci_pod)
-						S.amount = 50
-						S.update_icon()
-					var/list/sci_tiles = list()
-					for(var/turf/T in get_area_turfs(/area/science/lab))
-						if(!T.density)
-							var/clear = TRUE
-							for(var/obj/O in T)
-								if(O.density)
-									clear = FALSE
-									break
-							if(clear)
-								sci_tiles += T
-					if(LAZYLEN(sci_tiles))
-						new /obj/effect/pod_landingzone(get_turf(pick(sci_tiles)), sci_pod)
-					// make telecomms machinery invincible
-					for(var/obj/machinery/telecomms/TC in world)
-						if(istype(get_area(TC), /area/tcommsat))
-							TC.resistance_flags |= INDESTRUCTIBLE
-					for(var/obj/machinery/power/apc/APC in world)
-						if(istype(get_area(APC), /area/tcommsat))
-							APC.resistance_flags |= INDESTRUCTIBLE
-					// move ai(s) to bridge
-					var/list/bridge_tiles = list()
-					for(var/turf/T in get_area_turfs(/area/command))
-						if(!T.density)
-							var/clear = TRUE
-							for(var/obj/O in T)
-								if(O.density)
-									clear = FALSE
-									break
-							if(clear)
-								bridge_tiles += T
-					if(LAZYLEN(bridge_tiles))
-						for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
-							var/obj/structure/closet/supplypod/bluespacepod/ai_pod = new
-							AI.forceMove(ai_pod)
-							AI.move_resist = MOVE_FORCE_NORMAL
-							new /obj/effect/pod_landingzone(get_turf(pick(bridge_tiles)), ai_pod)
-					GLOB.telescroll_time = world.time + 10 MINUTES
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice bold'>You can now teleport to the station.</span>"), 10 MINUTES)
-					CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), 30 MINUTES))
-					to_chat(user, "<span class='notice bold'>You need to wait 10 minutes before teleporting to the station.</span>")
-				to_chat(user, "<span class='notice bold'>You can click on the pinpointer at the top right to track a stone.</span>")
-				to_chat(user, "<span class='notice bold'>Examine a stone/the crown to see what each intent does.</span>")
-				to_chat(user, "<span class='notice bold'>You can smash walls, tables, grilles, windows, and safes on COMBAT mode.</span>")
-				to_chat(user, "<span class='notice bold'>Be warned -- you may be mocked if you kill innocents, that does not bring balance!</span>")
-				visible_message("<span class='danger bold'>The Sword of the Lich forces [user]'s hand around it!</span>")
-				user.mind.RemoveAllSpells()
-				UpdateAbilities(user)
-				OnEquip(user)
-				if(!badmin)
-					MakeStonekeepers(user)
-			else
-				to_chat(user, "<span class='danger'>You do not have an empty hand for the Sword of the Lich.</span>")
-		return
-	if(!LAZYLEN(stones))
-		to_chat(user, "<span class='danger'>You have no stones yet.</span>")
-		return
-	var/list/gauntlet_radial = list()
-	for(var/obj/item/badmin_stone/I in stones)
-		var/image/IM = image(icon = I.icon, icon_state = I.icon_state)
-		IM.color = I.color
-		gauntlet_radial[I.stone_type] = IM
-	if(!GetStone(SYNDIE_STONE))
-		gauntlet_radial["none"] = image(icon = 'icons/obj/lich.dmi', icon_state = "none")
-	var/chosen = show_radial_menu(user, src, gauntlet_radial)
-	if(chosen)
-		if(chosen == "none")
-			stone_mode = null
-		else
-			stone_mode = chosen
-		UpdateAbilities(user)
-		update_icon()
-
-
 /*/obj/item/lich_sword/proc/CallRevengers()
 	if(ert_canceled)
 		return
@@ -612,6 +628,128 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 */
 
 /obj/item/lich_sword/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/clothing/head/lich))
+		var/obj/item/clothing/head/lich/guh = I
+		if(!locked_on)
+			var/prompt = alert("Would you like to truly wear the Badmin Gauntlet? You will be unable to remove it!", "Confirm", "Yes", "No")
+			if (prompt == "Yes")
+				if(locked_on)
+					return
+				user.dropItemToGround(src)
+				if(user.put_in_hands(src))
+					locked_on = TRUE
+					thecrown = I
+					guh.thesword = src
+					if(ishuman(user))
+						var/mob/living/carbon/human/H = user
+						H.set_species(/datum/species/lich)
+						H.dropItemToGround(H.wear_suit)
+						H.dropItemToGround(H.w_uniform)
+						H.dropItemToGround(H.head)
+						H.dropItemToGround(H.back)
+						H.dropItemToGround(H.shoes)
+						var/obj/item/clothing/suit/lich/GS = new(get_turf(user))
+						var/obj/item/clothing/under/lich/GJ = new(get_turf(user))
+						var/obj/item/clothing/shoes/lich/Gs = new(get_turf(user))
+						var/obj/item/teleportation_scroll/TS = new(get_turf(user))
+						H.equip_to_appropriate_slot(GJ)
+						H.equip_to_appropriate_slot(thecrown)
+						H.equip_to_appropriate_slot(GS)
+						H.equip_to_appropriate_slot(Gs)
+						H.equip_to_appropriate_slot(TS)
+					GLOB.crown_activated = TRUE
+					guh.activated = TRUE
+					for(var/obj/item/spellbook/SB in world)
+						if(SB.owner == user)
+							qdel(SB)
+					user.apply_status_effect(/datum/status_effect/agent_pinpointer/gauntlet)
+					if(!badmin)
+						if(LAZYLEN(GLOB.wizardstart))
+							user.forceMove(pick(GLOB.wizardstart))
+						priority_announce("A Wizard has found the Crown of Bones and is attempting to turn everyone into their thrall!\n\
+							Stones of power have been scattered across the station. Protect anyone who holds one!\n\
+							We've allocated a large amount of resources to you, for protecting the Stones:\n\
+							Cargo has been given $50k to spend\n\
+							Science has been given 50k techpoints, and a large amount of minerals.\n\
+							In addition, we've moved your Artifical Intelligence unit to your Bridge, and reinforced your telecommunications machinery.", title = "Declaration of War", sound = 'sound/misc/wizard_wardec.ogg')
+						// give cargo/sci money
+						var/datum/bank_account/cargo_moneys = SSeconomy.get_dep_account(ACCOUNT_CAR)
+						var/datum/bank_account/sci_moneys = SSeconomy.get_dep_account(ACCOUNT_SCI)
+						if(cargo_moneys)
+							cargo_moneys.adjust_money(50000)
+						if(sci_moneys)
+							sci_moneys.adjust_money(50000)
+							SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, 50000)
+						// give sci materials
+						var/obj/structure/closet/supplypod/bluespacepod/sci_pod = new()
+						sci_pod.explosionSize = list(0,0,0,0)
+						var/list/materials_to_give_science = list(/obj/item/stack/sheet/iron,
+							/obj/item/stack/sheet/plasteel,
+							/obj/item/stack/sheet/mineral/diamond,
+							/obj/item/stack/sheet/mineral/uranium,
+							/obj/item/stack/sheet/mineral/titanium,
+							/obj/item/stack/sheet/mineral/plasma,
+							/obj/item/stack/sheet/mineral/gold,
+							/obj/item/stack/sheet/mineral/silver,
+							/obj/item/stack/sheet/glass,
+							/obj/item/stack/ore/bluespace_crystal/artificial)
+						for(var/mat in materials_to_give_science)
+							var/obj/item/stack/sheet/S = new mat(sci_pod)
+							S.amount = 50
+							S.update_icon()
+						var/list/sci_tiles = list()
+						for(var/turf/T in get_area_turfs(/area/science/lab))
+							if(!T.density)
+								var/clear = TRUE
+								for(var/obj/O in T)
+									if(O.density)
+										clear = FALSE
+										break
+								if(clear)
+									sci_tiles += T
+						if(LAZYLEN(sci_tiles))
+							new /obj/effect/pod_landingzone(get_turf(pick(sci_tiles)), sci_pod)
+						// make telecomms machinery invincible
+						for(var/obj/machinery/telecomms/TC in world)
+							if(istype(get_area(TC), /area/tcommsat))
+								TC.resistance_flags |= INDESTRUCTIBLE
+						for(var/obj/machinery/power/apc/APC in world)
+							if(istype(get_area(APC), /area/tcommsat))
+								APC.resistance_flags |= INDESTRUCTIBLE
+						// move ai(s) to bridge
+						var/list/bridge_tiles = list()
+						for(var/turf/T in get_area_turfs(/area/command))
+							if(!T.density)
+								var/clear = TRUE
+								for(var/obj/O in T)
+									if(O.density)
+										clear = FALSE
+										break
+								if(clear)
+									bridge_tiles += T
+						if(LAZYLEN(bridge_tiles))
+							for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
+								var/obj/structure/closet/supplypod/bluespacepod/ai_pod = new
+								AI.forceMove(ai_pod)
+								AI.move_resist = MOVE_FORCE_NORMAL
+								new /obj/effect/pod_landingzone(get_turf(pick(bridge_tiles)), ai_pod)
+						GLOB.telescroll_time = world.time + 10 MINUTES
+						addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice bold'>You can now teleport to the station.</span>"), 10 MINUTES)
+						CONFIG_SET(number/shuttle_refuel_delay, max(CONFIG_GET(number/shuttle_refuel_delay), 30 MINUTES))
+						to_chat(user, "<span class='notice bold'>You need to wait 10 minutes before teleporting to the station.</span>")
+					to_chat(user, "<span class='notice bold'>You can click on the pinpointer at the top right to track a stone.</span>")
+					to_chat(user, "<span class='notice bold'>Examine a stone/the crown to see what each intent does.</span>")
+					to_chat(user, "<span class='notice bold'>You can smash walls, tables, grilles, windows, and safes on COMBAT mode.</span>")
+					to_chat(user, "<span class='notice bold'>Be warned -- you may be mocked if you kill innocents, that does not bring balance!</span>")
+					visible_message("<span class='danger bold'>The Sword of the Lich forces [user]'s hand around it!</span>")
+					user.mind.RemoveAllSpells()
+					UpdateAbilities(user)
+					OnEquip(user)
+					if(!badmin)
+						MakeStonekeepers(user)
+				else
+					to_chat(user, "<span class='danger'>You do not have an empty hand for the Sword of the Lich.</span>")
+			return
 	if(istype(I, /obj/item/badmin_stone))
 		if(!locked_on)
 			to_chat(user, "<span class='notice'>You need to wear the gauntlet first.</span>")
@@ -628,12 +766,39 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 				stationloving.RemoveComponent()
 			UpdateAbilities(user)
 			update_icon()
-			if(FullyAssembled() && !GLOB.gauntlet_snapped)
+			if(FullyAssembled() && !GLOB.lich_won)
 				user.visible_message("<span class='userdanger'>A massive surge of power begins to course through [user], stunning them in place!</span>",
 					"<span class='danger bold'>The power from all the Badmin Stones begin to course through you!</span>")
 				INVOKE_ASYNC(src, .proc/FullPowerSequence, user)
 			return
 	return ..()
+
+/obj/item/lich_sword/attack_self(mob/living/user)
+	if(!istype(user))
+		return
+	if(!locked_on)
+		return
+	var/obj/item/I = user.get_item_by_slot(ITEM_SLOT_HEAD)
+	if(!istype(I, /obj/item/clothing/head/lich)) //redundant check but I do not want admins to have any fun
+		return
+	if(!LAZYLEN(stones))
+		to_chat(user, "<span class='danger'>You have no stones yet.</span>")
+		return
+	var/list/gauntlet_radial = list()
+	for(var/obj/item/badmin_stone/S in stones)
+		var/image/IM = image(icon = S.icon, icon_state = S.icon_state)
+		IM.color = S.color
+		gauntlet_radial[S.stone_type] = IM
+	if(!GetStone(SYNDIE_STONE))
+		gauntlet_radial["none"] = image(icon = 'icons/obj/lich.dmi', icon_state = "none")
+	var/chosen = show_radial_menu(user, src, gauntlet_radial)
+	if(chosen)
+		if(chosen == "none")
+			stone_mode = null
+		else
+			stone_mode = chosen
+		UpdateAbilities(user)
+		update_icon()
 
 /obj/item/lich_sword/proc/FullPowerSequence(mob/living/thanos)
 	thanos.emote("scream")
@@ -969,7 +1134,7 @@ GLOBAL_VAR_INIT(telescroll_time, 0)
 	explanation_text = "Bring balance to the universe, by snapping out half the life with the Badmin Gauntlet"
 
 /datum/objective/snap/check_completion()
-	return GLOB.gauntlet_snapped
+	return GLOB.lich_won
 
 
 

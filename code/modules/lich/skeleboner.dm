@@ -54,28 +54,6 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate * delta_time)
 		return TRUE
 
-
-/obj/item/clothing/head/lich
-	name = "Crown of Bones"
-	desc = "An unholy crown fashioned out of sinful bones. It currently has ."
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
-	icon_state = "lich"
-	worn_icon_state = "lich"
-	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | LARGE_WORN_ICON
-	body_parts_covered = HEAD
-	cold_protection = HEAD
-	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	heat_protection = HEAD
-	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
-	armor = list("melee" = 50, "bullet" = 65, "laser" = 65, "energy" = 45, "bomb" = 100, "bio" = 30, "rad" = 30, "fire" = 70, "acid" = 30)
-
-/obj/item/clothing/head/lich/equipped(mob/user, slot)
-	if(slot == ITEM_SLOT_HEAD)
-		ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
-		item_flags |= DROPDEL
-	return ..()
-
 /obj/item/clothing/suit/lich
 	name = "Soul-forged Armor"
 	desc = "Robust-looking armor forged from steel mixed with souls. Screams of the tormented spontaneously manifest around it."

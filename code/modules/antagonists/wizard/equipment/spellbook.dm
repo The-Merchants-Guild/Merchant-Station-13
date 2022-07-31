@@ -605,7 +605,7 @@
 /datum/spellbook_entry/item/lich_sword/IsAvailable()
 	if(!..())
 		return FALSE
-	return !GLOB.gauntlet_equipped
+	return !GLOB.crown_activated
 
 /datum/spellbook_entry/item/lich_sword/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	return ..() && !book.gauntlet_flag && (GLOB.Debug2 || GLOB.joined_player_list.len >= 27)

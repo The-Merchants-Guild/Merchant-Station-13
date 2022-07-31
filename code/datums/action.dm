@@ -780,3 +780,9 @@
 	target.layer = old_layer
 	target.plane = old_plane
 	current_button.appearance_cache = target.appearance
+
+/datum/action/item_action/dusting_implant
+	check_flags =  NONE
+	name = "Activate Dusting Implant"
+	icon_icon = 'icons/effects/blood.dmi'
+	button_icon_state = "remains"

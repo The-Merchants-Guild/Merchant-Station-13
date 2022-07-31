@@ -172,3 +172,55 @@
 	while(contents.len <= amount)
 		implant = pick(boxed)
 		new implant(src)
+
+/obj/item/organ/heart/nanite
+	name = "nanite heart"
+	desc = "A cybernetic heart, containing nanites programed to rebuild human beings into droids."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "nanite-heart"
+	status = ORGAN_ROBOTIC
+	organ_flags = NONE
+	beating = TRUE
+	var/start_time 
+	var/rebuild_duration = 3 MINUTES
+	var/used = FALSE
+	var/active = FALSE
+
+/obj/item/organ/heart/nanite/examine(mob/user)
+	. = ..()
+	if(used)
+		. += span_notice("It is used and can't no more serve it's purpose.")
+
+/obj/item/organ/heart/nanite/Remove(mob/living/carbon/M, special = FALSE)
+	active = FALSE
+	. = ..()
+
+/obj/item/organ/heart/nanite/Insert(mob/living/carbon/M, special = FALSE)
+	. = ..()
+	start_time = world.time
+	active = TRUE
+
+/obj/item/organ/heart/nanite/Remove(mob/living/carbon/M, special = FALSE)
+	active = FALSE
+	. = ..()
+
+/obj/item/organ/heart/nanite/on_life(delta_time, times_fired)
+	if(!active || used || !ishuman(owner) || isandroid(owner))
+		return
+	if(DT_PROB(4, delta_time))
+		to_chat(owner, span_notice("You feel your body transform."))
+	if(DT_PROB(9, delta_time))
+		owner.adjust_nutrition(-3)  
+	if(DT_PROB(5, delta_time))
+		playsound(get_turf(owner), 'sound/machines/beep.ogg', 50, FALSE, FALSE)
+	if(DT_PROB(4, delta_time))
+		owner.say(pick("Beep, boop", "beep, beep!", "Boop...bop"), forced = "nanite heart")
+	if(start_time + rebuild_duration < world.time)
+		to_chat(owner, span_userdanger("You feel your limbs and organs twist, as you turn into an android!"))
+		owner.emote("scream")
+		owner.Unconscious(2 SECONDS)
+		sleep(1 SECONDS)
+		owner.set_species(/datum/species/android)
+		active = FALSE
+		used = TRUE
+

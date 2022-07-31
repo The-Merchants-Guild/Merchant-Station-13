@@ -188,6 +188,19 @@
 	if(.)
 		weapon_weight = WEAPON_MEDIUM
 
+/obj/item/gun/ballistic/shotgun/doublebarrel/sawn
+	sawn_off = TRUE
+	name = "sawn-off double-barreled shotgun"
+	desc = "Omar's coming!"
+	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
+	inhand_x_dimension = 32
+	inhand_y_dimension = 32
+	inhand_icon_state = "gun"
+	worn_icon_state = "gun"
+	weapon_weight = WEAPON_MEDIUM
+	recoil = SAWN_OFF_RECOIL
+
 /obj/item/gun/ballistic/shotgun/hook
 	name = "hook modified sawn-off shotgun"
 	desc = "Range isn't an issue when you can bring your victim to you."

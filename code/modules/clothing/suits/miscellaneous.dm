@@ -693,3 +693,8 @@
 	inhand_icon_state = "DutchJacket"
 	body_parts_covered = ARMS
 
+/obj/item/clothing/suit/jesus
+	name = "Messiah Robes"
+	desc = "They seem very holy."
+	icon_state = "jesus"
+	allowed = list(/obj/item/storage/book/bible) 

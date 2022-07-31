@@ -64,7 +64,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/healths
 	var/atom/movable/screen/healthdoll
 	var/atom/movable/screen/internals
-	var/atom/movable/screen/wanted/wanted_lvl
 	var/atom/movable/screen/spacesuit
 
 	var/list/atom/movable/screen/cybernetics/ammo_counter/cybernetics_ammo = list()
@@ -120,7 +119,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 	healths = null
 	healthdoll = null
-	wanted_lvl = null
 	cybernetics_ammo = null
 	internals = null
 	spacesuit = null

@@ -719,3 +719,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MAGNETIC_ID_CARD "magnetic_id_card"
 /// Traits granted to items due to their chameleon properties.
 #define CHAMELEON_ITEM_TRAIT "chameleon_item_trait"
+
+/// Mjollnir
+#define TRAIT_WORTHY 	"worthy"
+
+/// Lich
+#define YEET_TRAIT "yeet_trait"
+#define BLUESPACE_STONE_TRAIT "bluespace_stone_trait"
+#define SYNDIE_STONE_TRAIT "syndie_stone_trait"
+#define SUPERMATTER_STONE_TRAIT "supermatter_stone_trait"
+#define LAG_STONE_TRAIT "lag_stone_trait"
+#define GHOST_STONE_TRAIT "ghost_stone_trait"

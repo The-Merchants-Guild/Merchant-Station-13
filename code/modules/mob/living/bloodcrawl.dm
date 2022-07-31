@@ -5,8 +5,9 @@
 			//TODO make it toggleable to either forcedrop the items, or deny
 			//entry when holding them
 			// literally only an option for carbons though
-			to_chat(C, span_warning("You may not hold items while blood crawling!"))
-			return FALSE
+			if(!C.bloodcrawl_allow_items)
+				to_chat(C, span_warning("You may not hold items while blood crawling!"))
+				return FALSE
 		var/obj/item/bloodcrawl/B1 = new(C)
 		var/obj/item/bloodcrawl/B2 = new(C)
 		B1.icon_state = "bloodhand_left"

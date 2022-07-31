@@ -282,6 +282,7 @@ GLOBAL_LIST_INIT(organ_process_order, list(
 #define SPECIES_NIGHTMARE "nightmare"
 #define SPECIES_SNAIL "snail"
 #define SPECIES_SYNTH "synth"
+#define SPECIES_LICH "lich"
 #define SPECIES_SYNTH_MILITARY "military_synth"
 
 //Defines for Golem Species IDs

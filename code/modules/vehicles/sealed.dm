@@ -3,6 +3,7 @@
 	var/enter_delay = 2 SECONDS
 	var/mouse_pointer
 	var/headlights_toggle = FALSE
+	var/do_explode = TRUE
 
 /obj/vehicle/sealed/generate_actions()
 	. = ..()
@@ -116,6 +117,8 @@
 
 /obj/vehicle/sealed/Destroy()
 	dump_mobs()
+	if(do_explode) //avoid larger-than-wanted explosions with thanos car
+		explosion(loc, 0, 1, 2, 3, 0)
 	return ..()
 
 /obj/vehicle/sealed/proc/dump_mobs(randomstep = TRUE)

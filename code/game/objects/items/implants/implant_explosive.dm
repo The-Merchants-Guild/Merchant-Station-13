@@ -112,3 +112,4 @@
 /obj/item/implanter/explosive_macro
 	name = "implanter (macrobomb)"
 	imp_type = /obj/item/implant/explosive/macro
+

@@ -386,11 +386,12 @@
  *
  * Automatic logging and uses pollCandidatesForMob, how convenient
  */
-/proc/offer_control(mob/M)
-	to_chat(M, "Control of your mob has been offered to dead players.")
-	if(usr)
-		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
-		message_admins("[key_name_admin(usr)] has offered control of ([ADMIN_LOOKUPFLW(M)]) to ghosts")
+/proc/offer_control(mob/M, log_stuff = TRUE)
+	if(log_stuff)
+		to_chat(M, "Control of your mob has been offered to dead players.")
+		if(usr)
+			log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
+			message_admins("[key_name_admin(usr)] has offered control of ([ADMIN_LOOKUPFLW(M)]) to ghosts")
 	var/poll_message = "Do you want to play as [M.real_name]?"
 	if(M.mind)
 		poll_message = "[poll_message] Job: [M.mind.assigned_role.title]."

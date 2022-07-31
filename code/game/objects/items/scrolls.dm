@@ -41,6 +41,9 @@
  */
 /obj/item/teleportation_scroll/proc/teleportscroll(mob/user)
 	var/A
+	if(world.time < GLOB.telescroll_time)
+		to_chat(user, "<span class='notice bold'>It's too soon to go. You need to wait [DisplayTimeText(GLOB.telescroll_time - world.time)] to go!</span>")
+		return
 
 	A = input(user, "Area to jump to", "BOOYEA", A) as null|anything in GLOB.teleportlocs
 	if(!src || QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated() || !A || !uses)

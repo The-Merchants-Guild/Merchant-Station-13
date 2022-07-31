@@ -483,6 +483,14 @@
 	desc = "A mighty hammer on loan from Thor, God of Thunder. It crackles with barely contained power."
 	item_path = /obj/item/mjollnir
 
+/datum/spellbook_entry/item/mjolnir/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	. = ..()
+	user.worthiness += 5
+
+/datum/spellbook_entry/item/mjolnir/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
+	. = ..()
+	user.worthiness -= 5
+
 /datum/spellbook_entry/item/singularity_hammer
 	name = "Singularity Hammer"
 	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everything nearby to the point of impact."
@@ -586,6 +594,22 @@
 	to_chat(user, span_notice("You have cast summon guns!"))
 	return TRUE
 
+/datum/spellbook_entry/item/lich_sword
+	name = "Badmin Gauntlet"
+	desc = "A gauntlet capable of holding the Badmin Stones. Wearing this will trigger a war declaration! Before you wear it, you can refund it by hitting it against the spellbook. You cannot buy this if you have bought anything else! \
+		Requires 27+ crew."
+	item_path = /obj/item/lich_sword
+	category = "Rituals"
+	cost = 10
+
+/datum/spellbook_entry/item/lich_sword/IsAvailable()
+	if(!..())
+		return FALSE
+	return !GLOB.crown_activated
+
+/datum/spellbook_entry/item/lich_sword/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	return ..() && !book.gauntlet_flag && (GLOB.Debug2 || GLOB.joined_player_list.len >= 27)
+
 /datum/spellbook_entry/summon/magic
 	name = "Summon Magic"
 	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
@@ -678,6 +702,8 @@
 
 	var/mob/living/carbon/human/owner
 	var/list/entries = list()
+	var/list/bought_things = list()
+	var/gauntlet_flag = FALSE
 
 /obj/item/spellbook/examine(mob/user)
 	. = ..()
@@ -706,6 +732,19 @@
 /obj/item/spellbook/attackby(obj/item/O, mob/user, params)
 	if(!can_refund)
 		to_chat(user, span_warning("You can't refund anything!"))
+		return
+
+	if(istype(O, /obj/item/lich_sword))
+		var/obj/item/lich_sword/IG = O
+		if(IG.locked_on)
+			to_chat(user, "<span class='notice'>You've put the gauntlet on already. No turning back now.</span>")
+			return
+		to_chat(user, "<span class='notice'>On second thought, wiping out half the universe is possibly a bad idea. You refund your points.</span>")
+		src.uses += 10
+		for(var/datum/spellbook_entry/item/lich_sword/I in entries)
+			if(!isnull(I.limit))
+				I.limit++
+		qdel(O)
 		return
 
 	if(istype(O, /obj/item/antag_spawner/contract))
@@ -794,6 +833,7 @@
 					if(entry.limit)
 						entry.limit--
 					uses -= entry.cost
+					bought_things[entry.type] = bought_things[entry.type] ? bought_things[entry.type] + 1 : 1
 			update_static_data(wizard) //update statics!
 		if("refund")
 			var/datum/spellbook_entry/entry = locate(params["spellref"]) in entries
@@ -803,6 +843,7 @@
 					if(!isnull(entry.limit))
 						entry.limit += result
 					uses += result
+					bought_things[entry.type] = bought_things[entry.type] ? bought_things[entry.type] - max(result / entry.cost, entry.cost) : 0
 			update_static_data(wizard) //update statics!
 	//actions that are only available if you have full spell points
 	if(uses < initial(uses))
@@ -847,8 +888,6 @@
 
 	if(length(wanted_spell_names))
 		stack_trace("Wizard Loadout \"[loadout]\" could not find valid spells to buy in the spellbook. Either you input a name that doesn't exist, or you overspent")
-	if(uses)
-		stack_trace("Wizard Loadout \"[loadout]\" does not use 10 wizard spell slots. Stop scamming players out.")
 
 /obj/item/spellbook/proc/semirandomize(mob/living/carbon/human/wizard, bonus_to_give = 0)
 	var/list/needed_cats = list("Offensive", "Mobility")

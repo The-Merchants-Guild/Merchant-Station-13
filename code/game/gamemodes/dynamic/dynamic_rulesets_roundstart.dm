@@ -497,17 +497,17 @@
 	required_candidates = 4
 	weight = 2
 	cost = 40
-	requirements = list(101,101,101,101,101,70,40,10,10,10)
+	requirements = list(101,101,70,70,70,50,50,10,10,10)
 	flags = HIGHLANDER_RULESET
 	minimum_players = 36
-	antag_cap = list(6,6,6,6,6,6,6,6,6,6)
+	antag_cap = list(6,6,6,6,6,5,5,4,4,4)
 
 /datum/dynamic_ruleset/roundstart/gangs/pre_execute(population)
 	. = ..()
 	var/gangs_to_create = 4
-	if(prob(population) && population > 1.5*required_candidates)
+	if(antag_cap[indice_pop] > gangs_to_create && prob(requirements[indice_pop]))
 		gangs_to_create++
-	if(prob(population) && population > 2*required_candidates)
+	if(antag_cap[indice_pop] > gangs_to_create && prob(requirements[indice_pop]))
 		gangs_to_create++
 	gangs_to_create = min(gangs_to_create, GLOB.possible_gangs.len)
 

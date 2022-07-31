@@ -259,3 +259,54 @@
 	affected_carbon.Jitter(15 * delta_time)
 	if(DT_PROB(15, delta_time))
 		affected_carbon.emote("cough")
+
+//shit meds also these aren't generic go fuck yourself
+/datum/addiction/flipout
+	name = "flipout"
+	withdrawal_stage_messages = list("That was flipping nice...I want more.", "I can feel my bones twisting.", "I'm gonna flip out if I don't get some more...")
+
+
+/datum/addiction/flipout/withdrawal_enters_stage_1(mob/living/carbon/affected_carbon, delta_time)
+	. = ..()
+	affected_carbon.Jitter(10 * delta_time)
+
+/datum/addiction/flipout/withdrawal_stage_1_process(mob/living/carbon/affected_carbon, delta_time)
+	if(prob(85))
+		affected_carbon.SpinAnimation(12,1)
+	else
+		affected_carbon.Dizzy(16)
+	..()
+
+/datum/addiction/flipout/withdrawal_enters_stage_2(mob/living/carbon/affected_carbon, delta_time)
+	. = ..()
+	affected_carbon.Jitter(20 * delta_time)
+
+/datum/addiction/flipout/withdrawal_stage_2_process(mob/living/carbon/affected_carbon, delta_time)
+	if(prob(90))
+		affected_carbon.SpinAnimation(10,3)
+	else
+		affected_carbon.Dizzy(20)
+		affected_carbon.adjustStaminaLoss(25)
+	..()
+
+/datum/addiction/flipout/withdrawal_enters_stage_3(mob/living/carbon/affected_carbon, delta_time)
+	. = ..()
+	if(prob(95))
+		affected_carbon.SpinAnimation(7,20)
+	else
+		affected_carbon.Dizzy(30)
+		affected_carbon.adjustStaminaLoss(40)
+
+/datum/addiction/flipout/withdrawal_stage_3_process(mob/living/carbon/affected_carbon, delta_time)
+	affected_carbon.SpinAnimation(2,100)
+	if(prob(10))
+		affected_carbon << "<span class='danger'>Your flipping has become so intense you've become an improvised generator </span>"
+		affected_carbon.Dizzy(25)
+		affected_carbon.electrocute_act(rand(1,5), 1, 1)
+		playsound(delta_time, "sparks", 50, 1)
+		affected_carbon.emote("scream")
+		affected_carbon.Jitter(-100)
+
+	else
+		affected_carbon.Dizzy(60)
+	..()

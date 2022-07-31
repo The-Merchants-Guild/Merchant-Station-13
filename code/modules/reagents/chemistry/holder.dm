@@ -106,6 +106,11 @@
 	var/atom/my_atom = null
 	/// Current temp of the holder volume
 	var/chem_temp = 150
+	/// I'm not explaining these
+	var/chem_pressurized = 0
+	var/chem_irradiated = 0
+	var/chem_bluespaced = 0
+	var/chem_centrifuged = 0
 	///pH of the whole system
 	var/ph = CHEMICAL_NORMAL_PH
 	/// unused
@@ -805,6 +810,10 @@
 			var/matching_container = FALSE
 			var/matching_other = FALSE
 			var/required_temp = reaction.required_temp
+			var/centrifuge_recipe = reaction.centrifuge_recipe
+			var/required_pressure = reaction.required_pressure
+			var/required_radioactivity = reaction.required_radioactivity
+			var/bluespace_recipe = reaction.bluespace_recipe
 			var/is_cold_recipe = reaction.is_cold_recipe
 			var/meets_temp_requirement = FALSE
 			var/meets_ph_requirement = FALSE
@@ -830,6 +839,13 @@
 					matching_container = FALSE
 				if(!reaction.required_other)
 					matching_other = TRUE
+				if(centrifuge_recipe && !chem_centrifuged)
+					continue
+
+				if(bluespace_recipe && !chem_bluespaced)
+					continue
+
+
 
 				else if(istype(cached_my_atom, /obj/item/slime_extract))
 					var/obj/item/slime_extract/extract = cached_my_atom
@@ -848,7 +864,7 @@
 			if(((ph >= (reaction.optimal_ph_min - reaction.determin_ph_range)) && (ph <= (reaction.optimal_ph_max + reaction.determin_ph_range))))
 				meets_ph_requirement = TRUE
 
-			if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other)
+			if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && chem_pressurized >= required_pressure && matching_other && chem_irradiated >= required_radioactivity)
 				if(meets_temp_requirement && meets_ph_requirement)
 					possible_reactions  += reaction
 				else

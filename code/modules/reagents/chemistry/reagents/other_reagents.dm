@@ -2704,3 +2704,19 @@
 	if(methods & (PATCH|TOUCH|VAPOR))
 		amount_left = round(reac_volume,0.1)
 		exposed_mob.apply_status_effect(STATUS_EFFECT_ANTS, amount_left)
+
+
+/datum/reagent/unstablemutationtoxin
+	name = "Unstable Mutation Toxin"
+	description = "A corruptive toxin... it seems to bubble and froth unpredictably. Are you sure you want to be around this for long?"
+	color = "#a872e6" // rgb: 168, 114, 230
+	metabolization_rate = INFINITY
+	taste_description = "fizzy slime"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+
+/datum/reagent/unstablemutationtoxin/on_mob_metabolize(mob/living/carbon/human/H)
+	..()
+	if(!istype(H))
+		return
+	H.reagents.add_reagent(pick(/datum/reagent/mutationtoxin, /datum/reagent/mutationtoxin/lizard, /datum/reagent/mutationtoxin/fly, /datum/reagent/mutationtoxin/moth, /datum/reagent/mutationtoxin/pod, /datum/reagent/mutationtoxin/jelly, /datum/reagent/mutationtoxin/golem, /datum/reagent/mutationtoxin/abductor, /datum/reagent/mutationtoxin/android, /datum/reagent/mutationtoxin/skeleton, /datum/reagent/mutationtoxin/zombie, /datum/reagent/mutationtoxin/ash, /datum/reagent/mutationtoxin/shadow), 1) //No plasmaman 4u xDDD
+	return

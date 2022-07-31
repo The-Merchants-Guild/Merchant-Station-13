@@ -218,7 +218,7 @@
 
 /obj/item/surgical_drapes/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/surgery_initiator, null)
+	AddComponent(/datum/component/surgery_initiator)
 
 
 /obj/item/surgical_processor //allows medical cyborgs to scan and initiate advanced surgeries

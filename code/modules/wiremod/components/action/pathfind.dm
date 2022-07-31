@@ -11,6 +11,8 @@
 	var/datum/port/input/input_X
 	var/datum/port/input/input_Y
 	var/datum/port/input/id_card
+	var/datum/port/input/use_diagonals
+	var/datum/port/input/input_entity
 
 	var/datum/port/output/output
 	var/datum/port/output/finished
@@ -38,6 +40,8 @@
 	input_X = add_input_port("Target X", PORT_TYPE_NUMBER, FALSE)
 	input_Y = add_input_port("Target Y", PORT_TYPE_NUMBER, FALSE)
 	id_card = add_input_port("ID Card", PORT_TYPE_ATOM, FALSE)
+	input_entity = add_input_port("Pathfinding Entity", PORT_TYPE_ATOM, FALSE)
+	use_diagonals = add_input_port("Use Diagonals", PORT_TYPE_NUMBER, FALSE, 1)
 
 	output = add_output_port("Next step", PORT_TYPE_ATOM)
 	finished = add_output_port("Arrived to destination", PORT_TYPE_SIGNAL)
@@ -53,6 +57,8 @@
 	finished = null
 	failed = null
 	reason_failed = null
+	use_diagonals = null
+	input_entity = null
 
 	path = null
 	old_dest = null
@@ -71,6 +77,13 @@
 	var/target_Y = input_Y.input_value
 	if(isnull(target_Y))
 		return
+	
+	var/use_diag_val = use_diagonals.input_value
+
+	if(isnull(use_diag_val))
+		return
+	
+	var/entity = input_entity.input_value
 
 	var/atom/path_id = id_card.input_value
 	if(path_id && !istype(path_id, /obj/item/card/id))
@@ -114,7 +127,10 @@
 		TIMER_COOLDOWN_END(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME)
 
 		old_dest = destination
-		path = get_path_to(src, destination, max_range, id=path_id)
+		var/udv = TRUE
+		if(use_diag_val == 0) // I wish it didn't have to be this way
+			udv = FALSE
+		path = get_path_to(entity ||= src, destination, max_range, id=path_id, use_diags = udv)
 		if(length(path) == 0 || !path)// Check if we can even path there
 			next_turf = null
 			failed.set_output(COMPONENT_SIGNAL)

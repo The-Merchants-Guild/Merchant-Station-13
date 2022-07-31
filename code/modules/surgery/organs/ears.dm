@@ -66,6 +66,9 @@
 	icon_state = "kitty"
 	damage_multiplier = 2
 
+/obj/item/organ/ears/cat/tcat
+	icon_state = "kitty2"
+
 /obj/item/organ/ears/cat/Insert(mob/living/carbon/human/ear_owner, special = 0, drop_if_replaced = TRUE)
 	..()
 	if(istype(ear_owner))

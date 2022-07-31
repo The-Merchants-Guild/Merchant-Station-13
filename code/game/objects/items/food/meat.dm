@@ -692,6 +692,12 @@
 	tastes = list("dust" = 1, "powder" = 1, "meat" = 2)
 	foodtypes = MEAT | RAW
 
+/obj/item/food/meat/slab/human/mutant/cat
+	icon_state = "rottenmeat"
+	desc = "Furry meat. Gross!"
+	tastes = list("brains" = 1, "meat" = 1, "suffering" = 1)
+	foodtypes = MEAT | RAW | GROSS
+
 /obj/item/food/meat/slab/human/mutant/skeleton
 	name = "bone"
 	icon_state = "skeletonmeat"

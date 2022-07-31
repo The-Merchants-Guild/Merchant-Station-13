@@ -15,10 +15,10 @@
 		else if((exclusive_roles.len > 0) && !(P.mind.assigned_role.title in exclusive_roles)) // Is the rule exclusive to their job?
 			candidates.Remove(P)
 		else if(antag_flag_override)
-			if(!(antag_flag_override in P.client.prefs.be_special) || is_banned_from(P.ckey, list(antag_flag_override, ROLE_SYNDICATE)))
+			if(!(antag_flag_override in P.client.prefs.be_special) || is_banned_from(P.ckey, list(antag_flag_override, ROLE_SYNDICATE) || is_banned_from(P.ckey, CATBAN) || is_banned_from(P.ckey, CLUWNEBAN)))
 				candidates.Remove(P)
 		else
-			if(!(antag_flag in P.client.prefs.be_special) || is_banned_from(P.ckey, list(antag_flag, ROLE_SYNDICATE)))
+			if(!(antag_flag in P.client.prefs.be_special) || is_banned_from(P.ckey, list(antag_flag, ROLE_SYNDICATE))|| is_banned_from(P.ckey, CATBAN) || is_banned_from(P.ckey, CLUWNEBAN))
 				candidates.Remove(P)
 
 /datum/dynamic_ruleset/latejoin/ready(forced = 0)

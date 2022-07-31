@@ -22,6 +22,12 @@
 	desc = "A severed cat tail. Who's wagging now?"
 	tail_type = "Cat"
 
+/obj/item/organ/tail/cat/tcat
+	name = "mangy cat tail"
+	desc = "Best not hold onto it for too long, who knows what you'll catch."
+	icon = 'icons/obj/surgery.dmi'
+	tail_type = "TCat"
+
 /obj/item/organ/tail/cat/Insert(mob/living/carbon/human/tail_owner, special = FALSE, drop_if_replaced = TRUE)
 	..()
 	if(istype(tail_owner))

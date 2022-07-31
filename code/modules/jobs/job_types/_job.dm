@@ -150,6 +150,14 @@
 		for(var/i in roundstart_experience)
 			experiencer.mind.adjust_experience(i, roundstart_experience[i], TRUE)
 
+	if(is_banned_from(spawned.ckey, CRABBAN))
+		if(!SSticker.HasRoundStarted())
+			SSticker.OnRoundstart(CALLBACK(spawned, /mob/living/carbon/human.proc/change_mob_type, /mob/living/simple_animal/crab, null, spawned.real_name, TRUE)) // where's my antag token
+		else
+			addtimer(CALLBACK(spawned, /mob/living/carbon/human.proc/change_mob_type, /mob/living/simple_animal/crab, null, spawned.real_name, TRUE), 1 SECONDS)
+	else if(is_banned_from(spawned.ckey, CATBAN))
+		spawned.set_species(/datum/species/human/felinid/tarajan) // can't escape hell
+
 
 /datum/job/proc/announce_job(mob/living/joining_mob)
 	if(head_announce)
@@ -418,7 +426,7 @@
 
 /mob/living/silicon/robot/apply_prefs_job(client/player_client, datum/job/job)
 	if(mmi)
-		var/organic_name 
+		var/organic_name
 		if(GLOB.current_anonymous_theme)
 			organic_name = GLOB.current_anonymous_theme.anonymous_name(src)
 		else if(player_client.prefs.randomise[RANDOM_NAME] || CONFIG_GET(flag/force_random_names) || is_banned_from(player_client.ckey, "Appearance"))

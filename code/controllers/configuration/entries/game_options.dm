@@ -357,8 +357,8 @@
 	min_val = 0
 
 /datum/config_entry/number/accountage
-	default = 20
-	min_val = 1
+	default = 0
+	min_val = 0
 
 /datum/config_entry/flag/dynamic_config_enabled
 

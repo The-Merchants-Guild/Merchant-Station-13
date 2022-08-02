@@ -319,20 +319,20 @@ GLOBAL_LIST_INIT(blacklisted_borg_hats, typecacheof(list( //Hats that don't real
 		return
 	if(!opened)//Cover is closed
 		if(locked)
-			to_chat(user, span_notice("You emag the cover lock."))
+			balloon_alert(user, "emaged cover lock")
 			locked = FALSE
 			if(shell) //A warning to Traitors who may not know that emagging AI shells does not slave them.
 				to_chat(user, span_boldwarning("[src] seems to be controlled remotely! Emagging the interface may not work as expected."))
 		else
-			to_chat(user, span_warning("The cover is already unlocked!"))
+			balloon_alert(user, "already unlocked!")
 		return
 	if(world.time < emag_cooldown)
 		return
 	if(wiresexposed)
-		to_chat(user, span_warning("You must unexpose the wires first!"))
+		balloon_alert(user, "unexpose the wires first!")
 		return
 
-	to_chat(user, span_notice("You emag [src]'s interface."))
+	balloon_alert(user, "sucessfully emaged")
 	emag_cooldown = world.time + 100
 
 	if(connected_ai && connected_ai.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/malf_ai))

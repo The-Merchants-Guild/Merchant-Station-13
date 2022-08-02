@@ -17,7 +17,7 @@
 	if(!H)
 		return
 	if(istype(I, /obj/item/kitchen/knife) && H.combat_mode != TRUE)
-		if(!demon)
+		if(!demon || !istype(demon))
 			if(!(NOBLOOD in H.dna.species.species_traits))
 				visible_message(span_danger("[H] begins to spill his blood on the [src]!"), \
 					span_userdanger("You begin to spill your blood on the [src], trying to summon a demon!"))
@@ -31,8 +31,8 @@
 				else
 					to_chat(H, "<span class='warning'>You finish your ritual of pain.</span>")
 					H.adjustBruteLoss(20)
-				var/list/candidates = pollCandidatesForMob("Do you want to play as a hunter demon?", ROLE_ALIEN, null, ROLE_ALIEN, 150, src)
-				if(!candidates.len)
+				var/list/candidates = pollCandidatesForMob("Do you want to play as a hunter demon?", ROLE_ALIEN, ROLE_ALIEN, 150, src)
+				if(!LAZYLEN(candidates))
 					to_chat(H, "<span class='warning'>No demons have heard your call! Perhaps try again later...</span>")
 					return
 				var/mob/dead/selected = pick(candidates)

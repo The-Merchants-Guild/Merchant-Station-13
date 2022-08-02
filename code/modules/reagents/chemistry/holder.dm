@@ -800,14 +800,14 @@
 					R.reagent_state = LIQUID
 					if(!is_type_in_typecache(cached_my_atom, GLOB.no_reagent_message_typecache) && SSticker.HasRoundStarted())
 						for(var/mob/M in viewers(3, T))
-							to_chat(M, ("<span class='notice'>[icon2html(cached_my_atom, viewers(cached_my_atom))] The vapour condenses into a liquid!</span>"))
+							M.visible_message(span_notice("[icon2html(cached_my_atom, viewers(cached_my_atom))] The vapour condenses into a liquid!"))
 
 			if(SOLID)
 				if(chem_temp > R.melting_point)
 					R.reagent_state = LIQUID
 					if(!is_type_in_typecache(cached_my_atom, GLOB.no_reagent_message_typecache) && SSticker.HasRoundStarted())
 						for(var/mob/M in viewers(3, T))
-							to_chat(M, ("<span class='notice'>[icon2html(cached_my_atom, viewers(cached_my_atom))] The solid chemicals melt into a liquid!</span>"))
+							M.visible_message(span_notice("[icon2html(cached_my_atom, viewers(cached_my_atom))] The solid chemicals melt into a liquid!"))
 							//for(var/i = 1; i <= cached_reagents.len; i++)
 							//	message_admins("[cached_reagents[i]] melted into liquid of atom [my_atom] located in [my_atom.loc]")
 							///For debug purposes, feel free to uncomment in future. (YoYoBatty)
@@ -818,13 +818,13 @@
 						R.reagent_state = GAS
 						if(!is_type_in_typecache(cached_my_atom, GLOB.no_reagent_message_typecache) && SSticker.HasRoundStarted())
 							for(var/mob/M in viewers(4, T))
-								to_chat(M, ("<span class='notice'>[icon2html(cached_my_atom, viewers(cached_my_atom))] The solution rapidly boils into a vapour!</span>"))
+								M.visible_message(span_notice("[icon2html(cached_my_atom, viewers(cached_my_atom))] The solution rapidly boils into a vapour!"))
 
 					else if(chem_temp < R.melting_point && !is_type_in_typecache(R, GLOB.solidchange_reagent_blacklist))
 						R.reagent_state = SOLID
 						if(!is_type_in_typecache(cached_my_atom, GLOB.no_reagent_message_typecache) && SSticker.HasRoundStarted())
 							for(var/mob/M in viewers(3, T))
-								to_chat(M, ("<span class='notice'>[icon2html(cached_my_atom, viewers(cached_my_atom))] The solution solidifies!</span>"))
+								M.visible_message(span_notice("[icon2html(cached_my_atom, viewers(cached_my_atom))] The solution solidifies!"))
 
 	var/list/possible_reactions = list()
 	for(var/datum/reagent/reagent as anything in cached_reagents)

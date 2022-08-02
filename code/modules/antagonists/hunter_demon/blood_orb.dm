@@ -14,7 +14,7 @@
 
 /obj/structure/bloody_orb/attackby(obj/item/I, mob/user, params)
 	var/mob/living/carbon/human/H = user
-	if(!H)
+	if(!H || !istype(H))
 		return
 	if(istype(I, /obj/item/kitchen/knife) && H.combat_mode != TRUE)
 		if(!demon || !istype(demon))

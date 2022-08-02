@@ -14,6 +14,7 @@
 	. = ..()
 	pixel_x = rand(8,-8)
 	pixel_y = rand(8,-8)
+	grind_results = list(reagents.reagent_list = reagents.total_volume)
 
 /obj/item/reagent_containers/food/solid_reagent/microwave_act(obj/machinery/microwave/M)
 	if(reagents)

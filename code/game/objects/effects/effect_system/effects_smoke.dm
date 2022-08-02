@@ -30,20 +30,26 @@
 			set_opacity(0) //if we were blocking view, we aren't now because we're fading out
 		stoplag()
 
+GLOBAL_LIST_EMPTY(smoke)
 /obj/effect/particle_effect/smoke/Initialize()
 	. = ..()
-	create_reagents(500)
-	START_PROCESSING(SSobj, src)
-
+	LAZYADD(GLOB.smoke, src)
+	create_reagents(250)
+	START_PROCESSING(SSreagent_states, src)
 
 /obj/effect/particle_effect/smoke/Destroy()
-	STOP_PROCESSING(SSobj, src)
+	LAZYREMOVE(GLOB.smoke, src)
+	STOP_PROCESSING(SSreagent_states, src)
 	return ..()
 
 /obj/effect/particle_effect/smoke/proc/kill_smoke()
-	STOP_PROCESSING(SSobj, src)
+	LAZYREMOVE(GLOB.smoke, src)
+	STOP_PROCESSING(SSreagent_states, src)
 	INVOKE_ASYNC(src, .proc/fade_out)
 	QDEL_IN(src, 10)
+
+/obj/effect/particle_effect/smoke/ex_act()
+	return //it would be REALLY funny if smoke could explode
 
 /obj/effect/particle_effect/smoke/process()
 	lifetime--

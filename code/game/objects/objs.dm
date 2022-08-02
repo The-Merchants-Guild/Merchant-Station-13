@@ -72,7 +72,7 @@
 				obj_flags &= ~string_to_objflag[flag]
 			else
 				obj_flags |= string_to_objflag[flag]
-				
+
 	if((obj_flags & ON_BLUEPRINTS) && isturf(loc))
 		var/turf/T = loc
 		T.add_blueprints_preround(src)
@@ -401,6 +401,12 @@
 		return
 
 	SEND_SIGNAL(source, COMSIG_REAGENTS_EXPOSE_OBJ, src, reagents, methods, volume_modifier, show_message)
+	var/datum/cached_my_atom = source.my_atom
 	for(var/reagent in reagents)
 		var/datum/reagent/R = reagent
-		. |= R.expose_obj(src, reagents[R])
+		if(R.reagent_state != SOLID)
+			R.expose_obj(src, R.volume * volume_modifier, show_message)
+		if(world.time >= source.next_react)
+			R.handle_state_change(get_turf(src), R.volume, cached_my_atom)
+			if(methods == VAPOR)
+				source.next_react = world.time + 1

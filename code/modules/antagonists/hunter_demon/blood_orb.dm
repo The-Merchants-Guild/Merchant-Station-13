@@ -6,7 +6,7 @@
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 200
-	var/mob/living/simple_animal/hostile/hunter/demon 
+	var/mob/living/simple_animal/hostile/hunter/demon = null
 	var/mob/living/carbon/human/target
 	var/mob/living/carbon/human/master
 	var/blood_pool_summary = 0
@@ -17,7 +17,7 @@
 	if(!H || !istype(H))
 		return
 	if(istype(I, /obj/item/kitchen/knife) && H.combat_mode != TRUE)
-		if(!demon || !istype(demon))
+		if(!demon)
 			if(!(NOBLOOD in H.dna.species.species_traits))
 				visible_message(span_danger("[H] begins to spill his blood on the [src]!"), \
 					span_userdanger("You begin to spill your blood on the [src], trying to summon a demon!"))

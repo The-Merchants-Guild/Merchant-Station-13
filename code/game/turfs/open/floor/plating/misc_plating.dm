@@ -310,6 +310,14 @@
 	layer = HIGH_TURF_LAYER
 	var/smooth_icon = 'icons/turf/floors/grass.dmi'
 
+/turf/open/floor/plating/grass/attack_hand(mob/user, list/modifiers)
+	. = ..()
+	if(!user.pulling)
+		user.visible_message(span_notice("[user] touches grass!"), \
+					span_notice("You touch grass."))
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "grass", /datum/mood_event/touched_grass)
+
+
 /turf/open/floor/plating/grass/setup_broken_states()
 	return list("damaged")
 

@@ -256,3 +256,8 @@
 	description = "<span class='nicegreen'>This taste seems oddly nostalgic...</span>\n"
 	mood_change = 3
 	timeout = 5 MINUTES
+
+/datum/mood_event/touched_grass
+	description = "<span class='nicegreen'>I've touched grass recently.</span>\n"
+	mood_change = 1
+	timeout = 3 MINUTES

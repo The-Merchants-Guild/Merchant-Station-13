@@ -300,6 +300,12 @@
 	desc = "An armband, worn by the station's security forces to display which department they're assigned to. This one is white and blue."
 	icon_state = "medblueband"
 
+/obj/item/clothing/accessory/armband/nazi
+	name = "nazi armband"
+	desc = "An official armband of the national socialist party."
+	icon_state = "naziband"
+	item_color = "naziband"
+
 //////////////
 //OBJECTION!//
 //////////////

@@ -11,18 +11,22 @@
 	var/mob/living/carbon/human/master
 	var/blood_pool_summary = 0
 	var/sacrificed_blood = 0
+	var/polling = FALSE
 
 /obj/structure/bloody_orb/attackby(obj/item/I, mob/user, params)
 	var/mob/living/carbon/human/H = user
 	if(!H || !istype(H))
 		return
+	if(polling)
+		return
 	if(istype(I, /obj/item/kitchen/knife) && H.combat_mode != TRUE)
 		if(!demon)
+			polling = TRUE
 			if(!(NOBLOOD in H.dna.species.species_traits))
-				visible_message(span_danger("[H] begins to spill his blood on the [src]!"), \
+				user.visible_message(span_danger("[H] begins to spill his blood on the [src]!"), \
 					span_userdanger("You begin to spill your blood on the [src], trying to summon a demon!"))
 			else 
-				visible_message(span_danger("[H] begins to stab himself with [I]!"), \
+				user.visible_message(span_danger("[H] begins to stab himself with [I]!"), \
 					span_userdanger("You begin to mutilate yourself, trying to lure in demons with your pain!"))
 			if(do_after(H, 50, target = src))
 				if(!(NOBLOOD in H.dna.species.species_traits))
@@ -30,10 +34,13 @@
 					H.blood_volume -= ORB_BLOOD_SACAMOUNT / 2   
 				else
 					to_chat(H, "<span class='warning'>You finish your ritual of pain.</span>")
-					H.adjustBruteLoss(20)
+					H.adjustBruteLoss(10)
+				visible_message(span_danger("[src] begins glowing red and something inside of it starts to move!"))
 				var/list/candidates = pollCandidatesForMob("Do you want to play as a hunter demon?", ROLE_ALIEN, ROLE_ALIEN, 150, src)
 				if(!LAZYLEN(candidates))
 					to_chat(H, "<span class='warning'>No demons have heard your call! Perhaps try again later...</span>")
+					polling = FALSE
+					visible_message(span_danger("[src] stops glowing, and nothing happens."))
 					return
 				var/mob/dead/observer/selected = pick(candidates)
 				var/mob/living/simple_animal/hostile/hunter/hd = new(get_turf(src))
@@ -42,6 +49,7 @@
 				hd.mind.special_role = "Hunter Demon"
 				hd.mind.add_antag_datum(/datum/antagonist/hunter)
 				hd.mind.set_assigned_role(SSjob.GetJobType(/datum/job/hunter_demon))
+				visible_message(span_danger("[hd] suddenly emerges from [src]!"))
 				playsound(hd, 'sound/magic/ethereal_exit.ogg', 50, 1, -1)
 				message_admins("[ADMIN_LOOKUPFLW(hd)] has been summoned as a Hunter Demon by [H].")
 				log_game("[key_name(hd)] has been summoned as a Hunter Demon by [H].")
@@ -51,13 +59,16 @@
 				blood_pool_summary += ORB_BLOOD_SACAMOUNT
 				demon.orb = src
 				handle_bloodchange()
+				polling = FALSE
 				return
+			else
+				polling = FALSE
 		else
 			if(!(NOBLOOD in H.dna.species.species_traits))
-				visible_message(span_danger("[H] begins to spill his blood on the [src]!"), \
+				user.visible_message(span_danger("[H] begins to spill his blood on the [src]!"), \
 					span_userdanger("You begin to spill your blood on the [src], performing a binding rite!"))
 			else 
-				visible_message(span_danger("[H] begins to stab himself with [I]!"), \
+				user.visible_message(span_danger("[H] begins to stab himself with [I]!"), \
 					span_userdanger("You begin to mutilate yourself, performing a binding rite!"))
 			if(do_after(H, 30, target = src))
 				if(!(NOBLOOD in H.dna.species.species_traits))
@@ -96,8 +107,10 @@
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(!H.mind)
 			continue				
-		if(!SSjob.GetJob(H.mind.assigned_role) || H == master || H == dude)
+		if(H.mind.assigned_role.faction != FACTION_STATION || !H.mind.assigned_role.departments)
 			continue 
+		if(H == dude)
+			continue
 		var/turf/turfy = get_turf(H)
 		if(!is_station_level(turfy.z))
 			continue

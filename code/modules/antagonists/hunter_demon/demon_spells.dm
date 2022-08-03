@@ -14,30 +14,31 @@
 	action_background_icon_state = "bg_demon"
 	var/phased = FALSE
 
+/obj/effect/proc_holder/spell/hunterjaunt/choose_targets(mob/user = usr)
+	perform(1, user)
 
 /obj/effect/proc_holder/spell/hunterjaunt/perform(recharge = 1, mob/living/user = usr)
-	if(istype(user))
-		if(istype(user, /mob/living/simple_animal/hostile/hunter))
-			var/mob/living/simple_animal/hostile/hunter/hunterd = user
-			hunterd.attack_streak = 0
-			if(phased)	
-				if(!hunterd.check_shit(MAX_WARP_DISTANCE, ORB_AND_PREY))
-					to_chat(user, span_warning("You can only warp in while near your target or your blood orb!"))
-					revert_cast()
-					return
-				if(user.phasein())
-					phased = FALSE
-			else
-				var/phaseouttime = 30
-				if(hunterd.check_shit(BOUND_DISTANCE, ONLY_PREY)) ///Warping out while near your target takes longer
-					phaseouttime = 50 
-				if(do_after(src, phaseouttime))	
-					if(user.phaseout())
-						phased = TRUE
-			start_recharge()
-			return
-	revert_cast()
+	if(istype(user, /mob/living/simple_animal/hostile/hunter))
+		var/mob/living/simple_animal/hostile/hunter/hunterd = user
+		hunterd.attack_streak = 0
+		if(phased)	
+			if(!hunterd.check_shit(MAX_WARP_DISTANCE, ORB_AND_PREY))
+				to_chat(user, span_warning("You can only warp in while near your target or your blood orb!"))
+				revert_cast()
+				return
+			if(hunterd.phasein())
+				phased = FALSE
+		else
+			var/phaseouttime = 30
+			if(hunterd.check_shit(BOUND_DISTANCE, ONLY_PREY)) ///Warping out while near your target takes longer
+				phaseouttime = 50 
+			if(do_after(hunterd, phaseouttime))	
+				if(hunterd.phaseout())
+					phased = TRUE
+		start_recharge()
+		return
 	to_chat(user, span_warning("You are not a hunter demon, you can't do this!"))
+	revert_cast()
 
 /obj/effect/proc_holder/spell/hd_seek_prey
 	name = "Seek prey"
@@ -50,6 +51,9 @@
 	action_icon = 'icons/mob/actions/hunter_demon_actions.dmi'
 	action_icon_state = "seek_prey"
 	phase_allowed = TRUE
+
+/obj/effect/proc_holder/spell/hd_seek_prey/choose_targets(mob/user = usr)
+	perform(1, user)
 
 /obj/effect/proc_holder/spell/hd_seek_prey/perform(recharge = 1, mob/living/user = usr)
 	if(istype(user,/mob/living/simple_animal/hostile/hunter))
@@ -104,6 +108,9 @@
 	action_icon = 'icons/mob/actions/hunter_demon_actions.dmi'
 	action_icon_state = "recall"
 	phase_allowed = TRUE
+
+/obj/effect/proc_holder/spell/recall/choose_targets(mob/user = usr)
+	perform(1, user)
 
 /obj/effect/proc_holder/spell/recall/perform(recharge = 1, mob/living/user = usr)
 	if(istype(user, /mob/living/simple_animal/hostile/hunter))

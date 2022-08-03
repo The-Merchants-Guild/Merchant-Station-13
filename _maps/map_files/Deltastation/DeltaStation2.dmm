@@ -2364,9 +2364,13 @@
 /area/security/checkpoint)
 "anz" = (
 /obj/structure/table/wood,
+/obj/machinery/button/door/directional/east{
+	name = "interior shutter access";
+	req_access_txt = "43";
+	id = "gunshop"
+	},
 /obj/item/gun/ballistic/rifle/boltaction,
 /obj/item/ammo_box/a762,
-/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "anJ" = (
@@ -19182,8 +19186,6 @@
 /obj/machinery/vending/donksofttoyvendor{
 	req_access_txt = "43"
 	},
-/obj/machinery/power/apc/auto_name/south,
-/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "cyr" = (
@@ -24029,14 +24031,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port)
-"dbW" = (
-/obj/effect/landmark/event_spawn,
-/obj/structure/cable,
-/obj/structure/chair/office{
-	dir = 8
-	},
-/turf/open/floor/wood/tile,
-/area/service/gunshop)
 "dcb" = (
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/tile/neutral{
@@ -41390,6 +41384,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood,
 /area/service/library/abandoned)
+"flr" = (
+/obj/structure/sign/poster/contraband/revolver,
+/turf/closed/wall/r_wall,
+/area/service/gunshop)
 "flu" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
@@ -46496,10 +46494,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/mixing)
-"gNT" = (
-/obj/structure/cable,
-/turf/closed/wall/r_wall,
-/area/service/gunshop)
 "gNW" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -48449,14 +48443,13 @@
 /turf/open/floor/plating,
 /area/service/abandoned_gambling_den)
 "hrx" = (
-/obj/structure/cable,
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/window{
-	id = "arms_dealer";
+	id = "gunshop";
 	name = "gunshop shutters"
 	},
 /turf/open/floor/wood/tile,
-/area/hallway/primary/central/fore)
+/area/service/gunshop)
 "hrI" = (
 /obj/structure/cable,
 /obj/effect/turf_decal/loading_area,
@@ -48701,8 +48694,6 @@
 /turf/closed/wall,
 /area/engineering/atmos/upper)
 "hwc" = (
-/obj/structure/chair/office,
-/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "hwx" = (
@@ -51408,7 +51399,6 @@
 /obj/structure/sign/poster/official/do_not_question{
 	pixel_y = -32
 	},
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/hallway/primary/central/fore)
@@ -58400,7 +58390,6 @@
 /area/security/warden)
 "kbq" = (
 /obj/structure/sign/departments/arms_dealer,
-/obj/structure/cable,
 /turf/closed/wall/r_wall,
 /area/service/gunshop)
 "kbs" = (
@@ -59481,15 +59470,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
-"kpt" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/window{
-	id = "arms_dealer";
-	name = "gunshop shutters"
-	},
-/obj/structure/cable,
-/turf/open/floor/wood/tile,
-/area/hallway/primary/central/fore)
 "kpA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -67825,8 +67805,7 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
 "mxc" = (
-/obj/structure/shelf/helmet,
-/obj/structure/cable,
+/obj/structure/shelf/ammo,
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
@@ -68072,23 +68051,23 @@
 /area/commons/dorms)
 "mAl" = (
 /obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor/southright{
+	name = "Arms Dealer's Desk";
+	id = 1;
+	req_access_txt = "43"
+	},
+/obj/machinery/door/window/northleft,
 /obj/machinery/door/poddoor/shutters/window{
-	id = "arms_dealer";
+	id = "gunshop";
 	name = "gunshop shutters"
 	},
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 4
+/obj/machinery/door/poddoor/shutters/window{
+	id = "gunshop";
+	name = "gunshop shutters"
 	},
 /obj/item/pen,
-/obj/machinery/door/window/brigdoor/southleft{
-	req_access_txt = "43";
-	name = "Arms Dealer's Desk"
-	},
-/obj/machinery/door/window/northright,
-/obj/structure/cable,
 /turf/open/floor/wood/tile,
-/area/hallway/primary/central/fore)
+/area/service/gunshop)
 "mAq" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L9"
@@ -70223,7 +70202,6 @@
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/delivery,
 /obj/effect/landmark/start/hangover/closet,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/hallway/primary/central/fore)
@@ -74415,8 +74393,8 @@
 /turf/open/floor/wood,
 /area/command/heads_quarters/hop)
 "odz" = (
-/obj/structure/table,
 /obj/item/paper_bin,
+/obj/structure/table,
 /obj/item/pen,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -83067,8 +83045,8 @@
 /turf/open/floor/iron,
 /area/maintenance/port)
 "qpw" = (
+/obj/structure/shelf/helmet,
 /obj/machinery/light/small/directional/west,
-/obj/structure/shelf/gun,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "qpB" = (
@@ -87561,18 +87539,6 @@
 /obj/machinery/air_sensor/atmos/mix_tank,
 /turf/open/floor/engine/vacuum,
 /area/engineering/atmos)
-"rwz" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/window{
-	id = "arms_dealer";
-	name = "gunshop shutters"
-	},
-/obj/structure/cable,
-/turf/open/floor/wood/tile,
-/area/hallway/primary/central/fore)
 "rwE" = (
 /obj/effect/turf_decal/box/white{
 	color = "#52B4E9"
@@ -90836,7 +90802,6 @@
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/delivery,
 /obj/effect/landmark/start/hangover/closet,
-/obj/structure/cable,
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/hallway/primary/central/fore)
@@ -100581,14 +100546,9 @@
 /turf/open/floor/iron/dark,
 /area/command/bridge)
 "uOd" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/window{
-	id = "arms_dealer";
-	name = "gunshop shutters"
-	},
-/obj/structure/cable,
-/turf/open/floor/plating,
-/area/hallway/primary/central/fore)
+/obj/structure/table/wood,
+/turf/open/floor/wood/tile,
+/area/service/gunshop)
 "uOw" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -101007,9 +100967,8 @@
 /area/commons/toilet/restrooms)
 "uUQ" = (
 /obj/machinery/computer/cargo{
-	dir = 1
+	dir = 8
 	},
-/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "uVk" = (
@@ -102090,7 +102049,6 @@
 /turf/open/floor/iron,
 /area/medical/surgery/room_b)
 "vkp" = (
-/obj/structure/cable,
 /obj/effect/landmark/start/arms_dealer,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
@@ -103943,8 +103901,9 @@
 /turf/open/floor/iron,
 /area/engineering/main)
 "vLc" = (
+/obj/structure/cable,
+/obj/structure/shelf/armor,
 /obj/machinery/light/small/directional/west,
-/obj/structure/shelf/ammo,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "vLe" = (
@@ -107370,12 +107329,12 @@
 /turf/closed/wall/r_wall,
 /area/command/corporate_showroom)
 "wHp" = (
-/obj/machinery/light/small/directional/east,
+/obj/structure/shelf/gun,
 /obj/machinery/camera{
 	c_tag = "Gunshop";
 	dir = 8
 	},
-/obj/structure/shelf/armor,
+/obj/machinery/light/small/directional/east,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "wHq" = (
@@ -108842,11 +108801,8 @@
 /area/command/bridge)
 "xdN" = (
 /obj/structure/cable,
-/obj/machinery/button/door/directional/south{
-	name = "interior shutter access";
-	req_access_txt = "43";
-	id = "arms_dealer"
-	},
+/obj/machinery/power/apc/auto_name/south,
+/obj/structure/table/wood,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "xdX" = (
@@ -112350,18 +112306,15 @@
 /turf/open/floor/iron,
 /area/security/prison)
 "ydi" = (
-/obj/effect/mapping_helpers/simple_pipes/supply/hidden/layer4{
-	dir = 4
-	},
 /obj/machinery/door/airlock/gold{
 	name = "gunshop airlock";
 	req_access_txt = "43"
 	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor/shutters/window{
-	id = "arms_dealer";
+	id = "gunshop";
 	name = "gunshop shutters"
 	},
-/obj/structure/cable,
 /turf/open/floor/wood/tile,
 /area/service/gunshop)
 "ydq" = (
@@ -148041,11 +147994,11 @@ kEi
 vrq
 haj
 kBN
-kpt
+dCJ
 kbq
 ydi
-gNT
 dCJ
+fFy
 qHH
 nwK
 oOD
@@ -148298,7 +148251,7 @@ kEi
 vrq
 haj
 mHj
-uOd
+hrx
 qpw
 xCN
 vLc
@@ -148555,11 +148508,11 @@ kEi
 vrq
 haj
 mHj
-rwz
-xCN
-dbW
+hrx
+uOd
+hwc
 xdN
-fFy
+dCJ
 jWj
 uNS
 for
@@ -148813,7 +148766,7 @@ vrq
 haj
 mHj
 mAl
-xCN
+hwc
 vkp
 cyi
 fFy
@@ -149070,9 +149023,9 @@ wxO
 rAe
 owE
 hrx
-xCN
-hwc
 uUQ
+hwc
+hwc
 fFy
 uCu
 nzz
@@ -149326,7 +149279,7 @@ gRl
 vrq
 haj
 lCM
-kpt
+hrx
 wHp
 anz
 mxc
@@ -149583,10 +149536,10 @@ gRl
 tsx
 nih
 mHj
-kpt
 pvw
 dCJ
 dCJ
+flr
 fFy
 too
 qst

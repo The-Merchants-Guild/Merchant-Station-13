@@ -35,12 +35,13 @@
 				if(!LAZYLEN(candidates))
 					to_chat(H, "<span class='warning'>No demons have heard your call! Perhaps try again later...</span>")
 					return
-				var/mob/dead/selected = pick(candidates)
-				var/datum/mind/player_mind = new /datum/mind(selected.key)
+				var/mob/dead/observer/selected = pick(candidates)
 				var/mob/living/simple_animal/hostile/hunter/hd = new(get_turf(src))
-				player_mind.transfer_to(hd)
-				player_mind.assigned_role = "Hunter Demon"
-				player_mind.special_role = "Hunter Demon"
+				hd.key = selected.key
+				hd.mind.assigned_role = "Hunter Demon"
+				hd.mind.special_role = "Hunter Demon"
+				hd.mind.add_antag_datum(/datum/antagonist/hunter)
+				hd.mind.set_assigned_role(SSjob.GetJobType(/datum/job/hunter_demon))
 				playsound(hd, 'sound/magic/ethereal_exit.ogg', 50, 1, -1)
 				message_admins("[ADMIN_LOOKUPFLW(hd)] has been summoned as a Hunter Demon by [H].")
 				log_game("[key_name(hd)] has been summoned as a Hunter Demon by [H].")

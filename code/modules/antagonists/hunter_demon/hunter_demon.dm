@@ -54,3 +54,5 @@
 	7. Lose health and movespeed while not near your orb or your target. Always be on the hunt!\
 	8. Die, if your orb is destroyed."))
 
+/datum/job/hunter_demon
+	title = "Hunter Demon"

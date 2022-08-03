@@ -260,4 +260,4 @@
 /datum/mood_event/touched_grass
 	description = "<span class='nicegreen'>I've touched grass recently.</span>\n"
 	mood_change = 1
-	timeout = 3 MINUTES
+	timeout = 3 MINUTES 

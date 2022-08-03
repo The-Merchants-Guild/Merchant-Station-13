@@ -304,7 +304,6 @@
 	name = "nazi armband"
 	desc = "An official armband of the national socialist party."
 	icon_state = "naziband"
-	item_color = "naziband"
 
 //////////////
 //OBJECTION!//

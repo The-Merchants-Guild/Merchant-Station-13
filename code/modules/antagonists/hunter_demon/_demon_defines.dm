@@ -1,4 +1,4 @@
-///Defines for check_shit proc
+///Defines for check_shit proc 
 #define ONLY_PREY 1 
 #define ONLY_ORB 2 
 #define ORB_AND_PREY 0

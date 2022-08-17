@@ -670,6 +670,13 @@
 /obj/item/storage/box/syndie_kit/armstrong/PopulateContents()
 	new /obj/item/armstrong_scroll(src)
 	new /obj/item/paper/armstrong_tutorial(src)
+/obj/item/storage/box/syndie_kit/hunter_demon_kit
+	name = "demonologist starter kit"
+	desc = "A box with some funny magical items."
+
+/obj/item/storage/box/syndie_kit/hunter_demon_kit/PopulateContents()
+	new /obj/item/sinister_orb(src)
+	new /obj/item/kitchen/knife/ritual(src)
 
 #undef KIT_RECON
 #undef KIT_BLOODY_SPAI

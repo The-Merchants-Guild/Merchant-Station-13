@@ -335,7 +335,7 @@
 		return FALSE
 	var/mob/living/carbon/buckled_carbons = pick(buckled_mobs)
 	var/mob/living/L = user
-	if(L.combat_mode == TRUE)
+	if(L.combat_mode != TRUE)
 		if(istype(bloodsuckerdatum))
 			unbuckle_mob(buckled_carbons)
 			return FALSE
